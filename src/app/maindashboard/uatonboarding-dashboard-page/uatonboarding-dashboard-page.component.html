@@ -1,0 +1,239 @@
+<div id="container">
+  <app-uatonboarding-dashboard-page-sidebar (notify)="parentMethod($event)" [domainName]="parentDataDomainName"></app-uatonboarding-dashboard-page-sidebar>
+  <div class="documentTabContent">
+     <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard</div>
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+        aria-labelledby="v-pills-home-tab"></div>
+        <div #BasicDetailsList class="tabContentInner">
+           <div class="row m0">
+              <div class="container">
+                <div class="col-7" id="Basic-details-list">
+                  <form id="Basic_Details_Section" [formGroup]=reactiveForm>
+                    <h5>Basic Details</h5>
+                    <div  formGroupName="basicDetailsSection">
+                  <div class="form-group">         
+                    <label for="merchantName">Merchant Name</label>  
+                    <input type="text" class="form-control" id="merchantName"  formControlName="merchantName" placeholder="">
+                    <!-- validation -->
+                    <div *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched" class="text-danger form-error">
+                      Merchant Name is required.
+                    </div>            
+                   <!-- ======== -->
+                  </div>
+                     
+                  <div class="form-group">
+                    <label for="Description">Description</label>     
+                    <input type="text" class="form-control" id="Description"  formControlName="description" placeholder="">
+                     <!-- validation -->
+                     <div *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched" class="text-danger form-error">
+                      Description is required.
+                    </div>
+                   <!-- ======== -->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Email_ID">Email ID</label>
+                    <input type="text" class="form-control" id="Email_ID" formControlName="email_id"  placeholder="">
+                  <!-- validation -->
+                  <div *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched" class="text-danger form-error">
+                   Email_id is required.
+                  </div>
+                  <!-- ======== -->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Contact_No">Contact No</label>
+                    <input type="text" class="form-control" id="Contact_No" formControlName="contact_no"  placeholder="">
+                     <!-- validation -->
+                  <div *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched" class="text-danger form-error">
+                    contact_no is required.
+                   </div>
+                   <!-- ======== -->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="r_m_maild_id">ICICI Bank Relationship Manager Email ID</label>
+                    <input type="text" class="form-control" id="r_m_maild_id" formControlName="r_m_maild_id"  placeholder="">
+                     <!-- validation -->
+                  <div *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched" class="text-danger form-error">
+                    Relationship Manager Email ID is required.
+                   </div>
+                   <!-- ======== -->     
+                  </div>
+                </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="margin_0px"/>
+
+          <div class="tabContentInner">
+            <div class="row m0">
+               <div class="container">
+                 <div #RequestedApiList class="col-7" id="Requested-api-list">
+                  <form class="Requested_api">
+                    <h5>Requested API</h5>
+                    <div class="form-group ">
+                      <label for="merchantName">Select API</label>  
+                      
+                      <ul class="list-group">
+                        <li class="list-group-item" #DomainName>
+                          <p>Domain Name</p>
+                          <select (change)="selectChangeHandler($event)">
+                            <option type="others" > Others</option>
+                          <option value="Business-banking" > Business Bankng</option>
+                          
+                          </select> 
+
+
+
+                        </li>
+                        <li class="list-group-item">Loans and Cards</li>
+                        <li class="list-group-item">Payments</li>
+                        <li class="list-group-item">Accounts and Deposits</li>
+                        <li class="list-group-item">Business Banking</li>
+                        <li class="list-group-item">Trade Services</li>
+                        <h1>data from Services</h1>
+                      </ul>
+                      <div class="sideMenu" style="position: inherit !important;width:auto !important;height:auto;">
+                        
+                        <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
+                        
+                        <!-- <pre>{{responseData | json}}</pre>
+                        <div *ngFor="let i of responseData">
+                          <p>1level {{i.TAB_NAME}}</p>
+                         <p>2 level {{i.children[0].TAB_NAME}} 2 level</p>
+                         
+                         <p>3level {{i.children[0].children[0].TAB_NAME}}</p>
+                         <div *ngFor="let j of i.children"> 
+                           {{j.children |json}} <br />
+                           <br />
+                           {{ j.TAB_NAME   }}
+                          <div *ngFor="let k of j.children">{{k.TAB_NAME |json}} 
+                            <div *ngFor="let L of k.children">{{k.TAB_NAME |json}} </div>
+                          </div>
+                         </div> 
+                          <div *ngFor="let j of i.children[j]">
+                            {{i.children[j]}}
+                            <div *ngFor="let k of i.children[j[k]]">
+                              {{i.children[j[k]]}}
+                            </div>
+                          </div> 
+                       </div> -->
+                        <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+                      </div>
+                    
+                    </div>
+                   
+                  
+                    </form>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <hr class="margin_0px" *ngIf="parentDataDomainName === 'Business-banking'" />
+
+           <div class="tabContentInner" *ngIf="parentDataDomainName === 'Business-banking'" >
+            <div class="row m0">
+               <div class="container">
+                 <div #businessBankingList class="col-7" id="business-banking-list">
+                  <form class="business_banking">
+                    <h5>Business Banking</h5>
+                  <div class="form-group">
+                    <label for="merchantName">Customer Name (If different from Merchant name /Same as Merchant Name)</label>  
+                    <input type="text" class="form-control" id="merchantName"  [formControl]="merchantName" placeholder="">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+               
+                  <div class="form-group">
+                    <label for="Description">Customer Account Number </label>
+                    <input type="text" class="form-control" id="Description"  [formControl]="Description" placeholder="">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Email_ID">CMS Client code</label>
+                    <input type="text" class="form-control" id="Email_ID"  [formControl]="Email_ID" placeholder="">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Contact_No">RM/SM Employee ID</label>
+                    <input type="text" class="form-control" id="Contact_No"  [formControl]="Contact_No" placeholder="">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="r_m_maild_id">RM/SM Name</label>
+                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="r_m_maild_id">RM/SM Mobile number</label>
+                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  <div class="form-group select-div">
+                    <label for="r_m_maild_id"> SBU</label>
+                    <select  class="form-control input-lg">
+                      <option>IB</option>
+                      <option>SES</option>
+                      <option>Others</option>
+                    </select>
+                    <i class="fa fa-chevron-down"></i>
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  <div class="form-group select-div">
+                    <label for="r_m_maild_id">Product </label>
+                    <select  class="form-control input-lg">
+                      <option>API</option>
+                    </select>
+                    <i class="fa fa-chevron-down"></i>
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="r_m_maild_id">Remarks</label>
+                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="r_m_maild_id">Certificate Upload</label>
+                    <input type="file" id="myFile" name="filename" class="form-control input_type_attachment">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  </form>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <hr class="margin_0px"/>
+
+           <div class="tabContentInner">
+            <div class="row m0">
+               <div class="container">
+                 <div #whitelistIpList class="col-7" id="whitelist-ip-list">
+                  <form class="Whitelist_IP">
+                    <h5>Whitelist IP</h5>
+                    <div class="form-group">    
+                      <label for="r_m_maild_id">Certificate Upload</label>
+                      <input type="file" id="myFile" name="filename" class="form-control input_type_attachment">
+                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    </div>
+                    <label class="b-contain">
+                      <span> I ACCEPT NON-DISCLOSURE AGREEMENT, </span>
+                      <input type="checkbox">
+                      <div class="b-input"></div>
+                    </label>
+                    <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color">  Click here to download</a></span>
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </form>
+                  <div _ngcontent-c4="" class="row"><div _ngcontent-c4="" class="col-12 text-right">
+                    <button _ngcontent-c4="" class="signInBtn btn-dark" type="button" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark"  [disabled]="!reactiveForm.valid" (click)="onSubmit()"> Submit </button></div></div>   
+                </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+</div>
