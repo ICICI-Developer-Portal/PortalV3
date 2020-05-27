@@ -205,6 +205,15 @@ select.input-lg {
 	z-index: 99999;
 	transform: scale(0);
 }
+.requestedData-list{
+	padding: 0px;
+}
+.requestedData-list li>a{
+	border-bottom: 1px solid gray;
+    padding: 5px;
+    margin: 0px;
+    display: block;
+}
 
 @keyframes b-ripple {
 	0% {

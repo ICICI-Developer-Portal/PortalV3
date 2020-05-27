@@ -78,50 +78,74 @@
                     <div class="form-group ">
                       <label for="merchantName">Select API</label>  
                       
-                      <ul class="list-group">
+                     
+                      <div class="sideMenu" style="position: inherit !important;width:auto !important;height:auto;">
+                        
+                        <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
+                        <!-- <ul class="main" *ngFor="let i of responseData"> yesss{{responseData.TAB_NAME}}
+                          <li *ngIf="i.children.length>0">
+                            <a href="#">ssss</a>
+                            
+                            
+                          </li>
+                        <p>   1level {{i.TAB_NAME}}</p>
+                        
+                          <div *ngFor="let j of i.children">    
+                            <br />
+                            <p> <b>2level {{j.TAB_NAME.length}}</b> {{ j.TAB_NAME   }}</p>
+                            <div *ngFor="let k of j.children">
+                              <p> <b>3level {{k.TAB_NAME.length}}</b>{{k.TAB_NAME }} </p>
+                              <div *ngFor="let L of k.children">
+                                <p> <b>4level {{L.TAB_NAME.length}}</b>{{L.TAB_NAME }} </p>
+                                <div *ngFor="let M of L.children">
+                                  <p> <b>5level {{M.TAB_NAME.length}}</b>{{M.TAB_NAME }} </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </ul> -->
+
+                      <ul>
                         <li class="list-group-item" #DomainName>
                           <p>Domain Name</p>
                           <select (change)="selectChangeHandler($event)">
-                            <option type="others" > Others</option>
-                          <option value="Business-banking" > Business Bankng</option>
-                          
-                          </select> 
+                            <option type="others"> Others</option>
+                            <option value="Business-banking"> Business Bankng</option>
+
+                          </select>
 
 
 
                         </li>
-                        <li class="list-group-item">Loans and Cards</li>
-                        <li class="list-group-item">Payments</li>
-                        <li class="list-group-item">Accounts and Deposits</li>
-                        <li class="list-group-item">Business Banking</li>
-                        <li class="list-group-item">Trade Services</li>
-                        <!-- <h1>data from Services</h1> -->
                       </ul>
-                      <div class="sideMenu" style="position: inherit !important;width:auto !important;height:auto;">
-                        
-                        <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
-                        
-                        <!-- <pre>{{responseData | json}}</pre>
-                        <div *ngFor="let i of responseData">
-                          <p>1level {{i.TAB_NAME}}</p>
-                         <p>2 level {{i.children[0].TAB_NAME}} 2 level</p>
-                         
-                         <p>3level {{i.children[0].children[0].TAB_NAME}}</p>
-                         <div *ngFor="let j of i.children"> 
-                           {{j.children |json}} <br />
-                           <br />
-                           {{ j.TAB_NAME   }}
-                          <div *ngFor="let k of j.children">{{k.TAB_NAME |json}} 
-                            <div *ngFor="let L of k.children">{{k.TAB_NAME |json}} </div>
-                          </div>
-                         </div> 
-                          <div *ngFor="let j of i.children[j]">
-                            {{i.children[j]}}
-                            <div *ngFor="let k of i.children[j[k]]">
-                              {{i.children[j[k]]}}
-                            </div>
-                          </div> 
-                       </div> -->
+                        <ul class="requestedData-list" *ngFor="let i of responseData"> 
+                          
+                          <li >
+                            <a href="#"> {{i.TAB_NAME}}</a>
+                            <ul  *ngFor="let j of i.children"> 
+                              <li>
+                                <a>{{j.TAB_NAME}}</a>
+                                <ul  *ngFor="let k of j.children">   
+                                  <li >
+                                    <a>{{k.TAB_NAME}}</a>
+                                    <ul *ngFor="let L of k.children">
+                                      <li>
+                                        <a>{{L.TAB_NAME}}</a>
+                                        <ul  *ngFor="let M of L.children">
+                                          <li>    
+                                            <a>{{M.TAB_NAME }}</a>
+                                        </li>
+                                      </ul>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                      </ul>
+                       
                         <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
                       </div>
                     
