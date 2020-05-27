@@ -30,20 +30,10 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
   reactiveForm : FormGroup;
   submitted = false;
-  
 
-  treeDataKeys: any;
   responseData: any;
   menuArray: any[];
-  tDataKeys: any[];
-  treeArr: any[];
-  treeItems: any;
-  nodeId: any;
-  nodeType: any;
-  levels: any;
-  treeData = [];
-  treeData1: any[];
-  itemArr:any =[];
+
   parentDataDomainName:string;
   childData:string;
   @ViewChild('BasicDetailsList') BasicDetailsList: ElementRef;
