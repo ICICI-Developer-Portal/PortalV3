@@ -10,6 +10,9 @@ import { ApplicationComponent } from './application/application.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
+
+import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
+
 import { ModalModule } from 'ngx-bootstrap';
 import { ToasterModule } from 'angular2-toaster';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +21,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
+import { UATonboardingDashboardPageSidebarComponent } from './uatonboarding-dashboard-page-sidebar/uatonboarding-dashboard-page-sidebar.component';
 
+   
 @NgModule({
     imports: [
         CommonModule,
@@ -43,8 +48,9 @@ import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequ
         AnalyticsComponent,
         UserprofileComponent,
         FaqComponent,
-      
+        UATonboardingDashboardPageComponent,
         OnboardingrequestsComponent,
+        UATonboardingDashboardPageSidebarComponent,
         
     ],
 

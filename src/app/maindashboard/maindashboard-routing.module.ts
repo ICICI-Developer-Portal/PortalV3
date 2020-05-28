@@ -6,6 +6,8 @@ import { ApplicationComponent } from './application/application.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
+import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
+
 import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 
@@ -13,9 +15,11 @@ import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequ
 const routes: Routes = [
     {
         path: '',
-        component: MaindashboardComponent,
+        component: MaindashboardComponent,        
         children: [       
             { path: 'faq', component: FaqComponent },
+            {path:'uatonboarding-dashboard',component: UATonboardingDashboardPageComponent  },
+
         ]
     },
     { path: 'application', component: ApplicationComponent ,canActivate: [AuthGuard]},
