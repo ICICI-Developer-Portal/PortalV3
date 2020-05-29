@@ -30,16 +30,24 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
   reactiveForm : FormGroup;
   submitted = false;
+  
 
   responseData: any;
   menuArray: any[];
-
+  showMore = 'show More'
+  hidden: boolean;
+  css:boolean;
+  toggle(){
+  this.hidden = !this.hidden;
+  this.css = !this.css;
+   }
   parentDataDomainName:string;
   childData:string;
   @ViewChild('BasicDetailsList') BasicDetailsList: ElementRef;
   @ViewChild('RequestedApiList') RequestedApiList: ElementRef;
   @ViewChild('businessBankingList') businessBankingList: ElementRef;
   @ViewChild('whitelistIpList') whitelistIpList: ElementRef;
+  
  
   parentMethod(data){
     console.log(data,"yessss");console.log("agn",data,"yess", "#"+data);

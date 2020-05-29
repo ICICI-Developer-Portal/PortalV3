@@ -106,37 +106,85 @@
                           
                         </ul> -->
 
-                      <ul>
-                        <li class="list-group-item" #DomainName>
-                          <p>Domain Name</p>
-                          <select (change)="selectChangeHandler($event)">
-                            <option type="others"> Others</option>
-                            <option value="Business-banking"> Business Bankng</option>
-
-                          </select>
-
-
-
-                        </li>
-                      </ul>
-                        <ul class="requestedData-list" *ngFor="let i of responseData"> 
-                          
-                          <li >
-                            <a href="#"> {{i.TAB_NAME}}</a>
-                            <ul  *ngFor="let j of i.children"> 
-                              <li>
-                                <a>{{j.TAB_NAME}}</a>
-                                <ul  *ngFor="let k of j.children">   
-                                  <li >
-                                    <a>{{k.TAB_NAME}}</a>
-                                    <ul *ngFor="let L of k.children">
-                                      <li>
-                                        <a>{{L.TAB_NAME}}</a>
-                                        <ul  *ngFor="let M of L.children">
-                                          <li>    
-                                            <a>{{M.TAB_NAME }}</a>
-                                        </li>
-                                      </ul>
+                        <ul  class="first-level display-block cursor-pointer padding-left-25">    
+                          <li><a (click)="toggle()">Domain Name <span class="inline_block pull-right"><img class="dropdownIcon"   [ngClass]="css ? 'uparrow' : 'normal'"
+                            src="assets/images/dropdown-2.svg" alt=""></span></a>
+                            <ul  class="hidden" *ngIf ="hidden" class="second-level">
+                            
+                                 
+                                  <!--  -->
+                                  <li>
+                                  <a class="display-block cursor-pointer padding-left-25"><input type="radio" id="others" name="gender" value="Business-banking"
+                                    (change)="selectChangeHandler($event)">
+                                <label  class="b-contain display-flex nested-list-label" for="Domain Name">Others</label></a>
+                              </li>
+                                  <!--  -->
+                                  <!--  -->
+                                  <li>
+                                    <a class="display-block cursor-pointer padding-left-25"><input type="radio" id="others" name="gender" value="Business-banking"
+                                      (change)="selectChangeHandler($event)">
+                                  <label  class="b-contain display-flex nested-list-label" for="Domain Name">Business Domain</label></a>
+                                </li>
+                                  <!--  -->
+                            </ul></li>   
+                        </ul>
+                        <ul class="requestedData-list" *ngFor="let i of responseData" class="first-level">
+                          <li>
+                            <!-- 1 level -->
+                            <a (click)="i.toggle=!i.toggle" class="display-block cursor-pointer padding-left-25">
+                              <ng-template #other>
+                                <input type="checkbox" value=""> <label class="b-contain display-flex nested-list-label"> {{i.TAB_NAME}} </label></ng-template>
+                              <p *ngIf="i.children; else other" class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img class="dropdownIcon" 
+                                    src="assets/images/dropdown-2.svg" alt=""></span></p>
+                            </a>
+                            <!-- 1 level -->
+                            <ul *ngFor="let j of i.children" class="second-level">
+                              <li *ngIf="i.toggle">
+                                 <!-- 2 level -->
+                                <a (click)="j.toggle=!j.toggle" class="display-block cursor-pointer padding-left-10prcnt">
+                                  <ng-template #other><input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">{{j.TAB_NAME}}</label> </ng-template>
+                                   <p
+                                    *ngIf="j.children; else other" class="margin_0px" >{{j.TAB_NAME}}
+                                    <span class="inline_block pull-right"><img class="dropdownIcon" 
+                                      src="assets/images/dropdown-2.svg" alt=""></span></p>
+                                </a>
+                                <!-- 2 level -->
+                                <ul *ngFor="let k of j.children" class="third-level">
+                                  <li *ngIf="j.toggle">
+                                    <!-- 3 level -->
+                                    <a (click)="k.toggle=!k.toggle" class="display-block cursor-pointer padding-left-15prcnt">
+                                      <ng-template #other> <input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">{{k.TAB_NAME}}</label></ng-template>
+                                      <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
+                                        <span class="inline_block pull-right"><img class="dropdownIcon"  src="assets/images/dropdown-2.svg"
+                                            alt=""></span></p>
+                                    </a>
+                                     <!-- 3 level -->
+                                    <ul *ngFor="let L of k.children" class="fourth-level">
+                                      <li *ngIf="k.toggle">
+                                        <!-- 4 level -->
+                                        <a (click)="L.toggle=!L.toggle" class="display-block cursor-pointer padding-left-20prcnt">
+                                          <ng-template #other><input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">{{L.TAB_NAME}}</label></ng-template>
+                                          <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
+                                            <span class="inline_block pull-right"><img class="dropdownIcon"  src="assets/images/dropdown-2.svg" alt=""></span>
+                                          </p>
+                                        </a>
+                                         <!-- 4 level -->
+                                        <ul *ngFor="let M of L.children" class="fifth-level">
+                                          <li *ngIf="L.toggle">
+                                            <!-- 5 level -->
+                                            <a class="display-block cursor-pointer padding-left-25prcnt">
+                                              <!-- <ng-template #other> <input type="checkbox" /></ng-template>{{k.TAB_NAME}} <span
+                                                                                        *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
+                                                                                          src="assets/images/dropdown-2.svg" alt=""></span> -->
+                                              <ng-template #other><input type="checkbox" value=""> <label class="b-contain display-flex nested-list-label">{{M.TAB_NAME}}</label></ng-template>
+                                              <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
+                                                <span class="inline_block pull-right"><img class="dropdownIcon"  src="assets/images/dropdown-2.svg"
+                                                    alt=""></span>
+                                              </p>
+                                            </a>
+                                            <!-- 5 level -->
+                                          </li>
+                                        </ul>
                                       </li>
                                     </ul>
                                   </li>

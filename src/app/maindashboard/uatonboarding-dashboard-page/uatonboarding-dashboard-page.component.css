@@ -10,10 +10,10 @@ input{
 
 }
 input.ng-invalid.ng-touched{
-border-left: 5px solid red;
-border-right: 1px solid red;
-border-top: 1px solid red;
-border-bottom: 1px solid red;
+border-left: 5px solid #ae282e;
+border-right: 1px solid #ae282e;
+border-top: 1px solid #ae282e;
+border-bottom: 1px solid #ae282e;
 }
 input.ng-valid{
 	border-left: 5px solid green;
@@ -23,15 +23,15 @@ input.ng-valid{
 
 }
 .error{
-	color: red;
-	border: 1px solid red;
+	color: #ae282e;
+	border: 1px solid #ae282e;
 
 }
 .anchor_color{
     color: #37465a !important;
 }
 .anchor_color:hover{
-    color: #dc3545 !important;
+    color: #a39e9e !important;
 }
 hr{
     border: 1.2px solid #dcdcdc;
@@ -52,12 +52,70 @@ select.input-lg {
     -o-appearance: none;
     /* no standardized syntax available, no ie-friendly solution available */
   }
+  .text-danger{
+	color: #ae282e !important;
   
+  }
+  .first-level{
+	/* list-style: none; */
+  }
+  .first-level li,.second-level li, .third-level li,.fourth-level li,.fifth-level li {
+	line-height: 40px;
+    /* border: 1px solid black; */
+   }
+   .first-level,.second-level,.third-level,.fourth-level,.fifth-level{
+	   padding: 0px;
+	   margin: 0px;
+   }
+   .first-level li a,.second-level li a, .third-level li a,.fourth-level li a,.fifth-level li a {
+	font-family: Poppins-Medium;
+    /* padding: 16px 12px 16px 24px; */
+    border-radius: 0px;
+    width: 100%;
+    color: #919191;
+    display: block;
+    text-decoration: none;
+   }
+ 
+   .first-level {
+	border-top: 1px solid #ececec;
+   }
+   .display-block{
+	   display: block;
+   }
+   .display-flex{
+	   display: flex;
+   }
+   .cursor-pointer{
+	cursor: pointer !important;
+   }
+   .padding-left-25 {
+	padding-left: 25px;    
+   }
+   .padding-left-10prcnt {
+	padding-left: 10%;    
+   }
+   .padding-left-15prcnt {
+	padding-left: 15%;    
+   }
+   .padding-left-20prcnt {
+	padding-left: 20%;    
+   }
+   .padding-left-25prcnt {
+	padding-left: 25%;    
+   }
+   .inline_block{
+	display: inline-block;
+   }
+   .dropdownIcon{
+	margin-top: 15px;
+    margin-right: 24px;
+   }
   select + i.fa {
     float: right;
     margin-top: -29px;
     font-size: 19px;
-    color: rgba(240, 99, 33, 1);
+    color: #ae282e;
     margin-right: 5px;
     pointer-events: none;
     background-color: #fff;
@@ -82,7 +140,13 @@ select.input-lg {
 	font-size: 1rem;
 	font-family: inherit;
 }
-
+.uparrow{
+	
+    transform: rotate(180deg);
+}
+ul{
+	list-style: none;
+}
 .b-contain {
 
 	position: relative;
@@ -90,7 +154,14 @@ select.input-lg {
 	cursor: pointer;
 	margin-bottom: .5rem;
 }
-
+.nested-list-label{
+	margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    position: absolute;
+    margin-left: 7px;
+    margin-top: 1px;
+}
 .b-contain input[type="checkbox"] ~ .b-input {
 	position: absolute;
 	top: 0;
@@ -99,7 +170,7 @@ select.input-lg {
 	width: .90rem;
 	background: rgba(241, 245, 248, 1);
 	transition: background 250ms;
-	border:1.8px solid rgba(240, 99, 33, 1);
+	border:1.8px solid #ae282e;
 	border-radius: 0.125rem;
 }
 
@@ -188,6 +259,7 @@ select.input-lg {
 	background: rgba(13, 143, 255, 1);
 	border-color: rgba(13, 143, 255, 1);
 }
+
 
 .b-contain .b-input::before {
 	content: '';
