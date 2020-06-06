@@ -276,6 +276,13 @@ ul{
     right: 0.5px;
     margin-left: 1px;
 }
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
 .customcsscontainer label input[type=checkbox]:after {
     font-family: FontAwesome;
     float: left;
