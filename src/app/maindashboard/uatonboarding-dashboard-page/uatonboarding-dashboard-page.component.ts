@@ -446,53 +446,53 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   
    
     //Jira Service
-    this.HttpClient.post<any>(
-      "https://developerapi.icicibank.com:8443/api/v2/jira",
-      formData
-    ).subscribe(
-      res => {
-        console.log(res, formData);
-       // alert(res.jiraId)
-        this.toastrmsg('success', res.jiraId+" has been created");
-        if (res.success === "true") {
-          //File upload service
-          var formData = new FormData();
-          let b: any = (<HTMLInputElement>document.getElementById("file1"))
-            .files;
-          for (let k = 0; k < b.length; k++) {
-            formData.append(res.jiraId, b[k]);
-          }
-          this.HttpClient.post<any>(
-            "https://developer.icicibank.com/fileUpload",
-            formData
-          ).subscribe(
-            res => {
-              console.log(res);
-              // alert(res.jiraId);
-            },
-            err => {
-              console.log('err', err);
-              this.router.navigate(['error']);
-            },
-          );
-        }
+    // this.HttpClient.post<any>(
+    //   "https://developerapi.icicibank.com:8443/api/v2/jira",
+    //   formData
+    // ).subscribe(
+    //   res => {
+    //     console.log(res, formData);
+    //    // alert(res.jiraId)
+    //     this.toastrmsg('success', res.jiraId+" has been created");
+    //     if (res.success === "true") {
+    //       //File upload service
+    //       var formData = new FormData();
+    //       let b: any = (<HTMLInputElement>document.getElementById("file1"))
+    //         .files;
+    //       for (let k = 0; k < b.length; k++) {
+    //         formData.append(res.jiraId, b[k]);
+    //       }
+    //       this.HttpClient.post<any>(
+    //         "https://developer.icicibank.com/fileUpload",
+    //         formData
+    //       ).subscribe(
+    //         res => {
+    //           console.log(res);
+    //           // alert(res.jiraId);
+    //         },
+    //         err => {
+    //           console.log('err', err);
+    //           this.router.navigate(['error']);
+    //         },
+    //       );
+    //     }
 
-     //   console.log(res["message"]);
-        //console.log(res["message"].substring(51, 44));
+    //  //   console.log(res["message"]);
+    //     //console.log(res["message"].substring(51, 44));
        
-        // this.modalRef = this.modalService.show( {
-        //   backdrop: "static"
-        // });
-        // this.confirmMsg = res["message"];
-        // this.confirmMsg = this.confirmMsg;
-        // this.confirmMsg = this.confirmMsg.substring(51, 44);
-        //this.modalRef4.hide();
-      },
-      err => {
-        console.log('err', err);
-        this.router.navigate(['error']);
-      },
-    );
+    //     // this.modalRef = this.modalService.show( {
+    //     //   backdrop: "static"
+    //     // });
+    //     // this.confirmMsg = res["message"];
+    //     // this.confirmMsg = this.confirmMsg;
+    //     // this.confirmMsg = this.confirmMsg.substring(51, 44);
+    //     //this.modalRef4.hide();
+    //   },
+    //   err => {
+    //     console.log('err', err);
+    //     this.router.navigate(['error']);
+    //   },
+    // );
 
 
   }

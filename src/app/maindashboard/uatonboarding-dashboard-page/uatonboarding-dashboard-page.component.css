@@ -259,7 +259,7 @@ ul{
 	background: #ae282e;
 	border-color: #ae282e;
 }
-.customcsscontainer label input[type=checkbox] {
+.customcsscontainer label input[type=checkbox],.customcsscontainerForTnC  label input[type=checkbox]{
 	margin-right: 5px;
     -webkit-appearance: none;
     appearance: none;
@@ -283,13 +283,13 @@ ul{
 .show {
 	display: block;
 }
-.customcsscontainer label input[type=checkbox]:after {
+.customcsscontainer label input[type=checkbox]:after,.customcsscontainerForTnC  label input[type=checkbox]:after {
     font-family: FontAwesome;
     float: left;
     position: relative;
 }
 
-.customcsscontainer label input[type=checkbox]:checked:after {
+.customcsscontainer label input[type=checkbox]:checked:after,.customcsscontainerForTnC  label input[type=checkbox]:checked:after {
     color: #d23a3f;
     font-size: 10px;
     content: "\f00c";
