@@ -125,7 +125,7 @@ select.input-lg {
     content: "\f107";
 }
 /* chckbox */
-.b-contain *, .b-contain *::before, .b-contain *::after {
+.b-contain *, .b-contain *::before, .b-contain *::after,my {
 	box-sizing: content-box !important;
 }
 
@@ -154,6 +154,7 @@ ul{
 	cursor: pointer;
 	margin-bottom: .5rem;
 }
+
 .nested-list-label{
 	margin: 0px;
     padding: 0px;
@@ -342,4 +343,84 @@ ul{
 }
 .b-contain  span{
     font-size: 14px;
+}
+
+.checkbox-label .checkbox-custom {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 24px;
+	width: 24px;
+	background-color: transparent;
+	border-radius: 5px;
+	border: 2px solid #ffffff;
+}
+.checkbox-label.checkbox-custom::after{
+
+	position: absolute;
+	content: "";
+	left: 12px;
+	top: 12px;
+	height: 0px;
+	width: 0px;
+	border-radius: 5px;
+	border:solid #009bff;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(0deg)scale(0);
+	-ms-transform: rotate(0deg)scale(0);
+	transform: rotate(0deg)scale(0);
+	opacity: 1;
+
+}
+
+.myclass  {
+
+	position: relative;
+	padding-left: 1.8rem;
+	cursor: pointer;
+	margin-bottom: .5rem;
+	border:1.8px solid #ae282e;
+	border-radius: 0.125rem;
+}
+.myclass input[type="checkbox"] ~ .myclass {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: .90rem;
+	width: .90rem;
+	background: rgba(241, 245, 248, 1);
+	transition: background 250ms;
+	border:1.8px solid #ae282e;
+	border-radius: 0.125rem;
+}
+.myclass input[type="checkbox"] ~ .myclass::after {
+	content: '';
+	position: absolute;
+	display: none;
+	/* left: .45rem;
+    top: .18rem; */
+    left: .3rem;
+    top: .01rem;
+	width: .25rem;
+	height: .6rem;
+	border: solid rgba(255, 255, 255, 1);
+	border-width: 0 2px 2px 0;
+	transition: background 250ms;
+	transform: rotate(45deg);
+}
+ .myclass::before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 3rem;
+	height: 3rem;
+	margin-left: -0.85rem;
+	margin-top: -0.85rem;
+	background: rgba(0, 130, 243, 1);
+	border-radius: 2rem;
+	opacity: .6;
+	z-index: 99999;
+	transform: scale(0);
 }
