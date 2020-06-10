@@ -48,8 +48,9 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   arrayObjectOfValue = [];
   logged_in: Boolean = false;
   additionalParams: any;
+  Ecollection_Show: Boolean = false;
 
-
+  header: boolean= false;
   accNo: boolean = false;
   clientCode: boolean = false;
   url: boolean = false;
@@ -74,6 +75,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   mode: boolean = false;
   trans: boolean = false;
   amount: boolean = false;
+  uatTestingID: boolean = false;
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
 
@@ -109,7 +111,9 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       var response = data._body;
       var obj = JSON.parse(response);
       console.log("obj reached", obj);
+      localStorage.setItem('nodevalue',obj.API_NAME )
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
+      console.log( this.additionalParams);
       for (var i = 0; i < this.additionalParams.length; i++) {
         if (this.additionalParams[i].match("Account Number")) {
           this.accNo = true;
@@ -183,6 +187,12 @@ export class UATonboardingDashboardPageComponent implements OnInit {
         if (this.additionalParams[i].match("Amount")) {
           this.amount = true;
         }
+        if (this.additionalParams[i].match("Header")) {
+          this.header = true;
+        }
+        if (this.additionalParams[i].match("Testing ID")) {
+          this.uatTestingID = true;
+        }
       }
       console.log("final", this.additionalParams);
     },
@@ -209,6 +219,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
       console.log(event.target.value, "==========", event.target.id)
       // Add a new control in the arrayForm
+      
       this.arrayObjectOfListIds.push((event.target.id));
 
       this.arrayObjectOfValue.push((event.target.value));
@@ -350,48 +361,53 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     console.log(this.parentDataDomainName)
 
   }
+ 
   onSubmitUATForm() {
     // alert("hiii")
     let reactiveFromFieldValues = this.reactiveForm.value;
-    console.log(reactiveFromFieldValues)
+    console.log(reactiveFromFieldValues)  
+      console.log(reactiveFromFieldValues.basicDetailsSection.merchantName)
+      
     console.log(localStorage.getItem("username"))
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: localStorage.getItem("nodeValue"),
-      domainApis: this.apiArr + '(' + this.idArr + ')',
-      mName: reactiveFromFieldValues.merchantName,
-      desc: reactiveFromFieldValues.description,
-      spocEmail: reactiveFromFieldValues.email_id,
-      spocPhone: reactiveFromFieldValues.contact_no,
-      relManager: reactiveFromFieldValues.r_m_maild_id,
+      domainName: localStorage.getItem("nodevalue"),
+      domainApis: this.arrayObjectOfValue +'('+ this.arrayObjectOfListIds.toString()+')',  //this.apiArr + '(' + this.idArr + ')',
+      mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
+      desc: reactiveFromFieldValues.basicDetailsSection.description,
+      spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
+      spocPhone: reactiveFromFieldValues.basicDetailsSection.contact_no,
+      relManager: reactiveFromFieldValues.basicDetailsSection.r_m_maild_id,
       env: "UAT",
       // ips: "",
       // callbackUrl: "",
-      AccountNo: reactiveFromFieldValues.AccountNo ? reactiveFromFieldValues.AccountNo : '',
-      ClientCode: reactiveFromFieldValues.ClientCode ? reactiveFromFieldValues.ClientCode : '',
-      url: reactiveFromFieldValues.url ? reactiveFromFieldValues.url : '',
-      Ip: reactiveFromFieldValues.Ip ? reactiveFromFieldValues.Ip : '',
-      Port: reactiveFromFieldValues.Port ? reactiveFromFieldValues.Port : '',
-      Checksum: reactiveFromFieldValues.Checksum ? reactiveFromFieldValues.Checksum : '',
-      Encryption: reactiveFromFieldValues.Encryption ? reactiveFromFieldValues.Encryption : '',
-      Certificate: reactiveFromFieldValues.Certificate ? reactiveFromFieldValues.Certificate : '',
-      web: reactiveFromFieldValues.web ? reactiveFromFieldValues.web : '',
-      message: reactiveFromFieldValues.message ? reactiveFromFieldValues.message : '',
-      IFSC_Code: reactiveFromFieldValues.IFSC_Code ? reactiveFromFieldValues.IFSC_Code : '',
-      virtualCode: reactiveFromFieldValues.virtualCode ? reactiveFromFieldValues.virtualCode : '',
-      refundCode: reactiveFromFieldValues.refundCode ? reactiveFromFieldValues.refundCode : '',
-      Account_no: reactiveFromFieldValues.Account_no ? reactiveFromFieldValues.Account_no : '',
-      Acc_name: reactiveFromFieldValues.Acc_name ? reactiveFromFieldValues.Acc_name : '',
-      Auth_level: reactiveFromFieldValues.Auth_level ? reactiveFromFieldValues.Auth_level : '',
-      Urn: reactiveFromFieldValues.Urn ? reactiveFromFieldValues.Urn : '',
-      Acc_env: reactiveFromFieldValues.Acc_env ? reactiveFromFieldValues.Acc_env : '',
-      Acc_validation: reactiveFromFieldValues.Acc_validation ? reactiveFromFieldValues.Acc_validation : '',
-      Acc_acceptance: reactiveFromFieldValues.Acc_acceptance ? reactiveFromFieldValues.Acc_acceptance : '',
-      Rec_mail: reactiveFromFieldValues.Rec_mail ? reactiveFromFieldValues.Rec_mail : '',
-      Acc_mode: reactiveFromFieldValues.Acc_mode ? reactiveFromFieldValues.Acc_mode : '',
-      Acc_trans: reactiveFromFieldValues.Acc_trans ? reactiveFromFieldValues.Acc_trans : '',
-      Acc_amount: reactiveFromFieldValues.Acc_amount ? reactiveFromFieldValues.Acc_amount : '',
-      file1: reactiveFromFieldValues.file1
+      AccountNo: reactiveFromFieldValues.additionalField.AccountNo ? reactiveFromFieldValues.additionalField.AccountNo : '',
+      ClientCode: reactiveFromFieldValues.additionalField.ClientCode ? reactiveFromFieldValues.additionalField.ClientCode : '',
+      url: reactiveFromFieldValues.additionalField.url ? reactiveFromFieldValues.additionalField.url : '',
+      Ip: reactiveFromFieldValues.additionalField.ip ? reactiveFromFieldValues.additionalField.ip : '',
+      Port: reactiveFromFieldValues.additionalField.port ? reactiveFromFieldValues.additionalField.port : '',
+      Checksum: reactiveFromFieldValues.additionalField.Checksum ? reactiveFromFieldValues.additionalField.Checksum : '',
+      Encryption: reactiveFromFieldValues.additionalField.Encryption ? reactiveFromFieldValues.additionalField.Encryption : '',
+      Certificate: reactiveFromFieldValues.additionalField.Certificate ? reactiveFromFieldValues.additionalField.Certificate : '',
+      web: reactiveFromFieldValues.additionalField.web ? reactiveFromFieldValues.additionalField.web : '',
+      message: reactiveFromFieldValues.additionalField.message ? reactiveFromFieldValues.additionalField.message : '',
+     IFSC_Code: reactiveFromFieldValues.additionalField.IFSC_Code ? reactiveFromFieldValues.additionalField.IFSC_Code : '',
+     virtualCode: reactiveFromFieldValues.additionalField.virtualCode ? reactiveFromFieldValues.additionalField.virtualCode : '',
+      refundCode: reactiveFromFieldValues.additionalField.refundCode ? reactiveFromFieldValues.additionalField.refundCode : '',
+      Account_no: reactiveFromFieldValues.additionalField.Account_no ? reactiveFromFieldValues.additionalField.Account_no : '',
+      Acc_name: reactiveFromFieldValues.additionalField.Acc_name ? reactiveFromFieldValues.additionalField.Acc_name : '',
+      Auth_level: reactiveFromFieldValues.additionalField.Auth_level ? reactiveFromFieldValues.additionalField.Auth_level : '',
+      Urn: reactiveFromFieldValues.additionalField.Urn ? reactiveFromFieldValues.additionalField.Urn : '',
+     Acc_env: reactiveFromFieldValues.additionalField.Acc_env ? reactiveFromFieldValues.additionalField.Acc_env : '',
+      Acc_validation: reactiveFromFieldValues.additionalField.Acc_validation ? reactiveFromFieldValues.additionalField.Acc_validation : '',
+      Acc_acceptance: reactiveFromFieldValues.additionalField.Acc_acceptance ? reactiveFromFieldValues.additionalField.Acc_acceptance : '',
+      Rec_mail: reactiveFromFieldValues.additionalField.Rec_mail ? reactiveFromFieldValues.additionalField.Rec_mail : '',
+      Acc_mode: reactiveFromFieldValues.additionalField.Acc_mode ? reactiveFromFieldValues.additionalField.Acc_mode : '',
+      Acc_trans: reactiveFromFieldValues.additionalField.Acc_trans ? reactiveFromFieldValues.additionalField.Acc_trans : '',
+      Acc_amount: reactiveFromFieldValues.additionalField.Acc_amount ? reactiveFromFieldValues.additionalField.Acc_amount : '',
+      Acc_header: reactiveFromFieldValues.additionalField.header ? reactiveFromFieldValues.additionalField.header : '',
+      Acc_uatTestingIDt: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
+      file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
     //console.log(reactiveFromFieldValues.value.Ip);
@@ -418,7 +434,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     formData.append("Certificate", inputFields["Certificate"]);
     formData.append("web", inputFields["web"]);
     formData.append("message", inputFields["message"]);
-    formData.append("IFSC_Code", inputFields["IFSC_Code"]);
+   formData.append("IFSC_Code", inputFields["IFSC_Code"]);
     formData.append("virtualCode", inputFields["virtualCode"]);
     formData.append("refundCode", inputFields["refundCode"]);
     formData.append("Account_no", inputFields["Account_no"]);
@@ -427,11 +443,14 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     formData.append("Urn", inputFields["Urn"]);
     formData.append("Acc_env", inputFields["Acc_env"]);
     formData.append("Acc_validation", inputFields["Acc_validation"]);
-    formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);
+   formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);
     formData.append("Rec_mail", inputFields["Rec_mail"]);
     formData.append("Acc_mode", inputFields["Acc_mode"]);
     formData.append("Acc_trans", inputFields["Acc_trans"]);
     formData.append("Acc_amount", inputFields["Acc_amount"]);
+    formData.append("Acc_header", inputFields["Acc_header"]);
+    formData.append("Acc_uatTestingIDt", inputFields["Acc_uatTestingIDt"]);
+
 
     console.log(formData);
 
@@ -445,54 +464,54 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     
   
    
-    //Jira Service
-    // this.HttpClient.post<any>(
-    //   "https://developerapi.icicibank.com:8443/api/v2/jira",
-    //   formData
-    // ).subscribe(
-    //   res => {
-    //     console.log(res, formData);
-    //    // alert(res.jiraId)
-    //     this.toastrmsg('success', res.jiraId+" has been created");
-    //     if (res.success === "true") {
-    //       //File upload service
-    //       var formData = new FormData();
-    //       let b: any = (<HTMLInputElement>document.getElementById("file1"))
-    //         .files;
-    //       for (let k = 0; k < b.length; k++) {
-    //         formData.append(res.jiraId, b[k]);
-    //       }
-    //       this.HttpClient.post<any>(
-    //         "https://developer.icicibank.com/fileUpload",
-    //         formData
-    //       ).subscribe(
-    //         res => {
-    //           console.log(res);
-    //           // alert(res.jiraId);
-    //         },
-    //         err => {
-    //           console.log('err', err);
-    //           this.router.navigate(['error']);
-    //         },
-    //       );
-    //     }
+   // Jira Service
+    this.HttpClient.post<any>(
+      "https://developerapi.icicibank.com:8443/api/v2/jira",
+      formData
+    ).subscribe(
+      res => {
+        console.log(res, formData);
+       // alert(res.jiraId)
+        this.toastrmsg('success', res.jiraId+" has been created");
+        if (res.success === "true") {
+          //File upload service
+          var formData = new FormData();
+          let b: any = (<HTMLInputElement>document.getElementById("file1"))
+            .files;
+          for (let k = 0; k < b.length; k++) {
+            formData.append(res.jiraId, b[k]);
+          }
+          this.HttpClient.post<any>(
+            "https://developer.icicibank.com/fileUpload",
+            formData
+          ).subscribe(
+            res => {
+              console.log(res);
+              // alert(res.jiraId);
+            },
+            err => {
+              console.log('err', err);
+              this.router.navigate(['error']);
+            },
+          );
+        }
 
-    //  //   console.log(res["message"]);
-    //     //console.log(res["message"].substring(51, 44));
+     //   console.log(res["message"]);
+        //console.log(res["message"].substring(51, 44));
        
-    //     // this.modalRef = this.modalService.show( {
-    //     //   backdrop: "static"
-    //     // });
-    //     // this.confirmMsg = res["message"];
-    //     // this.confirmMsg = this.confirmMsg;
-    //     // this.confirmMsg = this.confirmMsg.substring(51, 44);
-    //     //this.modalRef4.hide();
-    //   },
-    //   err => {
-    //     console.log('err', err);
-    //     this.router.navigate(['error']);
-    //   },
-    // );
+        // this.modalRef = this.modalService.show( {
+        //   backdrop: "static"
+        // });
+        // this.confirmMsg = res["message"];
+        // this.confirmMsg = this.confirmMsg;
+        // this.confirmMsg = this.confirmMsg.substring(51, 44);
+        //this.modalRef4.hide();
+      },
+      err => {
+        console.log('err', err);
+        this.router.navigate(['error']);
+      },
+    );
 
 
   }
@@ -513,6 +532,33 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       }),
       "nestedCheckboxesList": new FormGroup({
         "nestedList": new FormArray([])
+      }),
+      "additionalField": new FormGroup({
+        "AccountNo" :new FormControl(),
+        "clientCode":new FormControl(),
+        "url":new FormControl(),
+        "Checksum":new FormControl(),
+        "encryption": new FormControl(),
+        "certificate": new FormControl(),
+       "service": new FormControl(),
+        "commModel": new FormControl(),
+        "header":new FormControl(),
+       "IFSC_Code":new FormControl(),
+        "virtualCode":new FormControl(),
+        "ips":new FormControl(),
+        "interAccNo":new FormControl(),
+        "accName":new FormControl(),
+        "authLevel":new FormControl(),
+        "URN":new FormControl(),
+        "env":new FormControl(),
+        "Acc_validation":new FormControl(),
+        "Acc_acceptance":new FormControl(),
+        "Rec_mail":new FormControl(),
+        "Acc_mode":new FormControl(),
+        "Acc_trans":new FormControl(),
+        "Acc_amount":new FormControl(),
+        "ip":new FormControl(),
+        "port":new FormControl()
       }),
       'whitelistIpSection': new FormGroup({
         "file1": new FormControl(null, [Validators.required]),
@@ -538,6 +584,15 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     // testing......
     let edit = ''
     this.resetForm(edit);
+    function isNumberKey(evt)
+    {
+       var charCode = (evt.which) ? evt.which : evt.keyCode;
+       if (charCode != 46 && charCode > 31 
+         && (charCode < 48 || charCode > 57))
+          return false;
+
+       return true;
+    }
     $(document).on('click', 'li.expandable', function (e) {
       $(this).children('ul').toggle();
       // $('li.expandable').click(function() {
