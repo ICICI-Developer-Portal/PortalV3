@@ -20,13 +20,7 @@ const routes: Routes = [
         component: MaindashboardComponent,        
         children: [       
             { path: 'faq', component: FaqComponent },
-            {path:'uatonboarding-dashboard',component: UATonboardingDashboardPageComponent  },
-            {
-                path:'download',
-                component : DownloadComponent
-        
-            
-              },
+            {path:'uatonboarding-dashboard',component: UATonboardingDashboardPageComponent,canActivate: [AuthGuard]  },
 
         ]
     },
