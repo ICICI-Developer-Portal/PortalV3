@@ -558,6 +558,7 @@
                 <div formGroupName="whitelistIpSection">
                   <div class="form-group">
                     <label for="r_m_maild_id">Certificate Upload</label>
+                    <a  data-toggle="tooltip" title="Please upload zip file of SSL Certificate and Encryption Certificate"><img  alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
                     <input type="file" id="file1" formControlName="file1" class="form-control input_type_attachment mainField">
                     <div
                       *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
