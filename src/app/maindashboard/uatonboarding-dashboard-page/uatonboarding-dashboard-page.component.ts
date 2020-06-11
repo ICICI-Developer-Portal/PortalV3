@@ -146,7 +146,23 @@ console.log( this.reactiveForm)
       "email_id":new FormControl(null,[Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       "contact_no":new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
       "r_m_maild_id":new FormControl(null,[Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
-    })
+    }),
+      'businessBankingSection' :new FormGroup({
+      "customerName": new FormControl(null, Validators.required),
+      "customerAccountNumber" : new FormControl(null, Validators.required),
+      "cmsClientCode" : new FormControl(null, Validators.required),
+      "rm_sm_EmployeeID" :new FormControl(null, Validators.required),
+      "rm_sm_Name":new FormControl(null, Validators.required),
+      "rm_sm_MobileNumber" :new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
+      "remarks" : new FormControl(null, Validators.required),
+      "certificateUpload": new FormControl(null, [Validators.required]),
+     }),
+
+        'whitelistIpSection' :new FormGroup({
+        "certificateUpload1": new FormControl(null, [Validators.required]),
+        "checkBox" : new FormControl(false, [Validators.requiredTrue])
+      })
+
     })
   }
   ngAfterViewInit(){

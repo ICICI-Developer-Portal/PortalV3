@@ -37,7 +37,7 @@
                     <input type="text" class="form-control" id="Email_ID" formControlName="email_id"  placeholder="">
                   <!-- validation -->
                   <div *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched" class="text-danger form-error">
-                   Email_id is required.
+                   Email Id is required.
                   </div>
                   <!-- ======== -->
                   </div>
@@ -47,7 +47,7 @@
                     <input type="text" class="form-control" id="Contact_No" formControlName="contact_no"  placeholder="">
                      <!-- validation -->
                   <div *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched" class="text-danger form-error">
-                    contact_no is required.
+                    contact Number is required.
                    </div>
                    <!-- ======== -->
                   </div>
@@ -134,7 +134,7 @@
                             <a (click)="i.toggle=!i.toggle" class="display-block cursor-pointer padding-left-25">
                               <ng-template #other>
                                 <input type="checkbox" value=""> <label class="b-contain display-flex nested-list-label"> {{i.TAB_NAME}} </label></ng-template>
-                              <p *ngIf="i.children; else other" class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img class="dropdownIcon" 
+                              <p *ngIf="i.children; else other" class="margin_0px">1 {{i.TAB_NAME}}<span class="inline_block pull-right"><img class="dropdownIcon" 
                                     src="assets/images/dropdown-2.svg" alt=""></span></p>
                             </a>
                             <!-- 1 level -->
@@ -142,9 +142,9 @@
                               <li *ngIf="i.toggle">
                                  <!-- 2 level -->
                                 <a (click)="j.toggle=!j.toggle" class="display-block cursor-pointer padding-left-10prcnt">
-                                  <ng-template #other><input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">{{j.TAB_NAME}}</label> </ng-template>
+                                  <ng-template #other><input type="checkbox"  value=""><label for="checkBox" class="b-contain display-flex nested-list-label">2{{j.TAB_NAME}} </label> </ng-template>
                                    <p
-                                    *ngIf="j.children; else other" class="margin_0px" >{{j.TAB_NAME}}
+                                    *ngIf="j.children; else other" class="margin_0px" >3{{j.TAB_NAME}}
                                     <span class="inline_block pull-right"><img class="dropdownIcon" 
                                       src="assets/images/dropdown-2.svg" alt=""></span></p>
                                 </a>
@@ -153,8 +153,8 @@
                                   <li *ngIf="j.toggle">
                                     <!-- 3 level -->
                                     <a (click)="k.toggle=!k.toggle" class="display-block cursor-pointer padding-left-15prcnt">
-                                      <ng-template #other> <input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">{{k.TAB_NAME}}</label></ng-template>
-                                      <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
+                                      <ng-template #other> <input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">4{{k.TAB_NAME}}</label></ng-template>
+                                      <p *ngIf="k.children; else other" class="margin_0px">5{{k.TAB_NAME}}
                                         <span class="inline_block pull-right"><img class="dropdownIcon"  src="assets/images/dropdown-2.svg"
                                             alt=""></span></p>
                                     </a>
@@ -163,8 +163,8 @@
                                       <li *ngIf="k.toggle">
                                         <!-- 4 level -->
                                         <a (click)="L.toggle=!L.toggle" class="display-block cursor-pointer padding-left-20prcnt">
-                                          <ng-template #other><input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">{{L.TAB_NAME}}</label></ng-template>
-                                          <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
+                                          <ng-template #other><input type="checkbox" value=""><label class="b-contain display-flex nested-list-label">6{{L.TAB_NAME}}</label></ng-template>
+                                          <p *ngIf="L.children; else other" class="margin_0px">7{{L.TAB_NAME}}
                                             <span class="inline_block pull-right"><img class="dropdownIcon"  src="assets/images/dropdown-2.svg" alt=""></span>
                                           </p>
                                         </a>
@@ -176,8 +176,8 @@
                                               <!-- <ng-template #other> <input type="checkbox" /></ng-template>{{k.TAB_NAME}} <span
                                                                                         *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
                                                                                           src="assets/images/dropdown-2.svg" alt=""></span> -->
-                                              <ng-template #other><input type="checkbox" value=""> <label class="b-contain display-flex nested-list-label">{{M.TAB_NAME}}</label></ng-template>
-                                              <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
+                                              <ng-template #other><input type="checkbox" value=""> <label class="b-contain display-flex nested-list-label">8{{M.TAB_NAME}}</label></ng-template>
+                                              <p *ngIf="M.children; else other" class="margin_0px">9{{M.TAB_NAME}}
                                                 <span class="inline_block pull-right"><img class="dropdownIcon"  src="assets/images/dropdown-2.svg"
                                                     alt=""></span>
                                               </p>
@@ -210,42 +210,67 @@
            <div class="tabContentInner" *ngIf="parentDataDomainName === 'Business-banking'" >
             <div class="row m0">
                <div class="container">
-                 <div #businessBankingList class="col-7" id="business-banking-list">
-                  <form class="business_banking">
+                <div  class="col-7" id="business-banking-list">
+                  <form id="Business_Banking_Section" [formGroup]=reactiveForm>
                     <h5>Business Banking</h5>
-                  <div class="form-group">
-                    <label for="merchantName">Customer Name (If different from Merchant name /Same as Merchant Name)</label>  
-                    <input type="text" class="form-control" id="merchantName"  [formControl]="merchantName" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <div  formGroupName="businessBankingSection">
+                   <div class="form-group">
+                    <label for="customerName">Customer Name (If different from Merchant name /Same as Merchant Name)</label>  
+                    <input type="text" class="form-control" id="customerName"  formControlName="customerName" placeholder="">
+                    <!-- validation -->
+                    <div *ngIf="!reactiveForm.get('businessBankingSection.customerName').valid && reactiveForm.get('businessBankingSection.customerName').touched" class="text-danger form-error">
+                     Customer Name is required.
+                    </div> 
+                    <!-- ======== -->
                   </div>
                
                   <div class="form-group">
-                    <label for="Description">Customer Account Number </label>
-                    <input type="text" class="form-control" id="Description"  [formControl]="Description" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <label for="customerAccountNumber">Customer Account Number </label>
+                    <input type="text" class="form-control" id="customerAccountNumber"  formControlName="customerAccountNumber" placeholder="">
+                   <!-- validation -->
+                    <div *ngIf="!reactiveForm.get('businessBankingSection.customerAccountNumber').valid && reactiveForm.get('businessBankingSection.customerAccountNumber').touched" class="text-danger form-error">
+                      Customer Account Number is required.
+                     </div>
+                     <!-- ======== -->
                   </div>
 
                   <div class="form-group">
-                    <label for="Email_ID">CMS Client code</label>
-                    <input type="text" class="form-control" id="Email_ID"  [formControl]="Email_ID" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <label for="cmsClientCode">CMS Client code</label>
+                    <input type="text" class="form-control" id="cmsClientCode"  formControlName="cmsClientCode" placeholder="">
+                    <!-- validation -->
+                    <div *ngIf="!reactiveForm.get('businessBankingSection.cmsClientCode').valid && reactiveForm.get('businessBankingSection.cmsClientCode').touched" class="text-danger form-error">
+                      CMS Client code is required.
+                    </div>
+                    <!-- ======== -->
                   </div>
 
                   <div class="form-group">
-                    <label for="Contact_No">RM/SM Employee ID</label>
-                    <input type="text" class="form-control" id="Contact_No"  [formControl]="Contact_No" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <label for="rm_sm_EmployeeID">RM/SM Employee ID</label>
+                    <input type="text" class="form-control" id="rm_sm_EmployeeID"  formControlName="rm_sm_EmployeeID" placeholder="">
+                    <!-- validation -->
+                    <div *ngIf="!reactiveForm.get('businessBankingSection.rm_sm_EmployeeID').valid && reactiveForm.get('businessBankingSection.rm_sm_EmployeeID').touched" class="text-danger form-error">
+                      RM/SM Employee ID is required.
+                      </div>
+                      <!-- ======== -->
                   </div>
 
                   <div class="form-group">
-                    <label for="r_m_maild_id">RM/SM Name</label>
-                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <label for="rm_sm_Name">RM/SM Name</label>
+                    <input type="text" class="form-control" id="rm_sm_Name"  formControlName="rm_sm_Name" placeholder="">
+                    <!-- validation -->
+                     <div *ngIf="!reactiveForm.get('businessBankingSection.rm_sm_Name').valid && reactiveForm.get('businessBankingSection.rm_sm_Name').touched" class="text-danger form-error">
+                        RM/SM Name is required.
+                      </div>
+                      <!-- ======== -->
                   </div>
                   <div class="form-group">
-                    <label for="r_m_maild_id">RM/SM Mobile number</label>
-                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <label for="rm_sm_MobileNumber">RM/SM Mobile number</label>
+                    <input type="number" class="form-control" id="rm_sm_MobileNumber"  formControlName="rm_sm_MobileNumber" placeholder="">
+                    <!-- validation -->
+                    <div *ngIf="!reactiveForm.get('businessBankingSection.rm_sm_MobileNumber').valid && reactiveForm.get('businessBankingSection.rm_sm_MobileNumber').touched" class="text-danger form-error">
+                      RM/SM Mobile number is required.
+                      </div>
+                      <!-- ======== -->
                   </div>
                   <div class="form-group select-div">
                     <label for="r_m_maild_id"> SBU</label>
@@ -266,15 +291,28 @@
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                   </div>
                   <div class="form-group">
-                    <label for="r_m_maild_id">Remarks</label>
-                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <label for="remarks">Remarks</label>
+                    <input type="text" class="form-control" id="remarks" formControlName="remarks" placeholder="">
+                   <!-- validation -->
+                   <div *ngIf="!reactiveForm.get('businessBankingSection.remarks').valid && reactiveForm.get('businessBankingSection.remarks').touched" class="text-danger form-error">
+                    Remarks is required.
+                    </div>
+                    <!-- ======== -->
                   </div>
                   <div class="form-group">
-                    <label for="r_m_maild_id">Certificate Upload</label>
-                    <input type="file" id="myFile" name="filename" class="form-control input_type_attachment">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
+                    <label for="certificateUpload">Certificate Upload</label>
+                       <a href="#"  data-toggle="tooltip"
+                         title="Please upload zip file of SSL Certificate and Encryption Certificate"><img src="assets/images/information.png" alt="loader" style="margin-left:2%;cursor: pointer;"/>
+                       </a>
+                    <input type="file" id="certificateUpload" name="filename" class="form-control input_type_attachment" formControlName="certificateUpload">
+                   <!-- validation -->
+                    <div *ngIf="!reactiveForm.get('businessBankingSection.certificateUpload').valid && reactiveForm.get('businessBankingSection.certificateUpload').touched" class="text-danger form-error">
+                      Certificate Upload is required.
+                      </div>
+                     <!-- ======== -->
+
+                    </div>
+                    </div>
                   </form>
                  </div>
                </div>
@@ -285,21 +323,38 @@
            <div class="tabContentInner">
             <div class="row m0">
                <div class="container">
-                 <div #whitelistIpList class="col-7" id="whitelist-ip-list">
-                  <form class="Whitelist_IP">
+                 <div  class="col-7" id="whitelist-ip-list">
+                  <form id="Whitelist_Ip_Section" [formGroup]=reactiveForm>
                     <h5>Whitelist IP</h5>
-                    <div class="form-group">    
-                      <label for="r_m_maild_id">Certificate Upload</label>
-                      <input type="file" id="myFile" name="filename" class="form-control input_type_attachment">
-                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <div  formGroupName="whitelistIpSection">
+                     <div class="form-group">    
+                       <label for="certificateUpload1">Certificate Upload</label>
+                       <a href="#"  data-toggle="tooltip"
+                         title="Please upload zip file of SSL Certificate and Encryption Certificate"><img src="assets/images/information.png" alt="loader" style="margin-left:2%;cursor: pointer;"/>
+                       </a>
+                       <input type="file" id="certificateUpload1" name="filename" class="form-control input_type_attachment" formControlName="certificateUpload1">
+                         <!-- validation -->
+
+                        <div *ngIf="!reactiveForm.get('whitelistIpSection.certificateUpload1').valid && reactiveForm.get('whitelistIpSection.certificateUpload1').touched" class="text-danger form-error">
+                          Certificate Upload is required.
+                        </div>
+
+                      </div>
+                    
+                      <div class="form-group">
+                       <label for="checkBox" class="b-contain">
+                        <span> I ACCEPT NON-DISCLOSURE AGREEMENT, </span><span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color">  Click here to download</a></span>
+                        <input type="checkbox" id ="checkBox" name ="checkBox"class="form-control" formControlName="checkBox" >
+                          <!-- validation -->
+
+                        <div *ngIf="!reactiveForm.get('whitelistIpSection.checkBox').valid && reactiveForm.get('whitelistIpSection.checkBox').touched" class="text-danger form-error">
+                          ACCEPT NON-DISCLOSURE AGREEMENT is required.
+                        </div>
+                        <!-- ======== -->
+                        <div class="b-input"></div>
+                        </label>
+                      </div>
                     </div>
-                    <label class="b-contain">
-                      <span> I ACCEPT NON-DISCLOSURE AGREEMENT, </span>
-                      <input type="checkbox">
-                      <div class="b-input"></div>
-                    </label>
-                    <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color">  Click here to download</a></span>
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                   </form>
                   <div _ngcontent-c4="" class="row"><div _ngcontent-c4="" class="col-12 text-right">
                     <button _ngcontent-c4="" class="signInBtn btn-dark" type="button" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark"  [disabled]="!reactiveForm.valid" (click)="onSubmit()"> Submit </button></div></div>   

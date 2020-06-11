@@ -653,6 +653,7 @@ export class LoginService {
        { responseType: ResponseContentType.Blob }
     );
   }
+  
 
   // downloadPdf(filePath) {
   //   var query = filePath;

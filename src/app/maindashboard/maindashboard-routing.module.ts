@@ -10,6 +10,8 @@ import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-p
 
 import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
+import { DownloadComponent } from './download/download.component';
+
 
 
 const routes: Routes = [
@@ -19,6 +21,12 @@ const routes: Routes = [
         children: [       
             { path: 'faq', component: FaqComponent },
             {path:'uatonboarding-dashboard',component: UATonboardingDashboardPageComponent  },
+            {
+                path:'download',
+                component : DownloadComponent
+        
+            
+              },
 
         ]
     },

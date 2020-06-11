@@ -85,6 +85,12 @@
             aria-selected="true"
             >Onboarding<br />Requests</a
           >
+          <a
+            style="line-height: 21px;cursor: pointer;"
+            routerLink="../download"
+            class="nav-link dropdown-item"
+            >Download </a
+          >
         </div>
       </li>
       <li
@@ -275,7 +281,7 @@
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
-        <input name="user" class="input-login" #username />
+        <input type="text" (keydown.space)="$event.preventDefault();" name="user" class="input-login" #username />
         <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
           Please Enter UserNames.
         </div>
@@ -570,7 +576,7 @@
                 *ngIf="CITY.invalid && (CITY.dirty || isSubmitted)"
                 class="text-danger form-error"
               >
-                Pin Code is required.
+                Pin Code is required5.
               </div>
             </div>
           </div>
@@ -731,29 +737,34 @@
           </ul>
         </div>
       </form>
-      <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
-        <div class="tab-pane">
+
+      <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">      
+
+          <!--user name-->
+          <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-12">
-              <div><label for="username">Username</label></div>
-              <input
-                formControlName="username"
+              <div><label for="username">user name </label></div>
+              <input formControlName="username"
+                id="username"
+                type="text" (keydown.space)="$event.preventDefault();"
                 class="input-login"
-                #username
-                (change)="OnCheckUsername(username.value)"
-                autocomplete="new-password"
+                #uname
               />
-              <div
-                *ngIf="username.invalid && (username.dirty || isSubmitted)"
-                class="text-danger form-error"
-              >
-                Username is required.
+              <div *ngIf="username && username.touched && username.errors" class="alert alert-danger">
+                <div *ngIf="username.errors.required" class="text-danger">username  is required </div>
+                <!-- <div *ngIf="username.errors.cannotContainSpace">Username can not contain space.</div> -->
+               
               </div>
             </div>
           </div>
+
+
+          <!---->
+       
           <div class="horizontalBorder mb20"></div>
-          <div class="row">
-            <div class="col-md-6">
+          <div class="row mb20">
+            <div class="col-md-12">
               <div><label for="createpassword">Create Password</label></div>
               <input
                 type="password"
@@ -761,14 +772,28 @@
                 class="input-login"
                 #CreatePassword
               />
-              <div
+              <div *ngIf="password && password.touched && password.errors" class="alert alert-danger">
+                <div *ngIf="password.errors.required" class="text-danger">password  is required </div>
+                <div *ngIf="password.errors.pattern" class="text-danger">
+                      Please, Enter Vaid Password !!<br>* Must be Atleast 8 characters in length. <br>* Must contain one Lowercase letter. <br>* Must contain one Uppercase letter.<br>* Must contain one Number. <br>* Must contain one Special character.
+                      </div> 
+              </div>
+            <div *ngIf="password.valid" class="alert-success">Valid Password</div>
+            </div>
+          </div>
+
+
+          
+          
+              <!-- <div
                 *ngIf="password.invalid && (password.dirty || isSubmitted)"
                 class="text-danger form-error"
               >
-                Password is required.
-              </div>
-            </div>
-            <div class="col-md-6">
+                Password is required 5.
+              </div> -->
+              <!-- <div *ngIf="password.errors.minlength" class="text-danger form-error">Password must be at least 6 characters  5</div> -->
+          <div class="row mb20">
+            <div class="col-md-12">
               <div><label for="confirmpassword">Confirm Password</label></div>
               <input
                 type="password"
@@ -785,9 +810,19 @@
               >
                 Password does not match.
               </div>
+              
+
             </div>
-            <div class="clearfix"></div>
           </div>
+    
+            
+          
+            <div class="clearfix"></div>
+          
+       
+
+
+
           <div class="row mt12">
             <div class="col-md-12">
               <label class="checkboxContainer">
