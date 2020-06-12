@@ -6,6 +6,7 @@ import { LoginService } from "src/app/services";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordValidation } from "./password.validator";
+
 import { ChangeDetectorRef } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { SessionService } from "src/app/services/session.service";
@@ -13,6 +14,7 @@ import { formatDate } from "@angular/common";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
+import { preserveWhitespacesDefault } from "@angular/compiler";
 
 @Component({
   selector: "app-header",
@@ -117,7 +119,7 @@ export class HeaderComponent implements OnInit {
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
     this.forgetpassForm = this.formbuilder.group({
-      username: ["", [Validators.required]]
+      username: ["", [Validators.required,]]
     });
     this.signupForm = this.formbuilder.group({
       firstname: ["", [Validators.required]],
@@ -194,7 +196,8 @@ export class HeaderComponent implements OnInit {
     this.signupForm3 = this.formbuilder.group(
       {
         username: ["", [Validators.required]],
-        password: ["", [Validators.required]],
+        //uname: ["", [Validators.required]],
+        password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
         confirmPassword: ["", [Validators.required]],
         term: ["", [Validators.required]]
       },

@@ -7,6 +7,7 @@ import { AdminPortalComponent } from "./admin-portal/admin-portal.component";
 import { AppathonComponent } from "./appathon/appathon.component";
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component'
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { DownloadComponent } from "./maindashboard/download/download.component";
 
 const routes: Routes = [
   // { path: '', redirectTo :'index', pathMatch :'full' },
@@ -20,6 +21,12 @@ const routes: Routes = [
     path: 'jwt-auth',
     component: JwtAuthComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path:'download',
+    component : DownloadComponent
+
+
   },
   {
     path: 'error',

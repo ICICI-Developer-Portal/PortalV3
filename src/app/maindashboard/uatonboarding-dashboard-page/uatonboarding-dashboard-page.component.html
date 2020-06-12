@@ -144,7 +144,7 @@
                                   value="{{i.TAB_NAME}}" (change)="checkValue(i)" #checkboxes> {{i.TAB_NAME}} </label>
                             </div>
                           </ng-template>
-                          <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
+                          <p class="margin_0px"> {{i.TAB_NAME}} <span class="inline_block pull-right"><img
                                 class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
                         </a>
                         <!-- 1 level -->
@@ -155,7 +155,7 @@
                               <ng-template #other>
                                 <div class="customcsscontainer"> <label for=""> <input type="checkbox"
                                       (change)="onCheckChange($event)" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
-                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}}</label> </div>
+                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}} </label> </div>
                               </ng-template>
                               <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
                                 <span class="inline_block pull-right"><img class="dropdownIcon"
@@ -558,6 +558,7 @@
                 <div formGroupName="whitelistIpSection">
                   <div class="form-group">
                     <label for="r_m_maild_id">Certificate Upload</label>
+                    <a  data-toggle="tooltip" title="Please upload zip file of SSL Certificate and Encryption Certificate"><img  alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
                     <input type="file" id="file1" formControlName="file1" class="form-control input_type_attachment mainField">
                     <div
                       *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
