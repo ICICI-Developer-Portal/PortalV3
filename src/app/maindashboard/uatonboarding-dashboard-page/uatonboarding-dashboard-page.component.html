@@ -15,10 +15,234 @@
             <div class="container">
               <div class="col-7" id="Basic-details-list">
 
-                <h5>Basic Details</h5>
+                <h5>Basic Details
+                  <a (click)="UAT_help(UAT_Help)" class="help-ico" data-toggle="tooltip" data-placement="top"
+                    title="Your Organization Name"><i class="fa fa-question-circle" aria-hidden="true"></i></a></h5>
+                <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- ===================================== -->
+
+                <ng-template #UAT_Help>
+                  <div class="modal-header">
+                    <h3></h3>
+                    <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
+                    <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
+                      close
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12 mb-xs-10">
+                        <form id="regForm" method="POST" name="regForm" action="">
+                          <div class="tab disp-block">
+                            <div class="tabContent">
+                              <ul class="breadcrumb">
+                                <li>
+                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(1)">Guideline <i
+                                      class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(2)">Basic Details <i
+                                      class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(3)">Requested API <i
+                                      class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(4)">Whitelist IP <i
+                                      class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(5)">Onboarding Request</a>
+                                </li>
+                              </ul>
+                              <div class="row mb30" *ngIf="showTab == '1'">
+                                <div class="col-md-12 mb-xs-10">
+                                  <h6 class="fw600">
+                                    From signing up with Developer Portal to going live in our
+                                    production environment is a four-step process.
+                                  </h6>
+                                  <p>
+                                    The amount of time this will take depends on the APIs you
+                                    are using, your business model and the time and resources
+                                    you have available.
+                                  </p>
+                                </div>
+                                <div class="col-md-12">
+                                  <h6 class="fw600">Step 01 - SignUp</h6>
+                                  <p>
+                                    To get access to our sandbox and start testing our APIs
+                                    straight away you register at Developer Portal.
+                                  </p>
+                                </div>
+                                <div class="col-md-12 mb-xs-30">
+                                  <h6 class="fw600">
+                                    Step 02 - Talk to us about how we can help your business
+                                  </h6>
+                                  <p>
+                                    Contact us or get in touch with the RM assigned to you at
+                                    any point and learn how our APIs can be customized to your
+                                    needs.
+                                  </p>
+                                </div>
+                                <div class="col-md-12 mb-xs-30">
+                                  <h6 class="fw600">
+                                    Step 03 - Get On-Board with UAT
+                                  </h6>
+                                  <ul>
+                                    <li>
+                                      In this our development team will get in touch with you
+                                      and help you develop the required APIs according to the
+                                      specifications provided by you.
+                                    </li>
+                                    <li>
+                                      For that you will need to raise a UAT request and provide
+                                      some basic details about the required project.
+                                    </li>
+                                    <li>
+                                      For each raised request in UAT, it will have a unique ID
+                                      assigned to it which will allow you to keep a track of the
+                                      whole UAT development process.
+                                    </li>
+                                    <li>
+                                      Post the whole UAT development process the status of the
+                                      request would turn to complete and then we are ready to
+                                      make your services live.
+                                    </li>
+                                    <li>
+                                      Production access – You will need to fill a similar form
+                                      for final production access.
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="col-md-12 mb-xs-30">
+                                  <h6 class="fw600">Step 04 - Go Live</h6>
+                                  <p>
+                                    You’re now ready to launch! Our production support team will
+                                    be there to ensure the whole process is seamless.
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="row mb30 col-md-12" *ngIf="showTab == '2'">
+                                <div class="col-md-6">
+                                  <img src="assets/images/step1.png" class="frame" width="100%" />
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="col-md-12">
+                                    <h6>Step 01 - Enter you Organization name.</h6>
+                                  </div>
+                                  <div class="col-md-12 mb-xs-30">
+                                    <h6>
+                                      Step 02 - Provide Basic Details about your organization.
+                                    </h6>
+                                  </div>
+                                  <div class="col-md-12 mb-xs-30">
+                                    <h6>
+                                      Step 03 - Provide first point of contact(POC) from your
+                                      organization from business perspective.
+                                    </h6>
+                                  </div>
+                                  <div class="col-md-12 mb-xs-30">
+                                    <h6>Step 04 - Provide SPOC Contact Number.</h6>
+                                  </div>
+                                  <div class="col-md-12 mb-xs-30">
+                                    <h6>
+                                      Step 05 - Provide ICICI Bank contact RM for your selected
+                                      product’s domain. Provided in the initial registration
+                                      mail or you can add apidevteam@icicibank.com
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mb30 col-md-12" *ngIf="showTab == '3'">
+                                <div class="col-md-6">
+                                  <img src="assets/images/step5.png" class="frame" width="100%" />
+                                </div>
+                                <div class="col-md-6">
+                                  <img src="assets/images/step4.png" class="frame" width="100%" />
+                                </div>
+                                <div class="col-md-12 mt20">
+                                  <div class="col-md-12">
+                                    <h6>
+                                      Step 06 - Select your domain and related APIs to that
+                                    </h6>
+                                  </div>
+                                  <div class="col-md-12 mb-xs-30">
+                                    <h6>
+                                      Step 06.1 - If your requirement needs a crossover of
+                                      domains, please raise multiple onboarding request for each
+                                      domain separately.
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mb30 col-md-12" *ngIf="showTab == '4'">
+                                <div class="col-md-6">
+                                  <img src="assets/images/step2.png" class="frame" width="100%" />
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="col-md-12">
+                                    <h6>
+                                      Step 07 - Provide the IP of the service that would connect
+                                      to ICICI bank. For security measures each IP from third
+                                      party needs to be whitelisted for authentication
+                                    </h6>
+                                  </div>
+                                  <div class="col-md-12 mb-xs-30">
+                                    <h6>
+                                      Step 08 - Provide Callback URL- this acts as a failsafe
+                                      check, if any request looses it’s connection in between
+                                      the communication, on which ICICI bank will provide the
+                                      information regarding a particular communication.
+                                    </h6>
+                                    <h6>
+                                      Step 09 - Provide your public certificate which would be
+                                      used for encryption/decryption of the data which would
+                                      communicate between your organization’s service and ICICI
+                                      Bank.
+                                    </h6>
+                                    <h6>
+                                      Download ICICI Bank NDA and submit it to ICICI Bank RM
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mb30 col-md-12" *ngIf="showTab == '5'">
+                                <div class="col-md-6">
+                                  <img src="assets/images/step6.png" class="frame" width="100%" />
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="col-md-12">
+                                    <h6>
+                                      Step 10 - Your request is assigned a Unique Request ID
+                                      which will help you to trace the status of your request,
+                                      while it is being assessed by our business and technical
+                                      teams.
+                                    </h6>
+                                  </div>
+                                  <div class="col-md-12 mb-xs-30">
+                                    <h6>
+                                      Step 11 - You can view the status of all your onboarding
+                                      requests raised by you
+                                    </h6>
+                                  </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <img src="assets/images/step3.png" class="frame" width="100%" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <!-- End Modalbox -->
                 <div formGroupName="basicDetailsSection">
                   <div class="form-group">
-                    <label for="merchantName">Merchant Name</label>
+                    <label for="merchantName">Merchant Name <span class="text-danger"> *</span></label>
                     <input type="text" class="form-control mainField" id="merchantName" formControlName="merchantName"
                       placeholder="Your Organization Name">
                     <!-- validation -->
@@ -31,7 +255,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="Description">Description</label>
+                    <label for="Description">Description <span class="text-danger"> *</span></label>
                     <input type="text" class="form-control mainField" id="Description" formControlName="description"
                       placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged">
                     <!-- validation -->
@@ -44,7 +268,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="Email_ID">Email ID</label>
+                    <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
                     <input type="text" class="form-control mainField" id="Email_ID" formControlName="email_id"
                       placeholder="Your Email ID">
                     <!-- validation -->
@@ -57,7 +281,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="Contact_No">Contact No</label>
+                    <label for="Contact_No">Contact No <span class="text-danger"> *</span></label>
                     <input type="text" class="form-control mainField" id="Contact_No" formControlName="contact_no"
                       placeholder="Your Contact Number">
                     <!-- validation -->
@@ -70,7 +294,8 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="r_m_maild_id">ICICI Bank Relationship Manager Email ID</label>
+                    <label for="r_m_maild_id">ICICI Bank Relationship Manager Email ID <span class="text-danger">
+                        *</span></label>
                     <input type="text" class="form-control mainField" id="r_m_maild_id" formControlName="r_m_maild_id"
                       placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
                     <!-- validation -->
@@ -103,7 +328,7 @@
 
                 <h5>Requested API</h5>
                 <div class="form-group " formGroupName="nestedCheckboxesList">
-                  <label for="merchantName">Select API</label>
+                  <label for="merchantName">Select API <span class="text-danger"> *</span></label>
 
 
                   <div class="sideMenu" style="position: inherit !important;width:auto !important;height:auto;">
@@ -371,10 +596,10 @@
                         <option>Yes</option>
                         <option>No</option>
                       </select> -->
-                      <select  class="form-control h40" name="encryption" >
+                      <select class="form-control h40" name="encryption">
                         <option value="" disabled selected value="">Select Encryption</option>
                         <option>Yes</option>
-                        <option >No</option>
+                        <option>No</option>
                       </select>
                     </span>
                   </div>
@@ -389,7 +614,7 @@
                       </select>
                     </span>
                   </div>
-                    
+
                   <div class="form-group" *ngIf="service">
                     <div>
                       <label for="projectName">Service Type</label>
@@ -426,7 +651,7 @@
                       </div>
                       <input class="form-control" placeholder="header" type="text" formControlName="header" />
                     </div>
-                    
+
                     <div class="form-group" *ngIf="ifsc">
                       <div>
                         <label for="projectName">IFSC code to be given to the remitter while initiating
@@ -441,7 +666,7 @@
                           <option>ICIC0000106</option>
                         </select>
                       </span>
-                    </div> 
+                    </div>
                     <div class="form-group" *ngIf="virtualCode">
                       <div>
                         <label for="contract">4,3 or 6 Character Virtual Code</label>
@@ -453,20 +678,20 @@
                       <div><label for="contract">IPS Refund Code</label></div>
                       <input class="form-control" placeholder="IPS Refund Code" type="text" formControlName="ips" />
                     </div>
-                    
+
                     <div class="form-group" *ngIf="interAccNo">
                       <div>
                         <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
                       </div>
                       <input class="form-control" placeholder="Customer Credit A/C Number" type="text"
                         formControlName="interAccNo" />
-                    </div> 
+                    </div>
                     <div class="form-group" *ngIf="accName">
                       <div>
                         <label for="Acc_name">Account Name</label>
                       </div>
                       <input class="form-control" placeholder="Account Name" type="text" formControlName="accName" />
-                    </div> 
+                    </div>
                     <div class="form-group" *ngIf="authLevel">
                       <div>
                         <label for="Auth_level">Authorization Level</label>
@@ -474,12 +699,12 @@
                       <input class="form-control" placeholder="Authorization Level" type="text"
                         formControlName="authLevel" />
                     </div>
-                     <div class="form-group" *ngIf="urn">
+                    <div class="form-group" *ngIf="urn">
                       <div>
                         <label for="Urn">URN</label>
                       </div>
                       <input class="form-control" placeholder="URN" type="text" formControlName="URN" />
-                    </div> 
+                    </div>
                     <div class="form-group" *ngIf="env">
                       <div>
                         <label for="Acc_env">Environment</label>
@@ -493,23 +718,23 @@
                         </select>
                       </span>
                     </div>
-                    
+
                     <div class="form-group" *ngIf="valid">
                       <div>
                         <label for="Acc_validation">Validation Mode</label>
                       </div>
                       <!-- <input class="form-control" placeholder="Validation Mode" type="text"
                         formControlName="Acc_validation" /> -->
-                        
-                        <span class="custom-dropdown">
-                          <select formControlName="IFSC_Code" class="form-control h40">
-                            <option value="">Select option</option>
-                            <option>Yes</option>
-                            <option>No</option>
-                          </select>
-                        </span>
+
+                      <span class="custom-dropdown">
+                        <select formControlName="IFSC_Code" class="form-control h40">
+                          <option value="">Select option</option>
+                          <option>Yes</option>
+                          <option>No</option>
+                        </select>
+                      </span>
                     </div>
-                    
+
                     <div class="form-group" *ngIf="accept">
                       <div>
                         <label for="Acc_acceptance">Acceptance Mode</label>
@@ -529,7 +754,7 @@
                         <label for="Acc_mode">Mode Offered</label>
                       </div>
                       <input class="form-control" placeholder="Mode Offered" type="text" formControlName="Acc_mode" />
-                    </div> 
+                    </div>
                     <div class="form-group" *ngIf="trans">
                       <div>
                         <label for="Acc_trans">Transaction limit for per transaction</label>
@@ -557,9 +782,12 @@
                 <!-- ================================================= ===============================================================-->
                 <div formGroupName="whitelistIpSection">
                   <div class="form-group">
-                    <label for="r_m_maild_id">Certificate Upload</label>
-                    <a  data-toggle="tooltip" title="Please upload zip file of SSL Certificate and Encryption Certificate"><img  alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
-                    <input type="file" id="file1" formControlName="file1" class="form-control input_type_attachment mainField">
+                    <label for="r_m_maild_id">Certificate Upload <span class="text-danger"> *</span></label>
+                    <a data-toggle="tooltip"
+                      title="Please upload zip file of SSL Certificate and Encryption Certificate"><img alt="loader"
+                        class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+                    <input type="file" id="file1" formControlName="file1"
+                      class="form-control input_type_attachment mainField">
                     <div
                       *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
                       class="text-danger form-error">
@@ -572,7 +800,7 @@
                       <input type="checkbox" id="checkbox" formControlName="checkBox">
                       I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
                     <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color"> Click here to
-                        download</a></span>
+                        download</a><span class="text-danger"> *</span></span>
                   </div>
                   <!-- ======= -->
 

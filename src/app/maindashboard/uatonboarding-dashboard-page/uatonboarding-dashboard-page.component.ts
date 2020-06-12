@@ -78,6 +78,8 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   uatTestingID: boolean = false;
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
+  showTab = 1;
+
 
 
 
@@ -95,7 +97,16 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   parentDataDomainName: string;
   childData: string;
   // ----------------------------------------------------------------
-
+  UAT_help(UAT_Help: any) {
+    this.modalRef = this.modalService.show(UAT_Help, {
+      backdrop: "static",
+      class: "modal-lg"
+    });
+  }
+  HWI_link(id) {
+    this.showTab = id;
+    //this.active ='#F06321';
+  }
   onClickContinueBtn() {
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id

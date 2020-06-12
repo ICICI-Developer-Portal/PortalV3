@@ -2947,7 +2947,7 @@ body {
   
   .help-ico {
   position: absolute;
-  top: 16px;
+  /* top: 16px; */
   right: 16px;
   font-size: 24px;
   color: #f06a2c !important;
