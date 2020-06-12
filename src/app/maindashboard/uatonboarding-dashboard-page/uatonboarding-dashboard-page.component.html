@@ -1,142 +1,221 @@
 <div id="container">
-  <app-uatonboarding-dashboard-page-sidebar (notify)="parentMethod($event)" [domainName]="parentDataDomainName"></app-uatonboarding-dashboard-page-sidebar>
+  <app-uatonboarding-dashboard-page-sidebar (notify)="parentMethod($event)" [domainName]="parentDataDomainName">
+  </app-uatonboarding-dashboard-page-sidebar>
   <div class="documentTabContent">
-     <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard</div>
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-        aria-labelledby="v-pills-home-tab"></div>
-        <div #BasicDetailsList class="tabContentInner">
-           <div class="row m0">
-              <div class="container">
-                <div class="col-7" id="Basic-details-list">
-                  <form id="Basic_Details_Section" [formGroup]=reactiveForm>
-                    <h5>Basic Details</h5>
-                    <div  formGroupName="basicDetailsSection">
-                  <div class="form-group">         
-                    <label for="merchantName">Merchant Name</label>  
-                    <input type="text" class="form-control" id="merchantName"  formControlName="merchantName" placeholder="">
-                    <!-- validation -->
-                    <div *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched" class="text-danger form-error">
-                      Merchant Name is required.
-                    </div>            
-                   <!-- ======== -->
-                  </div>
-                     
+    <div class="tab-content" id="v-pills-tabContent">
+      <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+        dashboard</div>
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"></div>
+
+      <!-- first section of uat -->
+      <form [formGroup]="reactiveForm" nonvalidate>
+        <!-- =========================================================================================================== -->
+        <div #BasicDetailsList class="tabContentInner" id="Basic_Details_Section">
+          <div class="row m0">
+            <div class="container">
+              <div class="col-7" id="Basic-details-list">
+
+                <h5>Basic Details</h5>
+                <div formGroupName="basicDetailsSection">
                   <div class="form-group">
-                    <label for="Description">Description</label>     
-                    <input type="text" class="form-control" id="Description"  formControlName="description" placeholder="">
-                     <!-- validation -->
-                     <div *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched" class="text-danger form-error">
+                    <label for="merchantName">Merchant Name</label>
+                    <input type="text" class="form-control mainField" id="merchantName" formControlName="merchantName"
+                      placeholder="Your Organization Name">
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
+                      class="text-danger form-error">
+                      Merchant Name is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Description">Description</label>
+                    <input type="text" class="form-control mainField" id="Description" formControlName="description"
+                      placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged">
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched"
+                      class="text-danger form-error">
                       Description is required.
                     </div>
-                   <!-- ======== -->
+                    <!-- ======== -->
                   </div>
 
                   <div class="form-group">
                     <label for="Email_ID">Email ID</label>
-                    <input type="text" class="form-control" id="Email_ID" formControlName="email_id"  placeholder="">
-                  <!-- validation -->
-                  <div *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched" class="text-danger form-error">
-                   Email_id is required.
-                  </div>
-                  <!-- ======== -->
+                    <input type="text" class="form-control mainField" id="Email_ID" formControlName="email_id"
+                      placeholder="Your Email ID">
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched"
+                      class="text-danger form-error">
+                      Email id is required.
+                    </div>
+                    <!-- ======== -->
                   </div>
 
                   <div class="form-group">
                     <label for="Contact_No">Contact No</label>
-                    <input type="text" class="form-control" id="Contact_No" formControlName="contact_no"  placeholder="">
-                     <!-- validation -->
-                  <div *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched" class="text-danger form-error">
-                    contact_no is required.
-                   </div>
-                   <!-- ======== -->
+                    <input type="text" class="form-control mainField" id="Contact_No" formControlName="contact_no"
+                      placeholder="Your Contact Number">
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched"
+                      class="text-danger form-error">
+                      Contact no is required.
+                    </div>
+                    <!-- ======== -->
                   </div>
 
                   <div class="form-group">
                     <label for="r_m_maild_id">ICICI Bank Relationship Manager Email ID</label>
-                    <input type="text" class="form-control" id="r_m_maild_id" formControlName="r_m_maild_id"  placeholder="">
-                     <!-- validation -->
-                  <div *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched" class="text-danger form-error">
-                    Relationship Manager Email ID is required.
-                   </div>
-                   <!-- ======== -->     
+                    <input type="text" class="form-control mainField" id="r_m_maild_id" formControlName="r_m_maild_id"
+                      placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched"
+                      class="text-danger form-error">
+                      Relationship Manager Email ID is required.
+                    </div>
+                    <!-- ======== -->
                   </div>
                 </div>
-                </form>
-                </div>
+
               </div>
             </div>
           </div>
-          <hr class="margin_0px"/>
+        </div>
+        <!-- =========================================================================================================== -->
 
-          <div class="tabContentInner">
-            <div class="row m0">
-               <div class="container">
-                 <div #RequestedApiList class="col-7" id="Requested-api-list">
-                  <form class="Requested_api">
-                    <h5>Requested API</h5>
-                    <div class="form-group ">
-                      <label for="merchantName">Select API</label>  
-                      
-                     
-                      <div class="sideMenu" style="position: inherit !important;width:auto !important;height:auto;">
-                        
-                        <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
-                        <!-- <ul class="main" *ngFor="let i of responseData"> yesss{{responseData.TAB_NAME}}
-                          <li *ngIf="i.children.length>0">
-                            <a href="#">ssss</a>
-                            
-                            
-                          </li>
-                        <p>   1level {{i.TAB_NAME}}</p>
-                        
-                          <div *ngFor="let j of i.children">    
-                            <br />
-                            <p> <b>2level {{j.TAB_NAME.length}}</b> {{ j.TAB_NAME   }}</p>
-                            <div *ngFor="let k of j.children">
-                              <p> <b>3level {{k.TAB_NAME.length}}</b>{{k.TAB_NAME }} </p>
-                              <div *ngFor="let L of k.children">
-                                <p> <b>4level {{L.TAB_NAME.length}}</b>{{L.TAB_NAME }} </p>
-                                <div *ngFor="let M of L.children">
-                                  <p> <b>5level {{M.TAB_NAME.length}}</b>{{M.TAB_NAME }} </p>
-                                </div>
-                              </div>
+
+
+
+
+
+        <hr class="margin_0px" />
+        <!-- ======================================2nd section=================================================================== -->
+        <div class="tabContentInner">
+          <div class="row m0">
+            <div class="container">
+              <div #RequestedApiList class="col-7" id="Requested-api-list">
+
+                <h5>Requested API</h5>
+                <div class="form-group " formGroupName="nestedCheckboxesList">
+                  <label for="merchantName">Select API</label>
+
+
+                  <div class="sideMenu" style="position: inherit !important;width:auto !important;height:auto;">
+
+                    <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
+
+                    <!-- <ul  class="first-level display-block cursor-pointer padding-left-25">    
+                            <li><a (click)="toggle()">Domain Name <span class="inline_block pull-right"><img class="dropdownIcon"   [ngClass]="css ? 'uparrow' : 'normal'"
+                              src="assets/images/dropdown-2.svg" alt=""></span></a>
+                              <ul  class="hidden" *ngIf ="hidden" class="second-level"> -->
+
+                    <!--Others  -->
+                    <!-- <li>
+                                    <a class="display-block cursor-pointer padding-left-25"><input type="radio" id="others" name"gender" value="others"
+                                      (change)="selectChangeHandler($event)">
+                                  <label  class="b-contain display-flex nested-list-label" for="Domain Name">Others</label></a>
+                                </li> -->
+                    <!-- Others -->
+                    <!-- Business Banking -->
+                    <!-- <li>
+                                      <a class="display-block cursor-pointer padding-left-25"><input type="radio" id="others" name="gender" value="Business-banking"
+                                        (change)="selectChangeHandler($event)">
+                                    <label  class="b-contain display-flex nested-list-label" for="Domain Name">Business Domain</label></a>
+                                  </li> -->
+                    <!--  Business Banking  -->
+                    <!-- </ul></li>   
+                          </ul> -->
+
+                    <ul class="requestedData-list" *ngFor="let i of responseData" class="first-level">
+                      <li>
+
+                        <!-- 1 level -->
+                        <a (click)="i.toggle=!i.toggle" class="display-block cursor-pointer padding-left-25">
+
+                          <ng-template #other>
+                            <div class="customcsscontainer"> <label for="">
+                                <input type="checkbox" (change)="onCheckChange($event)" id="{{i.API_ID}}"
+                                  value="{{i.TAB_NAME}}" (change)="checkValue(i)" #checkboxes> {{i.TAB_NAME}} </label>
                             </div>
-                          </div>
-                          
-                        </ul> -->
-
-                      <ul>
-                        <li class="list-group-item" #DomainName>
-                          <p>Domain Name</p>
-                          <select (change)="selectChangeHandler($event)">
-                            <option type="others"> Others</option>
-                            <option value="Business-banking"> Business Bankng</option>
-
-                          </select>
-
-
-
-                        </li>
-                      </ul>
-                        <ul class="requestedData-list" *ngFor="let i of responseData"> 
-                          
-                          <li >
-                            <a href="#"> {{i.TAB_NAME}}</a>
-                            <ul  *ngFor="let j of i.children"> 
-                              <li>
-                                <a>{{j.TAB_NAME}}</a>
-                                <ul  *ngFor="let k of j.children">   
-                                  <li >
-                                    <a>{{k.TAB_NAME}}</a>
-                                    <ul *ngFor="let L of k.children">
-                                      <li>
-                                        <a>{{L.TAB_NAME}}</a>
-                                        <ul  *ngFor="let M of L.children">
-                                          <li>    
-                                            <a>{{M.TAB_NAME }}</a>
-                                        </li>
-                                      </ul>
+                          </ng-template>
+                          <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
+                                class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
+                        </a>
+                        <!-- 1 level -->
+                        <ul *ngFor="let j of i.children" class="second-level">
+                          <li *ngIf="i.toggle">
+                            <!-- 2 level -->
+                            <a (click)="j.toggle=!j.toggle" class="display-block cursor-pointer padding-left-10prcnt">
+                              <ng-template #other>
+                                <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                      (change)="onCheckChange($event)" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
+                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}}</label> </div>
+                              </ng-template>
+                              <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
+                                <span class="inline_block pull-right"><img class="dropdownIcon"
+                                    [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
+                                    alt=""></span></p>
+                            </a>
+                            <!-- 2 level -->
+                            <ul *ngFor="let k of j.children" class="third-level">
+                              <li *ngIf="j.toggle">
+                                <!-- 3 level -->
+                                <a (click)="k.toggle=!k.toggle"
+                                  class="display-block cursor-pointer padding-left-15prcnt">
+                                  <ng-template #other>
+                                    <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                          (change)="onCheckChange($event)" id="{{k.API_ID}}" value="{{k.TAB_NAME}}"
+                                          (change)="checkValue(k)" #checkboxes>{{k.TAB_NAME}}</label></div>
+                                  </ng-template>
+                                  <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
+                                    <span class="inline_block pull-right"><img class="dropdownIcon"
+                                        [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
+                                        alt=""></span></p>
+                                </a>
+                                <!-- 3 level -->
+                                <ul *ngFor="let L of k.children" class="fourth-level">
+                                  <li *ngIf="k.toggle">
+                                    <!-- 4 level -->
+                                    <a (click)="L.toggle=!L.toggle"
+                                      class="display-block cursor-pointer padding-left-20prcnt">
+                                      <ng-template #other>
+                                        <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                              (change)="onCheckChange($event)" id="{{L.API_ID}}" value="{{L.TAB_NAME}}"
+                                              (change)="checkValue(L)" #checkboxes>{{L.TAB_NAME}}</label></div>
+                                      </ng-template>
+                                      <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
+                                        <span class="inline_block pull-right"><img class="dropdownIcon"
+                                            [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
+                                            alt=""></span>
+                                      </p>
+                                    </a>
+                                    <!-- 4 level -->
+                                    <ul *ngFor="let M of L.children" class="fifth-level">
+                                      <li *ngIf="L.toggle">
+                                        <!-- 5 level -->
+                                        <a class="display-block cursor-pointer padding-left-25prcnt">
+                                          <!-- <ng-template #other> <input type="checkbox"  (change)="onCheckChange($event)"  /></ng-template>{{k.TAB_NAME}} <span
+                                                                                          *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'"
+                                                                                            src="assets/images/dropdown-2.svg" alt=""></span> -->
+                                          <ng-template #other>
+                                            <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                                  (change)="onCheckChange($event)" id="{{M.API_ID}}"
+                                                  value="{{M.TAB_NAME}}" [(ngModel)]="!isChecked"
+                                                  (change)="checkValue(M)"> {{M.TAB_NAME}}</label></div>
+                                          </ng-template>
+                                          <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
+                                            <span class="inline_block pull-right"><img class="dropdownIcon"
+                                                [ngClass]="css ? 'uparrow' : 'normal'"
+                                                src="assets/images/dropdown-2.svg" alt=""></span>
+                                          </p>
+                                        </a>
+                                        <!-- 5 level -->
                                       </li>
                                     </ul>
                                   </li>
@@ -144,120 +223,380 @@
                               </li>
                             </ul>
                           </li>
-                      </ul>
-                       
-                        <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
-                      </div>
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <!-- <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">
+                        Checkbox is required, select atleast one value.
+                      </p> -->
+
+                    <!-- <ul class="first-level" >
+                          <li  *ngFor="let i of responseData;let e=index" class="display-block cursor-pointer padding-left-25 border-bottom expandable"  (click)="togglefrstList()">
+                            <a >
+                              <p  class="margin_0px" *ngIf="i.children; else elsePartOfFirstLevel" >{{i.TAB_NAME}}
+                                <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
+                                    alt=""></span>
+                              </p>
+                              <ng-template #elsePartOfFirstLevel  *ngIf="showMe"> <label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{i.API_ID}}" value="{{i.TAB_NAME}}"  value=""> {{i.TAB_NAME}} </label></ng-template>
+                           
+                              
+                              </a>
+                            <ul>
+                              <li  *ngFor="let j of i.children;let e1=index" class="expandable" > 
+                                <a>
+                                  <p  class="margin_0px" *ngIf="j.children; else elsePartOfScndLevel" >{{j.TAB_NAME}}
+                                    <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
+                                        alt=""></span>
+                                  </p>
+                                <ng-template #elsePartOfScndLevel><label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{j.API_ID}}" value="{{j.TAB_NAME}}"  value=""> {{j.TAB_NAME}}  </label></ng-template>
+                               
+                                  
+                                </a>
+                                <ul>
+                                  <li  *ngFor="let k of j.children;let e2=index" class="expandable">
+                                    <a>
+                                      <p  class="margin_0px" *ngIf="k.children; else elsePartOfthrdLevel" >{{k.TAB_NAME}}
+                                        <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
+                                            alt=""></span>
+                                      </p>
+                                      <ng-template #elsePartOfthrdLevel><label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{k.API_ID}}" value="{{k.TAB_NAME}}"  value=""> {{k.TAB_NAME}} </label></ng-template>
+                                   
+                                    </a>
+                                    <ul>
+                                      <li  *ngFor="let l of k.children;let e3=index" class="expandable">
+                                        <a>
+                                          <p  class="margin_0px" *ngIf="l.children; else elsePartOffourthLevel" >{{l.TAB_NAME}}
+                                          <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
+                                              alt=""></span>
+                                        </p>
+                                        <ng-template #elsePartOffourthLevel><label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{l.API_ID}}" value="{{l.TAB_NAME}}"  value=""> {{l.TAB_NAME}}  </label></ng-template>
+                                     </a>
+                                        <ul>
+                                          <li  *ngFor="let m of l.children;let e4=index" class="expandable">
+                                            <a>
+                                              <label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{m.API_ID}}" value="{{m.TAB_NAME}}"  value=""> {{m.TAB_NAME}}</label>
+                                            </a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul> -->
+
+                    <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+                  </div>
+
+                </div>
+
+
+              </div>
+              <div _ngcontent-c4="" class="row">
+                <div _ngcontent-c4="" class="col-md-7 text-right">
+                  <button _ngcontent-c1="" _ngcontent-c4="" class="signInBtn ContinueBtn btn-dark" name="continueBtn"
+                    ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button" disabled=""
+                    (click)="onClickContinueBtn()"> Continue </button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ========================================2nd section===================================================================== -->
+
+
+        <!-- <hr class="margin_0px" *ngIf="parentDataDomainName === 'Business-banking'" /> -->
+
+
+        <hr class="margin_0px" />
+
+        <div class="tabContentInner">
+          <div class="row m0">
+            <div class="container">
+              <div #whitelistIpList class="col-7" id="whitelist-ip-list">
+
+                <h5>Whitelist IP</h5>
+                <!-- ================================================================================================================= -->
+                <!-- additional fields -->
+                <!-- ================================================================================================================== -->
+                <div formGroupName="additionalField">
+                  <div class="form-group" *ngIf="accNo">
+                    <div><label for="contract">Account Number</label></div>
+                    <input class="form-control" placeholder="Your Account number" type="text"
+                      formControlName="AccountNo" />
+                  </div>
+
+                  <div class="form-group" *ngIf="clientCode">
+                    <div><label for="contract">Client code</label></div>
+                    <input class="form-control" placeholder="Your Client code" type="text"
+                      formControlName="clientCode" />
+                  </div>
+
+                  <div class="form-group" *ngIf="url">
+                    <div><label for="contract">Callback URL</label></div>
+                    <input class="form-control" placeholder="Your Callback URL" type="text" formControlName="url" />
+                  </div>
+
+                  <div class="form-group" *ngIf="ip">
+                    <div><label for="contract">IP</label></div>
+                    <input class="form-control" placeholder="Your IP" formControlName="ip" type="text" />
+
+                  </div>
+
+                  <div class="form-group" *ngIf="port">
+                    <div><label for="contract">Port</label></div>
+                    <input class="form-control" placeholder="Your Port" formControlName="port" type="text" />
+
+                  </div>
+                  <div class="form-group" *ngIf="checksum">
+                    <div><label for="projectName">Checksum Required </label></div>
+                    <span class="custom-dropdown">
+                      <select class="form-control h40" formControlName="Checksum">
+                        <option value="">Select Checksum</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                    </span>
+                  </div>
+
+                  <div class="form-group" *ngIf="encryption">
+                    <div><label for="projectName">Encryption Required</label></div>
+                    <span class="custom-dropdown">
+                      <!-- <select class="form-control h40" formControlName="encryption">
+                        <option value="">Select Encryption</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select> -->
+                      <select  class="form-control h40" name="encryption" >
+                        <option value="" disabled selected value="">Select Encryption</option>
+                        <option>Yes</option>
+                        <option >No</option>
+                      </select>
+                    </span>
+                  </div>
+
+                  <div class="form-group" *ngIf="certificate">
+                    <div><label for="projectName">Certificate</label></div>
+                    <span class="custom-dropdown">
+                      <select class="form-control h40" name="certificate">
+                        <option value="">Select Certificate</option>
+                        <option>Java Key Store</option>
+                        <option>IIS SSL</option>
+                      </select>
+                    </span>
+                  </div>
                     
+                  <div class="form-group" *ngIf="service">
+                    <div>
+                      <label for="projectName">Service Type</label>
                     </div>
-                   
-                  
-                    </form>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <hr class="margin_0px" *ngIf="parentDataDomainName === 'Business-banking'" />
-
-           <div class="tabContentInner" *ngIf="parentDataDomainName === 'Business-banking'" >
-            <div class="row m0">
-               <div class="container">
-                 <div #businessBankingList class="col-7" id="business-banking-list">
-                  <form class="business_banking">
-                    <h5>Business Banking</h5>
-                  <div class="form-group">
-                    <label for="merchantName">Customer Name (If different from Merchant name /Same as Merchant Name)</label>  
-                    <input type="text" class="form-control" id="merchantName"  [formControl]="merchantName" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
-               
-                  <div class="form-group">
-                    <label for="Description">Customer Account Number </label>
-                    <input type="text" class="form-control" id="Description"  [formControl]="Description" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <span class="custom-dropdown">
+                      <select class="form-control h40" formControlName="service">
+                        <option value="">Select Services</option>
+                        <option>WADL</option>
+                        <option>REST</option>
+                        <option>*Others </option>
+                      </select>
+                    </span>
                   </div>
 
-                  <div class="form-group">
-                    <label for="Email_ID">CMS Client code</label>
-                    <input type="text" class="form-control" id="Email_ID"  [formControl]="Email_ID" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  <div class="form-group" *ngIf="commModel">
+                    <div>
+                      <label for="projectName"> Communication Method</label>
+                    </div>
+                    <span class="custom-dropdown">
+                      <select class="form-control h40" name="commModel">
+                        <option value="">Select Format</option>
+                        <option>XML</option>
+                        <option>XML as a string</option>
+                        <option>JSON</option>
+                      </select>
+                    </span>
                   </div>
 
-                  <div class="form-group">
-                    <label for="Contact_No">RM/SM Employee ID</label>
-                    <input type="text" class="form-control" id="Contact_No"  [formControl]="Contact_No" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  <!-- </div>                  -->
+                  <div class="row" *ngIf="Ecollection_Show">
+                    <div class="form-group" *ngIf="header">
+                      <div>
+                        <label for="header">Header</label>
+                      </div>
+                      <input class="form-control" placeholder="header" type="text" formControlName="header" />
+                    </div>
+                    
+                    <div class="form-group" *ngIf="ifsc">
+                      <div>
+                        <label for="projectName">IFSC code to be given to the remitter while initiating
+                          payment
+                        </label>
+                      </div>
+                      <span class="custom-dropdown">
+                        <select formControlName="IFSC_Code" class="form-control h40">
+                          <option value="">Select IFSC Code</option>
+                          <option>ICIC0000104</option>
+                          <option>ICIC0000103</option>
+                          <option>ICIC0000106</option>
+                        </select>
+                      </span>
+                    </div> 
+                    <div class="form-group" *ngIf="virtualCode">
+                      <div>
+                        <label for="contract">4,3 or 6 Character Virtual Code</label>
+                      </div>
+                      <input class="form-control" placeholder="Your Virtual Code" type="text"
+                        formControlName="virtualCode" />
+                    </div>
+                    <div class="form-group" *ngIf="ips">
+                      <div><label for="contract">IPS Refund Code</label></div>
+                      <input class="form-control" placeholder="IPS Refund Code" type="text" formControlName="ips" />
+                    </div>
+                    
+                    <div class="form-group" *ngIf="interAccNo">
+                      <div>
+                        <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
+                      </div>
+                      <input class="form-control" placeholder="Customer Credit A/C Number" type="text"
+                        formControlName="interAccNo" />
+                    </div> 
+                    <div class="form-group" *ngIf="accName">
+                      <div>
+                        <label for="Acc_name">Account Name</label>
+                      </div>
+                      <input class="form-control" placeholder="Account Name" type="text" formControlName="accName" />
+                    </div> 
+                    <div class="form-group" *ngIf="authLevel">
+                      <div>
+                        <label for="Auth_level">Authorization Level</label>
+                      </div>
+                      <input class="form-control" placeholder="Authorization Level" type="text"
+                        formControlName="authLevel" />
+                    </div>
+                     <div class="form-group" *ngIf="urn">
+                      <div>
+                        <label for="Urn">URN</label>
+                      </div>
+                      <input class="form-control" placeholder="URN" type="text" formControlName="URN" />
+                    </div> 
+                    <div class="form-group" *ngIf="env">
+                      <div>
+                        <label for="Acc_env">Environment</label>
+                      </div>
+                      <span class="custom-dropdown">
+                        <select class="form-control h40" formControlName="env">
+                          <option value="">Select Environment</option>
+                          <option>UAT</option>
+                          <option>CUG</option>
+                          <option>Production </option>
+                        </select>
+                      </span>
+                    </div>
+                    
+                    <div class="form-group" *ngIf="valid">
+                      <div>
+                        <label for="Acc_validation">Validation Mode</label>
+                      </div>
+                      <!-- <input class="form-control" placeholder="Validation Mode" type="text"
+                        formControlName="Acc_validation" /> -->
+                        
+                        <span class="custom-dropdown">
+                          <select formControlName="IFSC_Code" class="form-control h40">
+                            <option value="">Select option</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                          </select>
+                        </span>
+                    </div>
+                    
+                    <div class="form-group" *ngIf="accept">
+                      <div>
+                        <label for="Acc_acceptance">Acceptance Mode</label>
+                      </div>
+                      <input class="form-control" placeholder="Acceptance Mode" type="text"
+                        formControlName="Acc_acceptance" />
+                    </div>
+                    <div class="form-group" *ngIf="recipient">
+                      <div>
+                        <label for="Rec_mail">Recipient Mail ID</label>
+                      </div>
+                      <input class="form-control" placeholder="Recipient Mail ID" type="text"
+                        formControlName="Rec_mail" />
+                    </div>
+                    <div class="form-group" *ngIf="mode">
+                      <div>
+                        <label for="Acc_mode">Mode Offered</label>
+                      </div>
+                      <input class="form-control" placeholder="Mode Offered" type="text" formControlName="Acc_mode" />
+                    </div> 
+                    <div class="form-group" *ngIf="trans">
+                      <div>
+                        <label for="Acc_trans">Transaction limit for per transaction</label>
+                      </div>
+                      <input type="number" class="form-control" max="5" formControlName="Acc_trans" />
+                    </div>
+                    <div class="form-group" *ngIf="amount">
+                      <div>
+                        <label for="Acc_amount"> Amount Field</label>
+                      </div>
+                      <span class="custom-dropdown">
+                        <select class="form-control h40" formControlName="Acc_amount">
+                          <option value="">Select Amount</option>
+                          <option>Editable</option>
+                          <option>Non- Editable</option>
+                        </select>
+                      </span>
+                    </div>
                   </div>
+                </div>
 
-                  <div class="form-group">
-                    <label for="r_m_maild_id">RM/SM Name</label>
-                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="r_m_maild_id">RM/SM Mobile number</label>
-                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
-                  <div class="form-group select-div">
-                    <label for="r_m_maild_id"> SBU</label>
-                    <select  class="form-control input-lg">
-                      <option>IB</option>
-                      <option>SES</option>
-                      <option>Others</option>
-                    </select>
-                    <i class="fa fa-chevron-down"></i>
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
-                  <div class="form-group select-div">
-                    <label for="r_m_maild_id">Product </label>
-                    <select  class="form-control input-lg">
-                      <option>API</option>
-                    </select>
-                    <i class="fa fa-chevron-down"></i>
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="r_m_maild_id">Remarks</label>
-                    <input type="text" class="form-control" id="r_m_maild_id"  [formControl]="r_m_maild_id" placeholder="">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
+                <!-- ================================================= ===============================================================-->
+                <!-- ======================================additionl fields================================-->
+
+                <!-- ================================================= ===============================================================-->
+                <div formGroupName="whitelistIpSection">
                   <div class="form-group">
                     <label for="r_m_maild_id">Certificate Upload</label>
-                    <input type="file" id="myFile" name="filename" class="form-control input_type_attachment">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </div>
-                  </form>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <hr class="margin_0px"/>
-
-           <div class="tabContentInner">
-            <div class="row m0">
-               <div class="container">
-                 <div #whitelistIpList class="col-7" id="whitelist-ip-list">
-                  <form class="Whitelist_IP">
-                    <h5>Whitelist IP</h5>
-                    <div class="form-group">    
-                      <label for="r_m_maild_id">Certificate Upload</label>
-                      <input type="file" id="myFile" name="filename" class="form-control input_type_attachment">
-                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <input type="file" id="file1" formControlName="file1" class="form-control input_type_attachment mainField">
+                    <div
+                      *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
+                      class="text-danger form-error">
+                      Certificate Upload is required.
                     </div>
-                    <label class="b-contain">
-                      <span> I ACCEPT NON-DISCLOSURE AGREEMENT, </span>
-                      <input type="checkbox">
-                      <div class="b-input"></div>
-                    </label>
-                    <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color">  Click here to download</a></span>
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                  </form>
-                  <div _ngcontent-c4="" class="row"><div _ngcontent-c4="" class="col-12 text-right">
-                    <button _ngcontent-c4="" class="signInBtn btn-dark" type="button" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark"  [disabled]="!reactiveForm.valid" (click)="onSubmit()"> Submit </button></div></div>   
+                  </div>
+                  <!--  =========-->
+                  <div class="customcsscontainerForTnC">
+                    <label for="">
+                      <input type="checkbox" id="checkbox" formControlName="checkBox">
+                      I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
+                    <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color"> Click here to
+                        download</a></span>
+                  </div>
+                  <!-- ======= -->
+
+
+
+                  <div class="text-danger hidden" id="checkbox-error">ACCEPT NON-DISCLOSURE AGREEMENT is required.
+                  </div>
+                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-</div>
+
+              </div>
+
+              <div _ngcontent-c4="" class="row">
+                <div _ngcontent-c4="" class="col-md-7 text-right">
+                  <button _ngcontent-c4="" class="signInBtn btn-dark" type="button" ng-reflect-klass="signInBtn"
+                    ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid" (click)="onSubmitUATForm()"> Submit
+                  </button></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+
+    </div>
+  </div>
