@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewChildren, ElementRef, QueryList, EventEmitter, Output, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { interval as observableInterval } from "rxjs";
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import { takeWhile, scan, tap } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard.service';
@@ -26,9 +28,12 @@ declare var $: any;
   templateUrl: './uatonboarding-dashboard-page.component.html',
   styleUrls: ['./uatonboarding-dashboard-page.component.css']
 })
-export class UATonboardingDashboardPageComponent implements OnInit {
+export class UATonboardingDashboardPageComponent implements OnInit
+ {
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
+
   showMe: boolean = false;
   modalRef: BsModalRef;
 
@@ -569,7 +574,12 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     })
 
   }
-  ngOnInit() {
+  ngOnInit() 
+  {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
     this.logged_in = this.adm.check_log();
 
     console.log(this.dashboardService.getMenuTreeData())
@@ -580,6 +590,24 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       console.log(this.menuArray, "hhhhhhhhh  ")
     }
     );
+    {
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    }
+    //  {
+    //   this.filteredOptions = this.myControl.valueChanges.pipe(
+    //     startWith(''),
+    //     map(value => this._filter(value))
+    //   );
+    //   }
+      // private _filter(value: string): string[] {
+      //   const filterValue = value.toLowerCase();
+    
+      //   return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+      // }
+  
 
 
 
@@ -595,6 +623,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
        return true;
     }
+      
     $(document).on('click', 'li.expandable', function (e) {
       $(this).children('ul').toggle();
       // $('li.expandable').click(function() {
@@ -629,6 +658,8 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   
   }
   
+ 
+  
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
@@ -649,5 +680,12 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   }
   // ngAfterViewChecked() { }
 
+  
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
+  
 }
+
