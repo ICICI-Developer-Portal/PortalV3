@@ -17,6 +17,9 @@ import { timeout, catchError, map, mapTo } from "rxjs/operators";
 
 @Injectable()
 export class LoginService {
+  mis(json: { userName: any; clientName: any; startDate: any; }) {
+    throw new Error("Method not implemented.");
+  }
   apiUrl: string;
   private user_id = new Subject<any>();
   private user_name = new Subject<any>();

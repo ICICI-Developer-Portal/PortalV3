@@ -70,7 +70,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="r_m_maild_id">ICICI Bank Relationship Manager Email ID</label>
+                    <label for="r_m_maild_id">ICICI Bank Relationship Manager /Email ID/Employee ID</label>
                     <input type="text" class="form-control mainField" id="r_m_maild_id" formControlName="r_m_maild_id"
                       placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
                     <!-- validation -->
@@ -99,6 +99,23 @@
         <div class="tabContentInner">
           <div class="row m0">
             <div class="container">
+              <!--karthik-Auto complete-->
+                  <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                       <input type="text"
+                            placeholder="search API"
+                           aria-label="Number"
+                           matInput
+                          [formControl]="myControl"
+                          [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of options" [value]="option">
+                             {{option}}
+                          </mat-option>
+                          </mat-autocomplete>
+                           </mat-form-field>
+                  </form>
+    <!--karthik-Auto complete End-->
               <div #RequestedApiList class="col-7" id="Requested-api-list">
 
                 <h5>Requested API</h5>
@@ -319,7 +336,7 @@
             <div class="container">
               <div #whitelistIpList class="col-7" id="whitelist-ip-list">
 
-                <h5>Whitelist IP</h5>
+                <h5>Additional Field</h5>
                 <!-- ================================================================================================================= -->
                 <!-- additional fields -->
                 <!-- ================================================================================================================== -->
@@ -559,7 +576,7 @@
                   <div class="form-group">
                     <label for="r_m_maild_id">Certificate Upload</label>
                     <a  data-toggle="tooltip" title="Please upload zip file of SSL Certificate and Encryption Certificate"><img  alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
-                    <input type="file" id="file1" formControlName="file1" class="form-control input_type_attachment mainField">
+                    <input type="file" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" id="file1" formControlName="file1" class="form-control input_type_attachment mainField">
                     <div
                       *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
                       class="text-danger form-error">

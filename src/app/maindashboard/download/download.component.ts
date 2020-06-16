@@ -5,6 +5,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Http, Headers, Response } from '@angular/http';
 import { saveAs } from 'file-saver';
 //declare var require;
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-download',
@@ -12,6 +13,8 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./download.component.css']
 })
 export class DownloadComponent implements OnInit {
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
 
   dataSource: any;
   p: any = '';

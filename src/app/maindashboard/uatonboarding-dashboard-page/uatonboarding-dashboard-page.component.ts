@@ -27,6 +27,8 @@ declare var $: any;
   styleUrls: ['./uatonboarding-dashboard-page.component.css']
 })
 export class UATonboardingDashboardPageComponent implements OnInit {
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
   showMe: boolean = false;
   modalRef: BsModalRef;
 
