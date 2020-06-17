@@ -31,7 +31,7 @@ declare var $: any;
 export class UATonboardingDashboardPageComponent implements OnInit
  {
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[] = ['One', 'Two', 'Three','four','six','ten'];
   filteredOptions: Observable<string[]>;
 
   showMe: boolean = false;
