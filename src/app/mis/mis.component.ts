@@ -67,3 +67,90 @@ export class MisComponent implements OnInit {
     },);
   }
 //download csv file
+downloadCertificate(url) {
+  var json = {
+    filePath: url,
+  };
+
+  var fileName = url.substring(url.lastIndexOf('/') + 1);
+
+  this.adm.downloadCertificate(json).subscribe((data: any) => {
+    this.certificate = data._body;
+    console.log(data._body);
+    // var blob = new Blob([this.certificate], {
+    //   type: 'text/plain',
+    // });
+    // saveAs(blob, fileName);
+     let csvHeader = this.certificate.data.csvHeader;
+            let csvData = this.certificate(data, csvHeader);
+            let blob = new Blob([csvData], { type: 'text/csv' });
+            let dwldLink = document.createElement("a");
+            let url= window.URL.createObjectURL(blob);
+              let isSafariBrowser = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
+                if (isSafariBrowser) { //if Safari open in new window to save file with random filename.
+                    dwldLink.setAttribute("target", "_blank");
+                }
+                dwldLink.setAttribute("href", url);
+                dwldLink.setAttribute("download", "Enterprise.csv");
+                dwldLink.style.visibility = "hidden";
+                document.body.appendChild(dwldLink);
+                dwldLink.click();
+                document.body.removeChild(dwldLink); 
+  },
+  err => {
+    console.log('err', err);
+    this.router.navigate(['error']);
+  },);
+  error => {
+    let err = JSON.parse(error._body);
+    this.toasterService.pop('error', 'Error!', err.message);
+}
+}
+  /** submit company name and date
+   * @class MisComponent
+   * @method submit
+   */
+  submit() {
+    // try {
+    //   var json = {
+    //     userName: this.username,
+    //     clientName: this.misForm.value.companyName,
+    //     startDate: this.dateInput,
+    //   };
+    //   this.adm.mis(json).subscribe((data: any) => {
+    //     var response = data._body;
+    //     var obj = JSON.parse(response); 
+    //   },
+    //   err => {
+    //     console.log('err', err);
+    //     this.router.navigate(['error']);
+    //   },);
+    //   alert(JSON.stringify(json));
+    //   // this.spinnerService.show();
+    // } catch {
+    //   //this.toastrmsg('error', console.error());
+    // }
+  }
+  /** logout from application
+   * @class MisComponent
+   * @method logout
+   */
+  logout() {
+    localStorage.removeItem('username');
+    sessionStorage.removeItem('username');
+    localStorage.removeItem('password');
+    localStorage.removeItem('id');
+    localStorage.removeItem('role');
+    //localStorage.removeItem('nodeId');
+    this.adm.sendUserId('');
+
+    // this.adm.LogoutPortal().subscribe(
+    //   res => {
+    //     this.router.navigate(['/index']);
+    //   },
+    //   err => {
+    //     this.router.navigate(['/index']);
+    //   },
+    // );
+  }
+}
