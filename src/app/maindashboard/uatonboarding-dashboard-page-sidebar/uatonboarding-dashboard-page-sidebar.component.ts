@@ -1,4 +1,5 @@
 import { Component, OnInit , EventEmitter,Output,Input } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 
 @Component({
@@ -7,6 +8,10 @@ import { Component, OnInit , EventEmitter,Output,Input } from '@angular/core';
   styleUrls: ['./uatonboarding-dashboard-page-sidebar.component.css']
 })
 export class UATonboardingDashboardPageSidebarComponent implements OnInit {
+  modalRef: BsModalRef;
+  showTab = 1;
+
+
   @Input()
   domainName: string;
 @Output()
@@ -14,6 +19,16 @@ notify: EventEmitter<string>=new EventEmitter<string>();
   scroll(el: HTMLElement) {
     alert("hi");
     el.scrollIntoView();
+}
+UAT_help(UAT_Help: any) {
+  this.modalRef = this.modalService.show(UAT_Help, {
+    backdrop: "static",
+    class: "modal-lg"
+  });
+}
+HWI_link(id) {
+  this.showTab = id;
+  //this.active ='#F06321';
 }
 passListId(event){
   var target = event.target || event.srcElement || event.currentTarget;
@@ -24,7 +39,10 @@ passListId(event){
     value.className = 'active';
 
 }
-  constructor() {
+
+constructor(
+  private modalService: BsModalService
+){
     
    }
 

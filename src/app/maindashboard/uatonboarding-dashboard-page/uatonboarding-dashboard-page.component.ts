@@ -50,7 +50,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   additionalParams: any;
   Ecollection_Show: Boolean = false;
 
-  header: boolean= false;
+  header: boolean = false;
   accNo: boolean = false;
   clientCode: boolean = false;
   url: boolean = false;
@@ -79,6 +79,9 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
+  apiGreenCheck:string;
+  confirmMsgProd: any;
+
 
 
 
@@ -103,11 +106,18 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       class: "modal-lg"
     });
   }
+  Close_ConfirmProd() {
+    this.modalRef.hide();
+    
+    this.router.navigate(["/index"]);
+  }
   HWI_link(id) {
     this.showTab = id;
     //this.active ='#F06321';
   }
   onClickContinueBtn() {
+    
+    //this.modalRef.hide();
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id
     }).get()
@@ -122,10 +132,11 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       var response = data._body;
       var obj = JSON.parse(response);
       console.log("obj reached", obj);
-      localStorage.setItem('nodevalue',obj.API_NAME )
+      localStorage.setItem('nodevalue', obj.API_NAME)
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
-      console.log( this.additionalParams);
       for (var i = 0; i < this.additionalParams.length; i++) {
+        console.log(this.additionalParams[i]);
+
         if (this.additionalParams[i].match("Account Number")) {
           this.accNo = true;
         }
@@ -136,6 +147,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
           this.url = true;
         }
         if (this.additionalParams[i].match("IP")) {
+          this.ifFieldisVisible(this.additionalParams[i]);
           this.ip = true;
         }
         if (this.additionalParams[i].match("Port")) {
@@ -216,11 +228,13 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   onCheckChange(event) {
     if ($(".customcsscontainer input:checkbox:checked").length > 0) {
       $('.ContinueBtn').prop('disabled', false);
+      this.apiGreenCheck="valid";
       console.log(this.reactiveForm);
 
     }
     else {
       $('.ContinueBtn').prop('disabled', true);
+      this.apiGreenCheck="invalid";
       console.log(this.reactiveForm);
     }
     const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
@@ -230,7 +244,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
       console.log(event.target.value, "==========", event.target.id)
       // Add a new control in the arrayForm
-      
+
       this.arrayObjectOfListIds.push((event.target.id));
 
       this.arrayObjectOfValue.push((event.target.value));
@@ -372,18 +386,18 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     console.log(this.parentDataDomainName)
 
   }
- 
-  onSubmitUATForm() {
+
+  onSubmitUATForm(Prodconfirm) {
     // alert("hiii")
     let reactiveFromFieldValues = this.reactiveForm.value;
-    console.log(reactiveFromFieldValues)  
-      console.log(reactiveFromFieldValues.basicDetailsSection.merchantName)
-      
+    console.log(reactiveFromFieldValues)
+    console.log(reactiveFromFieldValues.basicDetailsSection.merchantName)
+
     console.log(localStorage.getItem("username"))
     let inputFields = {
       userName: localStorage.getItem("username"),
       domainName: localStorage.getItem("nodevalue"),
-      domainApis: this.arrayObjectOfValue +'('+ this.arrayObjectOfListIds.toString()+')',  //this.apiArr + '(' + this.idArr + ')',
+      domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
       spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
@@ -402,14 +416,14 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       Certificate: reactiveFromFieldValues.additionalField.Certificate ? reactiveFromFieldValues.additionalField.Certificate : '',
       web: reactiveFromFieldValues.additionalField.web ? reactiveFromFieldValues.additionalField.web : '',
       message: reactiveFromFieldValues.additionalField.message ? reactiveFromFieldValues.additionalField.message : '',
-     IFSC_Code: reactiveFromFieldValues.additionalField.IFSC_Code ? reactiveFromFieldValues.additionalField.IFSC_Code : '',
-     virtualCode: reactiveFromFieldValues.additionalField.virtualCode ? reactiveFromFieldValues.additionalField.virtualCode : '',
+      IFSC_Code: reactiveFromFieldValues.additionalField.IFSC_Code ? reactiveFromFieldValues.additionalField.IFSC_Code : '',
+      virtualCode: reactiveFromFieldValues.additionalField.virtualCode ? reactiveFromFieldValues.additionalField.virtualCode : '',
       refundCode: reactiveFromFieldValues.additionalField.refundCode ? reactiveFromFieldValues.additionalField.refundCode : '',
       Account_no: reactiveFromFieldValues.additionalField.Account_no ? reactiveFromFieldValues.additionalField.Account_no : '',
       Acc_name: reactiveFromFieldValues.additionalField.Acc_name ? reactiveFromFieldValues.additionalField.Acc_name : '',
       Auth_level: reactiveFromFieldValues.additionalField.Auth_level ? reactiveFromFieldValues.additionalField.Auth_level : '',
       Urn: reactiveFromFieldValues.additionalField.Urn ? reactiveFromFieldValues.additionalField.Urn : '',
-     Acc_env: reactiveFromFieldValues.additionalField.Acc_env ? reactiveFromFieldValues.additionalField.Acc_env : '',
+      Acc_env: reactiveFromFieldValues.additionalField.Acc_env ? reactiveFromFieldValues.additionalField.Acc_env : '',
       Acc_validation: reactiveFromFieldValues.additionalField.Acc_validation ? reactiveFromFieldValues.additionalField.Acc_validation : '',
       Acc_acceptance: reactiveFromFieldValues.additionalField.Acc_acceptance ? reactiveFromFieldValues.additionalField.Acc_acceptance : '',
       Rec_mail: reactiveFromFieldValues.additionalField.Rec_mail ? reactiveFromFieldValues.additionalField.Rec_mail : '',
@@ -445,7 +459,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     formData.append("Certificate", inputFields["Certificate"]);
     formData.append("web", inputFields["web"]);
     formData.append("message", inputFields["message"]);
-   formData.append("IFSC_Code", inputFields["IFSC_Code"]);
+    formData.append("IFSC_Code", inputFields["IFSC_Code"]);
     formData.append("virtualCode", inputFields["virtualCode"]);
     formData.append("refundCode", inputFields["refundCode"]);
     formData.append("Account_no", inputFields["Account_no"]);
@@ -454,7 +468,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     formData.append("Urn", inputFields["Urn"]);
     formData.append("Acc_env", inputFields["Acc_env"]);
     formData.append("Acc_validation", inputFields["Acc_validation"]);
-   formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);
+    formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);
     formData.append("Rec_mail", inputFields["Rec_mail"]);
     formData.append("Acc_mode", inputFields["Acc_mode"]);
     formData.append("Acc_trans", inputFields["Acc_trans"]);
@@ -472,18 +486,22 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       console.log(a[k], "oooooooooo")
       console.log(formData)
     }
-    
   
-   
-   // Jira Service
+    // Jira Service
     this.HttpClient.post<any>(
       "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData
     ).subscribe(
       res => {
         console.log(res, formData);
-       // alert(res.jiraId)
-        this.toastrmsg('success', res.jiraId+" has been created");
+        // alert(res.jiraId)
+        //this.toastrmsg('success', res.jiraId + " has been created");
+        this.modalRef = this.modalService.show(Prodconfirm, {
+          backdrop: "static"
+        });
+        this.confirmMsgProd = res.jiraId;
+    
+       console.log( this.confirmMsgProd)
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
@@ -506,17 +524,6 @@ export class UATonboardingDashboardPageComponent implements OnInit {
             },
           );
         }
-
-     //   console.log(res["message"]);
-        //console.log(res["message"].substring(51, 44));
-       
-        // this.modalRef = this.modalService.show( {
-        //   backdrop: "static"
-        // });
-        // this.confirmMsg = res["message"];
-        // this.confirmMsg = this.confirmMsg;
-        // this.confirmMsg = this.confirmMsg.substring(51, 44);
-        //this.modalRef4.hide();
       },
       err => {
         console.log('err', err);
@@ -526,12 +533,94 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
 
   }
+  //conditional validation
+  ifFieldisVisible(value) {
+    let reactiveFromFieldValues = this.reactiveForm.value;
+   console.log( value);
+   console.log( reactiveFromFieldValues.additionalField.ip);
+   console.log(this.reactiveForm)
+   console.log(this.reactiveForm.controls.additionalField)
+let c =this.reactiveForm.controls.additionalField;
 
-  //  
-  // 
-  // uat form inputbox
-  // 
-  // 
+    console.log(reactiveFromFieldValues.additionalField.ip  )
+    let ip= reactiveFromFieldValues.additionalField.ip;
+    console.log(ip);
+    
+    if(value=="IP"){
+    console.log(this.reactiveForm.get('additionalField'));
+    console.log(this.reactiveForm.get('additionalField').get('ip'));
+    let ipControl =this.reactiveForm.get('additionalField').get('ip');
+   // ipControl.setValidators([this.ipValidator]);
+    console.log(this.reactiveForm.get('additionalField'));
+    this.reactiveForm.get('additionalField').get('ip')
+    //reactiveFromFieldValues.additionalField.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
+     // reactiveFromFieldValues.additionalField.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
+   console.log( reactiveFromFieldValues.additionalField);
+    }
+    console.log(value+"", 1);
+    
+  }
+//   validateIp(ip) {
+//     if ( ip == null || ip === '' ) {
+//       return true;
+//     }
+    
+//     const parts = ip.split('.');
+//     if(parts.length !== 4) {
+//       return true;
+//     }
+    
+//     for(let i = 0; i < parts.length; i++) {
+//       const part = parseInt(parts[i]);
+//       if(part < 0 || part > 255) {
+//         return true;
+//       }
+//     }
+    
+//     if(ip.endsWith('.')) {
+//       return true;
+//     }
+    
+//     return false;
+//   }
+//   ipValidator(control: AbstractControl): { [key: string]: boolean } | null {
+//       // =============================================
+//       // ================================================
+//       let input = control.value;
+//       console.log(input)
+//       console.log(input.length)
+     
+     
+//       if(input.length>0){
+//         let arr = input.split(',');
+//         console.log(this.validateIp(input))
+        
+//         console.log(this.validateIp)
+//         let wrongIps = arr.filter(this.validateIp(input));
+        
+   
+//       if(wrongIps.length>0){
+//         console.log(wrongIps);
+//         return{valid: false}
+//       }
+//       else{
+//         console.log(wrongIps);
+//         return{valid: true}
+//       }
+//       console.log(arr)
+//       console.log(arr)
+//       console.log(wrongIps)
+//     }
+//     else{
+      
+//     }
+      
+//       // ///////////////////////////////////////////////
+//       // ///////////////////////////////////////////////
+// }
+
+
+
   resetForm(edit) {
     this.reactiveForm = new FormGroup({
       'basicDetailsSection': new FormGroup({
@@ -545,31 +634,31 @@ export class UATonboardingDashboardPageComponent implements OnInit {
         "nestedList": new FormArray([])
       }),
       "additionalField": new FormGroup({
-        "AccountNo" :new FormControl(),
-        "clientCode":new FormControl(),
-        "url":new FormControl(),
-        "Checksum":new FormControl(),
+        "AccountNo": new FormControl(),
+        "clientCode": new FormControl(),
+        "url": new FormControl(),
+        "Checksum": new FormControl(),
         "encryption": new FormControl(),
         "certificate": new FormControl(),
-       "service": new FormControl(),
+        "service": new FormControl(),
         "commModel": new FormControl(),
-        "header":new FormControl(),
-       "IFSC_Code":new FormControl(),
-        "virtualCode":new FormControl(),
-        "ips":new FormControl(),
-        "interAccNo":new FormControl(),
-        "accName":new FormControl(),
-        "authLevel":new FormControl(),
-        "URN":new FormControl(),
-        "env":new FormControl(),
-        "Acc_validation":new FormControl(),
-        "Acc_acceptance":new FormControl(),
-        "Rec_mail":new FormControl(),
-        "Acc_mode":new FormControl(),
-        "Acc_trans":new FormControl(),
-        "Acc_amount":new FormControl(),
-        "ip":new FormControl(),
-        "port":new FormControl()
+        "header": new FormControl(),
+        "IFSC_Code": new FormControl(),
+        "virtualCode": new FormControl(),
+        "ips": new FormControl(),
+        "interAccNo": new FormControl(),
+        "accName": new FormControl(),
+        "authLevel": new FormControl(),
+        "URN": new FormControl(),
+        "env": new FormControl(),
+        "Acc_validation": new FormControl(),
+        "Acc_acceptance": new FormControl(),
+        "Rec_mail": new FormControl(),
+        "Acc_mode": new FormControl(),
+        "Acc_trans": new FormControl(),
+        "Acc_amount": new FormControl(),
+        "ip": new FormControl(),
+        "port": new FormControl()
       }),
       'whitelistIpSection': new FormGroup({
         "file1": new FormControl(null, [Validators.required]),
@@ -589,20 +678,51 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       console.log(this.menuArray, "hhhhhhhhh  ")
     }
     );
+// ipvalidation
+// function validateIp(ip) {
+//   if ( ip == null || ip === '' ) {
+//   return true;
+// }
 
+// const parts = ip.split('.');
+// if(parts.length !== 4) {
+//   return true;
+// }
+
+// for(let i = 0; i < parts.length; i++) {
+//   const part = parseInt(parts[i]);
+//   if(part < 0 || part > 255) {
+//       return true;
+//   }
+// }
+
+// if(ip.endsWith('.')) {
+//   return true;
+// }
+
+// return false;
+// }
+
+// const input = '1.1.1.1,2.2.2.2,3.3.3.,4.4.4.256';
+// const arr = input.split(',');
+// const wrongIps = arr.filter(validateIp);
+
+
+// console.log(arr)
+// console.log(wrongIps)
+// ========
 
 
     // testing......
     let edit = ''
     this.resetForm(edit);
-    function isNumberKey(evt)
-    {
-       var charCode = (evt.which) ? evt.which : evt.keyCode;
-       if (charCode != 46 && charCode > 31 
-         && (charCode < 48 || charCode > 57))
-          return false;
+    function isNumberKey(evt) {
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode != 46 && charCode > 31
+        && (charCode < 48 || charCode > 57))
+        return false;
 
-       return true;
+      return true;
     }
     $(document).on('click', 'li.expandable', function (e) {
       $(this).children('ul').toggle();
@@ -633,11 +753,11 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       }
 
     })
-    
-    
-  
+
+
+
   }
-  
+
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
@@ -646,8 +766,8 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     };
     this.toasterService.pop(toast);
   }
-   
-  
+
+
   togglefrstList() {
     this.showMe = !this.showMe;
   }

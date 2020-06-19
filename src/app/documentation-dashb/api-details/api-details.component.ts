@@ -169,9 +169,12 @@ Sample_packet(){
   //reqPkt = '{"some":"json"}';
   //reqPkt = '<root><node/></root>';
   //reqPkt = 'This is plain text packet';
+  console.log(prettyPkt)
   reqPkt = JSON.parse(reqPkt)
+  console.log(typeof reqPkt)
   try {
     prettyPkt = JSON.stringify(JSON.parse(reqPkt.data),null,2);
+    console.log(prettyPkt)
    
   }
   catch(err) {
@@ -182,6 +185,7 @@ Sample_packet(){
     errFound = false;
     try {
       prettyPkt = this.formatXML(reqPkt,"\t");
+      console.log(prettyPkt)
     }
     catch(err) {
       errFound = true;
@@ -190,6 +194,11 @@ Sample_packet(){
   if(errFound) {
     errFound = false;
     prettyPkt = reqPkt;
+    if(reqPkt.data){
+      prettyPkt = reqPkt.data;
+
+    }
+
   }
   
   
@@ -197,6 +206,7 @@ Sample_packet(){
   //document.getElementById('demo').innerHTML = jsonString;
  // document.getElementById('outputPretty').innerHTML = prettyPkt;
   this.prettyPkt = prettyPkt;
+   console.log(prettyPkt)
   return prettyPkt;
   }
   

@@ -314,6 +314,9 @@ body {
   .radioBtnContainer {
   font-size: 12px;
   }
+  .green{
+    color: green;
+  }
   /* Hide the browser's default checkbox */
   .checkboxContainer input,
   .radioBtnContainer input {

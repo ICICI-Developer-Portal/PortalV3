@@ -15,236 +15,58 @@
             <div class="container">
               <div class="col-7" id="Basic-details-list">
 
-                <h5>Basic Details
-                  <a (click)="UAT_help(UAT_Help)" class="help-ico" data-toggle="tooltip" data-placement="top"
-                    title="Your Organization Name"><i class="fa fa-question-circle" aria-hidden="true"></i></a></h5>
+                <h5>Basic Details</h5>
+
+
+
+
                 <!-- ===================================== -->
                 <!--Production Confirmation alert modalbox -->
                 <!-- ===================================== -->
 
-                <ng-template #UAT_Help>
-                  <div class="modal-header">
-                    <h3></h3>
-                    <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
-                    <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
-                      close
-                    </button>
-                  </div>
+
+                <!--Production Confirmation alert modalbox -->
+                <ng-template #Prodconfirm>
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-md-12 mb-xs-10">
-                        <form id="regForm" method="POST" name="regForm" action="">
-                          <div class="tab disp-block">
-                            <div class="tabContent">
-                              <ul class="breadcrumb">
-                                <li>
-                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(1)">Guideline <i
-                                      class="fa fa-angle-right"></i></a>
-                                </li>
-                                <li>
-                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(2)">Basic Details <i
-                                      class="fa fa-angle-right"></i></a>
-                                </li>
-                                <li>
-                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(3)">Requested API <i
-                                      class="fa fa-angle-right"></i></a>
-                                </li>
-                                <li>
-                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(4)">Whitelist IP <i
-                                      class="fa fa-angle-right"></i></a>
-                                </li>
-                                <li>
-                                  <a [ngStyle]="{ color: active }" (click)="HWI_link(5)">Onboarding Request</a>
-                                </li>
-                              </ul>
-                              <div class="row mb30" *ngIf="showTab == '1'">
-                                <div class="col-md-12 mb-xs-10">
-                                  <h6 class="fw600">
-                                    From signing up with Developer Portal to going live in our
-                                    production environment is a four-step process.
-                                  </h6>
-                                  <p>
-                                    The amount of time this will take depends on the APIs you
-                                    are using, your business model and the time and resources
-                                    you have available.
-                                  </p>
-                                </div>
-                                <div class="col-md-12">
-                                  <h6 class="fw600">Step 01 - SignUp</h6>
-                                  <p>
-                                    To get access to our sandbox and start testing our APIs
-                                    straight away you register at Developer Portal.
-                                  </p>
-                                </div>
-                                <div class="col-md-12 mb-xs-30">
-                                  <h6 class="fw600">
-                                    Step 02 - Talk to us about how we can help your business
-                                  </h6>
-                                  <p>
-                                    Contact us or get in touch with the RM assigned to you at
-                                    any point and learn how our APIs can be customized to your
-                                    needs.
-                                  </p>
-                                </div>
-                                <div class="col-md-12 mb-xs-30">
-                                  <h6 class="fw600">
-                                    Step 03 - Get On-Board with UAT
-                                  </h6>
-                                  <ul>
-                                    <li>
-                                      In this our development team will get in touch with you
-                                      and help you develop the required APIs according to the
-                                      specifications provided by you.
-                                    </li>
-                                    <li>
-                                      For that you will need to raise a UAT request and provide
-                                      some basic details about the required project.
-                                    </li>
-                                    <li>
-                                      For each raised request in UAT, it will have a unique ID
-                                      assigned to it which will allow you to keep a track of the
-                                      whole UAT development process.
-                                    </li>
-                                    <li>
-                                      Post the whole UAT development process the status of the
-                                      request would turn to complete and then we are ready to
-                                      make your services live.
-                                    </li>
-                                    <li>
-                                      Production access – You will need to fill a similar form
-                                      for final production access.
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div class="col-md-12 mb-xs-30">
-                                  <h6 class="fw600">Step 04 - Go Live</h6>
-                                  <p>
-                                    You’re now ready to launch! Our production support team will
-                                    be there to ensure the whole process is seamless.
-                                  </p>
-                                </div>
-                              </div>
-                              <div class="row mb30 col-md-12" *ngIf="showTab == '2'">
-                                <div class="col-md-6">
-                                  <img src="assets/images/step1.png" class="frame" width="100%" />
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="col-md-12">
-                                    <h6>Step 01 - Enter you Organization name.</h6>
-                                  </div>
-                                  <div class="col-md-12 mb-xs-30">
-                                    <h6>
-                                      Step 02 - Provide Basic Details about your organization.
-                                    </h6>
-                                  </div>
-                                  <div class="col-md-12 mb-xs-30">
-                                    <h6>
-                                      Step 03 - Provide first point of contact(POC) from your
-                                      organization from business perspective.
-                                    </h6>
-                                  </div>
-                                  <div class="col-md-12 mb-xs-30">
-                                    <h6>Step 04 - Provide SPOC Contact Number.</h6>
-                                  </div>
-                                  <div class="col-md-12 mb-xs-30">
-                                    <h6>
-                                      Step 05 - Provide ICICI Bank contact RM for your selected
-                                      product’s domain. Provided in the initial registration
-                                      mail or you can add apidevteam@icicibank.com
-                                    </h6>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row mb30 col-md-12" *ngIf="showTab == '3'">
-                                <div class="col-md-6">
-                                  <img src="assets/images/step5.png" class="frame" width="100%" />
-                                </div>
-                                <div class="col-md-6">
-                                  <img src="assets/images/step4.png" class="frame" width="100%" />
-                                </div>
-                                <div class="col-md-12 mt20">
-                                  <div class="col-md-12">
-                                    <h6>
-                                      Step 06 - Select your domain and related APIs to that
-                                    </h6>
-                                  </div>
-                                  <div class="col-md-12 mb-xs-30">
-                                    <h6>
-                                      Step 06.1 - If your requirement needs a crossover of
-                                      domains, please raise multiple onboarding request for each
-                                      domain separately.
-                                    </h6>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row mb30 col-md-12" *ngIf="showTab == '4'">
-                                <div class="col-md-6">
-                                  <img src="assets/images/step2.png" class="frame" width="100%" />
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="col-md-12">
-                                    <h6>
-                                      Step 07 - Provide the IP of the service that would connect
-                                      to ICICI bank. For security measures each IP from third
-                                      party needs to be whitelisted for authentication
-                                    </h6>
-                                  </div>
-                                  <div class="col-md-12 mb-xs-30">
-                                    <h6>
-                                      Step 08 - Provide Callback URL- this acts as a failsafe
-                                      check, if any request looses it’s connection in between
-                                      the communication, on which ICICI bank will provide the
-                                      information regarding a particular communication.
-                                    </h6>
-                                    <h6>
-                                      Step 09 - Provide your public certificate which would be
-                                      used for encryption/decryption of the data which would
-                                      communicate between your organization’s service and ICICI
-                                      Bank.
-                                    </h6>
-                                    <h6>
-                                      Download ICICI Bank NDA and submit it to ICICI Bank RM
-                                    </h6>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row mb30 col-md-12" *ngIf="showTab == '5'">
-                                <div class="col-md-6">
-                                  <img src="assets/images/step6.png" class="frame" width="100%" />
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="col-md-12">
-                                    <h6>
-                                      Step 10 - Your request is assigned a Unique Request ID
-                                      which will help you to trace the status of your request,
-                                      while it is being assessed by our business and technical
-                                      teams.
-                                    </h6>
-                                  </div>
-                                  <div class="col-md-12 mb-xs-30">
-                                    <h6>
-                                      Step 11 - You can view the status of all your onboarding
-                                      requests raised by you
-                                    </h6>
-                                  </div>
-                                </div>
-                                <div class="col-md-12">
-                                  <img src="assets/images/step3.png" class="frame" width="100%" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
+                        <h5 class="fs15">
+                          Onboarding request ID {{ confirmMsgProd }} has been submitted
+                          sucessfully.
+                        </h5>
+                        <h5 class="fs15">
+                          Please visit Account -> Onboarding Request to check the request
+                          status.
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer ta-center">
+                    <div class="row w100p m0">
+                      <div class="col-12 plr0">
+                        <div>
+                          <button type="submit" class="signInBtn" (click)="Close_ConfirmProd()">
+                            Ok
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </ng-template>
                 <!-- End Modalbox -->
-                <div formGroupName="basicDetailsSection">
-                  <div class="form-group">
+                <!--Production Confirmation alert modalbox -->
+                <!-- End Modalbox -->
+
+
+
+
+                <div formGroupName="basicDetailsSection" class="container">
+                  <div class="form-group row">
                     <label for="merchantName">Merchant Name <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField" id="merchantName" formControlName="merchantName"
-                      placeholder="Your Organization Name">
+                    <input type="text" class="form-control mainField col-md-11" id="merchantName"
+                      formControlName="merchantName" placeholder="Your Organization Name">
+                    <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
+                      class="fa fa-check-circle col-md-1 green margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
@@ -254,10 +76,13 @@
                     <!-- ======== -->
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group row">
                     <label for="Description">Description <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField" id="Description" formControlName="description"
+                    <input type="text" class="form-control mainField col-md-11" id="Description"
+                      formControlName="description"
                       placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged">
+                    <i *ngIf="reactiveForm.get('basicDetailsSection.description').valid"
+                      class="fa fa-check-circle col-md-1 green margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched"
@@ -267,10 +92,12 @@
                     <!-- ======== -->
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group row">
                     <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField" id="Email_ID" formControlName="email_id"
+                    <input type="text" class="form-control mainField col-md-11" id="Email_ID" formControlName="email_id"
                       placeholder="Your Email ID">
+                    <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
+                      class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched"
@@ -280,10 +107,12 @@
                     <!-- ======== -->
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group row">
                     <label for="Contact_No">Contact No <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField" id="Contact_No" formControlName="contact_no"
-                      placeholder="Your Contact Number">
+                    <input type="text" class="form-control mainField col-md-11" id="Contact_No"
+                      formControlName="contact_no" placeholder="Your Contact Number">
+                    <i *ngIf="reactiveForm.get('basicDetailsSection.contact_no').valid"
+                      class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched"
@@ -293,11 +122,14 @@
                     <!-- ======== -->
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group row">
                     <label for="r_m_maild_id">ICICI Bank Relationship Manager Email ID <span class="text-danger">
                         *</span></label>
-                    <input type="text" class="form-control mainField" id="r_m_maild_id" formControlName="r_m_maild_id"
+                    <input type="text" class="form-control mainField col-md-11" id="r_m_maild_id"
+                      formControlName="r_m_maild_id"
                       placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
+                    <i *ngIf="reactiveForm.get('basicDetailsSection.r_m_maild_id').valid"
+                      class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched"
@@ -321,17 +153,18 @@
 
         <hr class="margin_0px" />
         <!-- ======================================2nd section=================================================================== -->
-        <div class="tabContentInner">
+        <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
           <div class="row m0">
             <div class="container">
               <div #RequestedApiList class="col-7" id="Requested-api-list">
 
-                <h5>Requested API</h5>
-                <div class="form-group " formGroupName="nestedCheckboxesList">
+                <h5 class="row">Requested API</h5>
+                <div class="form-group row" formGroupName="nestedCheckboxesList">
                   <label for="merchantName">Select API <span class="text-danger"> *</span></label>
 
 
-                  <div class="sideMenu" style="position: inherit !important;width:auto !important;height:auto;">
+                  <div class="sideMenu col-md-11"
+                    style="position: inherit !important;width:auto !important;height:auto;">
 
                     <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
 
@@ -452,6 +285,7 @@
                       </li>
                     </ul>
 
+
                     <!-- <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">
                         Checkbox is required, select atleast one value.
                       </p> -->
@@ -515,6 +349,9 @@
 
                     <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
                   </div>
+                  <i *ngIf="apiGreenCheck=='valid'" class="fa fa-check-circle green col-md-1 margin_3px"
+                    aria-hidden="true"></i>
+
 
                 </div>
 
@@ -539,7 +376,7 @@
 
         <hr class="margin_0px" />
 
-        <div class="tabContentInner">
+        <div class="tabContentInner"  [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
           <div class="row m0">
             <div class="container">
               <div #whitelistIpList class="col-7" id="whitelist-ip-list">
@@ -569,6 +406,13 @@
                   <div class="form-group" *ngIf="ip">
                     <div><label for="contract">IP</label></div>
                     <input class="form-control" placeholder="Your IP" formControlName="ip" type="text" />
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('additionalField.ip').valid && reactiveForm.get('additionalField.ip').touched"
+                      class="text-danger form-error">
+                      IP is required.
+                    </div>
+                    <!-- ======== -->
 
                   </div>
 
@@ -780,14 +624,17 @@
                 <!-- ======================================additionl fields================================-->
 
                 <!-- ================================================= ===============================================================-->
-                <div formGroupName="whitelistIpSection">
-                  <div class="form-group">
+                <div formGroupName="whitelistIpSection" class="container" >
+                  <div class="form-group row">
                     <label for="r_m_maild_id">Certificate Upload <span class="text-danger"> *</span></label>
                     <a data-toggle="tooltip"
                       title="Please upload zip file of SSL Certificate and Encryption Certificate"><img alt="loader"
                         class="ml2 cursor_pointer" src="assets/images/information.png"></a>
                     <input type="file" id="file1" formControlName="file1"
-                      class="form-control input_type_attachment mainField">
+                      class="form-control input_type_attachment mainField col-md-11">
+                    <i *ngIf="reactiveForm.get('whitelistIpSection.file1').valid"
+                      class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
+
                     <div
                       *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
                       class="text-danger form-error">
@@ -795,7 +642,7 @@
                     </div>
                   </div>
                   <!--  =========-->
-                  <div class="customcsscontainerForTnC">
+                  <div class="customcsscontainerForTnC row">
                     <label for="">
                       <input type="checkbox" id="checkbox" formControlName="checkBox">
                       I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
@@ -816,7 +663,8 @@
               <div _ngcontent-c4="" class="row">
                 <div _ngcontent-c4="" class="col-md-7 text-right">
                   <button _ngcontent-c4="" class="signInBtn btn-dark" type="button" ng-reflect-klass="signInBtn"
-                    ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid" (click)="onSubmitUATForm()"> Submit
+                    ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid"
+                    (click)="onSubmitUATForm(Prodconfirm)"> Submit
                   </button></div>
               </div>
 
