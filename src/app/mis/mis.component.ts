@@ -6,6 +6,7 @@ import { CONSTANTS } from '../../../config/application-constant';
 import { DatePipe } from '@angular/common';
 import { ToasterService, Toast } from 'angular2-toaster';
 
+
 @Component({
   selector: 'app-mis',
   templateUrl: './mis.component.html',
@@ -153,4 +154,4 @@ downloadCertificate(url) {
     //   },
     // );
   }
-}
+})

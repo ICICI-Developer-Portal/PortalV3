@@ -29,7 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
    
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule,   
          MaindashboardRoutingModule,
          RouterModule,
          ModalModule.forRoot(),
