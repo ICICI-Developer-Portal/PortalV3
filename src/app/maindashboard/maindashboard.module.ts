@@ -26,7 +26,7 @@ import { UATonboardingDashboardPageSidebarComponent } from './uatonboarding-dash
    
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule,   
          MaindashboardRoutingModule,
          RouterModule,
          ModalModule.forRoot(),

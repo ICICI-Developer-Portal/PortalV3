@@ -56,6 +56,11 @@ hr{
 .margin_0px{
     margin: 0px;
 }
+
+
+.width_100prcnt{
+	width: 100%;
+}
 /* input attachment */
 .input_type_attachment{ 
     padding-top: 5px;

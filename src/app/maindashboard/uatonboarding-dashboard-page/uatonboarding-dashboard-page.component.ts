@@ -79,7 +79,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
-  apiGreenCheck:string;
+  apiGreenCheck:string ="invalid";
   confirmMsgProd: any;
 
 
