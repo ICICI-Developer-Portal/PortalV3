@@ -151,22 +151,23 @@
         <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
           <div class="row m0">
             <div class="container">
-              <!--karthik-Auto complete-->
-              <form class="example-form">
-                <mat-form-field class="example-full-width">
-                  <input type="text"
-                         placeholder="Pick one"
-                         aria-label="Number"
-                         matInput
-                         [formControl]="myControl"
-                         [matAutocomplete]="auto">
-                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                      {{option}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </form>
+             <!--karthik-Auto complete-->
+                <form class="example-form">
+				  <mat-form-field class="example-full-width">
+					<input type="text"
+						   placeholder="Pick one"
+						   (click)="reloadDataSource(e)"
+						   aria-label="Number"
+						   matInput
+						   [formControl]="myControl"
+						   [matAutocomplete]="auto">
+					<mat-autocomplete #auto="matAutocomplete">
+					  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+						{{option.name}}
+					  </mat-option>
+					</mat-autocomplete>
+				  </mat-form-field>
+				</form> 
     <!--karthik-Auto complete End-->
               <div #RequestedApiList class="col-7" id="Requested-api-list">
 
@@ -611,6 +612,37 @@
                           </select>
                         </span>
                       </div>
+					  <!-- ====================================== Three additionl fields================================-->
+					 <div class="form-group" *ngIf="header">
+                      <div>
+                        <label for="Header">Header</label>
+                      </div>
+                      <input class="form-control" placeholder="Header" type="text" formControlName="Header" />
+                    </div> 
+					 <div class="form-group" *ngIf="uatTestingID">
+                      <div>
+                        <label for="TestingID">TestingID</label>
+                      </div>
+                      <input class="form-control" placeholder="TestingID" type="text" formControlName="TestingID " />
+					  <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('additionalField.TestingID').valid && reactiveForm.get('additionalField.TestingID').touched"
+                      class="text-danger form-error">
+                      Testing ID is required.
+                    </div>
+                    <!-- ======== -->
+					  
+                    </div> 
+					 <div class="form-group" *ngIf="refJIRAID">
+                      <div>
+                        <label for="refJIRAID">Reference JIRA ID</label>
+                      </div>
+                      <input class="form-control" placeholder="Reference JIRA ID" type="text" formControlName="refJIRAID" />
+                    </div> 
+					
+					<!-- ======== -->
+					  
+					  
                     </div>
                   </div>
 

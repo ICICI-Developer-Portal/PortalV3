@@ -31,6 +31,7 @@ declare var $: any;
 export class UATonboardingDashboardPageComponent implements OnInit
  {
   myControl = new FormControl();
+  APIAutocompletDataSource:any[] = [];
   options: string[] = ['One', 'Two', 'Three','four','six','ten'];
   filteredOptions: Observable<string[]>;
 
@@ -83,6 +84,7 @@ export class UATonboardingDashboardPageComponent implements OnInit
   trans: boolean = false;
   amount: boolean = false;
   uatTestingID: boolean = false;
+  refJIRAID: boolean = false;
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
@@ -217,11 +219,14 @@ export class UATonboardingDashboardPageComponent implements OnInit
         if (this.additionalParams[i].match("Amount")) {
           this.amount = true;
         }
-        if (this.additionalParams[i].match("Header")) {
+		if (this.additionalParams[i].match("Headers")) {
           this.header = true;
         }
-        if (this.additionalParams[i].match("Testing ID")) {
+        if (this.additionalParams[i].match("TestingID")) {
           this.uatTestingID = true;
+        }
+		if (this.additionalParams[i].match("refJIRAID")) {
+          this.refJIRAID = true;
         }
       }
       console.log("final", this.additionalParams);
@@ -364,6 +369,36 @@ export class UATonboardingDashboardPageComponent implements OnInit
     });
 
   }
+  
+   // To get Domain List
+  get_domain_and_apis() {
+    this.adm.domain_and_apis().subscribe((data: any) => {
+      var obj = JSON.parse(data._body);
+      var domain = [];
+      for (let i in obj) { 
+		  let sub_domain = obj[i].sub_domain;
+		  for (let j in sub_domain){
+			  if(sub_domain[j].api && sub_domain[j].api.length>0){
+				  domain= domain.concat(sub_domain[j].api);
+			  }
+			  
+		  }
+		  
+        //domain.push(obj[i].domain);
+      }
+      this.APIAutocompletDataSource = domain;
+	  this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+	  console.log("this.APIAutocompletDataSource" + JSON.stringify(this.APIAutocompletDataSource));
+    },
+    err => {
+      console.log('err', err);
+      this.router.navigate(['error']);
+    },);
+  }
   // requested api dropdown
   getMenuData(data): Array<object> {
     let tempArray = [];
@@ -439,6 +474,7 @@ export class UATonboardingDashboardPageComponent implements OnInit
       Acc_amount: reactiveFromFieldValues.additionalField.Acc_amount ? reactiveFromFieldValues.additionalField.Acc_amount : '',
       Acc_header: reactiveFromFieldValues.additionalField.header ? reactiveFromFieldValues.additionalField.header : '',
       Acc_uatTestingIDt: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
+	  Acc_refJIRAID: reactiveFromFieldValues.additionalField.refJIRAID ? reactiveFromFieldValues.additionalField.refJIRAID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -493,8 +529,16 @@ export class UATonboardingDashboardPageComponent implements OnInit
       console.log(a[k], "oooooooooo")
       console.log(formData)
     }
+	// Appended three new elements
+	
+	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
+    formData.append("Headers", inputFields["Acc_header"]);
+	formData.append("TestingID", inputFields["Acc_uatTestingIDt"]);
   
-    // Jira Service
+   
+	 // Jira Service
+   //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
+//https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
       "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData
@@ -687,7 +731,8 @@ let c =this.reactiveForm.controls.additionalField;
       this.responseData = JSON.parse(data._body);
       console.log(this.responseData)
       this.menuArray = this.getMenuData(this.responseData);
-      console.log(this.menuArray, "hhhhhhhhh  ")
+      console.log(this.menuArray, "hhhhhhhhh  ");
+	  this.get_domain_and_apis();
     }
     );
 
@@ -793,10 +838,10 @@ let c =this.reactiveForm.controls.additionalField;
   // ngAfterViewChecked() { }
 
   
-  private _filter(value: string): string[] {
+  private _filter(value: string): any[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return this.APIAutocompletDataSource.filter(option => option['name'].toLowerCase().includes(filterValue));
   }
   
 }
