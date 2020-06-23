@@ -162,7 +162,7 @@
 <!-- Signin Modal -->
 <ng-template #signin>
   <div class="modal-header">
-    <h3 class="modal-title pull-left">Please Login</h3>
+    <h3 class="modal-title pull-left">Please Login 0</h3>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -273,7 +273,7 @@
 <!-- Modal for Signup -->
 <ng-template #signup>
   <div class="modal-header">
-    <h3 class="modal-title pull-left">Lets get you Onboard</h3>
+    <h3 class="modal-title pull-left">Lets get you Onboard </h3>
 
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
       <span aria-hidden="true">&times;</span>
@@ -303,6 +303,7 @@
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-6 mb-xs-10">
+              
               <div><label for="company">Full Name</label></div>
               <input name="name" formControlName="firstname" class="input-login" #name />
               <div *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)" class="text-danger form-error">
@@ -376,7 +377,7 @@
               <div><label for="password">Pin Code</label></div>
               <input name="City" class="input-login" formControlName="CITY" />
               <div *ngIf="CITY.invalid && (CITY.dirty || isSubmitted)" class="text-danger form-error">
-                Pin Code is required5.
+                Pin Code is required.
               </div>
             </div>
           </div>
@@ -414,7 +415,7 @@
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
               <div>
-                <label for="mobile">Please enter the Phone Number</label>
+                <label for="mobile">Please enter the Phone Number </label>
               </div>
               <input id="mobileNumber" formControlName="mobile_no" Type="number" class="input-login" name="mobile"
                 required #Mobile [readonly]="signupForm.value.otp_verified == 1" />
@@ -434,11 +435,19 @@
               </div>
             </div>
             <div class="col-md-4 mt4">
-              <button [disabled]="signupForm.value.otp_verified == 1" type="button" class="tryItFreeBtn sendOTPBtn mt25"
-                (click)="SendOtp(Mobile.value)">
-                Send OTP
+              <button  [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn  sendOTPBtn mt26"
+                (click)="SendOtp(Mobile.value)"
+                (click)='buttonClick1()' 
+                  [disabled] = "btnDisabled"
+                  [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
+                  {{btnText}}
+               
+                
               </button>
-              <button type="button" class="tryItFreeBtn changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
+              <!-- <h6><span id="time" >00:00</span></h6> -->
+
+
+              <button  type="button" class="tryItFreeBtn changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
                 change
               </button>
             </div>
