@@ -22,17 +22,7 @@ import { preserveWhitespacesDefault } from "@angular/compiler";
   //styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  name = 'Angular';
-btnText = 'send otp ';
-btnDisabled = false;
-buttonClick1() {
-  this.btnDisabled = true;
-  this.btnText = 'Please wait';
-  setTimeout(() => {
-    this.btnText = 'Resend OTP';
-    this.btnDisabled = false
-    }, 30000);
-}
+  
   
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
@@ -656,6 +646,18 @@ buttonClick1() {
       },);
     } catch {}
   }
+  //send OTP button change and seconds
+         name = 'Angular';
+         btnText = 'send OTP ';
+         btnDisabled = false;
+         buttonClick1() {
+         this.btnDisabled = true;
+         this.btnText = 'Please wait';
+         setTimeout(() => {
+          this.btnText = 'Resend OTP';
+          this.btnDisabled = false
+           }, 30000);
+         }
   //aapathonSignUpForm
   appathonSendOtp(mobile: any) {
     this.appathonSignupForm.controls["otp_send"].setValue("0");
