@@ -210,7 +210,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
         if (this.additionalParams[i].match("Amount")) {
           this.amount = true;
         }
-        if (this.additionalParams[i].match("Header")) {
+        if (this.additionalParams[i].match("Headers")) {
           this.header = true;
         }
         if (this.additionalParams[i].match("Testing ID")) {
@@ -477,7 +477,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     formData.append("Acc_uatTestingIDt", inputFields["Acc_uatTestingIDt"]);
 
 
-    console.log(formData);
+    console.log(formData);  
 
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
     console.log("a", a);
@@ -486,10 +486,20 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       console.log(a[k], "oooooooooo")
       console.log(formData)
     }
-  
-    // Jira Service
+	// Appended three new elements
+	
+	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
+    formData.append("Headers", inputFields["Acc_header"]);
+	formData.append("TestingID", inputFields["Acc_uatTestingIDt"]);
+   formData.forEach((value,key) => {
+    console.log(key+" "+value)
+});
+   
+	 // Jira Service
+   //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
+//https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
-      "https://developerapi.icicibank.com:8443/api/v2/jira",
+      "https://developerapi.icicibank.com:8443/api/v2/jira-UAT",
       formData
     ).subscribe(
       res => {
@@ -505,9 +515,12 @@ export class UATonboardingDashboardPageComponent implements OnInit {
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
-          let b: any = (<HTMLInputElement>document.getElementById("file1"))
-            .files;
+          let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
           for (let k = 0; k < b.length; k++) {
+            console.log(b,k)
+            console.log(b[k])
+            console.log(res.jiraId,res)
+
             formData.append(res.jiraId, b[k]);
           }
           this.HttpClient.post<any>(
@@ -516,7 +529,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
           ).subscribe(
             res => {
               console.log(res);
-              // alert(res.jiraId);
+              console.log(res.jiraId,"rchd");
             },
             err => {
               console.log('err', err);
