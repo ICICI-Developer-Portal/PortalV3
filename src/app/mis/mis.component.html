@@ -1,5 +1,4 @@
 
-
 <div>
   <div id="fixed">
     <div class="menuBar">
@@ -20,26 +19,7 @@
       >
        
       </h4>
-      <div class="col-md-12 mb-xs-30 div-cl-md-12 pd-tp">
-        <div><label for="company">Company Name....</label></div>
-        <input
-          name="company"
-          formControlName="companyName"
-          class="input-login"
-          matInput
-          [matAutocomplete]="auto"
-          #company
-          (keyup)="getCompanyName(company.value)"
-        />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option
-            *ngFor="let companyname of companyNames"
-            [value]="companyname"
-          >
-            {{ companyname }}
-          </mat-option>
-        </mat-autocomplete>
-      </div>
+      
       <!-- <div class="col-md-12 mb-xs-30 div-cl-md-12 pd-tp">
         <div>
           <label for="company">{{ constants.COMPANY_NAME }}</label>

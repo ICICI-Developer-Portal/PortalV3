@@ -39,6 +39,7 @@ import {
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { MisComponent } from './mis/mis.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +54,7 @@ import { MisComponent } from './mis/mis.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     LayoutModule,
     HomeModule,
@@ -69,7 +71,10 @@ import { MisComponent } from './mis/mis.component';
     ToasterModule.forRoot(),
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule,
+    
+    
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

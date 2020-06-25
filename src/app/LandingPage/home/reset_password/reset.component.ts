@@ -30,7 +30,7 @@ this.activeRoute.queryParams.subscribe(params => {
  ngOnInit() {
  
   this.ChangepasswForm=this.formbuilder.group({
-    password:["",[Validators.required]],
+    password:["",[Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
     confirmPassword:["",[Validators.required]],
   },
   {

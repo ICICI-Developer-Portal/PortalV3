@@ -6,6 +6,7 @@ import { LoginService } from "src/app/services";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordValidation } from "./password.validator";
+
 import { ChangeDetectorRef } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { SessionService } from "src/app/services/session.service";
@@ -13,6 +14,7 @@ import { formatDate } from "@angular/common";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
+import { preserveWhitespacesDefault } from "@angular/compiler";
 
 @Component({
   selector: "app-header",
@@ -20,6 +22,8 @@ import { startWith, map } from "rxjs/operators";
   //styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  
+  
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
@@ -117,7 +121,7 @@ export class HeaderComponent implements OnInit {
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
     this.forgetpassForm = this.formbuilder.group({
-      username: ["", [Validators.required]]
+      username: ["", [Validators.required,]]
     });
     this.signupForm = this.formbuilder.group({
       firstname: ["", [Validators.required]],
@@ -194,7 +198,8 @@ export class HeaderComponent implements OnInit {
     this.signupForm3 = this.formbuilder.group(
       {
         username: ["", [Validators.required]],
-        password: ["", [Validators.required]],
+        //uname: ["", [Validators.required]],
+        password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
         confirmPassword: ["", [Validators.required]],
         term: ["", [Validators.required]]
       },
@@ -643,6 +648,18 @@ export class HeaderComponent implements OnInit {
       },);
     } catch {}
   }
+  //send OTP button change and seconds
+         name = 'Angular';
+         btnText = 'send OTP ';
+         btnDisabled = false;
+         buttonClick1() {
+         this.btnDisabled = true;
+         this.btnText = 'Please wait';
+         setTimeout(() => {
+          this.btnText = 'Resend OTP';
+          this.btnDisabled = false
+           }, 30000);
+         }
   //aapathonSignUpForm
   appathonSendOtp(mobile: any) {
     this.appathonSignupForm.controls["otp_send"].setValue("0");

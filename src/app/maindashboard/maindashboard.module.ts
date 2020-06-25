@@ -22,6 +22,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { UATonboardingDashboardPageSidebarComponent } from './uatonboarding-dashboard-page-sidebar/uatonboarding-dashboard-page-sidebar.component';
+import { DownloadComponent } from './download/download.component';
+import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
    
 @NgModule({
@@ -37,6 +40,14 @@ import { UATonboardingDashboardPageSidebarComponent } from './uatonboarding-dash
          NgMultiSelectDropDownModule.forRoot(),
          NgxPaginationModule,
          Ng2SearchPipeModule,
+        
+         MatInputModule,
+         MatAutocompleteModule,
+         MatFormFieldModule,
+         BrowserAnimationsModule,
+         MatInputModule,
+
+         
     ],
     declarations: [
         // IndexComponent,
@@ -51,6 +62,7 @@ import { UATonboardingDashboardPageSidebarComponent } from './uatonboarding-dash
         UATonboardingDashboardPageComponent,
         OnboardingrequestsComponent,
         UATonboardingDashboardPageSidebarComponent,
+        DownloadComponent
         
     ],
 

@@ -17,6 +17,7 @@ import { timeout, catchError, map, mapTo } from "rxjs/operators";
 
 @Injectable()
 export class LoginService {
+  
   apiUrl: string;
   private user_id = new Subject<any>();
   private user_name = new Subject<any>();
@@ -419,7 +420,7 @@ export class LoginService {
   }
 
   // Get error code of documentation page
-  mis(json){
+  mis1(json){
     var query = '';
     var key;
     for (key in json) {
@@ -666,6 +667,7 @@ export class LoginService {
        { responseType: ResponseContentType.Blob }
     );
   }
+  
 
   // downloadPdf(filePath) {
   //   var query = filePath;
@@ -727,4 +729,30 @@ export class LoginService {
       'https://developer.icicibank.com/rest/getPortalFAQ'
     )
   }
+
+  // Get getDocDetails of download page
+ 
+getDocDetails(json) {
+  //let json = {"docId":"6"}
+  let query = "";
+  if(json && json.docId){
+    query = "docId="+json.docId;
+  }
+  
+  return this.http.get(this.apiUrl +"getDocDetails?"+query);
+}
+ 
+// Get MIS   download 
+ 
+getMisFile(json) {
+  //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
+  let query = "";
+  if(json && json.userName && json.fileDate){
+    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
+  }
+  return this.http.get(this.apiUrl +"getMisFile?"+query); 
+}
+ 
+ 
+
 }

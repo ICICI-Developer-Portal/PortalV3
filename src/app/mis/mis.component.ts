@@ -6,7 +6,6 @@ import { CONSTANTS } from '../../../config/application-constant';
 import { DatePipe } from '@angular/common';
 import { ToasterService, Toast } from 'angular2-toaster';
 
-
 @Component({
   selector: 'app-mis',
   templateUrl: './mis.component.html',
@@ -32,7 +31,7 @@ export class MisComponent implements OnInit {
     public datepipe: DatePipe,
     private toasterService: ToasterService,
   ) {
-   this.dateInput= datepipe.transform(Date.now(),'dd-MMM-yy');
+   this.dateInput= datepipe.transform(Date.now(),'dd-MMM-yyyy');
 
   }
   /** on page load
@@ -40,10 +39,8 @@ export class MisComponent implements OnInit {
    * @method ngOnInit
    */
   ngOnInit() {
-    this.username = localStorage.getItem("username");
     //var companyName = 'Niveus Solutions';
     this.misForm = this.formbuilder.group({
-      companyName: ['', [Validators.required]],
       dateInput: ['', [Validators.required]],
     });
   }
@@ -55,18 +52,18 @@ export class MisComponent implements OnInit {
    * @class MisComponent
    * @method getCompanyName
    */
-  getCompanyName(companyName) {
-    this.adm.getCompanyName(companyName).subscribe(data => {
-      if (data.status === 200) {
-        this.companyNamesDetails = data;
-        this.companyNames = JSON.parse(this.companyNamesDetails._body);
-      }
-    },
-    err => {
-      console.log('err', err);
-      this.router.navigate(['error']);
-    },);
-  }
+  // getCompanyName(companyName) {
+  //   this.adm.getCompanyName(companyName).subscribe(data => {
+  //     if (data.status === 200) {
+  //       this.companyNamesDetails = data;
+  //       this.companyNames = JSON.parse(this.companyNamesDetails._body);
+  //     }
+  //   },
+  //   err => {
+  //     console.log('err', err);
+  //     this.router.navigate(['error']);
+  //   },);
+  // }
 //download csv file
 downloadCertificate(url) {
   var json = {
@@ -111,26 +108,29 @@ downloadCertificate(url) {
    * @class MisComponent
    * @method submit
    */
+  
+  
   submit() {
-    // try {
-    //   var json = {
-    //     userName: this.username,
-    //     clientName: this.misForm.value.companyName,
-    //     startDate: this.dateInput,
-    //   };
-    //   this.adm.mis(json).subscribe((data: any) => {
-    //     var response = data._body;
-    //     var obj = JSON.parse(response); 
-    //   },
-    //   err => {
-    //     console.log('err', err);
-    //     this.router.navigate(['error']);
-    //   },);
-    //   alert(JSON.stringify(json));
-    //   // this.spinnerService.show();
-    // } catch {
-    //   //this.toastrmsg('error', console.error());
-    // }
+    try {
+      let json = {
+        
+      "userName":localStorage.removeItem('username'),
+      "fileDate":this.dateInput
+    }
+ 
+      console.log(JSON.stringify(json));
+      this.adm.getMisFile(json).subscribe((data: any) => {
+        console.log("file downloaded");
+      },
+      err => {
+        console.log('err', err);
+        this.router.navigate(['error']);
+      },);
+      alert(JSON.stringify(json));
+      // this.spinnerService.show();
+    } catch {
+      //this.toastrmsg('error', console.error());
+    }
   }
   /** logout from application
    * @class MisComponent
