@@ -6,7 +6,8 @@ input[type="textbox"]{
     border: solid 1px #acacac;
     outline: none;
     background: #ffffff;
-    height: 39.6px;;
+	height: 39.6px;;
+	display: inline-block !important;
 
 }
 .mainField.ng-invalid.ng-touched{
@@ -21,6 +22,23 @@ border-bottom: 1px solid #ae282e;
 	border-top: 1px solid green;
 	border-bottom: 1px solid green;     
 
+}
+.overlay_parent{
+	top: 0;
+    width: 100%;
+    pointer-events: none;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.overlay_child{
+	position: relative;
+    width: 100%;
+    z-index: .0005;
+}
+.margin_3px{
+	margin-top: 3px;
+	font-size: 25px;
 }
 .error{
 	color: #ae282e;
@@ -38,6 +56,11 @@ hr{
 }
 .margin_0px{
     margin: 0px;
+}
+
+
+.width_100prcnt{
+	width: 100%;
 }
 /* input attachment */
 .input_type_attachment{ 
@@ -67,6 +90,19 @@ select.input-lg {
 	   padding: 0px;
 	   margin: 0px;
    }
+   .first-level{}
+   .second-level{
+	   font-size: 13px;
+   }
+   .third-level{
+	   font-size: 12.5;
+   }
+   .fourth-level{
+	   font-size: 12px;
+   }
+   .fifth-level{
+	   font-size: 11px;
+   }
    .first-level li a,.second-level li a, .third-level li a,.fourth-level li a,.fifth-level li a {
 	font-family: Poppins-Medium;
     /* padding: 16px 12px 16px 24px; */
@@ -89,8 +125,8 @@ select.input-lg {
    .cursor-pointer{
 	cursor: pointer !important;
    }
-   .padding-left-25 {
-	padding-left: 25px;    
+   .padding-left-15 {
+	padding-left: 15px;    
    }
    .padding-left-10prcnt {
 	padding-left: 10%;    

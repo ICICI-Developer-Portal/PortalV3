@@ -7,6 +7,7 @@
           <a><img src="assets/images/icici-svg-2.svg" alt=""/></a>
         </li>
         <li (click)="logout()">
+          <!-- {{ constants.LOG_OUT }} -->
         </li>
       </ul>
     </div>
@@ -19,7 +20,7 @@
        
       </h4>
       <div class="col-md-12 mb-xs-30 div-cl-md-12 pd-tp">
-        <div><label for="company">Company Name</label></div>
+        <div><label for="company">Company Name....</label></div>
         <input
           name="company"
           formControlName="companyName"
@@ -34,6 +35,7 @@
             *ngFor="let companyname of companyNames"
             [value]="companyname"
           >
+            {{ companyname }}
           </mat-option>
         </mat-autocomplete>
       </div>
@@ -51,6 +53,7 @@
       <div class="col-md-12 mb-xs-30 div-cl-md-12">
         <div>
           <label for="date">
+            <!-- {{ constants.DATE }} -->
           </label>
         </div>
         <input
@@ -75,8 +78,10 @@
           [disabled]="!misForm.valid"
           [ngClass]="misForm.valid ? 'btn-blue' : 'btn-white'"
         >
+          <!-- {{ constants.SUBMIT }} -->
         </button>
       </div>
     </div>
   </form>
 </div>
+

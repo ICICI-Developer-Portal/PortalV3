@@ -347,6 +347,7 @@ export class HeaderComponent implements OnInit {
       username : username,
       password : password
     };
+    console.log(nonEncodedJson)
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
@@ -365,6 +366,7 @@ export class HeaderComponent implements OnInit {
     this.spinnerService.show();
     this.adm.Login(json).subscribe((data: any) => {
       var response = data._body;
+      console.log(response)
       this.loginResponse = JSON.parse(response);
       console.log(this.loginResponse);
       if (this.loginResponse.status == true) {
