@@ -731,4 +731,29 @@ export class LoginService {
       'https://developer.icicibank.com/rest/getPortalFAQ'
     )
   }
+
+  // Get getDocDetails of download page
+ 
+getDocDetails(json) {
+  //let json = {"docId":"6"}
+  let query = "";
+  for (let key in json) {
+    query += key + "=" + json[key] + "&";
+  }
+  return this.http.get(this.apiUrl +"?getDocDetails"+query);
+}
+ 
+// Get MIS   download url
+ 
+getMisFile(json) {
+  //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
+  /*let query = "";
+  for (let key in json) {
+    query += key + "=" + json[key] + "&";
+  }
+  return this.http.get(this.apiUrl +"?getMisFile"+query);
+*/
+return this.http.get("https://developer.icicibank.com/rest/getMisFile?userName=Naresh&fileDate=20-jan-2020");
+  
+}
 }
