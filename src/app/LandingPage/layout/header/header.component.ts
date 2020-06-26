@@ -22,6 +22,8 @@ import { preserveWhitespacesDefault } from "@angular/compiler";
   //styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  
+  
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
@@ -345,6 +347,7 @@ export class HeaderComponent implements OnInit {
       username : username,
       password : password
     };
+    console.log(nonEncodedJson)
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
@@ -363,6 +366,7 @@ export class HeaderComponent implements OnInit {
     this.spinnerService.show();
     this.adm.Login(json).subscribe((data: any) => {
       var response = data._body;
+      console.log(response)
       this.loginResponse = JSON.parse(response);
       console.log(this.loginResponse);
       if (this.loginResponse.status == true) {
@@ -644,6 +648,18 @@ export class HeaderComponent implements OnInit {
       },);
     } catch {}
   }
+  //send OTP button change and seconds
+         name = 'Angular';
+         btnText = 'send OTP ';
+         btnDisabled = false;
+         buttonClick1() {
+         this.btnDisabled = true;
+         this.btnText = 'Please wait';
+         setTimeout(() => {
+          this.btnText = 'Resend OTP';
+          this.btnDisabled = false
+           }, 30000);
+         }
   //aapathonSignUpForm
   appathonSendOtp(mobile: any) {
     this.appathonSignupForm.controls["otp_send"].setValue("0");

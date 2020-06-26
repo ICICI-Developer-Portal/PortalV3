@@ -9,6 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+
 import {
   MatAutocompleteModule,
   MatFormFieldModule,
@@ -27,6 +30,7 @@ import {
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    
   ],
   declarations: [LayoutComponent, FooterComponent, HeaderComponent],
 })

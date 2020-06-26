@@ -219,7 +219,11 @@ export class UATonboardingDashboardPageComponent implements OnInit
         if (this.additionalParams[i].match("Amount")) {
           this.amount = true;
         }
+<<<<<<< HEAD
 		if (this.additionalParams[i].match("Headers")) {
+=======
+        if (this.additionalParams[i].match("Headers")) {
+>>>>>>> Devbranch_karthik
           this.header = true;
         }
         if (this.additionalParams[i].match("TestingID")) {
@@ -520,7 +524,7 @@ export class UATonboardingDashboardPageComponent implements OnInit
     formData.append("Acc_uatTestingIDt", inputFields["Acc_uatTestingIDt"]);
 
 
-    console.log(formData);
+    console.log(formData);  
 
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
     console.log("a", a);
@@ -534,13 +538,19 @@ export class UATonboardingDashboardPageComponent implements OnInit
 	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
     formData.append("Headers", inputFields["Acc_header"]);
 	formData.append("TestingID", inputFields["Acc_uatTestingIDt"]);
+<<<<<<< HEAD
   
+=======
+   formData.forEach((value,key) => {
+    console.log(key+" "+value)
+});
+>>>>>>> Devbranch_karthik
    
 	 // Jira Service
    //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
 //https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
-      "https://developerapi.icicibank.com:8443/api/v2/jira",
+      "https://developerapi.icicibank.com:8443/api/v2/jira-UAT",
       formData
     ).subscribe(
       res => {
@@ -556,9 +566,12 @@ export class UATonboardingDashboardPageComponent implements OnInit
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
-          let b: any = (<HTMLInputElement>document.getElementById("file1"))
-            .files;
+          let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
           for (let k = 0; k < b.length; k++) {
+            console.log(b,k)
+            console.log(b[k])
+            console.log(res.jiraId,res)
+
             formData.append(res.jiraId, b[k]);
           }
           this.HttpClient.post<any>(
@@ -567,7 +580,7 @@ export class UATonboardingDashboardPageComponent implements OnInit
           ).subscribe(
             res => {
               console.log(res);
-              // alert(res.jiraId);
+              console.log(res.jiraId,"rchd");
             },
             err => {
               console.log('err', err);
@@ -735,7 +748,10 @@ let c =this.reactiveForm.controls.additionalField;
 	  this.get_domain_and_apis();
     }
     );
+<<<<<<< HEAD
 
+=======
+>>>>>>> Devbranch_karthik
 // ipvalidation
 // function validateIp(ip) {
 //   if ( ip == null || ip === '' ) {
@@ -816,7 +832,10 @@ let c =this.reactiveForm.controls.additionalField;
 
 
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Devbranch_karthik
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,

@@ -6,7 +6,8 @@ input[type="textbox"]{
     border: solid 1px #acacac;
     outline: none;
     background: #ffffff;
-    height: 39.6px;;
+	height: 39.6px;;
+	display: inline-block !important;
 
 }
 .mainField.ng-invalid.ng-touched{
@@ -89,6 +90,19 @@ select.input-lg {
 	   padding: 0px;
 	   margin: 0px;
    }
+   .first-level{}
+   .second-level{
+	   font-size: 13px;
+   }
+   .third-level{
+	   font-size: 12.5;
+   }
+   .fourth-level{
+	   font-size: 12px;
+   }
+   .fifth-level{
+	   font-size: 11px;
+   }
    .first-level li a,.second-level li a, .third-level li a,.fourth-level li a,.fifth-level li a {
 	font-family: Poppins-Medium;
     /* padding: 16px 12px 16px 24px; */
@@ -111,8 +125,8 @@ select.input-lg {
    .cursor-pointer{
 	cursor: pointer !important;
    }
-   .padding-left-25 {
-	padding-left: 25px;    
+   .padding-left-15 {
+	padding-left: 15px;    
    }
    .padding-left-10prcnt {
 	padding-left: 10%;    

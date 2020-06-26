@@ -38,10 +38,8 @@ import {
 } from "@angular/material";
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-
+import { MisComponent } from './mis/mis.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MisComponent } from "./mis/mis.component";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +51,6 @@ import { MisComponent } from "./mis/mis.component";
     JwtAuthComponent,
     ErrorPageComponent,
     MisComponent
-
   ],
   imports: [
     BrowserModule,
@@ -75,7 +72,9 @@ import { MisComponent } from "./mis/mis.component";
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    
+    
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
