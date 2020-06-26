@@ -148,8 +148,8 @@
         <!-- =========================================================================================================== -->
         <!-- second section starts here -->
         <!-- =========================================================================================================== -->
-        <!-- <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''"> -->
-          <div class="tabContentInner" >
+        <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
+          <!-- <div class="tabContentInner" > -->
           <div class="row m0">
             <div class="container">
               <!--karthik-Auto complete-->
@@ -176,8 +176,7 @@
                   aria-hidden="true"></i>
 
 
-                  <div class="sideMenu col-md-11"
-                    style="position: inherit !important;width:auto !important;height:auto;">
+                  <div class="sideMenu col-md-11">
 
                     <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
 
@@ -216,7 +215,7 @@
                               <li *ngIf="j.toggle">
                                 <!-- 3 level -->
                                 <a (click)="k.toggle=!k.toggle"
-                                  class="display-block cursor-pointer padding-left-15prcnt">
+                                  class="display-block cursor-pointer padding-left-13prcnt">
                                   <ng-template #other>
                                     <div class="customcsscontainer"> <label for=""> <input type="checkbox"
                                           (change)="onCheckChange($event)" id="{{k.API_ID}}" value="{{k.TAB_NAME}}"
@@ -277,9 +276,7 @@
                     </ul>
 
 
-                    <!-- <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">
-                        Checkbox is required, select atleast one value.
-                      </p> -->
+                   
 
                     <!-- <ul class="first-level" >
                           <li  *ngFor="let i of responseData;let e=index" class="display-block cursor-pointer padding-left-25 border-bottom expandable"  (click)="togglefrstList()">
@@ -340,6 +337,9 @@
 
                     <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
                   </div>
+                  <!-- <p class="error" *ngIf="apiGreenCheck!='valid'" hidden="{{showError}}">
+                    select atleast one value.
+                  </p> -->
                   
                 </div>
                 <div class="col-md-12">
@@ -368,9 +368,9 @@
         <!-- third section starts here -->
         <!--================================================================================================= -->
 
-        <!-- <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
-          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner"> -->
-            <div><div class="tabContentInner">
+        <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
+          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner">
+            <!-- <div><div class="tabContentInner"> -->
             <div class="row m0">
               <div class="container">
                 <h5>Additional Field</h5>
@@ -402,17 +402,31 @@
                     </div>
 
 
-                    <div class="form-group col-md-6" *ngIf="ip">
+                    <!-- <div class="form-group col-md-6" *ngIf="ip">
                       <div class="width_100prcnt"><label for="contract">IP</label></div>
                       <input class="form-control col-md-11" placeholder="Your IP" formControlName="ip" type="text" />
-                      <!-- validation -->
+                     
                       <div
                         *ngIf="!reactiveForm.get('additionalField.ip').valid && reactiveForm.get('additionalField.ip').touched"
                         class="text-danger form-error">
                         IP is required.
                       </div>
-                      <!-- ======== -->
+                      
 
+                    </div> -->
+                    <div class="form-group col-md-6" *ngIf="ip" >
+                      <div class="width_100prcnt"><label for="contract">IP</label></div>
+                      <div class="col-md-11">
+                        <div class="row">
+                      <div class="input-group ">
+                        <input type="text" class="form-control" placeholder="Your IP" aria-label="IP"
+                          aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <span class="input-group-text add-ip-addon" id="basic-addon2" (click)="addIPs()">Add</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="port">
@@ -621,42 +635,55 @@
                           </select>
                         </span>
                       </div>
-                      <!-- ====================================== Three additionl fields================================-->
-                      <div class="form-group" *ngIf="header">
-                        <div>
-                          <label for="Header">Header</label>
-                        </div>
-                        <input class="form-control" placeholder="Header" type="text" formControlName="Header" />
+                     
+                    </div>
+                     <!-- ====================================== Three additionl fields================================-->
+                    <!-- ====================================== Three additionl fields================================-->
+                    <div class="form-group col-md-6" *ngIf="headers">
+                      <div>
+                        <label for="Header">Header</label>
                       </div>
-                      <div class="form-group" *ngIf="uatTestingID">
-                        <div>
-                          <label for="TestingID">TestingID</label>
-                        </div>
-                        <input class="form-control" placeholder="TestingID" type="text" formControlName="TestingID " />
-                        <!-- validation -->
-                        <div
-                          *ngIf="!reactiveForm.get('additionalField.TestingID').valid && reactiveForm.get('additionalField.TestingID').touched"
-                          class="text-danger form-error">
-                          Testing ID is required.
-                        </div>
-                        <!-- ======== -->
+                      <input class="form-control  col-md-11" placeholder="Header" type="text" formControlName="header" />
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="uatTestingID">
+                      <div>
+                        <label for="TestingID">TestingID</label>
                       </div>
-                      <div class="form-group" *ngIf="refJIRAID">
-                        <div>
-                          <label for="refJIRAID">Reference JIRA ID</label>
-                        </div>
-                        <input class="form-control" placeholder="Reference JIRA ID" type="text"
-                          formControlName="refJIRAID" />
+                      <input class="form-control  col-md-11" placeholder="TestingID" type="text" formControlName="TestingID" />
+                      <!-- validation -->
+                      <div
+                        *ngIf="!reactiveForm.get('additionalField.TestingID').valid && reactiveForm.get('additionalField.TestingID').touched"
+                        class="text-danger form-error">
+                        Testing ID is required.
                       </div>
                       <!-- ======== -->
                     </div>
+                    <div class="form-group col-md-6" *ngIf="refJIRAID">
+                      <div>
+                        <label for="refJIRAID">Reference JIRA ID</label>
+                      </div>
+                      <input class="form-control  col-md-11" placeholder="Reference JIRA ID" type="text" formControlName="refJIRAID" />
+                    </div>
+                    <!-- ======== -->
                   </div>
 
 
                   <!-- ================================================================================================================-->
                   <!-- ======================================additionl field ends here================================-->
                   <!-- ================================================================================================================-->
+                  
                   <div formGroupName="whitelistIpSection" class="row">
+                    <!-- <a (click)="addNewIPField()" class="btn btn-primary">Add new Row</a><br>
+                    <div formArrayName="ipRows" class="form-group col-md-6">
+                      <div *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('ipRows').controls; let i=index"
+                        [formGroupName]="i">
+                        <div class="width_100prcnt"><label for="contract">IP</label></div>
+                        <input class="form-control col-md-11" placeholder="Your IP" formControlName="ip" type="text" />
+                        <a *ngIf=" reactiveForm.get('ipRows').controls.length > 1" (click)="deleteRow(i)" class="btn btn-danger">Delete
+                          Button</a>
+                      </div>
+                    </div> -->
+                    
                     <div class="form-group col-md-6">
                       <label for="r_m_maild_id">Certificate Upload <span class="text-danger"> *</span></label>
                       <a data-toggle="tooltip"

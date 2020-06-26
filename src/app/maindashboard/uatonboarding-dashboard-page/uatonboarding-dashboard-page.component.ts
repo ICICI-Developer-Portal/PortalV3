@@ -57,8 +57,8 @@ export class UATonboardingDashboardPageComponent implements OnInit
   logged_in: Boolean = false;
   additionalParams: any;
   Ecollection_Show: Boolean = false;
-
-  header: boolean = false;
+  refJIRAID: boolean =false;
+  headers: boolean = false;
   accNo: boolean = false;
   clientCode: boolean = false;
   url: boolean = false;
@@ -90,11 +90,45 @@ export class UATonboardingDashboardPageComponent implements OnInit
   showTab = 1;
   apiGreenCheck:string ="invalid";
   confirmMsgProd: any;
+  showError :string= "hidden";
 
 
 
 
 
+// ====================================
+// get formArr() {
+//   var cntls= this.reactiveForm.controls;
+//   console.log(this.reactiveForm.get('whitelistIpSection').get('ipRows').controls)
+//   console.log(cntls.ipRows)
+
+
+//   console.log(this.reactiveForm.controls)
+//   return this.reactiveForm.get('whitelistIpSection').get('ipRows') as FormArray;
+// }
+// $
+
+initipRows() {
+  return this.formbuilder.group({
+    ip: ['']
+  });
+}
+
+addNewIPField() {
+  const control = <FormArray>this.reactiveForm.get('ipRows') ;
+  //console.log(control);
+
+ // this.formArr.push(this.initipRows());
+  control.push(this.initipRows());
+}
+
+deleteRow(i: number) {
+  // this.formArr.removeAt(index);\
+  
+  const control = <FormArray>this.reactiveForm.get('ipRows');
+    control.removeAt(i);
+}
+// ====================================
 
 
   select(i) {
@@ -219,12 +253,13 @@ export class UATonboardingDashboardPageComponent implements OnInit
         if (this.additionalParams[i].match("Amount")) {
           this.amount = true;
         }
-<<<<<<< HEAD
-		if (this.additionalParams[i].match("Headers")) {
-=======
+
         if (this.additionalParams[i].match("Headers")) {
->>>>>>> Devbranch_karthik
-          this.header = true;
+
+
+          console.log(this.additionalParams[i],"hiii")
+          this.headers = true;
+
         }
         if (this.additionalParams[i].match("TestingID")) {
           this.uatTestingID = true;
@@ -245,12 +280,14 @@ export class UATonboardingDashboardPageComponent implements OnInit
     if ($(".customcsscontainer input:checkbox:checked").length > 0) {
       $('.ContinueBtn').prop('disabled', false);
       this.apiGreenCheck="valid";
+      this.showError="hidden";
       console.log(this.reactiveForm);
 
     }
     else {
       $('.ContinueBtn').prop('disabled', true);
       this.apiGreenCheck="invalid";
+      this.showError;
       console.log(this.reactiveForm);
     }
     const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
@@ -299,6 +336,12 @@ export class UATonboardingDashboardPageComponent implements OnInit
 
     }
   }
+  addIPs(){
+
+    $("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
+  }
+  // adding ip Field.......via $$$
+ 
 
   // ================================================================
   @ViewChild('BasicDetailsList') BasicDetailsList: ElementRef;
@@ -478,7 +521,7 @@ export class UATonboardingDashboardPageComponent implements OnInit
       Acc_amount: reactiveFromFieldValues.additionalField.Acc_amount ? reactiveFromFieldValues.additionalField.Acc_amount : '',
       Acc_header: reactiveFromFieldValues.additionalField.header ? reactiveFromFieldValues.additionalField.header : '',
       Acc_uatTestingIDt: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
-	  Acc_refJIRAID: reactiveFromFieldValues.additionalField.refJIRAID ? reactiveFromFieldValues.additionalField.refJIRAID : '',
+	    Acc_refJIRAID: reactiveFromFieldValues.additionalField.refJIRAID ? reactiveFromFieldValues.additionalField.refJIRAID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -520,8 +563,8 @@ export class UATonboardingDashboardPageComponent implements OnInit
     formData.append("Acc_mode", inputFields["Acc_mode"]);
     formData.append("Acc_trans", inputFields["Acc_trans"]);
     formData.append("Acc_amount", inputFields["Acc_amount"]);
-    formData.append("Acc_header", inputFields["Acc_header"]);
-    formData.append("Acc_uatTestingIDt", inputFields["Acc_uatTestingIDt"]);
+    formData.append("Acc_headers", inputFields["Acc_headers"]);
+    formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
 
 
     console.log(formData);  
@@ -536,15 +579,12 @@ export class UATonboardingDashboardPageComponent implements OnInit
 	// Appended three new elements
 	
 	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
-    formData.append("Headers", inputFields["Acc_header"]);
+  formData.append("Headers", inputFields["Acc_header"]);
 	formData.append("TestingID", inputFields["Acc_uatTestingIDt"]);
-<<<<<<< HEAD
-  
-=======
-   formData.forEach((value,key) => {
+  formData.forEach((value,key) => {
     console.log(key+" "+value)
-});
->>>>>>> Devbranch_karthik
+  });
+
    
 	 // Jira Service
    //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
@@ -604,7 +644,7 @@ export class UATonboardingDashboardPageComponent implements OnInit
    console.log( reactiveFromFieldValues.additionalField.ip);
    console.log(this.reactiveForm)
    console.log(this.reactiveForm.controls.additionalField)
-let c =this.reactiveForm.controls.additionalField;
+  let c =this.reactiveForm.controls.additionalField;
 
     console.log(reactiveFromFieldValues.additionalField.ip  )
     let ip= reactiveFromFieldValues.additionalField.ip;
@@ -687,6 +727,7 @@ let c =this.reactiveForm.controls.additionalField;
 
   resetForm(edit) {
     this.reactiveForm = new FormGroup({
+      
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
@@ -707,6 +748,7 @@ let c =this.reactiveForm.controls.additionalField;
         "service": new FormControl(),
         "commModel": new FormControl(),
         "header": new FormControl(),
+        "TestingID": new FormControl(),
         "IFSC_Code": new FormControl(),
         "virtualCode": new FormControl(),
         "ips": new FormControl(),
@@ -722,9 +764,11 @@ let c =this.reactiveForm.controls.additionalField;
         "Acc_trans": new FormControl(),
         "Acc_amount": new FormControl(),
         "ip": new FormControl(),
-        "port": new FormControl()
+        "port": new FormControl(),
+        "refJIRAID": new FormControl()
       }),
       'whitelistIpSection': new FormGroup({
+        "ipRows":  new FormArray([]),
         "file1": new FormControl(null, [Validators.required]),
         "checkBox": new FormControl(false, [Validators.requiredTrue])
       })
@@ -748,10 +792,6 @@ let c =this.reactiveForm.controls.additionalField;
 	  this.get_domain_and_apis();
     }
     );
-<<<<<<< HEAD
-
-=======
->>>>>>> Devbranch_karthik
 // ipvalidation
 // function validateIp(ip) {
 //   if ( ip == null || ip === '' ) {
@@ -830,12 +870,15 @@ let c =this.reactiveForm.controls.additionalField;
     })
 
 
+// ============================    
 
+// this.reactiveForm = this.formbuilder.group({
+//   ipRows: this.formbuilder.array([
+//       this.initipRows(),
+//   ])
+// });
+// ==============================
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> Devbranch_karthik
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
