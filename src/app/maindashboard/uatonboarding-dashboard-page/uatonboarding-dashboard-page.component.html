@@ -153,7 +153,7 @@
           <div class="row m0">
             <div class="container">
               <!--karthik-Auto complete-->
-              <!-- <form class="example-form">
+              <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <input type="text" placeholder="Pick one"  aria-label="Number" matInput
                     [formControl]="myControl" [matAutocomplete]="auto">
@@ -163,7 +163,7 @@
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
-              </form> -->
+              </form>
               <!--karthik-Auto complete End-->
               <div #RequestedApiList class="" id="Requested-api-list">
 
@@ -364,13 +364,18 @@
 
 
         <hr class="margin_0px" />
+        <!-- =========================================================================================================== -->
+        <!-- third section starts here -->
+        <!--================================================================================================= -->
 
-        <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
-          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner">
+        <!-- <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
+          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner"> -->
+            <div><div class="tabContentInner">
             <div class="row m0">
               <div class="container">
                 <h5>Additional Field</h5>
-                <div #whitelistIpList class="col-7" id="whitelist-ip-list">
+                <div #whitelistIpList class="" id="whitelist-ip-list">
+
 
                   <!-- ================================================================================================================= -->
                   <!-- additional fields -->
@@ -616,47 +621,43 @@
                           </select>
                         </span>
                       </div>
-					  <!-- ====================================== Three additionl fields================================-->
-					 <div class="form-group" *ngIf="header">
-                      <div>
-                        <label for="Header">Header</label>
+                      <!-- ====================================== Three additionl fields================================-->
+                      <div class="form-group" *ngIf="header">
+                        <div>
+                          <label for="Header">Header</label>
+                        </div>
+                        <input class="form-control" placeholder="Header" type="text" formControlName="Header" />
                       </div>
-                      <input class="form-control" placeholder="Header" type="text" formControlName="Header" />
-                    </div> 
-					 <div class="form-group" *ngIf="uatTestingID">
-                      <div>
-                        <label for="TestingID">TestingID</label>
+                      <div class="form-group" *ngIf="uatTestingID">
+                        <div>
+                          <label for="TestingID">TestingID</label>
+                        </div>
+                        <input class="form-control" placeholder="TestingID" type="text" formControlName="TestingID " />
+                        <!-- validation -->
+                        <div
+                          *ngIf="!reactiveForm.get('additionalField.TestingID').valid && reactiveForm.get('additionalField.TestingID').touched"
+                          class="text-danger form-error">
+                          Testing ID is required.
+                        </div>
+                        <!-- ======== -->
                       </div>
-                      <input class="form-control" placeholder="TestingID" type="text" formControlName="TestingID " />
-					  <!-- validation -->
-                    <div
-                      *ngIf="!reactiveForm.get('additionalField.TestingID').valid && reactiveForm.get('additionalField.TestingID').touched"
-                      class="text-danger form-error">
-                      Testing ID is required.
-                    </div>
-                    <!-- ======== -->
-					  
-                    </div> 
-					 <div class="form-group" *ngIf="refJIRAID">
-                      <div>
-                        <label for="refJIRAID">Reference JIRA ID</label>
+                      <div class="form-group" *ngIf="refJIRAID">
+                        <div>
+                          <label for="refJIRAID">Reference JIRA ID</label>
+                        </div>
+                        <input class="form-control" placeholder="Reference JIRA ID" type="text"
+                          formControlName="refJIRAID" />
                       </div>
-                      <input class="form-control" placeholder="Reference JIRA ID" type="text" formControlName="refJIRAID" />
-                    </div> 
-					
-					<!-- ======== -->
-					  
-					  
+                      <!-- ======== -->
                     </div>
                   </div>
 
 
-                  <!-- ================================================= ===============================================================-->
-                  <!-- ======================================additionl fields================================-->
-
-                  <!-- ================================================= ===============================================================-->
-                  <div formGroupName="whitelistIpSection" class="">
-                    <div class="form-group row">
+                  <!-- ================================================================================================================-->
+                  <!-- ======================================additionl field ends here================================-->
+                  <!-- ================================================================================================================-->
+                  <div formGroupName="whitelistIpSection" class="row">
+                    <div class="form-group col-md-6">
                       <label for="r_m_maild_id">Certificate Upload <span class="text-danger"> *</span></label>
                       <a data-toggle="tooltip"
                         title="Please upload zip file of SSL Certificate and Encryption Certificate"><img alt="loader"
