@@ -747,12 +747,31 @@ getDocDetails(json) {
 getMisFile(json) {
   //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
   let query = "";
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
   if(json && json.userName && json.fileDate){
     query = "userName="+json.userName +"&fileDate="+ json.fileDate;
   }
-  return this.http.get(this.apiUrl +"getMisFile?"+query); 
+  return this.http.get(this.apiUrl +"getMisFile?"+query,{ responseType: ResponseContentType.Blob }); 
 }
- 
+getMisFile2(json) {
+  let query = "";
+  if(json && json.userName && json.fileDate){
+    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(
+    "https://developer.icicibank.com/" + "download",
+    query,
+     { responseType: ResponseContentType.Blob }
+  );
+}
  
 
 }

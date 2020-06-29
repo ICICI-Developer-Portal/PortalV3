@@ -2043,8 +2043,6 @@ body {
   }
   
   /* Track */
-  .disclaimer::-webkit-scrollbar-track {
-  }
   
   /* Handle */
   .disclaimer::-webkit-scrollbar-thumb {

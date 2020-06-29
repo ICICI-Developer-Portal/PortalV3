@@ -23,9 +23,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { UATonboardingDashboardPageSidebarComponent } from './uatonboarding-dashboard-page-sidebar/uatonboarding-dashboard-page-sidebar.component';
 import { DownloadComponent } from './download/download.component';
+import { MisComponent } from './mis/mis.component';
 import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MisComponent } from './mis/mis.component';
 
    
 @NgModule({
