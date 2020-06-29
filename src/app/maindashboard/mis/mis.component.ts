@@ -2,9 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CONSTANTS } from '../../../config/application-constant';
+import { CONSTANTS } from '../../../../config/application-constant';
 import { DatePipe } from '@angular/common';
 import { ToasterService, Toast } from 'angular2-toaster';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+// import 'rxjs/Rx';
+import { Http, Headers, Response } from '@angular/http';
+import { saveAs } from 'file-saver';
+//declare var require;
+import {FormControl} from '@angular/forms';
+
 
 @Component({
   selector: 'app-mis',
@@ -21,6 +28,8 @@ export class MisComponent implements OnInit {
   username:any;
   Url:any;
   certificate: any;
+  maxDate:any;
+  minDate:any;
   /** @class MisComponent
    * @constructor
    */
@@ -30,8 +39,13 @@ export class MisComponent implements OnInit {
     private router: Router,
     public datepipe: DatePipe,
     private toasterService: ToasterService,
+    private spinnerService: Ng4LoadingSpinnerService
   ) {
    this.dateInput= datepipe.transform(Date.now(),'dd-MMM-yyyy');
+   let today = new Date()
+   let priorDate = new Date().setDate(today.getDate()-20);
+   this.minDate= datepipe.transform(new Date(priorDate),'yyyy-MM-dd');
+   this.maxDate= datepipe.transform(Date.now(),'yyyy-MM-dd');
 
   }
   /** on page load
@@ -71,7 +85,7 @@ downloadCertificate(url) {
   };
 
   var fileName = url.substring(url.lastIndexOf('/') + 1);
-
+  
   this.adm.downloadCertificate(json).subscribe((data: any) => {
     this.certificate = data._body;
     console.log(data._body);
@@ -112,25 +126,50 @@ downloadCertificate(url) {
   
   submit() {
     try {
-      let json = {
+      let selectedDate = this.misForm.get('dateInput').value;
+      this.dateInput = this.datepipe.transform(new Date(selectedDate),'dd-MMM-yyyy');
+      let _json = {
         
-      "userName":localStorage.removeItem('username'),
+      "userName":localStorage.getItem('username'),
       "fileDate":this.dateInput
     }
- 
-      console.log(JSON.stringify(json));
-      this.adm.getMisFile(json).subscribe((data: any) => {
+    console.log(JSON.stringify(_json));
+    this.spinnerService.show();
+    this.adm.getMisFile(_json).subscribe((data: any) => {
+      this.spinnerService.hide();
+      let response = data;
+      if(response && response.url){
+        let pwa = window.open(response.url);
+        if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+            alert( 'Please disable your Pop-up blocker and try again.');
+        }
+      }
+      else if(response && response.data == null && response.message){ 
+        this.toastrmsg("Error",response.message);
+       // alert(response.message);
+      }else{
+        console.log("getMisFile =="+JSON.stringify(data));
         console.log("file downloaded");
+      }
       },
       err => {
+        this.spinnerService.hide();
         console.log('err', err);
         this.router.navigate(['error']);
       },);
-      alert(JSON.stringify(json));
       // this.spinnerService.show();
     } catch {
       //this.toastrmsg('error', console.error());
     }
+  }
+
+  toastrmsg(type, title) {
+    var toast: Toast = {
+      type: type,
+      title: title,
+      showCloseButton: true
+    };
+    this.toasterService.pop(toast);
   }
   /** logout from application
    * @class MisComponent

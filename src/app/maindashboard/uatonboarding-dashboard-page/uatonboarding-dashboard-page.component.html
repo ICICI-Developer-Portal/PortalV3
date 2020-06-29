@@ -130,7 +130,7 @@
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched"
                       class="text-danger form-error">
-                      Relationship Manager Email ID is required.
+                      Relationship Manager/Email ID/Employee ID is required.
                     </div>
                     <!-- ======== -->
                   </div>
@@ -153,7 +153,7 @@
           <div class="row m0">
             <div class="container">
               <!--karthik-Auto complete-->
-              <form class="example-form">
+              <!-- <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <input type="text" placeholder="Pick one"  aria-label="Number" matInput
                     [formControl]="myControl" [matAutocomplete]="auto">
@@ -163,7 +163,7 @@
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
-              </form>
+              </form> -->
               <!--karthik-Auto complete End-->
               <div #RequestedApiList class="" id="Requested-api-list">
 
@@ -173,7 +173,8 @@
                     <div class="form-group col-md-6">
                   <label for="merchantName">Select API <span class="text-danger"> *</span></label>
                   <i *ngIf="apiGreenCheck=='valid'" class="fa fa-check-circle green col-md-1 margin_3px float-right"
-                  aria-hidden="true"></i>
+                  aria-hidden="true" id="dynamic-list-check"></i>
+                  
 
 
                   <div class="sideMenu col-md-11">
@@ -184,15 +185,15 @@
                       <li>
 
                         <!-- 1 level -->
-                        <a (click)="i.toggle=!i.toggle" class="display-block cursor-pointer padding-left-25">
+                        <a (click)="i.toggle=!i.toggle" class="display-block cursor-pointer padding-left-25" >
 
                           <ng-template #other>
-                            <div class="customcsscontainer"> <label for="">
+                            <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{i.API_ID}}">
                                 <input type="checkbox" (change)="onCheckChange($event)" id="{{i.API_ID}}"
                                   value="{{i.TAB_NAME}}" (change)="checkValue(i)" #checkboxes> {{i.TAB_NAME}} </label>
                             </div>
                           </ng-template>
-                          <p class="margin_0px"> {{i.TAB_NAME}} <span class="inline_block pull-right"><img
+                          <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
                                 class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
                         </a>
                         <!-- 1 level -->
@@ -201,9 +202,9 @@
                             <!-- 2 level -->
                             <a (click)="j.toggle=!j.toggle" class="display-block cursor-pointer padding-left-10prcnt">
                               <ng-template #other>
-                                <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{j.API_ID}}"> <input type="checkbox"
                                       (change)="onCheckChange($event)" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
-                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}} </label> </div>
+                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}}</label> </div>
                               </ng-template>
                               <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
                                 <span class="inline_block pull-right"><img class="dropdownIcon"
@@ -217,7 +218,7 @@
                                 <a (click)="k.toggle=!k.toggle"
                                   class="display-block cursor-pointer padding-left-13prcnt">
                                   <ng-template #other>
-                                    <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                    <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{k.API_ID}}"> <input type="checkbox"
                                           (change)="onCheckChange($event)" id="{{k.API_ID}}" value="{{k.TAB_NAME}}"
                                           (change)="checkValue(k)" #checkboxes>{{k.TAB_NAME}}</label></div>
                                   </ng-template>
@@ -233,7 +234,7 @@
                                     <a (click)="L.toggle=!L.toggle"
                                       class="display-block cursor-pointer padding-left-20prcnt">
                                       <ng-template #other>
-                                        <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                        <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{L.API_ID}}"> <input type="checkbox"
                                               (change)="onCheckChange($event)" id="{{L.API_ID}}" value="{{L.TAB_NAME}}"
                                               (change)="checkValue(L)" #checkboxes>{{L.TAB_NAME}}</label></div>
                                       </ng-template>
@@ -252,7 +253,7 @@
                                                                                           *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'"
                                                                                             src="assets/images/dropdown-2.svg" alt=""></span> -->
                                           <ng-template #other>
-                                            <div class="customcsscontainer"> <label for=""> <input type="checkbox"
+                                            <div class="customcsscontainer"> <label (change)="onCheckChangeRightTick($event)" for="M.API_ID"> <input type="checkbox"
                                                   (change)="onCheckChange($event)" id="{{M.API_ID}}"
                                                   value="{{M.TAB_NAME}}" [(ngModel)]="!isChecked"
                                                   (change)="checkValue(M)"> {{M.TAB_NAME}}</label></div>
@@ -368,8 +369,8 @@
         <!-- third section starts here -->
         <!--================================================================================================= -->
 
-        <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
-          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner">
+        <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''" id="thrdSection">
+          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner" id="thrdSectionChld">
             <!-- <div><div class="tabContentInner"> -->
             <div class="row m0">
               <div class="container">
@@ -414,17 +415,18 @@
                       
 
                     </div> -->
-                    <div class="form-group col-md-6" *ngIf="ip" >
+                    <div class="form-group col-md-6 countIp" id="addIPUnique" *ngIf="ip" >
                       <div class="width_100prcnt"><label for="contract">IP</label></div>
-                      <div class="col-md-11">
+                      <div class="col-md-11 addErrorclasafter">
                         <div class="row">
                       <div class="input-group ">
-                        <input type="text" class="form-control" placeholder="Your IP" aria-label="IP"
+                        <input type="text" class="form-control ipValues" placeholder="Your IP" aria-label="IP"
                           aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                          <span class="input-group-text add-ip-addon" id="basic-addon2" (click)="addIPs()">Add</span>
+                          <span class="input-group-text add-ip-addon" id="basic-addon2" (click)="addIPs()">+</span>
                         </div>
                       </div>
+                      <!-- <span class="error"  id="countexceeder">You can add maximum 10 IP</span> -->
                     </div>
                   </div>
                     </div>
@@ -679,10 +681,13 @@
                         [formGroupName]="i">
                         <div class="width_100prcnt"><label for="contract">IP</label></div>
                         <input class="form-control col-md-11" placeholder="Your IP" formControlName="ip" type="text" />
-                        <a *ngIf=" reactiveForm.get('ipRows').controls.length > 1" (click)="deleteRow(i)" class="btn btn-danger">Delete
+                        <a *ngIf="reactiveForm.get('whitelistIpSection').get('ipRows').controls.length > 1" (click)="deleteRow(i)" class="btn btn-danger">Delete
                           Button</a>
                       </div>
                     </div> -->
+                    <!-- ================================= -->
+                  
+                    <!-- ===================================== -->
                     
                     <div class="form-group col-md-6">
                       <label for="r_m_maild_id">Certificate Upload <span class="text-danger"> *</span></label>
@@ -704,7 +709,7 @@
                     </div>
                     <!--  =========-->
                     <div class="customcsscontainerForTnC col-md-12">
-                      <label for="">
+                      <label for="checkbox">
                         <input type="checkbox" id="checkbox" formControlName="checkBox" class="">
                         I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
                       <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color"> Click here to

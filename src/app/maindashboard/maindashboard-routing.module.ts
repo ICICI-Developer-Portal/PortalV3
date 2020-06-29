@@ -11,6 +11,7 @@ import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-p
 import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { DownloadComponent } from './download/download.component';
+import { MisComponent } from './mis/mis.component';
 
 
 
@@ -30,6 +31,8 @@ const routes: Routes = [
     { path: 'userprofile', component: UserprofileComponent ,canActivate: [AuthGuard]},
     //{ path: 'supportticket', component: SupportticketComponent ,canActivate: [AuthGuard]},
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
+    { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},
+    { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]},
 ];
 
 @NgModule({

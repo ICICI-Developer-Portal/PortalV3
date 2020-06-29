@@ -1,8 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewChildren, ElementRef, QueryList, EventEmitter, Output, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { interval as observableInterval } from "rxjs";
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import { takeWhile, scan, tap } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard.service';
@@ -28,18 +26,12 @@ declare var $: any;
   templateUrl: './uatonboarding-dashboard-page.component.html',
   styleUrls: ['./uatonboarding-dashboard-page.component.css']
 })
-export class UATonboardingDashboardPageComponent implements OnInit
- {
-  myControl = new FormControl();
-  APIAutocompletDataSource:any[] = [];
-  options: string[] = ['One', 'Two', 'Three','four','six','ten'];
-  filteredOptions: Observable<string[]>;
-
+export class UATonboardingDashboardPageComponent implements OnInit {
   showMe: boolean = false;
   modalRef: BsModalRef;
 
-
-
+  ipInput: string;
+  count:number;
   reactiveForm: FormGroup;
   submitted = false;
   responseData: [];
@@ -57,7 +49,8 @@ export class UATonboardingDashboardPageComponent implements OnInit
   logged_in: Boolean = false;
   additionalParams: any;
   Ecollection_Show: Boolean = false;
-  refJIRAID: boolean =false;
+  refJIRAID: boolean=false;
+
   headers: boolean = false;
   accNo: boolean = false;
   clientCode: boolean = false;
@@ -84,7 +77,6 @@ export class UATonboardingDashboardPageComponent implements OnInit
   trans: boolean = false;
   amount: boolean = false;
   uatTestingID: boolean = false;
-  refJIRAID: boolean = false;
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
@@ -115,7 +107,7 @@ initipRows() {
 }
 
 addNewIPField() {
-  const control = <FormArray>this.reactiveForm.get('ipRows') ;
+  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows') ;
   //console.log(control);
 
  // this.formArr.push(this.initipRows());
@@ -125,7 +117,7 @@ addNewIPField() {
 deleteRow(i: number) {
   // this.formArr.removeAt(index);\
   
-  const control = <FormArray>this.reactiveForm.get('ipRows');
+  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows');
     control.removeAt(i);
 }
 // ====================================
@@ -159,7 +151,10 @@ deleteRow(i: number) {
     //this.active ='#F06321';
   }
   onClickContinueBtn() {
-    
+  
+   
+    if ($(".customcsscontainer input:checkbox:checked").length > 0) {this.apiGreenCheck="valid";}
+    else {this.apiGreenCheck="invalid";}
     //this.modalRef.hide();
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id
@@ -253,19 +248,12 @@ deleteRow(i: number) {
         if (this.additionalParams[i].match("Amount")) {
           this.amount = true;
         }
-
         if (this.additionalParams[i].match("Headers")) {
-
-
           console.log(this.additionalParams[i],"hiii")
           this.headers = true;
-
         }
         if (this.additionalParams[i].match("TestingID")) {
           this.uatTestingID = true;
-        }
-		if (this.additionalParams[i].match("refJIRAID")) {
-          this.refJIRAID = true;
         }
       }
       console.log("final", this.additionalParams);
@@ -276,6 +264,7 @@ deleteRow(i: number) {
       });
 
   }
+
   onCheckChange(event) {
     if ($(".customcsscontainer input:checkbox:checked").length > 0) {
       $('.ContinueBtn').prop('disabled', false);
@@ -336,10 +325,30 @@ deleteRow(i: number) {
 
     }
   }
+  
+  
   addIPs(){
+   
+  var count = $('.countIp').length;
+    console.log(this.count)
+    if (count <= 9) {
+      console.log(count,"$$$$$$$$$$$$$")
+      var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2"+count+"' (click)='removeInputField()'>-</span></div></div></div></div></div>");
+      addinput.insertAfter("#addIPUnique");
+      $("#countexceeder").remove();
+      count++;
 
-    $("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
+    }
+    else{
+      if($("#countexceeder").length<1){
+        $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
+
+      }
+    }
+
+    //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
   }
+
   // adding ip Field.......via $$$
  
 
@@ -350,19 +359,19 @@ deleteRow(i: number) {
   @ViewChild('whitelistIpList') whitelistIpList: ElementRef;
   //@ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   @ViewChild('checkboxes') checkboxes: ElementRef;
-  onClickOfCheckboxes() {
-    alert(this.checkboxes.nativeElement.checked ? "it's checked" : "it's not checked")
-  }
-  checkValue(e) {
-    //  this.checkboxes.forEach((element) => {
-    console.log(JSON.stringify(this.checkboxes) + "hiii reached" + JSON.stringify(e));
-    // alert(this.checkboxes.nativeElement)
-    //  event.nativeElement.checked = false;
-    //  });
-    console.log(JSON.stringify(this.checkboxes.nativeElement))
+  // onClickOfCheckboxes() {
+  //   alert(this.checkboxes.nativeElement.checked ? "it's checked" : "it's not checked")
+  // }
+  // checkValue(e) {
+  //   //  this.checkboxes.forEach((element) => {
+  //   console.log(JSON.stringify(this.checkboxes) + "hiii reached" + JSON.stringify(e));
+  //   // alert(this.checkboxes.nativeElement)
+  //   //  event.nativeElement.checked = false;
+  //   //  });
+  //   console.log(JSON.stringify(this.checkboxes.nativeElement))
 
-    console.log(this.checkboxes.nativeElement.checked ? "it's checked" : "it's not checked")
-  }
+  //   console.log(this.checkboxes.nativeElement.checked ? "it's checked" : "it's not checked")
+  // }
 
   parentMethod(data) {
     console.log(data, "yessss"); console.log("agn", data, "yess", "#" + data);
@@ -416,36 +425,6 @@ deleteRow(i: number) {
     });
 
   }
-  
-   // To get Domain List
-  get_domain_and_apis() {
-    this.adm.domain_and_apis().subscribe((data: any) => {
-      var obj = JSON.parse(data._body);
-      var domain = [];
-      for (let i in obj) { 
-		  let sub_domain = obj[i].sub_domain;
-		  for (let j in sub_domain){
-			  if(sub_domain[j].api && sub_domain[j].api.length>0){
-				  domain= domain.concat(sub_domain[j].api);
-			  }
-			  
-		  }
-		  
-        //domain.push(obj[i].domain);
-      }
-      this.APIAutocompletDataSource = domain;
-	  this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-	  console.log("this.APIAutocompletDataSource" + JSON.stringify(this.APIAutocompletDataSource));
-    },
-    err => {
-      console.log('err', err);
-      this.router.navigate(['error']);
-    },);
-  }
   // requested api dropdown
   getMenuData(data): Array<object> {
     let tempArray = [];
@@ -477,7 +456,14 @@ deleteRow(i: number) {
   }
 
   onSubmitUATForm(Prodconfirm) {
-    // alert("hiii")
+    
+    var values = [];
+    $('.countIp .form-control').each(function () {
+      values.push(this.value);
+      console.log(values);
+    });
+    console.log(values);
+    console.log(values.toString())
     let reactiveFromFieldValues = this.reactiveForm.value;
     console.log(reactiveFromFieldValues)
     console.log(reactiveFromFieldValues.basicDetailsSection.merchantName)
@@ -498,7 +484,7 @@ deleteRow(i: number) {
       AccountNo: reactiveFromFieldValues.additionalField.AccountNo ? reactiveFromFieldValues.additionalField.AccountNo : '',
       ClientCode: reactiveFromFieldValues.additionalField.ClientCode ? reactiveFromFieldValues.additionalField.ClientCode : '',
       url: reactiveFromFieldValues.additionalField.url ? reactiveFromFieldValues.additionalField.url : '',
-      Ip: reactiveFromFieldValues.additionalField.ip ? reactiveFromFieldValues.additionalField.ip : '',
+      Ip: values.toString() ? values.toString() : '',
       Port: reactiveFromFieldValues.additionalField.port ? reactiveFromFieldValues.additionalField.port : '',
       Checksum: reactiveFromFieldValues.additionalField.Checksum ? reactiveFromFieldValues.additionalField.Checksum : '',
       Encryption: reactiveFromFieldValues.additionalField.Encryption ? reactiveFromFieldValues.additionalField.Encryption : '',
@@ -519,9 +505,8 @@ deleteRow(i: number) {
       Acc_mode: reactiveFromFieldValues.additionalField.Acc_mode ? reactiveFromFieldValues.additionalField.Acc_mode : '',
       Acc_trans: reactiveFromFieldValues.additionalField.Acc_trans ? reactiveFromFieldValues.additionalField.Acc_trans : '',
       Acc_amount: reactiveFromFieldValues.additionalField.Acc_amount ? reactiveFromFieldValues.additionalField.Acc_amount : '',
-      Acc_header: reactiveFromFieldValues.additionalField.header ? reactiveFromFieldValues.additionalField.header : '',
-      Acc_uatTestingIDt: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
-	    Acc_refJIRAID: reactiveFromFieldValues.additionalField.refJIRAID ? reactiveFromFieldValues.additionalField.refJIRAID : '',
+      Acc_headers: reactiveFromFieldValues.additionalField.headers ? reactiveFromFieldValues.additionalField.header : '',
+      Acc_uatTestingID: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -579,18 +564,17 @@ deleteRow(i: number) {
 	// Appended three new elements
 	
 	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
-  formData.append("Headers", inputFields["Acc_header"]);
-	formData.append("TestingID", inputFields["Acc_uatTestingIDt"]);
-  formData.forEach((value,key) => {
+    formData.append("Headers", inputFields["Acc_headers"]);
+	formData.append("TestingID", inputFields["Acc_uatTestingID"]);
+   formData.forEach((value,key) => {
     console.log(key+" "+value)
-  });
-
+});
    
 	 // Jira Service
    //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
 //https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
-      "https://developerapi.icicibank.com:8443/api/v2/jira-UAT",
+      "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData
     ).subscribe(
       res => {
@@ -644,7 +628,7 @@ deleteRow(i: number) {
    console.log( reactiveFromFieldValues.additionalField.ip);
    console.log(this.reactiveForm)
    console.log(this.reactiveForm.controls.additionalField)
-  let c =this.reactiveForm.controls.additionalField;
+let c =this.reactiveForm.controls.additionalField;
 
     console.log(reactiveFromFieldValues.additionalField.ip  )
     let ip= reactiveFromFieldValues.additionalField.ip;
@@ -733,7 +717,7 @@ deleteRow(i: number) {
         "description": new FormControl(edit ? edit.description : null, Validators.required),
         "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
         "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
-        "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+        "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
       }),
       "nestedCheckboxesList": new FormGroup({
         "nestedList": new FormArray([])
@@ -775,12 +759,7 @@ deleteRow(i: number) {
     })
 
   }
-  ngOnInit() 
-  {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+  ngOnInit() {
     this.logged_in = this.adm.check_log();
 
     console.log(this.dashboardService.getMenuTreeData())
@@ -788,8 +767,7 @@ deleteRow(i: number) {
       this.responseData = JSON.parse(data._body);
       console.log(this.responseData)
       this.menuArray = this.getMenuData(this.responseData);
-      console.log(this.menuArray, "hhhhhhhhh  ");
-	  this.get_domain_and_apis();
+      console.log(this.menuArray, "hhhhhhhhh  ")
     }
     );
 // ipvalidation
@@ -838,7 +816,17 @@ deleteRow(i: number) {
 
       return true;
     }
-      
+    $('body').on('click', 'span.dynamic', function() {
+   
+     var currentId= $(this).attr("id");
+    //  alert( $("#"+currentId))
+    //  alert( $("#"+currentId).parent().parent().parent().parent().parent())
+     $("#"+currentId).parent().parent().parent().parent().parent().remove();
+     $("#countexceeder").remove();
+    // alert($("#currentId").closet())
+
+  });
+
     $(document).on('click', 'li.expandable', function (e) {
       $(this).children('ul').toggle();
       // $('li.expandable').click(function() {
@@ -855,17 +843,49 @@ deleteRow(i: number) {
       //     $(this).children('ul').css({"display":"block"}) 
       //   }
     });
-    $(document).on('click', '#checkbox', function (e) {
-      var valid;
-      if (!$("#checkbox").is(":checked")) {
-        //alert("none checked");
-        $("#checkbox-error").show({ "display": "block" });
 
-      }
-      else {
-        $("#checkbox-error").hide();
-        return valid;
-      }
+    $(document).on('click', '#Requested-api-list [for]', function (e) {
+        var apiGreenCheck;
+        $('#' + $(this).attr("for")).prop('checked',
+       function(i, oldVal) { 
+        if ($(".customcsscontainer input:checkbox:checked").length) {
+          $('.ContinueBtn').prop('disabled', false);
+          $("#thrdSection,.thrdSectionChld").removeClass("overlay_parent")
+          $("#dynamic-list-check").show();
+          apiGreenCheck="valid";
+
+        }
+        else{
+
+          $('.ContinueBtn').prop('disabled', true);
+          $("#thrdSection,.thrdSectionChld").addClass("overlay_parent");
+          $("#dynamic-list-check").hide();
+          apiGreenCheck="invalid";
+
+        }
+       ;return !oldVal; });
+       
+  
+    });
+   
+    $(document).on('click', '[type="checkbox"]', function (e) {
+
+        $('#' + $(this).attr("id")).prop('checked',
+       function(i, oldVal) { ;return !oldVal; });
+
+    });
+   
+
+ 
+    $(document).on('click', '#checkbox', function (e) {
+   // $(document).on('click', '#checkbox', function (e) {
+   
+    $('#checkbox').prop('checked',
+    function(i, oldVal) { 
+     if ($("#checkbox:checked").length) {  }else{  }
+    ;return !oldVal; });
+      
+       
 
     })
 
@@ -879,6 +899,7 @@ deleteRow(i: number) {
 // });
 // ==============================
   }
+
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
@@ -899,12 +920,5 @@ deleteRow(i: number) {
   }
   // ngAfterViewChecked() { }
 
-  
-  private _filter(value: string): any[] {
-    const filterValue = value.toLowerCase();
 
-    return this.APIAutocompletDataSource.filter(option => option['name'].toLowerCase().includes(filterValue));
-  }
-  
 }
-

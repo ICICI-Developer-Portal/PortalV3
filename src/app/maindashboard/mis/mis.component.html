@@ -42,70 +42,57 @@
           <div class="col-md-6" >
             <h3 class="color-black30 fs24 ff-semibold mb10">
               
-            ICICI Bank- Certificate Download 
+            ICICI Bank- Download MIS Report
             </h3>
-            <br>
-          </div>
+            
+        </div>
           
         </div>
-        <table style="width:500px;"  class="table tableApplications">
-          <style>
-            table, th, td {
-               text-align: center;
-            }
-            </style>
-            <div *ngFor="let row of dataSource">
-          <thead>
-            <tr>
-              <td>Serial No</td>
-              <td>Document name</td> 
-              <!-- <td>Table ID</td>
-              <td>Table Type</td> -->
-              <td>Certificate</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let data of row.tabs
-                  | paginate: { itemsPerPage: 5, currentPage: p },
-                  let i= index,
 
-              
-                  "
-            >
-               <td>{{i+1}}</td>
+        <form [formGroup]="misForm" class="frm-mrg">
+          <div class="row mb20">
+            <div class="form-group col-md-12">
+              <label for="dateInput">Select Date</label>
+              <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                formControlName="dateInput" placeholder="Date">
+            </div>
 
-              <td>{{data.TAB_NAME}}</td>
-              <!-- <td>{{data.ID}}</td>
-              <td>{{data.TYPE}}</td> -->
-              
-              
-              
-
-              <td *ngIf="row.Certificate !== ''">
-                <a
-                  (click)="downloadCertificate(data.FILE_URL)"
-                  class="btn-submit "
-                  id="certificateUrl"
-                  [hidden]="row.Certificate === ''"
-                  >Download</a
-                >
-                <!-- <a class="btn btn-border "
-                  routerLink="../download">Download</a> -->
             
-                
-              </td>
-             
-              <td *ngIf="row.Certificate === ''"></td>
-            </tr>
-          </tbody>
-        </div>
-        </table>
+            <!--  <div class="col-md-12 mb-xs-30 div-cl-md-12">
+              <div>
+                <label for="dateInput">
+                  Select Date
+                </label>
+              </div>
+              <input
+                name="date"
+                type="date"
+                class="input-login date-fld"
+                formControlName="dateInput"
+                size="50"
+              />
+            </div>-->
+            <!-- <div
+              *ngIf="!misForm.valid"
+              class="text-danger form-error col-md-12 mb-xs-30"
+            >
+              Both fields are mandatory
+            </div> -->
+            <div class="col-md-12 mb-xs-30 div-cl-md-12 submit-dv">
+              <button
+                type="button"
+                (click)="submit()"
+                class="btn btn-submit signInBtn verifyBtn"
+                [disabled]="!misForm.valid"
+                [ngClass]="misForm.valid ? 'btn-blue' : 'btn-white'"
+              >
+                {{ constants.SUBMIT }}
+              </button>
+            </div>
+          </div>
+        </form>
+        
         <div class="clearfix"></div>
-
-        <ul class="pagination">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </ul>
       </div>
     </div>
 
@@ -122,5 +109,6 @@
          <p>Copyright 2017 ICICI Bank Ltd. All rights reserved.</p>
      </div> -->
 </div>
+
 
 
