@@ -2,9 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CONSTANTS } from '../../../config/application-constant';
+import { CONSTANTS } from '../../../../config/application-constant';
 import { DatePipe } from '@angular/common';
 import { ToasterService, Toast } from 'angular2-toaster';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+// import 'rxjs/Rx';
+import { Http, Headers, Response } from '@angular/http';
+import { saveAs } from 'file-saver';
+//declare var require;
+import {FormControl} from '@angular/forms';
+
 
 @Component({
   selector: 'app-mis',
@@ -112,21 +119,25 @@ downloadCertificate(url) {
   
   submit() {
     try {
-      let json = {
+      let _json = {
         
-      "userName":localStorage.removeItem('username'),
+      "userName":localStorage.getItem('username'),
       "fileDate":this.dateInput
     }
- 
-      console.log(JSON.stringify(json));
-      this.adm.getMisFile(json).subscribe((data: any) => {
+    console.log(JSON.stringify(_json));
+    this.adm.getMisFile(_json).subscribe((data: any) => {
+      let response = JSON.parse(data._body);
+      if(response && response.data == null && response.message){ 
+        alert(response.message);
+      }else{
+        console.log("getMisFile =="+JSON.stringify(data));
         console.log("file downloaded");
+      }
       },
       err => {
         console.log('err', err);
         this.router.navigate(['error']);
       },);
-      alert(JSON.stringify(json));
       // this.spinnerService.show();
     } catch {
       //this.toastrmsg('error', console.error());

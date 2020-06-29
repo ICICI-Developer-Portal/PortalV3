@@ -17,9 +17,7 @@ import { timeout, catchError, map, mapTo } from "rxjs/operators";
 
 @Injectable()
 export class LoginService {
-  mis(json: { userName: any; clientName: any; startDate: any; }) {
-    throw new Error("Method not implemented.");
-  }
+  
   apiUrl: string;
   private user_id = new Subject<any>();
   private user_name = new Subject<any>();
@@ -737,23 +735,24 @@ export class LoginService {
 getDocDetails(json) {
   //let json = {"docId":"6"}
   let query = "";
-  for (let key in json) {
-    query += key + "=" + json[key] + "&";
+  if(json && json.docId){
+    query = "docId="+json.docId;
   }
-  return this.http.get(this.apiUrl +"?getDocDetails"+query);
+  
+  return this.http.get(this.apiUrl +"getDocDetails?"+query);
 }
  
-// Get MIS   download url
+// Get MIS   download 
  
 getMisFile(json) {
   //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
-  /*let query = "";
-  for (let key in json) {
-    query += key + "=" + json[key] + "&";
+  let query = "";
+  if(json && json.userName && json.fileDate){
+    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
   }
-  return this.http.get(this.apiUrl +"?getMisFile"+query);
-*/
-return this.http.get("https://developer.icicibank.com/rest/getMisFile?userName=Naresh&fileDate=20-jan-2020");
-  
+  return this.http.get(this.apiUrl +"getMisFile?"+query); 
 }
+ 
+ 
+
 }

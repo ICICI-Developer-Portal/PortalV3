@@ -31,20 +31,50 @@ export class DownloadComponent implements OnInit {
   ngOnInit() {}
 
   request_data() {
+    /*
+    { //success
+  "docId": "5",
+  "docName": "doc5",
+  "docUrl": "https://developer.icicibank.com/#/index",
+  "userName": "user5",
+  "timestamp": "Jun 11, 2020 1:17:31 PM"
+}//Failure
+{
+    "message": "Document detais Notfound",
+    "data": null,
+    "status_code": 0,
+    "status": false,
+    "jwttoken": null
+  }*/
+  try {
     this.spinnerService.show();
-    //  this.role=localStorage.getItem('role')
-    //   if(localStorage.getItem('role')=='admin'){
-    //     this.showurl=true;
-    //   }else{
-    //   this.showurl=false;
-    //   }
-    this.adm.api_description(104).subscribe((data: any) => {
-      var response = data._body;
+    let _json = {"docId":"104"};
+    console.log("getDocDetails request == "+ JSON.stringify(_json));
+    this.adm.getDocDetails(_json).subscribe((data: any) => {
+      var response = JSON.parse(data._body);
+        console.log("getDocDetails == "+ JSON.stringify(response));
+      if(response && response.docName && response.docUrl){
 
-      var obj = JSON.parse(response);
-      this.dataSource = obj;
-      this.spinnerService.hide();
+        var obj = JSON.parse(response);
+        this.dataSource = obj;
+        this.spinnerService.hide();
+
+      }else if(response && response.data == null && response.message ){
+          alert(response.message);
+      }else{
+        console.log("else == "+ JSON.stringify(response));
+      }
+     
+    },
+    err => {
+      console.log('err', err);
+     // this.router.navigate(['error']);
     });
+
+  }catch(e){
+    console.log('Exception =', e);
+  }
+    
   }
 
   //supporting .sql,.cer (not supporting .png, .docx)

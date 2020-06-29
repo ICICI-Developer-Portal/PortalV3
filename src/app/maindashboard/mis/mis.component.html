@@ -1,0 +1,85 @@
+<app-header></app-header>
+<toaster-container></toaster-container>
+<ng4-loading-spinner> </ng4-loading-spinner>
+<div class="tab-content">
+  <div class="text-center mb50">
+
+    <div>
+      <!-- <div id="fixed">
+        <div class="menuBar">
+          <ul class="nav nav-tabs" id="mainMenu">
+            <li>
+              <a><img src="assets/images/icici-svg-2.svg" alt=""/></a>
+            </li>
+            <li (click)="logout()">
+              {{ constants.LOG_OUT }}
+            </li>
+          </ul>
+        </div>
+      </div> -->
+      <form [formGroup]="misForm" class="frm-mrg">
+        <div class="row mb20">
+          <h4
+            class="mb10 fs24 color-black ff-medium col-md-12 mb-xs-30 div-cl-md-12"
+          >
+           
+          </h4>
+       
+          
+          <!-- <div class="col-md-12 mb-xs-30 div-cl-md-12 pd-tp">
+            <div>
+              <label for="company">{{ constants.COMPANY_NAME }}</label>
+            </div>
+            <input
+              name="company"
+              formControlName="companyName"
+              class="input-login"
+              readonly
+            />
+          </div> -->
+          <div class="col-md-12 mb-xs-30 div-cl-md-12">
+            <div>
+              <label for="date">
+                {{ constants.DATE }}
+              </label>
+            </div>
+            <input
+              name="date"
+              type="date"
+              class="input-login date-fld"
+              formControlName="dateInput"
+              size="50"
+            />
+          </div>
+          <!-- <div
+            *ngIf="!misForm.valid"
+            class="text-danger form-error col-md-12 mb-xs-30"
+          >
+            Both fields are mandatory
+          </div> -->
+          <div class="col-md-12 mb-xs-30 div-cl-md-12 submit-dv">
+            <button
+              type="button"
+              (click)="submit()"
+              class="btn btn-submit signInBtn verifyBtn"
+              [disabled]="!misForm.valid"
+              [ngClass]="misForm.valid ? 'btn-blue' : 'btn-white'"
+            >
+              {{ constants.SUBMIT }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    
+
+
+
+    </div>
+    </div>
+
+
+<!-- <toaster-container></toaster-container>
+<ng4-loading-spinner> </ng4-loading-spinner> -->
+

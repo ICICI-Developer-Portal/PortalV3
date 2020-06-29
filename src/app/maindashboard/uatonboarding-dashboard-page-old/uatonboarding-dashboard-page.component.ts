@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewChildren, ElementRef, QueryList, EventEmitter, Output, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { interval as observableInterval } from "rxjs";
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import { takeWhile, scan, tap } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard.service';
@@ -26,12 +28,18 @@ declare var $: any;
   templateUrl: './uatonboarding-dashboard-page.component.html',
   styleUrls: ['./uatonboarding-dashboard-page.component.css']
 })
-export class UATonboardingDashboardPageComponent implements OnInit {
+export class UATonboardingDashboardPageComponent implements OnInit
+ {
+  myControl = new FormControl();
+  APIAutocompletDataSource:any[] = [];
+  options: string[] = ['One', 'Two', 'Three','four','six','ten'];
+  filteredOptions: Observable<string[]>;
+
   showMe: boolean = false;
   modalRef: BsModalRef;
 
 
-  count:number;
+
   reactiveForm: FormGroup;
   submitted = false;
   responseData: [];
@@ -49,8 +57,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   logged_in: Boolean = false;
   additionalParams: any;
   Ecollection_Show: Boolean = false;
-  refJIRAID: boolean=false;
-
+  refJIRAID: boolean =false;
   headers: boolean = false;
   accNo: boolean = false;
   clientCode: boolean = false;
@@ -77,6 +84,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   trans: boolean = false;
   amount: boolean = false;
   uatTestingID: boolean = false;
+  //refJIRAID: boolean = false;
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
@@ -245,12 +253,19 @@ deleteRow(i: number) {
         if (this.additionalParams[i].match("Amount")) {
           this.amount = true;
         }
+
         if (this.additionalParams[i].match("Headers")) {
+
+
           console.log(this.additionalParams[i],"hiii")
           this.headers = true;
+
         }
         if (this.additionalParams[i].match("TestingID")) {
           this.uatTestingID = true;
+        }
+		if (this.additionalParams[i].match("refJIRAID")) {
+          this.refJIRAID = true;
         }
       }
       console.log("final", this.additionalParams);
@@ -321,30 +336,10 @@ deleteRow(i: number) {
 
     }
   }
-  
-  
   addIPs(){
-   
-  var count = $('.countIp').length;
-    console.log(this.count)
-    if (count <= 9) {
-      console.log(count,"$$$$$$$$$$$$$")
-      var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2"+count+"' (click)='removeInputField()'>-</span></div></div></div></div></div>");
-      addinput.insertAfter("#addIPUnique");
-      $("#countexceeder").remove();
-      count++;
 
-    }
-    else{
-      if($("#countexceeder").length<1){
-        $("<span class='error'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
-
-      }
-    }
-
-    //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
+    $("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
   }
-
   // adding ip Field.......via $$$
  
 
@@ -421,6 +416,36 @@ deleteRow(i: number) {
     });
 
   }
+  
+   // To get Domain List
+  get_domain_and_apis() {
+    this.adm.domain_and_apis().subscribe((data: any) => {
+      var obj = JSON.parse(data._body);
+      var domain = [];
+      for (let i in obj) { 
+		  let sub_domain = obj[i].sub_domain;
+		  for (let j in sub_domain){
+			  if(sub_domain[j].api && sub_domain[j].api.length>0){
+				  domain= domain.concat(sub_domain[j].api);
+			  }
+			  
+		  }
+		  
+        //domain.push(obj[i].domain);
+      }
+      this.APIAutocompletDataSource = domain;
+	  this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+	  console.log("this.APIAutocompletDataSource" + JSON.stringify(this.APIAutocompletDataSource));
+    },
+    err => {
+      console.log('err', err);
+      this.router.navigate(['error']);
+    },);
+  }
   // requested api dropdown
   getMenuData(data): Array<object> {
     let tempArray = [];
@@ -494,8 +519,9 @@ deleteRow(i: number) {
       Acc_mode: reactiveFromFieldValues.additionalField.Acc_mode ? reactiveFromFieldValues.additionalField.Acc_mode : '',
       Acc_trans: reactiveFromFieldValues.additionalField.Acc_trans ? reactiveFromFieldValues.additionalField.Acc_trans : '',
       Acc_amount: reactiveFromFieldValues.additionalField.Acc_amount ? reactiveFromFieldValues.additionalField.Acc_amount : '',
-      Acc_headers: reactiveFromFieldValues.additionalField.headers ? reactiveFromFieldValues.additionalField.header : '',
-      Acc_uatTestingID: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
+      Acc_header: reactiveFromFieldValues.additionalField.header ? reactiveFromFieldValues.additionalField.header : '',
+      Acc_uatTestingIDt: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
+	    Acc_refJIRAID: reactiveFromFieldValues.additionalField.refJIRAID ? reactiveFromFieldValues.additionalField.refJIRAID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -553,11 +579,12 @@ deleteRow(i: number) {
 	// Appended three new elements
 	
 	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
-    formData.append("Headers", inputFields["Acc_headers"]);
-	formData.append("TestingID", inputFields["Acc_uatTestingID"]);
-   formData.forEach((value,key) => {
+  formData.append("Headers", inputFields["Acc_header"]);
+	formData.append("TestingID", inputFields["Acc_uatTestingIDt"]);
+  formData.forEach((value,key) => {
     console.log(key+" "+value)
-});
+  });
+
    
 	 // Jira Service
    //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
@@ -617,7 +644,7 @@ deleteRow(i: number) {
    console.log( reactiveFromFieldValues.additionalField.ip);
    console.log(this.reactiveForm)
    console.log(this.reactiveForm.controls.additionalField)
-let c =this.reactiveForm.controls.additionalField;
+  let c =this.reactiveForm.controls.additionalField;
 
     console.log(reactiveFromFieldValues.additionalField.ip  )
     let ip= reactiveFromFieldValues.additionalField.ip;
@@ -748,7 +775,12 @@ let c =this.reactiveForm.controls.additionalField;
     })
 
   }
-  ngOnInit() {
+  ngOnInit() 
+  {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
     this.logged_in = this.adm.check_log();
 
     console.log(this.dashboardService.getMenuTreeData())
@@ -756,7 +788,8 @@ let c =this.reactiveForm.controls.additionalField;
       this.responseData = JSON.parse(data._body);
       console.log(this.responseData)
       this.menuArray = this.getMenuData(this.responseData);
-      console.log(this.menuArray, "hhhhhhhhh  ")
+      console.log(this.menuArray, "hhhhhhhhh  ");
+	  this.get_domain_and_apis();
     }
     );
 // ipvalidation
@@ -805,15 +838,7 @@ let c =this.reactiveForm.controls.additionalField;
 
       return true;
     }
-    $('body').on('click', 'span.dynamic', function() {
-   
-     var currentId= $(this).attr("id");
-    //  alert( $("#"+currentId))
-    //  alert( $("#"+currentId).parent().parent().parent().parent().parent())
-     $("#"+currentId).parent().parent().parent().parent().parent().remove();
-    // alert($("#currentId").closet())
-
-  });
+      
     $(document).on('click', 'li.expandable', function (e) {
       $(this).children('ul').toggle();
       // $('li.expandable').click(function() {
@@ -830,8 +855,6 @@ let c =this.reactiveForm.controls.additionalField;
       //     $(this).children('ul').css({"display":"block"}) 
       //   }
     });
- 
-  
     $(document).on('click', '#checkbox', function (e) {
       var valid;
       if (!$("#checkbox").is(":checked")) {
@@ -856,7 +879,6 @@ let c =this.reactiveForm.controls.additionalField;
 // });
 // ==============================
   }
-
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
@@ -877,5 +899,12 @@ let c =this.reactiveForm.controls.additionalField;
   }
   // ngAfterViewChecked() { }
 
+  
+  private _filter(value: string): any[] {
+    const filterValue = value.toLowerCase();
 
+    return this.APIAutocompletDataSource.filter(option => option['name'].toLowerCase().includes(filterValue));
+  }
+  
 }
+

@@ -415,7 +415,7 @@
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
               <div>
-                <label for="mobile">Please enter the Phone Number </label>
+                <label for="mobile">Please enter the Phone Number  </label>
               </div>
               <input id="mobileNumber" formControlName="mobile_no" Type="number" class="input-login" name="mobile"
                 required #Mobile [readonly]="signupForm.value.otp_verified == 1" />
@@ -429,9 +429,7 @@
                   signupForm.value.otp_send == '1' &&
                   signupForm.value.otp_verified == 0
                 " class="text-success">
-                OTP sent on your mobile no. Click
-                <a (click)="SendOtp(Mobile.value)" href="javasript:;">here</a>
-                to resend
+                OTP sent on your mobile number.
               </div>
             </div>
             <div class="col-md-4 mt4">

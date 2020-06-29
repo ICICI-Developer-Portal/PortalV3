@@ -148,12 +148,12 @@
         <!-- =========================================================================================================== -->
         <!-- second section starts here -->
         <!-- =========================================================================================================== -->
-        <!-- <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''"> -->
-          <div class="tabContentInner" >
+        <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
+          <!-- <div class="tabContentInner" > -->
           <div class="row m0">
             <div class="container">
               <!--karthik-Auto complete-->
-              <!-- <form class="example-form">
+              <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <input type="text" placeholder="Pick one"  aria-label="Number" matInput
                     [formControl]="myControl" [matAutocomplete]="auto">
@@ -163,7 +163,7 @@
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
-              </form> -->
+              </form>
               <!--karthik-Auto complete End-->
               <div #RequestedApiList class="" id="Requested-api-list">
 
@@ -192,7 +192,7 @@
                                   value="{{i.TAB_NAME}}" (change)="checkValue(i)" #checkboxes> {{i.TAB_NAME}} </label>
                             </div>
                           </ng-template>
-                          <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
+                          <p class="margin_0px"> {{i.TAB_NAME}} <span class="inline_block pull-right"><img
                                 class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
                         </a>
                         <!-- 1 level -->
@@ -203,7 +203,7 @@
                               <ng-template #other>
                                 <div class="customcsscontainer"> <label for=""> <input type="checkbox"
                                       (change)="onCheckChange($event)" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
-                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}}</label> </div>
+                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}} </label> </div>
                               </ng-template>
                               <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
                                 <span class="inline_block pull-right"><img class="dropdownIcon"
@@ -368,9 +368,9 @@
         <!-- third section starts here -->
         <!--================================================================================================= -->
 
-        <!-- <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
-          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner"> -->
-            <div><div class="tabContentInner">
+        <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
+          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner">
+            <!-- <div><div class="tabContentInner"> -->
             <div class="row m0">
               <div class="container">
                 <h5>Additional Field</h5>
@@ -414,7 +414,7 @@
                       
 
                     </div> -->
-                    <div class="form-group col-md-6 countIp" id="addIPUnique" *ngIf="ip" >
+                    <div class="form-group col-md-6" *ngIf="ip" >
                       <div class="width_100prcnt"><label for="contract">IP</label></div>
                       <div class="col-md-11">
                         <div class="row">
@@ -422,10 +422,9 @@
                         <input type="text" class="form-control" placeholder="Your IP" aria-label="IP"
                           aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                          <span class="input-group-text add-ip-addon" id="basic-addon2" (click)="addIPs()">+</span>
+                          <span class="input-group-text add-ip-addon" id="basic-addon2" (click)="addIPs()">Add</span>
                         </div>
                       </div>
-                      <!-- <span class="error"  id="countexceeder">You can add maximum 10 IP</span> -->
                     </div>
                   </div>
                     </div>
