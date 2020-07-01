@@ -1,4 +1,14 @@
-.frm-mrg {
+mat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.file {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}.frm-mrg {
     margin: 9%;
   }
   .pd-tp {

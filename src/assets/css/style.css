@@ -2530,8 +2530,8 @@ body {
   color: #004a7f;
   padding-top: 30px;
   }
-  .paginationContainer {
-  }
+  /* .paginationContainer {
+  } */
   .paginationContainer a {
   font-family: Poppins-SemiBold;
   font-size: 14px;

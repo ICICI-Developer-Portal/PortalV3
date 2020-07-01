@@ -15,6 +15,8 @@ import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
+import { CustomValidators } from "./custom-validators";
+
 
 @Component({
   selector: "app-header",
@@ -199,7 +201,30 @@ export class HeaderComponent implements OnInit {
       {
         username: ["", [Validators.required]],
         //uname: ["", [Validators.required]],
-        password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+        //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+
+        password: ["", [Validators.required,
+          // check whether the entered password has a number
+          CustomValidators.patternValidator(/\d/, {
+            hasNumber: true
+          }),
+          // check whether the entered password has upper case letter
+          CustomValidators.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true
+          }),
+          // check whether the entered password has a lower case letter
+          CustomValidators.patternValidator(/[a-z]/, {
+            hasSmallCase: true
+          }),
+          // check whether the entered password has a special character
+          CustomValidators.patternValidator(
+            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            {
+              hasSpecialCharacters: true
+            }
+          ),
+          Validators.minLength(8)
+        ]],
         confirmPassword: ["", [Validators.required]],
         term: ["", [Validators.required]]
       },
@@ -340,7 +365,10 @@ export class HeaderComponent implements OnInit {
   }
 
   // Login function
+  // Login function
+ 
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
+    
     //localStorage.setItem('username',username);
     //localStorage.setItem('password',password);
     var nonEncodedJson = {
@@ -797,6 +825,7 @@ export class HeaderComponent implements OnInit {
   save2() {
     this.verifyOtp1();
   }
+  
   appathonSave1() {
     this.shfrmSFSecond1 = true;
     this.shfrmSFFirst1 = false;

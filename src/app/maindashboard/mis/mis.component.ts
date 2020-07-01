@@ -11,6 +11,12 @@ import { Http, Headers, Response } from '@angular/http';
 import { saveAs } from 'file-saver';
 //declare var require;
 import {FormControl} from '@angular/forms';
+import { Inject } from '@angular/core';
+import { Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
+import { DOCUMENT } from '@angular/common'
+//import { Download } from 'src/app/download';
+//import { DownloadService } from 'src/app/services/download.service';
 
 
 @Component({
@@ -20,6 +26,11 @@ import {FormControl} from '@angular/forms';
   providers: [DatePipe],
 })
 export class MisComponent implements OnInit {
+  slides = 
+    {name: 'Demo of progress bar', url: 'https://nils-mehlhorn.de/slides/mobile_cp_progessive_mehlhorn_pottjs.pdf'}
+
+  //download$: Observable<Download>
+
   companyNamesDetails: any;
   companyNames: any;
   dateInput: any;
@@ -39,7 +50,10 @@ export class MisComponent implements OnInit {
     private router: Router,
     public datepipe: DatePipe,
     private toasterService: ToasterService,
-    private spinnerService: Ng4LoadingSpinnerService
+    private spinnerService: Ng4LoadingSpinnerService,
+    //private downloads: DownloadService,
+    @Inject(DOCUMENT) private document: Document
+    
   ) {
    this.dateInput= datepipe.transform(Date.now(),'dd-MMM-yyyy');
    let today = new Date()
@@ -48,6 +62,7 @@ export class MisComponent implements OnInit {
    this.maxDate= datepipe.transform(Date.now(),'yyyy-MM-dd');
 
   }
+  
   /** on page load
    * @class MisComponent
    * @method ngOnInit
@@ -78,7 +93,11 @@ export class MisComponent implements OnInit {
   //     this.router.navigate(['error']);
   //   },);
   // }
-//download csv file
+
+// download({name, url}: {name: string, url: string}) {
+//   this.download$ = this.downloads.download(url, name)
+// }
+
 downloadCertificate(url) {
   var json = {
     filePath: url,
