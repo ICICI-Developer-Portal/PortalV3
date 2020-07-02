@@ -32,7 +32,7 @@
         <div class="col-md-6 col-12 order-md-first">
           <div class="bannerContent">
             <h2 class="mb30">Collaborate, Build, Unleash</h2>
-            <a class="signInBtn mr10" [routerLink]="['/appathon/landing-page']">BROWSE ALL API</a>
+            <a class="signInBtn mr10" [routerLink]="['/documentation']">BROWSE ALL API</a>
             <!-- <a data-toggle="modal" *ngIf="hideSignupbtn"  (click)="openModal2(signup)" class="tryItFreeBtn">SIGN UP</a> -->
           </div>
         </div>
@@ -1263,6 +1263,7 @@
     </button>
   </div>
   <div class="modal-body">
+    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
@@ -1286,6 +1287,7 @@
         <a class="forgotPassword cursor" (click)="Modalforgotpassw(forgotpassw)">Forgot Password?</a>
       </div>
     </div>
+    </form>
   </div>
   <div class="modal-footer">
     <div class="row w100p m0">

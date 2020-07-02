@@ -6,6 +6,8 @@ import { CONSTANTS } from '../../../../config/application-constant';
 import { DatePipe } from '@angular/common';
 import { ToasterService, Toast } from 'angular2-toaster';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
+import { Observable } from 'rxjs'
 // import 'rxjs/Rx';
 import { Http, Headers, Response } from '@angular/http';
 import { saveAs } from 'file-saver';
@@ -30,6 +32,7 @@ export class MisComponent implements OnInit {
   certificate: any;
   maxDate:any;
   minDate:any;
+
   /** @class MisComponent
    * @constructor
    */
@@ -139,10 +142,13 @@ downloadCertificate(url) {
       this.spinnerService.hide();
       let response = data;
       if(response && response.url){
-        let pwa = window.open(response.url);
+        this.spinnerService.show();
+        let pwa= window.open(response.url);
         if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+          this.spinnerService.hide();
             alert( 'Please disable your Pop-up blocker and try again.');
         }
+     
       }
       else if(response && response.data == null && response.message){ 
         this.toastrmsg("Error",response.message);
@@ -155,8 +161,9 @@ downloadCertificate(url) {
       err => {
         this.spinnerService.hide();
         console.log('err', err);
-        this.router.navigate(['error']);
-      },);
+       // this.router.navigate(['error']);
+      },() => {console.info('File downloaded successfully');
+      this.spinnerService.hide();});
       // this.spinnerService.show();
     } catch {
       //this.toastrmsg('error', console.error());

@@ -10,6 +10,22 @@ input[type="textbox"]{
 	display: inline-block !important;
 
 }
+::-webkit-input-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
+:-moz-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
+::-moz-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
+:-ms-input-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
 .mainField.ng-invalid.ng-touched{
 border-left: 5px solid #ae282e;
 border-right: 1px solid #ae282e;
@@ -50,6 +66,9 @@ border-bottom: 1px solid #ae282e;
 	color: #ae282e;
 	border: 1px solid #ae282e;
 
+}
+#dynamic-list-check{
+	display: none;
 }
 .error-text{
 	color: #ae282e;
@@ -129,9 +148,13 @@ select.input-lg {
     text-decoration: none;
    }
  
+ 
    .first-level {
 	border-top: 1px solid #ececec;
    }
+   .display-none{
+	display: none;
+}
    .display-block{
 	   display: block;
    }
@@ -158,6 +181,10 @@ select.input-lg {
    }
    .inline_block{
 	display: inline-block;
+   }
+   .additionalIPStyle{
+	border: 1px dotted #cec4c4;
+    padding-top: 10px;
    }
    .dropdownIcon{
 	margin-top: 15px;
@@ -205,6 +232,8 @@ ul{
 	padding-left: 1.8rem;
 	cursor: pointer;
 	margin-bottom: .5rem;
+}.blockElements{
+	background: rgba(0, 0, 0, 0.05);
 }
 .nested-list-label{
 	margin: 0px;

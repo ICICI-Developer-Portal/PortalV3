@@ -338,6 +338,14 @@ export class HeaderComponent implements OnInit {
       this.modalRef.hide();
     } catch (e) {}
   }
+  //
+  keyDownFunction(event,username: any, password: any, loginsuccess: TemplateRef<any>) {
+    if (event.keyCode === 13) {
+     // alert('you just pressed the enter key');
+      // rest of your code
+      this.Login(username, password,loginsuccess);
+    }
+  }
 
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
@@ -407,6 +415,26 @@ export class HeaderComponent implements OnInit {
             this.router.navigate(["/index"]);
           }
         );
+         /**
+         * Changing the flow as login shd complete even if loginsuccess popup eacaped
+         */
+        this.sessionSet("username", this.loginResponse.data.username);
+    localStorage.setItem("username", this.loginResponse.data.username);
+    localStorage.setItem("password", this.loginResponse.data.password);
+    localStorage.setItem("id", this.loginResponse.data.id);
+    localStorage.setItem("role", this.loginResponse.data.role);
+    localStorage.setItem(
+      "appathonusername",
+      this.loginResponse.data.appathonusername
+    );
+    localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+    localStorage.setItem("email", this.loginResponse.data.email);
+    this.adm.sendUserId(this.loginResponse.data.id);
+    this.router.navigate(["/documentation"]);
+    /**
+     * End here
+     */
+
         this.modalRef4 = this.modalService.show(loginsuccess, {
           backdrop: "static"
         });
@@ -965,7 +993,7 @@ export class HeaderComponent implements OnInit {
   //login success pop up modal
   clickOk() {
     this.modalRef4.hide();
-    this.sessionSet("username", this.loginResponse.data.username);
+   /* this.sessionSet("username", this.loginResponse.data.username);
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
@@ -978,7 +1006,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
     this.router.navigate(["/documentation"]);
-
+*/
     // if(this.loginResponse.data.role === 'Appathon'){
     //   this.router.navigate(['/appathon-dashboard']);
     // }

@@ -182,6 +182,7 @@
     </button>
   </div>
   <div class="modal-body">
+    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
@@ -207,6 +208,7 @@
         >
       </div>
     </div>
+    </form>
   </div>
   <div class="modal-footer">
     <div class="row w100p m0">
@@ -1552,14 +1554,14 @@
 
 <ng-template #loginsuccess>
   <div class="modal-header loginsuccess-modal-border">
-    <button
+    <!--<button
       type="button"
       class="close pull-right"
       aria-label="Close"
       (click)="modalRef4Close()"
     >
       <span aria-hidden="true">&times;</span>
-    </button>
+    </button>-->
   </div>
 
   <div class="modal-body">

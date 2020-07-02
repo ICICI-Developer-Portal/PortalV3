@@ -31,7 +31,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   modalRef: BsModalRef;
 
   ipInput: string;
-  count:number;
+  count: number;
   reactiveForm: FormGroup;
   submitted = false;
   responseData: [];
@@ -49,7 +49,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   logged_in: Boolean = false;
   additionalParams: any;
   Ecollection_Show: Boolean = false;
-  refJIRAID: boolean=false;
+  refJIRAID: boolean = false;
 
   headers: boolean = false;
   accNo: boolean = false;
@@ -80,47 +80,71 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
-  apiGreenCheck:string ="invalid";
+  apiGreenCheck: string = "invalid";
   confirmMsgProd: any;
-  showError :string= "hidden";
+  showError: string = "hidden";
+  addFalse:boolean=true;
+  // ====================================
+  // get formArr() {
+  //   var cntls= this.reactiveForm.controls;
+  //   console.log(this.reactiveForm.get('whitelistIpSection').get('ipRows').controls)
+  //   console.log(cntls.ipRows)
 
 
+  //   console.log(this.reactiveForm.controls)
+  //   return this.reactiveForm.get('whitelistIpSection').get('ipRows') as FormArray;
+  // }
+  // $
+
+  initipRows() {
+    return this.formbuilder.group({
+      ip: ['']
+    });
+  }
+
+  // addNewIPField() {
+  //   const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows');
+  //   console.log(control.length);
+  //   console.log(control);
+  //   console.log(control.at(0));
+  //   if(control.length<=9){ 
+  //    control.push(new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
+  //   }else{}   
+  // }
+
+  // deleteRow(i: number) {
+  //   console.log(i);
+  //   const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows');
+  //   control.removeAt(i);
+
+  // }
 
 
+  addNewIPField() {
+    const control = <FormArray>this.reactiveForm.get('additionalField').get('ip');
+    console.log(control.length);
+    console.log(control);
+    console.log(control.at(0));
+    if(control.length<=9){ 
+     control.push(new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
+    }else{}   
+  }
 
-// ====================================
-// get formArr() {
-//   var cntls= this.reactiveForm.controls;
-//   console.log(this.reactiveForm.get('whitelistIpSection').get('ipRows').controls)
-//   console.log(cntls.ipRows)
-
-
-//   console.log(this.reactiveForm.controls)
-//   return this.reactiveForm.get('whitelistIpSection').get('ipRows') as FormArray;
-// }
-// $
-
-initipRows() {
-  return this.formbuilder.group({
-    ip: ['']
-  });
-}
-
-addNewIPField() {
-  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows') ;
-  //console.log(control);
-
- // this.formArr.push(this.initipRows());
-  control.push(this.initipRows());
-}
-
-deleteRow(i: number) {
-  // this.formArr.removeAt(index);\
-  
-  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows');
+  deleteRow(i: number) {
+    console.log(i);
+    const control = <FormArray>this.reactiveForm.get('additionalField').get('ip');
     control.removeAt(i);
-}
-// ====================================
+  }
+  resetField(){
+    const control = <FormArray>this.reactiveForm.get('additionalField').get('ip');
+    
+      while (control.length > 1) {
+        control.removeAt(1)
+      }
+      control.reset();
+  }
+
+  // ====================================
 
 
   select(i) {
@@ -143,7 +167,7 @@ deleteRow(i: number) {
   }
   Close_ConfirmProd() {
     this.modalRef.hide();
-    
+
     this.router.navigate(["/index"]);
   }
   HWI_link(id) {
@@ -151,10 +175,8 @@ deleteRow(i: number) {
     //this.active ='#F06321';
   }
   onClickContinueBtn() {
-  
-   
-    if ($(".customcsscontainer input:checkbox:checked").length > 0) {this.apiGreenCheck="valid";}
-    else {this.apiGreenCheck="invalid";}
+    if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements"); }
+    else { $("#thrdSectionChld").addClass("overlay_parent");    }
     //this.modalRef.hide();
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id
@@ -172,6 +194,8 @@ deleteRow(i: number) {
       console.log("obj reached", obj);
       localStorage.setItem('nodevalue', obj.API_NAME)
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
+      localStorage.setItem('additonalFields', this.additionalParams)
+
       for (var i = 0; i < this.additionalParams.length; i++) {
         console.log(this.additionalParams[i]);
 
@@ -249,7 +273,7 @@ deleteRow(i: number) {
           this.amount = true;
         }
         if (this.additionalParams[i].match("Headers")) {
-          console.log(this.additionalParams[i],"hiii")
+          console.log(this.additionalParams[i], "hiii")
           this.headers = true;
         }
         if (this.additionalParams[i].match("TestingID")) {
@@ -265,82 +289,20 @@ deleteRow(i: number) {
 
   }
 
-  onCheckChange(event) {
-    if ($(".customcsscontainer input:checkbox:checked").length > 0) {
-      $('.ContinueBtn').prop('disabled', false);
-      this.apiGreenCheck="valid";
-      this.showError="hidden";
-      console.log(this.reactiveForm);
+  addIPs() {
 
-    }
-    else {
-      $('.ContinueBtn').prop('disabled', true);
-      this.apiGreenCheck="invalid";
-      this.showError;
-      console.log(this.reactiveForm);
-    }
-    const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
-
-    /* Selected */
-    if (event.target.checked) {
-
-      console.log(event.target.value, "==========", event.target.id)
-      // Add a new control in the arrayForm
-
-      this.arrayObjectOfListIds.push((event.target.id));
-
-      this.arrayObjectOfValue.push((event.target.value));
-      console.log(this.arrayObjectOfListIds)
-      console.log(this.arrayObjectOfValue)
-      // console.log(new FormControl(event.target.id))
-
-      //    this.arrayObjectOfListIds = this.internalArr.toString();
-      // console.log(this.idArr);
-      // this.internalArr = [];
-      // console.log("id array", this.idArr);
-      // formArray.push(new FormControl(event.target.id));
-      var json = {
-        ID: this.arrayObjectOfListIds.join(),
-      };
-
-
-    }
-    /* unselected */
-    else {
-
-      console.log(event)
-      // find the unselected element
-      let i: number = 0;
-
-      formArray.controls.forEach((ctrl: FormControl) => {
-        if (ctrl.value == event.target.value) {
-
-          // Remove the unselected element from the arrayForm
-          formArray.removeAt(i);
-          return;
-        }
-
-        i++;
-      });
-
-    }
-  }
-  
-  
-  addIPs(){
-   
-  var count = $('.countIp').length;
+    var count = $('.countIp').length;
     console.log(this.count)
     if (count <= 9) {
-      console.log(count,"$$$$$$$$$$$$$")
-      var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2"+count+"' (click)='removeInputField()'>-</span></div></div></div></div></div>");
+      console.log(count, "$$$$$$$$$$$$$")
+      var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2" + count + "' (click)='removeInputField()'>-</span></div></div></div></div></div>");
       addinput.insertAfter("#addIPUnique");
       $("#countexceeder").remove();
       count++;
 
     }
-    else{
-      if($("#countexceeder").length<1){
+    else {
+      if ($("#countexceeder").length < 1) {
         $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
 
       }
@@ -350,7 +312,7 @@ deleteRow(i: number) {
   }
 
   // adding ip Field.......via $$$
- 
+
 
   // ================================================================
   @ViewChild('BasicDetailsList') BasicDetailsList: ElementRef;
@@ -418,7 +380,7 @@ deleteRow(i: number) {
     private router: Router,
     private adm: LoginService,
     private toasterService: ToasterService,
-    private dashboardService: DashboardService, ) {
+    private dashboardService: DashboardService,) {
     this.adm.getUserId().subscribe(data => {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
@@ -454,9 +416,59 @@ deleteRow(i: number) {
     console.log(this.parentDataDomainName)
 
   }
-
-  onSubmitUATForm(Prodconfirm) {
+  multipleSelectAPI(e){
+  
+  if ($(".customcsscontainer input:checkbox:checked").length) {
+    $('.ContinueBtn').prop('disabled', false);
+    //alert(($(".customcsscontainer input:checkbox:checked").length))
+    //  $("#thrdSectionChld").removeClass("overlay_parent")
+    $("#dynamic-list-check").css("display", "block");
+    $("#scndSectionWhitelistIp").addClass("ng-valid");
+    $("#scndSectionWhitelistIp").removeClass("ng-invalid");
+   
+  }
+  else {
+    $('.ContinueBtn').prop('disabled', true);
+    $("#thrdSectionChld").addClass("overlay_parent");
+    $("#dynamic-list-check").css("display", "none");
+    $("#scndSectionWhitelistIp").addClass("ng-invalid");
+    $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+    $("#submitButton,#file1").addClass("blockElements")
     
+    this.accNo = false;
+    this.clientCode = false;
+    this.url = false;
+    this.ip = false;
+    this.port = false;
+    this.checksum = false;
+    this.encryption = false;
+    this.certificate = false;
+    this.service = false;
+    this.commModel = false;
+    this.ifsc = false;
+    this.virtualCode = false;
+    this.ips = false;
+    this.interAccNo = false;
+    this.accName = false;
+    this.authLevel = false;
+    this.urn = false;
+    this.env = false;
+    this.valid = false;
+    this.accept = false;
+    this.recipient = false;
+    this.mode = false;
+    this.trans = false;
+    this.amount = false;
+    this.headers = false;
+    this.uatTestingID = false;
+    this.resetField();
+        }
+      
+         
+  
+}
+  onSubmitUATForm(Prodconfirm) {
+
     var values = [];
     $('.countIp .form-control').each(function () {
       values.push(this.value);
@@ -552,7 +564,7 @@ deleteRow(i: number) {
     formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
 
 
-    console.log(formData);  
+    console.log(formData);
 
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
     console.log("a", a);
@@ -561,18 +573,18 @@ deleteRow(i: number) {
       console.log(a[k], "oooooooooo")
       console.log(formData)
     }
-	// Appended three new elements
-	
-	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
+    // Appended three new elements
+
+    formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
     formData.append("Headers", inputFields["Acc_headers"]);
-	formData.append("TestingID", inputFields["Acc_uatTestingID"]);
-   formData.forEach((value,key) => {
-    console.log(key+" "+value)
-});
-   
-	 // Jira Service
-   //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
-//https://developerapi.icicibank.com:8443/api/v2/jira
+    formData.append("TestingID", inputFields["Acc_uatTestingID"]);
+    formData.forEach((value, key) => {
+      console.log(key + " " + value)
+    });
+
+    // Jira Service
+    //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
+    //https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
       "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData
@@ -585,16 +597,16 @@ deleteRow(i: number) {
           backdrop: "static"
         });
         this.confirmMsgProd = res.jiraId;
-    
-       console.log( this.confirmMsgProd)
+
+        console.log(this.confirmMsgProd)
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
           let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
           for (let k = 0; k < b.length; k++) {
-            console.log(b,k)
+            console.log(b, k)
             console.log(b[k])
-            console.log(res.jiraId,res)
+            console.log(res.jiraId, res)
 
             formData.append(res.jiraId, b[k]);
           }
@@ -604,7 +616,7 @@ deleteRow(i: number) {
           ).subscribe(
             res => {
               console.log(res);
-              console.log(res.jiraId,"rchd");
+              console.log(res.jiraId, "rchd");
             },
             err => {
               console.log('err', err);
@@ -624,94 +636,94 @@ deleteRow(i: number) {
   //conditional validation
   ifFieldisVisible(value) {
     let reactiveFromFieldValues = this.reactiveForm.value;
-   console.log( value);
-   console.log( reactiveFromFieldValues.additionalField.ip);
-   console.log(this.reactiveForm)
-   console.log(this.reactiveForm.controls.additionalField)
-let c =this.reactiveForm.controls.additionalField;
+    console.log(value);
+    console.log(reactiveFromFieldValues.additionalField.ip);
+    console.log(this.reactiveForm)
+    console.log(this.reactiveForm.controls.additionalField)
+    let c = this.reactiveForm.controls.additionalField;
 
-    console.log(reactiveFromFieldValues.additionalField.ip  )
-    let ip= reactiveFromFieldValues.additionalField.ip;
+    console.log(reactiveFromFieldValues.additionalField.ip)
+    let ip = reactiveFromFieldValues.additionalField.ip;
     console.log(ip);
-    
-    if(value=="IP"){
-    console.log(this.reactiveForm.get('additionalField'));
-    console.log(this.reactiveForm.get('additionalField').get('ip'));
-    let ipControl =this.reactiveForm.get('additionalField').get('ip');
-   // ipControl.setValidators([this.ipValidator]);
-    console.log(this.reactiveForm.get('additionalField'));
-    this.reactiveForm.get('additionalField').get('ip')
-    //reactiveFromFieldValues.additionalField.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
-     // reactiveFromFieldValues.additionalField.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
-   console.log( reactiveFromFieldValues.additionalField);
+
+    if (value == "IP") {
+      console.log(this.reactiveForm.get('additionalField'));
+      console.log(this.reactiveForm.get('additionalField').get('ip'));
+      let ipControl = this.reactiveForm.get('additionalField').get('ip');
+      // ipControl.setValidators([this.ipValidator]);
+      console.log(this.reactiveForm.get('additionalField'));
+      this.reactiveForm.get('additionalField').get('ip')
+      //reactiveFromFieldValues.additionalField.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
+      // reactiveFromFieldValues.additionalField.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
+      console.log(reactiveFromFieldValues.additionalField);
     }
-    console.log(value+"", 1);
-    
+    console.log(value + "", 1);
+
   }
-//   validateIp(ip) {
-//     if ( ip == null || ip === '' ) {
-//       return true;
-//     }
-    
-//     const parts = ip.split('.');
-//     if(parts.length !== 4) {
-//       return true;
-//     }
-    
-//     for(let i = 0; i < parts.length; i++) {
-//       const part = parseInt(parts[i]);
-//       if(part < 0 || part > 255) {
-//         return true;
-//       }
-//     }
-    
-//     if(ip.endsWith('.')) {
-//       return true;
-//     }
-    
-//     return false;
-//   }
-//   ipValidator(control: AbstractControl): { [key: string]: boolean } | null {
-//       // =============================================
-//       // ================================================
-//       let input = control.value;
-//       console.log(input)
-//       console.log(input.length)
-     
-     
-//       if(input.length>0){
-//         let arr = input.split(',');
-//         console.log(this.validateIp(input))
-        
-//         console.log(this.validateIp)
-//         let wrongIps = arr.filter(this.validateIp(input));
-        
-   
-//       if(wrongIps.length>0){
-//         console.log(wrongIps);
-//         return{valid: false}
-//       }
-//       else{
-//         console.log(wrongIps);
-//         return{valid: true}
-//       }
-//       console.log(arr)
-//       console.log(arr)
-//       console.log(wrongIps)
-//     }
-//     else{
-      
-//     }
-      
-//       // ///////////////////////////////////////////////
-//       // ///////////////////////////////////////////////
-// }
+  //   validateIp(ip) {
+  //     if ( ip == null || ip === '' ) {
+  //       return true;
+  //     }
+
+  //     const parts = ip.split('.');
+  //     if(parts.length !== 4) {
+  //       return true;
+  //     }
+
+  //     for(let i = 0; i < parts.length; i++) {
+  //       const part = parseInt(parts[i]);
+  //       if(part < 0 || part > 255) {
+  //         return true;
+  //       }
+  //     }
+
+  //     if(ip.endsWith('.')) {
+  //       return true;
+  //     }
+
+  //     return false;
+  //   }
+  //   ipValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  //       // =============================================
+  //       // ================================================
+  //       let input = control.value;
+  //       console.log(input)
+  //       console.log(input.length)
+
+
+  //       if(input.length>0){
+  //         let arr = input.split(',');
+  //         console.log(this.validateIp(input))
+
+  //         console.log(this.validateIp)
+  //         let wrongIps = arr.filter(this.validateIp(input));
+
+
+  //       if(wrongIps.length>0){
+  //         console.log(wrongIps);
+  //         return{valid: false}
+  //       }
+  //       else{
+  //         console.log(wrongIps);
+  //         return{valid: true}
+  //       }
+  //       console.log(arr)
+  //       console.log(arr)
+  //       console.log(wrongIps)
+  //     }
+  //     else{
+
+  //     }
+
+  //       // ///////////////////////////////////////////////
+  //       // ///////////////////////////////////////////////
+  // }
 
 
 
   resetForm(edit) {
     this.reactiveForm = new FormGroup({
-      
+
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
@@ -747,12 +759,15 @@ let c =this.reactiveForm.controls.additionalField;
         "Acc_mode": new FormControl(),
         "Acc_trans": new FormControl(),
         "Acc_amount": new FormControl(),
-        "ip": new FormControl(),
+        "ip":  new FormArray([ 
+          // <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows'),Validators.required
+          new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]),
+        ]),
         "port": new FormControl(),
         "refJIRAID": new FormControl()
       }),
       'whitelistIpSection': new FormGroup({
-        "ipRows":  new FormArray([]),
+     
         "file1": new FormControl(null, [Validators.required]),
         "checkBox": new FormControl(false, [Validators.requiredTrue])
       })
@@ -770,39 +785,39 @@ let c =this.reactiveForm.controls.additionalField;
       console.log(this.menuArray, "hhhhhhhhh  ")
     }
     );
-// ipvalidation
-// function validateIp(ip) {
-//   if ( ip == null || ip === '' ) {
-//   return true;
-// }
+    // ipvalidation
+    // function validateIp(ip) {
+    //   if ( ip == null || ip === '' ) {
+    //   return true;
+    // }
 
-// const parts = ip.split('.');
-// if(parts.length !== 4) {
-//   return true;
-// }
+    // const parts = ip.split('.');
+    // if(parts.length !== 4) {
+    //   return true;
+    // }
 
-// for(let i = 0; i < parts.length; i++) {
-//   const part = parseInt(parts[i]);
-//   if(part < 0 || part > 255) {
-//       return true;
-//   }
-// }
+    // for(let i = 0; i < parts.length; i++) {
+    //   const part = parseInt(parts[i]);
+    //   if(part < 0 || part > 255) {
+    //       return true;
+    //   }
+    // }
 
-// if(ip.endsWith('.')) {
-//   return true;
-// }
+    // if(ip.endsWith('.')) {
+    //   return true;
+    // }
 
-// return false;
-// }
+    // return false;
+    // }
 
-// const input = '1.1.1.1,2.2.2.2,3.3.3.,4.4.4.256';
-// const arr = input.split(',');
-// const wrongIps = arr.filter(validateIp);
+    // const input = '1.1.1.1,2.2.2.2,3.3.3.,4.4.4.256';
+    // const arr = input.split(',');
+    // const wrongIps = arr.filter(validateIp);
 
 
-// console.log(arr)
-// console.log(wrongIps)
-// ========
+    // console.log(arr)
+    // console.log(wrongIps)
+    // ========
 
 
     // testing......
@@ -816,88 +831,39 @@ let c =this.reactiveForm.controls.additionalField;
 
       return true;
     }
-    $('body').on('click', 'span.dynamic', function() {
-   
-     var currentId= $(this).attr("id");
-    //  alert( $("#"+currentId))
-    //  alert( $("#"+currentId).parent().parent().parent().parent().parent())
-     $("#"+currentId).parent().parent().parent().parent().parent().remove();
-     $("#countexceeder").remove();
-    // alert($("#currentId").closet())
+    $('body').on('click', 'span.dynamic', function () {
+      var currentId = $(this).attr("id");
+      $("#" + currentId).parent().parent().parent().parent().parent().remove();
+      $("#countexceeder").remove();
+    });
 
-  });
 
-    $(document).on('click', 'li.expandable', function (e) {
-      $(this).children('ul').toggle();
-      // $('li.expandable').click(function() {
-      //  alert("hii")
+
+    //$(document).on('click', '.first-level li', function (e) {
+    $(document).off().on('click', '.first-level li', function (e) {
+
+     // $(".first-level li").unbind().click(function() {
       //  
-      e.preventDefault();
-
-      return false;
-      //  if($(this).children('ul').is(":visible")){
-      //   //alert("1")
-      //   $(this).children('ul').css({"display":"none"}) 
-      //   }
-      //   else{ // alert("12")
-      //     $(this).children('ul').css({"display":"block"}) 
-      //   }
+      // alert(JSON.stringify($(this).parent().attr('class')))
+      // $(this).children(".dropdownIcon").toggle();
+      $(this).children(".display-none").toggle();
+      e.stopPropagation();
+      // $('.first-level li a').click(function(){
+      // $(this).children('ul').stop().slideToggle(350);
+      // $(this).toggleClass("open");
+      // event.stopPropagation();
     });
 
-    $(document).on('click', '#Requested-api-list [for]', function (e) {
-        var apiGreenCheck;
-        $('#' + $(this).attr("for")).prop('checked',
-       function(i, oldVal) { 
-        if ($(".customcsscontainer input:checkbox:checked").length) {
-          $('.ContinueBtn').prop('disabled', false);
-          $("#thrdSection,.thrdSectionChld").removeClass("overlay_parent")
-          $("#dynamic-list-check").show();
-          apiGreenCheck="valid";
-
-        }
-        else{
-
-          $('.ContinueBtn').prop('disabled', true);
-          $("#thrdSection,.thrdSectionChld").addClass("overlay_parent");
-          $("#dynamic-list-check").hide();
-          apiGreenCheck="invalid";
-
-        }
-       ;return !oldVal; });
-       
-  
-    });
-   
-    $(document).on('click', '[type="checkbox"]', function (e) {
-
-        $('#' + $(this).attr("id")).prop('checked',
-       function(i, oldVal) { ;return !oldVal; });
-
-    });
-   
-
- 
-    $(document).on('click', '#checkbox', function (e) {
-   // $(document).on('click', '#checkbox', function (e) {
-   
-    $('#checkbox').prop('checked',
-    function(i, oldVal) { 
-     if ($("#checkbox:checked").length) {  }else{  }
-    ;return !oldVal; });
-      
-       
-
-    })
 
 
-// ============================    
+    // ============================    
 
-// this.reactiveForm = this.formbuilder.group({
-//   ipRows: this.formbuilder.array([
-//       this.initipRows(),
-//   ])
-// });
-// ==============================
+    // this.reactiveForm = this.formbuilder.group({
+    //   ipRows: this.formbuilder.array([
+    //       this.initipRows(),
+    //   ])
+    // });
+    // ==============================
   }
 
   toastrmsg(type, title) {

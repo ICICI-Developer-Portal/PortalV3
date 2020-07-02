@@ -29,6 +29,9 @@ loginResponse:any;
     //   password: ['', Validators.required]
     // });
   }
+ 
+
+
   Login(username: any, password: any) {
   //   this.conversionEncryptOutput = CryptoJS.AES.encrypt(username.trim(),password.trim()).toString();  
   //   alert("encrypt : "+this.conversionEncryptOutput)

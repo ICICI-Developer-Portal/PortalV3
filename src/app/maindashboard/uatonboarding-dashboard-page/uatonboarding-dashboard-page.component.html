@@ -6,9 +6,9 @@
       <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
         dashboard</div>
       <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"></div>
-        <!-- =========================================================================================================== -->
-        <!-- Reactive form starts -->
-        <!-- =========================================================================================================== -->
+      <!-- =========================================================================================================== -->
+      <!-- Reactive form starts -->
+      <!-- =========================================================================================================== -->
       <form [formGroup]="reactiveForm" nonvalidate>
         <!-- =========================================================================================================== -->
         <!-- first section of uat starts -->
@@ -90,8 +90,8 @@
 
                   <div class="form-group col-md-6">
                     <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="Email_ID" formControlName="email_id"
-                      placeholder="Your Email ID">
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="Email_ID"
+                      formControlName="email_id" placeholder="Your Email ID">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
                       class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
@@ -169,189 +169,136 @@
 
                 <h5 class="">Requested API</h5>
                 <!-- <div class="form-group col-md-6" formGroupName="nestedCheckboxesList"> -->
-                  <div class="row" formGroupName="nestedCheckboxesList">
-                    <div class="form-group col-md-6">
-                  <label for="merchantName">Select API <span class="text-danger"> *</span></label>
-                  <i *ngIf="apiGreenCheck=='valid'" class="fa fa-check-circle green col-md-1 margin_3px float-right"
-                  aria-hidden="true" id="dynamic-list-check"></i>
-                  
+
+                <div class="row" formGroupName="nestedCheckboxesList" id="scndSectionWhitelistIp">
+
+                  <div class="form-group col-md-6">
+                    <label for="merchantName">Select API <span class="text-danger"> *</span><i
+                        class='fa fa-check-circle green col-md-1 margin_3px float-right' aria-hidden='true'
+                        id='dynamic-list-check'></i></label>
 
 
-                  <div class="sideMenu col-md-11">
-
-                    <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
-
-                    <ul class="requestedData-list" *ngFor="let i of responseData" class="first-level">
-                      <li>
-
-                        <!-- 1 level -->
-                        <a (click)="i.toggle=!i.toggle" class="display-block cursor-pointer padding-left-25" >
-
-                          <ng-template #other>
-                            <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{i.API_ID}}">
-                                <input type="checkbox" (change)="onCheckChange($event)" id="{{i.API_ID}}"
-                                  value="{{i.TAB_NAME}}" (change)="checkValue(i)" #checkboxes> {{i.TAB_NAME}} </label>
-                            </div>
-                          </ng-template>
-                          <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
-                                class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
-                        </a>
-                        <!-- 1 level -->
-                        <ul *ngFor="let j of i.children" class="second-level">
-                          <li *ngIf="i.toggle">
-                            <!-- 2 level -->
-                            <a (click)="j.toggle=!j.toggle" class="display-block cursor-pointer padding-left-10prcnt">
-                              <ng-template #other>
-                                <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{j.API_ID}}"> <input type="checkbox"
-                                      (change)="onCheckChange($event)" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
-                                      (change)="checkValue(j)" #checkboxes>{{j.TAB_NAME}}</label> </div>
-                              </ng-template>
-                              <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
-                                <span class="inline_block pull-right"><img class="dropdownIcon"
-                                    [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
-                                    alt=""></span></p>
-                            </a>
-                            <!-- 2 level -->
-                            <ul *ngFor="let k of j.children" class="third-level">
-                              <li *ngIf="j.toggle">
-                                <!-- 3 level -->
-                                <a (click)="k.toggle=!k.toggle"
-                                  class="display-block cursor-pointer padding-left-13prcnt">
-                                  <ng-template #other>
-                                    <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{k.API_ID}}"> <input type="checkbox"
-                                          (change)="onCheckChange($event)" id="{{k.API_ID}}" value="{{k.TAB_NAME}}"
-                                          (change)="checkValue(k)" #checkboxes>{{k.TAB_NAME}}</label></div>
-                                  </ng-template>
-                                  <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
-                                    <span class="inline_block pull-right"><img class="dropdownIcon"
-                                        [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
-                                        alt=""></span></p>
-                                </a>
-                                <!-- 3 level -->
-                                <ul *ngFor="let L of k.children" class="fourth-level">
-                                  <li *ngIf="k.toggle">
-                                    <!-- 4 level -->
-                                    <a (click)="L.toggle=!L.toggle"
-                                      class="display-block cursor-pointer padding-left-20prcnt">
-                                      <ng-template #other>
-                                        <div class="customcsscontainer"> <label (change)="onCheckChange($event)" for="{{L.API_ID}}"> <input type="checkbox"
-                                              (change)="onCheckChange($event)" id="{{L.API_ID}}" value="{{L.TAB_NAME}}"
-                                              (change)="checkValue(L)" #checkboxes>{{L.TAB_NAME}}</label></div>
-                                      </ng-template>
-                                      <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
-                                        <span class="inline_block pull-right"><img class="dropdownIcon"
-                                            [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
-                                            alt=""></span>
-                                      </p>
-                                    </a>
-                                    <!-- 4 level -->
-                                    <ul *ngFor="let M of L.children" class="fifth-level">
-                                      <li *ngIf="L.toggle">
-                                        <!-- 5 level -->
-                                        <a class="display-block cursor-pointer padding-left-25prcnt">
-                                          <!-- <ng-template #other> <input type="checkbox"  (change)="onCheckChange($event)"  /></ng-template>{{k.TAB_NAME}} <span
-                                                                                          *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'"
-                                                                                            src="assets/images/dropdown-2.svg" alt=""></span> -->
-                                          <ng-template #other>
-                                            <div class="customcsscontainer"> <label (change)="onCheckChangeRightTick($event)" for="M.API_ID"> <input type="checkbox"
-                                                  (change)="onCheckChange($event)" id="{{M.API_ID}}"
-                                                  value="{{M.TAB_NAME}}" [(ngModel)]="!isChecked"
-                                                  (change)="checkValue(M)"> {{M.TAB_NAME}}</label></div>
-                                          </ng-template>
-                                          <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
-                                            <span class="inline_block pull-right"><img class="dropdownIcon"
-                                                [ngClass]="css ? 'uparrow' : 'normal'"
-                                                src="assets/images/dropdown-2.svg" alt=""></span>
-                                          </p>
-                                        </a>
-                                        <!-- 5 level -->
-                                      </li>
-                                    </ul>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
 
 
-                   
+                    <div class="sideMenu col-md-11">
 
-                    <!-- <ul class="first-level" >
-                          <li  *ngFor="let i of responseData;let e=index" class="display-block cursor-pointer padding-left-25 border-bottom expandable"  (click)="togglefrstList()">
-                            <a >
-                              <p  class="margin_0px" *ngIf="i.children; else elsePartOfFirstLevel" >{{i.TAB_NAME}}
-                                <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
-                                    alt=""></span>
-                              </p>
-                              <ng-template #elsePartOfFirstLevel  *ngIf="showMe"> <label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{i.API_ID}}" value="{{i.TAB_NAME}}"  value=""> {{i.TAB_NAME}} </label></ng-template>
-                           
-                              
+                      <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
+
+                      <ul class="requestedData-list" *ngFor="let i of responseData" class="first-level">
+                        <li>
+
+                          <!-- 1 level -->
+                          <a class="display-block cursor-pointer padding-left-25">
+
+                            <ng-template #other>
+                              <div class="customcsscontainer"> <label for="{{i.API_ID}}">
+                                  <input type="checkbox" (change)="multipleSelectAPI(e)" id="{{i.API_ID}}"
+                                    value="{{i.TAB_NAME}}" #checkboxes>
+                                  {{i.TAB_NAME}} </label>
+                              </div>
+                            </ng-template>
+                            <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
+                                  class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
+                          </a>
+                          <!-- 1 level -->
+                          <ul *ngFor="let j of i.children" class="second-level display-none">
+                            <li>
+                              <!-- 2 level -->
+                              <a class="display-block cursor-pointer padding-left-10prcnt">
+                                <ng-template #other>
+                                  <div class="customcsscontainer"> <label for="{{j.API_ID}}"> <input type="checkbox"
+                                        (change)="multipleSelectAPI(e)" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
+                                        #checkboxes>{{j.TAB_NAME}}</label>
+                                  </div>
+                                </ng-template>
+                                <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
+                                  <span class="inline_block pull-right"><img class="dropdownIcon"
+                                      src="assets/images/dropdown-2.svg" alt=""></span></p>
                               </a>
-                            <ul>
-                              <li  *ngFor="let j of i.children;let e1=index" class="expandable" > 
-                                <a>
-                                  <p  class="margin_0px" *ngIf="j.children; else elsePartOfScndLevel" >{{j.TAB_NAME}}
-                                    <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
-                                        alt=""></span>
-                                  </p>
-                                <ng-template #elsePartOfScndLevel><label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{j.API_ID}}" value="{{j.TAB_NAME}}"  value=""> {{j.TAB_NAME}}  </label></ng-template>
-                               
-                                  
-                                </a>
-                                <ul>
-                                  <li  *ngFor="let k of j.children;let e2=index" class="expandable">
-                                    <a>
-                                      <p  class="margin_0px" *ngIf="k.children; else elsePartOfthrdLevel" >{{k.TAB_NAME}}
-                                        <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
-                                            alt=""></span>
-                                      </p>
-                                      <ng-template #elsePartOfthrdLevel><label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{k.API_ID}}" value="{{k.TAB_NAME}}"  value=""> {{k.TAB_NAME}} </label></ng-template>
-                                   
-                                    </a>
-                                    <ul>
-                                      <li  *ngFor="let l of k.children;let e3=index" class="expandable">
-                                        <a>
-                                          <p  class="margin_0px" *ngIf="l.children; else elsePartOffourthLevel" >{{l.TAB_NAME}}
-                                          <span class="inline_block pull-right"><img class="dropdownIcon" [ngClass]="css ? 'uparrow' : 'normal'" src="assets/images/dropdown-2.svg"
-                                              alt=""></span>
+                              <!-- 2 level -->
+                              <ul *ngFor="let k of j.children" class="third-level display-none">
+                                <li>
+                                  <!-- 3 level -->
+                                  <a class="display-block cursor-pointer padding-left-13prcnt">
+                                    <ng-template #other>
+                                      <div class="customcsscontainer"> <label for="{{k.API_ID}}"> <input type="checkbox"
+                                            (change)="multipleSelectAPI(e)" id="{{k.API_ID}}" value="{{k.TAB_NAME}}"
+                                            #checkboxes>{{k.TAB_NAME}}</label>
+                                      </div>
+                                    </ng-template>
+                                    <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
+                                      <span class="inline_block pull-right"><img class="dropdownIcon"
+                                          src="assets/images/dropdown-2.svg" alt=""></span></p>
+                                  </a>
+                                  <!-- 3 level -->
+                                  <ul *ngFor="let L of k.children" class="fourth-level display-none">
+                                    <li>
+                                      <!-- 4 level -->
+                                      <a class="display-block cursor-pointer padding-left-20prcnt">
+                                        <ng-template #other>
+                                          <div class="customcsscontainer"> <label for="{{L.API_ID}}">
+                                              <input type="checkbox" (change)="multipleSelectAPI(e)" id="{{L.API_ID}}"
+                                                value="{{L.TAB_NAME}}" #checkboxes>{{L.TAB_NAME}}</label></div>
+                                        </ng-template>
+                                        <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
+                                          <span class="inline_block pull-right"><img class="dropdownIcon"
+                                              src="assets/images/dropdown-2.svg" alt=""></span>
                                         </p>
-                                        <ng-template #elsePartOffourthLevel><label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{l.API_ID}}" value="{{l.TAB_NAME}}"  value=""> {{l.TAB_NAME}}  </label></ng-template>
-                                     </a>
-                                        <ul>
-                                          <li  *ngFor="let m of l.children;let e4=index" class="expandable">
-                                            <a>
-                                              <label class=""><input type="checkbox" (change)="onCheckChange($event)"   id="{{m.API_ID}}" value="{{m.TAB_NAME}}"  value=""> {{m.TAB_NAME}}</label>
-                                            </a>
-                                          </li>
-                                        </ul>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul> -->
-
-                    <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
-                  </div>
-                  <!-- <p class="error" *ngIf="apiGreenCheck!='valid'" hidden="{{showError}}">
+                                      </a>
+                                      <!-- 4 level -->
+                                      <ul *ngFor="let M of L.children" class="fifth-level display-none">
+                                        <li>
+                                          <!-- 5 level -->
+                                          <a class="display-block cursor-pointer padding-left-25prcnt">
+                                            <!-- <ng-template #other> <input type="checkbox" (change)="multipleSelectAPI(e)"    /></ng-template>{{k.TAB_NAME}} <span
+                                                                                          *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
+                                                                                            src="assets/images/dropdown-2.svg" alt=""></span> -->
+                                            <ng-template #other>
+                                              <div class="customcsscontainer"> <label for="M.API_ID"> <input
+                                                    type="checkbox" (change)="multipleSelectAPI(e)" id="{{M.API_ID}}"
+                                                    value="{{M.TAB_NAME}}">
+                                                  {{M.TAB_NAME}}</label></div>
+                                            </ng-template>
+                                            <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
+                                              <span class="inline_block pull-right"><img class="dropdownIcon"
+                                                  src="assets/images/dropdown-2.svg" alt=""></span>
+                                            </p>
+                                          </a>
+                                          <!-- 5 level -->
+                                        </li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+                    </div>
+                    <!-- <p class="error" *ngIf="apiGreenCheck!='valid'" hidden="{{showError}}">
                     select atleast one value.
                   </p> -->
-                  
+
+                  </div>
+                  <div class="col-md-12">
+                    <button #continueButtonSecondSection class="signInBtn ContinueBtn btn-dark  pull-right"
+                      name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"
+                      disabled="" (click)="onClickContinueBtn()" > Continue
+                    </button>
+                  </div>
+                  <!-- ------------------------------------------------- -->
+
+                  <!-- =================================================== -->
                 </div>
-                <div class="col-md-12">
-                  <button class="signInBtn ContinueBtn btn-dark  pull-right" name="continueBtn" ng-reflect-klass="signInBtn"
-                    ng-reflect-ng-class="btn-dark" type="button" disabled="" (click)="onClickContinueBtn()"> Continue
-                  </button>
-                </div>
+
+
+
+
+
               </div>
-              
-            </div>
-             
+
             </div>
           </div>
         </div>
@@ -370,8 +317,11 @@
         <!--================================================================================================= -->
 
         <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''" id="thrdSection">
-          <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner" id="thrdSectionChld">
-            <!-- <div><div class="tabContentInner"> -->
+          <div class="tabContentInner overlay_parent" id="thrdSectionChld">
+
+            <!-- <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner" id="thrdSectionChld"> -->
+            <!-- <div>
+            <div class="tabContentInner"> -->
             <div class="row m0">
               <div class="container">
                 <h5>Additional Field</h5>
@@ -381,8 +331,8 @@
                   <!-- ================================================================================================================= -->
                   <!-- additional fields -->
                   <!-- ================================================================================================================== -->
-                  
-                  <div formGroupName="additionalField" class="row">
+
+                  <div formGroupName="additionalField" class="row" id="additionalFieldBasedOnSelection">
                     <div class="form-group col-md-6" *ngIf="accNo">
                       <div><label for="contract">Account Number</label></div>
                       <input class="form-control col-md-11" placeholder="Your Account number" type="text"
@@ -415,20 +365,36 @@
                       
 
                     </div> -->
-                    <div class="form-group col-md-6 countIp" id="addIPUnique" *ngIf="ip" >
-                      <div class="width_100prcnt"><label for="contract">IP</label></div>
-                      <div class="col-md-11 addErrorclasafter">
-                        <div class="row">
-                      <div class="input-group ">
-                        <input type="text" class="form-control ipValues" placeholder="Your IP" aria-label="IP"
-                          aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <span class="input-group-text add-ip-addon" id="basic-addon2" (click)="addIPs()">+</span>
-                        </div>
-                      </div>
-                      <!-- <span class="error"  id="countexceeder">You can add maximum 10 IP</span> -->
+                    <div class="form-group col-md-12 additionalIPStyle countIp" id="addIPUnique" *ngIf="ip">
+                      <div class="width_100prcnt"><label for="contract">IP<span class="text-danger"> *</span></label>
+                        <a data-toggle="tooltip"
+                        title="You can add maximum 10 IP"><img alt="loader"
+                          class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
+                        <div formArrayName="ip" class="form-group">
+                          <!-- =================== -->
+                          <div class="row  mb-3" *ngFor="let itemrow of reactiveForm.get('additionalField').get('ip').controls; let i=index">
+    
+                          <div class="input-group  col-md-6" >
+                            <input type="text" class="form-control mainField ipValues" formControlName="{{i}}" placeholder="Your IP" aria-label="IP"
+                              aria-describedby="basic-addon2">
+                             
+                            <div class="input-group-append">
+                              <span  *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="addNewIPField()">+</span>
+                              <span  *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="deleteRow(i)">-</span>
+                            </div>
+                            
+                          </div>
+                          <i *ngIf="reactiveForm.get('additionalField').get('ip').controls[i].valid"
+                            class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
+                          <div
+                      *ngIf="!reactiveForm.get('additionalField').get('ip').controls[i].valid && reactiveForm.get('additionalField').get('ip').controls[i].touched"
+                      class="text-danger form-error col-md-12">
+                      IP is required.
                     </div>
-                  </div>
+                          </div>
+                          
+                          <!-- ==================== -->
+                      </div>
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="port">
@@ -440,7 +406,7 @@
                     <div class="form-group col-md-6" *ngIf="checksum">
                       <div><label for="projectName">Checksum Required </label></div>
                       <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" formControlName="Checksum">
+                        <select class="form-control h40 col-md-11" name="Checksum">
                           <option value="">Select Checksum</option>
                           <option>Yes</option>
                           <option>No</option>
@@ -457,7 +423,7 @@
                         <option>No</option>
                       </select> -->
                         <select class="form-control h40 col-md-11" name="encryption">
-                          <option value="" disabled selected value="">Select Encryption</option>
+                          <option value="">Select Encryption</option>
                           <option>Yes</option>
                           <option>No</option>
                         </select>
@@ -637,21 +603,23 @@
                           </select>
                         </span>
                       </div>
-                     
+
                     </div>
-                     <!-- ====================================== Three additionl fields================================-->
+                    <!-- ====================================== Three additionl fields================================-->
                     <!-- ====================================== Three additionl fields================================-->
                     <div class="form-group col-md-6" *ngIf="headers">
                       <div>
                         <label for="Header">Header</label>
                       </div>
-                      <input class="form-control  col-md-11" placeholder="Header" type="text" formControlName="header" />
+                      <input class="form-control  col-md-11" placeholder="Header" type="text"
+                        formControlName="header" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="uatTestingID">
                       <div>
                         <label for="TestingID">TestingID</label>
                       </div>
-                      <input class="form-control  col-md-11" placeholder="TestingID" type="text" formControlName="TestingID" />
+                      <input class="form-control  col-md-11" placeholder="TestingID" type="text"
+                        formControlName="TestingID" />
                       <!-- validation -->
                       <div
                         *ngIf="!reactiveForm.get('additionalField.TestingID').valid && reactiveForm.get('additionalField.TestingID').touched"
@@ -664,7 +632,8 @@
                       <div>
                         <label for="refJIRAID">Reference JIRA ID</label>
                       </div>
-                      <input class="form-control  col-md-11" placeholder="Reference JIRA ID" type="text" formControlName="refJIRAID" />
+                      <input class="form-control  col-md-11" placeholder="Reference JIRA ID" type="text"
+                        formControlName="refJIRAID" />
                     </div>
                     <!-- ======== -->
                   </div>
@@ -673,22 +642,29 @@
                   <!-- ================================================================================================================-->
                   <!-- ======================================additionl field ends here================================-->
                   <!-- ================================================================================================================-->
-                  
+
                   <div formGroupName="whitelistIpSection" class="row">
-                    <!-- <a (click)="addNewIPField()" class="btn btn-primary">Add new Row</a><br>
-                    <div formArrayName="ipRows" class="form-group col-md-6">
-                      <div *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('ipRows').controls; let i=index"
-                        [formGroupName]="i">
-                        <div class="width_100prcnt"><label for="contract">IP</label></div>
-                        <input class="form-control col-md-11" placeholder="Your IP" formControlName="ip" type="text" />
-                        <a *ngIf="reactiveForm.get('whitelistIpSection').get('ipRows').controls.length > 1" (click)="deleteRow(i)" class="btn btn-danger">Delete
-                          Button</a>
+                    
+                    <!-- <div><a (click)="addNewIPField()" class="btn btn-primary">Add</a></div>
+                    <br> -->
+                    <!-- <div class="width_100prcnt col-md-12"><label for="contract">IP</label></div>
+                    <div formArrayName="ipRows" class="form-group col-md-12">
+                      <div class="row" *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('ipRows').controls; let i=index">
+
+                      <div class="input-group  mt-1 col-md-6" >
+                        <input type="text" class="form-control mainField ipValues" formControlName="{{i}}" placeholder="Your IP" aria-label="IP"
+                          aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <span  *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="addNewIPField()">+</span>
+                          <span  *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="deleteRow()">-</span>
+                        </div>
+                      </div>
                       </div>
                     </div> -->
                     <!-- ================================= -->
-                  
+
                     <!-- ===================================== -->
-                    
+
                     <div class="form-group col-md-6">
                       <label for="r_m_maild_id">Certificate Upload <span class="text-danger"> *</span></label>
                       <a data-toggle="tooltip"
@@ -721,7 +697,7 @@
                     <div class="col-md-12">
                       <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
                         ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid"
-                        (click)="onSubmitUATForm(Prodconfirm)"> Submit
+                        (click)="onSubmitUATForm(Prodconfirm)" id="submitButton"> Submit
                       </button></div>
 
                     <div class="text-danger hidden" id="checkbox-error">ACCEPT NON-DISCLOSURE AGREEMENT is required.
@@ -738,8 +714,8 @@
         <!-- third section ends here -->
         <!--========================================2nd section========================================================= -->
       </form>
-        <!-- =========================================================================================================== -->
-        <!-- form ends here -->
-        <!--========================================2nd section========================================================= -->
+      <!-- =========================================================================================================== -->
+      <!-- form ends here -->
+      <!--========================================2nd section========================================================= -->
     </div>
   </div>

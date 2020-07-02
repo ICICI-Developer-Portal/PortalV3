@@ -666,6 +666,14 @@ export class IndexComponent implements OnInit {
     });
   }
 
+   // Login on Enter key press
+   keyDownFunction(event,username: any, password: any, loginsuccess: TemplateRef<any>) {
+    if (event.keyCode === 13) {
+      this.Login(username, password);
+    }
+  }
+
+
   Login(username: any, password: any) {
     var nonEncodedJson = {
       username : username,

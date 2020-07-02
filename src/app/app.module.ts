@@ -49,8 +49,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AdvertisementComponent,
     AppathonSignupComponent,
     JwtAuthComponent,
-    ErrorPageComponent,
-   // MisComponent
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

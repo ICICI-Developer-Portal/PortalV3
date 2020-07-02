@@ -168,13 +168,15 @@
     </button>
   </div>
   <div class="modal-body">
+    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
-        <input type="text" (keydown.space)="$event.preventDefault();" name="user" class="input-login" #username />
-        <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
+        <input type="text"  (keydown.space)="$event.preventDefault();" name="user" class="input-login" #username />
+        <div class="text-danger form-error ng-star-inserted" *ngIf="isusername"  >
           Please Enter UserNames.
         </div>
+        
       </div>
     </div>
     <div class="row mb10">
@@ -191,10 +193,12 @@
         <a class="forgotPassword cursor" (click)="Modalforgotpassw(forgotpassw)">Forgot Password?</a>
       </div>
     </div>
+  </form>
   </div>
   <div class="modal-footer">
     <div class="row w100p m0">
       <div class="col-12 plr0 mb30">
+        
         <div>
           <button type="submit" class="signInBtn w100p" data-dismiss="modal" data-toggle="modal" data-target="#signUp"
             (click)="Login(username.value, password.value, loginsuccess)">
@@ -204,6 +208,7 @@
             {{ is_res_error }}.
           </div>
         </div>
+
       </div>
       <div class="col-12 plr0">
         <p>
@@ -429,9 +434,7 @@
                   signupForm.value.otp_send == '1' &&
                   signupForm.value.otp_verified == 0
                 " class="text-success">
-                OTP sent on your mobile no. Click
-                <a (click)="SendOtp(Mobile.value)" href="javasript:;">here</a>
-                to resend
+                OTP sent to your mobile number.
               </div>
             </div>
             <div class="col-md-4 mt4">
@@ -937,9 +940,9 @@
 
 <ng-template #loginsuccess>
   <div class="modal-header loginsuccess-modal-border">
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef4Close()">
+    <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef4Close()">
       <span aria-hidden="true">&times;</span>
-    </button>
+    </button>-->
   </div>
 
   <div class="modal-body">
