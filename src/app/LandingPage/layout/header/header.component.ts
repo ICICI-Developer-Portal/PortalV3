@@ -199,7 +199,8 @@ export class HeaderComponent implements OnInit {
 
     this.signupForm3 = this.formbuilder.group(
       {
-        username: ["", [Validators.required]],
+        //username: ["", [Validators.required]],
+        uname :["",[Validators.required]],
         //uname: ["", [Validators.required]],
         //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
 
@@ -229,7 +230,7 @@ export class HeaderComponent implements OnInit {
         term: ["", [Validators.required]]
       },
       {
-        validator: PasswordValidation.MatchPassword // your validation method
+        validator: CustomValidators.passwordMatchValidator // your validation method
       }
     );
 
