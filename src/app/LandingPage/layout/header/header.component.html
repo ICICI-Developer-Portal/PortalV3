@@ -436,7 +436,7 @@
               </div>
             </div>
             <div class="col-md-4 mt4">
-              <button  [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn  sendOTPBtn mt26"
+              <button  [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
                 (click)="SendOtp(Mobile.value)"
                 (click)='buttonClick1()' 
                   [disabled] = "btnDisabled"
@@ -445,10 +445,9 @@
                
                 
               </button>
-              <!-- <h6><span id="time" >00:00</span></h6> -->
 
 
-              <button  type="button" class="tryItFreeBtn changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
+              <button  type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
                 change
               </button>
             </div>
