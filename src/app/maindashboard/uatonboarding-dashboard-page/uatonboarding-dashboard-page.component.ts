@@ -61,7 +61,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   encryption: boolean = false;
   certificate: boolean = false;
   service: boolean = false;
-  commModel: boolean = false;
+  message: boolean = false;
   ifsc: boolean = false;
   virtualCode: boolean = false;
   ips: boolean = false;
@@ -84,6 +84,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   confirmMsgProd: any;
   showError: string = "hidden";
   addFalse:boolean=true;
+  selectedDay: string = '';
   paymentMode:any[] = [ "Cash","ICICI Cheque" ,"ICICI DD","Non-ICICI Cheque","Non-ICICI DD","Debit Authorization","Other"];
   yesNo:any[] = [ "Yes","No"];
   serviceTypeOption:any[] = [ "WADL","REST","SOAP","Other"];
@@ -93,47 +94,15 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
    
 
+  selectChangeHandler (event: any) {
+    this.selectedDay = event.target.value;
+  }
   
-
-  
-
-
-  
-  // ====================================
-  // get formArr() {
-  //   var cntls= this.reactiveForm.controls;
-  //   console.log(this.reactiveForm.get('whitelistIpSection').get('ipRows').controls)
-  //   console.log(cntls.ipRows)
-
-
-  //   console.log(this.reactiveForm.controls)
-  //   return this.reactiveForm.get('whitelistIpSection').get('ipRows') as FormArray;
-  // }
-  // $
-
   initipRows() {
     return this.formbuilder.group({
       ip: ['']
     });
   }
-
-  // addNewIPField() {
-  //   const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows');
-  //   console.log(control.length);
-  //   console.log(control);
-  //   console.log(control.at(0));
-  //   if(control.length<=9){ 
-  //    control.push(new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
-  //   }else{}   
-  // }
-
-  // deleteRow(i: number) {
-  //   console.log(i);
-  //   const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows');
-  //   control.removeAt(i);
-
-  // }
-
 
   addNewIPField() {
     const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
@@ -246,7 +215,7 @@ ifIPpatternNotmatches(){
           this.service = true;
         }
         if (this.additionalParams[i].match("Communication Method")) {
-          this.commModel = true;
+          this.message = true;
         }
         if (this.additionalParams[i].match("IFSC Code")) {
           this.ifsc = true;
@@ -425,15 +394,15 @@ ifIPpatternNotmatches(){
     );
     return tempArray;
   }
-  selectedDomainName: string = '';
+  // selectedDomainName: string = '';
 
-  //event handler for the select element's change event
-  selectChangeHandler(event: any) {
-    //update the ui
-    this.parentDataDomainName = event.target.value;
-    console.log(this.parentDataDomainName)
+  // //event handler for the select element's change event
+  // selectChangeHandler(event: any) {
+  //   //update the ui
+  //   this.parentDataDomainName = event.target.value;
+  //   console.log(this.parentDataDomainName)
 
-  }
+  // }
   multipleSelectAPI(e){
     this.accNo = false;
     this.clientCode = false;
@@ -444,7 +413,7 @@ ifIPpatternNotmatches(){
     this.encryption = false;
     this.certificate = false;
     this.service = false;
-    this.commModel = false;
+    this.message = false;
     this.ifsc = false;
     this.virtualCode = false;
     this.ips = false;
@@ -533,8 +502,8 @@ ifIPpatternNotmatches(){
       Acc_mode: reactiveFromFieldValues.whitelistIpSection.Acc_mode ? reactiveFromFieldValues.whitelistIpSection.Acc_mode : '',
       Acc_trans: reactiveFromFieldValues.whitelistIpSection.Acc_trans ? reactiveFromFieldValues.whitelistIpSection.Acc_trans : '',
       Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
-      Acc_headers: reactiveFromFieldValues.whitelistIpSection.headers ? reactiveFromFieldValues.whitelistIpSection.header : '',
-      Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.uatTestingID ? reactiveFromFieldValues.whitelistIpSection.uatTestingID : '',
+      Acc_headers: reactiveFromFieldValues.whitelistIpSection.header ? reactiveFromFieldValues.whitelistIpSection.header : '',
+      Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.TestingID ? reactiveFromFieldValues.whitelistIpSection.TestingID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -550,7 +519,7 @@ ifIPpatternNotmatches(){
     formData.append("spocPhone", inputFields["spocPhone"]);
     formData.append("relManager", inputFields["relManager"]);
     formData.append("env", inputFields["env"]);
-    formData.append("ips", inputFields["ips"]);
+    formData.append("refundCode", inputFields["refundCode"]);
     formData.append("callbackUrl", inputFields["callbackUrl"]);
     formData.append("AccountNo", inputFields["AccountNo"]);
     formData.append("ClientCode", inputFields["ClientCode"]);
@@ -601,51 +570,51 @@ ifIPpatternNotmatches(){
     // Jira Service
     //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
     //https://developerapi.icicibank.com:8443/api/v2/jira
-    this.HttpClient.post<any>(
-      "https://developerapi.icicibank.com:8443/api/v2/jira",
-      formData
-    ).subscribe(
-      res => {
-        console.log(res, formData);
-        // alert(res.jiraId)
-        //this.toastrmsg('success', res.jiraId + " has been created");
-        this.modalRef = this.modalService.show(Prodconfirm, {
-          backdrop: "static"
-        });
-        this.confirmMsgProd = res.jiraId;
+    // this.HttpClient.post<any>(
+    //   "https://developerapi.icicibank.com:8443/api/v2/jira",
+    //   formData
+    // ).subscribe(
+    //   res => {
+    //     console.log(res, formData);
+    //     // alert(res.jiraId)
+    //     //this.toastrmsg('success', res.jiraId + " has been created");
+    //     this.modalRef = this.modalService.show(Prodconfirm, {
+    //       backdrop: "static"
+    //     });
+    //     this.confirmMsgProd = res.jiraId;
 
-        console.log(this.confirmMsgProd)
-        if (res.success === "true") {
-          //File upload service
-          var formData = new FormData();
-          let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
-          for (let k = 0; k < b.length; k++) {
-            console.log(b, k)
-            console.log(b[k])
-            console.log(res.jiraId, res)
+    //     console.log(this.confirmMsgProd)
+    //     if (res.success === "true") {
+    //       //File upload service
+    //       var formData = new FormData();
+    //       let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
+    //       for (let k = 0; k < b.length; k++) {
+    //         console.log(b, k)
+    //         console.log(b[k])
+    //         console.log(res.jiraId, res)
 
-            formData.append(res.jiraId, b[k]);
-          }
-          this.HttpClient.post<any>(
-            "https://developer.icicibank.com/fileUpload",
-            formData
-          ).subscribe(
-            res => {
-              console.log(res);
-              console.log(res.jiraId, "rchd");
-            },
-            err => {
-              console.log('err', err);
-              this.router.navigate(['error']);
-            },
-          );
-        }
-      },
-      err => {
-        console.log('err', err);
-        this.router.navigate(['error']);
-      },
-    );
+    //         formData.append(res.jiraId, b[k]);
+    //       }
+    //       this.HttpClient.post<any>(
+    //         "https://developer.icicibank.com/fileUpload",
+    //         formData
+    //       ).subscribe(
+    //         res => {
+    //           console.log(res);
+    //           console.log(res.jiraId, "rchd");
+    //         },
+    //         err => {
+    //           console.log('err', err);
+    //           this.router.navigate(['error']);
+    //         },
+    //       );
+    //     }
+    //   },
+    //   err => {
+    //     console.log('err', err);
+    //     this.router.navigate(['error']);
+    //   },
+    // );
 
 
   }
@@ -691,29 +660,31 @@ ifIPpatternNotmatches(){
       }),
       "whitelistIpSection": new FormGroup({
         "AccountNo": new FormControl(),
+        "Acc_name": new FormControl(),
+        "Account_no": new FormControl(),
         "clientCode": new FormControl(),
         "url": new FormControl(),
         "Checksum": new FormControl('Select Checksum'),
-        "encryption": new FormControl(),
-        "certificate": new FormControl(),
-        "service": new FormControl(),
-        "commModel": new FormControl(),
+        "Encryption": new FormControl('Select Encryption'),
+        "Certificate": new FormControl('Certificate'),
+        "web": new FormControl('Select Service Type'),
+        "message": new FormControl('Select Communication Method'),
         "header": new FormControl(),
         "TestingID": new FormControl(),
-        "IFSC_Code": new FormControl(),
+        "IFSC_Code": new FormControl('Select IFSC Code'),
         "virtualCode": new FormControl(),
-        "ips": new FormControl(),
+        "refundCode": new FormControl(),
         "interAccNo": new FormControl(),
         "accName": new FormControl(),
-        "authLevel": new FormControl(),
-        "URN": new FormControl(),
-        "env": new FormControl(),
-        "Acc_validation": new FormControl(),
-        "Acc_acceptance": new FormControl(),
+        "Auth_level": new FormControl(),
+        "Urn": new FormControl(),
+        "Acc_env": new FormControl('Select Environment'),
+        "Acc_validation": new FormControl('Select Amount Validation'),
+        "Acc_acceptance": new FormControl('Select Acceptance Mode'),
         "Rec_mail": new FormControl(),
         "Acc_mode": new FormControl(),
         "Acc_trans": new FormControl(),
-        "Acc_amount": new FormControl(),
+        "Acc_amount": new FormControl('Select Amount'),
         "ip":  new FormArray([ 
           // <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows'),Validators.required
           new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]),
