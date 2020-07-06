@@ -498,36 +498,37 @@
 
                   </div>
             </div> -->
-            
-              <label for="uname" >User Name:</label>
-              <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"
-                [ngClass]="signupForm3.controls['uname'].invalid ? 'is-invalid' : ''">
-              <label class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
-                Username is Required.
-              </label>
-              
-            
 
-          </div>
-
-          <!-- <div class="form-group">
-            <label for="uname" [ngClass]="signupForm3.controls['uname'].invalid ? 'text-danger' : ''">User Name:</label>
+            <!-- <label for="uname" >User Name:</label>
             <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"
               [ngClass]="signupForm3.controls['uname'].invalid ? 'is-invalid' : ''">
             <label class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
               Username is Required.
-            </label>            
-          </div> -->
+            </label>   -->
+            
+              <label for="uname" >User Name:</label>
+              <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"  >
+                <div  *ngIf="signupForm3.controls['uname'].touched" >
+              <div class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
+                username is Required.
+              </div>   
+            </div>        
+            </div>
+
+            <br>
+
+        
 
           <div class="row1 mb2">
-            <div class="form-group">
+            
           
             <label for="password" >Password:</label>
-            <input id="password" formControlName="password" type="password" class="form-control" [ngClass]="signupForm3.controls['password'].invalid ? 'is-invalid' : ''">
+            <input id="password" formControlName="password" type="password" class="form-control" >
             <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
               Password is Required!
             </label> -->
-            <br>
+            <div  *ngIf="signupForm3.controls['password'].touched" >
+              <br>
             
             <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
               <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
@@ -560,22 +561,27 @@
               Must contain at least 1 Special Character.
             </label>
           </div>
+           
          </div>
+         <br>
           
 
 
           <div class="row1 mb2">
           
             <label for="confirmPassword" >Confirm Password:</label>
-            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control"
-              [ngClass]="signupForm3.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control" >
+            <div  *ngIf="signupForm3.controls['confirmPassword'].touched" >
             <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('required')">
-              Password is Required!
+              Password is Required.
             </label>
             <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('NoPassswordMatch')">
-              Password do not match
+              Password does not match.
             </label>
-           
+            </div>
+            <label class="text-success" *ngIf="signupForm3.controls['confirmPassword'].valid">
+              Password match.
+            </label>
            </div>
 
 
