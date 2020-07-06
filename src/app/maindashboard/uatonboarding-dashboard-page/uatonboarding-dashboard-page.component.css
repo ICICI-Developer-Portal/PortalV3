@@ -26,6 +26,9 @@ input[type="textbox"]{
     font-family: Poppins-Regular;
     font-size: 9.5px;
 }
+.margin-leftminus15{
+	margin-left: -15px;
+}
 .mainField.ng-invalid.ng-touched{
 border-left: 5px solid #ae282e;
 border-right: 1px solid #ae282e;

@@ -84,6 +84,21 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   confirmMsgProd: any;
   showError: string = "hidden";
   addFalse:boolean=true;
+  paymentMode:any[] = [ "Cash","ICICI Cheque" ,"ICICI DD","Non-ICICI Cheque","Non-ICICI DD","Debit Authorization","Other"];
+  yesNo:any[] = [ "Yes","No"];
+  serviceTypeOption:any[] = [ "WADL","REST","SOAP","Other"];
+  comTypeOption:any[] = [ "XML","XML as a string","JSON"];
+  ifscCodeOption:any[] = [ "ICIC0000103","ICIC0000104","ICIC0000106"];
+  environmentOption:any[] = [ "UAT","CUG","Production"];
+  certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
+   
+
+  
+
+  
+
+
+  
   // ====================================
   // get formArr() {
   //   var cntls= this.reactiveForm.controls;
@@ -121,9 +136,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
 
   addNewIPField() {
-    const control = <FormArray>this.reactiveForm.get('additionalField').get('ip');
-    console.log(control.length);
-    console.log(control);
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
     console.log(control.at(0));
     if(control.length<=9){ 
      control.push(new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
@@ -132,18 +145,23 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
   deleteRow(i: number) {
     console.log(i);
-    const control = <FormArray>this.reactiveForm.get('additionalField').get('ip');
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
+   
     control.removeAt(i);
+
   }
   resetField(){
-    const control = <FormArray>this.reactiveForm.get('additionalField').get('ip');
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
     
       while (control.length > 1) {
         control.removeAt(1)
       }
       control.reset();
   }
+ifIPpatternNotmatches(){
+  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip').value;
 
+}
   // ====================================
 
 
@@ -417,24 +435,6 @@ export class UATonboardingDashboardPageComponent implements OnInit {
 
   }
   multipleSelectAPI(e){
-  
-  if ($(".customcsscontainer input:checkbox:checked").length) {
-    $('.ContinueBtn').prop('disabled', false);
-    //alert(($(".customcsscontainer input:checkbox:checked").length))
-    //  $("#thrdSectionChld").removeClass("overlay_parent")
-    $("#dynamic-list-check").css("display", "block");
-    $("#scndSectionWhitelistIp").addClass("ng-valid");
-    $("#scndSectionWhitelistIp").removeClass("ng-invalid");
-   
-  }
-  else {
-    $('.ContinueBtn').prop('disabled', true);
-    $("#thrdSectionChld").addClass("overlay_parent");
-    $("#dynamic-list-check").css("display", "none");
-    $("#scndSectionWhitelistIp").addClass("ng-invalid");
-    $("#scndSectionWhitelistIp").removeClass("ng-valid");   
-    $("#submitButton,#file1").addClass("blockElements")
-    
     this.accNo = false;
     this.clientCode = false;
     this.url = false;
@@ -462,10 +462,26 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     this.headers = false;
     this.uatTestingID = false;
     this.resetField();
-        }
-      
-         
   
+  if ($(".customcsscontainer input:checkbox:checked").length) {
+    $('.ContinueBtn').prop('disabled', false);
+    //alert(($(".customcsscontainer input:checkbox:checked").length))
+    //  $("#thrdSectionChld").removeClass("overlay_parent")
+    $("#dynamic-list-check").css("display", "block");
+    $("#scndSectionWhitelistIp").addClass("ng-valid");
+    $("#scndSectionWhitelistIp").removeClass("ng-invalid");
+   
+  }
+  else {
+    $('.ContinueBtn').prop('disabled', true);
+    $("#thrdSectionChld").addClass("overlay_parent");
+    $("#dynamic-list-check").css("display", "none");
+    $("#scndSectionWhitelistIp").addClass("ng-invalid");
+    $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+    $("#submitButton,#file1").addClass("blockElements")
+    
+
+        }
 }
   onSubmitUATForm(Prodconfirm) {
 
@@ -493,32 +509,32 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       env: "UAT",
       // ips: "",
       // callbackUrl: "",
-      AccountNo: reactiveFromFieldValues.additionalField.AccountNo ? reactiveFromFieldValues.additionalField.AccountNo : '',
-      ClientCode: reactiveFromFieldValues.additionalField.ClientCode ? reactiveFromFieldValues.additionalField.ClientCode : '',
-      url: reactiveFromFieldValues.additionalField.url ? reactiveFromFieldValues.additionalField.url : '',
+      AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
+      ClientCode: reactiveFromFieldValues.whitelistIpSection.ClientCode ? reactiveFromFieldValues.whitelistIpSection.ClientCode : '',
+      url: reactiveFromFieldValues.whitelistIpSection.url ? reactiveFromFieldValues.whitelistIpSection.url : '',
       Ip: values.toString() ? values.toString() : '',
-      Port: reactiveFromFieldValues.additionalField.port ? reactiveFromFieldValues.additionalField.port : '',
-      Checksum: reactiveFromFieldValues.additionalField.Checksum ? reactiveFromFieldValues.additionalField.Checksum : '',
-      Encryption: reactiveFromFieldValues.additionalField.Encryption ? reactiveFromFieldValues.additionalField.Encryption : '',
-      Certificate: reactiveFromFieldValues.additionalField.Certificate ? reactiveFromFieldValues.additionalField.Certificate : '',
-      web: reactiveFromFieldValues.additionalField.web ? reactiveFromFieldValues.additionalField.web : '',
-      message: reactiveFromFieldValues.additionalField.message ? reactiveFromFieldValues.additionalField.message : '',
-      IFSC_Code: reactiveFromFieldValues.additionalField.IFSC_Code ? reactiveFromFieldValues.additionalField.IFSC_Code : '',
-      virtualCode: reactiveFromFieldValues.additionalField.virtualCode ? reactiveFromFieldValues.additionalField.virtualCode : '',
-      refundCode: reactiveFromFieldValues.additionalField.refundCode ? reactiveFromFieldValues.additionalField.refundCode : '',
-      Account_no: reactiveFromFieldValues.additionalField.Account_no ? reactiveFromFieldValues.additionalField.Account_no : '',
-      Acc_name: reactiveFromFieldValues.additionalField.Acc_name ? reactiveFromFieldValues.additionalField.Acc_name : '',
-      Auth_level: reactiveFromFieldValues.additionalField.Auth_level ? reactiveFromFieldValues.additionalField.Auth_level : '',
-      Urn: reactiveFromFieldValues.additionalField.Urn ? reactiveFromFieldValues.additionalField.Urn : '',
-      Acc_env: reactiveFromFieldValues.additionalField.Acc_env ? reactiveFromFieldValues.additionalField.Acc_env : '',
-      Acc_validation: reactiveFromFieldValues.additionalField.Acc_validation ? reactiveFromFieldValues.additionalField.Acc_validation : '',
-      Acc_acceptance: reactiveFromFieldValues.additionalField.Acc_acceptance ? reactiveFromFieldValues.additionalField.Acc_acceptance : '',
-      Rec_mail: reactiveFromFieldValues.additionalField.Rec_mail ? reactiveFromFieldValues.additionalField.Rec_mail : '',
-      Acc_mode: reactiveFromFieldValues.additionalField.Acc_mode ? reactiveFromFieldValues.additionalField.Acc_mode : '',
-      Acc_trans: reactiveFromFieldValues.additionalField.Acc_trans ? reactiveFromFieldValues.additionalField.Acc_trans : '',
-      Acc_amount: reactiveFromFieldValues.additionalField.Acc_amount ? reactiveFromFieldValues.additionalField.Acc_amount : '',
-      Acc_headers: reactiveFromFieldValues.additionalField.headers ? reactiveFromFieldValues.additionalField.header : '',
-      Acc_uatTestingID: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
+      Port: reactiveFromFieldValues.whitelistIpSection.port ? reactiveFromFieldValues.whitelistIpSection.port : '',
+      Checksum: reactiveFromFieldValues.whitelistIpSection.Checksum ? reactiveFromFieldValues.whitelistIpSection.Checksum : '',
+      Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption ? reactiveFromFieldValues.whitelistIpSection.Encryption : '',
+      Certificate: reactiveFromFieldValues.whitelistIpSection.Certificate ? reactiveFromFieldValues.whitelistIpSection.Certificate : '',
+      web: reactiveFromFieldValues.whitelistIpSection.web ? reactiveFromFieldValues.whitelistIpSection.web : '',
+      message: reactiveFromFieldValues.whitelistIpSection.message ? reactiveFromFieldValues.whitelistIpSection.message : '',
+      IFSC_Code: reactiveFromFieldValues.whitelistIpSection.IFSC_Code ? reactiveFromFieldValues.whitelistIpSection.IFSC_Code : '',
+      virtualCode: reactiveFromFieldValues.whitelistIpSection.virtualCode ? reactiveFromFieldValues.whitelistIpSection.virtualCode : '',
+      refundCode: reactiveFromFieldValues.whitelistIpSection.refundCode ? reactiveFromFieldValues.whitelistIpSection.refundCode : '',
+      Account_no: reactiveFromFieldValues.whitelistIpSection.Account_no ? reactiveFromFieldValues.whitelistIpSection.Account_no : '',
+      Acc_name: reactiveFromFieldValues.whitelistIpSection.Acc_name ? reactiveFromFieldValues.whitelistIpSection.Acc_name : '',
+      Auth_level: reactiveFromFieldValues.whitelistIpSection.Auth_level ? reactiveFromFieldValues.whitelistIpSection.Auth_level : '',
+      Urn: reactiveFromFieldValues.whitelistIpSection.Urn ? reactiveFromFieldValues.whitelistIpSection.Urn : '',
+      Acc_env: reactiveFromFieldValues.whitelistIpSection.Acc_env ? reactiveFromFieldValues.whitelistIpSection.Acc_env : '',
+      Acc_validation: reactiveFromFieldValues.whitelistIpSection.Acc_validation ? reactiveFromFieldValues.whitelistIpSection.Acc_validation : '',
+      Acc_acceptance: reactiveFromFieldValues.whitelistIpSection.Acc_acceptance ? reactiveFromFieldValues.whitelistIpSection.Acc_acceptance : '',
+      Rec_mail: reactiveFromFieldValues.whitelistIpSection.Rec_mail ? reactiveFromFieldValues.whitelistIpSection.Rec_mail : '',
+      Acc_mode: reactiveFromFieldValues.whitelistIpSection.Acc_mode ? reactiveFromFieldValues.whitelistIpSection.Acc_mode : '',
+      Acc_trans: reactiveFromFieldValues.whitelistIpSection.Acc_trans ? reactiveFromFieldValues.whitelistIpSection.Acc_trans : '',
+      Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
+      Acc_headers: reactiveFromFieldValues.whitelistIpSection.headers ? reactiveFromFieldValues.whitelistIpSection.header : '',
+      Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.uatTestingID ? reactiveFromFieldValues.whitelistIpSection.uatTestingID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -637,108 +653,47 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   ifFieldisVisible(value) {
     let reactiveFromFieldValues = this.reactiveForm.value;
     console.log(value);
-    console.log(reactiveFromFieldValues.additionalField.ip);
+    console.log(reactiveFromFieldValues.whitelistIpSection.ip);
     console.log(this.reactiveForm)
-    console.log(this.reactiveForm.controls.additionalField)
-    let c = this.reactiveForm.controls.additionalField;
+    console.log(this.reactiveForm.controls.whitelistIpSection)
+    let c = this.reactiveForm.controls.whitelistIpSection;
 
-    console.log(reactiveFromFieldValues.additionalField.ip)
-    let ip = reactiveFromFieldValues.additionalField.ip;
+    console.log(reactiveFromFieldValues.whitelistIpSection.ip)
+    let ip = reactiveFromFieldValues.whitelistIpSection.ip;
     console.log(ip);
 
     if (value == "IP") {
-      console.log(this.reactiveForm.get('additionalField'));
-      console.log(this.reactiveForm.get('additionalField').get('ip'));
-      let ipControl = this.reactiveForm.get('additionalField').get('ip');
+      console.log(this.reactiveForm.get('whitelistIpSection'));
+      console.log(this.reactiveForm.get('whitelistIpSection').get('ip'));
+      let ipControl = this.reactiveForm.get('whitelistIpSection').get('ip');
       // ipControl.setValidators([this.ipValidator]);
-      console.log(this.reactiveForm.get('additionalField'));
-      this.reactiveForm.get('additionalField').get('ip')
-      //reactiveFromFieldValues.additionalField.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
-      // reactiveFromFieldValues.additionalField.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
-      console.log(reactiveFromFieldValues.additionalField);
+      console.log(this.reactiveForm.get('whitelistIpSection'));
+      this.reactiveForm.get('whitelistIpSection').get('ip')
+      //reactiveFromFieldValues.whitelistIpSection.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
+      // reactiveFromFieldValues.whitelistIpSection.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
+      console.log(reactiveFromFieldValues.whitelistIpSection);
     }
     console.log(value + "", 1);
 
   }
-  //   validateIp(ip) {
-  //     if ( ip == null || ip === '' ) {
-  //       return true;
-  //     }
-
-  //     const parts = ip.split('.');
-  //     if(parts.length !== 4) {
-  //       return true;
-  //     }
-
-  //     for(let i = 0; i < parts.length; i++) {
-  //       const part = parseInt(parts[i]);
-  //       if(part < 0 || part > 255) {
-  //         return true;
-  //       }
-  //     }
-
-  //     if(ip.endsWith('.')) {
-  //       return true;
-  //     }
-
-  //     return false;
-  //   }
-  //   ipValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  //       // =============================================
-  //       // ================================================
-  //       let input = control.value;
-  //       console.log(input)
-  //       console.log(input.length)
-
-
-  //       if(input.length>0){
-  //         let arr = input.split(',');
-  //         console.log(this.validateIp(input))
-
-  //         console.log(this.validateIp)
-  //         let wrongIps = arr.filter(this.validateIp(input));
-
-
-  //       if(wrongIps.length>0){
-  //         console.log(wrongIps);
-  //         return{valid: false}
-  //       }
-  //       else{
-  //         console.log(wrongIps);
-  //         return{valid: true}
-  //       }
-  //       console.log(arr)
-  //       console.log(arr)
-  //       console.log(wrongIps)
-  //     }
-  //     else{
-
-  //     }
-
-  //       // ///////////////////////////////////////////////
-  //       // ///////////////////////////////////////////////
-  // }
-
-
-
   resetForm(edit) {
     this.reactiveForm = new FormGroup({
 
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
-        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
         "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
         "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
       }),
       "nestedCheckboxesList": new FormGroup({
         "nestedList": new FormArray([])
       }),
-      "additionalField": new FormGroup({
+      "whitelistIpSection": new FormGroup({
         "AccountNo": new FormControl(),
         "clientCode": new FormControl(),
         "url": new FormControl(),
-        "Checksum": new FormControl(),
+        "Checksum": new FormControl('Select Checksum'),
         "encryption": new FormControl(),
         "certificate": new FormControl(),
         "service": new FormControl(),
@@ -764,13 +719,11 @@ export class UATonboardingDashboardPageComponent implements OnInit {
           new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]),
         ]),
         "port": new FormControl(),
-        "refJIRAID": new FormControl()
-      }),
-      'whitelistIpSection': new FormGroup({
-     
+        "refJIRAID": new FormControl(),
         "file1": new FormControl(null, [Validators.required]),
         "checkBox": new FormControl(false, [Validators.requiredTrue])
-      })
+      }),
+     
     })
 
   }

@@ -90,17 +90,30 @@
 
                   <div class="form-group col-md-6">
                     <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="Email_ID"
+                    <input type="email" class="form-control mainField col-md-11 inline_block" id="Email_ID"
                       formControlName="email_id" placeholder="Your Email ID">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
                       class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
+                    <div *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched) || reactiveForm.get('basicDetailsSection.email_id').dirty">
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required" class="text-danger form-error">Email id is required.</div>
+                      <!--question mark(?) is a safe navigation operator-->
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern" class="text-danger form-error">Please provide a valid email address</div>
+                    </div>
+
+
+<!--
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched"
                       class="text-danger form-error">
                       Email id is required.
                     </div>
-                    <!-- ======== -->
+                    <div
+                      *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern && reactiveForm.get('basicDetailsSection.email_id').touched"
+                      class="text-danger form-error">
+                      Please provide a valid email address.
+                    </div>
+                     ======== -->
                   </div>
 
                   <div class="form-group col-md-6">
@@ -110,17 +123,24 @@
                     <i *ngIf="reactiveForm.get('basicDetailsSection.contact_no').valid"
                       class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
+                    <div *ngIf="(reactiveForm.get('basicDetailsSection.contact_no').invalid && reactiveForm.get('basicDetailsSection.contact_no').touched) || reactiveForm.get('basicDetailsSection.contact_no').dirty">
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.required" class="text-danger form-error">Contact no is required.</div>
+                      <!--question mark(?) is a safe navigation operator-->
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.pattern" class="text-danger form-error">Please provide a valid contact no</div>
+                    </div>
+ <!--
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched"
                       class="text-danger form-error">
                       Contact no is required.
                     </div>
-                    <!-- ======== -->
+                    ======== -->
                   </div>
 
 
                   <div class="form-group col-md-6">
-                    <label for="r_m_maild_id">ICICI Bank Relationship Manager /Email ID/Employee ID</label>
+                    <label for="r_m_maild_id">ICICI Bank Relationship Manager /Email ID/Employee ID <span
+                        class="text-danger"> *</span></label>
                     <input type="text" class="form-control mainField col-md-11 inline_block" id="r_m_maild_id"
                       formControlName="r_m_maild_id"
                       placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
@@ -149,7 +169,7 @@
         <!-- second section starts here -->
         <!-- =========================================================================================================== -->
         <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
-          <!-- <div class="tabContentInner" > -->
+          <!-- <div class="tabContentInner"> -->
           <div class="row m0">
             <div class="container">
               <!--karthik-Auto complete-->
@@ -285,7 +305,7 @@
                   <div class="col-md-12">
                     <button #continueButtonSecondSection class="signInBtn ContinueBtn btn-dark  pull-right"
                       name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"
-                      disabled="" (click)="onClickContinueBtn()" > Continue
+                      disabled="" (click)="onClickContinueBtn()"> Continue
                     </button>
                   </div>
                   <!-- ------------------------------------------------- -->
@@ -321,7 +341,7 @@
 
             <!-- <div [ngClass]="apiGreenCheck=='invalid' ?  'overlay_parent':''" class="tabContentInner" id="thrdSectionChld"> -->
             <!-- <div>
-            <div class="tabContentInner"> -->
+          <div class="tabContentInner"> -->
             <div class="row m0">
               <div class="container">
                 <h5>Additional Field</h5>
@@ -329,16 +349,33 @@
 
 
                   <!-- ================================================================================================================= -->
-                  <!-- additional fields -->
+                  <!-- additional fields whitelistIpSection-->
                   <!-- ================================================================================================================== -->
 
-                  <div formGroupName="additionalField" class="row" id="additionalFieldBasedOnSelection">
+                 
+                  <!-- <div formGroupName="additionalFieldSection" class="row" id="additionalFieldBasedOnSelection"> -->
+                    <div formGroupName="whitelistIpSection" class="row" id="whitelistIpSectionBasedOnSelection">
                     <div class="form-group col-md-6" *ngIf="accNo">
                       <div><label for="contract">Account Number</label></div>
                       <input class="form-control col-md-11" placeholder="Your Account number" type="text"
                         formControlName="AccountNo" />
                     </div>
 
+                    <div class="form-group col-md-6" *ngIf="accName">
+                      <div>
+                        <label for="Acc_name">Account Name</label>
+                      </div>
+                      <input class="form-control col-md-11" placeholder="Account Name" type="text"
+                        formControlName="Acc_name" />
+                    </div>
+
+                    <div class="form-group col-md-6" *ngIf="interAccNo">
+                      <div>
+                        <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
+                      </div>
+                      <input class="form-control col-md-11" placeholder="Customer Credit A/C Number" type="text"
+                        formControlName="interAccNo" />
+                    </div>
 
                     <div class="form-group col-md-6" *ngIf="clientCode">
                       <div><label for="contract">Client code</label></div>
@@ -346,70 +383,13 @@
                         formControlName="clientCode" />
                     </div>
 
-                    <div class="form-group col-md-6" *ngIf="url">
-                      <div><label for="contract">Callback URL</label></div>
-                      <input class="form-control col-md-11" placeholder="Your Callback URL" type="text"
-                        formControlName="url" />
-                    </div>
-
-
-                    <!-- <div class="form-group col-md-6" *ngIf="ip">
-                      <div class="width_100prcnt"><label for="contract">IP</label></div>
-                      <input class="form-control col-md-11" placeholder="Your IP" formControlName="ip" type="text" />
-                     
-                      <div
-                        *ngIf="!reactiveForm.get('additionalField.ip').valid && reactiveForm.get('additionalField.ip').touched"
-                        class="text-danger form-error">
-                        IP is required.
-                      </div>
-                      
-
-                    </div> -->
-                    <div class="form-group col-md-12 additionalIPStyle countIp" id="addIPUnique" *ngIf="ip">
-                      <div class="width_100prcnt"><label for="contract">IP<span class="text-danger"> *</span></label>
-                        <a data-toggle="tooltip"
-                        title="You can add maximum 10 IP"><img alt="loader"
-                          class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
-                        <div formArrayName="ip" class="form-group">
-                          <!-- =================== -->
-                          <div class="row  mb-3" *ngFor="let itemrow of reactiveForm.get('additionalField').get('ip').controls; let i=index">
-    
-                          <div class="input-group  col-md-6" >
-                            <input type="text" class="form-control mainField ipValues" formControlName="{{i}}" placeholder="Your IP" aria-label="IP"
-                              aria-describedby="basic-addon2">
-                             
-                            <div class="input-group-append">
-                              <span  *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="addNewIPField()">+</span>
-                              <span  *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="deleteRow(i)">-</span>
-                            </div>
-                            
-                          </div>
-                          <i *ngIf="reactiveForm.get('additionalField').get('ip').controls[i].valid"
-                            class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
-                          <div
-                      *ngIf="!reactiveForm.get('additionalField').get('ip').controls[i].valid && reactiveForm.get('additionalField').get('ip').controls[i].touched"
-                      class="text-danger form-error col-md-12">
-                      IP is required.
-                    </div>
-                          </div>
-                          
-                          <!-- ==================== -->
-                      </div>
-                    </div>
-
-                    <div class="form-group col-md-6" *ngIf="port">
-                      <div class="width_100prcnt"><label for="contract">Port</label></div>
-                      <input class="form-control col-md-11" placeholder="Your Port" formControlName="port"
-                        type="text" />
-
-                    </div>
                     <div class="form-group col-md-6" *ngIf="checksum">
                       <div><label for="projectName">Checksum Required </label></div>
                       <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" name="Checksum">
-                          <option value="">Select Checksum</option>
-                          <option>Yes</option>
-                          <option>No</option>
+                        <select class="form-control h40 col-md-11" formControlName="Checksum">
+                          <option  *ngFor="let option of yesNo" [value]="option">
+                            {{option}}
+                          </option>
                         </select>
                       </span>
                     </div>
@@ -423,190 +403,158 @@
                         <option>No</option>
                       </select> -->
                         <select class="form-control h40 col-md-11" name="encryption">
-                          <option value="">Select Encryption</option>
-                          <option>Yes</option>
-                          <option>No</option>
+                          <option  *ngFor="let option of yesNo" [value]="option">
+                            {{option}}
+                          </option>
                         </select>
                       </span>
                     </div>
-
-                    <div class="form-group col-md-6" *ngIf="certificate">
-                      <div><label for="projectName">Certificate</label></div>
-                      <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" name="certificate">
-                          <option value="">Select Certificate</option>
-                          <option>Java Key Store</option>
-                          <option>IIS SSL</option>
-                        </select>
-                      </span>
-                    </div>
-
                     <div class="form-group col-md-6" *ngIf="service">
                       <div>
                         <label for="projectName">Service Type</label>
                       </div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="service">
-                          <option value="">Select Services</option>
-                          <option>WADL</option>
-                          <option>REST</option>
-                          <option>*Others </option>
+                          <option  *ngFor="let option of serviceTypeOption" [value]="option">
+                            {{option}}
+                          </option>
                         </select>
                       </span>
                     </div>
-
                     <div class="form-group col-md-6" *ngIf="commModel">
                       <div>
                         <label for="projectName"> Communication Method</label>
                       </div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" name="commModel">
-                          <option value="">Select Format</option>
-                          <option>XML</option>
-                          <option>XML as a string</option>
-                          <option>JSON</option>
+                          <option  *ngFor="let option of comTypeOption" [value]="option">
+                            {{option}}
+                          </option>
                         </select>
                       </span>
                     </div>
 
-                    <!-- </div>                  -->
-                    <div class="row" *ngIf="Ecollection_Show">
-                      <div class="form-group col-md-6" *ngIf="header">
-                        <div>
-                          <label for="header">Header</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="header" type="text"
-                          formControlName="header" />
+                    <div class="form-group col-md-6" *ngIf="ifsc">
+                      <div>
+                        <label for="projectName">IFSC code to be given to the remitter while initiating
+                          payment
+                        </label>
                       </div>
-
-                      <div class="form-group col-md-6" *ngIf="ifsc">
-                        <div>
-                          <label for="projectName">IFSC code to be given to the remitter while initiating
-                            payment
-                          </label>
-                        </div>
-                        <span class="custom-dropdown">
-                          <select formControlName="IFSC_Code" class="form-control h40 col-md-11">
-                            <option value="">Select IFSC Code</option>
-                            <option>ICIC0000104</option>
-                            <option>ICIC0000103</option>
-                            <option>ICIC0000106</option>
-                          </select>
-                        </span>
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="virtualCode">
-                        <div>
-                          <label for="contract">4,3 or 6 Character Virtual Code</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="Your Virtual Code" type="text"
-                          formControlName="virtualCode" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="ips">
-                        <div><label for="contract">IPS Refund Code</label></div>
-                        <input class="form-control col-md-11" placeholder="IPS Refund Code" type="text"
-                          formControlName="ips" />
-                      </div>
-
-                      <div class="form-group col-md-6" *ngIf="interAccNo">
-                        <div>
-                          <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="Customer Credit A/C Number" type="text"
-                          formControlName="interAccNo" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="accName">
-                        <div>
-                          <label for="Acc_name">Account Name</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="Account Name" type="text"
-                          formControlName="accName" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="authLevel">
-                        <div>
-                          <label for="Auth_level">Authorization Level</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="Authorization Level" type="text"
-                          formControlName="authLevel" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="urn">
-                        <div>
-                          <label for="Urn">URN</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="URN" type="text" formControlName="URN" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="env">
-                        <div>
-                          <label for="Acc_env">Environment</label>
-                        </div>
-                        <span class="custom-dropdown">
-                          <select class="form-control h40 col-md-11" formControlName="env">
-                            <option value="">Select Environment</option>
-                            <option>UAT</option>
-                            <option>CUG</option>
-                            <option>Production </option>
-                          </select>
-                        </span>
-                      </div>
-
-                      <div class="form-group col-md-6" *ngIf="valid">
-                        <div>
-                          <label for="Acc_validation">Validation Mode</label>
-                        </div>
-                        <!-- <input class="form-control col-md-11" placeholder="Validation Mode" type="text"
-                        formControlName="Acc_validation" /> -->
-
-                        <span class="custom-dropdown">
-                          <select formControlName="IFSC_Code" class="form-control h40 col-md-11">
-                            <option value="">Select option</option>
-                            <option>Yes</option>
-                            <option>No</option>
-                          </select>
-                        </span>
-                      </div>
-
-                      <div class="form-group col-md-6" *ngIf="accept">
-                        <div>
-                          <label for="Acc_acceptance">Acceptance Mode</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="Acceptance Mode" type="text"
-                          formControlName="Acc_acceptance" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="recipient">
-                        <div>
-                          <label for="Rec_mail">Recipient Mail ID</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="Recipient Mail ID" type="text"
-                          formControlName="Rec_mail" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="mode">
-                        <div>
-                          <label for="Acc_mode">Mode Offered</label>
-                        </div>
-                        <input class="form-control col-md-11" placeholder="Mode Offered" type="text"
-                          formControlName="Acc_mode" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="trans">
-                        <div>
-                          <label for="Acc_trans">Transaction limit for per transaction</label>
-                        </div>
-                        <input type="number" class="form-control col-md-11" max="5" formControlName="Acc_trans" />
-                      </div>
-                      <div class="form-group col-md-6" *ngIf="amount">
-                        <div>
-                          <label for="Acc_amount"> Amount Field</label>
-                        </div>
-                        <span class="custom-dropdown">
-                          <select class="form-control h40 col-md-11" formControlName="Acc_amount">
-                            <option value="">Select Amount</option>
-                            <option>Editable</option>
-                            <option>Non- Editable</option>
-                          </select>
-                        </span>
-                      </div>
-
+                      <span class="custom-dropdown">
+                        <select formControlName="IFSC_Code" class="form-control h40 col-md-11">
+                          <option value="">Select IFSC Code</option>
+                          <option  *ngFor="let option of ifscCodeOption" [value]="option">
+                            {{option}}
+                          </option>
+                        </select>
+                      </span>
                     </div>
-                    <!-- ====================================== Three additionl fields================================-->
-                    <!-- ====================================== Three additionl fields================================-->
+
+                    <div class="form-group col-md-6" *ngIf="virtualCode">
+                      <div>
+                        <label for="contract">4,3 or 6 Character Virtual Code</label>
+                      </div>
+                      <input class="form-control col-md-11" placeholder="Your Virtual Code" type="text"
+                        formControlName="virtualCode" />
+                    </div>
+
+                    <div class="form-group col-md-6" *ngIf="ips">
+                      <div><label for="contract">IPS Refund Code</label></div>
+                      <input class="form-control col-md-11" placeholder="IPS Refund Code" type="text"
+                        formControlName="ips" />
+                    </div>
+
+                    <div class="form-group col-md-6" *ngIf="authLevel">
+                      <div>
+                        <label for="Auth_level">Authorization Level</label>
+                      </div>
+                      <input class="form-control col-md-11" placeholder="Authorization Level" type="text"
+                        formControlName="authLevel" />
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="urn">
+                      <div>
+                        <label for="Urn">URN</label>
+                      </div>
+                      <input class="form-control col-md-11" placeholder="URN" type="text" formControlName="URN" />
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="env">
+                      <div>
+                        <label for="Acc_env">Environment</label>
+                      </div>
+                      <span class="custom-dropdown">
+                        <select class="form-control h40 col-md-11" formControlName="env">
+                          <option value="">Select Environment</option>
+                          <option  *ngFor="let option of environmentOption" [value]="option">
+                            {{option}}
+                          </option>
+                        </select>
+                      </span>
+                    </div>
+
+                    <div class="form-group col-md-6" *ngIf="valid">
+                      <div>
+                        <label for="Acc_validation"> Amount Validation Required?</label>
+                      </div>
+                      <!-- <input class="form-control col-md-11" placeholder="Validation Mode" type="text"
+                      formControlName="Acc_validation" /> -->
+
+                      <span class="custom-dropdown">
+                        <select formControlName="IFSC_Code" class="form-control h40 col-md-11">
+                          <option  *ngFor="let option of yesNo" [value]="option">
+                            {{option}}
+                          </option>
+                          
+                        </select>
+                      </span>
+                    </div>
+
+                    <div class="form-group col-md-6" *ngIf="accept">
+                      <div>
+                        <label for="Acc_acceptance">Acceptance Mode</label>
+                      </div>
+                      <!--<input class="form-control col-md-11" placeholder="Acceptance Mode" type="text"
+                        formControlName="Acc_acceptance" />-->
+                        <span class="custom-dropdown">
+                        <select formControlName="Acc_acceptance" class="form-control h40 col-md-11">
+                          <option  *ngFor="let option of paymentMode" [value]="option">
+                            {{option}}
+                          </option>
+                         
+                        </select>
+                      </span>
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="recipient">
+                      <div>
+                        <label for="Rec_mail">Recipient Mail ID</label>
+                      </div>
+                      <input class="form-control col-md-11" placeholder="Recipient Mail ID" type="text"
+                        formControlName="Rec_mail" />
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="mode">
+                      <div>
+                        <label for="Acc_mode">Mode Offered</label>
+                      </div>
+                      <input class="form-control col-md-11" placeholder="Mode Offered" type="text"
+                        formControlName="Acc_mode" />
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="trans">
+                      <div>
+                        <label for="Acc_trans">Transaction limit for per transaction</label>
+                      </div>
+                      <input type="number" class="form-control col-md-11" max="5" formControlName="Acc_trans" />
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="amount">
+                      <div>
+                        <label for="Acc_amount"> Amount Field</label>
+                      </div>
+                      <span class="custom-dropdown">
+                        <select class="form-control h40 col-md-11" formControlName="Acc_amount">
+                          <option value="">Select Amount</option>
+                          <option>Editable</option>
+                          <option>Non- Editable</option>
+                        </select>
+                      </span>
+                    </div>
                     <div class="form-group col-md-6" *ngIf="headers">
                       <div>
                         <label for="Header">Header</label>
@@ -622,12 +570,79 @@
                         formControlName="TestingID" />
                       <!-- validation -->
                       <div
-                        *ngIf="!reactiveForm.get('additionalField.TestingID').valid && reactiveForm.get('additionalField.TestingID').touched"
+                        *ngIf="!reactiveForm.get('whitelistIpSection.TestingID').valid && reactiveForm.get('whitelistIpSection.TestingID').touched"
                         class="text-danger form-error">
                         Testing ID is required.
                       </div>
                       <!-- ======== -->
                     </div>
+
+
+                    <div class="form-group col-md-6" *ngIf="url">
+                      <div><label for="contract">Callback URL</label></div>
+                      <input class="form-control col-md-11" placeholder="Your Callback URL" type="text"
+                        formControlName="url" />
+                    </div>
+                    <!-- --------------------ip -->
+                    <div class="form-group col-md-6  countIp" id="addIPUnique" *ngIf="ip">
+                      <div class="width_100prcnt"><label for="contract">IP<span class="text-danger"> *</span></label>
+                        <a data-toggle="tooltip" title="You can add maximum 10 IP"><img alt="loader"
+                            class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
+                      <div formArrayName="ip" class="form-group">
+                        <!-- =================== -->
+                        <div class="row  mb-2"
+                          *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('ip').controls; let i=index">
+
+                          <div class="input-group  col-md-11">
+                            <input type="text" class="form-control mainField ipValues" formControlName="{{i}}"
+                              placeholder="Your IP" aria-label="IP" aria-describedby="basic-addon2">
+
+                            <div class="input-group-append">
+                              <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                                (click)="addNewIPField()">+</span>
+                              <span *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                                (click)="deleteRow(i)">-</span>
+                            </div>
+
+                          </div>
+                          <i *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid"
+                            class="fa fa-check-circle green col-md-1 margin_3px margin-leftminus15"
+                            aria-hidden="true"></i>
+                          <div
+                            *ngIf="!reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid && reactiveForm.get('whitelistIpSection').get('ip').controls[i].touched"
+                            class="text-danger form-error col-md-12">
+                            <span *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].errors.required"> IP
+                              is required.</span>
+                            <span
+                              *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].errors.pattern">Please
+                              enter correct IP</span>
+                          </div>
+                        </div>
+
+                        <!-- ==================== -->
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6" *ngIf="port">
+                      <div class="width_100prcnt"><label for="contract">Port</label></div>
+                      <input class="form-control col-md-11" placeholder="Your Port" formControlName="port"
+                        type="text" />
+
+                    </div>
+<!-- ---------------------port -->
+
+                    <div class="form-group col-md-6" *ngIf="certificate">
+                      <div><label for="projectName">Certificate</label></div>
+                      <span class="custom-dropdown">
+                        <select class="form-control h40 col-md-11" name="certificate">
+                          <option value="">Select Certificate</option>
+                          <option  *ngFor="let option of certificateOption" [value]="option">
+                            {{option}}
+                          </option>
+                        </select>
+                      </span>
+                    </div>
+                   
                     <div class="form-group col-md-6" *ngIf="refJIRAID">
                       <div>
                         <label for="refJIRAID">Reference JIRA ID</label>
@@ -635,33 +650,6 @@
                       <input class="form-control  col-md-11" placeholder="Reference JIRA ID" type="text"
                         formControlName="refJIRAID" />
                     </div>
-                    <!-- ======== -->
-                  </div>
-
-
-                  <!-- ================================================================================================================-->
-                  <!-- ======================================additionl field ends here================================-->
-                  <!-- ================================================================================================================-->
-
-                  <div formGroupName="whitelistIpSection" class="row">
-                    
-                    <!-- <div><a (click)="addNewIPField()" class="btn btn-primary">Add</a></div>
-                    <br> -->
-                    <!-- <div class="width_100prcnt col-md-12"><label for="contract">IP</label></div>
-                    <div formArrayName="ipRows" class="form-group col-md-12">
-                      <div class="row" *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('ipRows').controls; let i=index">
-
-                      <div class="input-group  mt-1 col-md-6" >
-                        <input type="text" class="form-control mainField ipValues" formControlName="{{i}}" placeholder="Your IP" aria-label="IP"
-                          aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <span  *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="addNewIPField()">+</span>
-                          <span  *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2" (click)="deleteRow()">-</span>
-                        </div>
-                      </div>
-                      </div>
-                    </div> -->
-                    <!-- ================================= -->
 
                     <!-- ===================================== -->
 
@@ -690,7 +678,12 @@
                         I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
                       <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color"> Click here to
                           download</a><span class="text-danger"> *</span></span>
+                      <div
+                        *ngIf="!reactiveForm.get('whitelistIpSection.checkBox').valid && reactiveForm.get('whitelistIpSection.checkBox').touched"
+                        class="text-danger" id="checkbox-error">I ACCEPT NON-DISCLOSURE AGREEMENT is required.
+                      </div>
                     </div>
+
                     <!-- ======= -->
                     <!-- <div _ngcontent-c1="" class="col-md-12"><button _ngcontent-c1="" class="signInBtn btn-dark" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"> Submit </button></div> -->
 
@@ -700,8 +693,7 @@
                         (click)="onSubmitUATForm(Prodconfirm)" id="submitButton"> Submit
                       </button></div>
 
-                    <div class="text-danger hidden" id="checkbox-error">ACCEPT NON-DISCLOSURE AGREEMENT is required.
-                    </div>
+
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                   </div>
 

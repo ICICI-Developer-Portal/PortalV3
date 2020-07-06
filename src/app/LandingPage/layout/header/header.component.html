@@ -59,7 +59,7 @@
         </a>
         <div class="dropdown-content drp-cnt-width ml-40" aria-labelledby="navbarMobiles" *ngIf="showOptn === true">
           <a [routerLink]="['/userprofile']" class="nav-link dropdown-item">Profile</a>
-          <a (click)="scroll_view('#UAT_onboard')" class="nav-link dropdown-item">UAT Onboarding</a>
+          <a  [routerLink]="['/uatonboarding-dashboard']" class="nav-link dropdown-item">UAT Onboarding</a>
           <a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
             Dashboard</a>
           <a class="nav-link dropdown-item" class="nav-link dropdown-item" *ngIf="!showbtn"
