@@ -10,6 +10,7 @@ import { VariablesService } from 'src/app/services/Variables.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Password1Validation } from 'src/app/services/password1.validator';
+import { CustomValidators } from '../../layout/header/custom-validators';
 
 
 @Component({
@@ -30,11 +31,32 @@ this.activeRoute.queryParams.subscribe(params => {
  ngOnInit() {
  
   this.ChangepasswForm=this.formbuilder.group({
-    password:["",[Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
-    confirmPassword:["",[Validators.required]],
+    password: ["", [Validators.required,
+      // check whether the entered password has a number
+      CustomValidators.patternValidator(/\d/, {
+        hasNumber: true
+      }),
+      // check whether the entered password has upper case letter
+      CustomValidators.patternValidator(/[A-Z]/, {
+        hasCapitalCase: true
+      }),
+      // check whether the entered password has a lower case letter
+      CustomValidators.patternValidator(/[a-z]/, {  
+        hasSmallCase: true
+      }),
+      // check whether the entered password has a special character
+      CustomValidators.patternValidator(
+        /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+        {
+          hasSpecialCharacters: true
+        }
+      ),
+      Validators.minLength(8)
+    ]],
+    confirmPassword: ["", [Validators.required]],
   },
   {
-    validator: Password1Validation.MatchPassword // your validation method
+    validator: CustomValidators.passwordMatchValidator // your validation method
   }
   );
 }

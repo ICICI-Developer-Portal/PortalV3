@@ -1,7 +1,7 @@
 <toaster-container></toaster-container>
 <ng4-loading-spinner> </ng4-loading-spinner>  
 <div class="tab-content">
-    <div class="text-center mb50 col-md-4 marginAutoHr">
+    <div class=" mb50 col-md-4 marginAutoHr">
         <div class="row mb10">
              <div class="col-md-12">
                 <div class="modal-header">
@@ -12,7 +12,7 @@
         </div>
         <form [formGroup]="ChangepasswForm" novalidate>
             <div class="row mb10">
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                    <div class="ml"><label for="password" type="password">New Password</label></div>
                    <input name="password" type="password" class="input-login" formControlName="password" >
                    <div class="ml">
@@ -26,13 +26,53 @@
                       </div>
                        </div>
                        <div *ngIf="password.valid" class="alert-success">Valid Password</div>
+                   </div> -->
+                   
+                   <div class="col-md-12">
+                   <label for="password" >Password:</label>
+                   <input id="password" formControlName="password" type="password" class="form-control" >
+                   <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
+                     Password is Required!
+                   </label> -->
+                   <div  *ngIf="ChangepasswForm.controls['password'].touched" >
+                     <br>
+                   
+                   <label class="col" [ngClass]="ChangepasswForm.controls['password'].hasError('required') || ChangepasswForm.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+                     <i class="material-icons">{{ ChangepasswForm.controls['password'].hasError('required') ||
+                        ChangepasswForm.controls['password'].hasError('minlength') ? 'cancel' :
+                       'check_circle' }}</i>
+                     Must be at least 8 characters.
+                   </label>
+                   <label class="col" [ngClass]="ChangepasswForm.controls['password'].hasError('required') || ChangepasswForm.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                     <i class="material-icons">{{ ChangepasswForm.controls['password'].hasError('required') ||
+                        ChangepasswForm.controls['password'].hasError('hasNumber') ? 'cancel' :
+                       'check_circle' }}</i>
+                     Must contain at least 1 number.
+                   </label>
+                   <label class="col" [ngClass]="ChangepasswForm.controls['password'].hasError('required') || ChangepasswForm.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                     <i class="material-icons">{{ ChangepasswForm.controls['password'].hasError('required') ||
+                        ChangepasswForm.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                       'check_circle' }}</i>
+                     Must contain at least 1 upperccase letter.
+                   </label>
+                   <label class="col" [ngClass]="ChangepasswForm.controls['password'].hasError('required') || ChangepasswForm.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+                     <i class="material-icons">{{ ChangepasswForm.controls['password'].hasError('required') ||
+                        ChangepasswForm.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                       'check_circle' }}</i>
+                     Must contain at least 1 lowercase letter.
+                   </label>
+                   <label class="col" [ngClass]="ChangepasswForm.controls['password'].hasError('required') || ChangepasswForm.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+                     <i class="material-icons">{{ ChangepasswForm.controls['password'].hasError('required') ||
+                        ChangepasswForm.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+                       'check_circle' }}</i>
+                     Must contain at least 1 Special Character.
+                   </label>
+                 </div>
                    </div>
-                   
-                   
                 </div>
              
              <div class="row mb10">
-               <div class="col-md-12">
+               <!-- <div class="col-md-12">
                    <div class="ml"><label for="password" type="password">Re-Type your password</label></div>
                    <input formControlName="confirmPassword" name="password" type="password" class="input-login">
                    <div class="ml">
@@ -46,7 +86,24 @@
                    
                     </div>
                     <div *ngIf="confirmPassword.valid" class="alert-success">Password match</div>
-                    </div>
+                    </div> -->
+                    <div class="col-md-12">
+          
+                        <label for="confirmPassword" >Confirm Password:</label>
+                        <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control" >
+                        <div  *ngIf="ChangepasswForm.controls['confirmPassword'].touched" >
+                        <label class="text-danger" *ngIf="ChangepasswForm.controls['confirmPassword'].hasError('required')">
+                          Password is Required.
+                        </label>
+                        <label class="text-danger" *ngIf="ChangepasswForm.controls['confirmPassword'].hasError('NoPassswordMatch')">
+                          Password does not match.
+                        </label>
+                        </div>
+                        <label class="text-success" *ngIf="ChangepasswForm.controls['confirmPassword'].valid">
+                          Password match.
+                        </label>
+                        </div>
+                       
                 </div>
              
                <div class="row mb10">
