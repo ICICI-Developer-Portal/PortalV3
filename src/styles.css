@@ -498,6 +498,12 @@ a:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 14px !important;
 }
+/*password style icon*/
+
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

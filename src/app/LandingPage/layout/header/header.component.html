@@ -15,7 +15,6 @@
           >Register For Appathon</a
         >
       </li>
-
       <li *ngIf="!showbtn">
         <a
           class="tryItFreeBtn"
@@ -136,7 +135,6 @@
               *ngIf="showbtn"
               >Register For Appathon</a
             >
-
             <a
               class="tryItFreeBtn mr5 p2 disp-flex alignCenter"
               (click)="openModalAppathonSignup(appathonLoggedSignup)"
@@ -198,17 +196,20 @@
   <div class="modal-footer">
     <div class="row w100p m0">
       <div class="col-12 plr0 mb30">
-        
+        <ul class="nav nav-tabs nav-tabs1" role="tablist">
+
         <div>
-          <button type="submit" class="signInBtn w100p" data-dismiss="modal" data-toggle="modal" data-target="#signUp"
+          <button  type="submit" class="signInBtn w100p" data-dismiss="modal" data-toggle="modal" data-target="#signUp"
             (click)="Login(username.value, password.value, loginsuccess)">
             Login
           </button>
+        
+
           <div class="text-danger form-error ng-star-inserted" *ngIf="is_res_error != ''">
             {{ is_res_error }}.
           </div>
         </div>
-
+      </ul>
       </div>
       <div class="col-12 plr0">
         <p>
@@ -420,7 +421,7 @@
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
               <div>
-                <label for="mobile">Please enter the Phone Number </label>
+                <label for="mobile">Please enter the Phone Number  </label>
               </div>
               <input id="mobileNumber" formControlName="mobile_no" Type="number" class="input-login" name="mobile"
                 required #Mobile [readonly]="signupForm.value.otp_verified == 1" />
@@ -489,63 +490,102 @@
 
         <!--user name-->
         <div class="tab-pane">
-          <div class="row mb20">
-            <div class="col-md-12">
-              <div><label for="username">user name </label></div>
+          <div class="row1 mb2">
+            <!-- <div class="col-md-12">
+              <div><label for="username">User Name </label></div>
               <input formControlName="username" id="username" type="text" (keydown.space)="$event.preventDefault();"
                 class="input-login" #uname />
               <div *ngIf="username && username.touched && username.errors" class="alert alert-danger">
                 <div *ngIf="username.errors.required" class="text-danger">username is required </div>
-                <!-- <div *ngIf="username.errors.cannotContainSpace">Username can not contain space.</div> -->
+                         
 
-              </div>
+                  </div>
+            </div> -->
+
+            <!-- <label for="uname" >User Name:</label>
+            <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"
+              [ngClass]="signupForm3.controls['uname'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
+              Username is Required.
+            </label>   -->
+            
+              <label for="uname" >User Name:</label>
+              <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"  >
+                <div  *ngIf="signupForm3.controls['uname'].touched" >
+              <div class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
+                username is Required.
+              </div>   
+            </div>        
             </div>
+
+            <br>
+
+        
+
+          <div class="row1 mb2">
+            
+          
+            <label for="password" >Password:</label>
+            <input id="password" formControlName="password" type="password" class="form-control" >
+            <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
+              Password is Required!
+            </label> -->
+            <div  *ngIf="signupForm3.controls['password'].touched" >
+              <br>
+            
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('minlength') ? 'cancel' :
+                'check_circle' }}</i>
+              Must be at least 8 characters.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasNumber') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 number.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 upperccase letter.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 lowercase letter.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 Special Character.
+            </label>
           </div>
+           
+         </div>
+         <br>
+          
 
 
-          <!---->
-
-          <div class="horizontalBorder mb20"></div>
-          <div class="row mb20">
-            <div class="col-md-12">
-              <div><label for="createpassword">Create Password</label></div>
-              <input type="password" formControlName="password" class="input-login" #CreatePassword />
-              <div *ngIf="password && password.touched && password.errors" class="alert alert-danger">
-                <div *ngIf="password.errors.required" class="text-danger">password is required </div>
-                <div *ngIf="password.errors.pattern" class="text-danger">
-                  Please, Enter Vaid Password !!<br>* Must be Atleast 8 characters in length. <br>* Must contain one
-                  Lowercase letter. <br>* Must contain one Uppercase letter.<br>* Must contain one Number. <br>* Must
-                  contain one Special character.
-                </div>
-              </div>
-              <div *ngIf="password.valid" class="alert-success">Valid Password</div>
+          <div class="row1 mb2">
+          
+            <label for="confirmPassword" >Confirm Password:</label>
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control" >
+            <div  *ngIf="signupForm3.controls['confirmPassword'].touched" >
+            <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('required')">
+              Password is Required.
+            </label>
+            <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('NoPassswordMatch')">
+              Password does not match.
+            </label>
             </div>
-          </div>
-
-
-
-
-          <!-- <div
-                *ngIf="password.invalid && (password.dirty || isSubmitted)"
-                class="text-danger form-error"
-              >
-                Password is required 5.
-              </div> -->
-          <!-- <div *ngIf="password.errors.minlength" class="text-danger form-error">Password must be at least 6 characters  5</div> -->
-          <div class="row mb20">
-            <div class="col-md-12">
-              <div><label for="confirmpassword">Confirm Password</label></div>
-              <input type="password" formControlName="confirmPassword" class="input-login" #ConfirmPassword />
-              <div *ngIf="
-                  confirmPassword.invalid &&
-                  (confirmPassword.dirty || isSubmitted)
-                " class="text-danger form-error">
-                Password does not match.
-              </div>
-
-
-            </div>
-          </div>
+            <label class="text-success" *ngIf="signupForm3.controls['confirmPassword'].valid">
+              Password match.
+            </label>
+           </div>
 
 
 
@@ -852,7 +892,7 @@
           </ul>
         </div>
       </form>
-      <form [formGroup]="appathonSignupForm3" [hidden]="!shfrmSFThird1">
+      <form [formGroup]="appathonSignupForm3" [hidden]="!shfrmSFThird1" (keydown)="keyDownFunction($event)">
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-12">
@@ -1149,3 +1189,5 @@
   </div>
 </ng-template>
 <!-- Modal for appathon Signup -->
+
+

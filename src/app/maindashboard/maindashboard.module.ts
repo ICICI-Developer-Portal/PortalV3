@@ -24,8 +24,12 @@ import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequ
 import { UATonboardingDashboardPageSidebarComponent } from './uatonboarding-dashboard-page-sidebar/uatonboarding-dashboard-page-sidebar.component';
 import { DownloadComponent } from './download/download.component';
 import { MisComponent } from './mis/mis.component';
-import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angular/material';
+import { MatInputModule, MatAutocompleteModule, MatFormFieldModule, MatProgressBarModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppComponent } from '../app.component';
+//import { SAVER, getSaver } from 
+
+
 
    
 @NgModule({
@@ -47,9 +51,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
          MatFormFieldModule,
          BrowserAnimationsModule,
          MatInputModule,
+         MatProgressBarModule,
+         MatCardModule,
+
 
          
     ],
+    //providers: [{provide: SAVER, useFactory: getSaver}],
     declarations: [
         // IndexComponent,
         MaindashboardComponent,
@@ -64,7 +72,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         OnboardingrequestsComponent,
         UATonboardingDashboardPageSidebarComponent,
         DownloadComponent,
-        MisComponent
+        MisComponent,
         
     ],
 
