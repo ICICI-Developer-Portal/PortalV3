@@ -356,12 +356,15 @@
                   <!-- <div formGroupName="additionalFieldSection" class="row" id="additionalFieldBasedOnSelection"> -->
                     <div formGroupName="whitelistIpSection" class="row" id="whitelistIpSectionBasedOnSelection">
                     <div class="form-group col-md-6" *ngIf="accNo">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div><label for="contract">Account Number</label></div>
                       <input class="form-control col-md-11" placeholder="Your Account number" type="text"
                         formControlName="AccountNo" />
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="accName">
+                      <!-- <div class="form-group col-md-6"> -->
                       <div>
                         <label for="Acc_name">Account Name</label>
                       </div>
@@ -370,11 +373,13 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="interAccNo">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
                       </div>
                       <input class="form-control col-md-11" placeholder="Customer Credit A/C Number" type="text"
-                        formControlName="interAccNo" />
+                        formControlName="Account_no" />
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="clientCode">
@@ -384,9 +389,12 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="checksum">
+                    <!-- <div class="form-group col-md-6"> -->
+
                       <div><label for="projectName">Checksum Required </label></div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Checksum">
+                          <option value="Select Checksum">Select Checksum</option> 
                           <option  *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -395,14 +403,11 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="encryption">
+                    <!-- <div class="form-group col-md-6"> -->
                       <div><label for="projectName">Encryption Required</label></div>
                       <span class="custom-dropdown">
-                        <!-- <select class="form-control h40 col-md-11" formControlName="encryption">
-                        <option value="">Select Encryption</option>
-                        <option>Yes</option>
-                        <option>No</option>
-                      </select> -->
-                        <select class="form-control h40 col-md-11" name="encryption">
+                        <select class="form-control h40 col-md-11" formControlName="Encryption" (change)="selectChangeHandler($event)">
+                          <option value="Select Encryption">Select Encryption</option>
                           <option  *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -410,11 +415,14 @@
                       </span>
                     </div>
                     <div class="form-group col-md-6" *ngIf="service">
+                    <!-- <div class="form-group col-md-6" > -->
+
                       <div>
                         <label for="projectName">Service Type</label>
                       </div>
                       <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" formControlName="service">
+                        <select class="form-control h40 col-md-11" formControlName="web" (change)="selectChangeHandler($event)">
+                          <option value="Select Service Type">Select Service Type</option>
                           <option  *ngFor="let option of serviceTypeOption" [value]="option">
                             {{option}}
                           </option>
@@ -422,11 +430,14 @@
                       </span>
                     </div>
                     <div class="form-group col-md-6" *ngIf="commModel">
+                    <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="projectName"> Communication Method</label>
                       </div>
                       <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" name="commModel">
+                        <select class="form-control h40 col-md-11" formControlName="message" (change)="selectChangeHandler($event)">
+                          <option value="Select Communication Method">Select Communication Method</option>
                           <option  *ngFor="let option of comTypeOption" [value]="option">
                             {{option}}
                           </option>
@@ -435,14 +446,16 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="ifsc">
+                    <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="projectName">IFSC code to be given to the remitter while initiating
                           payment
                         </label>
                       </div>
                       <span class="custom-dropdown">
-                        <select formControlName="IFSC_Code" class="form-control h40 col-md-11">
-                          <option value="">Select IFSC Code</option>
+                        <select formControlName="IFSC_Code" class="form-control h40 col-md-11" (change)="selectChangeHandler($event)">
+                          <option value="Select IFSC Code">Select IFSC Code</option>
                           <option  *ngFor="let option of ifscCodeOption" [value]="option">
                             {{option}}
                           </option>
@@ -451,6 +464,8 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="virtualCode">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="contract">4,3 or 6 Character Virtual Code</label>
                       </div>
@@ -459,31 +474,39 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="ips">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div><label for="contract">IPS Refund Code</label></div>
                       <input class="form-control col-md-11" placeholder="IPS Refund Code" type="text"
-                        formControlName="ips" />
+                        formControlName="refundCode" />
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="authLevel">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="Auth_level">Authorization Level</label>
                       </div>
                       <input class="form-control col-md-11" placeholder="Authorization Level" type="text"
-                        formControlName="authLevel" />
+                        formControlName="Auth_level" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="urn">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="Urn">URN</label>
                       </div>
-                      <input class="form-control col-md-11" placeholder="URN" type="text" formControlName="URN" />
+                      <input class="form-control col-md-11" placeholder="URN" type="text" formControlName="Urn" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="env">
+
+                    <!-- <div class="form-group col-md-6"> -->
                       <div>
                         <label for="Acc_env">Environment</label>
                       </div>
                       <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" formControlName="env">
-                          <option value="">Select Environment</option>
+                        <select class="form-control h40 col-md-11" formControlName="Acc_env" (change)="selectChangeHandler($event)">
+                          <option value="Select Environment">Select Environment</option>
                           <option  *ngFor="let option of environmentOption" [value]="option">
                             {{option}}
                           </option>
@@ -492,6 +515,8 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="valid">
+                   
+                    <!-- <div class="form-group col-md-6"> -->
                       <div>
                         <label for="Acc_validation"> Amount Validation Required?</label>
                       </div>
@@ -499,7 +524,8 @@
                       formControlName="Acc_validation" /> -->
 
                       <span class="custom-dropdown">
-                        <select formControlName="IFSC_Code" class="form-control h40 col-md-11">
+                        <select formControlName="Acc_validation" class="form-control h40 col-md-11" (change)="selectChangeHandler($event)">
+                          <option value="Select Amount Validation">Select Amount Validation</option>
                           <option  *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -509,13 +535,17 @@
                     </div>
 
                     <div class="form-group col-md-6" *ngIf="accept">
+                   
+                    <!-- <div class="form-group col-md-6"> -->
                       <div>
                         <label for="Acc_acceptance">Acceptance Mode</label>
                       </div>
                       <!--<input class="form-control col-md-11" placeholder="Acceptance Mode" type="text"
                         formControlName="Acc_acceptance" />-->
                         <span class="custom-dropdown">
-                        <select formControlName="Acc_acceptance" class="form-control h40 col-md-11">
+                        <select formControlName="Acc_acceptance" class="form-control h40 col-md-11"  (change)="selectChangeHandler($event)">
+                          <option value="Select Acceptance Mode">Select Acceptance Mode</option>
+                         
                           <option  *ngFor="let option of paymentMode" [value]="option">
                             {{option}}
                           </option>
@@ -524,6 +554,8 @@
                       </span>
                     </div>
                     <div class="form-group col-md-6" *ngIf="recipient">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="Rec_mail">Recipient Mail ID</label>
                       </div>
@@ -531,6 +563,8 @@
                         formControlName="Rec_mail" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="mode">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="Acc_mode">Mode Offered</label>
                       </div>
@@ -538,24 +572,30 @@
                         formControlName="Acc_mode" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="trans">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="Acc_trans">Transaction limit for per transaction</label>
                       </div>
                       <input type="number" class="form-control col-md-11" max="5" formControlName="Acc_trans" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="amount">
+                      <!-- <div class="form-group col-md-6"> -->
+                   
                       <div>
                         <label for="Acc_amount"> Amount Field</label>
                       </div>
                       <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" formControlName="Acc_amount">
-                          <option value="">Select Amount</option>
+                        <select class="form-control h40 col-md-11" formControlName="Acc_amount" (change)="selectChangeHandler($event)">
+                          <option value="Select Amount">Select Amount</option>
                           <option>Editable</option>
                           <option>Non- Editable</option>
                         </select>
                       </span>
                     </div>
                     <div class="form-group col-md-6" *ngIf="headers">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="Header">Header</label>
                       </div>
@@ -563,11 +603,13 @@
                         formControlName="header" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="uatTestingID">
+                     <!-- .\ <div class="form-group col-md-6"> -->
+
                       <div>
                         <label for="TestingID">TestingID</label>
                       </div>
                       <input class="form-control  col-md-11" placeholder="TestingID" type="text"
-                        formControlName="TestingID" />
+                        formControlName="uatTestingID" />
                       <!-- validation -->
                       <div
                         *ngIf="!reactiveForm.get('whitelistIpSection.TestingID').valid && reactiveForm.get('whitelistIpSection.TestingID').touched"
@@ -579,6 +621,8 @@
 
 
                     <div class="form-group col-md-6" *ngIf="url">
+                      <!-- <div class="form-group col-md-6"> -->
+
                       <div><label for="contract">Callback URL</label></div>
                       <input class="form-control col-md-11" placeholder="Your Callback URL" type="text"
                         formControlName="url" />
@@ -630,12 +674,12 @@
 
                     </div>
 <!-- ---------------------port -->
-
                     <div class="form-group col-md-6" *ngIf="certificate">
+                    <!-- <div class="form-group col-md-6"> -->
                       <div><label for="projectName">Certificate</label></div>
                       <span class="custom-dropdown">
-                        <select class="form-control h40 col-md-11" name="certificate">
-                          <option value="">Select Certificate</option>
+                        <select class="form-control h40 col-md-11" formControlName="Certificate">
+                          <option value="Certificate">Select Certificate</option>
                           <option  *ngFor="let option of certificateOption" [value]="option">
                             {{option}}
                           </option>
