@@ -307,27 +307,27 @@ ifIPpatternNotmatches(){
 
   }
 
-  addIPs() {
+  // addIPs() {
 
-    var count = $('.countIp').length;
-    console.log(this.count)
-    if (count <= 9) {
-      console.log(count, "$$$$$$$$$$$$$")
-      var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2" + count + "' (click)='removeInputField()'>-</span></div></div></div></div></div>");
-      addinput.insertAfter("#addIPUnique");
-      $("#countexceeder").remove();
-      count++;
+  //   var count = $('.countIp').length;
+  //   console.log(this.count)
+  //   if (count <= 9) {
+  //     console.log(count, "$$$$$$$$$$$$$")
+  //     var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2" + count + "' (click)='removeInputField()'>-</span></div></div></div></div></div>");
+  //     addinput.insertAfter("#addIPUnique");
+  //     $("#countexceeder").remove();
+  //     count++;
 
-    }
-    else {
-      if ($("#countexceeder").length < 1) {
-        $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
+  //   }
+  //   else {
+  //     if ($("#countexceeder").length < 1) {
+  //       $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
 
-      }
-    }
+  //     }
+  //   }
 
-    //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
-  }
+  //   //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
+  // }
 
   // adding ip Field.......via $$$
 
@@ -493,7 +493,10 @@ ifIPpatternNotmatches(){
     });
     $('.countUrl .form-control').each(function () {
       urlValues.push(this.value);
+     
     });
+    console.log(ipValues)
+    console.log(urlValues)
     let reactiveFromFieldValues = this.reactiveForm.value;
    
     let inputFields = {
@@ -601,51 +604,51 @@ ifIPpatternNotmatches(){
     // Jira Service
     //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
     //https://developerapi.icicibank.com:8443/api/v2/jira
-    // this.HttpClient.post<any>(
-    //   "https://developerapi.icicibank.com:8443/api/v2/jira",
-    //   formData
-    // ).subscribe(
-    //   res => {
-    //     console.log(res, formData);
-    //     // alert(res.jiraId)
-    //     //this.toastrmsg('success', res.jiraId + " has been created");
-    //     this.modalRef = this.modalService.show(Prodconfirm, {
-    //       backdrop: "static"
-    //     });
-    //     this.confirmMsgProd = res.jiraId;
+    this.HttpClient.post<any>(
+      "https://developerapi.icicibank.com:8443/api/v2/jira",
+      formData
+    ).subscribe(
+      res => {
+        console.log(res, formData);
+        // alert(res.jiraId)
+        //this.toastrmsg('success', res.jiraId + " has been created");
+        this.modalRef = this.modalService.show(Prodconfirm, {
+          backdrop: "static"
+        });
+        this.confirmMsgProd = res.jiraId;
 
-    //     console.log(this.confirmMsgProd)
-    //     if (res.success === "true") {
-    //       //File upload service
-    //       var formData = new FormData();
-    //       let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
-    //       for (let k = 0; k < b.length; k++) {
-    //         console.log(b, k)
-    //         console.log(b[k])
-    //         console.log(res.jiraId, res)
+        console.log(this.confirmMsgProd)
+        if (res.success === "true") {
+          //File upload service
+          var formData = new FormData();
+          let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
+          for (let k = 0; k < b.length; k++) {
+            console.log(b, k)
+            console.log(b[k])
+            console.log(res.jiraId, res)
 
-    //         formData.append(res.jiraId, b[k]);
-    //       }
-    //       this.HttpClient.post<any>(
-    //         "https://developer.icicibank.com/fileUpload",
-    //         formData
-    //       ).subscribe(
-    //         res => {
-    //           console.log(res);
-    //           console.log(res.jiraId, "rchd");
-    //         },
-    //         err => {
-    //           console.log('err', err);
-    //           this.router.navigate(['error']);
-    //         },
-    //       );
-    //     }
-    //   },
-    //   err => {
-    //     console.log('err', err);
-    //     this.router.navigate(['error']);
-    //   },
-    // );
+            formData.append(res.jiraId, b[k]);
+          }
+          this.HttpClient.post<any>(
+            "https://developer.icicibank.com/fileUpload",
+            formData
+          ).subscribe(
+            res => {
+              console.log(res);
+              console.log(res.jiraId, "rchd");
+            },
+            err => {
+              console.log('err', err);
+              this.router.navigate(['error']);
+            },
+          );
+        }
+      },
+      err => {
+        console.log('err', err);
+        this.router.navigate(['error']);
+      },
+    );
 
 
   }
