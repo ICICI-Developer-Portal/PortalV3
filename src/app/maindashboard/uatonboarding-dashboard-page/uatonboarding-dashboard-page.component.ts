@@ -92,8 +92,9 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   ifscCodeOption:any[] = [ "ICIC0000103","ICIC0000104","ICIC0000106"];
   environmentOption:any[] = [ "UAT","CUG","Production"];
   certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
-   
-
+  callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats";
+  
+  
   selectChangeHandler (event: any) {
     this.selectedDay = event.target.value;
   }
@@ -103,6 +104,9 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       ip: ['']
     });
   }
+  /**
+   * add and remove additional IP
+   */
 
   addNewIPField() {
     const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
@@ -119,13 +123,39 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     control.removeAt(i);
 
   }
+  /**
+   * add and remove callback URLs
+   */
+  addNewURLField() {
+    
+    const regURL = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
+    console.log(control.at(0));
+
+    if(control.length<=9){ 
+     control.push(new FormControl(null, [Validators.required,Validators.pattern(regURL)]));
+    }else{}   
+  }
+  deleteURLRow(i: number) {
+    console.log(i);
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
+    control.removeAt(i);
+
+  }
   resetField(){
     const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
-    
-      while (control.length > 1) {
+    while (control.length > 1) {
         control.removeAt(1)
       }
       control.reset();
+      /**
+       * changes done for callback url control
+       */
+      const control2 = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
+      while (control2.length > 1) {
+        control2.removeAt(1)
+      }
+      control2.reset();
   }
 ifIPpatternNotmatches(){
   const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip').value;
@@ -193,6 +223,7 @@ ifIPpatternNotmatches(){
           this.clientCode = true;
         }
         if (this.additionalParams[i].match("URL")) {
+          this.ifFieldisVisible(this.additionalParams[i]);
           this.url = true;
         }
         if (this.additionalParams[i].match("IP")) {
@@ -454,18 +485,17 @@ ifIPpatternNotmatches(){
 }
   onSubmitUATForm(Prodconfirm) {
 
-    var values = [];
+    let ipValues = [];
+    let urlValues= [];
+    
     $('.countIp .form-control').each(function () {
-      values.push(this.value);
-      console.log(values);
+      ipValues.push(this.value);
     });
-    console.log(values);
-    console.log(values.toString())
+    $('.countUrl .form-control').each(function () {
+      urlValues.push(this.value);
+    });
     let reactiveFromFieldValues = this.reactiveForm.value;
-    console.log(reactiveFromFieldValues)
-    console.log(reactiveFromFieldValues.basicDetailsSection.merchantName)
-
-    console.log(localStorage.getItem("username"))
+   
     let inputFields = {
       userName: localStorage.getItem("username"),
       domainName: localStorage.getItem("nodevalue"),
@@ -480,8 +510,9 @@ ifIPpatternNotmatches(){
       // callbackUrl: "",
       AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
       ClientCode: reactiveFromFieldValues.whitelistIpSection.ClientCode ? reactiveFromFieldValues.whitelistIpSection.ClientCode : '',
-      url: reactiveFromFieldValues.whitelistIpSection.url ? reactiveFromFieldValues.whitelistIpSection.url : '',
-      Ip: values.toString() ? values.toString() : '',
+      //url: reactiveFromFieldValues.whitelistIpSection.url ? reactiveFromFieldValues.whitelistIpSection.url : '',
+      url:urlValues.toString() ? urlValues.toString() : '',
+      Ip: ipValues.toString() ? ipValues.toString() : '',
       Port: reactiveFromFieldValues.whitelistIpSection.port ? reactiveFromFieldValues.whitelistIpSection.port : '',
       Checksum: reactiveFromFieldValues.whitelistIpSection.Checksum ? reactiveFromFieldValues.whitelistIpSection.Checksum : '',
       Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption ? reactiveFromFieldValues.whitelistIpSection.Encryption : '',
@@ -637,15 +668,22 @@ ifIPpatternNotmatches(){
       let ipControl = this.reactiveForm.get('whitelistIpSection').get('ip');
       // ipControl.setValidators([this.ipValidator]);
       console.log(this.reactiveForm.get('whitelistIpSection'));
-      this.reactiveForm.get('whitelistIpSection').get('ip')
+      this.reactiveForm.get('whitelistIpSection').get('ip');
       //reactiveFromFieldValues.whitelistIpSection.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
       // reactiveFromFieldValues.whitelistIpSection.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
       console.log(reactiveFromFieldValues.whitelistIpSection);
     }
+    if(value == "URL"){
+      this.reactiveForm.get('whitelistIpSection').get('url');
+    }
     console.log(value + "", 1);
 
   }
+  
   resetForm(edit) {
+    //regex for https url validatio
+    const regURL = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
+    const ipReg = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';  
     this.reactiveForm = new FormGroup({
 
       'basicDetailsSection': new FormGroup({
@@ -663,14 +701,16 @@ ifIPpatternNotmatches(){
         "Acc_name": new FormControl(),
         "Account_no": new FormControl(),
         "clientCode": new FormControl(),
-        "url": new FormControl(),
+        "url": new FormArray([ 
+          new FormControl(null, [Validators.required,Validators.pattern(regURL)]),
+        ]),
         "Checksum": new FormControl('Select Checksum'),
         "Encryption": new FormControl('Select Encryption'),
         "Certificate": new FormControl('Certificate'),
         "web": new FormControl('Select Service Type'),
         "message": new FormControl('Select Communication Method'),
         "header": new FormControl(),
-        "TestingID": new FormControl(),
+        "uatTestingID": new FormControl(),
         "IFSC_Code": new FormControl('Select IFSC Code'),
         "virtualCode": new FormControl(),
         "refundCode": new FormControl(),
@@ -687,8 +727,9 @@ ifIPpatternNotmatches(){
         "Acc_amount": new FormControl('Select Amount'),
         "ip":  new FormArray([ 
           // <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows'),Validators.required
-          new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]),
+          new FormControl(null, [Validators.required,Validators.pattern(ipReg)]),
         ]),
+
         "port": new FormControl(),
         "refJIRAID": new FormControl(),
         "file1": new FormControl(null, [Validators.required]),
