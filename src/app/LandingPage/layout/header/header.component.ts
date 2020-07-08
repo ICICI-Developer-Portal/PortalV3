@@ -17,7 +17,6 @@ import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "./custom-validators";
 
-
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html"
@@ -199,7 +198,6 @@ export class HeaderComponent implements OnInit {
 
     this.signupForm3 = this.formbuilder.group(
       {
-        //username: ["", [Validators.required]],
         uname :["",[Validators.required]],
         //uname: ["", [Validators.required]],
         //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
@@ -233,7 +231,6 @@ export class HeaderComponent implements OnInit {
         validator: CustomValidators.passwordMatchValidator // your validation method
       }
     );
-
     this.signupForm4 = this.formbuilder.group({
       termsandcondition: ["", [Validators.required]]
     });
@@ -374,10 +371,7 @@ export class HeaderComponent implements OnInit {
   }
 
   // Login function
-  // Login function
- 
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
-    
     //localStorage.setItem('username',username);
     //localStorage.setItem('password',password);
     var nonEncodedJson = {
@@ -854,7 +848,6 @@ export class HeaderComponent implements OnInit {
   save2() {
     this.verifyOtp1();
   }
-  
   appathonSave1() {
     this.shfrmSFSecond1 = true;
     this.shfrmSFFirst1 = false;

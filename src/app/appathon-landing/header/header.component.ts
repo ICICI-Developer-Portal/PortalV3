@@ -13,6 +13,7 @@ import { formatDate } from "@angular/common";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
+import { CustomValidators } from "src/app/LandingPage/layout/header/custom-validators";
 
 @Component({
   selector: "app-header",
@@ -135,6 +136,7 @@ export class HeaderComponent implements OnInit {
       otp_verified: ["0"],
       otp_send: ["0"]
     });
+    
 
     //aapathonSignUpForm
     this.appathonSignupForm = this.formbuilder.group({
@@ -205,15 +207,40 @@ export class HeaderComponent implements OnInit {
 
     this.signupForm3 = this.formbuilder.group(
       {
-        username: ["", [Validators.required]],
-        password: ["", [Validators.required]],
+        uname :["",[Validators.required]],
+        //uname: ["", [Validators.required]],
+        //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+
+        password: ["", [Validators.required,
+          // check whether the entered password has a number
+          CustomValidators.patternValidator(/\d/, {
+            hasNumber: true
+          }),
+          // check whether the entered password has upper case letter
+          CustomValidators.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true
+          }),
+          // check whether the entered password has a lower case letter
+          CustomValidators.patternValidator(/[a-z]/, {
+            hasSmallCase: true
+          }),
+          // check whether the entered password has a special character
+          CustomValidators.patternValidator(
+            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            {
+              hasSpecialCharacters: true
+            }
+          ),
+          Validators.minLength(8)
+        ]],
         confirmPassword: ["", [Validators.required]],
         term: ["", [Validators.required]]
       },
       {
-        validator: PasswordValidation.MatchPassword // your validation method
+        validator: CustomValidators.passwordMatchValidator // your validation method
       }
     );
+    
 
     this.signupForm4 = this.formbuilder.group({
       termsandcondition: ["", [Validators.required]]
@@ -344,8 +371,8 @@ export class HeaderComponent implements OnInit {
       this.modalRef.hide();
     } catch (e) {}
   }
-   // Login on Enter key press
-   keyDownFunction(event,username: any, password: any, loginsuccess: TemplateRef<any>) {
+  // Login on Enter key press
+  keyDownFunction(event,username: any, password: any, loginsuccess: TemplateRef<any>) {
     if (event.keyCode === 13) {
       this.Login(username, password,loginsuccess);
     }
@@ -710,6 +737,18 @@ export class HeaderComponent implements OnInit {
       },);
     } catch {}
   }
+  //send OTP button change and seconds
+  name = 'Angular';
+  btnText = 'send OTP ';
+  btnDisabled = false;
+  buttonClick1() {
+  this.btnDisabled = true;
+  this.btnText = 'Please wait';
+  setTimeout(() => {
+   this.btnText = 'Resend OTP';
+   this.btnDisabled = false
+    }, 30000);
+  }
   //aapathonSignUpForm
   SendEmailOtp() {
     try {
@@ -978,6 +1017,7 @@ export class HeaderComponent implements OnInit {
     }, 10);
   }
 
+  
   //login success pop up modal
   clickOk() {
     this.modalRef4.hide();

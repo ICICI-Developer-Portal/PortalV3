@@ -92,7 +92,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   ifscCodeOption:any[] = [ "ICIC0000103","ICIC0000104","ICIC0000106"];
   environmentOption:any[] = [ "UAT","CUG","Production"];
   certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
-  callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats";
+  callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats.\n For Isurepay we require two webservice URLs";
   
   
   selectChangeHandler (event: any) {
@@ -133,7 +133,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
     console.log(control.at(0));
 
     if(control.length<=9){ 
-     control.push(new FormControl(null, [Validators.required,Validators.pattern(regURL)]));
+     control.push(new FormControl(null, [Validators.pattern(regURL)]));
     }else{}   
   }
   deleteURLRow(i: number) {
@@ -705,7 +705,7 @@ ifIPpatternNotmatches(){
         "Account_no": new FormControl(),
         "clientCode": new FormControl(),
         "url": new FormArray([ 
-          new FormControl(null, [Validators.required,Validators.pattern(regURL)]),
+          new FormControl(null, [Validators.pattern(regURL)]),
         ]),
         "Checksum": new FormControl('Select Checksum'),
         "Encryption": new FormControl('Select Encryption'),

@@ -436,7 +436,7 @@
                         </select>
                       </span>
                     </div>
-                    <div class="form-group col-md-6" *ngIf="commModel">
+                    <div class="form-group col-md-6" *ngIf="message">
                       <!-- <div class="form-group col-md-6"> -->
 
                       <div>
@@ -634,8 +634,8 @@
 
                     <!-- ============================= -->
                     <div class="form-group col-md-6 countUrl"   *ngIf="url">
-                      <div class="width_100prcnt"><label>URL<span class="text-danger"> *</span></label>
-                        <a data-toggle="tooltip" title="You can add maximum 10 URL"><img alt="loader"
+                      <div class="width_100prcnt"><label>Callback URL</label>
+                        <a data-toggle="tooltip" [title]="callbackURLInfo"><img alt="loader"
                             class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
                       <div formArrayName="url" class="form-group">
                         <!-- =================== -->
@@ -643,7 +643,7 @@
                           *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('url').controls; let i=index">
 
                           <div class="input-group  col-md-11">
-                            <input type="text" class="form-control mainField urlValues" formControlName="{{i}}"
+                            <input type="text" class="form-control  urlValues" formControlName="{{i}}"
                               placeholder="Your URL" aria-label="URL" aria-describedby="basic-addon2">
 
                             <div class="input-group-append">
@@ -654,15 +654,14 @@
                             </div>
 
                           </div>
-                          <i *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].valid"
+                         <!-- <i *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].valid"
                             class="fa fa-check-circle green col-md-1 margin_3px margin-leftminus15"
-                            aria-hidden="true"></i>
+                            aria-hidden="true"></i>-->
                           <div
                             *ngIf="!reactiveForm.get('whitelistIpSection').get('url').controls[i].valid && reactiveForm.get('whitelistIpSection').get('url').controls[i].touched"
                             class="text-danger form-error col-md-12">
-                            <span *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.required">
-                              URL
-                              is required.</span>
+                           <!-- <span *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.required">
+                              URL is required.</span>-->
                             <span
                               *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.pattern">Please
                               enter correct URL</span>

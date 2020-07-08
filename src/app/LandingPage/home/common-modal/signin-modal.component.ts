@@ -21,6 +21,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
+import { CustomValidators } from "../../layout/header/custom-validators";
 
 @Component({
   selector: "app-common-signin-modal",
@@ -113,18 +114,7 @@ export class SigninModalComponent implements OnInit {
       otp_code: ["", [Validators.required]]
     });
 
-    this.signupForm3 = this.formbuilder.group(
-      {
-        username: ["", [Validators.required]],
-        password: ["", [Validators.required]],
-        confirmPassword: ["", [Validators.required]],
-        term: ["", [Validators.required]]
-      },
-      {
-        validator: PasswordValidation.MatchPassword // your validation method
-      }
-    );
-
+    
     this.signupForm4 = this.formbuilder.group({
       termsandcondition: ["", [Validators.required]]
     });
@@ -477,6 +467,18 @@ export class SigninModalComponent implements OnInit {
         this.router.navigate(['error']);
       },);
     } catch {}
+  }
+  //send OTP button change and seconds
+  name = 'Angular';
+  btnText = 'send OTP ';
+  btnDisabled = false;
+  buttonClick1() {
+  this.btnDisabled = true;
+  this.btnText = 'Please wait';
+  setTimeout(() => {
+   this.btnText = 'Resend OTP';
+   this.btnDisabled = false
+    }, 30000);
   }
 
   verifyOtp1() {
