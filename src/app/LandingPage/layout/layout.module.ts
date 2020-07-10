@@ -17,6 +17,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
 } from '@angular/material';
+import { FocusOnShowDirective } from './autofocus.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,6 +33,6 @@ import {
     MatInputModule,
     
   ],
-  declarations: [LayoutComponent, FooterComponent, HeaderComponent],
+  declarations: [LayoutComponent, FooterComponent, HeaderComponent,FocusOnShowDirective],
 })
 export class LayoutModule {}

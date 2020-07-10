@@ -118,6 +118,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm

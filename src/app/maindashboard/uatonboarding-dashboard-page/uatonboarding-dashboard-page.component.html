@@ -27,7 +27,7 @@
                     <div class="row">
                       <div class="col-md-12 mb-xs-10">
                         <h5 class="fs15">
-                          Onboarding request ID {{ confirmMsgProd }} has been created
+                          Onboarding request ID  {{ confirmMsgProd }} has been created
                           sucessfully.
                         </h5>
                         <h5 class="fs15">
@@ -62,7 +62,7 @@
                     <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
                       formControlName="merchantName" placeholder="Your Organization Name">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
-                      class="fa fa-check-circle col-md-1 green margin_3px" aria-hidden="true"></i>
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
@@ -78,7 +78,7 @@
                       formControlName="description"
                       placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.description').valid"
-                      class="fa fa-check-circle col-md-1 green margin_3px" aria-hidden="true"></i>
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched"
@@ -94,18 +94,23 @@
                       formControlName="email_id" placeholder="Your Email ID" #Email
                       (change)="OnCheckEmail(Email.value)">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
-                      class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched) || reactiveForm.get('basicDetailsSection.email_id').dirty">
                       <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required"
                         class="text-danger form-error">Email id is required.</div>
                       <!--question mark(?) is a safe navigation operator-->
+<<<<<<< HEAD
                       <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.email || isemail_reg_check != ''"
                         class="text-danger form-error">Please provide a valid email address</div>
 
                       <!--  <div *ngIf="isemail_reg_check != ''"
                         class="text-danger form-error">{{isemail_reg_check}}</div>-->
+=======
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
+                        class="text-danger form-error">Please provide a valid email address</div>
+>>>>>>> Devbranch_karthik
                     </div>
 
 
@@ -128,7 +133,7 @@
                     <input type="text" class="form-control mainField col-md-11 inline_block" id="Contact_No"
                       formControlName="contact_no" placeholder="Your Contact Number">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.contact_no').valid"
-                      class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="(reactiveForm.get('basicDetailsSection.contact_no').invalid && reactiveForm.get('basicDetailsSection.contact_no').touched) || reactiveForm.get('basicDetailsSection.contact_no').dirty">
@@ -155,7 +160,7 @@
                       formControlName="r_m_maild_id"
                       placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.r_m_maild_id').valid"
-                      class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched"
@@ -204,7 +209,7 @@
 
                   <div class="form-group col-md-6">
                     <label for="merchantName">Select API <span class="text-danger"> *</span><i
-                        class='fa fa-check-circle green col-md-1 margin_3px float-right' aria-hidden='true'
+                        class='fa fa-check-circle orange col-md-1 margin_3px float-right' aria-hidden='true'
                         id='dynamic-list-check'></i></label>
 
 
@@ -699,7 +704,7 @@
 
                           </div>
                           <i *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid"
-                            class="fa fa-check-circle green col-md-1 margin_3px margin-leftminus15"
+                            class="fa fa-check-circle orange col-md-1 margin_3px margin-leftminus15"
                             aria-hidden="true"></i>
                           <div
                             *ngIf="!reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid && reactiveForm.get('whitelistIpSection').get('ip').controls[i].touched"
@@ -757,7 +762,7 @@
                         id="file1" formControlName="file1"
                         class="form-control input_type_attachment mainField col-md-11 inline_block">
                       <i *ngIf="reactiveForm.get('whitelistIpSection.file1').valid"
-                        class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
+                        class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
 
                       <div
                         *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"

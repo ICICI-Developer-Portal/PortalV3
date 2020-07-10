@@ -253,7 +253,7 @@
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
-        <input name="user" class="input-login" #username />
+        <input name="user" class="input-login" appPrefixFocusAndSelect #username />
         <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
           Please Enter UserNames.
         </div>
@@ -427,6 +427,8 @@
                 name="name"
                 formControlName="firstname"
                 class="input-login"
+                appPrefixFocusAndSelect
+                
                 #name
               />
               <div
@@ -605,7 +607,7 @@
                 "
                 class="text-success"
               >
-                OTP sent on your mobile number.
+                OTP sent to your mobile number.
               </div>  
             </div>
 

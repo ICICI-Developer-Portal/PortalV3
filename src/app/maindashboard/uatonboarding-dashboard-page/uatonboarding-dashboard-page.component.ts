@@ -744,6 +744,7 @@ ifIPpatternNotmatches(){
 
   }
   ngOnInit() {
+    document.getElementById("merchantName").focus();
     this.logged_in = this.adm.check_log();
 
     console.log(this.dashboardService.getMenuTreeData())
