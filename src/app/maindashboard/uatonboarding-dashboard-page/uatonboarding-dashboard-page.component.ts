@@ -93,7 +93,8 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   environmentOption:any[] = [ "UAT","CUG","Production"];
   certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
   callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats.\n For Isurepay we require two webservice URLs";
-  
+  isemail_check: boolean = false;
+  isemail_reg_check: string = "";
   
   selectChangeHandler (event: any) {
     this.selectedDay = event.target.value;
@@ -692,7 +693,7 @@ ifIPpatternNotmatches(){
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
-        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
+        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.email]),
         "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
         "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
       }),
@@ -853,6 +854,27 @@ ifIPpatternNotmatches(){
     console.log(this.reactiveForm);
   }
   // ngAfterViewChecked() { }
-
+  OnCheckEmail(Exists_Email: any) {
+    try {
+      var json = { email: Exists_Email };
+      this.adm.Exists_Email(json).subscribe((data: any) => {
+        var response = data._body;
+        var obj = JSON.parse(response);
+        if (obj.status == true) {
+          this.isemail_check = true;
+          this.isemail_reg_check = "";
+          //this.toastrmsg('success', obj.message);
+        } else {
+          this.isemail_check = false;
+          this.isemail_reg_check = obj.message;
+          //this.toastrmsg('error', obj.message);
+        }
+      },
+      err => {
+        console.log('err', err);
+        this.router.navigate(['error']);
+      },);
+    } catch {}
+  }
 
 }

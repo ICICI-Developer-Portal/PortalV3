@@ -91,7 +91,8 @@
                   <div class="form-group col-md-6">
                     <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
                     <input type="email" class="form-control mainField col-md-11 inline_block" id="Email_ID"
-                      formControlName="email_id" placeholder="Your Email ID">
+                      formControlName="email_id" placeholder="Your Email ID" #Email
+                      (change)="OnCheckEmail(Email.value)">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
                       class="fa fa-check-circle green col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
@@ -100,8 +101,11 @@
                       <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required"
                         class="text-danger form-error">Email id is required.</div>
                       <!--question mark(?) is a safe navigation operator-->
-                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.email || isemail_reg_check != ''"
                         class="text-danger form-error">Please provide a valid email address</div>
+
+                      <!--  <div *ngIf="isemail_reg_check != ''"
+                        class="text-danger form-error">{{isemail_reg_check}}</div>-->
                     </div>
 
 

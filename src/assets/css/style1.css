@@ -426,7 +426,7 @@ input:focus{
 .tryItFreeBtn,.signInBtn {
     border-radius: 3px;
     font-family: Poppins-Bold !important;
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
     border:none;
     outline: none !important;
