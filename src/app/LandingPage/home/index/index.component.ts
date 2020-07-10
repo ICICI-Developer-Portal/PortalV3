@@ -25,6 +25,7 @@ import { PATTERNS } from "config/regex-pattern";
 import { DashboardService } from "src/app/services/dashboard.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { CustomValidators } from "../../layout/header/custom-validators";
 declare var $: any;
 @Component({
   selector: "app-index",
@@ -244,15 +245,40 @@ export class IndexComponent implements OnInit {
 
     this.signupForm3 = this.formbuilder.group(
       {
-        username: ["", [Validators.required]],
-        password: ["", [Validators.required]],
+        uname :["",[Validators.required]],
+        //uname: ["", [Validators.required]],
+        //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+
+        password: ["", [Validators.required,
+          // check whether the entered password has a number
+          CustomValidators.patternValidator(/\d/, {
+            hasNumber: true
+          }),
+          // check whether the entered password has upper case letter
+          CustomValidators.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true
+          }),
+          // check whether the entered password has a lower case letter
+          CustomValidators.patternValidator(/[a-z]/, {
+            hasSmallCase: true
+          }),
+          // check whether the entered password has a special character
+          CustomValidators.patternValidator(
+            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            {
+              hasSpecialCharacters: true
+            }
+          ),
+          Validators.minLength(8)
+        ]],
         confirmPassword: ["", [Validators.required]],
         term: ["", [Validators.required]]
       },
       {
-        validator: PasswordValidation.MatchPassword // your validation method
+        validator: CustomValidators.passwordMatchValidator // your validation method
       }
     );
+
 
     this.signupForm4 = this.formbuilder.group({
       termsandcondition: ["", [Validators.required]]
@@ -666,6 +692,14 @@ export class IndexComponent implements OnInit {
     });
   }
 
+   // Login on Enter key press
+   keyDownFunction(event,username: any, password: any, loginsuccess: TemplateRef<any>) {
+    if (event.keyCode === 13) {
+      this.Login(username, password);
+    }
+  }
+
+
   Login(username: any, password: any) {
     var nonEncodedJson = {
       username : username,
@@ -786,6 +820,18 @@ export class IndexComponent implements OnInit {
     } catch {
       this.toastrmsg("error", console.error());
     }
+  }
+  //send OTP button change and seconds
+  name = 'Angular';
+  btnText = 'send OTP ';
+  btnDisabled = false;
+  buttonClick1() {
+  this.btnDisabled = true;
+  this.btnText = 'Please wait';
+  setTimeout(() => {
+   this.btnText = 'Resend OTP';
+   this.btnDisabled = false
+    }, 30000);
   }
 
   signup_jira() {

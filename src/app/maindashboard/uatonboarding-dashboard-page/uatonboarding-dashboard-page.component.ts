@@ -31,7 +31,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   modalRef: BsModalRef;
 
   ipInput: string;
-  count:number;
+  count: number;
   reactiveForm: FormGroup;
   submitted = false;
   responseData: [];
@@ -49,7 +49,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   logged_in: Boolean = false;
   additionalParams: any;
   Ecollection_Show: Boolean = false;
-  refJIRAID: boolean=false;
+  refJIRAID: boolean = false;
 
   headers: boolean = false;
   accNo: boolean = false;
@@ -61,7 +61,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   encryption: boolean = false;
   certificate: boolean = false;
   service: boolean = false;
-  commModel: boolean = false;
+  message: boolean = false;
   ifsc: boolean = false;
   virtualCode: boolean = false;
   ips: boolean = false;
@@ -80,47 +80,88 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
-  apiGreenCheck:string ="invalid";
+  apiGreenCheck: string = "invalid";
   confirmMsgProd: any;
-  showError :string= "hidden";
-
-
-
-
-
-// ====================================
-// get formArr() {
-//   var cntls= this.reactiveForm.controls;
-//   console.log(this.reactiveForm.get('whitelistIpSection').get('ipRows').controls)
-//   console.log(cntls.ipRows)
-
-
-//   console.log(this.reactiveForm.controls)
-//   return this.reactiveForm.get('whitelistIpSection').get('ipRows') as FormArray;
-// }
-// $
-
-initipRows() {
-  return this.formbuilder.group({
-    ip: ['']
-  });
-}
-
-addNewIPField() {
-  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows') ;
-  //console.log(control);
-
- // this.formArr.push(this.initipRows());
-  control.push(this.initipRows());
-}
-
-deleteRow(i: number) {
-  // this.formArr.removeAt(index);\
+  showError: string = "hidden";
+  addFalse:boolean=true;
+  selectedDay: string = '';
+  paymentMode:any[] = [ "Cash","ICICI Cheque" ,"ICICI DD","Non-ICICI Cheque","Non-ICICI DD","Debit Authorization","Other"];
+  yesNo:any[] = [ "Yes","No"];
+  serviceTypeOption:any[] = [ "WADL","REST","SOAP","Other"];
+  comTypeOption:any[] = [ "XML","XML as a string","JSON"];
+  ifscCodeOption:any[] = [ "ICIC0000103","ICIC0000104","ICIC0000106"];
+  environmentOption:any[] = [ "UAT","CUG","Production"];
+  certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
+  callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats.\n For Isurepay we require two webservice URLs";
   
-  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows');
+  
+  selectChangeHandler (event: any) {
+    this.selectedDay = event.target.value;
+  }
+  
+  initipRows() {
+    return this.formbuilder.group({
+      ip: ['']
+    });
+  }
+  /**
+   * add and remove additional IP
+   */
+
+  addNewIPField() {
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
+    console.log(control.at(0));
+    if(control.length<=9){ 
+     control.push(new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
+    }else{}   
+  }
+
+  deleteRow(i: number) {
+    console.log(i);
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
+   
     control.removeAt(i);
+
+  }
+  /**
+   * add and remove callback URLs
+   */
+  addNewURLField() {
+    
+    const regURL = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
+    console.log(control.at(0));
+
+    if(control.length<=9){ 
+     control.push(new FormControl(null, [Validators.pattern(regURL)]));
+    }else{}   
+  }
+  deleteURLRow(i: number) {
+    console.log(i);
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
+    control.removeAt(i);
+
+  }
+  resetField(){
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
+    while (control.length > 1) {
+        control.removeAt(1)
+      }
+      control.reset();
+      /**
+       * changes done for callback url control
+       */
+      const control2 = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
+      while (control2.length > 1) {
+        control2.removeAt(1)
+      }
+      control2.reset();
+  }
+ifIPpatternNotmatches(){
+  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip').value;
+
 }
-// ====================================
+  // ====================================
 
 
   select(i) {
@@ -143,7 +184,7 @@ deleteRow(i: number) {
   }
   Close_ConfirmProd() {
     this.modalRef.hide();
-    
+
     this.router.navigate(["/index"]);
   }
   HWI_link(id) {
@@ -151,10 +192,8 @@ deleteRow(i: number) {
     //this.active ='#F06321';
   }
   onClickContinueBtn() {
-  
-   
-    if ($(".customcsscontainer input:checkbox:checked").length > 0) {this.apiGreenCheck="valid";}
-    else {this.apiGreenCheck="invalid";}
+    if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements"); }
+    else { $("#thrdSectionChld").addClass("overlay_parent");    }
     //this.modalRef.hide();
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id
@@ -172,6 +211,8 @@ deleteRow(i: number) {
       console.log("obj reached", obj);
       localStorage.setItem('nodevalue', obj.API_NAME)
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
+      localStorage.setItem('additonalFields', this.additionalParams)
+
       for (var i = 0; i < this.additionalParams.length; i++) {
         console.log(this.additionalParams[i]);
 
@@ -182,6 +223,7 @@ deleteRow(i: number) {
           this.clientCode = true;
         }
         if (this.additionalParams[i].match("URL")) {
+          this.ifFieldisVisible(this.additionalParams[i]);
           this.url = true;
         }
         if (this.additionalParams[i].match("IP")) {
@@ -204,7 +246,7 @@ deleteRow(i: number) {
           this.service = true;
         }
         if (this.additionalParams[i].match("Communication Method")) {
-          this.commModel = true;
+          this.message = true;
         }
         if (this.additionalParams[i].match("IFSC Code")) {
           this.ifsc = true;
@@ -249,7 +291,7 @@ deleteRow(i: number) {
           this.amount = true;
         }
         if (this.additionalParams[i].match("Headers")) {
-          console.log(this.additionalParams[i],"hiii")
+          console.log(this.additionalParams[i], "hiii")
           this.headers = true;
         }
         if (this.additionalParams[i].match("TestingID")) {
@@ -265,92 +307,30 @@ deleteRow(i: number) {
 
   }
 
-  onCheckChange(event) {
-    if ($(".customcsscontainer input:checkbox:checked").length > 0) {
-      $('.ContinueBtn').prop('disabled', false);
-      this.apiGreenCheck="valid";
-      this.showError="hidden";
-      console.log(this.reactiveForm);
+  // addIPs() {
 
-    }
-    else {
-      $('.ContinueBtn').prop('disabled', true);
-      this.apiGreenCheck="invalid";
-      this.showError;
-      console.log(this.reactiveForm);
-    }
-    const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
+  //   var count = $('.countIp').length;
+  //   console.log(this.count)
+  //   if (count <= 9) {
+  //     console.log(count, "$$$$$$$$$$$$$")
+  //     var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2" + count + "' (click)='removeInputField()'>-</span></div></div></div></div></div>");
+  //     addinput.insertAfter("#addIPUnique");
+  //     $("#countexceeder").remove();
+  //     count++;
 
-    /* Selected */
-    if (event.target.checked) {
+  //   }
+  //   else {
+  //     if ($("#countexceeder").length < 1) {
+  //       $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
 
-      console.log(event.target.value, "==========", event.target.id)
-      // Add a new control in the arrayForm
+  //     }
+  //   }
 
-      this.arrayObjectOfListIds.push((event.target.id));
-
-      this.arrayObjectOfValue.push((event.target.value));
-      console.log(this.arrayObjectOfListIds)
-      console.log(this.arrayObjectOfValue)
-      // console.log(new FormControl(event.target.id))
-
-      //    this.arrayObjectOfListIds = this.internalArr.toString();
-      // console.log(this.idArr);
-      // this.internalArr = [];
-      // console.log("id array", this.idArr);
-      // formArray.push(new FormControl(event.target.id));
-      var json = {
-        ID: this.arrayObjectOfListIds.join(),
-      };
-
-
-    }
-    /* unselected */
-    else {
-
-      console.log(event)
-      // find the unselected element
-      let i: number = 0;
-
-      formArray.controls.forEach((ctrl: FormControl) => {
-        if (ctrl.value == event.target.value) {
-
-          // Remove the unselected element from the arrayForm
-          formArray.removeAt(i);
-          return;
-        }
-
-        i++;
-      });
-
-    }
-  }
-  
-  
-  addIPs(){
-   
-  var count = $('.countIp').length;
-    console.log(this.count)
-    if (count <= 9) {
-      console.log(count,"$$$$$$$$$$$$$")
-      var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2"+count+"' (click)='removeInputField()'>-</span></div></div></div></div></div>");
-      addinput.insertAfter("#addIPUnique");
-      $("#countexceeder").remove();
-      count++;
-
-    }
-    else{
-      if($("#countexceeder").length<1){
-        $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
-
-      }
-    }
-
-    //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
-  }
+  //   //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
+  // }
 
   // adding ip Field.......via $$$
- 
+
 
   // ================================================================
   @ViewChild('BasicDetailsList') BasicDetailsList: ElementRef;
@@ -418,7 +398,7 @@ deleteRow(i: number) {
     private router: Router,
     private adm: LoginService,
     private toasterService: ToasterService,
-    private dashboardService: DashboardService, ) {
+    private dashboardService: DashboardService,) {
     this.adm.getUserId().subscribe(data => {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
@@ -445,30 +425,80 @@ deleteRow(i: number) {
     );
     return tempArray;
   }
-  selectedDomainName: string = '';
+  // selectedDomainName: string = '';
 
-  //event handler for the select element's change event
-  selectChangeHandler(event: any) {
-    //update the ui
-    this.parentDataDomainName = event.target.value;
-    console.log(this.parentDataDomainName)
+  // //event handler for the select element's change event
+  // selectChangeHandler(event: any) {
+  //   //update the ui
+  //   this.parentDataDomainName = event.target.value;
+  //   console.log(this.parentDataDomainName)
 
+  // }
+  multipleSelectAPI(e){
+    this.accNo = false;
+    this.clientCode = false;
+    this.url = false;
+    this.ip = false;
+    this.port = false;
+    this.checksum = false;
+    this.encryption = false;
+    this.certificate = false;
+    this.service = false;
+    this.message = false;
+    this.ifsc = false;
+    this.virtualCode = false;
+    this.ips = false;
+    this.interAccNo = false;
+    this.accName = false;
+    this.authLevel = false;
+    this.urn = false;
+    this.env = false;
+    this.valid = false;
+    this.accept = false;
+    this.recipient = false;
+    this.mode = false;
+    this.trans = false;
+    this.amount = false;
+    this.headers = false;
+    this.uatTestingID = false;
+    this.resetField();
+  
+  if ($(".customcsscontainer input:checkbox:checked").length) {
+    $('.ContinueBtn').prop('disabled', false);
+    //alert(($(".customcsscontainer input:checkbox:checked").length))
+    //  $("#thrdSectionChld").removeClass("overlay_parent")
+    $("#dynamic-list-check").css("display", "block");
+    $("#scndSectionWhitelistIp").addClass("ng-valid");
+    $("#scndSectionWhitelistIp").removeClass("ng-invalid");
+   
   }
-
-  onSubmitUATForm(Prodconfirm) {
+  else {
+    $('.ContinueBtn').prop('disabled', true);
+    $("#thrdSectionChld").addClass("overlay_parent");
+    $("#dynamic-list-check").css("display", "none");
+    $("#scndSectionWhitelistIp").addClass("ng-invalid");
+    $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+    $("#submitButton,#file1").addClass("blockElements")
     
-    var values = [];
-    $('.countIp .form-control').each(function () {
-      values.push(this.value);
-      console.log(values);
-    });
-    console.log(values);
-    console.log(values.toString())
-    let reactiveFromFieldValues = this.reactiveForm.value;
-    console.log(reactiveFromFieldValues)
-    console.log(reactiveFromFieldValues.basicDetailsSection.merchantName)
 
-    console.log(localStorage.getItem("username"))
+        }
+}
+  onSubmitUATForm(Prodconfirm) {
+
+    let ipValues = [];
+    let urlValues= [];
+    
+    $('.countIp .form-control').each(function () {
+      ipValues.push(this.value);
+    });
+    $('.countUrl .form-control').each(function () {
+      urlValues.push(this.value);
+     
+    });
+    console.log(ipValues)
+    console.log(urlValues)
+    let reactiveFromFieldValues = this.reactiveForm.value;
+   
     let inputFields = {
       userName: localStorage.getItem("username"),
       domainName: localStorage.getItem("nodevalue"),
@@ -481,32 +511,33 @@ deleteRow(i: number) {
       env: "UAT",
       // ips: "",
       // callbackUrl: "",
-      AccountNo: reactiveFromFieldValues.additionalField.AccountNo ? reactiveFromFieldValues.additionalField.AccountNo : '',
-      ClientCode: reactiveFromFieldValues.additionalField.ClientCode ? reactiveFromFieldValues.additionalField.ClientCode : '',
-      url: reactiveFromFieldValues.additionalField.url ? reactiveFromFieldValues.additionalField.url : '',
-      Ip: values.toString() ? values.toString() : '',
-      Port: reactiveFromFieldValues.additionalField.port ? reactiveFromFieldValues.additionalField.port : '',
-      Checksum: reactiveFromFieldValues.additionalField.Checksum ? reactiveFromFieldValues.additionalField.Checksum : '',
-      Encryption: reactiveFromFieldValues.additionalField.Encryption ? reactiveFromFieldValues.additionalField.Encryption : '',
-      Certificate: reactiveFromFieldValues.additionalField.Certificate ? reactiveFromFieldValues.additionalField.Certificate : '',
-      web: reactiveFromFieldValues.additionalField.web ? reactiveFromFieldValues.additionalField.web : '',
-      message: reactiveFromFieldValues.additionalField.message ? reactiveFromFieldValues.additionalField.message : '',
-      IFSC_Code: reactiveFromFieldValues.additionalField.IFSC_Code ? reactiveFromFieldValues.additionalField.IFSC_Code : '',
-      virtualCode: reactiveFromFieldValues.additionalField.virtualCode ? reactiveFromFieldValues.additionalField.virtualCode : '',
-      refundCode: reactiveFromFieldValues.additionalField.refundCode ? reactiveFromFieldValues.additionalField.refundCode : '',
-      Account_no: reactiveFromFieldValues.additionalField.Account_no ? reactiveFromFieldValues.additionalField.Account_no : '',
-      Acc_name: reactiveFromFieldValues.additionalField.Acc_name ? reactiveFromFieldValues.additionalField.Acc_name : '',
-      Auth_level: reactiveFromFieldValues.additionalField.Auth_level ? reactiveFromFieldValues.additionalField.Auth_level : '',
-      Urn: reactiveFromFieldValues.additionalField.Urn ? reactiveFromFieldValues.additionalField.Urn : '',
-      Acc_env: reactiveFromFieldValues.additionalField.Acc_env ? reactiveFromFieldValues.additionalField.Acc_env : '',
-      Acc_validation: reactiveFromFieldValues.additionalField.Acc_validation ? reactiveFromFieldValues.additionalField.Acc_validation : '',
-      Acc_acceptance: reactiveFromFieldValues.additionalField.Acc_acceptance ? reactiveFromFieldValues.additionalField.Acc_acceptance : '',
-      Rec_mail: reactiveFromFieldValues.additionalField.Rec_mail ? reactiveFromFieldValues.additionalField.Rec_mail : '',
-      Acc_mode: reactiveFromFieldValues.additionalField.Acc_mode ? reactiveFromFieldValues.additionalField.Acc_mode : '',
-      Acc_trans: reactiveFromFieldValues.additionalField.Acc_trans ? reactiveFromFieldValues.additionalField.Acc_trans : '',
-      Acc_amount: reactiveFromFieldValues.additionalField.Acc_amount ? reactiveFromFieldValues.additionalField.Acc_amount : '',
-      Acc_headers: reactiveFromFieldValues.additionalField.headers ? reactiveFromFieldValues.additionalField.header : '',
-      Acc_uatTestingID: reactiveFromFieldValues.additionalField.uatTestingID ? reactiveFromFieldValues.additionalField.uatTestingID : '',
+      AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
+      ClientCode: reactiveFromFieldValues.whitelistIpSection.ClientCode ? reactiveFromFieldValues.whitelistIpSection.ClientCode : '',
+      //url: reactiveFromFieldValues.whitelistIpSection.url ? reactiveFromFieldValues.whitelistIpSection.url : '',
+      url:urlValues.toString() ? urlValues.toString() : '',
+      Ip: ipValues.toString() ? ipValues.toString() : '',
+      Port: reactiveFromFieldValues.whitelistIpSection.port ? reactiveFromFieldValues.whitelistIpSection.port : '',
+      Checksum: reactiveFromFieldValues.whitelistIpSection.Checksum ? reactiveFromFieldValues.whitelistIpSection.Checksum : '',
+      Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption ? reactiveFromFieldValues.whitelistIpSection.Encryption : '',
+      Certificate: reactiveFromFieldValues.whitelistIpSection.Certificate ? reactiveFromFieldValues.whitelistIpSection.Certificate : '',
+      web: reactiveFromFieldValues.whitelistIpSection.web ? reactiveFromFieldValues.whitelistIpSection.web : '',
+      message: reactiveFromFieldValues.whitelistIpSection.message ? reactiveFromFieldValues.whitelistIpSection.message : '',
+      IFSC_Code: reactiveFromFieldValues.whitelistIpSection.IFSC_Code ? reactiveFromFieldValues.whitelistIpSection.IFSC_Code : '',
+      virtualCode: reactiveFromFieldValues.whitelistIpSection.virtualCode ? reactiveFromFieldValues.whitelistIpSection.virtualCode : '',
+      refundCode: reactiveFromFieldValues.whitelistIpSection.refundCode ? reactiveFromFieldValues.whitelistIpSection.refundCode : '',
+      Account_no: reactiveFromFieldValues.whitelistIpSection.Account_no ? reactiveFromFieldValues.whitelistIpSection.Account_no : '',
+      Acc_name: reactiveFromFieldValues.whitelistIpSection.Acc_name ? reactiveFromFieldValues.whitelistIpSection.Acc_name : '',
+      Auth_level: reactiveFromFieldValues.whitelistIpSection.Auth_level ? reactiveFromFieldValues.whitelistIpSection.Auth_level : '',
+      Urn: reactiveFromFieldValues.whitelistIpSection.Urn ? reactiveFromFieldValues.whitelistIpSection.Urn : '',
+      Acc_env: reactiveFromFieldValues.whitelistIpSection.Acc_env ? reactiveFromFieldValues.whitelistIpSection.Acc_env : '',
+      Acc_validation: reactiveFromFieldValues.whitelistIpSection.Acc_validation ? reactiveFromFieldValues.whitelistIpSection.Acc_validation : '',
+      Acc_acceptance: reactiveFromFieldValues.whitelistIpSection.Acc_acceptance ? reactiveFromFieldValues.whitelistIpSection.Acc_acceptance : '',
+      Rec_mail: reactiveFromFieldValues.whitelistIpSection.Rec_mail ? reactiveFromFieldValues.whitelistIpSection.Rec_mail : '',
+      Acc_mode: reactiveFromFieldValues.whitelistIpSection.Acc_mode ? reactiveFromFieldValues.whitelistIpSection.Acc_mode : '',
+      Acc_trans: reactiveFromFieldValues.whitelistIpSection.Acc_trans ? reactiveFromFieldValues.whitelistIpSection.Acc_trans : '',
+      Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
+      Acc_headers: reactiveFromFieldValues.whitelistIpSection.header ? reactiveFromFieldValues.whitelistIpSection.header : '',
+      Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.TestingID ? reactiveFromFieldValues.whitelistIpSection.TestingID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -522,7 +553,7 @@ deleteRow(i: number) {
     formData.append("spocPhone", inputFields["spocPhone"]);
     formData.append("relManager", inputFields["relManager"]);
     formData.append("env", inputFields["env"]);
-    formData.append("ips", inputFields["ips"]);
+    formData.append("refundCode", inputFields["refundCode"]);
     formData.append("callbackUrl", inputFields["callbackUrl"]);
     formData.append("AccountNo", inputFields["AccountNo"]);
     formData.append("ClientCode", inputFields["ClientCode"]);
@@ -552,7 +583,7 @@ deleteRow(i: number) {
     formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
 
 
-    console.log(formData);  
+    console.log(formData);
 
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
     console.log("a", a);
@@ -561,18 +592,18 @@ deleteRow(i: number) {
       console.log(a[k], "oooooooooo")
       console.log(formData)
     }
-	// Appended three new elements
-	
-	formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
+    // Appended three new elements
+
+    formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
     formData.append("Headers", inputFields["Acc_headers"]);
-	formData.append("TestingID", inputFields["Acc_uatTestingID"]);
-   formData.forEach((value,key) => {
-    console.log(key+" "+value)
-});
-   
-	 // Jira Service
-   //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
-//https://developerapi.icicibank.com:8443/api/v2/jira
+    formData.append("TestingID", inputFields["Acc_uatTestingID"]);
+    formData.forEach((value, key) => {
+      console.log(key + " " + value)
+    });
+
+    // Jira Service
+    //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
+    //https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
       "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData
@@ -585,16 +616,16 @@ deleteRow(i: number) {
           backdrop: "static"
         });
         this.confirmMsgProd = res.jiraId;
-    
-       console.log( this.confirmMsgProd)
+
+        console.log(this.confirmMsgProd)
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
           let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
           for (let k = 0; k < b.length; k++) {
-            console.log(b,k)
+            console.log(b, k)
             console.log(b[k])
-            console.log(res.jiraId,res)
+            console.log(res.jiraId, res)
 
             formData.append(res.jiraId, b[k]);
           }
@@ -604,7 +635,7 @@ deleteRow(i: number) {
           ).subscribe(
             res => {
               console.log(res);
-              console.log(res.jiraId,"rchd");
+              console.log(res.jiraId, "rchd");
             },
             err => {
               console.log('err', err);
@@ -624,142 +655,95 @@ deleteRow(i: number) {
   //conditional validation
   ifFieldisVisible(value) {
     let reactiveFromFieldValues = this.reactiveForm.value;
-   console.log( value);
-   console.log( reactiveFromFieldValues.additionalField.ip);
-   console.log(this.reactiveForm)
-   console.log(this.reactiveForm.controls.additionalField)
-let c =this.reactiveForm.controls.additionalField;
+    console.log(value);
+    console.log(reactiveFromFieldValues.whitelistIpSection.ip);
+    console.log(this.reactiveForm)
+    console.log(this.reactiveForm.controls.whitelistIpSection)
+    let c = this.reactiveForm.controls.whitelistIpSection;
 
-    console.log(reactiveFromFieldValues.additionalField.ip  )
-    let ip= reactiveFromFieldValues.additionalField.ip;
+    console.log(reactiveFromFieldValues.whitelistIpSection.ip)
+    let ip = reactiveFromFieldValues.whitelistIpSection.ip;
     console.log(ip);
-    
-    if(value=="IP"){
-    console.log(this.reactiveForm.get('additionalField'));
-    console.log(this.reactiveForm.get('additionalField').get('ip'));
-    let ipControl =this.reactiveForm.get('additionalField').get('ip');
-   // ipControl.setValidators([this.ipValidator]);
-    console.log(this.reactiveForm.get('additionalField'));
-    this.reactiveForm.get('additionalField').get('ip')
-    //reactiveFromFieldValues.additionalField.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
-     // reactiveFromFieldValues.additionalField.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
-   console.log( reactiveFromFieldValues.additionalField);
+
+    if (value == "IP") {
+      console.log(this.reactiveForm.get('whitelistIpSection'));
+      console.log(this.reactiveForm.get('whitelistIpSection').get('ip'));
+      let ipControl = this.reactiveForm.get('whitelistIpSection').get('ip');
+      // ipControl.setValidators([this.ipValidator]);
+      console.log(this.reactiveForm.get('whitelistIpSection'));
+      this.reactiveForm.get('whitelistIpSection').get('ip');
+      //reactiveFromFieldValues.whitelistIpSection.controls("IP").setValidators(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')])
+      // reactiveFromFieldValues.whitelistIpSection.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
+      console.log(reactiveFromFieldValues.whitelistIpSection);
     }
-    console.log(value+"", 1);
-    
+    if(value == "URL"){
+      this.reactiveForm.get('whitelistIpSection').get('url');
+    }
+    console.log(value + "", 1);
+
   }
-//   validateIp(ip) {
-//     if ( ip == null || ip === '' ) {
-//       return true;
-//     }
-    
-//     const parts = ip.split('.');
-//     if(parts.length !== 4) {
-//       return true;
-//     }
-    
-//     for(let i = 0; i < parts.length; i++) {
-//       const part = parseInt(parts[i]);
-//       if(part < 0 || part > 255) {
-//         return true;
-//       }
-//     }
-    
-//     if(ip.endsWith('.')) {
-//       return true;
-//     }
-    
-//     return false;
-//   }
-//   ipValidator(control: AbstractControl): { [key: string]: boolean } | null {
-//       // =============================================
-//       // ================================================
-//       let input = control.value;
-//       console.log(input)
-//       console.log(input.length)
-     
-     
-//       if(input.length>0){
-//         let arr = input.split(',');
-//         console.log(this.validateIp(input))
-        
-//         console.log(this.validateIp)
-//         let wrongIps = arr.filter(this.validateIp(input));
-        
-   
-//       if(wrongIps.length>0){
-//         console.log(wrongIps);
-//         return{valid: false}
-//       }
-//       else{
-//         console.log(wrongIps);
-//         return{valid: true}
-//       }
-//       console.log(arr)
-//       console.log(arr)
-//       console.log(wrongIps)
-//     }
-//     else{
-      
-//     }
-      
-//       // ///////////////////////////////////////////////
-//       // ///////////////////////////////////////////////
-// }
-
-
-
+  
   resetForm(edit) {
+    //regex for https url validatio
+    const regURL = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
+    const ipReg = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';  
     this.reactiveForm = new FormGroup({
-      
+
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
-        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([A-Za-z]{2,6}(?:\\.[A-Za-z]{2,6})?)$")]),
         "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
         "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
       }),
       "nestedCheckboxesList": new FormGroup({
         "nestedList": new FormArray([])
       }),
-      "additionalField": new FormGroup({
+      "whitelistIpSection": new FormGroup({
         "AccountNo": new FormControl(),
+        "Acc_name": new FormControl(),
+        "Account_no": new FormControl(),
         "clientCode": new FormControl(),
-        "url": new FormControl(),
-        "Checksum": new FormControl(),
-        "encryption": new FormControl(),
-        "certificate": new FormControl(),
-        "service": new FormControl(),
-        "commModel": new FormControl(),
+        "url": new FormArray([ 
+          new FormControl(null, [Validators.pattern(regURL)]),
+        ]),
+        "Checksum": new FormControl('Select Checksum'),
+        "Encryption": new FormControl('Select Encryption'),
+        "Certificate": new FormControl('Certificate'),
+        "web": new FormControl('Select Service Type'),
+        "message": new FormControl('Select Communication Method'),
         "header": new FormControl(),
-        "TestingID": new FormControl(),
-        "IFSC_Code": new FormControl(),
+        "uatTestingID": new FormControl(),
+        "IFSC_Code": new FormControl('Select IFSC Code'),
         "virtualCode": new FormControl(),
-        "ips": new FormControl(),
+        "refundCode": new FormControl(),
         "interAccNo": new FormControl(),
         "accName": new FormControl(),
-        "authLevel": new FormControl(),
-        "URN": new FormControl(),
-        "env": new FormControl(),
-        "Acc_validation": new FormControl(),
-        "Acc_acceptance": new FormControl(),
+        "Auth_level": new FormControl(),
+        "Urn": new FormControl(),
+        "Acc_env": new FormControl('Select Environment'),
+        "Acc_validation": new FormControl('Select Amount Validation'),
+        "Acc_acceptance": new FormControl('Select Acceptance Mode'),
         "Rec_mail": new FormControl(),
         "Acc_mode": new FormControl(),
         "Acc_trans": new FormControl(),
-        "Acc_amount": new FormControl(),
-        "ip": new FormControl(),
+        "Acc_amount": new FormControl('Select Amount'),
+        "ip":  new FormArray([ 
+          // <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows'),Validators.required
+          new FormControl(null, [Validators.required,Validators.pattern(ipReg)]),
+        ]),
+
         "port": new FormControl(),
-        "refJIRAID": new FormControl()
-      }),
-      'whitelistIpSection': new FormGroup({
-        "ipRows":  new FormArray([]),
+        "refJIRAID": new FormControl(),
         "file1": new FormControl(null, [Validators.required]),
         "checkBox": new FormControl(false, [Validators.requiredTrue])
-      })
+      }),
+     
     })
 
   }
   ngOnInit() {
+    document.getElementById("merchantName").focus();
     this.logged_in = this.adm.check_log();
 
     console.log(this.dashboardService.getMenuTreeData())
@@ -770,39 +754,39 @@ let c =this.reactiveForm.controls.additionalField;
       console.log(this.menuArray, "hhhhhhhhh  ")
     }
     );
-// ipvalidation
-// function validateIp(ip) {
-//   if ( ip == null || ip === '' ) {
-//   return true;
-// }
+    // ipvalidation
+    // function validateIp(ip) {
+    //   if ( ip == null || ip === '' ) {
+    //   return true;
+    // }
 
-// const parts = ip.split('.');
-// if(parts.length !== 4) {
-//   return true;
-// }
+    // const parts = ip.split('.');
+    // if(parts.length !== 4) {
+    //   return true;
+    // }
 
-// for(let i = 0; i < parts.length; i++) {
-//   const part = parseInt(parts[i]);
-//   if(part < 0 || part > 255) {
-//       return true;
-//   }
-// }
+    // for(let i = 0; i < parts.length; i++) {
+    //   const part = parseInt(parts[i]);
+    //   if(part < 0 || part > 255) {
+    //       return true;
+    //   }
+    // }
 
-// if(ip.endsWith('.')) {
-//   return true;
-// }
+    // if(ip.endsWith('.')) {
+    //   return true;
+    // }
 
-// return false;
-// }
+    // return false;
+    // }
 
-// const input = '1.1.1.1,2.2.2.2,3.3.3.,4.4.4.256';
-// const arr = input.split(',');
-// const wrongIps = arr.filter(validateIp);
+    // const input = '1.1.1.1,2.2.2.2,3.3.3.,4.4.4.256';
+    // const arr = input.split(',');
+    // const wrongIps = arr.filter(validateIp);
 
 
-// console.log(arr)
-// console.log(wrongIps)
-// ========
+    // console.log(arr)
+    // console.log(wrongIps)
+    // ========
 
 
     // testing......
@@ -816,88 +800,39 @@ let c =this.reactiveForm.controls.additionalField;
 
       return true;
     }
-    $('body').on('click', 'span.dynamic', function() {
-   
-     var currentId= $(this).attr("id");
-    //  alert( $("#"+currentId))
-    //  alert( $("#"+currentId).parent().parent().parent().parent().parent())
-     $("#"+currentId).parent().parent().parent().parent().parent().remove();
-     $("#countexceeder").remove();
-    // alert($("#currentId").closet())
+    $('body').on('click', 'span.dynamic', function () {
+      var currentId = $(this).attr("id");
+      $("#" + currentId).parent().parent().parent().parent().parent().remove();
+      $("#countexceeder").remove();
+    });
 
-  });
 
-    $(document).on('click', 'li.expandable', function (e) {
-      $(this).children('ul').toggle();
-      // $('li.expandable').click(function() {
-      //  alert("hii")
+
+    //$(document).on('click', '.first-level li', function (e) {
+    $(document).off().on('click', '.first-level li', function (e) {
+
+     // $(".first-level li").unbind().click(function() {
       //  
-      e.preventDefault();
-
-      return false;
-      //  if($(this).children('ul').is(":visible")){
-      //   //alert("1")
-      //   $(this).children('ul').css({"display":"none"}) 
-      //   }
-      //   else{ // alert("12")
-      //     $(this).children('ul').css({"display":"block"}) 
-      //   }
+      // alert(JSON.stringify($(this).parent().attr('class')))
+      // $(this).children(".dropdownIcon").toggle();
+      $(this).children(".display-none").toggle();
+      e.stopPropagation();
+      // $('.first-level li a').click(function(){
+      // $(this).children('ul').stop().slideToggle(350);
+      // $(this).toggleClass("open");
+      // event.stopPropagation();
     });
 
-    $(document).on('click', '#Requested-api-list [for]', function (e) {
-        var apiGreenCheck;
-        $('#' + $(this).attr("for")).prop('checked',
-       function(i, oldVal) { 
-        if ($(".customcsscontainer input:checkbox:checked").length) {
-          $('.ContinueBtn').prop('disabled', false);
-          $("#thrdSection,.thrdSectionChld").removeClass("overlay_parent")
-          $("#dynamic-list-check").show();
-          apiGreenCheck="valid";
-
-        }
-        else{
-
-          $('.ContinueBtn').prop('disabled', true);
-          $("#thrdSection,.thrdSectionChld").addClass("overlay_parent");
-          $("#dynamic-list-check").hide();
-          apiGreenCheck="invalid";
-
-        }
-       ;return !oldVal; });
-       
-  
-    });
-   
-    $(document).on('click', '[type="checkbox"]', function (e) {
-
-        $('#' + $(this).attr("id")).prop('checked',
-       function(i, oldVal) { ;return !oldVal; });
-
-    });
-   
-
- 
-    $(document).on('click', '#checkbox', function (e) {
-   // $(document).on('click', '#checkbox', function (e) {
-   
-    $('#checkbox').prop('checked',
-    function(i, oldVal) { 
-     if ($("#checkbox:checked").length) {  }else{  }
-    ;return !oldVal; });
-      
-       
-
-    })
 
 
-// ============================    
+    // ============================    
 
-// this.reactiveForm = this.formbuilder.group({
-//   ipRows: this.formbuilder.array([
-//       this.initipRows(),
-//   ])
-// });
-// ==============================
+    // this.reactiveForm = this.formbuilder.group({
+    //   ipRows: this.formbuilder.array([
+    //       this.initipRows(),
+    //   ])
+    // });
+    // ==============================
   }
 
   toastrmsg(type, title) {

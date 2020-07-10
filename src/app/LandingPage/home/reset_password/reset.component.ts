@@ -29,7 +29,8 @@ this.activeRoute.queryParams.subscribe(params => {
  }
 
  ngOnInit() {
- 
+  document.getElementById("password").focus();
+
   this.ChangepasswForm=this.formbuilder.group({
     password: ["", [Validators.required,
       // check whether the entered password has a number

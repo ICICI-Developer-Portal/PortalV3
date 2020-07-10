@@ -15,6 +15,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
 } from '@angular/material';
+import { FocusOnShowDirective } from './autofocus.directive';
 
 //import { AppathonSignupComponent } from './appathon-signup/appathon-signup.component';
 
@@ -23,6 +24,8 @@ import {
     AppathonLandingComponent,
     FooterComponent,
     HeaderComponent,
+    FocusOnShowDirective
+    
     //AppathonSignupComponent,
   ],
   imports: [
@@ -35,6 +38,7 @@ import {
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    
   ],
 })
 export class AppathonLandingModule {}

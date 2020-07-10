@@ -121,7 +121,7 @@
             >Profile</a
           >
           <a
-            (click)="scroll_view('#UAT_onboard')"
+          [routerLink]="['/uatonboarding-dashboard']"
             class="nav-link dropdown-item"
             >UAT Onboarding</a
           >
@@ -249,10 +249,11 @@
     </button>
   </div>
   <div class="modal-body">
+    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
-        <input name="user" class="input-login" #username />
+        <input name="user" class="input-login" appPrefixFocusAndSelect #username />
         <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
           Please Enter UserNames.
         </div>
@@ -274,6 +275,7 @@
         >
       </div>
     </div>
+    </form>
   </div>
   <div class="modal-footer">
     <div class="row w100p m0">
@@ -367,7 +369,7 @@
 <!-- Modal for Signup -->
 <ng-template #signup>
   <div class="modal-header">
-    <h3 class="modal-title pull-left">Lets get you Onboard</h3>
+    <h3 class="modal-title pull-left">Let's get you on-board1</h3>
 
     <button
       type="button"
@@ -425,6 +427,8 @@
                 name="name"
                 formControlName="firstname"
                 class="input-login"
+                appPrefixFocusAndSelect
+                
                 #name
               />
               <div
@@ -603,7 +607,7 @@
                 "
                 class="text-success"
               >
-                OTP sent on your mobile number.
+                OTP sent to your mobile number.
               </div>  
             </div>
 
@@ -715,7 +719,7 @@
             <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
               Password is Required!
             </label> -->
-            <div  *ngIf="signupForm3.controls['password'].touched" >
+            <div  *ngIf="signupForm3.controls['password'].touched || signupForm3.controls['password'].dirty" >
               <br>
             
             <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
@@ -726,7 +730,7 @@
             </label>
             <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
               <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
-                signupForm3.pcontrols['password'].hasError('hasNumber') ? 'cancel' :
+                signupForm3.controls['password'].hasError('hasNumber') ? 'cancel' :
                 'check_circle' }}</i>
               Must contain at least 1 number.
             </label>
@@ -1405,19 +1409,19 @@
 
 <ng-template #loginsuccess>
   <div class="modal-header loginsuccess-modal-border">
-    <button
+    <!--<button
       type="button"
       class="close pull-right"
       aria-label="Close"
       (click)="modalRef4Close()"
     >
       <span aria-hidden="true">&times;</span>
-    </button>
+    </button>-->
   </div>
 
   <div class="modal-body">
     <div class="row success-label-div">
-      <Label class="success-label">Login Successful  </Label>
+      <Label class="success-label">Login Successful</Label>
     </div>
     <div class="row mb10">
       <div class="col-md-12">

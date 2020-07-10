@@ -40,8 +40,6 @@ import { JwtAuthComponent } from './jwt-auth/jwt-auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 //import { MisComponent } from './maindashboard/mis/mis.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AutofocusModule } from 'angular-autofocus-fix';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,8 +49,7 @@ import { AutofocusModule } from 'angular-autofocus-fix';
     AdvertisementComponent,
     AppathonSignupComponent,
     JwtAuthComponent,
-    ErrorPageComponent,
-   // MisComponent
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +72,6 @@ import { AutofocusModule } from 'angular-autofocus-fix';
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    AutofocusModule,
     
     
   ],

@@ -756,21 +756,8 @@ getMisFile(json) {
   }
   return this.http.get(this.apiUrl +"getMisFile?"+query,{ responseType: ResponseContentType.Blob }); 
 }
-getMisFile2(json) {
-  let query = "";
-  if(json && json.userName && json.fileDate){
-    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
-  }
-  let headers = new Headers({
-    "Content-Type": "application/x-www-form-urlencoded"
-  });
-
-  let options = new RequestOptions({ headers: headers });
-  return this.http.post(
-    "https://developer.icicibank.com/" + "download",
-    query,
-     { responseType: ResponseContentType.Blob }
-  );
+downloadFromURL(url: string){
+  return this.http.get(url, { responseType: ResponseContentType.Blob})
 }
  
 

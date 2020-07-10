@@ -17,7 +17,6 @@ import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "./custom-validators";
 
-
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html"
@@ -119,6 +118,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
@@ -199,7 +199,6 @@ export class HeaderComponent implements OnInit {
 
     this.signupForm3 = this.formbuilder.group(
       {
-        //username: ["", [Validators.required]],
         uname :["",[Validators.required]],
         //uname: ["", [Validators.required]],
         //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
@@ -233,7 +232,6 @@ export class HeaderComponent implements OnInit {
         validator: CustomValidators.passwordMatchValidator // your validation method
       }
     );
-
     this.signupForm4 = this.formbuilder.group({
       termsandcondition: ["", [Validators.required]]
     });
@@ -364,12 +362,17 @@ export class HeaderComponent implements OnInit {
       this.modalRef.hide();
     } catch (e) {}
   }
+  //
+  keyDownFunction(event,username: any, password: any, loginsuccess: TemplateRef<any>) {
+    if (event.keyCode === 13) {
+     // alert('you just pressed the enter key');
+      // rest of your code
+      this.Login(username, password,loginsuccess);
+    }
+  }
 
   // Login function
-  // Login function
- 
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
-    
     //localStorage.setItem('username',username);
     //localStorage.setItem('password',password);
     var nonEncodedJson = {
@@ -436,6 +439,26 @@ export class HeaderComponent implements OnInit {
             this.router.navigate(["/index"]);
           }
         );
+         /**
+         * Changing the flow as login shd complete even if loginsuccess popup eacaped
+         */
+        this.sessionSet("username", this.loginResponse.data.username);
+    localStorage.setItem("username", this.loginResponse.data.username);
+    localStorage.setItem("password", this.loginResponse.data.password);
+    localStorage.setItem("id", this.loginResponse.data.id);
+    localStorage.setItem("role", this.loginResponse.data.role);
+    localStorage.setItem(
+      "appathonusername",
+      this.loginResponse.data.appathonusername
+    );
+    localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+    localStorage.setItem("email", this.loginResponse.data.email);
+    this.adm.sendUserId(this.loginResponse.data.id);
+    this.router.navigate(["/documentation"]);
+    /**
+     * End here
+     */
+
         this.modalRef4 = this.modalService.show(loginsuccess, {
           backdrop: "static"
         });
@@ -826,7 +849,6 @@ export class HeaderComponent implements OnInit {
   save2() {
     this.verifyOtp1();
   }
-  
   appathonSave1() {
     this.shfrmSFSecond1 = true;
     this.shfrmSFFirst1 = false;
@@ -995,7 +1017,7 @@ export class HeaderComponent implements OnInit {
   //login success pop up modal
   clickOk() {
     this.modalRef4.hide();
-    this.sessionSet("username", this.loginResponse.data.username);
+   /* this.sessionSet("username", this.loginResponse.data.username);
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
@@ -1008,7 +1030,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
     this.router.navigate(["/documentation"]);
-
+*/
     // if(this.loginResponse.data.role === 'Appathon'){
     //   this.router.navigate(['/appathon-dashboard']);
     // }
