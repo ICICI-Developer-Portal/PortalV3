@@ -169,7 +169,7 @@
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
-        <input type="text" (keydown.space)="$event.preventDefault();" name="user" class="input-login" #username />
+        <input  type="text" (keydown.space)="$event.preventDefault();" name="user" class="input-login" appPrefixFocusAndSelect #username />
         <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
           Please Enter UserNames.
         </div>
@@ -307,16 +307,16 @@
           <div class="row mb20">
             <div class="col-md-6 mb-xs-10">
               
-              <div><label for="company">Full Name</label></div>
-              <input name="name" formControlName="firstname" class="input-login" #name />
-              <div *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)" class="text-danger form-error">
+              <div><label  for="company">Full Name</label></div>
+              <input type="text" name="name" formControlName="firstname"  class="input-login" appPrefixFocusAndSelect #name />
+              <div *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)" class="text-danger form-error" >
                 First Name is required.
               </div>
             </div>
             <div class="col-md-6">
               <div><label for="company">Email</label></div>
               <!-- <input name="email" formControlName="email" class="input-login" #Email (input)="OnCheckEmail(Email.value)"> -->
-              <input name="email" formControlName="email" class="input-login" #Email
+              <input  name="email" formControlName="email" class="input-login" #Email
                 (change)="OnCheckEmail(Email.value)" />
               <div *ngIf="email.invalid && (email.dirty || isSubmitted)" class="text-danger form-error">
                 Email is required.

@@ -726,7 +726,7 @@
             </label>
             <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
               <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
-                signupForm3.controls['password'].hasError('hasNumber') ? 'cancel' :
+                signupForm3.pcontrols['password'].hasError('hasNumber') ? 'cancel' :
                 'check_circle' }}</i>
               Must contain at least 1 number.
             </label>

@@ -34,7 +34,7 @@
                    <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
                      Password is Required!
                    </label> -->
-                   <div  *ngIf="ChangepasswForm.controls['password'].touched" >
+                   <div  *ngIf="ChangepasswForm.controls['password'].touched || ChangepasswForm.controls['password'].dirty" >
                      <br>
                    
                    <label class="col" [ngClass]="ChangepasswForm.controls['password'].hasError('required') || ChangepasswForm.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
