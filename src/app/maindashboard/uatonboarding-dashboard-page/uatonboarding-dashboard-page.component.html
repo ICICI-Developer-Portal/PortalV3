@@ -92,7 +92,7 @@
                     <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
                     <input type="email" class="form-control mainField col-md-11 inline_block" id="Email_ID"
                       formControlName="email_id" placeholder="Your Email ID" #Email
-                      (change)="OnCheckEmail(Email.value)">
+                      >
                     <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
                       class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
@@ -101,16 +101,11 @@
                       <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required"
                         class="text-danger form-error">Email id is required.</div>
                       <!--question mark(?) is a safe navigation operator-->
-<<<<<<< HEAD
                       <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.email || isemail_reg_check != ''"
                         class="text-danger form-error">Please provide a valid email address</div>
 
                       <!--  <div *ngIf="isemail_reg_check != ''"
                         class="text-danger form-error">{{isemail_reg_check}}</div>-->
-=======
-                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
-                        class="text-danger form-error">Please provide a valid email address</div>
->>>>>>> Devbranch_karthik
                     </div>
 
 
@@ -653,7 +648,8 @@
 
                           <div class="input-group  col-md-11">
                             <input type="text" class="form-control  urlValues" formControlName="{{i}}"
-                              placeholder="Your URL" aria-label="URL" aria-describedby="basic-addon2">
+                              placeholder="Your URL" aria-label="URL" aria-describedby="basic-addon2"
+                              (change)="OnCheckURL(reactiveForm.get('whitelistIpSection').get('url').controls[i])">
 
                             <div class="input-group-append">
                               <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"

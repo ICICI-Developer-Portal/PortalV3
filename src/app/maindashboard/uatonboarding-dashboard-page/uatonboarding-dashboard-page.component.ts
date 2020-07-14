@@ -877,5 +877,10 @@ ifIPpatternNotmatches(){
       },);
     } catch {}
   }
+  OnCheckURL(URL: any) {
+    try {
+      console.log(URL);
+    } catch {}
+  }
 
 }

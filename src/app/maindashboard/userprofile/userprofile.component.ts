@@ -23,7 +23,7 @@ export class UserprofileComponent implements OnInit {
   ChangepasswForm: FormGroup;
   pwdPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
   constructor(private spinnerService: Ng4LoadingSpinnerService,private formbuilder:FormBuilder,private router:Router,private modalService: BsModalService, private adm:LoginService,private toasterService: ToasterService) {
-    this.user_data();
+   // this.user_data();
     this.adm.check_user_log();
    }
 
