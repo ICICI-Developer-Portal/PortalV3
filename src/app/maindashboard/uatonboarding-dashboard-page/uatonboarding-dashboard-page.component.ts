@@ -176,11 +176,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       e.stopPropagation();
     });
   }
-  /** Remove item from cart */
-  removeFromCart(apiId){
-    console.log(123);
-    console.log(apiId);
-  }
+
   
   selectChangeHandler (event: any) {
     this.selectedDay = event.target.value;
@@ -592,7 +588,7 @@ ifIPpatternNotmatches(){
           
 }
 deleteRemoveObjectFromCart(e){
-  alert("hii")
+  // alert("hii")
 console.log(e.target);
 
 console.log(this.selectedValue)

@@ -537,12 +537,6 @@ input:focus {
   cursor: pointer;
   text-decoration: none !important;
   text-transform: uppercase;
-<<<<<<< Updated upstream
-  height: 40px;
-  }
-  /* margin added */
-  .tryItFreeBtn {
-=======
   height: 50px;
 }
 .tryItFreeBtn1,
@@ -561,7 +555,6 @@ input:focus {
 }
 /* margin added */
 .tryItFreeBtn {
->>>>>>> Stashed changes
   background: #ffffff;
   border: 1px solid #004a7f;
   color: #004a7f !important;

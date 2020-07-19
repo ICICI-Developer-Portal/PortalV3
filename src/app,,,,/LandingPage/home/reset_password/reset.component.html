@@ -1,0 +1,45 @@
+<toaster-container></toaster-container>
+<ng4-loading-spinner> </ng4-loading-spinner>  
+<div class="tab-content">
+    <div class="text-center mb50 col-md-4 marginAutoHr">
+        <div class="row mb10">
+             <div class="col-md-12">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left"> Reset your password</h3>
+                </div>
+               
+            </div>
+        </div>
+        <form [formGroup]="ChangepasswForm" novalidate>
+            <div class="row mb10">
+                <div class="col-md-12">
+                   <div class="ml"><label for="password" type="password">New Password</label></div>
+                   <input name="password" type="password" class="input-login" formControlName="password" >
+                   <div class="ml">
+                      <div *ngIf="password.invalid && (password.dirty)" class="text-danger form-error">
+                       New Password is required.
+                       </div>
+                   </div>
+                   
+                </div>
+             </div>
+             <div class="row mb10">
+               <div class="col-md-12">
+                   <div class="ml"><label for="password" type="password">Re-Type your password</label></div>
+                   <input formControlName="confirmPassword" name="password" type="password" class="input-login">
+                   <div class="ml">
+                      <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty)" class="text-danger form-error">
+                        Password doesn't match.
+                      </div>
+                   </div>
+                </div>
+               </div>
+               <div class="row mb10">
+                   <div class="col-md-12">
+                       <button type="submit" class="signInBtn w100p"  (click)="save()">Reset password</button>
+                   </div>
+               </div>
+        </form>
+    
+    </div>
+</div>

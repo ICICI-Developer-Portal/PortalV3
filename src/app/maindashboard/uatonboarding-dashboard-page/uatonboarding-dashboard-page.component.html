@@ -212,16 +212,16 @@
                       </form>
                     </div> -->
                     <!--karthik-Auto complete End-->
-                    <div class="sideMenu col-md-11">
+                    <div class=" col-md-11 padding-left-0">
 
                       <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
                       <form id="filter">
                         <label>Filter API by name:</label>
-                        <input   class="form-control col-md-11 inline_block" type="text" name="responseData" [(ngModel)]="term" />
-                        <pre>{{term}} </pre>
+                        <input   class="form-control  inline_block mb-3" type="text" name="responseData" [(ngModel)]="term" />
+                        <!-- <pre>{{term}} </pre> -->
                     </form>
                     
-                      <ul class="requestedData-list" *ngFor="let i of responseData | filter:term" class="first-level">
+                      <ul class="requestedData-list sideMenu" *ngFor="let i of responseData | filter:term" class="first-level">
                         <!-- <li *ngIf="(responseData | filterBy: term).length === 0">No matches found</li>   -->
 
                         <li>
@@ -340,14 +340,14 @@
                         <h5 class="card-title" >Selected API</h5>
           
                         <div class="list-group cartApiContainer"  #cartApiContainer style="color: #ae282e;font-weight: bold;">
-                          <label *ngFor="let i of selectedValue"  style="border: 1px solid gainsboro;padding: 5px;">
+                          <label *ngFor="let i of selectedValue"  style="border: 1px solid gainsboro;padding: 5px;margin-bottom: 0px;">
                             <!-- {{i.greatGreatGrandParentName}} {{i.greatGrandParentName}}{{i.grandParentName}}{{i.parentName}}{{i.childName}} -->
                             <span  *ngIf="i.greatGreatGrandParentName"> {{i.greatGreatGrandParentName}}>>>></span>
                             <span  *ngIf="i.greatGrandParentName"> {{i.greatGrandParentName}}>>></span>
                             <span *ngIf="i.grandParentName">{{i.grandParentName}}>></span>
                             <span *ngIf="i.parentName">{{i.parentName}}></span>
                             <span *ngIf="i.childName"> {{i.childName}}</span>
-                            <span _ngcontent-c1="" class="pull-right" class="{{i.childName}}" id="{{i.id}}" (click)="deleteRemoveObjectFromCart($event)" style="cursor: pointer;" >✖</span>
+                            <span _ngcontent-c1="" class="pull-right" class="{{i.childName}}" id="{{i.id}}" (click)="deleteRemoveObjectFromCart($event)" style="cursor: pointer;float:right;" >✖</span>
                            
                        </label>
                               <!-- {{selectedValue | json}} -->
