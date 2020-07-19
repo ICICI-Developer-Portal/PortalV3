@@ -5,7 +5,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {FormControl, FormArray, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
+
 import { Router } from "@angular/router";
+import { ThrowStmt } from '@angular/compiler';
 declare var $:any;
 
 @Component({
@@ -16,7 +19,14 @@ declare var $:any;
 
 
 export class ApiDetailsComponent implements OnInit {
+  reponse;
+  reqParamjson;
+  dataArray=[];
+  selectedType : string;
   ApiDomain: any;
+  frmUATFirst: FormGroup;
+  typeSelected :string;
+  type: "JSON";
   ApiName: any;
   ApiDesc: any;
   reqDetails: any;
@@ -34,6 +44,9 @@ export class ApiDetailsComponent implements OnInit {
   isactive_class1 :boolean = true;
   isactive_class2 :boolean = false;
   isactive_class3 :boolean = false;
+  sandBoxForm;
+  Request :object;
+
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
     ) {
@@ -47,6 +60,8 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class3 = false;
     });
     
+
+   
     this.error_code();
     this.Sample_packet();
     
@@ -71,6 +86,22 @@ export class ApiDetailsComponent implements OnInit {
   }
 
   ngOnInit() { 
+    console.log()
+    this.dataArray.push(
+      {
+        key :"",
+        value:""
+      }
+    )
+    this.sandBoxForm = {
+     
+      type: 'JSON',
+      Request :this.reqParam
+    };
+console.log(this.sandBoxForm ,)
+
+
+
      $('ul.toggleTabs li').removeClass('active');
     $('ul.toggleTabs li a').removeClass('active');
     $('ul.toggleTabs li a').removeClass('show');
@@ -80,9 +111,22 @@ export class ApiDetailsComponent implements OnInit {
 
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane').removeClass('show');
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane:first').addClass('show');
-
     
  }
+ addheader() {
+  if(this.dataArray.length<=4){ 
+  this.dataArray.push(
+    {
+      id:this.dataArray.length+1,
+      key :"",
+      value:""
+    }
+  )
+  console.log(this.dataArray.length)
+}}
+removeheader(i: number) {
+  this.dataArray.splice(i, 1);
+}
   error_code(){
     var json ={
       "username":localStorage.getItem('username')
@@ -117,6 +161,7 @@ export class ApiDetailsComponent implements OnInit {
         this.reqDetails =obj.ReqParam;
         this.resDetails =obj.ResParam;
         this.spinnerService.hide();
+       
 
       },
       err => {
@@ -265,8 +310,112 @@ Sample_packet(){
     //PART 3: return formatted string (source)
     return  xmlArr.join('\n');  //rejoin the array to a string and return it
   }
-  
-  
+  // 
 
+  contentType= "JSON";
+    
+  
+  
+  reqParam= {
+    "folderName": "9898989",
+    "fileDetails": [
+      {
+        "file": "U3VjY2VzcyBjYXNlIDo6D.....ZSBleGNlZWRzIDMEtCLiINCn0=",
+        "docName": "test.pdf",
+        "docDataClass": {
+          "className": "APSOD_CAM",
+          "indexName": "ApplictaionFormNo",
+          "indexId": "405",
+          "indexValue": "KYC_doc"
+        },
+        "folderDataClass": {
+          "className": "Case_Folder",
+          "indexName": "ApplicationFormNo",
+          "indexId": "118",
+          "indexValue": "KYC_doc"
+        }
+      },
+      {
+        "file": "U3VjY2VzcyBjYXNlIDo6D.....ZSBleGNlZWRzIDMEtCLiINCn0=",
+        "docName": "test_1.jpg",
+        "docDataClass": {
+          "className": "APSOD_Photograph",
+          "indexName": "ApplictaionFormNo",
+          "indexId": "408",
+          "indexValue": "aadhar_front"
+        },
+        "folderDataClass": {
+          "className": "Case_Folder",
+          "indexName": "ScannedImage",
+          "indexId": "2019",
+          "indexValue": "aadhar_front"
+        }
+      }
+    ]
+  }
+  
+get reqParamValue() {
+  return JSON.stringify(this.reqParam, null, 2);
+}
+
+set reqParamValue(v) {
+  try {
+    this.reqParam = JSON.parse(v);
+  } catch (e) {
+    console.log("error occored while you were typing the JSON");
+  }
+}
+   testApiCall(){
+    //let url= "https://developerapi.icicibank.com:8443/api/v0/OtpCreation";
+    let url= "https://developerapi.icicibank.com:8443/api/v1/docUpload";
+  
+    // this.reqParam = {
+    //   "MobileNumber": "9999988888",
+    //   "TransactionIdentifier": "122132435345"
+    // };
+
+    console.log(this.reqParam);
+    this.adm.test_api(this.reqParam,url)
+    
+    .subscribe(
+      (data:any) => {
+          console.log(JSON.parse(JSON.stringify(data)));
+this.reponse=JSON.parse(JSON.stringify(data))
+console.log(this.reponse)
+          this.spinnerService.hide();
+  
+        },
+        err => {
+          console.log('err', err);
+          this.reponse= err;
+          this.router.navigate(['error']);
+        },
+    );
+  
+   }
+
+
+
+  // getVal() {
+  //   console.log(this.type); // returns selected object
+  //  }
+  // selectTypeHandler(e:any){
+  //   console.log(e);
+  //   this.selectedType = e;  
+  // }
+  // get typeSelectedMethod() {
+  //   return this.typeSelected;
+  // }
+
+  onSubmit(form:NgForm){
+    // this.getVal() ;
+    console.log(form.value)
+  }
+  
+  onSubmitBody(form:NgForm){
+    this.testApiCall()
+    console.log(form.value)
+  }
+  
 
 }

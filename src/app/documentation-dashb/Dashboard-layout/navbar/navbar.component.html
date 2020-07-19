@@ -111,15 +111,15 @@
           >
           <a
             style="line-height: 21px;cursor: pointer;"
-            routerLink="../download"
+            routerLink="/download"
             class="nav-link dropdown-item"
             >Download </a
           >
           <a
             style="line-height: 21px;cursor: pointer;"
-            routerLink="../mis"
+            routerLink="/mis"
             class="nav-link dropdown-item"
-            >MIS Download </a
+            >MIS  </a
           >
         </div>
       </li>
@@ -148,7 +148,7 @@
             >Profile</a
           >
           <a
-            (click)="scroll_view('#UAT_onboard')"
+          [routerLink]="['/uatonboarding-dashboard']"
             class="nav-link dropdown-item cursor lh16"
             >UAT Onboarding</a
           >

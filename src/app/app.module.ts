@@ -38,7 +38,7 @@ import {
 } from "@angular/material";
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { MisComponent } from './mis/mis.component';
+//import { MisComponent } from './maindashboard/mis/mis.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 @NgModule({
   declarations: [
@@ -49,8 +49,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AdvertisementComponent,
     AppathonSignupComponent,
     JwtAuthComponent,
-    ErrorPageComponent,
-    MisComponent
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

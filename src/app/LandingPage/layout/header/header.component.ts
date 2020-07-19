@@ -15,6 +15,7 @@ import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
+import { CustomValidators } from "./custom-validators";
 
 @Component({
   selector: "app-header",
@@ -117,6 +118,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
@@ -197,17 +199,39 @@ export class HeaderComponent implements OnInit {
 
     this.signupForm3 = this.formbuilder.group(
       {
-        username: ["", [Validators.required]],
+        uname :["",[Validators.required]],
         //uname: ["", [Validators.required]],
-        password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+        //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+
+        password: ["", [Validators.required,
+          // check whether the entered password has a number
+          CustomValidators.patternValidator(/\d/, {
+            hasNumber: true
+          }),
+          // check whether the entered password has upper case letter
+          CustomValidators.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true
+          }),
+          // check whether the entered password has a lower case letter
+          CustomValidators.patternValidator(/[a-z]/, {
+            hasSmallCase: true
+          }),
+          // check whether the entered password has a special character
+          CustomValidators.patternValidator(
+            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            {
+              hasSpecialCharacters: true
+            }
+          ),
+          Validators.minLength(8)
+        ]],
         confirmPassword: ["", [Validators.required]],
         term: ["", [Validators.required]]
       },
       {
-        validator: PasswordValidation.MatchPassword // your validation method
+        validator: CustomValidators.passwordMatchValidator // your validation method
       }
     );
-
     this.signupForm4 = this.formbuilder.group({
       termsandcondition: ["", [Validators.required]]
     });
@@ -338,6 +362,14 @@ export class HeaderComponent implements OnInit {
       this.modalRef.hide();
     } catch (e) {}
   }
+  //
+  keyDownFunction(event,username: any, password: any, loginsuccess: TemplateRef<any>) {
+    if (event.keyCode === 13) {
+     // alert('you just pressed the enter key');
+      // rest of your code
+      this.Login(username, password,loginsuccess);
+    }
+  }
 
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
@@ -407,6 +439,26 @@ export class HeaderComponent implements OnInit {
             this.router.navigate(["/index"]);
           }
         );
+         /**
+         * Changing the flow as login shd complete even if loginsuccess popup eacaped
+         */
+        this.sessionSet("username", this.loginResponse.data.username);
+    localStorage.setItem("username", this.loginResponse.data.username);
+    localStorage.setItem("password", this.loginResponse.data.password);
+    localStorage.setItem("id", this.loginResponse.data.id);
+    localStorage.setItem("role", this.loginResponse.data.role);
+    localStorage.setItem(
+      "appathonusername",
+      this.loginResponse.data.appathonusername
+    );
+    localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+    localStorage.setItem("email", this.loginResponse.data.email);
+    this.adm.sendUserId(this.loginResponse.data.id);
+    this.router.navigate(["/documentation"]);
+    /**
+     * End here
+     */
+
         this.modalRef4 = this.modalService.show(loginsuccess, {
           backdrop: "static"
         });
@@ -446,7 +498,7 @@ export class HeaderComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     try {
       var json = {
-        username: this.signupForm3.value.username,
+        username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
         firstname: this.signupForm.value.firstname,
@@ -965,7 +1017,7 @@ export class HeaderComponent implements OnInit {
   //login success pop up modal
   clickOk() {
     this.modalRef4.hide();
-    this.sessionSet("username", this.loginResponse.data.username);
+   /* this.sessionSet("username", this.loginResponse.data.username);
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
@@ -978,7 +1030,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
     this.router.navigate(["/documentation"]);
-
+*/
     // if(this.loginResponse.data.role === 'Appathon'){
     //   this.router.navigate(['/appathon-dashboard']);
     // }

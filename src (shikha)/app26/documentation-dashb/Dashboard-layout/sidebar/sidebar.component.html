@@ -1,0 +1,30 @@
+<div class="tab-content" id="pills-tabContent">
+  <ng4-loading-spinner> </ng4-loading-spinner>
+  <div class="tab-content">
+    <div
+      class="tab-pane fade show active"
+      id="pills-profile"
+      role="tabpanel"
+      aria-labelledby="pills-home-tab"
+    >
+      <div class="row m0">
+        <div class="sideMenu">
+          <mat-spinner
+            [diameter]="30"
+            class="m-auto mt20"
+            *ngIf="showMatSpinner"
+          ></mat-spinner>
+          <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+          <ul
+            class="nav flex-column nav-pills"
+            id="v-pills-tab"
+            role="tablist"
+            aria-orientation="vertical"
+            [innerHTML]="treeElements"
+          ></ul>
+          <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -86,9 +86,9 @@
             <ul class="pagination" >  
                   <pagination-controls (pageChange)="p = $event"></pagination-controls>  
               </ul>
-            <div class="signInBtn addApplicationBtn" (click)="openModal(addAnApplication)" >
-               <i class="material-icons fs30"> add</i>
-            </div>
+              <a href="#"  data-toggle="tooltip"
+              title="Add an Application" style="margin-left:2%;cursor: pointer;"><div class="signInBtn addApplicationBtn" (click)="openModal(addAnApplication)" ><i class="material-icons fs30"> add</i> </div>
+            </a>
          </div>
       </div>
 

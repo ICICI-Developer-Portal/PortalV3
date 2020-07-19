@@ -62,6 +62,8 @@ export class LoginComponent implements OnInit {
     window.sessionStorage.setItem(key, JSON.stringify(newValue));
   }
 
+  
+
   // Login function
   adminLogin(username: any, password: any) {
     localStorage.setItem('username', username);

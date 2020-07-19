@@ -10,6 +10,25 @@ input[type="textbox"]{
 	display: inline-block !important;
 
 }
+::-webkit-input-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
+:-moz-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
+::-moz-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
+:-ms-input-placeholder {
+    font-family: Poppins-Regular;
+    font-size: 9.5px;
+}
+.margin-leftminus15{
+	margin-left: -15px;
+}
 .mainField.ng-invalid.ng-touched{
 border-left: 5px solid #ae282e;
 border-right: 1px solid #ae282e;
@@ -17,12 +36,21 @@ border-top: 1px solid #ae282e;
 border-bottom: 1px solid #ae282e;
 }
 .mainField.ng-valid{
-	border-left: 5px solid green;
-	border-right: 1px solid green;
-	border-top: 1px solid green;
-	border-bottom: 1px solid green;     
+	border-left: 5px solid #f1730d;
+	border-right: 1px solid #f1730d;
+	border-top: 1px solid #f1730d;
+	border-bottom: 1px solid #f1730d;     
 
 }
+.example-form {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+  }
+  
+  .example-full-width {
+	width: 100%;
+  }
 .sideMenu{
 	position: inherit !important;
 	width:auto !important;
@@ -42,6 +70,7 @@ border-bottom: 1px solid #ae282e;
     width: 100%;
     z-index: .0005;
 }
+
 .margin_3px{
 	margin-top: 3px;
 	font-size: 25px;
@@ -50,6 +79,12 @@ border-bottom: 1px solid #ae282e;
 	color: #ae282e;
 	border: 1px solid #ae282e;
 
+}
+#dynamic-list-check{
+	display: none;
+}
+.error-text{
+	color: #ae282e;
 }
 .anchor_color{
     color: #37465a !important;
@@ -126,9 +161,13 @@ select.input-lg {
     text-decoration: none;
    }
  
+ 
    .first-level {
 	border-top: 1px solid #ececec;
    }
+   .display-none{
+	display: none;
+}
    .display-block{
 	   display: block;
    }
@@ -155,6 +194,10 @@ select.input-lg {
    }
    .inline_block{
 	display: inline-block;
+   }
+   .additionalIPStyle{
+	border: 1px dotted #cec4c4;
+    padding-top: 10px;
    }
    .dropdownIcon{
 	margin-top: 15px;
@@ -202,6 +245,8 @@ ul{
 	padding-left: 1.8rem;
 	cursor: pointer;
 	margin-bottom: .5rem;
+}.blockElements{
+	background: rgba(0, 0, 0, 0.05);
 }
 .nested-list-label{
 	margin: 0px;
@@ -437,3 +482,21 @@ ul{
 .b-contain  span{
     font-size: 14px;
 }
+.example-form {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+  }
+  
+  .example-full-width {
+	width: 100%;
+  }
+  .cartApiContainer{
+	color: #ae282e;font-weight: bold;    
+	/* padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+	padding-right: 10px;border: 1px solid gainsboro; */
+	font-size: 12px;
+
+  }
