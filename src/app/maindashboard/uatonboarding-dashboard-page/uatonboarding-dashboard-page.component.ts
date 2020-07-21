@@ -175,6 +175,42 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       $(this).children(".display-none").toggle();
       e.stopPropagation();
     });
+    $("#searchFilter").keyup(function () {
+      var text = $("#searchFilter").val().toLowerCase();
+      var items = $(".customcsscontainer label");
+    
+      if ($.trim($("#searchFilter").val()) == '') {
+         console.log(items.length)
+        $("").css("display","");
+         // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
+          $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
+          $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
+          $(".second-level,third-level,.fourth-level,.fifth-level").hide();
+
+      } else {
+        items.each(function() {
+          var block;
+          block = $(this);
+          // console.log( $(this).attr('greatgreatgrandparentname'))
+          // console.log( $(this).attr('greatgrandparentname'))
+          // console.log( $(this).attr('grandparentname'))
+          // console.log( $(this).attr('parentname'))
+          if (block.text().toLowerCase().indexOf(text) != 0) {
+              block.hide();              
+          } else {
+              block.show();
+              console.log(block)
+             $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
+             
+             $(".first-level p").hide();
+              
+
+          }
+      });
+         
+      }
+$(".first-level").show();
+  })
   }
 
   
@@ -543,29 +579,25 @@ ifIPpatternNotmatches(){
    
     //alert(e.checked)
     
-  if ($(".customcsscontainer input:checkbox:checked").length) {
-    $('.ContinueBtn').prop('disabled', false);
-    //alert(($(".customcsscontainer input:checkbox:checked").length))
-    //  $("#thrdSectionChld").removeClass("overlay_parent")
-    $("#dynamic-list-check").css("display", "block");
-    $("#scndSectionWhitelistIp").addClass("ng-valid");
-    $("#scndSectionWhitelistIp").removeClass("ng-invalid");
+  // if ($(".customcsscontainer input:checkbox:checked").length) {
+  
    
-  }
-  else {
-    $('.ContinueBtn').prop('disabled', true);
-    $("#thrdSectionChld").addClass("overlay_parent");
-    $("#dynamic-list-check").css("display", "none");
-    $("#scndSectionWhitelistIp").addClass("ng-invalid");
-    $("#scndSectionWhitelistIp").removeClass("ng-valid");   
-    $("#submitButton,#file1").addClass("blockElements")
+  // }
+  // else {
+ 
     
-
-        }
+     
+  //       }
 
    
 
         if(isChecked) {
+          $('.ContinueBtn').prop('disabled', false);
+          //alert(($(".customcsscontainer input:checkbox:checked").length))
+          //  $("#thrdSectionChld").removeClass("overlay_parent")
+          $("#dynamic-list-check").css("display", "block");
+          $("#scndSectionWhitelistIp").addClass("ng-valid");
+          $("#scndSectionWhitelistIp").removeClass("ng-invalid");
           this.selectedValue.push({
           "childName": e.target.getAttribute('value'),
           "parentName" :e.target.getAttribute('parentName'),
@@ -582,6 +614,12 @@ ifIPpatternNotmatches(){
           console.log(e.target);
           this.selectedValue.splice(index,1);
           console.log(this.selectedValue,"this.selectedValue");
+          $('.ContinueBtn').prop('disabled', true);
+          $("#thrdSectionChld").addClass("overlay_parent");
+          $("#dynamic-list-check").css("display", "none");
+          $("#scndSectionWhitelistIp").addClass("ng-invalid");
+          $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+          $("#submitButton,#file1").addClass("blockElements")
   
                
         }
@@ -591,14 +629,29 @@ deleteRemoveObjectFromCart(e){
   // alert("hii")
 console.log(e.target);
 
-console.log(this.selectedValue)
+console.log(this.selectedValue.length)
 console.log(e.target.getAttribute("id"));
 $("input[id=" + e.target.getAttribute("id") + "]").prop("checked",false);
+
+
   this.selectedValue = this.selectedValue.filter(function( obj ) {
     console.log( obj.childName , e.target.getAttribute("class"))
+    
     return obj.childName !== e.target.getAttribute("class");
+    
 });
 console.log(this.selectedValue)
+if(this.selectedValue.length>0){
+
+}
+else{
+  $('.ContinueBtn').prop('disabled', true);
+  $("#thrdSectionChld").addClass("overlay_parent");
+  $("#dynamic-list-check").css("display", "none");
+  $("#scndSectionWhitelistIp").addClass("ng-invalid");
+  $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+  $("#submitButton,#file1").addClass("blockElements")
+}
 }
 findIndexToUpdate(type) { 
   return type.maintenancetype === this;

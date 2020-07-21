@@ -217,11 +217,11 @@
                       <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
                       <form id="filter">
                         <label>Filter API by name:</label>
-                        <input   class="form-control  inline_block mb-3" type="text" name="responseData" [(ngModel)]="term" />
+                        <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
                         <!-- <pre>{{term}} </pre> -->
                     </form>
                     
-                      <ul class="requestedData-list sideMenu" *ngFor="let i of responseData | filter:term" class="first-level">
+                      <ul class="requestedData-list sideMenu" *ngFor="let i of responseData " class="first-level">
                         <!-- <li *ngIf="(responseData | filterBy: term).length === 0">No matches found</li>   -->
 
                         <li>

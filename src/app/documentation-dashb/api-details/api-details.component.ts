@@ -154,6 +154,7 @@ removeheader(i: number) {
         var response= data._body;
         var obj=JSON.parse(response);
         this.ApiDomain =obj.ApiData.ApiDomain;
+        
         this.ApiName =obj.ApiData.ApiName;
         this.ApiDesc =obj.ApiData.ApiDesc;
         this.SandboxUrl ="https://sandbox.icicibank.com/documentation/"+obj.ApiData.SandboxUrl;
@@ -161,6 +162,8 @@ removeheader(i: number) {
         this.reqDetails =obj.ReqParam;
         this.resDetails =obj.ResParam;
         this.spinnerService.hide();
+    console.log(data._body)
+
        
 
       },
@@ -181,6 +184,7 @@ Sample_packet(){
     (data:any) => {
       this.sampleobj2  = data._body;
       this.ParseData(this.sampleobj2);
+      console.log(this.ParseData(this.sampleobj2))
       $('ul.toggleTabs li').removeClass('active');
     $('ul.toggleTabs li a').removeClass('active');
     $('ul.toggleTabs li a').removeClass('show');
