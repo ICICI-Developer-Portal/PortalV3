@@ -29,28 +29,14 @@ declare var $: any;
   styleUrls: ['./uatonboarding-dashboard-page.component.css']
 })
 export class UATonboardingDashboardPageComponent implements OnInit {
-  
-  showMe: boolean = false;
   modalRef: BsModalRef;
-  ipInput: string;
-  count: number;
   reactiveForm: FormGroup;
-  submitted = false;
   responseData: [];
   menuArray: any[];
-  showMore = 'show More'
-  hidden: boolean;
-  css: boolean;
-  clicked = 0;
-  objOnB: any;
-  apiArr: any = [];
-  idArr: any = [];
-  selectedCheckboxValue: [];
   arrayObjectOfListIds = [];
   arrayObjectOfValue = [];
   logged_in: Boolean = false;
   additionalParams: any;
-  Ecollection_Show: Boolean = false;
   refJIRAID: boolean = false;
 
   headers: boolean = false;
@@ -80,12 +66,9 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   amount: boolean = false;
   uatTestingID: boolean = false;
   nestedCheckboxesList: boolean = false;
-  confirmMsg: any;
   showTab = 1;
   apiGreenCheck: string = "invalid";
   confirmMsgProd: any;
-  showError: string = "hidden";
-  addFalse:boolean=true;
   selectedDay: string = '';
   paymentMode:any[] = [ "Cash","ICICI Cheque" ,"ICICI DD","Non-ICICI Cheque","Non-ICICI DD","Debit Authorization","Other"];
   yesNo:any[] = [ "Yes","No"];
@@ -106,17 +89,6 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   searchedItem:any;
   searchedFieldValue:any;
 
-  /** Add var for cart Item */
-  cartArray:any[]=[{
-    apiId:"1",
-    apiName:"test api one",
-    parentName:"Domain name>>Sub-domen name"
-  },
-  {
-    apiId:"2",
-    apiName:"test api two",
-    parentName:"Domain name>>Sub-domen name"
-  }];
   /** end here */
   constructor(private HttpClient: HttpClient,
     private formbuilder: FormBuilder,
@@ -145,7 +117,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
       console.log(this.responseData)
       this.menuArray = this.getMenuData(this.responseData);
       console.log(this.menuArray, "hhhhhhhhh  ")
-      this.get_domain_and_apis();
+     
     }
     );
 
@@ -186,6 +158,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
           $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
           $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
           $(".second-level,third-level,.fourth-level,.fifth-level").hide();
+         
 
       } else {
         items.each(function() {
@@ -283,15 +256,8 @@ ifIPpatternNotmatches(){
   // ====================================
 
 
-  select(i) {
-    this.clicked = i;
-    alert(i)
-  }
+ 
   isChecked: any;
-  toggle() {
-    this.hidden = !this.hidden;
-    this.css = !this.css;
-  }
   parentDataDomainName: string;
   childData: string;
   // ----------------------------------------------------------------
@@ -310,7 +276,100 @@ ifIPpatternNotmatches(){
     this.showTab = id;
     //this.active ='#F06321';
   }
+  additionalFieldComingFromServer(addtionalParams){
+
+    for (var i = 0; i < addtionalParams.length; i++) {
+      console.log(addtionalParams[i]);
+
+      if (addtionalParams[i].match("Account Number")) {
+        this.accNo = true;
+      }
+      if (addtionalParams[i].match("Client Code")) {
+        this.clientCode = true;
+      }
+      if (addtionalParams[i].match("URL")) {
+        this.ifFieldisVisible(addtionalParams[i]);
+        this.url = true;
+      }
+      if (addtionalParams[i].match("IP")) {
+        this.ifFieldisVisible(addtionalParams[i]);
+        this.ip = true;
+      }
+      if (addtionalParams[i].match("Port")) {
+        this.port = true;
+      }
+      if (addtionalParams[i].match("Checksum")) {
+        this.checksum = true;
+      }
+      if (addtionalParams[i].match("Encryption")) {
+        this.encryption = true;
+      }
+      if (addtionalParams[i].match("Certificate")) {
+        this.certificate = true;
+      }
+      if (addtionalParams[i].match("Service Type")) {
+        this.service = true;
+      }
+      if (addtionalParams[i].match("Communication Method")) {
+        this.message = true;
+      }
+      if (addtionalParams[i].match("IFSC Code")) {
+        this.ifsc = true;
+      }
+      if (addtionalParams[i].match("Virtual Code")) {
+        this.virtualCode = true;
+      }
+      if (addtionalParams[i].match("IPS Refund Code")) {
+        this.ips = true;
+      }
+      if (addtionalParams[i].match("Intermediate Account Number")) {
+        this.interAccNo = true;
+      }
+      if (addtionalParams[i].match("Account Name")) {
+        this.accName = true;
+      }
+      if (addtionalParams[i].match("Authorization Level")) {
+        this.authLevel = true;
+      }
+      if (addtionalParams[i].match("URN")) {
+        this.urn = true;
+      }
+      if (addtionalParams[i].match("Environment")) {
+        this.env = true;
+      }
+      if (addtionalParams[i].match("Validation Mode")) {
+        this.valid = true;
+      }
+      if (addtionalParams[i].match("Acceptance Mode")) {
+        this.accept = true;
+      }
+      if (addtionalParams[i].match("Recipient Mail ID")) {
+        this.recipient = true;
+      }
+      if (addtionalParams[i].match("Mode Offered")) {
+        this.mode = true;
+      }
+      if (addtionalParams[i].match("Transaction Limit")) {
+        this.trans = true;
+      }
+      if (addtionalParams[i].match("Amount")) {
+        this.amount = true;
+      }
+      if (addtionalParams[i].match("Headers")) {
+        console.log(addtionalParams[i], "hiii")
+        this.headers = true;
+      }
+      if (addtionalParams[i].match("TestingID")) {
+        this.uatTestingID = true;
+      }
+    }
+
+
+
+  }
   onClickContinueBtn() {
+    console.log("rchd inside cninue btn")
+
     if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements"); }
     else { $("#thrdSectionChld").addClass("overlay_parent");    }
     //this.modalRef.hide();
@@ -322,7 +381,9 @@ ifIPpatternNotmatches(){
     var json = {
       ID: this.arrayObjectOfListIds.join(),
     };
-    console.log("json", json.ID);
+    this.additionalFieldComingFromServer(json);
+    console.log("json", json);
+    
     this.adm.getUATFromData(json).subscribe((data: any) => {
       console.log(data);
       var response = data._body;
@@ -332,123 +393,15 @@ ifIPpatternNotmatches(){
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
       localStorage.setItem('additonalFields', this.additionalParams)
 
-      for (var i = 0; i < this.additionalParams.length; i++) {
-        console.log(this.additionalParams[i]);
-
-        if (this.additionalParams[i].match("Account Number")) {
-          this.accNo = true;
-        }
-        if (this.additionalParams[i].match("Client Code")) {
-          this.clientCode = true;
-        }
-        if (this.additionalParams[i].match("URL")) {
-          this.ifFieldisVisible(this.additionalParams[i]);
-          this.url = true;
-        }
-        if (this.additionalParams[i].match("IP")) {
-          this.ifFieldisVisible(this.additionalParams[i]);
-          this.ip = true;
-        }
-        if (this.additionalParams[i].match("Port")) {
-          this.port = true;
-        }
-        if (this.additionalParams[i].match("Checksum")) {
-          this.checksum = true;
-        }
-        if (this.additionalParams[i].match("Encryption")) {
-          this.encryption = true;
-        }
-        if (this.additionalParams[i].match("Certificate")) {
-          this.certificate = true;
-        }
-        if (this.additionalParams[i].match("Service Type")) {
-          this.service = true;
-        }
-        if (this.additionalParams[i].match("Communication Method")) {
-          this.message = true;
-        }
-        if (this.additionalParams[i].match("IFSC Code")) {
-          this.ifsc = true;
-        }
-        if (this.additionalParams[i].match("Virtual Code")) {
-          this.virtualCode = true;
-        }
-        if (this.additionalParams[i].match("IPS Refund Code")) {
-          this.ips = true;
-        }
-        if (this.additionalParams[i].match("Intermediate Account Number")) {
-          this.interAccNo = true;
-        }
-        if (this.additionalParams[i].match("Account Name")) {
-          this.accName = true;
-        }
-        if (this.additionalParams[i].match("Authorization Level")) {
-          this.authLevel = true;
-        }
-        if (this.additionalParams[i].match("URN")) {
-          this.urn = true;
-        }
-        if (this.additionalParams[i].match("Environment")) {
-          this.env = true;
-        }
-        if (this.additionalParams[i].match("Validation Mode")) {
-          this.valid = true;
-        }
-        if (this.additionalParams[i].match("Acceptance Mode")) {
-          this.accept = true;
-        }
-        if (this.additionalParams[i].match("Recipient Mail ID")) {
-          this.recipient = true;
-        }
-        if (this.additionalParams[i].match("Mode Offered")) {
-          this.mode = true;
-        }
-        if (this.additionalParams[i].match("Transaction Limit")) {
-          this.trans = true;
-        }
-        if (this.additionalParams[i].match("Amount")) {
-          this.amount = true;
-        }
-        if (this.additionalParams[i].match("Headers")) {
-          console.log(this.additionalParams[i], "hiii")
-          this.headers = true;
-        }
-        if (this.additionalParams[i].match("TestingID")) {
-          this.uatTestingID = true;
-        }
-      }
+     this.additionalFieldComingFromServer( this.additionalParams)
       console.log("final", this.additionalParams);
     },
       err => {
         console.log('err', err);
         this.router.navigate(['error']);
       });
-
+  
   }
-
-  // addIPs() {
-
-  //   var count = $('.countIp').length;
-  //   console.log(this.count)
-  //   if (count <= 9) {
-  //     console.log(count, "$$$$$$$$$$$$$")
-  //     var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2" + count + "' (click)='removeInputField()'>-</span></div></div></div></div></div>");
-  //     addinput.insertAfter("#addIPUnique");
-  //     $("#countexceeder").remove();
-  //     count++;
-
-  //   }
-  //   else {
-  //     if ($("#countexceeder").length < 1) {
-  //       $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
-
-  //     }
-  //   }
-
-  //   //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
-  // }
-
-  // adding ip Field.......via $$$
 
 
   // ================================================================
@@ -456,11 +409,7 @@ ifIPpatternNotmatches(){
   @ViewChild('RequestedApiList') RequestedApiList: ElementRef;
   @ViewChild('businessBankingList') businessBankingList: ElementRef;
   @ViewChild('whitelistIpList') whitelistIpList: ElementRef;
-  //@ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   @ViewChild('checkboxes') checkboxes: ElementRef;
-  //@ViewChild('cartApiContainer') cartApiContainer: ElementRef;
- // @ViewChild('cartApiContainer') cartApiContainer: ElementRef;
-  //@ViewChild('cartApiContainer') public cartApiContainer: ElementRef;
   @ViewChild('cartApiContainer', {read: ElementRef}) private cartApiContainer: ElementRef;
   @ViewChild('matInput', {read: ElementRef}) private matInput: ElementRef;
 
@@ -487,25 +436,17 @@ ifIPpatternNotmatches(){
     console.log("document.querySelector", document.querySelector);
     if (data == "BasicDetailsList") {
       console.log(this);
-      //  document.querySelector( data).scrollIntoView({behavior:"smooth"});
-      //this.scrollIntoView({behavior:"smooth"});
-      // this.scrollToTop(this.BasicDetailsList)
       this.BasicDetailsList.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-      // this.BasicDetailsList.nativeElement.scrollTo(0);
     }
     else if (data == "RequestedApiList") {
-      //   data.scrollIntoView({behavior:"smooth"});
       this.RequestedApiList.nativeElement.scrollIntoView({ behavior: "smooth" });
     }
     else if (data == "businessBankingList") {
-      // data.scrollIntoView({behavior:"smooth"});
       this.businessBankingList.nativeElement.scrollIntoView({ behavior: "smooth" });
     }
     else if (data == "whitelistIpList") {
       this.whitelistIpList.nativeElement.scrollIntoView({ behavior: "smooth" });
-    }
-
-    ;
+    };
   }
   scrollToTop(el) {
     const duration = 600;
@@ -516,10 +457,7 @@ ifIPpatternNotmatches(){
       tap(position => el.scrollTop = position),
       takeWhile(val => val > 0)).subscribe();
   }
-  //merchantName = new FormControl('');
 
- 
-  // requested api dropdown
   getMenuData(data): Array<object> {
     let tempArray = [];
     Object.keys(data).forEach(async (eachKey, index) => {
@@ -539,65 +477,34 @@ ifIPpatternNotmatches(){
     );
     return tempArray;
   }
-  // selectedDomainName: string = '';
-
-  // //event handler for the select element's change event
-  // selectChangeHandler(event: any) {
-  //   //update the ui
-  //   this.parentDataDomainName = event.target.value;
-  //   console.log(this.parentDataDomainName)
-
-  // }
-  multipleSelectAPI(e, isChecked: boolean){
-    this.accNo = false;
-    this.clientCode = false;
-    this.url = false;
-    this.ip = false;
-    this.port = false;
-    this.checksum = false;
-    this.encryption = false;
-    this.certificate = false;
-    this.service = false;
-    this.message = false;
-    this.ifsc = false;
-    this.virtualCode = false;
-    this.ips = false;
-    this.interAccNo = false;
-    this.accName = false;
-    this.authLevel = false;
-    this.urn = false;
-    this.env = false;
-    this.valid = false;
-    this.accept = false;
-    this.recipient = false;
-    this.mode = false;
-    this.trans = false;
-    this.amount = false;
-    this.headers = false;
-    this.uatTestingID = false;
+  // "IP", "Port", "Account Number", "Client Code", "URL", "Checksum", "Encryption", "Certificate", "Service Type", "Communication Method", "IFSC Code", "Virtual Code", "IPS Refund Code", "Intermediate Account Number", "Account Name", "Authorization Level", "URN", "Environment", "Validation Mode", "Acceptance Mode", "Recipient Mail ID", "Mode Offered", "Transaction Limit", "API Name", "Headers", "TestingID"
+  forResetiingAdditionalFields(){
+    this.accNo    = false; this.clientCode = false; this.url         = false; this.ip         = false; this.port     = false;
+    this.checksum = false; this.encryption = false; this.certificate = false; this.service    = false; this.message  = false;
+    this.ifsc     = false; this.virtualCode= false; this.ips         = false; this.interAccNo = false; this.accName  = false; 
+    this.authLevel= false; this.urn        = false; this.env         = false; this.valid      = false; this.accept   = false; 
+    this.recipient = false;this.mode       = false; this.trans       = false; this.amount     = false; this.headers   = false; 
+    this.uatTestingID= false;
     this.resetField();
-   
-    //alert(e.checked)
-    
-  // if ($(".customcsscontainer input:checkbox:checked").length) {
-  
-   
-  // }
-  // else {
- 
-    
+  }
+  multipleSelectAPI(e, isChecked: boolean){
+   this.forResetiingAdditionalFields();
+    if ($(".customcsscontainer input:checkbox:checked").length) {
+      $('.ContinueBtn').prop('disabled', false);
+      $("#dynamic-list-check").css("display", "block");
+      $("#scndSectionWhitelistIp").addClass("ng-valid");
+      $("#scndSectionWhitelistIp").removeClass("ng-invalid");
      
-  //       }
-
-   
-
+    }
+    else {
+      $('.ContinueBtn').prop('disabled', true);
+      $("#thrdSectionChld").addClass("overlay_parent");
+      $("#dynamic-list-check").css("display", "none");
+      $("#scndSectionWhitelistIp").addClass("ng-invalid");
+      $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+      $("#submitButton,#file1").addClass("blockElements")
+    }
         if(isChecked) {
-          $('.ContinueBtn').prop('disabled', false);
-          //alert(($(".customcsscontainer input:checkbox:checked").length))
-          //  $("#thrdSectionChld").removeClass("overlay_parent")
-          $("#dynamic-list-check").css("display", "block");
-          $("#scndSectionWhitelistIp").addClass("ng-valid");
-          $("#scndSectionWhitelistIp").removeClass("ng-invalid");
           this.selectedValue.push({
           "childName": e.target.getAttribute('value'),
           "parentName" :e.target.getAttribute('parentName'),
@@ -613,36 +520,50 @@ ifIPpatternNotmatches(){
           let index = this.selectedValue.indexOf(e);
           console.log(e.target);
           this.selectedValue.splice(index,1);
-          console.log(this.selectedValue,"this.selectedValue");
-          $('.ContinueBtn').prop('disabled', true);
-          $("#thrdSectionChld").addClass("overlay_parent");
-          $("#dynamic-list-check").css("display", "none");
-          $("#scndSectionWhitelistIp").addClass("ng-invalid");
-          $("#scndSectionWhitelistIp").removeClass("ng-valid");   
-          $("#submitButton,#file1").addClass("blockElements")
-  
-               
+          console.log(this.selectedValue,"this.selectedValue");               
         }
           
 }
 deleteRemoveObjectFromCart(e){
-  // alert("hii")
+  this.forResetiingAdditionalFields(); 
 console.log(e.target);
 
 console.log(this.selectedValue.length)
 console.log(e.target.getAttribute("id"));
+let deletedId=e.target.getAttribute("id");
 $("input[id=" + e.target.getAttribute("id") + "]").prop("checked",false);
-
-
   this.selectedValue = this.selectedValue.filter(function( obj ) {
     console.log( obj.childName , e.target.getAttribute("class"))
-    
     return obj.childName !== e.target.getAttribute("class");
     
 });
+
 console.log(this.selectedValue)
 if(this.selectedValue.length>0){
+   this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
+    return this.id
+  }).get()
+  console.log(this.arrayObjectOfListIds)
+  const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
+  var json = {
+    ID: this.arrayObjectOfListIds.join(),
+  };
+  this.adm.getUATFromData(json).subscribe((data: any) => {
+    console.log(data);
+    var response = data._body;
+    var obj = JSON.parse(response);
+    console.log("obj reached", obj);
+    localStorage.setItem('nodevalue', obj.API_NAME)
+    this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
+    localStorage.setItem('additonalFields', this.additionalParams)
 
+   this.additionalFieldComingFromServer( this.additionalParams)
+    console.log("final", this.additionalParams);
+  },
+    err => {
+      console.log('err', err);
+      this.router.navigate(['error']);
+    });
 }
 else{
   $('.ContinueBtn').prop('disabled', true);
@@ -650,12 +571,11 @@ else{
   $("#dynamic-list-check").css("display", "none");
   $("#scndSectionWhitelistIp").addClass("ng-invalid");
   $("#scndSectionWhitelistIp").removeClass("ng-valid");   
-  $("#submitButton,#file1").addClass("blockElements")
+  $("#submitButton,#file1").addClass("blockElements");
+ 
 }
 }
-findIndexToUpdate(type) { 
-  return type.maintenancetype === this;
-}
+
   onSubmitUATForm(Prodconfirm) {
 
     let ipValues = [];
@@ -754,10 +674,7 @@ findIndexToUpdate(type) {
     formData.append("Acc_amount", inputFields["Acc_amount"]);
     formData.append("Acc_headers", inputFields["Acc_headers"]);
     formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
-
-
     console.log(formData);
-
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
     console.log("a", a);
     for (let k = 0; k < a.length; k++) {
@@ -861,7 +778,6 @@ findIndexToUpdate(type) {
     const regURL = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
     const ipReg = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';  
     this.reactiveForm = new FormGroup({
-
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
@@ -917,7 +833,6 @@ findIndexToUpdate(type) {
 
   }
   
-
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
@@ -927,10 +842,6 @@ findIndexToUpdate(type) {
     this.toasterService.pop(toast);
   }
 
-
-  togglefrstList() {
-    this.showMe = !this.showMe;
-  }
   ngAfterViewInit() {
     console.log(this.BasicDetailsList, "2", this.RequestedApiList, "3", this.businessBankingList, "4", this.whitelistIpList,
       this.checkboxes)
@@ -950,55 +861,7 @@ findIndexToUpdate(type) {
    */
   
    // To get Domain List
-   get_domain_and_apis() {
-    this.adm.domain_and_apis().subscribe((data: any) => {
-      var obj = JSON.parse(data._body);
-      var domain = [];
-      for (let i in obj) { 
-        let sub_domain = obj[i].sub_domain;
-        for (let j in sub_domain){
-          if(sub_domain[j].api && sub_domain[j].api.length>0){
-            domain= domain.concat(sub_domain[j].api);
-          }
-          
-        }
-      }
-      this.APIAutocompletDataSource = domain;
-      this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filter(value))
-        );
-	  console.log("this.APIAutocompletDataSource" + JSON.stringify(this.APIAutocompletDataSource));
-    },
-    err => {
-      console.log('err', err);
-      //this.router.navigate(['error']);
-    },);
-  }
-  private _filter(value: string): any[] {
-    console.log(value);
-    
-  //  console.dir(value);
 
-    // const convrtedstring=value.toString();
-    // console.log(typeof convrtedstring);
-    const filterValue = value.toLowerCase();
-    // const filterValue1 = value.toString();
-    // const filterValue2 = filterValue1.toLowerCase();
-
-    console.dir(filterValue);
-
-    //console.log( this.APIAutocompletDataSource.filter(option => option['name'].toLowerCase().includes(value)));
-    // console.log(JSON.stringify(filterValue1));
-    // console.log(filterValue2);
-    
-
-    // console.log(JSON.stringify(filterValue));
-
-
-    return this.APIAutocompletDataSource.filter(option => option['name'].toLowerCase().includes(filterValue));
-  }
   /*selectAPICheckbox(event:any){
     console.log(event);
   }*/
