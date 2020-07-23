@@ -19,7 +19,7 @@ declare var $:any;
 
 
 export class ApiDetailsComponent implements OnInit {
-  reponse;
+  testApireponse;
   reqParamjson;
   dataArray=[];
   selectedType : string;
@@ -152,24 +152,24 @@ removeheader(i: number) {
   .subscribe(
     (data:any) => {
         var response= data._body;
-        var obj=JSON.parse(response);
-        this.ApiDomain =obj.ApiData.ApiDomain;
+        if(response) {
+          var obj=JSON.parse(response);
+          this.ApiDomain =obj.ApiData.ApiDomain;
+          this.ApiName =obj.ApiData.ApiName;
+          this.ApiDesc =obj.ApiData.ApiDesc;
+          this.SandboxUrl ="https://developerapi.icicibank.com:8443/"+obj.ApiData.SandboxUrl;
+          this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
+          this.reqDetails =obj.ReqParam;
+          this.resDetails =obj.ResParam;
+          this.spinnerService.hide();
+        }
         
-        this.ApiName =obj.ApiData.ApiName;
-        this.ApiDesc =obj.ApiData.ApiDesc;
-        this.SandboxUrl ="https://sandbox.icicibank.com/documentation/"+obj.ApiData.SandboxUrl;
-        this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
-        this.reqDetails =obj.ReqParam;
-        this.resDetails =obj.ResParam;
-        this.spinnerService.hide();
-    console.log(data._body)
-
        
 
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
       },
   );
 }
@@ -184,7 +184,6 @@ Sample_packet(){
     (data:any) => {
       this.sampleobj2  = data._body;
       this.ParseData(this.sampleobj2);
-      console.log(this.ParseData(this.sampleobj2))
       $('ul.toggleTabs li').removeClass('active');
     $('ul.toggleTabs li a').removeClass('active');
     $('ul.toggleTabs li a').removeClass('show');
@@ -197,7 +196,7 @@ Sample_packet(){
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
     },
   );
 }
@@ -359,7 +358,7 @@ Sample_packet(){
   }
   
 get reqParamValue() {
-  return JSON.stringify(this.reqParam, null, 2);
+  return this.prettyPkt;
 }
 
 set reqParamValue(v) {
@@ -370,33 +369,42 @@ set reqParamValue(v) {
   }
 }
    testApiCall(){
-    //let url= "https://developerapi.icicibank.com:8443/api/v0/OtpCreation";
-    let url= "https://developerapi.icicibank.com:8443/api/v1/docUpload";
+   // let url= "https://developerapi.icicibank.com:8443/";
+   // let url= "https://developerapi.icicibank.com:8443/api/v1/docUpload";
   
     // this.reqParam = {
     //   "MobileNumber": "9999988888",
     //   "TransactionIdentifier": "122132435345"
     // };
-
-    console.log(this.reqParam);
-    this.adm.test_api(this.reqParam,url)
+    this.reqParam = JSON.parse(this.prettyPkt);
+    console.log("reqParam=="+this.reqParam);
+    console.log("SandboxUrl=="+this.SandboxUrl);
+    
+    this.adm.test_api(this.reqParam,this.SandboxUrl)
     
     .subscribe(
       (data:any) => {
           console.log(JSON.parse(JSON.stringify(data)));
-this.reponse=JSON.parse(JSON.stringify(data))
-console.log(this.reponse)
-          this.spinnerService.hide();
+          if(data && data._body){
+            this.testApireponse=JSON.parse(data._body);
+            console.log(this.testApireponse)
+          }
+           this.spinnerService.hide();
   
         },
         err => {
           console.log('err', err);
-          this.reponse= err;
-          this.router.navigate(['error']);
+          this.testApireponse= err;
+         // this.router.navigate(['error']);
         },
     );
   
    }
+   closeTestApiPopup(){
+    this.modalRef.hide();
+    this.testApireponse="";
+   }
+   
 
 
 

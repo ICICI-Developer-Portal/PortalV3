@@ -628,8 +628,8 @@ body {
   font-weight: bold;
 }
 .sandBox-navTab .nav-item.show .nav-link, .sandBox-navTab .nav-link.active {
-  color: #495057;
-  background-color: #dfdfdf;
+  color: #fff !important;
+  background-color: #ae282e;
   border-color: #dee2e6 #dee2e6 #fff;
 }
   .sandBox-navTabs .nav-home-tab{background-color:#f7f6f6 !important;}

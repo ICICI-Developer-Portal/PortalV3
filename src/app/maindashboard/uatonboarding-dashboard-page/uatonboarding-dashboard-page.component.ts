@@ -849,22 +849,8 @@ else{
      var d1 = this.cartApiContainer.nativeElement;
      console.log(d1)
     console.log(this.matInput.nativeElement.value);
-
-      
-     
-    // d1.insertAdjacentHTML('beforeend', '<div class="two">two</div>');
-     
-   // this.cartApiContainer.nativeElement.insertAdjacentHTML('beforeend', '<div class="two">two</div>');
   }
-  /**
-   * Start search API 
-   */
-  
-   // To get Domain List
-
-  /*selectAPICheckbox(event:any){
-    console.log(event);
-  }*/
+ 
   createCart(){
     console.log(this.reactiveForm.controls);
 
@@ -876,13 +862,7 @@ else{
     this.cartApiContainer.nativeElement.insertAdjacentHTML('beforeend', '<label _ngcontent-c1="" style="padding-top: 10px; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border: 1px solid gainsboro; margin-bottom: 0px;"><span _ngcontent-c1="">Domain</span><span _ngcontent-c1="">&gt; Sub Domain</span><span _ngcontent-c1=""> &gt;&gt; '+this.matInput.nativeElement.value+'</span><span _ngcontent-c1="" class="pull-right deleteRemoveObject" style="cursor: pointer;" >✖</span></label>');
    
   }
-//   removeObject(i) {
-//   //  let elementList = this.elRef.nativeElement.querySelectorAll('button');
-//     alert(i);
-//     console.log(i.target);
-//     i.target.parentNode.remove();
-   
-// }
+
   displayAPIName(api:any): string {
     if(api && api.ApiId){
         this.searchedItem = api.ApiId;
