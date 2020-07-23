@@ -92,6 +92,7 @@ export class SigninModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.forgetpassForm = this.formbuilder.group({
       username: ["", [Validators.required]]
     });
@@ -468,18 +469,7 @@ export class SigninModalComponent implements OnInit {
       },);
     } catch {}
   }
-  //send OTP button change and seconds
-  name = 'Angular';
-  btnText = 'send OTP ';
-  btnDisabled = false;
-  buttonClick1() {
-  this.btnDisabled = true;
-  this.btnText = 'Please wait';
-  setTimeout(() => {
-   this.btnText = 'Resend OTP';
-   this.btnDisabled = false
-    }, 30000);
-  }
+  
 
   verifyOtp1() {
     try {
@@ -623,6 +613,18 @@ export class SigninModalComponent implements OnInit {
       this.showbtn = true;
       this.showlogoutbtn = false;
     }
+  }
+  //send OTP button change and seconds
+  name = 'Angular';
+  btnText = 'send OTP ';
+  btnDisabled = false;
+  buttonClick1() {
+  this.btnDisabled = true;
+  this.btnText = 'Please wait';
+  setTimeout(() => {
+   this.btnText = 'Resend OTP';
+   this.btnDisabled = false
+    }, 30000);
   }
 
   //  Fuction for Logout

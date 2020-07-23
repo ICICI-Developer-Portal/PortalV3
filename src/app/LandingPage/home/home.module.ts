@@ -18,12 +18,16 @@ import { TermsandconditionComponent } from "./termsandcondition/termsandconditio
 import { NDAComponent } from "./nda/nda.component";
 import { ContractComponent } from "./contract/contract.component";
 
+
 import { ResetComponent } from "./reset_password/reset.component";
 import {
   MatAutocompleteModule,
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
+import { FocusOnShowDirective } from "./common-modal/autofocus.directive";
+import { HeaderComponent } from "src/app/maindashboard/component/header/header.component";
+
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 
@@ -42,7 +46,10 @@ import {
     AngularMultiSelectModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    
+    
+
   ],
 
   declarations: [
@@ -54,8 +61,11 @@ import {
     ResetComponent,
     TermsandconditionComponent,
     NDAComponent,
-    ContractComponent
-  ]
+    ContractComponent,
+    FocusOnShowDirective,
+    
+
+      ]
 
   // import { CommonSigninModalComponent } from './common-signin-modal/common-signin-modal.component';
 })

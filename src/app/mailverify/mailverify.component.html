@@ -2,7 +2,7 @@
   <div id="fixed">
     <!----------------------------------------------------------------TOP Nagvigation-------------------------------------------------------------->
     <div class="menuBar docsMenuBar">
-      <ul class="nav nav-pills" id="pills-tab" role="tablist">
+      <ul class="nav nav-pills align-items-center" id="pills-tab" role="tablist">
         <li class="nav-item">
           <a
             class="nav-link"
@@ -14,7 +14,7 @@
         </li>
         <li class="nav-item">
           <a
-            class="nav-link doc-icici-logo fs13 lh31 mt10"
+            class="nav-link doc-icici-logo fs13"
             data-toggle="tab"
             [routerLink]="['/appathon/landing-page']"
             >Appathon</a
@@ -22,10 +22,10 @@
         </li>
         <li class="nav-item">
           <a
-            class="nav-link fs13 lh31"
+            class="nav-link doc-icici-logo fs13 lh31"
             id="FAQs-tab"
             data-toggle="pill"
-            href="#FAQs"
+            href="javascript:;"
             [routerLink]="['/index']"
             role="tab"
             aria-controls="FAQs"
@@ -38,7 +38,7 @@
             class="nav-link fs13"
             id="FAQs-tab"
             data-toggle="pill"
-            href="#FAQs"
+            href="javascript:;"
             [routerLink]="['/faq']"
             role="tab"
             aria-controls="FAQs"
@@ -52,17 +52,17 @@
             id="pills-profile-tab"
             data-toggle="pill"
             [routerLink]="['/documentation']"
-            href="#pills-profile"
+            href="javascript:;"
             role="tab"
             aria-controls="pills-profile"
             aria-selected="false"
-            >Documentation</a
+            >Documentation 5</a
           >
         </li>
         <!-- <li class="nav-item">
-                          <a class="nav-link active" (click)="logout()" id="pills-profile-tab" data-toggle="pill"  href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Logout</a>
+                          <a class="nav-link active" (click)="logout()" id="pills-profile-tab" data-toggle="pill"  [routerLink]="['/documentation']" href="javascript:;" role="tab" aria-controls="pills-profile" aria-selected="false">Logout</a>
                        </li> -->
-        <li class="nav-item dropdown position_relative">
+        <li class="nav-item dropdown position_relative" *ngIf="showOptn">
           <a
             class="nav-link dropdown-toggle lh56"
             id="navbarMobiles"
@@ -78,6 +78,7 @@
               class="nav-link dropdown-item"
               id="pills-account-dashboard-tab"
               data-toggle="pill"
+              href="javascript:;"
               role="tab"
               aria-controls="pills-account-dashboard"
               aria-selected="true"
@@ -107,22 +108,19 @@
               >Onboarding<br />Requests
             </a>
             <a
-            style="line-height: 21px;cursor: pointer;"
-            routerLink="../download"
-            class="nav-link dropdown-item"
-            >Download </a
-          >
-          <a
-            style="line-height: 21px;cursor: pointer;"
-            routerLink="../mis"
-            class="nav-link dropdown-item"
-            >MIS Download </a
-          >
+              style="line-height: 21px;cursor: pointer;"
+              routerLink="/download"
+              class="nav-link dropdown-item"
+              >Download </a
+            >
+            <a
+              style="line-height: 21px;cursor: pointer;"
+              routerLink="/mis"
+              class="nav-link dropdown-item"
+              >MIS Download </a
+            >
           </div>
         </li>
-        <!-- <li class="nav-item">
-                         <a class="nav-link position_relative" [routerLink]="['/userprofile']" id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false"><span class="mr30">My Profile</span> <i class="material-icons myProfileIcon">account_circle</i></a>
-                       </li> -->
         <li class="nav-item dropdown position_relative">
           <a
             class="nav-link dropdown-toggle lh56"
@@ -135,39 +133,17 @@
             <i class="fa fa-user-circle-o"></i>&nbsp;{{ user_name }}
           </a>
           <div
-            class="dropdown-content "
-            aria-labelledby="navbarMobiles"
-            *ngIf="showOptn === false"
-          >
-            <a
-              [routerLink]="['/userprofile']"
-              class="nav-link dropdown-item lh21"
-              >Profile</a
-            >
-            <a
-              (click)="scroll_view('#UAT_onboard')"
-              class="nav-link dropdown-item cursor lh16"
-              >UAT Onboarding</a
-            >
-            <a
-              class="nav-link dropdown-item lh21"
-              (click)="logout()"
-              >Logout</a
-            >
-            <!-- <a [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics" aria-selected="true">Analytics</a> -->
-          </div>
-          <div
             class="dropdown-content drp-cnt-width"
             aria-labelledby="navbarMobiles"
             *ngIf="showOptn === true"
           >
             <a
               [routerLink]="['/userprofile']"
-              class="nav-link dropdown-item lh21"
+              class="nav-link dropdown-item lh21 cursor_pointer"
               >Profile</a
             >
             <a
-              (click)="scroll_view('#UAT_onboard')"
+              [routerLink]="['/uatonboarding-dashboard']"
               class="nav-link dropdown-item cursor lh16"
               >UAT Onboarding</a
             >
@@ -178,13 +154,38 @@
               >Appathon Dashboard</a
             >
             <a
-              class="nav-link dropdown-item lh21"
+              class="nav-link dropdown-item lh21 cursor_pointer"
               (click)="logout()"
               >Logout</a
             >
-            <!-- <a [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics" aria-selected="true">Analytics</a> -->
+          </div>
+  
+          <div
+            class="dropdown-content drp-cnt-width"
+            aria-labelledby="navbarMobiles"
+            *ngIf="showOptn === false"
+          >
+            <a
+              [routerLink]="['/appathon-dashboard']"
+              class="nav-link dropdown-item lh21"
+              >Appathon Dashboard</a
+            >
+            <a
+              [routerLink]="['/application']"
+              class="nav-link dropdown-item lh21"
+              >Applications</a
+            >
+  
+            <a
+              class="nav-link dropdown-item cursor lh21 cursor_pointer"
+              (click)="logout()"
+              >Logout</a
+            >
           </div>
         </li>
+        <!--  <li class="nav-item">
+                         <a class="nav-link position_relative" [routerLink]="['/userprofile']" id="pills-account-tab" data-toggle="pill" href="javascript:;" role="tab" aria-controls="pills-account" aria-selected="false"><span class="mr30">My Profile</span> <i class="material-icons myProfileIcon">account_circle</i></a>
+                       </li> -->
       </ul>
     </div>
     <!----------------------------------------------------------------TOP Nagvigation-------------------------------------------------------------->

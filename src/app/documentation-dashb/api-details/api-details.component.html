@@ -135,36 +135,111 @@
                         <a class="signInBtn"   (click)="openModal(Authentication)">Test API</a>
                            <!-- To open Model on Authenticate button -->
                            <ng-template #Authentication>
-                              <!-- <div class="modal-header">
-                                 <h3 class="modal-title pull-left">Demo</h3>
+                              <div class="modal-header">
+                                 <h3 class="modal-title pull-left">Test API</h3>
                                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                                  <span aria-hidden="true">&times;</span>
                                  </button>
-                              </div> -->
-                              <!-- <div class="modal-body">
+                              </div>
+                             <!-- <div class="modal-body">
                                  <div class="row mb30">
                                     <div class="col-md-12 mb-xs-10">
                                           <iframe src="https://sandbox.icicibank.com/documentation/ChoiceYourAccount" width="100%" height="500px"></iframe>
                                           <iframe width="100%" height="450" [src]="Url"></iframe>
-                                    </div>
+                                    </div> 
                                  </div>
                               </div> -->
-                              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                              <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
                                 </li>
                                 <li class="nav-item">
                                   <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
                                 </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                                </li>
+                                
                               </ul>
                               <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">.sdsdsd..</div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">.23232..</div>
-                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">..swewewe.</div>
+                                <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">.ssssssssssssss..</div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">wwwwwwwwwwwwwwwwww...</div>
+                              </div> -->
+                              
+                              <nav>
+                                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                  <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Header</a>
+                                  <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Body</a>
+                                </div>
+                              </nav>
+                              
+
+                              <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                  <h5>Request Header:</h5>
+                                    <div class="col-md-12">
+                                        <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
+                                          
+                                          (click)="onSubmitUATForm(Prodconfirm)" id="submitButton"> Add Header 
+                                        </button></div>
+                                        <br>
+                                    <div class="input-group  col-md-5">
+                                        <input type="text" class="form-control mainField ipValues" formControlName="{{i}}"
+                                          placeholder="Key :" aria-label="IP" aria-describedby="basic-addon2">
+            
+                                        <div class="input-group-append">
+                                          <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                                            (click)="addNewIPField()">+</span>
+                                          <span *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                                            (click)="deleteRow(i)">-</span>
+                                        </div>
+            
+                                      </div><br>
+                                      <div class="input-group  col-md-5">
+                                        <input type="text" class="form-control mainField ipValues" formControlName="{{i}}"
+                                          placeholder="Key :" aria-label="IP" aria-describedby="basic-addon2">
+            
+                                        <div class="input-group-append">
+                                          <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                                            (click)="addNewIPField()">+</span>
+                                          <span *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                                            (click)="deleteRow(i)">-</span>
+                                        </div>
+            
+                                      </div>
+                                </div>
+
+
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <!-- <mat-form-field appearance="fill">
+                                        
+                                        <select matNativeControl required>
+                                          <option value="volvo">json</option>
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                        </select>
+                                      </mat-form-field> -->
+                                      <br>
+                                      <label for="cars">select one:</label>
+
+                                      <select name="cars" id="cars">
+                                        <option value="volvo">karthik</option>
+                                        <option value="saab">2</option>
+                                        <option value="mercedes">3</option>
+                                        <option value="audi">4</option>
+                                      </select>
+                                      <br>
+                                      <textarea name="message" rows="10" cols="50"></textarea>
+                                      <br><br>
+                                      <textarea name="message" rows="10" cols="50"></textarea>
+                                </div>
                               </div>
+                              <br>
+
+                              <div class="col-md-12">
+                                <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
+                                  
+                                  (click)="onSubmitUATForm()" id="submitButton"> Submit
+                                </button></div>
+                                
                            </ng-template>
                            <!-- End Modal -->
                     </div>

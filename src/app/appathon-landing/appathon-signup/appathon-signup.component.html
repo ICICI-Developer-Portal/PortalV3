@@ -16,7 +16,7 @@
       </li>
       <!-- appthon signup button -->
       <li><a data-toggle="tab" [routerLink]="['/index/faq']">FAQ</a></li>
-      <li><a (click)="Documentation(signin)">Documentation</a></li>
+      <li><a (click)="Documentation(signin)">Documentation 1</a></li>
       <li
         class="nav-item dropdown position_relative appSignMargin1"
         *ngIf="!showbtn"
@@ -301,7 +301,7 @@
 <!-- Modal for Signup -->
 <ng-template #signup>
   <div class="modal-header">
-    <h3 class="modal-title pull-left">Let's get you On-board</h3>
+    <h3 class="modal-title pull-left">Let's get you On-board </h3>
     <button
       type="button"
       class="close pull-right"
@@ -353,7 +353,7 @@
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-6 mb-xs-10">
-              <div><label for="company">Full Name</label></div>
+              <div><label for="company">Full Name<span class="text-danger"> *</span></label></div>
               <input
                 name="name"
                 formControlName="firstname"
@@ -364,11 +364,11 @@
                 *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)"
                 class="text-danger form-error"
               >
-                First Name is required.
+                Full Name is required.
               </div>
             </div>
             <div class="col-md-6">
-              <div><label for="company">Email</label></div>
+              <div><label for="company">Email<span class="text-danger"> *</span></label></div>
               <!-- <input name="email" formControlName="email" class="input-login" #Email (input)="OnCheckEmail(Email.value)"> -->
               <input
                 name="email"
@@ -377,12 +377,7 @@
                 #Email
                 (change)="OnCheckEmail(Email.value)"
               />
-              <div
-                *ngIf="email.invalid && (email.dirty || isSubmitted)"
-                class="text-danger form-error"
-              >
-                Email is required.
-              </div>
+              
               <div
                 *ngIf="isemail_reg_check != ''"
                 class="text-danger form-error"
@@ -393,7 +388,7 @@
           </div>
           <div class="row mb20">
             <div class="col-md-12 mb-xs-30">
-              <div><label for="password">Company Name</label></div>
+              <div><label for="password">Company Name<span class="text-danger"> *</span></label></div>
               <input
                 name="company"
                 formControlName="companyName"
@@ -412,7 +407,7 @@
           </div>
           <div class="row mb20">
             <div class="col-md-12 mb-xs-30">
-              <div><label for="password">Domain Name</label></div>
+              <div><label for="password">Domain Name<span class="text-danger"> *</span></label></div>
               <!-- <select class="form-control input-login select-drop" formControlName="domainNm">
  <option value="">Select Domain</option>
  <option value="Accounts and Deposits">Accounts and Deposits</option>
@@ -439,7 +434,7 @@
           </div>
           <div class="row mb20">
             <div class="col-md-12 mb-xs-30">
-              <div><label for="password">Pin Code</label></div>
+              <div><label for="password">Pin Code<span class="text-danger"> *</span></label></div>
               <input name="City" class="input-login" formControlName="CITY" />
               <div
                 *ngIf="CITY.invalid && (CITY.dirty || isSubmitted)"
@@ -453,7 +448,7 @@
           <div class="row">
             <div class="col-md-12 mb-xs-30">
               <div>
-                <label for="password">ICICI Bank RM Employee ID</label>
+                <label for="password">ICICI Bank RM Employee ID<span class="text-danger"> *</span></label>
                 <a
                   href="#"
                   data-toggle="tooltip"
