@@ -2,9 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>ICICI Bank API</title>
-	<title>Karthik Code</title>
-    <base href="./" />
+    <title>Developer Portal - API Developer Portal  - ICICI Bank</title>
+    <meta name="description" content="A developer portal is an application to make your API Gateway, which incorporates ICICI Bank APIs, to start your banking journey.
+      Signup to ICICI Bank Developer Portal for a new Developer account and create an API key on your Developer Console." /> 
+    <meta name="keywords" content="developer portal, api developer portal, api portal"/>
+      <base href="./" />
     <meta name="viewport" content="width=1024"/>
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -94,7 +96,7 @@ nanorep.floatingWidget.on({
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <script type="text/javascript">
-       setInterval(function(){
+     (function(){
         let path =window.location.href.split('/').pop();
         window.dataLayer = window.dataLayer || [];
        dataLayer.push({
@@ -102,7 +104,7 @@ nanorep.floatingWidget.on({
         page: '/vpv/icici-developer/'+ path,
         DeveloperID: localStorage.getItem('id')
       });
-      }, 1000 );
+      })();
       </script>
 
     <!-- Start VWO Async Smartcode -->

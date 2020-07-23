@@ -794,6 +794,19 @@ getMisFile(json) {
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
 }
+test_api(requestParam,apiName) {
+  var query = "";
+  var key;
+  for (key in requestParam) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/json"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(apiName , query, options);
+}
  
 
 }

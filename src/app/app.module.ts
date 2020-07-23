@@ -27,7 +27,6 @@ import {
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS
 } from "@angular/material/dialog";
-
 import { SigninModalComponent } from "./LandingPage/home/common-modal/signin-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToasterModule, ToasterService } from "angular2-toaster";
@@ -44,7 +43,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
   declarations: [
     AppComponent,
     AdminPortalComponent,
-    SigninModalComponent,
+   SigninModalComponent,
     AppathonComponent,
     AdvertisementComponent,
     AppathonSignupComponent,
