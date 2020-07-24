@@ -27,7 +27,7 @@
                     <div class="row">
                       <div class="col-md-12 mb-xs-10">
                         <h5 class="fs15">
-                          Onboarding request ID  {{ confirmMsgProd }} has been created
+                          Onboarding request ID {{ confirmMsgProd }} has been created
                           sucessfully.
                         </h5>
                         <h5 class="fs15">
@@ -72,6 +72,7 @@
                     <!-- ======== -->
                   </div>
 
+
                   <div class="form-group col-md-6">
                     <label for="Description">Description <span class="text-danger"> *</span></label>
                     <input type="text" class="form-control mainField col-md-11 inline_block" id="Description"
@@ -91,8 +92,7 @@
                   <div class="form-group col-md-6">
                     <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
                     <input type="email" class="form-control mainField col-md-11 inline_block" id="Email_ID"
-                      formControlName="email_id" placeholder="Your Email ID" #Email
-                      >
+                      formControlName="email_id" placeholder="Your Email ID">
                     <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
                       class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
@@ -101,11 +101,8 @@
                       <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required"
                         class="text-danger form-error">Email id is required.</div>
                       <!--question mark(?) is a safe navigation operator-->
-                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.email || isemail_reg_check != ''"
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
                         class="text-danger form-error">Please provide a valid email address</div>
-
-                      <!--  <div *ngIf="isemail_reg_check != ''"
-                        class="text-danger form-error">{{isemail_reg_check}}</div>-->
                     </div>
 
 
@@ -178,43 +175,60 @@
         <!-- =========================================================================================================== -->
         <!-- second section starts here -->
         <!-- =========================================================================================================== -->
-        <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">
-          <!-- <div class="tabContentInner"> -->
+        <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''"> 
+        <!-- <div class="tabContentInner"> -->
           <div class="row m0">
             <div class="container">
-              <!--karthik-Auto complete-->
-              <!-- <form class="example-form">
-                <mat-form-field class="example-full-width">
-                  <input type="text" placeholder="Pick one"  aria-label="Number" matInput
-                    [formControl]="myControl" [matAutocomplete]="auto">
-                  <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                      {{option.name}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </form> -->
-              <!--karthik-Auto complete End-->
+
               <div #RequestedApiList class="" id="Requested-api-list">
 
-                <h5 class="">Requested API</h5>
+
                 <!-- <div class="form-group col-md-6" formGroupName="nestedCheckboxesList"> -->
 
                 <div class="row" formGroupName="nestedCheckboxesList" id="scndSectionWhitelistIp">
 
                   <div class="form-group col-md-6">
+                    <h5 class="">Requested API</h5>
                     <label for="merchantName">Select API <span class="text-danger"> *</span><i
                         class='fa fa-check-circle orange col-md-1 margin_3px float-right' aria-hidden='true'
                         id='dynamic-list-check'></i></label>
+                    <!--karthik-Auto complete-->
 
+                    <!-- <div class="row">
+                      <form class="example-form">
+                        <div class="input-group col-md-11">
+                          <input #matInput class="form-control py-2 border-right-0 border" type="search" placeholder="Search API"
+                            id="example-search-input" matInput formControlName="nestedCheckboxFilter" [matAutocomplete]="auto" value="{{searchedFieldValue}}">
+                          <span class="input-group-append">
+                            <div class="input-group-text bg-transparent" style="margin-top: -1px;" (click)="createCart()"><i
+                                class="fa fa-plus" ></i></div>
+                          </span>
+                          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAPIName">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option.name}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </div>
+                      </form>
+                    </div> -->
+                    <!--karthik-Auto complete End-->
+                    <div class="col-md-11 padding-left-0">
+                      <form id="filter">
+                        <label>Filter API by name:</label>
+                        <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
+                        <!-- <pre>{{term}} </pre> -->
+                    </form>
+                    <span class="text-danger" *ngIf="(responseData | filter: term).length === 0"> No matches found</span>
 
-
-
-                    <div class="sideMenu col-md-11">
+                    </div>
+                    <div class=" col-md-11 padding-left-0 scroll-y">
 
                       <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
+                     
+                    
+                      <ul class="requestedData-list sideMenu" *ngFor="let i of responseData " class="first-level">
+                        <!-- <li *ngIf="(responseData | filterBy: term).length === 0">No matches found</li>   -->
 
-                      <ul class="requestedData-list" *ngFor="let i of responseData" class="first-level">
                         <li>
 
                           <!-- 1 level -->
@@ -222,7 +236,7 @@
 
                             <ng-template #other>
                               <div class="customcsscontainer"> <label for="{{i.API_ID}}">
-                                  <input type="checkbox" (change)="multipleSelectAPI(e)" id="{{i.API_ID}}"
+                                  <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{i.API_ID}}"
                                     value="{{i.TAB_NAME}}" #checkboxes>
                                   {{i.TAB_NAME}} </label>
                               </div>
@@ -237,7 +251,9 @@
                               <a class="display-block cursor-pointer padding-left-10prcnt">
                                 <ng-template #other>
                                   <div class="customcsscontainer"> <label for="{{j.API_ID}}"> <input type="checkbox"
-                                        (change)="multipleSelectAPI(e)" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
+                                        (change)="multipleSelectAPI($event,$event.target.checked)" 
+                                        [attr.parentName]="i.TAB_NAME"
+                                        id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
                                         #checkboxes>{{j.TAB_NAME}}</label>
                                   </div>
                                 </ng-template>
@@ -250,9 +266,10 @@
                                 <li>
                                   <!-- 3 level -->
                                   <a class="display-block cursor-pointer padding-left-13prcnt">
-                                    <ng-template #other>
+                                    <ng-template #other >
                                       <div class="customcsscontainer"> <label for="{{k.API_ID}}"> <input type="checkbox"
-                                            (change)="multipleSelectAPI(e)" id="{{k.API_ID}}" value="{{k.TAB_NAME}}"
+                                            (change)="multipleSelectAPI($event,$event.target.checked)" id="{{k.API_ID}}"
+                                           [attr.parentName]="j.TAB_NAME" [attr.grandParentName]="i.TAB_NAME" value="{{k.TAB_NAME}}"
                                             #checkboxes>{{k.TAB_NAME}}</label>
                                       </div>
                                     </ng-template>
@@ -267,7 +284,8 @@
                                       <a class="display-block cursor-pointer padding-left-20prcnt">
                                         <ng-template #other>
                                           <div class="customcsscontainer"> <label for="{{L.API_ID}}">
-                                              <input type="checkbox" (change)="multipleSelectAPI(e)" id="{{L.API_ID}}"
+                                              <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" 
+                                              [attr.parentName]="k.TAB_NAME" [attr.grandParentName]="j.TAB_NAME" [attr.greatGrandParentName]="i.TAB_NAME" id="{{L.API_ID}}"
                                                 value="{{L.TAB_NAME}}" #checkboxes>{{L.TAB_NAME}}</label></div>
                                         </ng-template>
                                         <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
@@ -280,12 +298,14 @@
                                         <li>
                                           <!-- 5 level -->
                                           <a class="display-block cursor-pointer padding-left-25prcnt">
-                                            <!-- <ng-template #other> <input type="checkbox" (change)="multipleSelectAPI(e)"    /></ng-template>{{k.TAB_NAME}} <span
+                                            <!-- <ng-template #other> <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)"    /></ng-template>{{k.TAB_NAME}} <span
                                                                                           *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
                                                                                             src="assets/images/dropdown-2.svg" alt=""></span> -->
                                             <ng-template #other>
-                                              <div class="customcsscontainer"> <label for="M.API_ID"> <input
-                                                    type="checkbox" (change)="multipleSelectAPI(e)" id="{{M.API_ID}}"
+                                              <div class="customcsscontainer"> <label for="M.API_ID">
+                                                 <input
+                                                    type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
+                                                    [attr.parentName]="L.TAB_NAME" [attr.grandParentName]="k.TAB_NAME" [attr.greatGrandParentName]="j.TAB_NAME" [attr.greatGreatGrandParentName]="i.TAB_NAME" 
                                                     value="{{M.TAB_NAME}}">
                                                   {{M.TAB_NAME}}</label></div>
                                             </ng-template>
@@ -304,7 +324,12 @@
                             </li>
                           </ul>
                         </li>
+                        
                       </ul>
+                      <!-- <span *ngIf="responseData.length === 0">No data</span> -->
+                      <!-- <p> Selected value: {{selectedValue | json}}{{responseData.length}} </p>
+                      <pre>Form values: {{reactiveForm.value | json}}</pre> -->
+
                       <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
                     </div>
                     <!-- <p class="error" *ngIf="apiGreenCheck!='valid'" hidden="{{showError}}">
@@ -312,6 +337,36 @@
                   </p> -->
 
                   </div>
+                  <div class="col-md-6"  *ngIf="selectedValue.length>0">
+                    <!--  Add cart here-->
+                    <div class=" ">
+                      <div class="card-body" >
+                        <h5 class="card-title" >Selected API</h5>
+          
+                        <div class="list-group cartApiContainer cart-scroll-y"  #cartApiContainer style="color: #ae282e;font-weight: bold;">
+                          <label *ngFor="let i of selectedValue"  style="border: 1px solid gainsboro;padding: 5px;margin-bottom: 0px;">
+                            <!-- {{i.greatGreatGrandParentName}} {{i.greatGrandParentName}}{{i.grandParentName}}{{i.parentName}}{{i.childName}} -->
+                            <span  *ngIf="i.greatGreatGrandParentName"> {{i.greatGreatGrandParentName}}>>>></span>
+                            <span  *ngIf="i.greatGrandParentName"> {{i.greatGrandParentName}}>>></span>
+                            <span *ngIf="i.grandParentName">{{i.grandParentName}}>></span>
+                            <span *ngIf="i.parentName">{{i.parentName}}></span>
+                            <span *ngIf="i.childName"> {{i.childName}}</span>
+                            <span _ngcontent-c1="" class="pull-right" class="{{i.childName}}" id="{{i.id}}" (click)="deleteRemoveObjectFromCart($event)" style="cursor: pointer;float:right;" >✖</span>
+                           
+                       </label>
+                              <!-- {{selectedValue | json}} -->
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <!-- Cart end here-->
+
+
                   <div class="col-md-12">
                     <button #continueButtonSecondSection class="signInBtn ContinueBtn btn-dark  pull-right"
                       name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"
@@ -349,7 +404,7 @@
         <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''" id="thrdSection">
           <div class="tabContentInner overlay_parent" id="thrdSectionChld">
 
-        <!-- <div>
+            <!-- <div>
           <div class="tabContentInner"> -->
             <div class="row m0">
               <div class="container">
@@ -440,7 +495,7 @@
                         </select>
                       </span>
                     </div>
-                    <div class="form-group col-md-6" *ngIf="message">
+                    <div class="form-group col-md-6" *ngIf="commModel">
                       <!-- <div class="form-group col-md-6"> -->
 
                       <div>
@@ -620,7 +675,7 @@
                         formControlName="header" />
                     </div>
                     <div class="form-group col-md-6" *ngIf="uatTestingID">
-                    <!-- <div class="form-group col-md-6"> -->
+                      <!-- <div class="form-group col-md-6"> -->
 
                       <div>
                         <label for="TestingID">TestingID</label>
@@ -637,10 +692,10 @@
                     </div>
 
                     <!-- ============================= -->
-                    <div class="form-group col-md-6 countUrl"   *ngIf="url">
+                    <div class="form-group col-md-6 countUrl" *ngIf="url">
                       <div class="width_100prcnt"><label>Callback URL</label>
-                        <a data-toggle="tooltip" [title]="callbackURLInfo"><img alt="loader"
-                            class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
+                        <a data-toggle="tooltip" [title]="callbackURLInfo"><img alt="loader" class="ml2 cursor_pointer"
+                            src="assets/images/information.png"></a></div>
                       <div formArrayName="url" class="form-group">
                         <!-- =================== -->
                         <div class="row  mb-2"
@@ -648,8 +703,7 @@
 
                           <div class="input-group  col-md-11">
                             <input type="text" class="form-control  urlValues" formControlName="{{i}}"
-                              placeholder="Your URL" aria-label="URL" aria-describedby="basic-addon2"
-                              (change)="OnCheckURL(reactiveForm.get('whitelistIpSection').get('url').controls[i])">
+                              placeholder="Your URL" aria-label="URL" aria-describedby="basic-addon2">
 
                             <div class="input-group-append">
                               <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
@@ -659,13 +713,13 @@
                             </div>
 
                           </div>
-                         <!-- <i *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].valid"
-                            class="fa fa-check-circle green col-md-1 margin_3px margin-leftminus15"
+                          <!-- <i *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].valid"
+                            class="fa fa-check-circle orange col-md-1 margin_3px margin-leftminus15"
                             aria-hidden="true"></i>-->
                           <div
                             *ngIf="!reactiveForm.get('whitelistIpSection').get('url').controls[i].valid && reactiveForm.get('whitelistIpSection').get('url').controls[i].touched"
                             class="text-danger form-error col-md-12">
-                           <!-- <span *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.required">
+                            <!-- <span *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.required">
                               URL is required.</span>-->
                             <span
                               *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.pattern">Please
