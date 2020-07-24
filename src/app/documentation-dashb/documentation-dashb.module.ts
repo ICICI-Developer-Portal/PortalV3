@@ -10,6 +10,8 @@ import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { DocumentationDashbComponent } from "./documentation-dashb.component";
 import { DocumentationDashbRoutingModule } from "./documentation-dashb-routing.module";
 import { NavbarComponent } from "./Dashboard-layout/navbar/navbar.component";
+//import { HeaderComponent } from "../maindashboard/component/header/header.component";
+
 import { DocumentationComponent } from "./documentation/documentation.component";
 import { SidebarComponent } from "./Dashboard-layout/sidebar/sidebar.component";
 import { LoaderComponent } from "./Dashboard-layout/loader/loader.component";
@@ -107,6 +109,7 @@ import { FocusOnShowDirective } from './autofocus.directive';
     DocumentationDashbComponent,
     NavbarComponent,
     //FooterComponent,
+    //HeaderComponent,
     DocumentationComponent,
     SidebarComponent,
     LoaderComponent,

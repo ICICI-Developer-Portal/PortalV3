@@ -229,11 +229,11 @@
 
                                             <div class="tab-pane fade  show active" id="nav-profile" role="tabpanel"
                                                 aria-labelledby="nav-profile-tab">
-                                                <form (ngSubmit)="onSubmitBody(bodyForm)" #bodyForm="ngForm" class="row"> 
-                                                    <div class="form-group col-md-6">
+                                                <form (ngSubmit)="onSubmitBody(bodyForm)" #bodyForm="ngForm">
+                                                    <div class="form-group">
                                                         <p class="mb-1 mt-3 bold">Select Content Type:</p>
                                                         <span class="custom-dropdown">
-                                                            <select class="form-control h40 " id="type" name="type" 
+                                                            <select class="form-control h40 col-md-4" id="type" name="type" 
                                                             [(ngModel)]="contentType" >
                                                                 <option value="JSON" selected name="JSON">JSON</option>
                                                                 <option value="XML"  name="XML">XML</option>
@@ -242,18 +242,7 @@
 
                                                         </span>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <p class="mb-1 mt-3 bold">Test Case :</p>
-                                                        <span class="custom-dropdown">
-                                                            <select class="form-control h40 " id="testcases" name="type" 
-                                                           >
-                                                                <option value="JSON" selected name="JSON">dummy</option>
-
-                                                            </select>
-
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group cod col-md-6">
+                                                    <div class="form-group cod">
                                                         <p class="mb-1 bold">Request:</p>
                                                         <textarea name="Request"
                                                             class="form-control" cols="50" rows="10"
@@ -261,7 +250,7 @@
                                                             </textarea>
                                                                 
                                                     </div>
-                                                    <div class="form-group cod col-md-6">
+                                                    <div class="form-group cod">
                                                         <p class="mb-1 bold">Response:</p>
                                                         <!-- <div disabled
                                                             name="Response" class="form-control" cols="50" rows="10"
@@ -269,13 +258,9 @@
                                                           <textarea  class="form-control" cols="50" rows="10" disabled [(ngModel)]="testApireponse">{{testApireponse | json}}
                                                             </textarea>
                                                     </div>
-                                                    <div class="col-md-12">     
-                                                    <button type="submit" class="btn signInBtn btn-dark pull-right mt-30" (click)="testApiCall()">Test</button>
-                                                    <button type="submit" class="btn signInBtn btn-dark pull-right mt-30 mr-3" disabled>Callback Respons</button>
+                                                    <button type="submit"
+                                                        class="btn signInBtn btn-dark pull-right mt-30" >Test</button>
 
-
-                                                        
-                                                    </div>    
                                                 </form>
                                             </div>
                                         </div>
