@@ -63,6 +63,16 @@
             >Dashboard</a
           >
           <a
+            class="nav-link dropdown-item"
+            id="pills-account-transaction-history-tab"
+            data-toggle="pill"
+            href="javascript:;"
+            role="tab"
+            aria-controls="pills-transaction-history"
+            aria-selected="true"
+            [routerLink]="['/transactionHistory']"
+            >Transaction History</a>  
+          <a
             [routerLink]="['/application']"
             class="nav-link dropdown-item"
             id="pills-account-applications-tab"

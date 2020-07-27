@@ -7,6 +7,8 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
 import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+
 
 import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
@@ -26,6 +28,7 @@ const routes: Routes = [
 
         ]
     },
+     { path: 'transactionHistory', component: TransactionHistoryComponent ,canActivate: [AuthGuard]},
     { path: 'application', component: ApplicationComponent ,canActivate: [AuthGuard]},
     { path: 'analytics', component: AnalyticsComponent ,canActivate: [AuthGuard]},
     { path: 'userprofile', component: UserprofileComponent ,canActivate: [AuthGuard]},

@@ -81,6 +81,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   isemail_check: boolean = false;
   isemail_reg_check: string = "";
   selectedValue = [];
+  term:any;
 
   /** Add var for search field */
   myControl = new FormControl();
@@ -88,6 +89,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   searchedItem:any;
   searchedFieldValue:any;
+  
 
   /** end here */
   constructor(private HttpClient: HttpClient,
@@ -120,7 +122,6 @@ export class UATonboardingDashboardPageComponent implements OnInit {
      
     }
     );
-
     // testing......
     let edit = ''
     this.resetForm(edit);

@@ -27,6 +27,7 @@ import { MisComponent } from './mis/mis.component';
 import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
    
 @NgModule({
@@ -66,7 +67,8 @@ import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
         UATonboardingDashboardPageSidebarComponent,
         DownloadComponent,
         MisComponent,
-        NestedListFilterPipePipe
+        NestedListFilterPipePipe,
+        TransactionHistoryComponent
         
     ],
 

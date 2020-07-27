@@ -2636,8 +2636,8 @@ input:checked + .slider:before {
   /* box-shadow: 10px 10px 50px 0 rgba(0, 0, 0, 0.5); */
   background: #ffffff;
   z-index: 3;
-  min-width: 146px;
-  max-width: 125px;
+  min-width: 165px;
+  max-width: 130px;
 }
 
 .dropdown-content::before {

@@ -7,17 +7,14 @@
           class="nav-link"
           [routerLink]="['/index']"
           aria-controls="pills-home"
-          aria-selected="true"
-          ><img src="assets/images/icici-svg-2.svg" alt=""
+          aria-selected="true"><img src="assets/images/icici-svg-2.svg" alt=""
         /></a>
       </li>
       <li class="nav-item">
         <a
           class="nav-link doc-icici-logo fs13"
           data-toggle="tab"
-          [routerLink]="['/appathon/landing-page']"
-          >Appathon</a
-        >
+          [routerLink]="['/appathon/landing-page']">Appathon</a>
       </li>
       <li class="nav-item">
         <a
@@ -28,9 +25,7 @@
           [routerLink]="['/index']"
           role="tab"
           aria-controls="FAQs"
-          aria-selected="false"
-          >Home</a
-        >
+          aria-selected="false">Home</a>
       </li>
       <li class="nav-item">
         <a
@@ -41,9 +36,7 @@
           [routerLink]="['/faq']"
           role="tab"
           aria-controls="FAQs"
-          aria-selected="false"
-          >FAQ</a
-        >
+          aria-selected="false">FAQ</a>
       </li>
       <li class="nav-item">
         <a
@@ -54,9 +47,7 @@
           href="javascript:;"
           role="tab"
           aria-controls="pills-profile"
-          aria-selected="false"
-          >Documentation</a
-        >
+          aria-selected="false">Documentation</a>
       </li>
       <!-- <li class="nav-item">
                         <a class="nav-link active" (click)="logout()" id="pills-profile-tab" data-toggle="pill"  [routerLink]="['/documentation']" href="javascript:;" role="tab" aria-controls="pills-profile" aria-selected="false">Logout</a>
@@ -68,8 +59,7 @@
           role="button"
           data-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="false"
-        >
+          aria-expanded="false">
           Account
         </a>
         <div class="dropdown-content" aria-labelledby="navbarMobiles">
@@ -82,8 +72,17 @@
             aria-controls="pills-account-dashboard"
             aria-selected="true"
             [routerLink]="['/dashboard']"
-            >Dashboard</a
-          >
+            >Dashboard</a>
+            <a
+            class="nav-link dropdown-item"
+            id="pills-account-transaction-history-tab"
+            data-toggle="pill"
+            href="javascript:;"
+            role="tab"
+            aria-controls="pills-transaction-history"
+            aria-selected="true"
+            [routerLink]="['/transactionHistory']"
+            >Transaction History</a>  
           <a
             class="nav-link dropdown-item"
             id="pills-account-applications-tab"
@@ -110,14 +109,12 @@
             style="line-height: 21px;cursor: pointer;"
             routerLink="/download"
             class="nav-link dropdown-item"
-            >Download </a
-          >
+            >Download </a>
           <a
             style="line-height: 21px;cursor: pointer;"
             routerLink="/mis"
             class="nav-link dropdown-item"
-            >MIS </a
-          >
+            >MIS </a>
         </div>
       </li>
       <li class="nav-item dropdown position_relative">
@@ -127,59 +124,49 @@
           role="button"
           data-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="false"
-        >
+          aria-expanded="false">
           <i class="fa fa-user-circle-o"></i>&nbsp;{{ user_name }}
         </a>
         <div
           class="dropdown-content drp-cnt-width"
           aria-labelledby="navbarMobiles"
-          *ngIf="showOptn === true"
-        >
+          *ngIf="showOptn === true">
           <a
             [routerLink]="['/userprofile']"
             class="nav-link dropdown-item lh21 cursor_pointer"
-            >Profile</a
-          >
+            >Profile</a>
           <a
             [routerLink]="['/uatonboarding-dashboard']"
             class="nav-link dropdown-item cursor lh16"
-            >UAT Onboarding</a
-          >
+            >UAT Onboarding</a>
           <a
             *ngIf="showAppDash"
             [routerLink]="['/appathon-dashboard']"
             class="nav-link dropdown-item lh21"
-            >Appathon Dashboard</a
-          >
+            >Appathon Dashboard</a>
           <a
             class="nav-link dropdown-item lh21 cursor_pointer"
             (click)="logout()"
-            >Logout</a
-          >
+            >Logout</a>
         </div>
 
         <div
           class="dropdown-content drp-cnt-width"
           aria-labelledby="navbarMobiles"
-          *ngIf="showOptn === false"
-        >
+          *ngIf="showOptn === false">
           <a
             [routerLink]="['/appathon-dashboard']"
             class="nav-link dropdown-item lh21"
-            >Appathon Dashboard</a
-          >
+            >Appathon Dashboard</a>
           <a
             [routerLink]="['/application']"
             class="nav-link dropdown-item lh21"
-            >Applications</a
-          >
+            >Applications</a>
 
           <a
             class="nav-link dropdown-item cursor lh21 cursor_pointer"
             (click)="logout()"
-            >Logout</a
-          >
+            >Logout</a>
         </div>
       </li>
       <!--  <li class="nav-item">
