@@ -40,6 +40,8 @@ import { JwtAuthComponent } from './jwt-auth/jwt-auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 //import { MisComponent } from './maindashboard/mis/mis.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HeaderComponent } from "./header/header.component";
+import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +51,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AdvertisementComponent,
     AppathonSignupComponent,
     JwtAuthComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     UserservicesModule,
     MailverifyModule,
     MatDialogModule,
-
+    Ng4LoadingSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     ToasterModule.forRoot(),

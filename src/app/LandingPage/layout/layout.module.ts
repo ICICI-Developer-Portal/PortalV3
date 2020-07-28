@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { ToasterModule } from 'angular2-toaster';
@@ -18,6 +17,7 @@ import {
   MatInputModule,
 } from '@angular/material';
 import { FocusOnShowDirective } from './autofocus.directive';
+import { HeaderComponent } from './header/header.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +32,8 @@ import { FocusOnShowDirective } from './autofocus.directive';
     MatFormFieldModule,
     MatInputModule,
     
+    
   ],
-  declarations: [LayoutComponent, FooterComponent, HeaderComponent,FocusOnShowDirective],
+  declarations: [LayoutComponent,HeaderComponent, FooterComponent, FocusOnShowDirective],
 })
 export class LayoutModule {}
