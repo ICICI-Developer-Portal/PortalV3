@@ -10,6 +10,7 @@ import { UserservicesModule } from "./services/userservice.module";
 import { LoginService, DashboardService } from "./services";
 import { Config } from "./config/config";
 import { MaindashboardModule } from "./maindashboard/maindashboard.module";
+import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
 import { MailverifyModule } from "./mailverify/mailverify.module";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { DocumentationDashbComponent } from "./documentation-dashb/documentation-dashb.component";
@@ -58,6 +59,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     LayoutModule,
     HomeModule,
     MaindashboardModule,
+    ProductionOnboardingModule,
     DocumentationDashbModule,
     HttpClientModule,
     HttpModule,
