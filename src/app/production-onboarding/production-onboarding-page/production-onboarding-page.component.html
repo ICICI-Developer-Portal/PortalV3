@@ -57,9 +57,10 @@
 
 
                 <div formGroupName="basicDetailsSection" class="row">
-                  <div class="form-group col-md-6">
-                    <label for="merchantName">Request Id <span class="text-danger"> *</span></label>
-                    <select _ngcontent-c4="" class="form-control  col-md-11 inline_block ng-pristine ng-invalid ng-touched fs12"  name="JiraId"><option _ngcontent-c4="" value="">Approved/Complete UAT Request ID</option><!----></select>
+                  <div class="form-group col-md-6">form pushing purpose
+                    <label for="merchantName">Request Id<span class="text-danger"> *</span></label>
+                    <select _ngcontent-c4="" class="form-control  col-md-11 inline_block ng-pristine ng-invalid ng-touched fs12"  formControlName="JiraId">
+                      <option _ngcontent-c4="" [value]="fetchedJiraId"> {{fetchedJiraId}}</option><!----></select>
                     <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
                       class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->

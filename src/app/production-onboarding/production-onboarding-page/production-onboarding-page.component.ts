@@ -802,6 +802,7 @@ else{
     const ipReg = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';  
     this.reactiveForm = new FormGroup({
       'basicDetailsSection': new FormGroup({
+        "JiraId": new FormControl(),
         "merchantName": new FormControl(),
         "description": new FormControl(),
         "email_id": new FormControl(),
@@ -970,12 +971,15 @@ this.fetchedSpocPhone=obj[0]["SpocPhone"];
 this.fetchedRelManager=obj[0]["RelManager"];
 this.fetchedDomain=obj[0]["Domain"];
 this.fetchedDomainApi=obj[0]["DomainApi"];
-
-     var domainApiName=this.fetchedDomainApi.replace(/\d/g, "");
+// this.myGroup.controls['gender'].setValue(this.user.gender);
+console.log("for pushing")
+    //  var domainApiName=this.fetchedDomainApi.replace(/\d/g, "");
+    var domainApiName=this.fetchedDomainApi;
 this.reactiveForm.controls.basicDetailsSection.patchValue({
+  "JiraId":this.fetchedJiraId,
     "merchantName": this.fetchedMerchantName,
     "description": this.fetchedDescription,
-    "email_id": this.fetchedSpocEmail,
+    "email_id": this.fetchedSpocEmail,       
     "contact_no": this.fetchedSpocPhone,
     "r_m_maild_id": this.fetchedRelManager
   });
