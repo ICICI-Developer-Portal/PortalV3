@@ -52,7 +52,7 @@ import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
     AppathonSignupComponent,
     JwtAuthComponent,
     ErrorPageComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
