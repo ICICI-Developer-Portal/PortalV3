@@ -597,14 +597,14 @@ body {
   text-align: justify !important;
 }
 .drp-cnt-width {
-  min-width: 175px !important;
+  min-width: 180px !important;
 }
 .txtAlign{
   text-align: center;
 }
 .sandBox-navTab .nav-item{
   border: 1px solid gainsboro;
-  
+
 }
 .sandBox-navTabs .nav-link.active {
   color: #495057 !important;
@@ -617,7 +617,7 @@ body {
     height: 1em;
     font-size: 20px;
     line-height: 1;
-    right: 69%;
+    right: 4%;
     top: 50%;
     margin-top: -0.5em;
     color: #747582;
@@ -628,8 +628,8 @@ body {
   font-weight: bold;
 }
 .sandBox-navTab .nav-item.show .nav-link, .sandBox-navTab .nav-link.active {
-  color: #495057;
-  background-color: #dfdfdf;
+  color: #fff !important;
+  background-color: #ae282e;
   border-color: #dee2e6 #dee2e6 #fff;
 }
   .sandBox-navTabs .nav-home-tab{background-color:#f7f6f6 !important;}
@@ -651,7 +651,7 @@ body {
     border-bottom: 1px solid gainsboro;
     border-right: 1px solid gainsboro;
     padding-bottom: 15px;
-    
+
   }
   .mt-30{
     margin-top: 30px;
@@ -681,12 +681,15 @@ body {
    font-family: Poppins-Regular !important;
 
   }
-  
+
   input::placeholder, isindex::placeholder {
     font-size: 13px;
     font-family: Poppins-Regular !important;
 
 
+  }
+.setHeight{
+    min-height: 250px;
   }
    /* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
   html {
@@ -699,9 +702,9 @@ body {
     top: 100%;
     left: 0;
   }
-} 
+}
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
   .cdk-global-scrollblock {
     width: 100vh !important;
     top: 100% !important;

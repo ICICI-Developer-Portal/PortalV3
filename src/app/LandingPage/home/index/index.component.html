@@ -134,7 +134,8 @@
         </div>
         <div class="col-md-4 text-lg-center mb-xs-30">
           <!-- <a data-toggle="modal" data-target="#productionSignedIn" class="ff-bold fs16 color-black onBoardLink"> -->
-          <a class="ff-bold fs16 color-black onBoardLink" (click)="get_Production(Production, signin)">
+          <!--<a class="ff-bold fs16 color-black onBoardLink" (click)="get_Production(Production, signin)"> -->
+            <a class="ff-bold fs16 color-black onBoardLink" [routerLink]="['/productionOnboardingPage']">
             <img class="mb30 mb-xs-15" src="assets/images/group-13.svg" alt="" />
             <div>PRODUCTION</div>
           </a>
@@ -434,9 +435,9 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-3" style="float:left">
                   <a href="https://www.shivaami.com/shivaami-icici-bundle/?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Shivaami"
-                    target="_blank">
+                  target="_blank">
                     <div class="sectionAPICard availableAPICard">
-                      <img class="img2" src="assets/images/shivaami1.jpg" alt="Card image cap" />
+                      <img class="img2" src="assets/images/shivaami.jpg" alt="Card image cap" />
                       <div class="card-body">
                         <h4>Shivaami</h4>
                         <p>
@@ -451,7 +452,7 @@
                   <a href="https://www.aimcrest.com?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Aimcrest "
                     target="_blank">
                     <div class="sectionAPICard availableAPICard">
-                      <img class="img2" src="assets/images/Aimcrests.jpeg" alt="Card image cap" />
+                      <img class="img2" src="assets/images/aimcrest.jpeg" alt="Card image cap" />
                       <div class="card-body">
                         <h4>Aimcrest</h4>
                         <p>
@@ -578,7 +579,7 @@
         <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)">I am interested</a>
       </div>
     </section>
-    <section class="sectionAPIs feedbackSection">
+  <!--  <section class="sectionAPIs feedbackSection">
       <form>
         <h3>Your <span>Feedback</span></h3>
         <p class="text-center mb50 fs16">
@@ -599,7 +600,7 @@
                <option value="Suggestion">Suggestion</option>
                <option value="Others">Others</option>
             </select> -->
-        <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
+      <!--   <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
           placeholder="Your Email" />
         <input class="w100p mb25" name="feedback_location_name" [(ngModel)]="feedback_location_name" type="text"
           placeholder="Location" />
@@ -609,7 +610,7 @@
           <a class="signInBtn marginAutoHr mb15" (click)="feedback_form_submit(signin)">Submit</a>
         </div>
       </form>
-    </section>
+    </section>-->
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">

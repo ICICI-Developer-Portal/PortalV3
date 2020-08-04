@@ -7,6 +7,29 @@
       <div class="tabContentInner">
         <div class="col-md-12">
           <div id="accordion" class="faqmainSection">
+            <div class="card">
+              <a class="card-header-security" data-toggle="collapse" href="#tab4" aria-expanded="true">
+                  <div class="row">
+                      <div class="col-md-11 col-11" >
+                      <a class="card-link">
+                             Introduction
+                      </a>
+                      </div>
+                      <div class="col-md-1 text-right">
+                      <i class="material-icons accordionDropdownIcon">expand_less</i>
+                      </div>
+                  </div>
+              </a>
+              <div id="tab4" class="collapse show" data-parent="#accordion">
+                  <div class="card-body security-style">
+                    <p>This document describes the security implementation details.</p>
+                  </div>
+              </div>
+          </div>
+
+
+
+
                   <div class="card">
                       <a class="card-header-security" data-toggle="collapse" href="#tab1" aria-expanded="true">
                           <div class="row">
@@ -159,10 +182,15 @@
                       <li>
                         Please refer below given steps and choose any one for Encryption &
                         Decryption process.
+                        <ul>
+                          <li>Asymmetric</li>
+                          <li>Symmetric</li>
+                          <li>Hybrid (Both Symmetric and Asymmetric)</li>
+                        </ul>
                       </li>
-                      <p>
-                        o Asymmetric o Symmetric o Hybrid (Both Symmetric and Asymmetric)
-                      </p>
+                      
+                      
+                     
                     </ul>
                   </div>
               </div>
@@ -186,7 +214,8 @@
                     Payload content-type will be in text/plain. Base64 encoded encrypted Cipher will be passed as
                     a payload.
                   </p>
-                  <p>
+                  <br>
+                  <section><i>
                     oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPRD
           ya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AG
           W7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAoo
@@ -196,28 +225,33 @@
           aJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/
           seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9Ln
           Lni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo
-                  </p>
+        </i></section><br>
+               <section>
                   <p>
                     For encryption of request at ICICI:
                   </p>
                   <strong>
                     Encrypted_Payload = Base64Encode(RSA/ECB/PKCS1Encryption(payload,ICICIPubKey.cer))
+                    
                   </strong>
+                </section><br>
+                <section>
                   <p>
                     For encryption of response at ICICI:
                   </p>
                   <strong>
                     Encrypted_Payload = Base64Encode(RSA/ECB/PKCS1Encryption(payload,ClientPubKey.cer))
                   </strong>
+                </section><br>
+                <section>
                   <p>
                     For decryption of response at Client:
                   </p>
-                  <p>
                   <strong>
                     plainResponse =
           Base64Decode(RSA/ECB/PKCS1Decryption(encPayload,ClientPrivateKey.p12))
                   </strong>
-                </p>
+                </section><br>
                 </div>
             </div>
         </div>
@@ -239,9 +273,9 @@
                 <p>
                   Payload content-type will be in text/plain. Base64 encoded encrypted Cipher will be passed as
         a payload.
-                </p>
+                </p><br>
                 <p>
-                  Api Gateway use below ciphers for symmetric encryption-decryption, Client may can use any
+                  Api Gateway uses below ciphers for symmetric encryption-decryption, Client can use any
         of them.
                 </p>
                 <ul>
@@ -261,14 +295,16 @@
                 <p>
                   IV= The initialization vector used when encrypting data using the one-time use AES/GCM,
         AES/CBC ciphers.
-                </p>
+                </p><br>
                 <p>
                   Sample Encrypted Payload
                 </p>
-                <p>
+              
+                <p><i>
                   wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKp
         yMSY3DILOpbkqEa0Qq0g=
-                </p>
+      </i></p>  <br>
+                <section>
                 <p>
                   For encryption of request:
                 </p>
@@ -277,7 +313,8 @@
         Will be shared between Client and Api gateway.
         IV = Initialization Vector- Exactly 16 bytes actual value to match the block size (Optional)
         EncPayload = Base64Encode(AES/CBC/PKCS5Padding(payload,publicKey, IV))
-                </strong>
+      </strong></section>
+      <br>
                 <p>
                   For decryption of response:
                 </p>
@@ -306,8 +343,8 @@
             <div class="card-body security-style">
               <p>
                 Sample Encrypted Request to be sent to Client (JSON):
-              </p>
-              <p>
+              </p><br>
+              <p><i>
                 &#123;
                 <br>
                   "requestId": "",
@@ -331,7 +368,7 @@
                   "optionalParam": ""
                   <br>
                   &#125;
-              </p>
+                </i></p><br>
               <p>
                 Field Description:
               </p>
@@ -546,7 +583,7 @@
                 IV = Initialization Vector- Exactly 16 bytes actual value to match the block size
                 encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Request,SessionKey, IV))
               </strong>
-            </p>
+            </p><br>
               <p>
                 For encryption of response at ICICI:
               </p>
@@ -555,7 +592,7 @@
                 Session key is nothing but randomly generated string of length 16 (OR 32).
                 encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Response,SessionKey))
               </strong>
-            </p>
+            </p><br>
               <p>
                 For decryption of response at Client:
               </p>
@@ -567,7 +604,7 @@
                 Response = Base64Decode (AES/CBC/PKCS5Padding Decryption(encryptedData,SessionKey,
                 IV))
               </strong>
-            </p>
+            </p><br>
               <p class="ta-center">Or</p>
               <p>Steps for Encryption</p>
               <ol>

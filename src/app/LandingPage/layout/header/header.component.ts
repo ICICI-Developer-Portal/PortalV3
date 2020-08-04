@@ -116,40 +116,8 @@ export class HeaderComponent implements OnInit {
     });
     this.get_domain_and_apis();
   }
-  handleKey(e) {
-    if (e.keyCode === 9) {
-        let focusable = document.querySelector('#signup').querySelectorAll('input,button,select,textarea');
-        if (focusable.length) {
-            let first = focusable[0];
-            let last = focusable[focusable.length - 1];
-            let shift = e.shiftKey;
-            if (shift) {
-                if (e.target === first) { // shift-tab pressed on first input in dialog
-                    //last.focus();
-                    e.preventDefault();
-                }
-            } else {
-                if (e.target === last) { // tab pressed on last input in dialog
-                   // first.focus();
-                    e.preventDefault();
-                }
-            }
-        }
-    }
-}
 
   ngOnInit() {
-
-// place this line in the dialog show function - to only add the listener when the dialog is shown
-window.addEventListener('keydown', this.handleKey);
-
-// uncomment and place this in the dialog close/hide function to remove the listener when dialog is closed/hidden
-// window.removeEventListener('keydown', handleKey);
-
-
-
-
-
 
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];

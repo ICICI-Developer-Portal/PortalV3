@@ -794,18 +794,6 @@ getMisFile(json) {
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
 }
-test_api2(requestParam,apiName) {
-  let query = {};
-  if (requestParam != null && typeof requestParam == 'object'){
-    query = JSON.parse(requestParam);
-  }
-  let headers = new Headers({
-    "Content-Type": "application/json"
-  });
-  let options = new RequestOptions({ headers: headers });
-  return this.http.post(apiName , query, options);
-}
- 
 test_api(requestParam,apiName) {
   var query = "";
   var key;
@@ -814,11 +802,11 @@ test_api(requestParam,apiName) {
       encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
   }
   let headers = new Headers({
-    "Content-Type": "application/json",
-    "APIKey": "1234"
+    "Content-Type": "application/json"
   });
   let options = new RequestOptions({ headers: headers });
   return this.http.post(apiName , query, options);
 }
+ 
 
 }

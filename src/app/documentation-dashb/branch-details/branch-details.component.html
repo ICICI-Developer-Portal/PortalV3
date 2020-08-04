@@ -39,12 +39,19 @@
           class="tryItFreeBtn"
           >{{ constants.VIEW_FLOW }}</a
         >
-        <a
+        <!--<a
           [href]="file"
           class="tryItFreeBtn"
+          (click) = "downloadFile"
           download
           >{{ constants.PDF_DOCUMENT }}</a
-        > 
+        > -->
+        <a
+          
+          class="tryItFreeBtn"
+          (click) = "downloadFile()"
+          >{{ constants.PDF_DOCUMENT }}</a
+        >
       </div>
     </div>
   </div>
@@ -77,6 +84,32 @@
             </div>
             <div class="modal-body">
              <div *ngIf="eazypay">
+              <div class="text-center mb50">
+                <h3 class="fs32 color-blue ff-bold mb25">EazyPay APIs – FAQ</h3>
+              </div>
+              <div id="accordion" class="faqmainSection">
+                <div class="card" *ngFor = "let obj of faqObjQues_eazy;let i=index">
+                  <a class="card-header" data-toggle="collapse" href="#tab_{{i}}" aria-expanded="true">
+                      <div class="row">
+                          <div class="col-md-11 col-11" >
+                          <a class="card-link">
+                            {{i+1}}.  {{obj}}
+                          </a>
+                          </div>
+                          <div class="col-md-1 text-right">
+                          <i class="material-icons accordionDropdownIcon">expand_less</i>
+                          </div>
+                      </div>
+                  </a>
+                  <div id="tab_{{i}}" class="collapse show" data-parent="#accordion">
+                      <div class="card-body white-space">
+                          <p>{{faqObjAns_eazy[i]}}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+
+              </div>
 
              </div>
              <div *ngIf="compositpay">
@@ -84,123 +117,27 @@
                     <h3 class="fs32 color-blue ff-bold mb25">Composite API – FAQ</h3>
                   </div>
                   <div id="accordion" class="faqmainSection">
-                    <div class="card"  *ngFor="let item of compositPayFaq; let i=index">
-                      <a class="card-header" data-toggle="collapse" href="#faq{{i}}" aria-expanded="true">
-                        <div class="row">
-                          <div class="col-md-11 col-11">
-                            <a class="card-link">
-                             {{item.qn}}
-                            </a>
+                    <div class="card" *ngFor = "let obj of faqObjQues;let i=index">
+                      <a class="card-header" data-toggle="collapse" href="#tab_{{i}}" aria-expanded="true">
+                          <div class="row">
+                              <div class="col-md-11 col-11" >
+                              <a class="card-link">
+                                {{i+1}}.  {{obj}}
+                              </a>
+                              </div>
+                              <div class="col-md-1 text-right">
+                              <i class="material-icons accordionDropdownIcon">expand_less</i>
+                              </div>
                           </div>
-                          <div class="col-1 text-right pl0">
-                            <i class="material-icons accordionDropdownIcon">expand_less</i>
-                          </div>
-                        </div>
                       </a>
-                      <div id="faq{{i}}" class="collapse show" data-parent="#accordion">
-                        <div class="card-body">
-                          <p>
-                            {{item.ans}}
-                          </p>
-                        </div>
+                      <div id="tab_{{i}}" class="collapse show" data-parent="#accordion">
+                          <div class="card-body white-space">
+                              <p>{{faqObjAns[i]}}
+                              </p>
+                          </div>
                       </div>
-                    </div>
-                    <div class="card"  >
-                      <a class="card-header" data-toggle="collapse" href="#faq34" aria-expanded="true">
-                        <div class="row">
-                          <div class="col-md-11 col-11">
-                            <a class="card-link">
-                              34.	What are the encryption steps for CIB registration & Beneficiary Registration APIs? 
-                            </a>
-                          </div>
-                          <div class="col-1 text-right pl0">
-                            <i class="material-icons accordionDropdownIcon">expand_less</i>
-                          </div>
-                        </div>
-                      </a>
-                      <div id="faq34" class="collapse show" data-parent="#accordion">
-                        <div class="card-body">
-                          <section>
-                            Ans: 
-                               <p>Encryption Process: </p> 
-                                <p>1.	Asymmetric Encryption (RSA_Encrypt) with RSA 4096 bit Public Key(Certificate), with mode/padding as ECB/PKCS1.</p>
-                                <p> 2.	Base64Encode. </p>
-                                <p> 3.	In Encryption Process Partner should use ICICI Public Key Certificate</p>
-
-                                <p>Decryption Process: </p>
-
-                                <p> 1. Base64Decode	</p>
-                                <p> 2. Asymmetric Decryption(RSA_Decrypt) by using Partner private Key certificate.</p>
-
-                          </section>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="card"  >
-                      <a class="card-header" data-toggle="collapse" href="#faq35" aria-expanded="true">
-                        <div class="row">
-                          <div class="col-md-11 col-11">
-                            <a class="card-link">
-                              35.	What are the encryption-decryption mechanism for Composite API and their respective status check APIs? 
-                            </a>
-                          </div>
-                          <div class="col-1 text-right pl0">
-                            <i class="material-icons accordionDropdownIcon">expand_less</i>
-                          </div>
-                        </div>
-                      </a>
-                      <div id="faq34" class="collapse show" data-parent="#accordion">
-                        <div class="card-body">
-                          <section>
-                           <p> Ans:         For encryption of request at ICICI:</p>
-
-                            <p> SesionKey = Randomly generated string of length 16 (OR 32).</p>
-                            <p>encryptedKey = Base64Encode(RSA/ECB/PKCS1Encryption(SesionKey,ICICIPubKey.cer))</p>
-                            <p>IV = Initialization Vector- Exactly 16 bytes actual value to match the block size</p>
-                            <p> encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Request,SessionKey, IV))</p>
-                            
-                            <p>For encryption of response at ICICI:</p>
-                            
-                            <p> encryptedKey = Base64Encode(RSA/ECB/PKCS1Encryption(SesionKey,ClientPubKey.cer))</p>
-                            <p> Session key is nothing but randomly generated string of length 16 (OR 32).</p>
-                            <p> encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Response,SessionKey))</p>
-                            
-                            <p>For decryption of response at Client:</p>
-                            
-                            <p>IV= getFirst16Bytes(Base64Decode(encryptedData)</p>
-                            <p>SessionKey = Base64Decode(RSA/ECB/PKCS1Decryption(encryptedKey,ClientPrivateKey.p12,))</p>
-                            <p>Session key is nothing but randomly generated string of length 16 (OR 32) .</p>
-                            <p> Response = Base64Decode (AES/CBC/PKCS5Padding Decryption(encryptedData,SessionKey, IV))</p>
-                            <p>Or</p>
-                            <p> Steps for Encryption.</p>
-                            
-                            <p>1)            Generate 16 digit random number. Say RANDOMNO.</p>
-                            <p>2)            Encrypt RANDOMNO using RSA/ECB/PKCS1Padding and encode using Base64. Say encryptedKey.</p>
-                            <p> 3)            Perform AES/CBC/PKCS5Padding encryption on request payload using RANDOMNO as key and iv- initialization vector. Say encryptedData.</p>
-                            <p>4)            Now client may choose to send IV in request from one of below two options.</p>
-                            <p>a.            Send Base64 Encoded IV in “iv” tag. (Recommended Approach)</p>
-                            <p>b.            Send IV as a part of encryptedData itself. </p>
-                            <p> bytes[] iv = IV;</p>
-                                        <p> bytes[] cipherText = symmetrically encrypted Bytes (step3)</p>
-                                          <p> bytes[] concatB = iv + cipherText;</p>
-                                            <p>encryptedData = B64Encode(concatB);</p>
-                            
-                                              <p> 5)            Perform AES/CBC/PKCS5Padding encryption on DATA using RANDOMNO as key and Base64encoded RANDOMNO as IV. Say ENCR_DATA.</p>
-                            
-                                              <p>Steps for Decryption</p>
-                            
-                                              <p>1)            Get the IV- Base64 decode the encryptedData and get first 16 bytes and rest is encrypted response.</p>
-                                              <p> bytes[] IV= getFirst16Bytes(Base64Decode(encryptedData)</p>
-                                              <p> 2)            Decrypt encryptedKey using algo (RSA/ECB/PKCS1Padding) and Client’s private key.</p>
-                                              <p>3)            Decrypt the response using algo (AES/CBC/PKCS5Padding).</p>
-                                              <p> 4)            Ignore first 16 bytes of response, as it contains IV.</p>
-                          
-                            
-                          </section>
-                        </div>
-                      </div>
-                    </div>
+                  </div>
+                  
                     
                   </div>
              </div>

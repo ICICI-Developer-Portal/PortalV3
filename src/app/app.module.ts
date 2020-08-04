@@ -39,17 +39,24 @@ import { JwtAuthComponent } from './jwt-auth/jwt-auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 //import { MisComponent } from './maindashboard/mis/mis.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HeaderComponent } from "./header/header.component";
+import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
+import { FocusOnShowDirective } from "./autofocus.directive";
+import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminPortalComponent,
-   SigninModalComponent,
+    SigninModalComponent,
     AppathonComponent,
     AdvertisementComponent,
     AppathonSignupComponent,
     JwtAuthComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    HeaderComponent,
+    FocusOnShowDirective
   ],
   imports: [
     BrowserModule,
@@ -72,7 +79,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    
+    Ng4LoadingSpinnerModule,
+    ProductionOnboardingModule 
     
   ],
   providers: [

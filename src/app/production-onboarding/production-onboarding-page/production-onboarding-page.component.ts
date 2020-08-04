@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewChildren, ElementRef, QueryList, EventEmitter, Output, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { interval as observableInterval,Observable } from "rxjs";
-import { takeWhile, scan, tap,map, startWith } from "rxjs/operators";
+import { interval as observableInterval, Observable } from "rxjs";
+import { takeWhile, scan, tap, map, startWith } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { VariablesService } from 'src/app/services/Variables.service';
@@ -10,6 +10,9 @@ import { ToasterService, Toast } from 'angular2-toaster';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Http, Headers, RequestOptions, Response, RequestMethod, ResponseContentType } from "@angular/http";
+
+
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 declare var showProdTabEnv: any; // just change here from arun answer.
 declare var openProdCurrentTabEnv: any;
@@ -19,16 +22,16 @@ import { PATTERNS } from 'config/regex-pattern';
 import { DomSanitizer } from '@angular/platform-browser';
 import { element } from '@angular/core/src/render3';
 import { NestedListFilterPipePipe } from 'src/app/maindashboard/nested-list-filter-pipe.pipe';
-
 declare var $: any;
 
 
 @Component({
-  selector: 'app-uatonboarding-dashboard-page',
-  templateUrl: './uatonboarding-dashboard-page.component.html',
-  styleUrls: ['./uatonboarding-dashboard-page.component.css']
+  selector: 'app-production-onboarding-page',
+  templateUrl: './production-onboarding-page.component.html',
+  styleUrls: ['./production-onboarding-page.component.css']
 })
-export class UATonboardingDashboardPageComponent implements OnInit {
+export class ProductionOnboardingPageComponent implements OnInit {
+
   modalRef: BsModalRef;
   reactiveForm: FormGroup;
   responseData: [];
@@ -70,27 +73,41 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   apiGreenCheck: string = "invalid";
   confirmMsgProd: any;
   selectedDay: string = '';
-  paymentMode:any[] = [ "Cash","ICICI Cheque" ,"ICICI DD","Non-ICICI Cheque","Non-ICICI DD","Debit Authorization","Other"];
-  yesNo:any[] = [ "Yes","No"];
-  serviceTypeOption:any[] = [ "WADL","REST","SOAP","Other"];
-  comTypeOption:any[] = [ "XML","XML as a string","JSON"];
-  ifscCodeOption:any[] = [ "ICIC0000103","ICIC0000104","ICIC0000106"];
-  environmentOption:any[] = [ "UAT","CUG","Production"];
-  certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
-  callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats.\n For Isurepay we require two webservice URLs";
+  paymentMode: any[] = ["Cash", "ICICI Cheque", "ICICI DD", "Non-ICICI Cheque", "Non-ICICI DD", "Debit Authorization", "Other"];
+  yesNo: any[] = ["Yes", "No"];
+  serviceTypeOption: any[] = ["WADL", "REST", "SOAP", "Other"];
+  comTypeOption: any[] = ["XML", "XML as a string", "JSON"];
+  ifscCodeOption: any[] = ["ICIC0000103", "ICIC0000104", "ICIC0000106"];
+  environmentOption: any[] = ["UAT", "CUG", "Production"];
+  certificateOption: any[] = ["Java Key Store", "IIS SSL (Should be 4096 bits/Public certificate is also required)"];
+  callbackURLInfo: any = "The URL should start with https.\n We accept only '.cer' and '.txt' formats.\n For Isurepay we require two webservice URLs";
   isemail_check: boolean = false;
   isemail_reg_check: string = "";
   selectedValue = [];
-term:any;
+  term: any;
+  fetchedJiraId;
+  fetchedMerchantName;
+  fetchedDescription;
+  fetchedSpocEmail;
+  fetchedSpocPhone;
+  fetchedRelManager;
+  fetchedDomain;
+  fetchedDomainApi;
+  domainApiNumber;
+  list;
+  selectedJiraId;
   /** Add var for search field */
   myControl = new FormControl();
-  APIAutocompletDataSource:any[] = [];
+  APIAutocompletDataSource: any[] = [];
   filteredOptions: Observable<string[]>;
-  searchedItem:any;
-  searchedFieldValue:any;
+  searchedItem: any;
+  searchedFieldValue: any;
+
 
   /** end here */
-  constructor(private HttpClient: HttpClient,
+  constructor(
+    private http: Http,
+    private HttpClient: HttpClient,
     private formbuilder: FormBuilder,
     private objOnBoarding: VariablesService,
     private spinnerService: Ng4LoadingSpinnerService,
@@ -117,10 +134,9 @@ term:any;
       console.log(this.responseData)
       this.menuArray = this.getMenuData(this.responseData);
       console.log(this.menuArray, "hhhhhhhhh  ")
-     
+
     }
     );
-
     // testing......
     let edit = ''
     this.resetForm(edit);
@@ -132,7 +148,7 @@ term:any;
 
       return true;
     }
-    $('body').on('click','.deleteRemoveObject', function () {
+    $('body').on('click', '.deleteRemoveObject', function () {
       var currentId = $(this).attr("class");
       console.log(currentId, $(this).parent())
       $(this).parent().remove();
@@ -150,18 +166,18 @@ term:any;
     $("#searchFilter").keyup(function () {
       var text = $("#searchFilter").val().toLowerCase();
       var items = $(".customcsscontainer label");
-    
+
       if ($.trim($("#searchFilter").val()) == '') {
-         console.log(items.length)
-        $("").css("display","");
-         // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
-          $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
-          $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
-          $(".second-level,third-level,.fourth-level,.fifth-level").hide();
-         
+        console.log(items.length)
+        $("").css("display", "");
+        // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
+        $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
+        $(".second-level,.third-level,.fourth-level,.fifth-level").css('display', 'none')
+        $(".second-level,third-level,.fourth-level,.fifth-level").hide();
+
 
       } else {
-        items.each(function() {
+        items.each(function () {
           var block;
           block = $(this);
           // console.log( $(this).attr('greatgreatgrandparentname'))
@@ -169,28 +185,31 @@ term:any;
           // console.log( $(this).attr('grandparentname'))
           // console.log( $(this).attr('parentname'))
           if (block.text().toLowerCase().indexOf(text) != 0) {
-              block.hide();              
+            block.hide();
           } else {
-              block.show();
-              console.log(block)
-             $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
-             
-             $(".first-level p").hide();
-              
+            block.show();
+            console.log(block)
+            $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
+
+            $(".first-level p").hide();
+
 
           }
-      });
-         
+        });
+
       }
-$(".first-level").show();
-  })
+      $(".first-level").show();
+    })
+    this.getRequestIds()
+    console.log(this.getRequestIds())
+
   }
 
-  
-  selectChangeHandler (event: any) {
+
+  selectChangeHandler(event: any) {
     this.selectedDay = event.target.value;
   }
-  
+
   initipRows() {
     return this.formbuilder.group({
       ip: ['']
@@ -203,15 +222,15 @@ $(".first-level").show();
   addNewIPField() {
     const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
     console.log(control.at(0));
-    if(control.length<=9){ 
-     control.push(new FormControl(null, [Validators.required,Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
-    }else{}   
+    if (control.length <= 9) {
+      control.push(new FormControl(null, [Validators.required, Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
+    } else { }
   }
 
   deleteRow(i: number) {
     console.log(i);
     const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
-   
+
     control.removeAt(i);
 
   }
@@ -219,14 +238,14 @@ $(".first-level").show();
    * add and remove callback URLs
    */
   addNewURLField() {
-    
+
     const regURL = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
     console.log(control.at(0));
 
-    if(control.length<=9){ 
-     control.push(new FormControl(null, [Validators.pattern(regURL)]));
-    }else{}   
+    if (control.length <= 9) {
+      control.push(new FormControl(null, [Validators.pattern(regURL)]));
+    } else { }
   }
   deleteURLRow(i: number) {
     console.log(i);
@@ -234,29 +253,29 @@ $(".first-level").show();
     control.removeAt(i);
 
   }
-  resetField(){
+  resetField() {
     const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip');
     while (control.length > 1) {
-        control.removeAt(1)
-      }
-      control.reset();
-      /**
-       * changes done for callback url control
-       */
-      const control2 = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
-      while (control2.length > 1) {
-        control2.removeAt(1)
-      }
-      control2.reset();
+      control.removeAt(1)
+    }
+    control.reset();
+    /**
+     * changes done for callback url control
+     */
+    const control2 = <FormArray>this.reactiveForm.get('whitelistIpSection').get('url');
+    while (control2.length > 1) {
+      control2.removeAt(1)
+    }
+    control2.reset();
   }
-ifIPpatternNotmatches(){
-  const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip').value;
+  ifIPpatternNotmatches() {
+    const control = <FormArray>this.reactiveForm.get('whitelistIpSection').get('ip').value;
 
-}
+  }
   // ====================================
 
 
- 
+
   isChecked: any;
   parentDataDomainName: string;
   childData: string;
@@ -276,7 +295,7 @@ ifIPpatternNotmatches(){
     this.showTab = id;
     //this.active ='#F06321';
   }
-  additionalFieldComingFromServer(addtionalParams){
+  additionalFieldComingFromServer(addtionalParams) {
 
     for (var i = 0; i < addtionalParams.length; i++) {
       console.log(addtionalParams[i]);
@@ -368,22 +387,26 @@ ifIPpatternNotmatches(){
 
   }
   onClickContinueBtn() {
-    console.log("rchd inside cninue btn")
+    console.log("rchd inside cninue btn", this.reactiveForm.get('nestedCheckboxesList').get('domainApi'))
 
-    if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements"); }
-    else { $("#thrdSectionChld").addClass("overlay_parent");    }
-    //this.modalRef.hide();
-    this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
-      return this.id
-    }).get()
-    console.log(this.arrayObjectOfListIds)
-    const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
+    // if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements"); }
+    // else { $("#thrdSectionChld").addClass("overlay_parent");    }
+    // //this.modalRef.hide();
+    // this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
+    //   return this.id
+    // }).get()
+    // console.log(this.arrayObjectOfListIds)
+    //const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
+    // this.domainApiNumber = (this.fetchedDomainApi.replace(/[^0-9]/g, ''));
+    this.domainApiNumber = this.fetchedDomainApi;
+
+    console.log(this.domainApiNumber)
     var json = {
-      ID: this.arrayObjectOfListIds.join(),
+      ID: this.domainApiNumber
     };
     this.additionalFieldComingFromServer(json);
     console.log("json", json);
-    
+
     this.adm.getUATFromData(json).subscribe((data: any) => {
       console.log(data);
       var response = data._body;
@@ -393,14 +416,14 @@ ifIPpatternNotmatches(){
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
       localStorage.setItem('additonalFields', this.additionalParams)
 
-     this.additionalFieldComingFromServer( this.additionalParams)
+      this.additionalFieldComingFromServer(this.additionalParams)
       console.log("final", this.additionalParams);
     },
       err => {
         console.log('err', err);
         this.router.navigate(['error']);
       });
-  
+
   }
 
 
@@ -410,8 +433,8 @@ ifIPpatternNotmatches(){
   @ViewChild('businessBankingList') businessBankingList: ElementRef;
   @ViewChild('whitelistIpList') whitelistIpList: ElementRef;
   @ViewChild('checkboxes') checkboxes: ElementRef;
-  @ViewChild('cartApiContainer', {read: ElementRef}) private cartApiContainer: ElementRef;
-  @ViewChild('matInput', {read: ElementRef}) private matInput: ElementRef;
+  @ViewChild('cartApiContainer', { read: ElementRef }) private cartApiContainer: ElementRef;
+  @ViewChild('matInput', { read: ElementRef }) private matInput: ElementRef;
 
 
 
@@ -478,136 +501,136 @@ ifIPpatternNotmatches(){
     return tempArray;
   }
   // "IP", "Port", "Account Number", "Client Code", "URL", "Checksum", "Encryption", "Certificate", "Service Type", "Communication Method", "IFSC Code", "Virtual Code", "IPS Refund Code", "Intermediate Account Number", "Account Name", "Authorization Level", "URN", "Environment", "Validation Mode", "Acceptance Mode", "Recipient Mail ID", "Mode Offered", "Transaction Limit", "API Name", "Headers", "TestingID"
-  forResetiingAdditionalFields(){
-    this.accNo    = false; this.clientCode = false; this.url         = false; this.ip         = false; this.port     = false;
-    this.checksum = false; this.encryption = false; this.certificate = false; this.service    = false; this.message  = false;
-    this.ifsc     = false; this.virtualCode= false; this.ips         = false; this.interAccNo = false; this.accName  = false; 
-    this.authLevel= false; this.urn        = false; this.env         = false; this.valid      = false; this.accept   = false; 
-    this.recipient = false;this.mode       = false; this.trans       = false; this.amount     = false; this.headers   = false; 
-    this.uatTestingID= false;
+  forResetiingAdditionalFields() {
+    this.accNo = false; this.clientCode = false; this.url = false; this.ip = false; this.port = false;
+    this.checksum = false; this.encryption = false; this.certificate = false; this.service = false; this.message = false;
+    this.ifsc = false; this.virtualCode = false; this.ips = false; this.interAccNo = false; this.accName = false;
+    this.authLevel = false; this.urn = false; this.env = false; this.valid = false; this.accept = false;
+    this.recipient = false; this.mode = false; this.trans = false; this.amount = false; this.headers = false;
+    this.uatTestingID = false;
     this.resetField();
   }
-  multipleSelectAPI(e, isChecked: boolean){
-   this.forResetiingAdditionalFields();
+  multipleSelectAPI(e, isChecked: boolean) {
+    this.forResetiingAdditionalFields();
     if ($(".customcsscontainer input:checkbox:checked").length) {
       $('.ContinueBtn').prop('disabled', false);
       $("#dynamic-list-check").css("display", "block");
       $("#scndSectionWhitelistIp").addClass("ng-valid");
       $("#scndSectionWhitelistIp").removeClass("ng-invalid");
-     
+
     }
     else {
       $('.ContinueBtn').prop('disabled', true);
       $("#thrdSectionChld").addClass("overlay_parent");
       $("#dynamic-list-check").css("display", "none");
       $("#scndSectionWhitelistIp").addClass("ng-invalid");
-      $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+      $("#scndSectionWhitelistIp").removeClass("ng-valid");
       $("#submitButton,#file1").addClass("blockElements")
     }
-        if(isChecked) {
-          this.selectedValue.push({
-          "childName": e.target.getAttribute('value'),
-          "parentName" :e.target.getAttribute('parentName'),
-          "grandParentName":e.target.getAttribute('grandParentName'),
-          "greatGrandParentName": e.target.getAttribute('greatGrandParentName'),
-          "greatGreatGrandParentName": e.target.getAttribute('greatGreatGrandParentName'),
-          "id": e.target.getAttribute('id')
-        });
-          console.log(this.selectedValue)
+    if (isChecked) {
+      this.selectedValue.push({
+        "childName": e.target.getAttribute('value'),
+        "parentName": e.target.getAttribute('parentName'),
+        "grandParentName": e.target.getAttribute('grandParentName'),
+        "greatGrandParentName": e.target.getAttribute('greatGrandParentName'),
+        "greatGreatGrandParentName": e.target.getAttribute('greatGreatGrandParentName'),
+        "id": e.target.getAttribute('id')
+      });
+      console.log(this.selectedValue)
 
-        } else {
-  
-          let index = this.selectedValue.indexOf(e);
-          console.log(e.target);
-          this.selectedValue.splice(index,1);
-          console.log(this.selectedValue,"this.selectedValue");               
-        }
-          
-}
-deleteRemoveObjectFromCart(e){
-  this.forResetiingAdditionalFields(); 
-console.log(e.target);
+    } else {
 
-console.log(this.selectedValue.length)
-console.log(e.target.getAttribute("id"));
-let deletedId=e.target.getAttribute("id");
-$("input[id=" + e.target.getAttribute("id") + "]").prop("checked",false);
-  this.selectedValue = this.selectedValue.filter(function( obj ) {
-    console.log( obj.childName , e.target.getAttribute("class"))
-    return obj.childName !== e.target.getAttribute("class");
-    
-});
+      let index = this.selectedValue.indexOf(e);
+      console.log(e.target);
+      this.selectedValue.splice(index, 1);
+      console.log(this.selectedValue, "this.selectedValue");
+    }
 
-console.log(this.selectedValue)
-if(this.selectedValue.length>0){
-   this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
-    return this.id
-  }).get()
-  console.log(this.arrayObjectOfListIds)
-  const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
-  var json = {
-    ID: this.arrayObjectOfListIds.join(),
-  };
-  this.adm.getUATFromData(json).subscribe((data: any) => {
-    console.log(data);
-    var response = data._body;
-    var obj = JSON.parse(response);
-    console.log("obj reached", obj);
-    localStorage.setItem('nodevalue', obj.API_NAME)
-    this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
-    localStorage.setItem('additonalFields', this.additionalParams)
+  }
+  deleteRemoveObjectFromCart(e) {
+    this.forResetiingAdditionalFields();
+    console.log(e.target);
 
-   this.additionalFieldComingFromServer( this.additionalParams)
-    console.log("final", this.additionalParams);
-  },
-    err => {
-      console.log('err', err);
-      this.router.navigate(['error']);
+    console.log(this.selectedValue.length)
+    console.log(e.target.getAttribute("id"));
+    let deletedId = e.target.getAttribute("id");
+    $("input[id=" + e.target.getAttribute("id") + "]").prop("checked", false);
+    this.selectedValue = this.selectedValue.filter(function (obj) {
+      console.log(obj.childName, e.target.getAttribute("class"))
+      return obj.childName !== e.target.getAttribute("class");
+
     });
-}
-else{
-  $('.ContinueBtn').prop('disabled', true);
-  $("#thrdSectionChld").addClass("overlay_parent");
-  $("#dynamic-list-check").css("display", "none");
-  $("#scndSectionWhitelistIp").addClass("ng-invalid");
-  $("#scndSectionWhitelistIp").removeClass("ng-valid");   
-  $("#submitButton,#file1").addClass("blockElements");
- 
-}
-}
 
-  onSubmitUATForm(Prodconfirm) {
+    console.log(this.selectedValue)
+    if (this.selectedValue.length > 0) {
+      this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
+        return this.id
+      }).get()
+      console.log(this.arrayObjectOfListIds)
+      const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
+      var json = {
+        ID: this.arrayObjectOfListIds.join(),
+      };
+      this.adm.getUATFromData(json).subscribe((data: any) => {
+        console.log(data);
+        var response = data._body;
+        var obj = JSON.parse(response);
+        console.log("obj reached", obj);
+        localStorage.setItem('nodevalue', obj.API_NAME)
+        this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
+        localStorage.setItem('additonalFields', this.additionalParams)
+
+        this.additionalFieldComingFromServer(this.additionalParams)
+        console.log("final", this.additionalParams);
+      },
+        err => {
+          console.log('err', err);
+          this.router.navigate(['error']);
+        });
+    }
+    else {
+      $('.ContinueBtn').prop('disabled', true);
+      $("#thrdSectionChld").addClass("overlay_parent");
+      $("#dynamic-list-check").css("display", "none");
+      $("#scndSectionWhitelistIp").addClass("ng-invalid");
+      $("#scndSectionWhitelistIp").removeClass("ng-valid");
+      $("#submitButton,#file1").addClass("blockElements");
+
+    }
+  }
+
+  onSubmitProductionForm(Prodconfirm) {
 
     let ipValues = [];
-    let urlValues= [];
-    
+    let urlValues = [];
+
     $('.countIp .form-control').each(function () {
       ipValues.push(this.value);
     });
     $('.countUrl .form-control').each(function () {
       urlValues.push(this.value);
-     
+
     });
     console.log(ipValues)
     console.log(urlValues)
     let reactiveFromFieldValues = this.reactiveForm.value;
-   
+
     let inputFields = {
       userName: localStorage.getItem("username"),
       domainName: localStorage.getItem("nodevalue"),
-      domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
+      domainApis: reactiveFromFieldValues.nestedCheckboxesList.domainApi,
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
       spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
       spocPhone: reactiveFromFieldValues.basicDetailsSection.contact_no,
       relManager: reactiveFromFieldValues.basicDetailsSection.r_m_maild_id,
-      env: "UAT",
+      env: "PROD",
       // ips: "",
       // callbackUrl: "",
       AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
-      ClientCode: reactiveFromFieldValues.whitelistIpSection.ClientCode ? reactiveFromFieldValues.whitelistIpSection.ClientCode : '',
+      ClientCode: reactiveFromFieldValues.whitelistIpSection.clientCode ? reactiveFromFieldValues.whitelistIpSection.clientCode : '',
       //url: reactiveFromFieldValues.whitelistIpSection.url ? reactiveFromFieldValues.whitelistIpSection.url : '',
-      url:urlValues.toString() ? urlValues.toString() : '',
+      url: urlValues.toString() ? urlValues.toString() : '',
       Ip: ipValues.toString() ? ipValues.toString() : '',
       Port: reactiveFromFieldValues.whitelistIpSection.port ? reactiveFromFieldValues.whitelistIpSection.port : '',
       Checksum: reactiveFromFieldValues.whitelistIpSection.Checksum ? reactiveFromFieldValues.whitelistIpSection.Checksum : '',
@@ -630,7 +653,7 @@ else{
       Acc_trans: reactiveFromFieldValues.whitelistIpSection.Acc_trans ? reactiveFromFieldValues.whitelistIpSection.Acc_trans : '',
       Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
       Acc_headers: reactiveFromFieldValues.whitelistIpSection.header ? reactiveFromFieldValues.whitelistIpSection.header : '',
-      Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.TestingID ? reactiveFromFieldValues.whitelistIpSection.TestingID : '',
+      Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.uatTestingID ? reactiveFromFieldValues.whitelistIpSection.uatTestingID : '',
       file1: reactiveFromFieldValues.whitelistIpSection.file1
     };
     console.log(inputFields);
@@ -701,7 +724,7 @@ else{
       res => {
         console.log(res, formData);
         // alert(res.jiraId)
-        //this.toastrmsg('success', res.jiraId + " has been created");
+        // this.toastrmsg('success', res.jiraId + " has been created");
         this.modalRef = this.modalService.show(Prodconfirm, {
           backdrop: "static"
         });
@@ -729,7 +752,7 @@ else{
             },
             err => {
               console.log('err', err);
-              this.router.navigate(['error']);
+              // this.router.navigate(['error']);
             },
           );
         }
@@ -766,35 +789,39 @@ else{
       // reactiveFromFieldValues.whitelistIpSection.addControl('ic', new FormControl(null,[Validators.required, Validators.pattern('((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))')]));
       console.log(reactiveFromFieldValues.whitelistIpSection);
     }
-    if(value == "URL"){
+    if (value == "URL") {
       this.reactiveForm.get('whitelistIpSection').get('url');
     }
     console.log(value + "", 1);
 
   }
-  
+
   resetForm(edit) {
     //regex for https url validatio
     const regURL = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
-    const ipReg = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';  
+    const ipReg = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';
     this.reactiveForm = new FormGroup({
       'basicDetailsSection': new FormGroup({
-        "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
-        "description": new FormControl(edit ? edit.description : null, Validators.required),
-        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
-        "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
-        "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
+        "JiraId": new FormControl("Approved/Complete UAT Request ID"),
+        "merchantName": new FormControl(),
+        "description": new FormControl(),
+        "email_id": new FormControl(),
+        "contact_no": new FormControl(),
+        "r_m_maild_id": new FormControl(),
       }),
       "nestedCheckboxesList": new FormGroup({
         "nestedList": new FormArray([]),
         "nestedCheckboxFilter": new FormControl(),
+        "domain": new FormControl(),
+        "domainApi": new FormControl(),
+
       }),
       "whitelistIpSection": new FormGroup({
         "AccountNo": new FormControl(),
         "Acc_name": new FormControl(),
         "Account_no": new FormControl(),
         "clientCode": new FormControl(),
-        "url": new FormArray([ 
+        "url": new FormArray([
           new FormControl(null, [Validators.pattern(regURL)]),
         ]),
         "Checksum": new FormControl('Select Checksum'),
@@ -818,9 +845,9 @@ else{
         "Acc_mode": new FormControl(),
         "Acc_trans": new FormControl(),
         "Acc_amount": new FormControl('Select Amount'),
-        "ip":  new FormArray([ 
+        "ip": new FormArray([
           // <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows'),Validators.required
-          new FormControl(null, [Validators.required,Validators.pattern(ipReg)]),
+          new FormControl(null, [Validators.required, Validators.pattern(ipReg)]),
         ]),
 
         "port": new FormControl(),
@@ -828,11 +855,11 @@ else{
         "file1": new FormControl(null, [Validators.required]),
         "checkBox": new FormControl(false, [Validators.requiredTrue])
       }),
-     
+
     })
 
   }
-  
+
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
@@ -846,35 +873,128 @@ else{
     console.log(this.BasicDetailsList, "2", this.RequestedApiList, "3", this.businessBankingList, "4", this.whitelistIpList,
       this.checkboxes)
     console.log(this.reactiveForm);
-     var d1 = this.cartApiContainer.nativeElement;
-     console.log(d1)
-    console.log(this.matInput.nativeElement.value);
+
+    var d1 = this.cartApiContainer.nativeElement;
+    console.log(d1)
+
   }
- 
-  createCart(){
+
+  createCart() {
     console.log(this.reactiveForm.controls);
 
-    console.log(this.matInput.nativeElement.value);
-    console.log(this.matInput.nativeElement);
 
-    console.log( this.cartApiContainer)
+    console.log(this.cartApiContainer)
 
-    this.cartApiContainer.nativeElement.insertAdjacentHTML('beforeend', '<label _ngcontent-c1="" style="padding-top: 10px; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border: 1px solid gainsboro; margin-bottom: 0px;"><span _ngcontent-c1="">Domain</span><span _ngcontent-c1="">&gt; Sub Domain</span><span _ngcontent-c1=""> &gt;&gt; '+this.matInput.nativeElement.value+'</span><span _ngcontent-c1="" class="pull-right deleteRemoveObject" style="cursor: pointer;" >✖</span></label>');
-   
+    this.cartApiContainer.nativeElement.insertAdjacentHTML('beforeend', '<label _ngcontent-c1="" style="padding-top: 10px; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border: 1px solid gainsboro; margin-bottom: 0px;"><span _ngcontent-c1="">Domain</span><span _ngcontent-c1="">&gt; Sub Domain</span><span _ngcontent-c1=""> &gt;&gt; ' + this.matInput.nativeElement.value + '</span><span _ngcontent-c1="" class="pull-right deleteRemoveObject" style="cursor: pointer;" >✖</span></label>');
   }
 
-  displayAPIName(api:any): string {
-    if(api && api.ApiId){
-        this.searchedItem = api.ApiId;
-        
-        console.log("You have selected API " +api.name + " Id="+this.searchedItem );
+  displayAPIName(api: any): string {
+    if (api && api.ApiId) {
+      this.searchedItem = api.ApiId;
+
+      console.log("You have selected API " + api.name + " Id=" + this.searchedItem);
       //  this.cartApiContainer.nativeElement.insertAdjacentHTML('beforeend', '<div class="two">'+api.name +'</div><p> Id='+this.searchedItem+' </p');
-console.log( this.cartApiContainer,event.target)
-this.searchedFieldValue=api.name ;
-console.log(this.searchedFieldValue);
+      console.log(this.cartApiContainer, event.target)
+      this.searchedFieldValue = api.name;
+      console.log(this.searchedFieldValue);
 
     }
     return api && api.name ? api.name : '';
   }
+
+
+
+  getRequestIds() {
+   let username = localStorage.getItem("username");
+    console.log(username)
+    // const headers = new HttpHeaders().set(
+    //   "Content-Type",
+    //   "application/x-www-form-urlencoded"
+    // );
+
+    // let options = {
+    //   method: "POST",
+    //   headers: new HttpHeaders().set(
+    //     "Content-Type",
+    //     "application/x-www-form-urlencoded"
+    //   )
+    // };
+    console.log("reached", this.list)
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Token": localStorage.getItem("jwt")
+    });
+    console.log(headers)
+
+
+    let options = new RequestOptions({ headers: headers });
+    console.log(options)
+
+
+    let body = new URLSearchParams();
+    body.set("username", username);
+    this.http.post(
+      // this.http.post(
+      "https://developer.icicibank.com/rest/fetch-jiraid",
+      body.toString(),
+      options
+    ).subscribe((data: any) => {
+      // res => {
+      console.log(data.json())
+
+      this.list = data.json();
+      if(this.list.length>0){
+        console.log(" jira id available")
+        var datalist = this.list;
+      }
+      else{
+        var datalist ;
+        console.log("no approved jira id available")
+      }
+
+      console.log(this.list)
+     
+
+     
+
+      console.log("for pushing")
+
+      console.log(datalist["JiraId"], 'JiraId')
+
+    },
+      err => {
+        this.list = [];
+        this.router.navigate(['error']);
+      }
+    );
+  }
+  changeItem(JiraId) {
+    this.forResetiingAdditionalFields();
+    this.selectedJiraId = JiraId;
+    console.log(this.reactiveForm.controls.basicDetailsSection.get("JiraId").value);
+  
+    for (var i in this.list) {
+      console.log(i);
+      if (this.list[i]["JiraId"] == JiraId) {
+        console.log(this.list[i]["JiraId"], "=====", JiraId, "======", i);
+        console.log(this.list[i]["MerchantName"]);
+        this.fetchedDomainApi = this.list[i]["DomainApi"];
+        this.reactiveForm.controls.basicDetailsSection.patchValue({
+          "JiraId": this.list[i]["JiraId"],
+          "merchantName": this.list[i]["MerchantName"],
+          "description": this.list[i]["Description"],
+          "email_id": this.list[i]["SpocEmail"],
+          "contact_no": this.list[i]["SpocPhone"],
+          "r_m_maild_id": this.list[i]["RelManager"]
+        });
+        this.reactiveForm.controls.nestedCheckboxesList.patchValue({
+          "domain": this.list[i]["Domain"],
+          "domainApi": this.list[i]["DomainApi"]
+        });
+        break;
+      }
+    }
+  }
+
 
 }

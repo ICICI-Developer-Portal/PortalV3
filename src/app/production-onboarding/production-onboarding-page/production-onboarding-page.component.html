@@ -1,6 +1,6 @@
 <div id="container">
-  <app-uatonboarding-dashboard-page-sidebar (notify)="parentMethod($event)" [domainName]="parentDataDomainName">
-  </app-uatonboarding-dashboard-page-sidebar>
+  <app-production-sidebar (notify)="parentMethod($event)" [domainName]="parentDataDomainName">
+  </app-production-sidebar>
   <div class="documentTabContent">
     <div class="tab-content" id="v-pills-tabContent">
       <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
@@ -58,51 +58,67 @@
 
                 <div formGroupName="basicDetailsSection" class="row">
                   <div class="form-group col-md-6">
-                    <label for="merchantName">Merchant Name <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-                      formControlName="merchantName" placeholder="Your Organization Name">
-                    <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
-                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                    <label for="merchantName">Request Id<span class="text-danger"> *</span></label>
+                    <select  class="form-control  col-md-11 inline_block ng-pristine ng-invalid ng-touched fs12" (change)="changeItem($event.target.value)"  formControlName="JiraId">
+                      <option value="Approved/Complete UAT Request ID" (click)="forResetiingAdditionalFields()">Approved/Complete UAT Request ID</option>                     
+                      <option  *ngFor="let i of list" [value]="i.JiraId" > {{i.JiraId}}</option>
+                      </select>
+                    <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
                     <div
+                      *ngIf="!list.length>0"
+                      class="text-danger form-error">
+                      No Approved JiraId available
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="merchantName">Merchant Name <span class="text-danger"> *</span></label>
+                    <input type="text" class="form-control  col-md-11 inline_block" readonly id="merchantName"
+                      formControlName="merchantName" placeholder="Your Organization Name">
+                    <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
+                    <!-- validation -->
+                    <!-- <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
                       class="text-danger form-error">
                       Merchant Name is required.
-                    </div>
+                    </div> -->
                     <!-- ======== -->
                   </div>
 
 
                   <div class="form-group col-md-6">
                     <label for="Description">Description <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="Description"
+                    <input type="text" class="form-control  col-md-11 inline_block" readonly id="Description"
                       formControlName="description"
                       placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged">
-                    <i *ngIf="reactiveForm.get('basicDetailsSection.description').valid"
-                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                    <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.description').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
-                    <div
+                    <!-- <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched"
                       class="text-danger form-error">
                       Description is required.
-                    </div>
+                    </div> -->
                     <!-- ======== -->
                   </div>
 
                   <div class="form-group col-md-6">
                     <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
-                    <input type="email" class="form-control mainField col-md-11 inline_block" id="Email_ID"
+                    <input type="email" class="form-control  col-md-11 inline_block" readonly id="Email_ID"
                       formControlName="email_id" placeholder="Your Email ID">
-                    <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
-                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
                     <div
                       *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched) || reactiveForm.get('basicDetailsSection.email_id').dirty">
                       <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required"
                         class="text-danger form-error">Email id is required.</div>
                       <!--question mark(?) is a safe navigation operator-->
-                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
-                        class="text-danger form-error">Please provide a valid email address</div>
+                      <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
+                        class="text-danger form-error">Please provide a valid email address</div> -->
                     </div>
 
 
@@ -122,19 +138,19 @@
 
                   <div class="form-group col-md-6">
                     <label for="Contact_No">Contact No <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="Contact_No"
+                    <input type="text" class="form-control  col-md-11 inline_block" readonly id="Contact_No"
                       formControlName="contact_no" placeholder="Your Contact Number">
-                    <i *ngIf="reactiveForm.get('basicDetailsSection.contact_no').valid"
-                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.contact_no').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
-                    <div
+                    <!-- <div
                       *ngIf="(reactiveForm.get('basicDetailsSection.contact_no').invalid && reactiveForm.get('basicDetailsSection.contact_no').touched) || reactiveForm.get('basicDetailsSection.contact_no').dirty">
                       <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.required"
-                        class="text-danger form-error">Contact no is required.</div>
+                        class="text-danger form-error">Contact no is required.</div> -->
                       <!--question mark(?) is a safe navigation operator-->
-                      <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.pattern"
-                        class="text-danger form-error">Please provide a valid contact no</div>
-                    </div>
+                      <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.pattern"
+                        class="text-danger form-error">Please provide a valid contact no</div> -->
+                    <!-- </div> -->
                     <!--
                     <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched"
@@ -148,17 +164,17 @@
                   <div class="form-group col-md-6">
                     <label for="r_m_maild_id">ICICI Bank Relationship Manager /Email ID/Employee ID <span
                         class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="r_m_maild_id"
+                    <input type="text" class="form-control  col-md-11 inline_block" readonly id="r_m_maild_id"
                       formControlName="r_m_maild_id"
                       placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
-                    <i *ngIf="reactiveForm.get('basicDetailsSection.r_m_maild_id').valid"
-                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.r_m_maild_id').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
-                    <div
+                    <!-- <div
                       *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched"
                       class="text-danger form-error">
                       Relationship Manager/Email ID/Employee ID is required.
-                    </div>
+                    </div> -->
                     <!-- ======== -->
                   </div>
                 </div>
@@ -175,8 +191,8 @@
         <!-- =========================================================================================================== -->
         <!-- second section starts here -->
         <!-- =========================================================================================================== -->
-        <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''"> 
-        <!-- <div class="tabContentInner"> -->
+        <!-- <div class="tabContentInner" [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''">  -->
+        <div class="tabContentInner">
           <div class="row m0">
             <div class="container">
 
@@ -186,202 +202,44 @@
                 <!-- <div class="form-group col-md-6" formGroupName="nestedCheckboxesList"> -->
 
                 <div class="row" formGroupName="nestedCheckboxesList" id="scndSectionWhitelistIp">
-
-                  <div class="form-group col-md-6">
+                    <div class="col-md-12">
                     <h5 class="">Requested API</h5>
-                    <label for="merchantName">Select API <span class="text-danger"> *</span><i
-                        class='fa fa-check-circle orange col-md-1 margin_3px float-right' aria-hidden='true'
-                        id='dynamic-list-check'></i></label>
-                    <!--karthik-Auto complete-->
-
-                    <!-- <div class="row">
-                      <form class="example-form">
-                        <div class="input-group col-md-11">
-                          <input #matInput class="form-control py-2 border-right-0 border" type="search" placeholder="Search API"
-                            id="example-search-input" matInput formControlName="nestedCheckboxFilter" [matAutocomplete]="auto" value="{{searchedFieldValue}}">
-                          <span class="input-group-append">
-                            <div class="input-group-text bg-transparent" style="margin-top: -1px;" (click)="createCart()"><i
-                                class="fa fa-plus" ></i></div>
-                          </span>
-                          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAPIName">
-                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                              {{option.name}}
-                            </mat-option>
-                          </mat-autocomplete>
-                        </div>
-                      </form>
-                    </div> -->
-                    <!--karthik-Auto complete End-->
-                    <div class="col-md-11 padding-left-0">
-                      <form id="filter">
-                        <label>Filter API by name:</label>
-                        <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
-                        <!-- <pre>{{term}} </pre> -->
-                    </form>
-                    <span class="text-danger" *ngIf="(responseData | filter: term).length === 0"> No matches found</span>
-
                     </div>
-                    <div class=" col-md-11 padding-left-0 scroll-y">
-
-                      <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
-                     
-                    
-                      <ul class="requestedData-list sideMenu" *ngFor="let i of responseData " class="first-level">
-                        <!-- <li *ngIf="(responseData | filterBy: term).length === 0">No matches found</li>   -->
-
-                        <li>
-
-                          <!-- 1 level -->
-                          <a class="display-block cursor-pointer padding-left-25">
-
-                            <ng-template #other>
-                              <div class="customcsscontainer"> <label for="{{i.API_ID}}">
-                                  <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{i.API_ID}}"
-                                    value="{{i.TAB_NAME}}" #checkboxes>
-                                  {{i.TAB_NAME}} </label>
-                              </div>
-                            </ng-template>
-                            <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
-                                  class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
-                          </a>
-                          <!-- 1 level -->
-                          <ul *ngFor="let j of i.children" class="second-level display-none">
-                            <li>
-                              <!-- 2 level -->
-                              <a class="display-block cursor-pointer padding-left-10prcnt">
-                                <ng-template #other>
-                                  <div class="customcsscontainer"> <label for="{{j.API_ID}}"> <input type="checkbox"
-                                        (change)="multipleSelectAPI($event,$event.target.checked)" 
-                                        [attr.parentName]="i.TAB_NAME"
-                                        id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
-                                        #checkboxes>{{j.TAB_NAME}}</label>
-                                  </div>
-                                </ng-template>
-                                <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
-                                  <span class="inline_block pull-right"><img class="dropdownIcon"
-                                      src="assets/images/dropdown-2.svg" alt=""></span></p>
-                              </a>
-                              <!-- 2 level -->
-                              <ul *ngFor="let k of j.children" class="third-level display-none">
-                                <li>
-                                  <!-- 3 level -->
-                                  <a class="display-block cursor-pointer padding-left-13prcnt">
-                                    <ng-template #other >
-                                      <div class="customcsscontainer"> <label for="{{k.API_ID}}"> <input type="checkbox"
-                                            (change)="multipleSelectAPI($event,$event.target.checked)" id="{{k.API_ID}}"
-                                           [attr.parentName]="j.TAB_NAME" [attr.grandParentName]="i.TAB_NAME" value="{{k.TAB_NAME}}"
-                                            #checkboxes>{{k.TAB_NAME}}</label>
-                                      </div>
-                                    </ng-template>
-                                    <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
-                                      <span class="inline_block pull-right"><img class="dropdownIcon"
-                                          src="assets/images/dropdown-2.svg" alt=""></span></p>
-                                  </a>
-                                  <!-- 3 level -->
-                                  <ul *ngFor="let L of k.children" class="fourth-level display-none">
-                                    <li>
-                                      <!-- 4 level -->
-                                      <a class="display-block cursor-pointer padding-left-20prcnt">
-                                        <ng-template #other>
-                                          <div class="customcsscontainer"> <label for="{{L.API_ID}}">
-                                              <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" 
-                                              [attr.parentName]="k.TAB_NAME" [attr.grandParentName]="j.TAB_NAME" [attr.greatGrandParentName]="i.TAB_NAME" id="{{L.API_ID}}"
-                                                value="{{L.TAB_NAME}}" #checkboxes>{{L.TAB_NAME}}</label></div>
-                                        </ng-template>
-                                        <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
-                                          <span class="inline_block pull-right"><img class="dropdownIcon"
-                                              src="assets/images/dropdown-2.svg" alt=""></span>
-                                        </p>
-                                      </a>
-                                      <!-- 4 level -->
-                                      <ul *ngFor="let M of L.children" class="fifth-level display-none">
-                                        <li>
-                                          <!-- 5 level -->
-                                          <a class="display-block cursor-pointer padding-left-25prcnt">
-                                            <!-- <ng-template #other> <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)"    /></ng-template>{{k.TAB_NAME}} <span
-                                                                                          *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
-                                                                                            src="assets/images/dropdown-2.svg" alt=""></span> -->
-                                            <ng-template #other>
-                                              <div class="customcsscontainer"> <label for="M.API_ID">
-                                                 <input
-                                                    type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
-                                                    [attr.parentName]="L.TAB_NAME" [attr.grandParentName]="k.TAB_NAME" [attr.greatGrandParentName]="j.TAB_NAME" [attr.greatGreatGrandParentName]="i.TAB_NAME" 
-                                                    value="{{M.TAB_NAME}}">
-                                                  {{M.TAB_NAME}}</label></div>
-                                            </ng-template>
-                                            <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
-                                              <span class="inline_block pull-right"><img class="dropdownIcon"
-                                                  src="assets/images/dropdown-2.svg" alt=""></span>
-                                            </p>
-                                          </a>
-                                          <!-- 5 level -->
-                                        </li>
-                                      </ul>
-                                    </li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                        
-                      </ul>
-                      <!-- <span *ngIf="responseData.length === 0">No data</span> -->
-                      <!-- <p> Selected value: {{selectedValue | json}}{{responseData.length}} </p>
-                      <pre>Form values: {{reactiveForm.value | json}}</pre> -->
-
-                      <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
-                    </div>
-                    <!-- <p class="error" *ngIf="apiGreenCheck!='valid'" hidden="{{showError}}">
-                    select atleast one value.
-                  </p> -->
-
+                  <div class="form-group col-md-6">
+                    <label for="r_m_maild_id">Domain<span
+                        class="text-danger"> *</span></label>
+                    <input type="text" class="form-control  col-md-11 inline_block" readonly
+                      formControlName="domain" placeholder="Domain">
                   </div>
-                  <div class="col-md-6"  *ngIf="selectedValue.length>0">
-                    <!--  Add cart here-->
-                    <div class=" ">
-                      <div class="card-body" >
-                        <h5 class="card-title" >Selected API</h5>
-          
-                        <div class="list-group cartApiContainer cart-scroll-y"  #cartApiContainer style="color: #ae282e;font-weight: bold;">
-                          <label *ngFor="let i of selectedValue"  style="border: 1px solid gainsboro;padding: 5px;margin-bottom: 0px;">
-                            <!-- {{i.greatGreatGrandParentName}} {{i.greatGrandParentName}}{{i.grandParentName}}{{i.parentName}}{{i.childName}} -->
-                            <span  *ngIf="i.greatGreatGrandParentName"> {{i.greatGreatGrandParentName}}>>>></span>
-                            <span  *ngIf="i.greatGrandParentName"> {{i.greatGrandParentName}}>>></span>
-                            <span *ngIf="i.grandParentName">{{i.grandParentName}}>></span>
-                            <span *ngIf="i.parentName">{{i.parentName}}></span>
-                            <span *ngIf="i.childName"> {{i.childName}}</span>
-                            <span _ngcontent-c1="" class="pull-right" class="{{i.childName}}" id="{{i.id}}" (click)="deleteRemoveObjectFromCart($event)" style="cursor: pointer;float:right;" >✖</span>
-                           
-                       </label>
-                              <!-- {{selectedValue | json}} -->
-                        </div>
-
-
-                      </div>
-                    </div>
+                  
+                  <div class="form-group col-md-6">
+                    <label for="r_m_maild_id">Domain API<span
+                        class="text-danger"> *</span></label>
+                    <input type="text" class="form-control  col-md-11 inline_block" readonly
+                      formControlName="domainApi" placeholder="Domain">
                   </div>
+                  
+                  
 
 
 
                   <!-- Cart end here-->
 
+                  <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                  <div class="col-md-11 padding_0px">
 
-                  <div class="col-md-12">
                     <button #continueButtonSecondSection class="signInBtn ContinueBtn btn-dark  pull-right"
-                      name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"
-                      disabled="" (click)="onClickContinueBtn()"> Continue
+                      name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button" dat-attr="reactiveForm.controls.basicDetailsSection"
+                      [disabled]="reactiveForm.controls.basicDetailsSection.get('JiraId').value=='Approved/Complete UAT Request ID'"  (click)="onClickContinueBtn()"> Continue
                     </button>
                   </div>
+                </div>
+
                   <!-- ------------------------------------------------- -->
 
                   <!-- =================================================== -->
                 </div>
-
-
-
-
-
               </div>
 
             </div>
@@ -401,11 +259,11 @@
         <!-- third section starts here -->
         <!--================================================================================================= -->
 
-        <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''" id="thrdSection">
-          <div class="tabContentInner overlay_parent" id="thrdSectionChld">
+        <!-- <div [ngClass]="reactiveForm.get('basicDetailsSection').invalid ?  'overlay_parent':''" id="thrdSection">
+          <div class="tabContentInner overlay_parent" id="thrdSectionChld"> -->
 
-            <!-- <div>
-          <div class="tabContentInner"> -->
+            <div>
+          <div class="tabContentInner">
             <div class="row m0">
               <div class="container">
                 <h5>Additional Field</h5>
@@ -836,11 +694,15 @@
                     <!-- ======= -->
                     <!-- <div _ngcontent-c1="" class="col-md-12"><button _ngcontent-c1="" class="signInBtn btn-dark" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"> Submit </button></div> -->
 
-                    <div class="col-md-12">
+                    <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                  <div class="col-md-11 padding_0px">
                       <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
                         ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid"
-                        (click)="onSubmitUATForm(Prodconfirm)" id="submitButton"> Submit
-                      </button></div>
+                        (click)="onSubmitProductionForm(Prodconfirm)" id="submitButton"> Submit
+                      </button>
+                    </div>
+                    </div>
 
 
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
