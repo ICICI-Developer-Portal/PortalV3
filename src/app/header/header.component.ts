@@ -498,6 +498,7 @@ export class HeaderComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     try {
       var json = {
+        partnerCode :this.signupForm3.value.partnecode,
         username: this.signupForm3.value.username,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
@@ -647,6 +648,7 @@ export class HeaderComponent implements OnInit {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     var json = {
+      partnerCode :this.signupForm3.value.partnercode,
       userName: this.signupForm3.value.username,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
