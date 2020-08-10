@@ -15,8 +15,8 @@
     <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
-        <div><label for="user">Username2 </label></div>
-        <input name="user" class="input-login" appPrefixFocusAndSelect #username />
+        <div><label for="user">Username</label></div>
+        <input name="user" class="input-login" #username  (keydown.space)="$event.preventDefault();" appPrefixFocusAndSelect />
         <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
           Please Enter UserNames.
         </div>
@@ -305,7 +305,6 @@
               </button>
               <!-- <h6><span id="time" >00:00</span></h6> -->
 
-
               <button  type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
                 change
               </button>
@@ -501,6 +500,7 @@
     </div>
   </div>
 </ng-template>
+
 <!--Login suceess modal-->
 <ng-template #loginsuccess>
   <div class="modal-header loginsuccess-modal-border">

@@ -16,7 +16,7 @@ import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
-
+declare var $: any;
 @Component({
   selector: "icici-header",
   templateUrl: "./header.component.html"
@@ -89,6 +89,8 @@ export class HeaderComponent implements OnInit {
   showAppDash: boolean = false;
   userName: any;
 
+  
+
   constructor(
     private SessionService: SessionService,
     private authService: AuthService,
@@ -119,6 +121,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
+    
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
@@ -126,11 +129,13 @@ export class HeaderComponent implements OnInit {
       username: ["", [Validators.required,]]
     });
     this.signupForm = this.formbuilder.group({
+
       firstname: ["", [Validators.required]],
       companyName: ["", [Validators.required]],
       domainNm: ["", [Validators.required]],
       CITY: ["", [Validators.required]],
       RM: ["", [Validators.required]],
+      partnerCode : ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
       otp_verified: ["0"],
       otp_send: ["0"]
@@ -254,6 +259,17 @@ export class HeaderComponent implements OnInit {
       this.showAppDash = true;
     }
     this.userName = localStorage.getItem("username");
+  }
+/* active class toggle **/
+  addActiveClass(e){
+    console.log(e);
+    $('ul li a[data-toggle="tab"]').removeClass('active');
+    $('ul li a[data-toggle="tab"]').removeClass('show');
+   
+    $('ul li a[data-toggle="dropdown"]').removeClass('active');
+    $('ul li a[data-toggle="dropdown"]').removeClass('show');
+   $(e.target).parent().parent().find('a').first().addClass('active');
+   
   }
 
   appathonReg() {
@@ -442,7 +458,10 @@ export class HeaderComponent implements OnInit {
          /**
          * Changing the flow as login shd complete even if loginsuccess popup eacaped
          */
-        this.sessionSet("username", this.loginResponse.data.username);
+        $('ul li a[data-toggle="tab"]').removeClass('active');
+        $('ul li a[data-toggle="tab"]').removeClass('show');
+        this.userName = this.loginResponse.data.username;
+    this.sessionSet("username", this.loginResponse.data.username);
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
@@ -455,6 +474,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
     this.router.navigate(["/documentation"]);
+    
     /**
      * End here
      */
@@ -498,8 +518,8 @@ export class HeaderComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     try {
       var json = {
-        partnerCode :this.signupForm3.value.partnecode,
-        username: this.signupForm3.value.username,
+        partnerCode : this.signupForm3.value.partnerCode,
+        username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
         firstname: this.signupForm.value.firstname,
@@ -648,7 +668,6 @@ export class HeaderComponent implements OnInit {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     var json = {
-      partnerCode :this.signupForm3.value.partnercode,
       userName: this.signupForm3.value.username,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,

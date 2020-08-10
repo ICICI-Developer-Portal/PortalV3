@@ -18,19 +18,17 @@ import { TermsandconditionComponent } from "./termsandcondition/termsandconditio
 import { NDAComponent } from "./nda/nda.component";
 import { ContractComponent } from "./contract/contract.component";
 
-
 import { ResetComponent } from "./reset_password/reset.component";
 import {
   MatAutocompleteModule,
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
-import { FocusOnShowDirective } from "./common-modal/autofocus.directive";
-import { HeaderComponent } from "src/app/maindashboard/component/header/header.component";
 
+//import { SigninModalComponent } from "./common-modal/signin-modal.component";
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
-
+import { FocusOnShowDirective } from './autofocus.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,10 +44,7 @@ import { HeaderComponent } from "src/app/maindashboard/component/header/header.c
     AngularMultiSelectModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule,
-    
-    
-
+    MatInputModule
   ],
 
   declarations: [
@@ -62,10 +57,8 @@ import { HeaderComponent } from "src/app/maindashboard/component/header/header.c
     TermsandconditionComponent,
     NDAComponent,
     ContractComponent,
-    FocusOnShowDirective,
-    
-
-      ]
+    FocusOnShowDirective
+  ]
 
   // import { CommonSigninModalComponent } from './common-signin-modal/common-signin-modal.component';
 })

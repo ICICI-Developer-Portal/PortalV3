@@ -44,9 +44,4 @@ export class DashboardService {
       "https://developer.icicibank.com/rest/getMenuTree?ID=0"
     );
   }
-  getTransactionhistory() {
-    return this.http.get(
-      "https://developer.icicibank.com/rest/"
-    );
-  }
 }

@@ -441,7 +441,7 @@ export class AppathonSignupComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     try {
       var json = {
-        username: this.signupForm3.value.username,
+        username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
         firstname: this.signupForm.value.firstname,

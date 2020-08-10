@@ -5,18 +5,30 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {FormControl, FormArray, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
+
 import { Router } from "@angular/router";
+import { ThrowStmt } from '@angular/compiler';
 declare var $:any;
 
 @Component({
   selector: 'app-api-details',
   templateUrl: './api-details.component.html',
+  styleUrls: ["./api-details.component.css"]
+
 })
 @Pipe({ name: 'safe' })
 
 
 export class ApiDetailsComponent implements OnInit {
+  testApireponse;
+  reqParamjson;
+  dataArray=[];
+  selectedType : string;
   ApiDomain: any;
+  frmUATFirst: FormGroup;
+  typeSelected :string;
+  type: "JSON";
   ApiName: any;
   ApiDesc: any;
   reqDetails: any;
@@ -34,6 +46,13 @@ export class ApiDetailsComponent implements OnInit {
   isactive_class1 :boolean = true;
   isactive_class2 :boolean = false;
   isactive_class3 :boolean = false;
+  sandBoxForm;
+  Request :object;
+  contentType;
+  serviceForXMLjson;
+  testApiReqData=[];
+  testApiResData=[];
+
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
     ) {
@@ -47,6 +66,8 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class3 = false;
     });
     
+
+   
     this.error_code();
     this.Sample_packet();
     
@@ -71,6 +92,22 @@ export class ApiDetailsComponent implements OnInit {
   }
 
   ngOnInit() { 
+    console.log()
+    this.dataArray.push(
+      {
+        key :"",
+        value:""
+      }
+    )
+    this.sandBoxForm = {
+     
+      type: 'JSON',
+      Request :this.reqParam
+    };
+console.log(this.sandBoxForm ,)
+
+
+
      $('ul.toggleTabs li').removeClass('active');
     $('ul.toggleTabs li a').removeClass('active');
     $('ul.toggleTabs li a').removeClass('show');
@@ -80,9 +117,22 @@ export class ApiDetailsComponent implements OnInit {
 
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane').removeClass('show');
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane:first').addClass('show');
-
     
  }
+ addheader() {
+  if(this.dataArray.length<=4){ 
+  this.dataArray.push(
+    {
+      id:this.dataArray.length+1,
+      key :"",
+      value:""
+    }
+  )
+  console.log(this.dataArray.length)
+}}
+removeheader(i: number) {
+  this.dataArray.splice(i, 1);
+}
   error_code(){
     var json ={
       "username":localStorage.getItem('username')
@@ -108,20 +158,24 @@ export class ApiDetailsComponent implements OnInit {
   .subscribe(
     (data:any) => {
         var response= data._body;
-        var obj=JSON.parse(response);
-        this.ApiDomain =obj.ApiData.ApiDomain;
-        this.ApiName =obj.ApiData.ApiName;
-        this.ApiDesc =obj.ApiData.ApiDesc;
-        this.SandboxUrl ="https://sandbox.icicibank.com/documentation/"+obj.ApiData.SandboxUrl;
-        this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
-        this.reqDetails =obj.ReqParam;
-        this.resDetails =obj.ResParam;
-        this.spinnerService.hide();
+        if(response) {
+          var obj=JSON.parse(response);
+          this.ApiDomain =obj.ApiData.ApiDomain;
+          this.ApiName =obj.ApiData.ApiName;
+          this.ApiDesc =obj.ApiData.ApiDesc;
+          this.SandboxUrl ="https://developerapi.icicibank.com:8443/"+obj.ApiData.SandboxUrl;
+          this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
+          this.reqDetails =obj.ReqParam;
+          this.resDetails =obj.ResParam;
+          this.spinnerService.hide();
+        }
+        
+       
 
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
       },
   );
 }
@@ -148,7 +202,7 @@ Sample_packet(){
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
     },
   );
 }
@@ -265,8 +319,174 @@ Sample_packet(){
     //PART 3: return formatted string (source)
     return  xmlArr.join('\n');  //rejoin the array to a string and return it
   }
-  
-  
+  // 
 
+    testCasesData=[
+      {
+        "testCaseId": "601-1",
+        "testCaseName": "Sample TC 1",
+        "apiId": "601",
+        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
+        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"Connection to RIB failed.\"\n}"
+      },
+      {
+        "testCaseId": "601-2",
+        "testCaseName": "Sample TC 2",
+        "apiId": "601",
+        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
+        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"Counterparty Account is a closed account\"\n}"
+      },
+      {
+        "testCaseId": "601-3",
+        "testCaseName": "Sample TC 3",
+        "apiId": "601",
+        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
+        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"Host Not Available\"\n}"
+      },
+      {
+        "testCaseId": "601-4",
+        "testCaseName": "Sample TC 4",
+        "apiId": "601",
+        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n  \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
+        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"The transaction cannot be processed with the available networks. Contact the bank administrator.\"\n}"
+      },
+      {
+        "testCaseId": "601-5",
+        "testCaseName": "Sample TC 5",
+        "apiId": "601",
+        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
+        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"The transaction with reference id 195100512 has been submitted successfully and its status is unknown. Please check the status later.\"\n}"
+      }
+    ]
+  
+  
+  reqParam= {
+    "folderName": "9898989",
+    "fileDetails": [
+      {
+        "file": "U3VjY2VzcyBjYXNlIDo6D.....ZSBleGNlZWRzIDMEtCLiINCn0=",
+        "docName": "test.pdf",
+        "docDataClass": {
+          "className": "APSOD_CAM",
+          "indexName": "ApplictaionFormNo",
+          "indexId": "405",
+          "indexValue": "KYC_doc"
+        },
+        "folderDataClass": {
+          "className": "Case_Folder",
+          "indexName": "ApplicationFormNo",
+          "indexId": "118",
+          "indexValue": "KYC_doc"
+        }
+      },
+      {
+        "file": "U3VjY2VzcyBjYXNlIDo6D.....ZSBleGNlZWRzIDMEtCLiINCn0=",
+        "docName": "test_1.jpg",
+        "docDataClass": {
+          "className": "APSOD_Photograph",
+          "indexName": "ApplictaionFormNo",
+          "indexId": "408",
+          "indexValue": "aadhar_front"
+        },
+        "folderDataClass": {
+          "className": "Case_Folder",
+          "indexName": "ScannedImage",
+          "indexId": "2019",
+          "indexValue": "aadhar_front"
+        }
+      }
+    ]
+  }
+  
+get reqParamValue() {
+  return this.prettyPkt;
+}
+
+set reqParamValue(v) {
+  console.log(v);
+  try {
+    this.reqParam = JSON.parse(v);
+  } catch (e) {
+    console.log("error occored while you were typing the JSON");
+  }
+}
+   testApiCall(){
+         if(this.contentType=="JSON"){ this.reqParam = JSON.parse(this.prettyPkt);
+        this.serviceForXMLjson=this.adm.test_apiJSON(this.reqParam,this.SandboxUrl)}
+         else if(this.contentType=="XML"){ this.reqParam = this.prettyPkt;
+          this.serviceForXMLjson=this.adm.test_apiXML(this.reqParam,this.SandboxUrl)}
+    // this.reqParam = JSON.parse(this.prettyPkt);
+    console.log("reqParam=="+this.reqParam);
+    console.log("SandboxUrl=="+this.SandboxUrl);
+    
+    
+    this.serviceForXMLjson.subscribe(
+      (data:any) => {
+         
+          if(data && data._body){
+            if(this.contentType=="JSON"){ this.testApireponse=JSON.parse(data._body);}
+            else if(this.contentType=="XML"){  this.testApireponse=data._body;}
+           
+            console.log(this.testApireponse)
+          }
+           this.spinnerService.hide();
+        },
+        err => {
+          console.log('err', err);
+          this.testApireponse= err;
+         // this.router.navigate(['error']);
+        },
+    );
+  
+   }
+   closeTestApiPopup(){
+    this.modalRef.hide();
+    this.testApireponse="";
+   }
+   
+
+
+
+  // getVal() {
+  //   console.log(this.type); // returns selected object
+  //  }
+  // selectTypeHandler(e:any){
+  //   console.log(e);
+  //   this.selectedType = e;  
+  // }
+  // get typeSelectedMethod() {
+  //   return this.typeSelected;
+  // }
+  getReqRes(e,i){
+    console.log(e)
+    console.log(e.target.parentNode.getAttribute("requestpacket"))
+    console.log(e.target.parentNode.getAttribute("responsePacket"))
+
+console.log("================================")
+   this.testApiReqData.push(e.target.parentNode.getAttribute("requestpacket"));
+   this.testApiResData.push(e.target.parentNode.getAttribute("responsePacket"));
+console.log( this.testApiReqData)
+console.log( this.testApiResData)
+
+
+  }
+  onSubmit(form:NgForm){
+    // this.getVal() ;
+    console.log(form.value)
+  }
+  
+  onSubmitBody(form:NgForm){
+    this.contentType=form.value.type;
+    console.log(form.value.type)
+    console.log(form.value.type)
+
+
+    console.log(form.controls)
+
+
+    this.testApiCall()
+    console.log(form.value)
+  }
+  
 
 }

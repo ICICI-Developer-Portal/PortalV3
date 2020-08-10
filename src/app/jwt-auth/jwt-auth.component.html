@@ -3,13 +3,13 @@
     <h3
       class="request-production ta-center"
     >
-      Please Login
+      Please Login 
     </h3>
   </div>
   <div>
     <div class="col-md-12 request-production">
       <div><label for="user">Username</label></div>
-      <input name="user" class="input-login" [(ngModel)]="encUsername" #username/>
+      <input name="user" class="input-login" [(ngModel)]="encUsername" #username (keydown.space)="$event.preventDefault();" appPrefixFocusAndSelect/>
       <!-- <div class="text-danger form-error ng-star-inserted">
         Please Enter UserNames.
       </div> -->

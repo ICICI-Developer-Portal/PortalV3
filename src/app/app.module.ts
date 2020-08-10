@@ -27,7 +27,6 @@ import {
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS
 } from "@angular/material/dialog";
-
 import { SigninModalComponent } from "./LandingPage/home/common-modal/signin-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToasterModule, ToasterService } from "angular2-toaster";
@@ -42,6 +41,10 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HeaderComponent } from "./header/header.component";
 import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
+import { FocusOnShowDirective } from "./autofocus.directive";
+import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +56,7 @@ import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
     JwtAuthComponent,
     ErrorPageComponent,
     HeaderComponent,
+    FocusOnShowDirective
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,7 @@ import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
     UserservicesModule,
     MailverifyModule,
     MatDialogModule,
-    Ng4LoadingSpinnerModule,
+
     FormsModule,
     ReactiveFormsModule,
     ToasterModule.forRoot(),
@@ -75,7 +79,8 @@ import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    
+    Ng4LoadingSpinnerModule,
+    ProductionOnboardingModule 
     
   ],
   providers: [

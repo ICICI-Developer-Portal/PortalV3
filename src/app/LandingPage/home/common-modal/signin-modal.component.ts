@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
+import { Component, OnInit, TemplateRef, ɵConsole,ViewChild,ElementRef } from "@angular/core";
 import { Toast, ToasterService, ToasterConfig } from "angular2-toaster";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { Router } from "@angular/router";
@@ -29,6 +29,8 @@ import { CustomValidators } from "../../layout/header/custom-validators";
   styleUrls: ["./signin-modal.component.css"]
 })
 export class SigninModalComponent implements OnInit {
+
+  
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
@@ -92,7 +94,6 @@ export class SigninModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.forgetpassForm = this.formbuilder.group({
       username: ["", [Validators.required]]
     });
@@ -333,7 +334,7 @@ export class SigninModalComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds();
     try {
       var json = {
-        username: this.signupForm3.value.username,
+        username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
         firstname: this.signupForm.value.firstname,
@@ -469,7 +470,18 @@ export class SigninModalComponent implements OnInit {
       },);
     } catch {}
   }
-  
+  //send OTP button change and seconds
+  name = 'Angular';
+  btnText = 'send OTP ';
+  btnDisabled = false;
+  buttonClick1() {
+  this.btnDisabled = true;
+  this.btnText = 'Please wait';
+  setTimeout(() => {
+   this.btnText = 'Resend OTP';
+   this.btnDisabled = false
+    }, 30000);
+  }
 
   verifyOtp1() {
     try {
@@ -613,18 +625,6 @@ export class SigninModalComponent implements OnInit {
       this.showbtn = true;
       this.showlogoutbtn = false;
     }
-  }
-  //send OTP button change and seconds
-  name = 'Angular';
-  btnText = 'send OTP ';
-  btnDisabled = false;
-  buttonClick1() {
-  this.btnDisabled = true;
-  this.btnText = 'Please wait';
-  setTimeout(() => {
-   this.btnText = 'Resend OTP';
-   this.btnDisabled = false
-    }, 30000);
   }
 
   //  Fuction for Logout
