@@ -28,8 +28,9 @@ import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
-import { TransactionComponent } from './transaction/transaction.component';
-   
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+import { NewpartnerComponent } from './newpartner/newpartner.component';
+  
 @NgModule({
     imports: [
         CommonModule,   
@@ -69,7 +70,8 @@ import { TransactionComponent } from './transaction/transaction.component';
         MisComponent,
         FocusOnShowDirective,
         NestedListFilterPipePipe,
-        TransactionComponent
+        TransactionHistoryComponent,
+        NewpartnerComponent
         
     ],
 

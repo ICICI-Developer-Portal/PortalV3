@@ -67,7 +67,7 @@
                       class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
                     <div
-                      *ngIf="!list.length>0"
+                      *ngIf="list.length > 0 ? false:true"
                       class="text-danger form-error">
                       No Approved JiraId available
                     </div>

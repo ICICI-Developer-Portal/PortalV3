@@ -7,12 +7,14 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
 import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
-import { TransactionComponent } from './transaction/transaction.component';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
 import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { DownloadComponent } from './download/download.component';
 import { MisComponent } from './mis/mis.component';
+import { NewpartnerComponent } from './newpartner/newpartner.component';
+
 
 
 
@@ -21,9 +23,9 @@ const routes: Routes = [
     {
         path: '',
         component: MaindashboardComponent,        
-        children: [      
-            { path: 'transaction', component: TransactionComponent ,canActivate: [AuthGuard]},
- 
+        children: [       
+            { path: 'transactionHistory', component: TransactionHistoryComponent ,canActivate: [AuthGuard]},
+
             { path: 'faq', component: FaqComponent },
             {path:'uatonboarding-dashboard',component: UATonboardingDashboardPageComponent,canActivate: [AuthGuard]  },
 
@@ -36,6 +38,8 @@ const routes: Routes = [
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
     { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},
     { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]},
+    { path: 'newpartner', component: NewpartnerComponent , canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

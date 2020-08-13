@@ -14,8 +14,6 @@ declare var $:any;
 @Component({
   selector: 'app-api-details',
   templateUrl: './api-details.component.html',
-  styleUrls: ["./api-details.component.css"]
-
 })
 @Pipe({ name: 'safe' })
 
@@ -48,10 +46,7 @@ export class ApiDetailsComponent implements OnInit {
   isactive_class3 :boolean = false;
   sandBoxForm;
   Request :object;
-  contentType;
-  serviceForXMLjson;
-  testApiReqData=[];
-  testApiResData=[];
+  contentType:any = "JSON";
 
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
@@ -64,6 +59,25 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class1 = true;
       this.isactive_class2 = false;
       this.isactive_class3 = false;
+     // this.GetTestCases();
+    /*testing */  
+   /*   this.adm.getTransactionHistory()
+        .subscribe(
+          (data:any) => {
+            let response= data._body;
+            if(response && response !== null){ 
+              let obj=JSON.parse(response);
+              console.log("TransactionHistory data ="+ obj);
+            }else{ 
+              alert("No transaction history found.");
+            }
+          },
+          err => {
+            console.log('err', err);
+          },
+        );*/
+    /* End here */  
+
     });
     
 
@@ -321,43 +335,8 @@ Sample_packet(){
   }
   // 
 
-    testCasesData=[
-      {
-        "testCaseId": "601-1",
-        "testCaseName": "Sample TC 1",
-        "apiId": "601",
-        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
-        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"Connection to RIB failed.\"\n}"
-      },
-      {
-        "testCaseId": "601-2",
-        "testCaseName": "Sample TC 2",
-        "apiId": "601",
-        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
-        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"Counterparty Account is a closed account\"\n}"
-      },
-      {
-        "testCaseId": "601-3",
-        "testCaseName": "Sample TC 3",
-        "apiId": "601",
-        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
-        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"Host Not Available\"\n}"
-      },
-      {
-        "testCaseId": "601-4",
-        "testCaseName": "Sample TC 4",
-        "apiId": "601",
-        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n  \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
-        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"The transaction cannot be processed with the available networks. Contact the bank administrator.\"\n}"
-      },
-      {
-        "testCaseId": "601-5",
-        "testCaseName": "Sample TC 5",
-        "apiId": "601",
-        "requestPacket": "{\n   \"tranRefNo\": \"629359730EC5474\",\n   \"amount\": \"1.00\",\n   \"senderAcctNo\": \"000451000301\",\n   \"beneAccNo\": \"000405002777\",\n   \"beneName\": \"Yogesh\",\n   \"beneIFSC\": \"ICIC0000011\",\n   \"narration1\": \"Test\",\n   \"crpId\": \"PRACHICIB1\",\n   \"crpUsr\": \"USER3\",\n   \"aggrId\": \"CUST0116\",\n   \"urn\": \"9F25878CF1BD4E4\",\n   \"aggrName\": \"UDAAN\",\n   \"txnType\": \"TPA\"\n}",
-        "responsePacket": "{\n\"RESPONSE\":\"Failure\",\n\"MESSAGE\":\"The transaction with reference id 195100512 has been submitted successfully and its status is unknown. Please check the status later.\"\n}"
-      }
-    ]
+  
+    
   
   
   reqParam= {
@@ -403,7 +382,6 @@ get reqParamValue() {
 }
 
 set reqParamValue(v) {
-  console.log(v);
   try {
     this.reqParam = JSON.parse(v);
   } catch (e) {
@@ -411,40 +389,103 @@ set reqParamValue(v) {
   }
 }
    testApiCall(){
-         if(this.contentType=="JSON"){ this.reqParam = JSON.parse(this.prettyPkt);
-        this.serviceForXMLjson=this.adm.test_apiJSON(this.reqParam,this.SandboxUrl)}
-         else if(this.contentType=="XML"){ this.reqParam = this.prettyPkt;
-          this.serviceForXMLjson=this.adm.test_apiXML(this.reqParam,this.SandboxUrl)}
-    // this.reqParam = JSON.parse(this.prettyPkt);
+  
     console.log("reqParam=="+this.reqParam);
     console.log("SandboxUrl=="+this.SandboxUrl);
+    if(this.contentType == "JSON"){
+      this.reqParam = JSON.parse(this.prettyPkt);
+      this.adm.test_api(this.reqParam,this.SandboxUrl).subscribe(
+        (data:any) => {
+           // console.log(JSON.parse(JSON.stringify(data)));
+            if(data && data._body){
+              this.testApireponse=JSON.parse(data._body);
+              console.log(this.testApireponse)
+            }
+             this.spinnerService.hide();
     
+          },
+          err => {
+            console.log('err', err);
+            this.testApireponse= err;
+           // this.router.navigate(['error']);
+          },
+      );
+    }else if(this.contentType == "XML"){
+      this.reqParam = this.prettyPkt;
+      this.adm.test_apiXML(this.reqParam,this.SandboxUrl).subscribe(
+        (data:any) => {
+         // data = JSON.parse(data);
+            if(data && data._body){
+             // data._body.replace(/['"]+/g, '');
+              this.testApireponse=this.formatXML(data._body.replace(/['"]+/g, '')," ");
+            }
+             this.spinnerService.hide();
     
-    this.serviceForXMLjson.subscribe(
-      (data:any) => {
-         
-          if(data && data._body){
-            if(this.contentType=="JSON"){ this.testApireponse=JSON.parse(data._body);}
-            else if(this.contentType=="XML"){  this.testApireponse=data._body;}
-           
-            console.log(this.testApireponse)
-          }
-           this.spinnerService.hide();
-        },
-        err => {
-          console.log('err', err);
-          this.testApireponse= err;
-         // this.router.navigate(['error']);
-        },
-    );
-  
+          },
+          err => {
+            console.log('err', err);
+            this.testApireponse= err;
+           // this.router.navigate(['error']);
+          },
+      );
+    } //end else block
+   
    }
    closeTestApiPopup(){
     this.modalRef.hide();
     this.testApireponse="";
    }
-   
-
+   /* 
+   ** Get test cases for API dropdown
+   */
+   GetTestCases(){
+    let _reqJson = {apiId : this.id };
+    this.adm.getTestCases(_reqJson).subscribe(
+      (data:any) => {
+          console.log(JSON.parse(JSON.stringify(data)));
+          if(data && data._body){
+            let testApireponse=JSON.parse(data._body);
+            console.log("GetTestCases==" +testApireponse);
+            this.CreateTransactionHistory();
+          }
+           
+  
+        },
+        err => {
+          console.log('err', err);
+         // this.router.navigate(['error']);
+        },
+    );
+   }
+   /* 
+   ** * Create Transaction History 
+   */
+   CreateTransactionHistory(){
+     let _reqBody ={"tranRefNo": "629359730EC5474","amount": "1.00","senderAcctNo": "000451000301","beneAccNo": "000405002777","beneName": "Yogesh","beneIFSC": "ICIC0000011","narration1": "Test","crpId": "PRACHICIB1","crpUsr": "USER3","aggrId": "CUST0116","urn": "9F25878CF1BD4E4","aggrName": "UDAAN","txnType": "TPA"};
+     let _resBody ={"RESPONSE":"Failure","MESSAGE":"Connection to RIB failed."};
+    let _reqJson = {
+      headers	:"application/json",
+      cType	:"json",
+      apiId	:"601",
+      apiName	:"QR code",
+      reqBody	:_reqBody,
+      resBody	:_resBody,
+      testCaseId	:"601-1",
+      testCaseStatus	:"Sample TC 1"
+      };
+    this.adm.createTransactionHistory(_reqJson).subscribe(
+      (data:any) => {
+          if(data && data._body){
+            let testApireponse=JSON.parse(data._body);
+            console.log(testApireponse)
+          }
+        },
+        err => {
+          console.log('err', err);
+         // this.router.navigate(['error']);
+        },
+    );
+   }
 
 
   // getVal() {
@@ -457,33 +498,13 @@ set reqParamValue(v) {
   // get typeSelectedMethod() {
   //   return this.typeSelected;
   // }
-  getReqRes(e,i){
-    console.log(e)
-    console.log(e.target.parentNode.getAttribute("requestpacket"))
-    console.log(e.target.parentNode.getAttribute("responsePacket"))
 
-console.log("================================")
-   this.testApiReqData.push(e.target.parentNode.getAttribute("requestpacket"));
-   this.testApiResData.push(e.target.parentNode.getAttribute("responsePacket"));
-console.log( this.testApiReqData)
-console.log( this.testApiResData)
-
-
-  }
   onSubmit(form:NgForm){
     // this.getVal() ;
     console.log(form.value)
   }
   
   onSubmitBody(form:NgForm){
-    this.contentType=form.value.type;
-    console.log(form.value.type)
-    console.log(form.value.type)
-
-
-    console.log(form.controls)
-
-
     this.testApiCall()
     console.log(form.value)
   }

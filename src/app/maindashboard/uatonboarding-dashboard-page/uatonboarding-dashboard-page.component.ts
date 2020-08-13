@@ -34,6 +34,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   responseData: [];
   menuArray: any[];
   arrayObjectOfListIds = [];
+  arrayObjectOfDomain= [];
   arrayObjectOfValue = [];
   logged_in: Boolean = false;
   additionalParams: any;
@@ -376,7 +377,13 @@ ifIPpatternNotmatches(){
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id
     }).get()
-    console.log(this.arrayObjectOfListIds)
+    this.arrayObjectOfDomain = $(".customcsscontainer input:checkbox:checked").map(function () {
+      return this.getAttribute("domainName")
+    }).get()
+  
+    console.log(this.arrayObjectOfDomain.join())
+
+    console.log(this.arrayObjectOfListIds.join())
     const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
     var json = {
       ID: this.arrayObjectOfListIds.join(),
@@ -543,6 +550,7 @@ if(this.selectedValue.length>0){
    this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
     return this.id
   }).get()
+  
   console.log(this.arrayObjectOfListIds)
   const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
   var json = {
@@ -594,7 +602,7 @@ else{
    
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: localStorage.getItem("nodevalue"),
+      domainName: '(' +this.arrayObjectOfDomain.join()+ ')',
       domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,

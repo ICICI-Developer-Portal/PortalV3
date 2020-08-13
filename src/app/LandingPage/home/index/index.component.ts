@@ -2088,4 +2088,28 @@ export class IndexComponent implements OnInit {
       this.router.navigate(['error']);
     },);
   }
+
+  openFile(url) {
+
+    let pwa= window.open(url);
+    if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+        alert( 'Please disable your Pop-up blocker and try again.');
+    }
+    
+  /*   let dwldLink = document.createElement("a");
+    
+   let isSafariBrowser =
+      navigator.userAgent.indexOf("Safari") != -1 &&
+      navigator.userAgent.indexOf("Chrome") == -1;
+    if (isSafariBrowser) {
+      dwldLink.setAttribute("target", "_blank");
+    }
+    dwldLink.setAttribute("target", "_blank");
+    dwldLink.setAttribute("href", url);
+    //dwldLink.setAttribute("download", fileName + ".csv");
+    dwldLink.style.visibility = "hidden";
+    document.body.appendChild(dwldLink);
+    dwldLink.click();
+    document.body.removeChild(dwldLink);*/
+  }  
 }

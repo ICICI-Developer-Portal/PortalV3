@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
 import { Toast, ToasterService } from "angular2-toaster";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
-import { Router } from "@angular/router";
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { LoginService } from "src/app/services";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -129,13 +129,11 @@ export class HeaderComponent implements OnInit {
       username: ["", [Validators.required,]]
     });
     this.signupForm = this.formbuilder.group({
-
       firstname: ["", [Validators.required]],
       companyName: ["", [Validators.required]],
       domainNm: ["", [Validators.required]],
       CITY: ["", [Validators.required]],
       RM: ["", [Validators.required]],
-      partnerCode : ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
       otp_verified: ["0"],
       otp_send: ["0"]
@@ -386,6 +384,9 @@ export class HeaderComponent implements OnInit {
       this.Login(username, password,loginsuccess);
     }
   }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
+    console.log("route-access", state);
+}
 
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
@@ -446,13 +447,13 @@ export class HeaderComponent implements OnInit {
         // localStorage.setItem('email', obj.data.email);
         // this.adm.sendUserId(obj.data.id);
         this.spinnerService.hide();
-
+          console.log(this.router.url);
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-            this.router.navigate(["/index"]);
+            this.router.navigate(['/index']);
           },
           err => {
-            this.router.navigate(["/index"]);
+            this.router.navigate([this.router.url]);
           }
         );
          /**
@@ -473,7 +474,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("appathonUserName", this.loginResponse.data.username);
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
-    this.router.navigate(["/documentation"]);
+    this.router.navigate([this.router.url]);
     
     /**
      * End here
@@ -518,7 +519,6 @@ export class HeaderComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     try {
       var json = {
-        partnerCode : this.signupForm3.value.partnerCode,
         username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
