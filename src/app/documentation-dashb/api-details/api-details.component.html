@@ -233,8 +233,7 @@
                                                     <div class="form-group col-md-6">
                                                         <p class="mb-1 mt-3 bold">Select Content Type:</p>
                                                         <span class="custom-dropdown">
-                                                            <select class="form-control h40 " id="type" name="type" 
-                                                            [(ngModel)]="contentType" >
+                                                            <select class="form-control h40 " id="type" name="type"  [(ngModel)]="contentType">
                                                                 <option value="JSON" selected name="JSON">JSON</option>
                                                                 <option value="XML"  name="XML">XML</option>
 
@@ -242,23 +241,37 @@
 
                                                         </span>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                       <!-- <p class="mb-1 mt-3 bold">Test Case :</p>
-                                                        <span class="custom-dropdown">
-                                                            <select class="form-control h40 " id="testcases" name="type" 
-                                                           >
-                                                                <option value="JSON" selected name="JSON">dummy</option>
-
-                                                            </select>
-
-                                                        </span>-->
+                                                    <div class="form-group col-md-6" >
+                                                        <label class="mb-1 mt-3 bold">Test Case :</label>
+                                                        <input id="check01" type="checkbox" name="menu" />
+                                                        <label for="check01" class="mb-1 custom-select-box"><span *ngIf="!testApiResID.length>0">Select</span><span *ngIf="testApiResID.length>0">TestCaseID: <b>{{testApiResID}}</b>  &nbsp; &nbsp; &nbsp; &nbsp;TesCaseName:<b> {{testApiResName}}</b></span></label>
+                                                        <div class="submenu">
+                                                        <div>
+                                                            <table style="width:100%">
+                                                            <tr  >
+                                                              <th>Test Case Id</th>
+                                                              <th >Test Case Name</th>
+                                                            </tr>
+                                                            <tr  *ngFor="let i of testCasesData" (click)="getReqRes($event,$event.target)" [attr.id]="i.testCaseId" [attr.name]="i.testCaseName"  [attr.requestPacket]="i.requestPacket"   [attr.responsePacket]="i.responsePacket">
+                                                              <td>{{i.testCaseId}}</td>
+                                                              <td>{{i.testCaseName}}</td>
+                                                            </tr>
+                                                           
+                                                          </table>
+                                                        </div>
+                                                        </div>
+                                                                                                        
                                                     </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Request:</p>
-                                                        <textarea name="Request"
-                                                            class="form-control setHeight" cols="50" rows="100"
+                                                        <textarea name="Request " *ngIf="!testApiResID.length>0"
+                                                            class="form-control setHeight" cols="50" rows="100" 
                                                             [(ngModel)]="reqParamValue">
                                                             </textarea>
+                                                            <textarea name="Request " *ngIf="testApiResID.length>0"
+                                                                class="form-control setHeight" cols="50" rows="100" 
+                                                                [(ngModel)]="testApiReqData">{{testApiReqData}}
+                                                                </textarea>
                                                                 
                                                     </div>
                                                     <div class="form-group cod col-md-6">
@@ -266,8 +279,9 @@
                                                         <!-- <div disabled
                                                             name="Response" class="form-control" cols="50" rows="10"
                                                           >{{reponse | json}}</div> -->
-                                                          <textarea  class="form-control setHeight" cols="50" rows="100" disabled [(ngModel)]="testApireponse"> {{contentType === "XML" ? testApireponse : testApireponse | json }}
-                                                            
+                                                          <textarea  class="form-control setHeight" cols="50" rows="100" disabled [(ngModel)]="testApireponse">
+                                                              <!-- {{testApireponse | json}} -->
+                                                              {{testApiResData}}
                                                             </textarea>
                                                     </div>
                                                     <div class="col-md-12">     
