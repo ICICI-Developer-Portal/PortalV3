@@ -7,9 +7,32 @@
     
 }
 .head{
-    color: #800000; font-family: sans-serif; font-size: 29.6707px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: pre; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;
+    color: #800000; font-family: sans-serif; font-size: 29.6707px;  font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: pre; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
 }
 .orange{
     color:rgb(241, 115,13);
     font-size: 25px;
+}
+
+p{
+   
+        font-weight: bold;
+   margin: auto;
+}
+.box
+{
+    width: 471px;
+    height: 74px;
+    border:1px solid #000;
+    text-align: center;
+    color: #fff;
+    padding: 19px;    
+    background-color: rgb(241, 115,13);
+    border-radius: 0.7em;
+    font-weight: bold;
+    font-size: 28px;
+    margin-left: 85px;
+}
+.thankyou img{
+    width: 100%;
 }
