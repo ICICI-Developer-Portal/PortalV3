@@ -12,6 +12,7 @@
 .orange{
     color:rgb(241, 115,13);
     font-size: 25px;
+    margin-left: 50px;
 }
 
 p{
@@ -33,6 +34,6 @@ p{
     font-size: 28px;
     margin-left: 85px;
 }
-.thankyou img{
-    width: 100%;
+div{
+ margin: auto;
 }
