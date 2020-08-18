@@ -255,7 +255,7 @@
                                                     </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Request:</p>
-                                                        <textarea name="Request "
+                                                        <textarea name="Request"
                                                             class="form-control setHeight" cols="50" rows="100"
                                                             [(ngModel)]="reqParamValue">
                                                             </textarea>
@@ -266,7 +266,8 @@
                                                         <!-- <div disabled
                                                             name="Response" class="form-control" cols="50" rows="10"
                                                           >{{reponse | json}}</div> -->
-                                                          <textarea  class="form-control setHeight" cols="50" rows="100" disabled [(ngModel)]="testApireponse">{{testApireponse | json}}
+                                                          <textarea  class="form-control setHeight" cols="50" rows="100" disabled [(ngModel)]="testApireponse"> {{contentType === "XML" ? testApireponse : testApireponse | json }}
+                                                            
                                                             </textarea>
                                                     </div>
                                                     <div class="col-md-12">     

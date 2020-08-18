@@ -24,13 +24,14 @@
         </li> -->
   
         <!-- appthon signup button -->
-        <li>
+       <!-- <li>
           <a  href="#" data-toggle="tab" [routerLink]="['/appathon/landing-page']">Appathon</a>
-        </li>
+        </li>-->
+        <li><a href="#" data-toggle="tab" [routerLink]="['/index']">Home</a></li>
         <li>
           <a  href="#" (click)="scroll_view('#partners')" data-toggle="tab">Strategic Partners</a>
         </li>
-        <li><a data-toggle="tab" [routerLink]="['/index/faq']">FAQ</a></li>
+        <li><a href="#" data-toggle="tab" [routerLink]="['/index/faq']">FAQ</a></li>
         <li><a  href="#"  data-toggle="tab" (click)="Documentation(signin)">Documentation </a></li>
         
         <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
@@ -409,6 +410,14 @@
                 <div *ngIf="RM.invalid && (RM.dirty || isSubmitted)" class="text-danger form-error">
                   RM Employee ID is required (numeric).
                 </div>
+              </div>
+            </div>
+            <br>
+            <div class="row mb20">
+              <div class="col-md-12 mb-xs-30">
+                <div><label for="password">Partner Code</label></div>
+                <input name="partnerCode" class="input-login" formControlName="partnerCode"  pattern="[0-9]*"/>
+               
               </div>
             </div>
   

@@ -98,6 +98,7 @@ export class BranchDetailsComponent implements OnInit {
   err => {
     console.log('err', err);
     this.router.navigate(['error']);
+    
   },)
 
   }

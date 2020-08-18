@@ -476,7 +476,8 @@ export class HeaderComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',"Something went wrong.Please try again.");
     },);
   }
   // Signup function
@@ -549,7 +550,8 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong.Please try again.");
       },);
     } catch {
       this.toastrmsg("error", console.error());

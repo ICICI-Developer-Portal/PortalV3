@@ -46,6 +46,7 @@ export class ApiDetailsComponent implements OnInit {
   isactive_class3 :boolean = false;
   sandBoxForm;
   Request :object;
+  contentType:any = "JSON";
 
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
@@ -58,6 +59,25 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class1 = true;
       this.isactive_class2 = false;
       this.isactive_class3 = false;
+     // this.GetTestCases();
+    /*testing */  
+   /*   this.adm.getTransactionHistory()
+        .subscribe(
+          (data:any) => {
+            let response= data._body;
+            if(response && response !== null){ 
+              let obj=JSON.parse(response);
+              console.log("TransactionHistory data ="+ obj);
+            }else{ 
+              alert("No transaction history found.");
+            }
+          },
+          err => {
+            console.log('err', err);
+          },
+        );*/
+    /* End here */  
+
     });
     
 
@@ -315,7 +335,7 @@ Sample_packet(){
   }
   // 
 
-  contentType= "JSON";
+  
     
   
   
@@ -369,43 +389,103 @@ set reqParamValue(v) {
   }
 }
    testApiCall(){
-   // let url= "https://developerapi.icicibank.com:8443/";
-   // let url= "https://developerapi.icicibank.com:8443/api/v1/docUpload";
   
-    // this.reqParam = {
-    //   "MobileNumber": "9999988888",
-    //   "TransactionIdentifier": "122132435345"
-    // };
-    this.reqParam = JSON.parse(this.prettyPkt);
     console.log("reqParam=="+this.reqParam);
     console.log("SandboxUrl=="+this.SandboxUrl);
+    if(this.contentType == "JSON"){
+      this.reqParam = JSON.parse(this.prettyPkt);
+      this.adm.test_api(this.reqParam,this.SandboxUrl).subscribe(
+        (data:any) => {
+           // console.log(JSON.parse(JSON.stringify(data)));
+            if(data && data._body){
+              this.testApireponse=JSON.parse(data._body);
+              console.log(this.testApireponse)
+            }
+             this.spinnerService.hide();
     
-    this.adm.test_api(this.reqParam,this.SandboxUrl)
+          },
+          err => {
+            console.log('err', err);
+            this.testApireponse= err;
+           // this.router.navigate(['error']);
+          },
+      );
+    }else if(this.contentType == "XML"){
+      this.reqParam = this.prettyPkt;
+      this.adm.test_apiXML(this.reqParam,this.SandboxUrl).subscribe(
+        (data:any) => {
+         // data = JSON.parse(data);
+            if(data && data._body){
+             // data._body.replace(/['"]+/g, '');
+              this.testApireponse=this.formatXML(data._body.replace(/['"]+/g, '')," ");
+            }
+             this.spinnerService.hide();
     
-    .subscribe(
-      (data:any) => {
-          console.log(JSON.parse(JSON.stringify(data)));
-          if(data && data._body){
-            this.testApireponse=JSON.parse(data._body);
-            console.log(this.testApireponse)
-          }
-           this.spinnerService.hide();
-  
-        },
-        err => {
-          console.log('err', err);
-          this.testApireponse= err;
-         // this.router.navigate(['error']);
-        },
-    );
-  
+          },
+          err => {
+            console.log('err', err);
+            this.testApireponse= err;
+           // this.router.navigate(['error']);
+          },
+      );
+    } //end else block
+   
    }
    closeTestApiPopup(){
     this.modalRef.hide();
     this.testApireponse="";
    }
-   
-
+   /* 
+   ** Get test cases for API dropdown
+   */
+   GetTestCases(){
+    let _reqJson = {apiId : this.id };
+    this.adm.getTestCases(_reqJson).subscribe(
+      (data:any) => {
+          console.log(JSON.parse(JSON.stringify(data)));
+          if(data && data._body){
+            let testApireponse=JSON.parse(data._body);
+            console.log("GetTestCases==" +testApireponse);
+            this.CreateTransactionHistory();
+          }
+           
+  
+        },
+        err => {
+          console.log('err', err);
+         // this.router.navigate(['error']);
+        },
+    );
+   }
+   /* 
+   ** * Create Transaction History 
+   */
+   CreateTransactionHistory(){
+     let _reqBody ={"tranRefNo": "629359730EC5474","amount": "1.00","senderAcctNo": "000451000301","beneAccNo": "000405002777","beneName": "Yogesh","beneIFSC": "ICIC0000011","narration1": "Test","crpId": "PRACHICIB1","crpUsr": "USER3","aggrId": "CUST0116","urn": "9F25878CF1BD4E4","aggrName": "UDAAN","txnType": "TPA"};
+     let _resBody ={"RESPONSE":"Failure","MESSAGE":"Connection to RIB failed."};
+    let _reqJson = {
+      headers	:"application/json",
+      cType	:"json",
+      apiId	:"601",
+      apiName	:"QR code",
+      reqBody	:_reqBody,
+      resBody	:_resBody,
+      testCaseId	:"601-1",
+      testCaseStatus	:"Sample TC 1"
+      };
+    this.adm.createTransactionHistory(_reqJson).subscribe(
+      (data:any) => {
+          if(data && data._body){
+            let testApireponse=JSON.parse(data._body);
+            console.log(testApireponse)
+          }
+        },
+        err => {
+          console.log('err', err);
+         // this.router.navigate(['error']);
+        },
+    );
+   }
 
 
   // getVal() {
