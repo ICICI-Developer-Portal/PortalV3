@@ -809,8 +809,6 @@ test_apiJSON(requestParam,apiName) {
 }
  
 test_apiXML(requestParam,apiName) {
-
-  
   var query = "";
   var key;
   for (key in requestParam) {
@@ -826,40 +824,50 @@ test_apiXML(requestParam,apiName) {
   let options = new RequestOptions({ headers: headers });
 
   return this.http.post(apiName , requestParam, options);
-
 }
-getTestCases(json){
-  var query = "";
-  if(json & json.apiId){
-    query="apiId="+json.apiId
-  }
-  console.log(this.UAT_apiUrl)
-  let headers = new Headers({
+
+// test api
+getTestCases(json,headers){
+  var body = "apiId=" +  json.apiId;
+  console.log(this.UAT_apiUrl+"getTestCase")
+   headers = new Headers({
     "Content-Type": "application/x-www-form-urlencoded",
     "token" : localStorage.getItem("jwt"),
-    "username" :json.username,
+    "username" :localStorage.getItem('username'),
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post(this.UAT_apiUrl+"getTestCase" , query, options);
+  console.log(options)
+  return this.http.post(this.UAT_apiUrl+"getTestCase" , body, options);
 }
-getTranscationHistory(requestParam) {
-  var query = "";  var key;
-
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
-  }
+// get all transaction istory table data
+getTranscationHistory() {
   let headers = new Headers({
-    "Content-Type": "application/x-www-form-urlencoded",
+     "Content-Type": "application/x-www-form-urlencoded",
     "userName" :localStorage.getItem('username'),
      "Token" : localStorage.getItem("jwt")
   });
-
-  const params =new HttpParams();
-  console.log(headers)
+  let body = new FormData();
   let options = new RequestOptions({ headers: headers });
+  console.log(options)
+  return this.http.post(this.UAT_apiUrl+"getTxHistory",body,options);
+}
 
-  return this.http.post(this.UAT_apiUrl+"getTxHistory",query,options);
+// create all transaction istory table data
+createTranscationHistory(body,header) {
+  let headers = new Headers({
+     "Content-Type": "application/x-www-form-urlencoded",
+    "userName" :localStorage.getItem('username'),
+     "Token" : localStorage.getItem("jwt")
+  });
+ 
+  // var body = new FormData();
+  // var body = "apiId=" +  json.apiId;
+  // body
+  let options = new RequestOptions({ headers: headers });
+  console.log(options)
+  console.log(body)
+
+  return this.http.post(this.UAT_apiUrl+"createTxHistory",body,options);
 }
 
 }

@@ -21,7 +21,7 @@ declare var $:any;
 
 
 export class ApiDetailsComponent implements OnInit {
-  testApireponse;
+  testApiresponse;
   reqParamjson;
   dataArray=[];
   selectedType : string;
@@ -55,6 +55,8 @@ export class ApiDetailsComponent implements OnInit {
   testApiResID=[];
   testApiResName=[];
   idForClickedTab;
+  testApiresponseFor601;
+  populateRes;
 
 
 
@@ -69,7 +71,9 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class1 = true;
       this.isactive_class2 = false;
       this.isactive_class3 = false;
-      this.GetTestCases();
+  let _reqJson = {apiId : this.idForClickedTab };
+
+      this.GetTestCases(_reqJson,Headers);
     });
     
 
@@ -425,22 +429,24 @@ set reqParamValue(v) {
     // this.reqParam = JSON.parse(this.prettyPkt);
     console.log("reqParam=="+this.reqParam);
     console.log("SandboxUrl=="+this.SandboxUrl);
-    
+   
+    // if()
+    // body.append('email', 'emailId');
     
     this.serviceForXMLjson.subscribe(
       (data:any) => {
          
           if(data && data._body){
-            if(this.contentType=="JSON"){ this.testApireponse=JSON.parse(data._body);}
-            else if(this.contentType=="XML"){  this.testApireponse=data._body;}
+            if(this.contentType=="JSON"){ this.testApiresponse=JSON.parse(data._body);}
+            else if(this.contentType=="XML"){  this.testApiresponse=data._body;}
            
-            console.log(this.testApireponse)
+            console.log(this.testApiresponse)
           }
            this.spinnerService.hide();
         },
         err => {
           console.log('err', err);
-          this.testApireponse= err;
+          this.testApiresponse= err;
          // this.router.navigate(['error']);
         },
     );
@@ -448,7 +454,7 @@ set reqParamValue(v) {
    }
    closeTestApiPopup(){
     this.modalRef.hide();
-    this.testApireponse="";
+    this.testApiresponse="";
    }
    
 
@@ -477,59 +483,108 @@ set reqParamValue(v) {
 
     console.log("================================")
     this.testApiReqData.push(e.target.parentNode.getAttribute("requestpacket"));
-    this.testApiResData.push(e.target.parentNode.getAttribute("responsePacket"));
+    //this.testApiResData.push(e.target.parentNode.getAttribute("responsePacket"));
     this.testApiResID.push(e.target.parentNode.getAttribute("id"))
+    this.populateRes =e.target.parentNode.getAttribute("responsePacket")
     this.testApiResName.push(e.target.parentNode.getAttribute("name"))
 
     console.log( this.testApiReqData,e.target.parentNode.getAttribute("id"))
     console.log( this.testApiResData,e.target.parentNode.getAttribute("name"))
 
+    this.populateRes=e.target.parentNode.getAttribute("responsePacket");
 
   }
   onSubmit(form:NgForm){
     // this.getVal() ;
     console.log(form.value)
-  }
-  GetTestCases(){
-
-    let _reqJson = {apiId : this.idForClickedTab };
-
-    this.adm.getTestCases(_reqJson).subscribe(
+  }    
+  GetTestCases(_reqJson,headers){
+ headers = new Headers({
+  "Content-Type": "application/x-www-form-urlencoded",
+  "token" : localStorage.getItem("jwt"),
+  "username" :localStorage.getItem("username"),
+});
+console.log(headers)
+    this.adm.getTestCases(_reqJson,headers).subscribe(
       (data:any) => {
           console.log(JSON.parse(JSON.stringify(data)));
           if(data && data._body){
-            let testApireponse=JSON.parse(data._body);
-            console.log(testApireponse)
-
+             this.testApiresponseFor601=JSON.parse(data._body);//response based on selection of testcases
+            console.log(this.testApiresponseFor601)
           }
         },
 
         err => {
-
           console.log('err', err);
-
          // this.router.navigate(['error']);
-
         },
 
     );
 
    }
+   createTrnxnHistory(body,header){
+        // this.createTranscationHistory(body)
+        this.adm.createTranscationHistory(body,header).subscribe(
+          (data:any) => {
+              console.log(JSON.parse(JSON.stringify(data)));
+            },
+            err => {
+              console.log('err', err);
+             // this.router.navigate(['error']);
+            },
+    
+        );
+
+   }
   
   onSubmitBody(form:NgForm){
-
     this.contentType=form.value.type;
-    console.log(form.value.type)
-    console.log(form.value.type)
-
-
+    this.testApiResData=[];
+    this.testApiResData.push(this.populateRes);
+    console.log(this.testApiResID)
+    console.log(form.value)
+  
     console.log(form.controls)
-    this.GetTestCases()
- console.log( this.GetTestCases());
+    console.log(form.value.Response)
+    let _reqJson = {apiId : this.idForClickedTab };
+    this.GetTestCases(_reqJson,Headers)
+   
+    let header = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      "token" : localStorage.getItem("jwt"),
+      "username" :localStorage.getItem("username"),
+    });
+    // headers1,cType,reqBody,resBody,apiId,
+    if(this.testApiResID.length>0){
+      form.controls.Response.setValue(this.testApiResData)
+   console.log("form.controls.Request.valueform.controls.Request.valueform.controls.Request.value",form.controls.Request.value)
 
-    this.testApiCall()
+
+      console.log(this.testApiResData,form.value.Request,form.value.Response)
+      let inputType={
+        
+      }
+     
+      let formData = new URLSearchParams();
+      formData.set("headers","application/json");
+      formData.set("cType","json")
+      formData.set("reqBody",form.value.Request)
+      formData.set("resBody",form.controls.Response.value)
+      formData.set("apiId",this.idForClickedTab)
+      formData.set("testCaseId","601")
+      formData.set("testCaseStatus","5")
+      formData.set("Token",localStorage.getItem("jwt"))
+      formData.set("userName",localStorage.getItem("username"))
+      formData.set("apiName","QR Code")
+
+      this.createTrnxnHistory(formData.toString(),header);
+
+    }else{}
+   
+    console.log( this.GetTestCases(_reqJson,Headers));
+   
+     this.testApiCall()
     console.log(form.value)
   }
-  
 
 }

@@ -12,7 +12,8 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
   styleUrls: ['./transaction-history.component.css']
 })
 export class TransactionHistoryComponent implements OnInit {
-  responseData;
+  getTrxnTableData;
+
 
   constructor(private HttpClient: HttpClient,
     private adm: LoginService,
@@ -27,12 +28,15 @@ export class TransactionHistoryComponent implements OnInit {
       "userName" :localStorage.getItem('username'),
       "Token" : localStorage.getItem("jwt")
     }
+  
     console.log("hiiii",_json)
     // console.log("hiiii",  this.adm.getTranscationHistory())
-    this.adm.getTranscationHistory(_json).subscribe(
+    this.adm.getTranscationHistory().subscribe(
       (data:any) => {
-        if(data ){
-          console.log(JSON.parse(JSON.stringify(data)));
+        if(data && data._body){
+         
+          this.getTrxnTableData=JSON.parse(data._body);
+          console.log(this.getTrxnTableData);
         }
       },
 

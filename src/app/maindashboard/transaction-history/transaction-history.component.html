@@ -26,27 +26,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr >
-              <td>1</td>
-              <td>1</td>
-              <td><textarea id="a"></textarea></td>
-              <td><textarea id="a"></textarea></td>
-              <td>1</td>
-              
-              
-              
-            </tr>
-            <tr >
-              <td>2</td><td>2</td><td><textarea id="a"></textarea></td>
-              <td><textarea id="a"></textarea></td><td>2</td>
-              
-            </tr>
-            <tr >
-              <td>3</td><td>3</td><td><textarea id="a"></textarea></td>
-              <td><textarea id="a"></textarea></td><td>3</td>
-              
-            </tr>
-            
+            <tr *ngFor="let i of getTrxnTableData">
+              <td>{{i.transactionId}}</td>
+              <td>{{i.apiName}}</td>
+              <td><textarea id="a">{{i.requestPacket}}</textarea></td>
+              <td><textarea id="a">{{i.responsePacket}}</textarea></td>
+              <td>{{i.time}}</td>
+            </tr>            
           </tbody>
         </table>
         <div class="clearfix"></div>
