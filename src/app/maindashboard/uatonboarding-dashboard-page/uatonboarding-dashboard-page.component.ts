@@ -84,7 +84,6 @@ export class UATonboardingDashboardPageComponent implements OnInit
   trans: boolean = false;
   amount: boolean = false;
   uatTestingID: boolean = false;
-  refJIRAID: boolean = false;
   nestedCheckboxesList: boolean = false;
   confirmMsg: any;
   showTab = 1;
