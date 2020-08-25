@@ -250,7 +250,8 @@
                               <!-- 2 level -->
                               <a class="display-block cursor-pointer padding-left-10prcnt">
                                 <ng-template #other>
-                                  <div class="customcsscontainer"> <label for="{{j.API_ID}}"> <input type="checkbox"
+                                  <div class="customcsscontainer"> <label for="{{j.API_ID}}"> <input type="checkbox" 
+                                    [attr.domainName]="i.TAB_NAME"
                                         (change)="multipleSelectAPI($event,$event.target.checked)" 
                                         [attr.parentName]="i.TAB_NAME"
                                         id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
@@ -267,7 +268,8 @@
                                   <!-- 3 level -->
                                   <a class="display-block cursor-pointer padding-left-13prcnt">
                                     <ng-template #other >
-                                      <div class="customcsscontainer"> <label for="{{k.API_ID}}"> <input type="checkbox"
+                                      <div class="customcsscontainer"> <label for="{{k.API_ID}}"> <input type="checkbox" 
+                                        [attr.domainName]="i.TAB_NAME"
                                             (change)="multipleSelectAPI($event,$event.target.checked)" id="{{k.API_ID}}"
                                            [attr.parentName]="j.TAB_NAME" [attr.grandParentName]="i.TAB_NAME" value="{{k.TAB_NAME}}"
                                             #checkboxes>{{k.TAB_NAME}}</label>
@@ -284,7 +286,8 @@
                                       <a class="display-block cursor-pointer padding-left-20prcnt">
                                         <ng-template #other>
                                           <div class="customcsscontainer"> <label for="{{L.API_ID}}">
-                                              <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" 
+                                              <input type="checkbox" 
+                                              [attr.domainName]="i.TAB_NAME" (change)="multipleSelectAPI($event,$event.target.checked)" 
                                               [attr.parentName]="k.TAB_NAME" [attr.grandParentName]="j.TAB_NAME" [attr.greatGrandParentName]="i.TAB_NAME" id="{{L.API_ID}}"
                                                 value="{{L.TAB_NAME}}" #checkboxes>{{L.TAB_NAME}}</label></div>
                                         </ng-template>
@@ -298,13 +301,15 @@
                                         <li>
                                           <!-- 5 level -->
                                           <a class="display-block cursor-pointer padding-left-25prcnt">
-                                            <!-- <ng-template #other> <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)"    /></ng-template>{{k.TAB_NAME}} <span
+                                            <!-- <ng-template #other> <input type="checkbox" 
+                                              [attr.domainName]="" (change)="multipleSelectAPI($event,$event.target.checked)"    /></ng-template>{{k.TAB_NAME}} <span
                                                                                           *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
                                                                                             src="assets/images/dropdown-2.svg" alt=""></span> -->
                                             <ng-template #other>
                                               <div class="customcsscontainer"> <label for="M.API_ID">
                                                  <input
-                                                    type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
+                                                    type="checkbox" 
+                                                    [attr.domainName]="i.TAB_NAME" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
                                                     [attr.parentName]="L.TAB_NAME" [attr.grandParentName]="k.TAB_NAME" [attr.greatGrandParentName]="j.TAB_NAME" [attr.greatGreatGrandParentName]="i.TAB_NAME" 
                                                     value="{{M.TAB_NAME}}">
                                                   {{M.TAB_NAME}}</label></div>

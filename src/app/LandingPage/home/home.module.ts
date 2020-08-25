@@ -24,9 +24,11 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
+
+//import { SigninModalComponent } from "./common-modal/signin-modal.component";
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
-
+import { FocusOnShowDirective } from './autofocus.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import {
     ResetComponent,
     TermsandconditionComponent,
     NDAComponent,
-    ContractComponent
+    ContractComponent,
+    FocusOnShowDirective
   ]
 
   // import { CommonSigninModalComponent } from './common-signin-modal/common-signin-modal.component';

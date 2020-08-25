@@ -1,0 +1,654 @@
+<!-- <ng4-loading-spinner> </ng4-loading-spinner> -->
+<div>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Please Login </h3>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      mat-dialog-close
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+    <div class="row mb30">
+      <div class="col-md-12 mb-xs-10">
+        <div><label for="user">Username</label></div>
+        <input name="user" class="input-login" #username />
+        <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
+          Please Enter UserNames.
+        </div>
+      </div>
+    </div>
+    <div class="row mb10">
+      <div class="col-md-12">
+        <div><label for="password" type="password">Password</label></div>
+        <input name="password" type="password" class="input-login" #password />
+        <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
+          Please Enter Password.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="forgotPassword cursor" (click)="Modalforgotpassw(forgotpassw)"
+          >Forgot Password?</a
+        >
+      </div>
+    </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="row w100p m0">
+      <div class="col-12 plr0 mb30">
+        <div>
+          <button
+            type="submit"
+            class="signInBtn w100p"
+            data-dismiss="modal"
+            data-toggle="modal"
+            data-target="#signUp"
+            (click)="Login(username.value, password.value, loginsuccess)"
+          >
+            Login
+          </button>
+          <div
+            id="isResError"
+            class="text-danger form-error ng-star-inserted"
+            *ngIf="is_res_error != ''"
+          >
+            {{ is_res_error }}.
+          </div>
+        </div>
+      </div>
+      <div class="col-12 plr0">
+        <p>
+          Do not have an account? Please
+          <span
+            ><a class="signIn" (click)="openModal2(signup)">Register</a></span
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Modal -->
+<!-- Modal for Forgot password -->
+<ng-template #forgotpassw>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Forgot Password</h3>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef3.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mb30">
+      <div class="col-md-12 mb-xs-10">
+        <div><label for="user">Username/Email</label></div>
+        <input name="user" class="input-login" #username />
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row w100p m0">
+      <div class="col-12 plr0 mb30">
+        <div>
+          <button
+            type="submit"
+            class="signInBtn w100p"
+            (click)="forgot(username.value,forgotpasswreset)"
+          >
+            Reset Password
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #forgotpasswreset>
+  <div class="modal-header">
+  <button
+  type="button"
+  class="close pull-right"
+  aria-label="Close"
+  (click)="modalRef9.hide()"
+  >
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body"> 
+  <div class="txtAlign"><label>Success! Please check your mail</label></div>
+  </div>
+  </ng-template>
+<!-- End Modal -->
+<!-- Modal for Signup -->
+<!-- Modal for Signup -->
+<!-- Modal for Signup -->
+<ng-template #signup>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Let's get you On-board</h3>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef2.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul class="nav nav-tabs nav-tabs1" role="tablist">
+      <li role="presentation" class="active">
+        <a
+          [ngStyle]="{ color: shfrmSFFirst ? '#f06321' : '#919191' }"
+          href="javascript:;"
+          (click)="signup_link(1)"
+          >Basic Details <i class="fa fa-angle-right"></i
+        ></a>
+      </li>
+      <li role="presentation">
+        <a
+          [ngStyle]="{ color: shfrmSFSecond ? '#f06321' : ' #919191' }"
+          href="javascript:;"
+          (click)="signup_link(2)"
+          >Mobile Number <i class="fa fa-angle-right"></i
+        ></a>
+      </li>
+      <li role="presentation">
+        <a
+          [ngStyle]="{ color: shfrmSFThird ? '#f06321' : '#919191' }"
+          href="javascript:;"
+          (click)="signup_link(3)"
+        >
+          Credentials
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content tab-content1">
+      <form [formGroup]="signupForm" [hidden]="!shfrmSFFirst">
+        <input
+          type="hidden"
+          name="otp_verified"
+          formControlName="otp_verified"
+          class="input-login"
+          #otp_verified
+        />
+        <div class="tab-pane">
+          <div class="row mb20">
+            <div class="col-md-6 mb-xs-10">
+              <div><label for="company">Full Name</label></div>
+              <input
+                name="name"
+                formControlName="firstname"
+                class="input-login"
+                #name
+              />
+              <div
+                *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)"
+                class="text-danger form-error"
+              >
+                First Name is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div><label for="company">Email</label></div>
+
+              <input
+                name="email"
+                formControlName="email"
+                class="input-login"
+                #Email
+                (change)="OnCheckEmail(Email.value)"
+              />
+              <div
+                *ngIf="email.invalid && (email.dirty || isSubmitted)"
+                class="text-danger form-error"
+              >
+                Email is required.
+              </div>
+              <div
+                *ngIf="isemail_reg_check != ''"
+                class="text-danger form-error"
+              >
+                {{ isemail_reg_check }}
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Company Name</label></div>
+              <input
+                name="company"
+                formControlName="companyName"
+                class="input-login"
+                #company
+              />
+              <div
+                *ngIf="
+                  companyName.invalid && (companyName.dirty || isSubmitted)
+                "
+                class="text-danger form-error"
+              >
+                Company Name is required.
+              </div>
+            </div>
+          </div> -->
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Company Name</label></div>
+              <input
+                name="company"
+                formControlName="companyName"
+                class="input-login"
+                matInput
+                [matAutocomplete]="auto"
+                #company
+                (keyup)="getCompanyName(company.value)"
+              />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let companyname of companyNames"
+                  [value]="companyname"
+                >
+                  {{ companyname }}
+                </mat-option>
+              </mat-autocomplete>
+              <div
+                *ngIf="
+                  companyName.invalid && (companyName.dirty || isSubmitted)
+                "
+                class="text-danger form-error"
+              >
+                Company Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Domain Name</label></div>
+
+              <select
+                class="form-control select-drop input-login"
+                formControlName="domainNm"
+              >
+                <option value="">Select Domain</option>
+                <option *ngFor="let d of domainLst" [value]="d">{{ d }}</option>
+              </select>
+              <div
+                *ngIf="domainNm.invalid && (domainNm.dirty || isSubmitted)"
+                class="text-danger form-error"
+              >
+                Domain Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Pin Code</label></div>
+              <input name="City" class="input-login" formControlName="CITY" />
+              <div
+                *ngIf="CITY.invalid && (CITY.dirty || isSubmitted)"
+                class="text-danger form-error"
+              >
+                Pin Code is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-xs-30">
+              <div>
+                <label for="password">ICICI Bank RM Employee ID</label>
+                <a
+                  href="#"
+                  data-toggle="tooltip"
+                  title="Enter zero in numeric(0) as default value"
+                  ><img
+                    src="assets/images/information.png"
+                    alt="loader"
+                    class="ml2 cursor_pointer"
+                /></a>
+              </div>
+              <input
+                name="RM"
+                class="input-login"
+                formControlName="RM"
+                pattern="[0-9]*"
+                (ngModelChange)="employeeIdChanged(RM.value)"
+              />
+              <div
+                *ngIf="RM.invalid && (RM.dirty || isSubmitted)"
+                class="text-danger form-error"
+              >
+                RM Employee ID is required (numeric).
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+          <br />
+          <ul class="nav nav-tabs nav-tabs1" role="tablist">
+            <li>
+              <button
+                type="button"
+                (click)="save1()"
+                [disabled]="!signupForm.valid || !isemail_check"
+                [ngClass]="
+                  signupForm.valid || !isemail_check ? 'btn-blue' : 'btn-white'
+                "
+                class="btn"
+                class="signInBtn verifyBtn"
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </div>
+      </form>
+      <form [formGroup]="signupForm2" [hidden]="!shfrmSFSecond">
+        <div class="tab-pane">
+          <div class="row mb20">
+            <div class="col-md-8 mb-xs-30">
+              <div>
+                <label for="mobile">Please enter the Phone Number</label>
+              </div>
+              <input
+                id="mobileNumber"
+                formControlName="mobile_no"
+                Type="number"
+                class="input-login"
+                name="mobile"
+                required
+                #Mobile
+                [readonly]="signupForm.value.otp_verified == 1"
+              />
+              <div
+                *ngIf="mobile_no.invalid && (mobile_no.dirty || isSubmitted)"
+                class="text-danger form-error"
+              >
+                Mobile Number is required.
+              </div>
+              <div
+                *ngIf="ismobile_reg_check != ''"
+                class="text-danger form-error"
+              >
+                {{ ismobile_reg_check }}
+              </div>
+              <div
+                *ngIf="
+                  signupForm.value.otp_send == '1' &&
+                  signupForm.value.otp_verified == 0
+                "
+                class="text-success"
+              >
+                OTP sent to your mobile number.
+              </div>  
+            </div>
+
+            <div class="col-md-4 mt4">
+              <button  [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
+                (click)="SendOtp(Mobile.value)"
+                (click)='buttonClick1()' 
+                  [disabled] = "btnDisabled"
+                  [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
+                  {{btnText}}
+               
+                
+              </button>
+
+
+              <button  type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
+                change
+              </button>
+            </div>
+          </div>
+          <!-- <ng-template #elseBlock> -->
+          <div class="row mb20" *ngIf="showOtp">
+            <div class="col-md-9 mb-xs-30">
+              <div>
+                <label for="otp"
+                  >Enter the OTP Received on your Phone Number</label
+                >
+              </div>
+              <input
+                [readonly]="signupForm.value.otp_verified == 1"
+                name="otp"
+                formControlName="otp_code"
+                class="input-login"
+                #OTP
+              />
+              <div
+                *ngIf="otp_code.invalid && (otp_code.dirty || isSubmitted)"
+                class="text-danger form-error"
+              >
+                OTP is required.
+              </div>
+              <div
+                *ngIf="ismobile_reg_check != ''"
+                class="text-danger form-error"
+              >
+                {{ isotp_reg_check }}
+              </div>
+            </div>
+          </div>
+          <!-- </ng-template> -->
+          <div class="clearfix"></div>
+          <br />
+          <ul class="nav nav-tabs nav-tabs1" role="tablist">
+            <li>
+              <button
+                class="btn"
+                (click)="save2()"
+                [disabled]="!signupForm2.valid"
+                [ngClass]="signupForm2.valid ? 'btn-blue' : 'btn-white'"
+                class="signInBtn verifyBtn"
+              >
+                Verify
+              </button>
+            </li>
+          </ul>
+        </div>
+      </form>
+     <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
+
+        <!--user name-->
+        <div class="tab-pane">
+          <div class="row1 mb2">
+            <!-- <div class="col-md-12">
+              <div><label for="username">User Name </label></div>
+              <input formControlName="username" id="username" type="text" (keydown.space)="$event.preventDefault();"
+                class="input-login" #uname />
+              <div *ngIf="username && username.touched && username.errors" class="alert alert-danger">
+                <div *ngIf="username.errors.required" class="text-danger">username is required </div>
+                         
+
+                  </div>
+            </div> -->
+
+            <!-- <label for="uname" >User Name:</label>
+            <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"
+              [ngClass]="signupForm3.controls['uname'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
+              Username is Required.
+            </label>   -->
+            
+              <label for="uname" >User Name:</label>
+              <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"  >
+                <div  *ngIf="signupForm3.controls['uname'].touched" >
+              <div class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
+                username is Required.
+              </div>   
+            </div>        
+            </div>
+
+            <br>
+
+        
+
+          <div class="row1 mb2">
+            
+          
+            <label for="password" >Password:</label>
+            <input id="password" formControlName="password" type="password" class="form-control" >
+            <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
+              Password is Required!
+            </label> -->
+            <div  *ngIf="signupForm3.controls['password'].touched || signupForm3.controls['password'].dirty" >
+              <br>
+            
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('minlength') ? 'cancel' :
+                'check_circle' }}</i>
+              Must be at least 8 characters.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasNumber') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 number.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 upperccase letter.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 lowercase letter.
+            </label>
+            <label class="col" [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+              <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                signupForm3.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+                'check_circle' }}</i>
+              Must contain at least 1 Special Character.
+            </label>
+          </div>
+           
+         </div>
+         <br>
+          
+
+
+          <div class="row1 mb2">
+          
+            <label for="confirmPassword" >Confirm Password:</label>
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control" >
+            <div  *ngIf="signupForm3.controls['confirmPassword'].touched" >
+            <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('required')">
+              Password is Required.
+            </label>
+            <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('NoPassswordMatch')">
+              Password does not match.
+            </label>
+            </div>
+            <label class="text-success" *ngIf="signupForm3.controls['confirmPassword'].valid">
+              Password match.
+            </label>
+           </div>
+
+
+
+          <div class="clearfix"></div>
+
+
+
+
+
+          <div class="row mt12">
+            <div class="col-md-12">
+              <label class="checkboxContainer">
+                <input type="checkbox" formControlName="term" #term required /><span class="checkmark"></span>
+                <a href="/assets/pdf/Terms.pdf" target="_blank">ACCEPT ALL TERMS & CONDITIONS</a>
+                <!-- <a [routerLink]="['/index/termsandcondition']" target="_blank"
+                  >ACCEPT ALL TERMS & CONDITIONS</a
+                > -->
+                <div *ngIf="term.invalid && (term.invalid || isSubmitted)" class="text-danger form-error">
+                  I ACCEPT ALL TERMS & CONDITIONS is required.
+                </div>
+              </label>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+          <br />
+          <ul class="nav nav-tabs nav-tabs1" role="tablist">
+            <li>
+              <button (click)="sign_up()" [disabled]="!signupForm3.valid"
+                [ngClass]="signupForm3.valid ? 'btn-blue' : 'btn-white'" class="btn" class="signInBtn verifyBtn">
+                Submit
+              </button>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row w100p m0">
+      <div class="col-12 pl0">
+        <p>
+          Already have an account? Please
+          <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+        </p>
+      </div>
+      <div class="col-5 pr0">
+        <div class="text-right"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!--Login suceess modal-->
+<ng-template #loginsuccess>
+  <div class="modal-header loginsuccess-modal-border">
+  <!--  <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef4Close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>-->
+  </div>
+
+  <div class="modal-body">
+    <div class="row success-label-div">
+      <Label class="success-label">Login Successful</Label>
+    </div>
+    <div class="row mb10">
+      <div class="col-md-12">
+        <img src="assets/images/image 2.JPG" width="100%" />
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer modal-footer-border">
+    <div class="row w100p m0">
+      <div class="col-12 plr0 mb30">
+        <div class="ok-btn-div">
+          <button
+            type="submit"
+            class="signInBtn w100p ok-btn"
+            (click)="clickOk()"
+          >
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- End Modal -->
+<!-- End Modal -->

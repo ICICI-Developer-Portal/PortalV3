@@ -1,0 +1,36 @@
+#content-desktop {
+  display: block;
+}
+#content-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  #content-desktop {
+    display: none;
+  }
+  #content-mobile {
+    display: block;
+  }
+}
+
+#judging-desktop {
+  display: block;
+  height: 450px;
+  width: 100%;
+  margin: 0;
+}
+#judging-mobile {
+  display: none;
+  width: 100%;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  #judging-desktop {
+    display: none;
+  }
+  #judging-mobile {
+    display: block;
+  }
+}

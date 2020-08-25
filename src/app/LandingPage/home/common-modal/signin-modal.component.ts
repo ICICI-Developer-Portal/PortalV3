@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
+import { Component, OnInit, TemplateRef, ɵConsole,ViewChild,ElementRef } from "@angular/core";
 import { Toast, ToasterService, ToasterConfig } from "angular2-toaster";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { Router } from "@angular/router";
@@ -29,6 +29,8 @@ import { CustomValidators } from "../../layout/header/custom-validators";
   styleUrls: ["./signin-modal.component.css"]
 })
 export class SigninModalComponent implements OnInit {
+
+  
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;

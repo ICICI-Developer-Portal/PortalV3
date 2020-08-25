@@ -57,18 +57,20 @@
 
 
                 <div formGroupName="basicDetailsSection" class="row">
-                  <div class="form-group col-md-6">form pushing purpose
+                  <div class="form-group col-md-6">
                     <label for="merchantName">Request Id<span class="text-danger"> *</span></label>
-                    <select _ngcontent-c4="" class="form-control  col-md-11 inline_block ng-pristine ng-invalid ng-touched fs12"  formControlName="JiraId">
-                      <option _ngcontent-c4="" [value]="fetchedJiraId"> {{fetchedJiraId}}</option><!----></select>
+                    <select  class="form-control  col-md-11 inline_block ng-pristine ng-invalid ng-touched fs12" (change)="changeItem($event.target.value)"  formControlName="JiraId">
+                      <option value="Approved/Complete UAT Request ID" (click)="forResetiingAdditionalFields()">Approved/Complete UAT Request ID</option>                     
+                      <option  *ngFor="let i of list" [value]="i.JiraId" > {{i.JiraId}}</option>
+                      </select>
                     <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
                       class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
-                    <!-- <div
-                      *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
+                    <div
+                      *ngIf="list.length > 0 ? false:true"
                       class="text-danger form-error">
-                      Merchant Name is required.
-                    </div> -->
+                      No Approved JiraId available
+                    </div>
                     <!-- ======== -->
                   </div>
                   <div class="form-group col-md-6">
@@ -223,22 +225,21 @@
 
                   <!-- Cart end here-->
 
+                  <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                  <div class="col-md-11 padding_0px">
 
-                  <div class="col-md-12">
                     <button #continueButtonSecondSection class="signInBtn ContinueBtn btn-dark  pull-right"
-                      name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"
-                      (click)="onClickContinueBtn()"> Continue
+                      name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button" dat-attr="reactiveForm.controls.basicDetailsSection"
+                      [disabled]="reactiveForm.controls.basicDetailsSection.get('JiraId').value=='Approved/Complete UAT Request ID'"  (click)="onClickContinueBtn()"> Continue
                     </button>
                   </div>
+                </div>
+
                   <!-- ------------------------------------------------- -->
 
                   <!-- =================================================== -->
                 </div>
-
-
-
-
-
               </div>
 
             </div>
@@ -693,11 +694,15 @@
                     <!-- ======= -->
                     <!-- <div _ngcontent-c1="" class="col-md-12"><button _ngcontent-c1="" class="signInBtn btn-dark" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"> Submit </button></div> -->
 
-                    <div class="col-md-12">
+                    <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                  <div class="col-md-11 padding_0px">
                       <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
                         ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid"
-                        (click)="onSubmitUATForm(Prodconfirm)" id="submitButton"> Submit
-                      </button></div>
+                        (click)="onSubmitProductionForm(Prodconfirm)" id="submitButton"> Submit
+                      </button>
+                    </div>
+                    </div>
 
 
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->

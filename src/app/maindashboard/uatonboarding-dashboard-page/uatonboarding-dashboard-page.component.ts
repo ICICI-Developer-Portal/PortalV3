@@ -34,6 +34,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   responseData: [];
   menuArray: any[];
   arrayObjectOfListIds = [];
+  arrayObjectOfDomain= [];
   arrayObjectOfValue = [];
   logged_in: Boolean = false;
   additionalParams: any;
@@ -81,15 +82,13 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   isemail_check: boolean = false;
   isemail_reg_check: string = "";
   selectedValue = [];
-  term:any;
-
+term:any;
   /** Add var for search field */
   myControl = new FormControl();
   APIAutocompletDataSource:any[] = [];
   filteredOptions: Observable<string[]>;
   searchedItem:any;
   searchedFieldValue:any;
-  
 
   /** end here */
   constructor(private HttpClient: HttpClient,
@@ -122,6 +121,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
      
     }
     );
+
     // testing......
     let edit = ''
     this.resetForm(edit);
@@ -377,7 +377,13 @@ ifIPpatternNotmatches(){
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id
     }).get()
-    console.log(this.arrayObjectOfListIds)
+    this.arrayObjectOfDomain = $(".customcsscontainer input:checkbox:checked").map(function () {
+      return this.getAttribute("domainName")
+    }).get()
+  
+    console.log(this.arrayObjectOfDomain.join())
+
+    console.log(this.arrayObjectOfListIds.join())
     const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
     var json = {
       ID: this.arrayObjectOfListIds.join(),
@@ -544,6 +550,7 @@ if(this.selectedValue.length>0){
    this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
     return this.id
   }).get()
+  
   console.log(this.arrayObjectOfListIds)
   const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
   var json = {
@@ -595,7 +602,7 @@ else{
    
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: localStorage.getItem("nodevalue"),
+      domainName: '(' +this.arrayObjectOfDomain.join()+ ')',
       domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,

@@ -23,13 +23,17 @@ export class FaqComponent implements OnInit {
     this.adm.faq().subscribe((data:any)=> {
       this.faqObjList = data._body;
       this.faqObjList= this.faqObjList.replace(/\\n/g, "\\\\n")
-      this.faqObj = JSON.parse(this.faqObjList)
+      this.faqObj = JSON.parse(this.faqObjList);
+
+
        for (var i  in this.faqObj){
-        this.faqObjQues.push(this.faqObj[i][1])
-        this.faqObjAns.push(this.faqObj[i][2])
-       this.faqObjAns= this.faqObjAns.map(function(str) {
-          return str.replace(/\\n/g, '\n')
-        });
+          if(this.faqObj[i][0] ==='Registration'){
+            this.faqObjQues.push(this.faqObj[i][1])
+            this.faqObjAns.push(this.faqObj[i][2])
+            this.faqObjAns= this.faqObjAns.map(function(str) {
+              return str.replace(/\\n/g, '\n')
+            });
+          }
         }
         this.faqHeaderList = JSON.parse(this.faqObjList)
         this.faqHeader = this.faqHeaderList["1"][0]

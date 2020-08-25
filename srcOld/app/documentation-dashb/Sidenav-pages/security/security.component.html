@@ -1,0 +1,1224 @@
+<head>
+  <meta charset="utf-8">
+</head>
+<div class="documentTabContent">
+  <div class="tab-content" id="v-pills-tabContent">
+    <div>
+      <div class="tabContentInner">
+        <div class="col-md-12">
+          <div id="accordion" class="faqmainSection">
+                  <div class="card">
+                      <a class="card-header-security" data-toggle="collapse" href="#tab1" aria-expanded="true">
+                          <div class="row">
+                              <div class="col-md-11 col-11" >
+                              <a class="card-link">
+                                      Basic Security
+                              </a>
+                              </div>
+                              <div class="col-md-1 text-right">
+                              <i class="material-icons accordionDropdownIcon">expand_less</i>
+                              </div>
+                          </div>
+                      </a>
+                      <div id="tab1" class="collapse show" data-parent="#accordion">
+                          <div class="card-body security-style">
+                            <ul>
+                              <li>
+                                API Key needs to be passed in the header (apikey) and merchant IP
+                                will also be required for IP whitelisting.
+                              </li>
+                              <li>
+                                API Key to be shared by ICICI.
+                              </li>
+                              <li>
+                                API Key needs to be passed http request header (name:- apikey).
+                              </li>
+                            </ul>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card">
+                    <a class="card-header-security" data-toggle="collapse" href="#tab2" aria-expanded="true">
+                        <div class="row">
+                            <div class="col-md-11 col-11" >
+                            <a class="card-link">
+                              API Key Validation
+                            </a>
+                            </div>
+                            <div class="col-md-1 text-right">
+                            <i class="material-icons accordionDropdownIcon">expand_less</i>
+                            </div>
+                        </div>
+                    </a>
+                    <div id="tab2" class="collapse show" data-parent="#accordion">
+                        <div class="card-body security-style">
+                          <p>
+                            The API key and it's corresponding secret can be used in many ways
+                            such as just passing the key in a parameter or header. The most common
+                            way of passing the key is as an HTTP parameter or header. So that we
+                            will share this key with user and validate the key in request header
+                            by comparing it with the value at our end. If the key is Valid we will
+                            continue processing the request further otherwise throw an error
+                            stating as Invalid API key.
+                          </p>
+                          <br />
+                          <p>
+                            Example:
+                            <br />
+                            Passing the Key in Header
+                          </p>
+                          <br />
+                          <p>
+                            Key : API Key
+                            <br />
+                            Value: IP84UTvzJKds1Jomx8gIbTXcEEJSUilGqpxCcmnx
+                          </p>
+                          <br />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                  <a class="card-header-security" data-toggle="collapse" href="#tab3" aria-expanded="true">
+                      <div class="row">
+                          <div class="col-md-11 col-11" >
+                          <a class="card-link">
+                            IP Whitelisting
+                          </a>
+                          </div>
+                          <div class="col-md-1 text-right">
+                          <i class="material-icons accordionDropdownIcon">expand_less</i>
+                          </div>
+                      </div>
+                  </a>
+                  <div id="tab3" class="collapse show" data-parent="#accordion">
+                      <div class="card-body security-style">
+                        <p>
+                          IP whitelisting allows us to create lists of trusted IP addresses or
+                          IP ranges from which our users can access our domains. IP whitelist is
+                          a security feature often used for limiting and controlling access only
+                          to trusted users. So at the time of configuration, We would white list
+                          user public IP on our firewall, so our web services would be called by
+                          the authorized user server only. Similarly, user also would have to
+                          white list our public IP to call the web services.
+                        </p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="card">
+                <a class="card-header-security" data-toggle="collapse" href="#tab4" aria-expanded="true">
+                    <div class="row">
+                        <div class="col-md-11 col-11" >
+                        <a class="card-link">
+                          HTTPS
+                        </a>
+                        </div>
+                        <div class="col-md-1 text-right">
+                        <i class="material-icons accordionDropdownIcon">expand_less</i>
+                        </div>
+                    </div>
+                </a>
+                <div id="tab4" class="collapse show" data-parent="#accordion">
+                    <div class="card-body security-style">
+                      <p>
+                        The web services to be hosted must be HTTPS. The HTTPS type web
+                        service would filter out middle man from pipeline while data
+                        transportation between bank and user application.
+                      </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+              <a class="card-header-security" data-toggle="collapse" href="#tab5" aria-expanded="true">
+                  <div class="row">
+                      <div class="col-md-11 col-11" >
+                      <a class="card-link">
+                        Advanced Security
+                      </a>
+                      </div>
+                      <div class="col-md-1 text-right">
+                      <i class="material-icons accordionDropdownIcon">expand_less</i>
+                      </div>
+                  </div>
+              </a>
+              <div id="tab5" class="collapse show" data-parent="#accordion">
+                  <div class="card-body security-style">
+                    <ul>
+                      <li>
+                        API request and response to Merchant is secured using advanced and
+                        agreed upon encryption algorithm agreed to maintain data
+                        confidentiality and integrity.
+                      </li>
+                      <li>
+                        API Gateway uses the standard authenticating and authorizing process
+                        for the incoming request from merchant and for maintaining the
+                        integrity and confidentiality we apply state of art Encryption/
+                        Decryption algorithm.
+                      </li>
+                      <li>
+                        Please refer below given steps and choose any one for Encryption &
+                        Decryption process.
+                      </li>
+                      <p>
+                        o Asymmetric o Symmetric o Hybrid (Both Symmetric and Asymmetric)
+                      </p>
+                    </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="card">
+            <a class="card-header-security" data-toggle="collapse" href="#tab6" aria-expanded="true">
+                <div class="row">
+                    <div class="col-md-11 col-11" >
+                    <a class="card-link">
+                      Asymmetric Encryption & Decryption Process
+                    </a>
+                    </div>
+                    <div class="col-md-1 text-right">
+                    <i class="material-icons accordionDropdownIcon">expand_less</i>
+                    </div>
+                </div>
+            </a>
+            <div id="tab6" class="collapse show" data-parent="#accordion">
+                <div class="card-body security-style">
+                  <p>
+                    Payload content-type will be in text/plain. Base64 encoded encrypted Cipher will be passed as
+                    a payload.
+                  </p>
+                  <p>
+                    oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPRD
+          ya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AG
+          W7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAoo
+          Whza+TsWEHfxzQIa7zai7WSa/wiJD3uD7mk5vT1WY/fKJBquCuzM7l35vigDhmb7dLVLuX8VMiNQrtErW
+          NI0uVaag1jg+uZUtyDSxjPFi5yEpKVVc7+T503IDnCvkCFDygqasDsPL24qOjYk4XavTZvwGuPAdYNNkVn
+          LzVElEhg4zS2ye+fa/8fZiMt/3fwYeN9dgn9i5R6VOFbXSuZJYPSci9k0oqz73h1nzFtps60rUEDoGIkGvm9w
+          aJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/
+          seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9Ln
+          Lni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo
+                  </p>
+                  <p>
+                    For encryption of request at ICICI:
+                  </p>
+                  <strong>
+                    Encrypted_Payload = Base64Encode(RSA/ECB/PKCS1Encryption(payload,ICICIPubKey.cer))
+                  </strong>
+                  <p>
+                    For encryption of response at ICICI:
+                  </p>
+                  <strong>
+                    Encrypted_Payload = Base64Encode(RSA/ECB/PKCS1Encryption(payload,ClientPubKey.cer))
+                  </strong>
+                  <p>
+                    For decryption of response at Client:
+                  </p>
+                  <p>
+                  <strong>
+                    plainResponse =
+          Base64Decode(RSA/ECB/PKCS1Decryption(encPayload,ClientPrivateKey.p12))
+                  </strong>
+                </p>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+          <a class="card-header-security" data-toggle="collapse" href="#tab7" aria-expanded="true">
+              <div class="row">
+                  <div class="col-md-11 col-11" >
+                  <a class="card-link">
+                    Symmetric Encryption & Decryption Process
+                  </a>
+                  </div>
+                  <div class="col-md-1 text-right">
+                  <i class="material-icons accordionDropdownIcon">expand_less</i>
+                  </div>
+              </div>
+          </a>
+          <div id="tab7" class="collapse show" data-parent="#accordion">
+              <div class="card-body security-style">
+                <p>
+                  Payload content-type will be in text/plain. Base64 encoded encrypted Cipher will be passed as
+        a payload.
+                </p>
+                <p>
+                  Api Gateway use below ciphers for symmetric encryption-decryption, Client may can use any
+        of them.
+                </p>
+                <ul>
+                  <li>
+                    AES/GCM/NoPadding
+                  </li>
+                  <li>
+                    AES/CBC/PKCS5Padding
+                  </li>
+                  <li>
+                    DES/CBC/PKCS5Padding
+                  </li>
+                  <li>
+                    DESede/CBC/PKCS5Padding
+                  </li>
+                </ul>
+                <p>
+                  IV= The initialization vector used when encrypting data using the one-time use AES/GCM,
+        AES/CBC ciphers.
+                </p>
+                <p>
+                  Sample Encrypted Payload
+                </p>
+                <p>
+                  wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKp
+        yMSY3DILOpbkqEa0Qq0g=
+                </p>
+                <p>
+                  For encryption of request:
+                </p>
+                <strong>
+                  PublicKey (Confidential key) is nothing but randomly generated string of length 16 (OR 32).
+        Will be shared between Client and Api gateway.
+        IV = Initialization Vector- Exactly 16 bytes actual value to match the block size (Optional)
+        EncPayload = Base64Encode(AES/CBC/PKCS5Padding(payload,publicKey, IV))
+                </strong>
+                <p>
+                  For decryption of response:
+                </p>
+                <p>
+                <strong>
+                  Response = Base64Decode (AES/CBC/PKCS5Padding Decryption(encPayload,publicKey, IV))
+                </strong>
+              </p>
+              </div>
+          </div>
+      </div>
+      <div class="card">
+        <a class="card-header-security" data-toggle="collapse" href="#tab8" aria-expanded="true">
+            <div class="row">
+                <div class="col-md-11 col-11" >
+                <a class="card-link">
+                  Hybrid Encryption & Decryption Process
+                </a>
+                </div>
+                <div class="col-md-1 text-right">
+                <i class="material-icons accordionDropdownIcon">expand_less</i>
+                </div>
+            </div>
+        </a>
+        <div id="tab8" class="collapse show" data-parent="#accordion">
+            <div class="card-body security-style">
+              <p>
+                Sample Encrypted Request to be sent to Client (JSON):
+              </p>
+              <p>
+                &#123;
+                <br>
+                  "requestId": "",
+                  "service": "LOP",
+                  "encryptedKey":
+                  "oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPR
+                  Dya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AG
+                  W7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAoo
+                  Whza+TsWEHfxzQIa7zai7WSa/wiJD3uD7mk5vT1WY/fKJBquCuzM7l35vigDhmb7dLVLuX8VMiNQrtErW
+                  NI0uVaag1jg+uZUtyDSxjPFi5yEpKVVc7+T503IDnCvkCFDygqasDsPL24qOjYk4XavTZvwGuPAdYNNkVn
+                  LzVElEhg4zS2ye+fa/8fZiMt/3fwYeN9dgn9i5R6VOFbXSuZJYPSci9k0oqz73h1nzFtps60rUEDoGIkGvm9w
+                  aJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/
+                  seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9Ln
+                  Lni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo=",
+                  "oaepHashingAlgorithm": "NONE",
+                  "iv": "",
+                  "encryptedData":
+                  "wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKp
+                  yMSY3DILOpbkqEa0Qq0g=",
+                  "clientInfo": "",
+                  "optionalParam": ""
+                  <br>
+                  &#125;
+              </p>
+              <p>
+                Field Description:
+              </p>
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Description</th>
+                  <th>Data Type</th>
+                  <th>Max length</th>
+                  <th>Mandatory</th>
+                  <th>Permitted Values</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>requestId</td>
+                  <td>Unique
+                    identifier for
+                    the request.
+                    Not being
+                    stored at any
+                    level.</td>
+                  <td>String</td>
+                  <td class="tableBody">64</td>
+                  <td class="tableBody">No</td>
+                  <td class="tableBody"></td>
+                </tr>
+                <tr>
+                  <td>service type</td>
+                  <td>Service Name ;
+                    Identifying the
+                    backend
+                    service name.</td>
+                  <td>String</td>
+                  <td class="tableBody"></td>
+                  <td class="tableBody">Yes</td>
+                  <td class="tableBody"></td>
+                </tr>
+                <tr>
+                  <td>encryptedKey</td>
+                  <td>One-time use
+                    AES key
+                    encrypted by
+                    the Client's
+                    public key.
+                    Requirement is
+                    for a 128-bit
+                    key (with 256-
+                    bit key supported as
+                    an option).</td>
+                  <td>String.
+                    Base64
+                    -
+                    encod
+                    ed
+                    data
+                    
+                    (case-
+                    insensi
+                    
+                    tive)</td>
+                  <td class="tableBody"></td>
+                  <td class="tableBody">Yes</td>
+                  <td class="tableBody"></td>
+                </tr>
+                <tr>
+                  <td>oaepHashing
+                    Algorithm</td>
+                  <td>Describes the
+                    algorithm used
+                    for Asymmetric
+                    Encryption of
+                    one time AES
+                    key.</td>
+                  <td></td>
+                  <td class="tableBody">6</td>
+                  <td class="tableBody">Yes</td>
+                  <td class="tableBody">Value : NONE,
+                    Meaning :
+                    RSA/ECB/PKCS1 is
+                    used for
+                    Asymmetric
+                    Encryption
+                    Value : SHA1,
+                    Meaning :
+                    RSA/NONE/
+                    OAEPWithSHA1An
+                    dMGF1Padding
+                    OR
+                    RSA/ECB/
+                    OAEPWithSHA1An
+                    dMGF1Padding</td>
+                </tr>
+                <tr>
+                  <td>iv</td>
+                  <td>The
+                    initialization
+                    vector used
+                    when
+                    encrypting data
+                    
+                    using the one-
+                    time use AES
+                    
+                    key.</td>
+                  <td>String.
+                    Base64
+                    -
+                    encod
+                    ed
+                    data
+                    
+                    (case-
+                    insensi
+                    
+                    tive)</td>
+                  <td class="tableBody">24</td>
+                  <td class="tableBody">Yes, if IV is not
+                    part of
+                    encrypted
+                    data itself.
+                    Leave blank
+                    otherwise.
+                    For the
+                    response data
+                    encrypted at
+                    ICICI end, IV
+                    will always be
+                    part of
+                    encryptedData
+                    itself and it is
+                    randomly
+                    generated for
+                    each request.
+                    Can be
+                    retrieved by
+                    Client by
+                    retrieving the
+                    first 16 bytes
+                    of Base64
+                    decoded
+                    encryptedData</td>
+                    <td class="tableBody">Exactly 16 bytes
+                      actual value to
+                      match the block
+                      size</td>
+                </tr>
+                <tr>
+                  <td>encryptedData</td>
+                  <td>Contains the
+                    encrypted
+                    dataPayload
+                    object
+                    containing the
+                    business
+                    information.
+                    Encrypted by
+                    the ephemeral
+                    AES key using
+                    AES/CBC/PKCS
+                    5Padding.
+                    Sample
+                    unencrypted
+                    object:
+                    Please refer
+                    first section of
+                    document for a
+                    sample object.</td>
+                  <td>String.
+                    Base64
+                    -
+                    encod
+                    ed
+                    data
+                    
+                    (case-
+                    insensi
+                    
+                    tive)</td>
+                  <td class="tableBody"></td>
+                  <td class="tableBody">Yes</td>
+                  <td class="tableBody"></td>
+                </tr>
+                <tr>
+                  <td>clientInfo</td>
+                  <td>ClientIP or
+                    other
+                    information</td>
+                  <td>String</td>
+                  <td class="tableBody"></td>
+                  <td class="tableBody">No</td>
+                  <td class="tableBody"></td>
+                </tr>
+                <tr>
+                  <td>optionalParam</td>
+                  <td>Reserved for
+                    future use</td>
+                  <td>String</td>
+                  <td class="tableBody"></td>
+                  <td class="tableBody">No</td>
+                  <td class="tableBody"></td>
+                </tr>
+              </tbody>
+              </table>
+              <p>
+                For encryption of request at ICICI:
+              </p>
+              <p>
+              <strong>SesionKey = Randomly generated string of length 16 (OR 32).
+                encryptedKey = Base64Encode(RSA/ECB/PKCS1Encryption(SesionKey,ICICIPubKey.cer))
+                IV = Initialization Vector- Exactly 16 bytes actual value to match the block size
+                encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Request,SessionKey, IV))
+              </strong>
+            </p>
+              <p>
+                For encryption of response at ICICI:
+              </p>
+              <p>
+              <strong>encryptedKey = Base64Encode(RSA/ECB/PKCS1Encryption(SesionKey,ClientPubKey.cer))
+                Session key is nothing but randomly generated string of length 16 (OR 32).
+                encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Response,SessionKey))
+              </strong>
+            </p>
+              <p>
+                For decryption of response at Client:
+              </p>
+              <p>
+              <strong>IV= getFirst16Bytes(Base64Decode(encryptedData)
+                SessionKey =
+                Base64Decode(RSA/ECB/PKCS1Decryption(encryptedKey,ClientPrivateKey.p12,))
+                Session key is nothing but randomly generated string of length 16 (OR 32) .
+                Response = Base64Decode (AES/CBC/PKCS5Padding Decryption(encryptedData,SessionKey,
+                IV))
+              </strong>
+            </p>
+              <p class="ta-center">Or</p>
+              <p>Steps for Encryption</p>
+              <ol>
+                <li>
+                  Generate 16 digit random number. Say RANDOMNO.
+                </li>
+                <li>
+                  Encrypt RANDOMNO using RSA/ECB/PKCS1Padding and encode using Base64. Say
+                  encryptedKey.
+                </li>
+                <li>
+                  Perform AES/CBC/PKCS5Padding encryption on request payload using RANDOMNO as
+      key and iv- initialization vector. Say encryptedData.
+                </li>
+                <li>
+                  Now client may choose to send IV in request from one of below two options.
+                  <ol type="a">
+                    <li>
+                      Send Base64 Encoded IV in “iv” tag. (Recommended Approach)
+                    </li>
+                    <li>
+                      Send IV as a part of encryptedData itself.
+      bytes[] iv = IV;
+      bytes[] cipherText = symmetrically encrypted Bytes (step3)
+      bytes[] concatB = iv + cipherText;
+      encryptedData = B64Encode(concatB);
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  Perform AES/CBC/PKCS5Padding encryption on DATA using RANDOMNO as key
+      and Base64encoded RANDOMNO as IV. Say ENCR_DATA.
+                </li>
+              </ol>
+              <p>Steps for Decryption</p>
+              <ol>
+                <li>
+                  Get the IV- Base64 decode the encryptedData and get first 16 bytes and rest is encrypted
+      response.
+      bytes[] IV= getFirst16Bytes(Base64Decode(encryptedData)
+                </li>
+                <li>
+                  Decrypt encryptedKey using algo (RSA/ECB/PKCS1Padding) and Client’s private key.
+                </li>
+                <li>
+                  Decrypt the response using algo (AES/CBC/PKCS5Padding).
+                </li>
+                <li>
+                  Ignore first 16 bytes of response, as it contains IV.
+                </li>
+              </ol>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+      <a class="card-header-security" data-toggle="collapse" href="#tab9" aria-expanded="true">
+          <div class="row">
+              <div class="col-md-11 col-11" >
+              <a class="card-link">
+                cURL command
+              </a>
+              </div>
+              <div class="col-md-1 text-right">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+              </div>
+          </div>
+      </a>
+      <div id="tab9" class="collapse show" data-parent="#accordion">
+          <div class="card-body security-style">
+            <p>
+              curl -X POST \
+              <br>
+              'https://apigwuat.icicibank.com:8443/relativeURI' \
+              <br>
+              -H 'apikey: apikey \
+              <br>
+              -H 'content-type: application/json' \
+              <br>
+              -d ' &#123;
+              <br>
+              "requestId": "",
+              <br>
+              "service": "",
+              <br>
+              "encryptedKey":
+              <br>
+              "oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPR
+      Dya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AG
+      W7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAoo
+      Whza+TsWEHfxzQIa7zai7WSa/wiJD3uD7mk5vT1WY/fKJBquCuzM7l35vigDhmb7dLVLuX8VMiNQrtErW
+      NI0uVaag1jg+uZUtyDSxjPFi5yEpKVVc7+T503IDnCvkCFDygqasDsPL24qOjYk4XavTZvwGuPAdYNNkVn
+      LzVElEhg4zS2ye+fa/8fZiMt/3fwYeN9dgn9i5R6VOFbXSuZJYPSci9k0oqz73h1nzFtps60rUEDoGIkGvm9w
+      aJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/
+      seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9Ln
+      Lni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo=",
+      <br>
+      "oaepHashingAlgorithm": "NONE",
+      <br>
+      "iv": "",
+      <br>
+      "encryptedData":
+      <br>
+      "wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKp
+      yMSY3DILOpbkqEa0Qq0g=",
+      <br>
+      "clientInfo": "",
+      <br>
+      "optionalParam": ""
+      <br>
+      &#125;'
+             </p>
+          </div>
+      </div>
+  </div>
+
+                  </div>
+                  </div>
+
+        <!-- <h4 class="mb10 fs24 color-black ff-medium">Basic Security</h4>
+        <hr />
+        <ul>
+          <li>
+            API Key needs to be passed in the header (apikey) and merchant IP
+            will also be required for IP whitelisting.
+          </li>
+          <li>
+            API Key to be shared by ICICI.
+          </li>
+          <li>
+            API Key needs to be passed http request header (name:- apikey).
+          </li>
+        </ul>
+        <h4 class="mb10 fs24 color-black ff-medium">API Key Validation</h4>
+        <hr />
+        <p>
+          The API key and it's corresponding secret can be used in many ways
+          such as just passing the key in a parameter or header. The most common
+          way of passing the key is as an HTTP parameter or header. So that we
+          will share this key with user and validate the key in request header
+          by comparing it with the value at our end. If the key is Valid we will
+          continue processing the request further otherwise throw an error
+          stating as Invalid API key.
+        </p>
+        <br />
+        <p>
+          Example:
+          <br />
+          Passing the Key in Header
+        </p>
+        <br />
+        <p>
+          Key : API Key
+          <br />
+          Value: IP84UTvzJKds1Jomx8gIbTXcEEJSUilGqpxCcmnx
+        </p>
+        <br />
+        <h4 class="mb10 fs24 color-black ff-medium">IP Whitelisting</h4>
+        <hr /> -->
+        <!-- <p>
+          IP whitelisting allows us to create lists of trusted IP addresses or
+          IP ranges from which our users can access our domains. IP whitelist is
+          a security feature often used for limiting and controlling access only
+          to trusted users. So at the time of configuration, We would white list
+          user public IP on our firewall, so our web services would be called by
+          the authorized user server only. Similarly, user also would have to
+          white list our public IP to call the web services.
+        </p>
+        <br /> -->
+        <!-- <h4 class="mb10 fs24 color-black ff-medium">HTTPS</h4>
+        <hr />
+        <p>
+          The web services to be hosted must be HTTPS. The HTTPS type web
+          service would filter out middle man from pipeline while data
+          transportation between bank and user application.
+        </p>
+        <br /> -->
+        <!-- <h4 class="mb10 fs24 color-black ff-medium">Advanced Security</h4>
+        <hr />
+        <ul>
+          <li>
+            API request and response to Merchant is secured using advanced and
+            agreed upon encryption algorithm agreed to maintain data
+            confidentiality and integrity.
+          </li>
+          <li>
+            API Gateway uses the standard authenticating and authorizing process
+            for the incoming request from merchant and for maintaining the
+            integrity and confidentiality we apply state of art Encryption/
+            Decryption algorithm.
+          </li>
+          <li>
+            Please refer below given steps and choose any one for Encryption &
+            Decryption process.
+          </li>
+          <p>
+            o Asymmetric o Symmetric o Hybrid (Both Symmetric and Asymmetric)
+          </p>
+        </ul> -->
+        <!-- <h4 class="mb10 fs24 color-black ff-medium">Asymmetric Encryption & Decryption Process</h4>
+        <hr/>
+        <p>
+          Payload content-type will be in text/plain. Base64 encoded encrypted Cipher will be passed as
+          a payload.
+        </p>
+        <p>
+          oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPRD
+ya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AG
+W7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAoo
+Whza+TsWEHfxzQIa7zai7WSa/wiJD3uD7mk5vT1WY/fKJBquCuzM7l35vigDhmb7dLVLuX8VMiNQrtErW
+NI0uVaag1jg+uZUtyDSxjPFi5yEpKVVc7+T503IDnCvkCFDygqasDsPL24qOjYk4XavTZvwGuPAdYNNkVn
+LzVElEhg4zS2ye+fa/8fZiMt/3fwYeN9dgn9i5R6VOFbXSuZJYPSci9k0oqz73h1nzFtps60rUEDoGIkGvm9w
+aJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/
+seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9Ln
+Lni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo
+        </p>
+        <p>
+          For encryption of request at ICICI:
+        </p>
+        <strong>
+          Encrypted_Payload = Base64Encode(RSA/ECB/PKCS1Encryption(payload,ICICIPubKey.cer))
+        </strong>
+        <p>
+          For encryption of response at ICICI:
+        </p>
+        <strong>
+          Encrypted_Payload = Base64Encode(RSA/ECB/PKCS1Encryption(payload,ClientPubKey.cer))
+        </strong>
+        <p>
+          For decryption of response at Client:
+        </p>
+        <p>
+        <strong>
+          plainResponse =
+Base64Decode(RSA/ECB/PKCS1Decryption(encPayload,ClientPrivateKey.p12))
+        </strong>
+      </p> -->
+        <!-- <h4 class="mb10 fs24 color-black ff-medium">Symmetric Encryption & Decryption Process</h4>
+        <hr />
+        <p>
+          Payload content-type will be in text/plain. Base64 encoded encrypted Cipher will be passed as
+a payload.
+        </p>
+        <p>
+          Api Gateway use below ciphers for symmetric encryption-decryption, Client may can use any
+of them.
+        </p>
+        <ul>
+          <li>
+            AES/GCM/NoPadding
+          </li>
+          <li>
+            AES/CBC/PKCS5Padding
+          </li>
+          <li>
+            DES/CBC/PKCS5Padding
+          </li>
+          <li>
+            DESede/CBC/PKCS5Padding
+          </li>
+        </ul>
+        <p>
+          IV= The initialization vector used when encrypting data using the one-time use AES/GCM,
+AES/CBC ciphers.
+        </p>
+        <p>
+          Sample Encrypted Payload
+        </p>
+        <p>
+          wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKp
+yMSY3DILOpbkqEa0Qq0g=
+        </p>
+        <p>
+          For encryption of request:
+        </p>
+        <strong>
+          PublicKey (Confidential key) is nothing but randomly generated string of length 16 (OR 32).
+Will be shared between Client and Api gateway.
+IV = Initialization Vector- Exactly 16 bytes actual value to match the block size (Optional)
+EncPayload = Base64Encode(AES/CBC/PKCS5Padding(payload,publicKey, IV))
+        </strong>
+        <p>
+          For decryption of response:
+        </p>
+        <p>
+        <strong>
+          Response = Base64Decode (AES/CBC/PKCS5Padding Decryption(encPayload,publicKey, IV))
+        </strong>
+      </p> -->
+        <!-- <h4 class="mb10 fs24 color-black ff-medium">Hybrid Encryption & Decryption Process</h4>
+        <hr />
+        <p>
+          Sample Encrypted Request to be sent to Client (JSON):
+        </p>
+        <p>
+          &#123;
+          <br>
+            "requestId": "",
+            "service": "LOP",
+            "encryptedKey":
+            "oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPR
+            Dya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AG
+            W7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAoo
+            Whza+TsWEHfxzQIa7zai7WSa/wiJD3uD7mk5vT1WY/fKJBquCuzM7l35vigDhmb7dLVLuX8VMiNQrtErW
+            NI0uVaag1jg+uZUtyDSxjPFi5yEpKVVc7+T503IDnCvkCFDygqasDsPL24qOjYk4XavTZvwGuPAdYNNkVn
+            LzVElEhg4zS2ye+fa/8fZiMt/3fwYeN9dgn9i5R6VOFbXSuZJYPSci9k0oqz73h1nzFtps60rUEDoGIkGvm9w
+            aJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/
+            seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9Ln
+            Lni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo=",
+            "oaepHashingAlgorithm": "NONE",
+            "iv": "",
+            "encryptedData":
+            "wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKp
+            yMSY3DILOpbkqEa0Qq0g=",
+            "clientInfo": "",
+            "optionalParam": ""
+            <br>
+            &#125;
+        </p>
+        <p>
+          Field Description:
+        </p>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Field</th>
+            <th>Description</th>
+            <th>Data Type</th>
+            <th>Max length</th>
+            <th>Mandatory</th>
+            <th>Permitted Values</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>requestId</td>
+            <td>Unique
+              identifier for
+              the request.
+              Not being
+              stored at any
+              level.</td>
+            <td>String</td>
+            <td class="tableBody">64</td>
+            <td class="tableBody">No</td>
+            <td class="tableBody"></td>
+          </tr>
+          <tr>
+            <td>service type</td>
+            <td>Service Name ;
+              Identifying the
+              backend
+              service name.</td>
+            <td>String</td>
+            <td class="tableBody"></td>
+            <td class="tableBody">Yes</td>
+            <td class="tableBody"></td>
+          </tr>
+          <tr>
+            <td>encryptedKey</td>
+            <td>One-time use
+              AES key
+              encrypted by
+              the Client's
+              public key.
+              Requirement is
+              for a 128-bit
+              key (with 256-
+              bit key supported as
+              an option).</td>
+            <td>String.
+              Base64
+              -
+              encod
+              ed
+              data
+              
+              (case-
+              insensi
+              
+              tive)</td>
+            <td class="tableBody"></td>
+            <td class="tableBody">Yes</td>
+            <td class="tableBody"></td>
+          </tr>
+          <tr>
+            <td>oaepHashing
+              Algorithm</td>
+            <td>Describes the
+              algorithm used
+              for Asymmetric
+              Encryption of
+              one time AES
+              key.</td>
+            <td></td>
+            <td class="tableBody">6</td>
+            <td class="tableBody">Yes</td>
+            <td class="tableBody">Value : NONE,
+              Meaning :
+              RSA/ECB/PKCS1 is
+              used for
+              Asymmetric
+              Encryption
+              Value : SHA1,
+              Meaning :
+              RSA/NONE/
+              OAEPWithSHA1An
+              dMGF1Padding
+              OR
+              RSA/ECB/
+              OAEPWithSHA1An
+              dMGF1Padding</td>
+          </tr>
+          <tr>
+            <td>iv</td>
+            <td>The
+              initialization
+              vector used
+              when
+              encrypting data
+              
+              using the one-
+              time use AES
+              
+              key.</td>
+            <td>String.
+              Base64
+              -
+              encod
+              ed
+              data
+              
+              (case-
+              insensi
+              
+              tive)</td>
+            <td class="tableBody">24</td>
+            <td class="tableBody">Yes, if IV is not
+              part of
+              encrypted
+              data itself.
+              Leave blank
+              otherwise.
+              For the
+              response data
+              encrypted at
+              ICICI end, IV
+              will always be
+              part of
+              encryptedData
+              itself and it is
+              randomly
+              generated for
+              each request.
+              Can be
+              retrieved by
+              Client by
+              retrieving the
+              first 16 bytes
+              of Base64
+              decoded
+              encryptedData</td>
+              <td class="tableBody">Exactly 16 bytes
+                actual value to
+                match the block
+                size</td>
+          </tr>
+          <tr>
+            <td>encryptedData</td>
+            <td>Contains the
+              encrypted
+              dataPayload
+              object
+              containing the
+              business
+              information.
+              Encrypted by
+              the ephemeral
+              AES key using
+              AES/CBC/PKCS
+              5Padding.
+              Sample
+              unencrypted
+              object:
+              Please refer
+              first section of
+              document for a
+              sample object.</td>
+            <td>String.
+              Base64
+              -
+              encod
+              ed
+              data
+              
+              (case-
+              insensi
+              
+              tive)</td>
+            <td class="tableBody"></td>
+            <td class="tableBody">Yes</td>
+            <td class="tableBody"></td>
+          </tr>
+          <tr>
+            <td>clientInfo</td>
+            <td>ClientIP or
+              other
+              information</td>
+            <td>String</td>
+            <td class="tableBody"></td>
+            <td class="tableBody">No</td>
+            <td class="tableBody"></td>
+          </tr>
+          <tr>
+            <td>optionalParam</td>
+            <td>Reserved for
+              future use</td>
+            <td>String</td>
+            <td class="tableBody"></td>
+            <td class="tableBody">No</td>
+            <td class="tableBody"></td>
+          </tr>
+        </tbody>
+        </table>
+        <p>
+          For encryption of request at ICICI:
+        </p>
+        <p>
+        <strong>SesionKey = Randomly generated string of length 16 (OR 32).
+          encryptedKey = Base64Encode(RSA/ECB/PKCS1Encryption(SesionKey,ICICIPubKey.cer))
+          IV = Initialization Vector- Exactly 16 bytes actual value to match the block size
+          encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Request,SessionKey, IV))
+        </strong>
+      </p>
+        <p>
+          For encryption of response at ICICI:
+        </p>
+        <p>
+        <strong>encryptedKey = Base64Encode(RSA/ECB/PKCS1Encryption(SesionKey,ClientPubKey.cer))
+          Session key is nothing but randomly generated string of length 16 (OR 32).
+          encryptedData = Base64Encode(AES/CBC/PKCS5Padding(Response,SessionKey))
+        </strong>
+      </p>
+        <p>
+          For decryption of response at Client:
+        </p>
+        <p>
+        <strong>IV= getFirst16Bytes(Base64Decode(encryptedData)
+          SessionKey =
+          Base64Decode(RSA/ECB/PKCS1Decryption(encryptedKey,ClientPrivateKey.p12,))
+          Session key is nothing but randomly generated string of length 16 (OR 32) .
+          Response = Base64Decode (AES/CBC/PKCS5Padding Decryption(encryptedData,SessionKey,
+          IV))
+        </strong>
+      </p>
+        <p class="ta-center">Or</p>
+        <p>Steps for Encryption</p>
+        <ol>
+          <li>
+            Generate 16 digit random number. Say RANDOMNO.
+          </li>
+          <li>
+            Encrypt RANDOMNO using RSA/ECB/PKCS1Padding and encode using Base64. Say
+            encryptedKey.
+          </li>
+          <li>
+            Perform AES/CBC/PKCS5Padding encryption on request payload using RANDOMNO as
+key and iv- initialization vector. Say encryptedData.
+          </li>
+          <li>
+            Now client may choose to send IV in request from one of below two options.
+            <ol type="a">
+              <li>
+                Send Base64 Encoded IV in “iv” tag. (Recommended Approach)
+              </li>
+              <li>
+                Send IV as a part of encryptedData itself.
+bytes[] iv = IV;
+bytes[] cipherText = symmetrically encrypted Bytes (step3)
+bytes[] concatB = iv + cipherText;
+encryptedData = B64Encode(concatB);
+              </li>
+            </ol>
+          </li>
+          <li>
+            Perform AES/CBC/PKCS5Padding encryption on DATA using RANDOMNO as key
+and Base64encoded RANDOMNO as IV. Say ENCR_DATA.
+          </li>
+        </ol>
+        <p>Steps for Decryption</p>
+        <ol>
+          <li>
+            Get the IV- Base64 decode the encryptedData and get first 16 bytes and rest is encrypted
+response.
+bytes[] IV= getFirst16Bytes(Base64Decode(encryptedData)
+          </li>
+          <li>
+            Decrypt encryptedKey using algo (RSA/ECB/PKCS1Padding) and Client’s private key.
+          </li>
+          <li>
+            Decrypt the response using algo (AES/CBC/PKCS5Padding).
+          </li>
+          <li>
+            Ignore first 16 bytes of response, as it contains IV.
+          </li>
+        </ol> -->
+        <!-- <h4 class="mb10 fs24 color-black ff-medium"> cURL command</h4>
+        <hr /> -->
+       <!-- <p>
+        curl -X POST \
+        <br>
+        'https://apigwuat.icicibank.com:8443/relativeURI' \
+        <br>
+        -H 'apikey: apikey \
+        <br>
+        -H 'content-type: application/json' \
+        <br>
+        -d ' &#123;
+        <br>
+        "requestId": "",
+        <br>
+        "service": "",
+        <br>
+        "encryptedKey":
+        <br>
+        "oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPR
+Dya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AG
+W7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAoo
+Whza+TsWEHfxzQIa7zai7WSa/wiJD3uD7mk5vT1WY/fKJBquCuzM7l35vigDhmb7dLVLuX8VMiNQrtErW
+NI0uVaag1jg+uZUtyDSxjPFi5yEpKVVc7+T503IDnCvkCFDygqasDsPL24qOjYk4XavTZvwGuPAdYNNkVn
+LzVElEhg4zS2ye+fa/8fZiMt/3fwYeN9dgn9i5R6VOFbXSuZJYPSci9k0oqz73h1nzFtps60rUEDoGIkGvm9w
+aJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/
+seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9Ln
+Lni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo=",
+<br>
+"oaepHashingAlgorithm": "NONE",
+<br>
+"iv": "",
+<br>
+"encryptedData":
+<br>
+"wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKp
+yMSY3DILOpbkqEa0Qq0g=",
+<br>
+"clientInfo": "",
+<br>
+"optionalParam": ""
+<br>
+&#125;'
+       </p> -->
+      </div>
+    </div>
+  </div>
+</div>
+

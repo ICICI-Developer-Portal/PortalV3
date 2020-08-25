@@ -597,7 +597,7 @@ body {
   text-align: justify !important;
 }
 .drp-cnt-width {
-  min-width: 175px !important;
+  min-width: 180px !important;
 }
 .txtAlign{
   text-align: center;
@@ -687,6 +687,9 @@ body {
     font-family: Poppins-Regular !important;
 
 
+  }
+.setHeight{
+    min-height: 250px;
   }
    /* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
   html {

@@ -177,7 +177,6 @@ export class IndexComponent implements OnInit {
   interval_Check: any;
   companyNamesDetails: any;
   companyNames: any;
-  fetchedJiraId;
 
   constructor(
     private http: Http,
@@ -1606,22 +1605,23 @@ export class IndexComponent implements OnInit {
     this.HttpClient.post<any>(
       "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData
-    ).subscribe((data: any) => {
-        console.log(data);
-        if (data.success === "true") {
+    ).subscribe(
+      res => {
+        console.log(res);
+        if (res.success === "true") {
           //File upload service
           var formData = new FormData();
           let b: any = (<HTMLInputElement>document.getElementById("file1"))
             .files;
           for (let k = 0; k < b.length; k++) {
-            formData.append(data.jiraId, b[k]);
+            formData.append(res.jiraId, b[k]);
           }
           this.HttpClient.post<any>(
             "https://developer.icicibank.com/fileUpload",
             formData
           ).subscribe(
-            data => {
-              console.log(data);
+            res => {
+              console.log(res);
             },
             err => {
               console.log('err', err);
@@ -1632,9 +1632,9 @@ export class IndexComponent implements OnInit {
         this.modalRef = this.modalService.show(UATconfirm, {
           backdrop: "static"
         });
-        this.confirmMsg = data["message"];
+        this.confirmMsg = res["message"];
         this.confirmMsg = this.confirmMsg.substring(51, 44);
-        //this.toastrmsg('success', data['message']);
+        //this.toastrmsg('success', res['message']);
         this.modalRef4.hide();
       },
       err => {
@@ -1666,36 +1666,24 @@ export class IndexComponent implements OnInit {
   }
 
   get_Production(Production, signin) {
-    console.log("reached hhhh")
-
     if (localStorage.getItem("id") != null) {
-      console.log("1")
-
       this.modalRef5 = this.modalService.show(Production, {
         backdrop: "static"
       });
-      console.log("1", this.getRequestIds())
-
       openProdCurrentTabEnv(0);
-     
       setTimeout(() => {
         openProdCurrentTabEnv(0);
       });
-      console.log("12")
-     
+      this.getRequestIds();
     } else {
-      console.log("1")
-
       this.modalRef = this.modalService.show(signin, { backdrop: "static" });
     }
   }
 
   getRequestIds() {
     this.list = [];
-    console.log(this.list )
 
     let username = localStorage.getItem("username");
-    console.log(username)
     // const headers = new HttpHeaders().set(
     //   "Content-Type",
     //   "application/x-www-form-urlencoded"
@@ -1708,17 +1696,11 @@ export class IndexComponent implements OnInit {
     //     "application/x-www-form-urlencoded"
     //   )
     // };
-    console.log("reached",this.list )
     let headers = new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
       "Token" : localStorage.getItem("jwt")
     });
-    console.log(headers)
-
-
     let options = new RequestOptions({ headers: headers });
-    console.log(options)
-
 
     let body = new URLSearchParams();
     body.set("username", username);
@@ -1727,24 +1709,9 @@ export class IndexComponent implements OnInit {
       "https://developer.icicibank.com/rest/fetch-jiraid",
       body.toString(),
       options
-    ).subscribe((data: any) => {
-      // res => {
-        this.list = data;
-        console.log( data)
-
-        console.log( data._body)
-var datalist = data._body
-JSON.parse(datalist);
-console.log(JSON.parse(datalist))
-var obj=JSON.parse(datalist);
-console.log("obj reached", obj);
-console.log("obj reached", obj[0]["JiraId"]);
-
-this.fetchedJiraId= obj[0]["JiraId"];
-console.log(this.fetchedJiraId)
-
-        console.log( datalist["JiraId"], 'JiraId')
-          
+    ).subscribe(
+      res => {
+        this.list = res;
       },
       err => {
         this.list = [];
@@ -1861,7 +1828,7 @@ console.log(this.fetchedJiraId)
       jiraRefId: this.JiraIdnew
     };
 
-    console.log('inputFields',inputFields);
+    //console.log('inputFields',inputFields);
 
     const formData = new FormData();
 
@@ -1876,7 +1843,6 @@ console.log(this.fetchedJiraId)
     formData.append("env", inputFields["env"]);
     formData.append("ips", inputFields["ips"]);
     formData.append("callbackUrl", inputFields["callbackUrl"]);
-    console.log('inputFields');
 
     let a: any = (<HTMLInputElement>document.getElementById("file2")).files;
     for (let k = 0; k < a.length; k++) {
@@ -2122,4 +2088,28 @@ console.log(this.fetchedJiraId)
       this.router.navigate(['error']);
     },);
   }
+
+  openFile(url) {
+
+    let pwa= window.open(url);
+    if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+        alert( 'Please disable your Pop-up blocker and try again.');
+    }
+    
+  /*   let dwldLink = document.createElement("a");
+    
+   let isSafariBrowser =
+      navigator.userAgent.indexOf("Safari") != -1 &&
+      navigator.userAgent.indexOf("Chrome") == -1;
+    if (isSafariBrowser) {
+      dwldLink.setAttribute("target", "_blank");
+    }
+    dwldLink.setAttribute("target", "_blank");
+    dwldLink.setAttribute("href", url);
+    //dwldLink.setAttribute("download", fileName + ".csv");
+    dwldLink.style.visibility = "hidden";
+    document.body.appendChild(dwldLink);
+    dwldLink.click();
+    document.body.removeChild(dwldLink);*/
+  }  
 }
