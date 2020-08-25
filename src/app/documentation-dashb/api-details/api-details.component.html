@@ -149,7 +149,7 @@
                                 <div class="modal-header">
                                     <h3 class="modal-title pull-left">Test API</h3>
                                     <button type="button" class="close pull-right" aria-label="Close"
-                                        (click)="closeTestApiPopup()">
+                                        (click)="closeTestApiPopup(Authentication)">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -229,80 +229,137 @@
 
                                             <div class="tab-pane fade  show active" id="nav-profile" role="tabpanel"
                                                 aria-labelledby="nav-profile-tab">
-                                                <form (ngSubmit)="onSubmitBody(bodyForm)" #bodyForm="ngForm" class="row"> 
+                                                <form (ngSubmit)="onSubmitBody(bodyForm)" #bodyForm="ngForm"
+                                                    class="row">
                                                     <div class="form-group col-md-6">
                                                         <p class="mb-1 mt-3 bold">Select Content Type:</p>
                                                         <span class="custom-dropdown">
-                                                            <select class="form-control h40 " id="type" name="type"  [(ngModel)]="contentType">
-                                                                <option value="JSON" selected name="JSON">JSON</option>
-                                                                <option value="XML"  name="XML">XML</option>
+                                                            <select class="form-control h40 " id="type" name="type"
+                                                                [(ngModel)]="contentType">
+                                                                <option value="JSON" selected name="JSON" [selected]="isSelected">JSON</option>
+                                                                <option value="XML" name="XML">XML</option>
 
                                                             </select>
 
                                                         </span>
                                                     </div>
-                                                    <div class="form-group col-md-6" >
+                                                    <div class="form-group col-md-6">
                                                         <label class="mb-1 mt-3 bold">Test Case :</label>
                                                         <input id="check01" type="checkbox" name="menu" value="" />
-                                                        <label for="check01" class="mb-1 custom-select-box"><span *ngIf="!testApiResID.length>0">Select</span><span *ngIf="testApiResID.length>0">TestCaseID: <b>{{testApiResID}}</b>  &nbsp; &nbsp; &nbsp; &nbsp;TesCaseName:<b> {{testApiResName}}</b></span></label>
+                                                        <label for="check01" class="mb-1 custom-select-box"><span
+                                                                *ngIf="!testApiResID.length>0">Select</span><span
+                                                                *ngIf="testApiResID.length>0">TestCaseID:
+                                                                <b>{{testApiResID}}</b> &nbsp; &nbsp; &nbsp;
+                                                                &nbsp;TesCaseName:<b>
+                                                                    {{testApiResName}}</b></span></label>
                                                         <div class="submenu">
-                                                        <div>
-                                                            <table style="width:100%">
-                                                            <tr  >
-                                                              <th>Test Case Id</th>
-                                                              <th >Test Case Name</th>
-                                                            </tr>
-                                                            <tr  *ngFor="let i of testApiresponseFor601" (click)="getReqRes($event,$event.target)" [attr.id]="i.testCaseId" [attr.name]="i.testCaseName"  [attr.requestPacket]="i.requestPacket"   [attr.responsePacket]="i.responsePacket">
-                                                              <td  [attr.id]="i | json">{{i.testCaseId}}{{testApiresponseFor601[i]}}</td>
-                                                              <td>{{i.testCaseName}}</td>
-                                                            </tr>
-                                                           
-                                                          </table>
+                                                            <div>
+                                                                <table style="width:100%" class="dynamicData">
+                                                                    <tr>
+                                                                        <th>Test Case Number</th>
+                                                                        <th>Description</th>
+
+                                                                        <th>Status </th>
+                                                                    </tr>
+                                                                    <tr *ngFor="let i of testApiresponseFor601"
+                                                                        (click)="getReqRes($event,$event.target)"
+                                                                        [attr.id]="i.testCaseId"
+                                                                        [attr.name]="i.testCaseName"
+                                                                        [attr.requestPacket]="i.requestPacket"
+                                                                        [attr.responsePacket]="i.responsePacket"
+                                                                        class="cursorPointer">
+                                                                        <td [attr.id]="i | json">
+                                                                            {{i.testCaseId}}{{testApiresponseFor601[i]}}
+                                                                        </td>
+                                                                        <td>i.length</td>
+                                                                        <td> <input type="checkbox"
+                                                                                style="display: block;"
+                                                                                disabled>{{i.testCaseName}}</td>
+                                                                    </tr>
+
+                                                                </table>
+                                                            </div>
                                                         </div>
-                                                        </div>
-                                                                                                        
+
                                                     </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Request:</p>
                                                         <textarea name="Request" *ngIf="!testApiResID.length>0"
-                                                            class="form-control setHeight" cols="50" rows="100" 
-                                                            [(ngModel)]="reqParamValue" [attr.responseData]="testApiResData" >
+                                                            class="form-control setHeight" cols="50" rows="100"
+                                                            [(ngModel)]="reqParamValue"
+                                                            [attr.responseData]="testApiResData">
                                                             </textarea>
-                                                            <textarea name="Request" *ngIf="testApiResID.length>0"
-                                                                class="form-control setHeight" cols="50" rows="100" 
-                                                                [(ngModel)]="testApiReqData"  [attr.responseData]="testApiResData" >
+                                                        <textarea name="Request" *ngIf="testApiResID.length>0"
+                                                            class="form-control setHeight" cols="50" rows="100"
+                                                            [(ngModel)]="testApiReqData"
+                                                            [attr.responseData]="testApiResData">
                                                                 </textarea>
-                                                                
+
                                                     </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Response:</p>
                                                         <!-- <div disabled
                                                             name="Response" class="form-control" cols="50" rows="10"
                                                           >{{reponse | json}}</div> -->
-                                                          <textarea name="Response"  *ngIf="testApiResID.length>0" class="form-control setHeight" cols="50" rows="100" disabled [(ngModel)]="testApiResData"  >
-                                                          
-                                                            {{testApiResID}}
+                                                        <textarea name="Response" *ngIf="testApiResID.length>0"
+                                                            class="form-control setHeight" cols="50" rows="100" disabled
+                                                            [(ngModel)]="testApiResData">
+
+                                                            {{testApiResID}}   ssdd
                                                           </textarea>
-                                                          <textarea   *ngIf="!testApiResID.length>0" class="form-control setHeight" cols="50" rows="100" disabled [(ngModel)]="testApiresponse"  >
-                                                            {{testApiresponse | json}}
+                                                        <textarea *ngIf="!testApiResID.length>0"
+                                                            class="form-control setHeight" cols="50" rows="100" disabled
+                                                            [(ngModel)]="testApiresponse">
+                                                            {{testApiresponse | json}}aaaa
                                                             
                                                             </textarea>
-                                                          
+
                                                     </div>
-                                                    <div class="col-md-12">     
-                                                    <button type="submit" class="btn signInBtn btn-dark pull-right mt-30" >Test</button>
-                                                    <!--<button type="submit" class="btn signInBtn btn-dark pull-right mt-30 mr-3" disabled>Callback Respons</button>-->
+                                                    <div class="col-md-12">
+                                                        <button type="submit"
+                                                            class="btn signInBtn btn-dark pull-right mt-30">Test</button>
+                                                        <!-- <button type="submit" href="#myModal2"
+                                                            class="btn signInBtn btn-dark pull-right mt-30 mr-3"
+                                                            [disabled]="!testApiResData.length>0"
+                                                            (click)="createTransactionHistory(bodyForm)">Callback
+                                                            Response</button> -->
+                                                            <button data-toggle="modal"  *ngIf="testApiResData.length" href="#myModal2" class="btn signInBtn btn-dark pull-right mt-30 mr-3"
+                                                            (click)="createTransactionHistory(bodyForm)" >
+                                                            Callback
+                                                            Response</button>
+                                                          
 
-
-                                                        
-                                                    </div>    
+                                                    </div>
+                                 
                                                 </form>
+                                               
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-
+                                <div class="modal fade" id="myModal2">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- <div class="modal-header"> -->
+                                            <div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    
+                                
+                                            </div>
+                                            <div class="container"></div>
+                                            <div class="modal-body">
+                                                <p>{{callbackResponse}}</p>
+                                              <!-- <a data-toggle="modal" href="#myModal3" class="btn btn-primary">Launch modal</a> -->
+                                             
+                                              <p class="fs15">
+                                                Please visit Account -> Transaction History to check the captured data.
+                                              </p>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- <div class="col-md-12">
                                     <button class="signInBtn btn-dark pull-right" type="button"
@@ -311,8 +368,22 @@
                                     </button></div> -->
 
                             </ng-template>
+                           
                             <!-- End Modal -->
+                            
+
                         </div>
+                        <!-- ===================================== -->
+                            <!--Production Confirmation alert modalbox -->
+                            <!-- ===================================== -->
+                            <!--Production Confirmation alert modalbox -->
+                           
+                          
+                          
+                            <!-- End Modalbox -->
+                            <!--Production Confirmation alert modalbox -->
+                            <!-- End Modalbox -->
+
 
                     </div>
                 </div>
