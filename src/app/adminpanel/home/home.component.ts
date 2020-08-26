@@ -193,7 +193,7 @@ export class FileDatabase {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
     },);
   }
 

@@ -66,7 +66,8 @@ this.activeRoute.queryParams.subscribe(params => {
 toastrmsg(type ,title) {
   var toast: Toast = {
     type: type,
-    title:title,
+    title:"",
+    body:title,
     showCloseButton: true 
   }; 
   this.toasterService.pop(toast);
@@ -97,7 +98,9 @@ toastrmsg(type ,title) {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+      
     },
   );  
   

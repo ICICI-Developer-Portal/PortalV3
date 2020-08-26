@@ -9,6 +9,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { CONSTANTS } from 'config/application-constant';
 import { Router } from "@angular/router";
+import { ToasterService, Toast } from 'angular2-toaster';
 
 declare var $: any;
 @Component({
@@ -48,6 +49,7 @@ export class BranchDetailsComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private spinnerService: Ng4LoadingSpinnerService,
     private router: Router,
+    private toasterService: ToasterService
   ) {
     this.route.params.subscribe(params => {
       this.branchId = params["id"];
@@ -97,7 +99,8 @@ export class BranchDetailsComponent implements OnInit {
   },
   err => {
     console.log('err', err);
-    this.router.navigate(['error']);
+   // this.router.navigate(['error']);
+    this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     
   },)
 
@@ -120,7 +123,8 @@ export class BranchDetailsComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
   }
   
@@ -144,5 +148,14 @@ export class BranchDetailsComponent implements OnInit {
     document.body.appendChild(dwldLink);
     dwldLink.click();
     document.body.removeChild(dwldLink);
-  }      
+  } 
+  toastrmsg(type ,title) {
+    var toast: Toast = {
+      type: type,
+      title:"",
+      body:title,
+      showCloseButton: true 
+    }; 
+    this.toasterService.pop(toast);
+  }     
 }

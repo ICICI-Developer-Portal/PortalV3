@@ -18,7 +18,8 @@ export class MerchantOnboardingComponent implements OnInit {
   toastrmsg(type ,title) {
     var toast: Toast = {
       type: type,
-      title:title,
+      title:"",
+      body:title,
       showCloseButton: true 
     }; 
     this.toasterService.pop(toast);
@@ -52,7 +53,7 @@ export class MerchantOnboardingComponent implements OnInit {
        err => {
          console.log('err', err);
         // this.router.navigate(['error']);
-         this.toastrmsg('error',"Something went wrong.Please try again.");
+         this.toastrmsg('error',"Something went wrong.Please try again in some time.");
        },    
     );  
   //}catch{ }  

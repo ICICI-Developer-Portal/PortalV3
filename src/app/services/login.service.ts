@@ -775,10 +775,20 @@ getMisFile(json) {
    "username" :json.userName,
  });
  let options = new RequestOptions({ headers: headers });
- console.log("mis query is =="+ JSON.stringify(query));
- console.log("mis header is =="+ JSON.stringify(options));
  return this.http.post(this.apiUrl + "getMisFile", query, options);
- 
+
+/*let query = "";
+if(json && json.userName && json.fileDate){
+ query = "fileDate=25-June-20";
+ } 
+
+let headers = new Headers({
+  "Content-Type": "application/x-www-form-urlencoded",
+  "Token" : "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaHVrdW1hcjAzMDkiLCJpYXQiOjE1OTAxNzQyNTUsInN1YiI6IkpXVCBUT2tlbiBmb3IgRGV2ZWxvcGVyIHBvcnRhbCIsImlzcyI6IklDSUNJIERldmVsb3BlciBwb3J0YWwiLCJleHAiOjMxODAzNDg1MTF9.v0qnqdzNBLSFPhqS9Zza0igW2Ppl2oXUS2UXy4q58OY",
+  "username" :"priyanshukumar0309",
+});
+let options = new RequestOptions({ headers: headers });
+return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);*/
 }
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})

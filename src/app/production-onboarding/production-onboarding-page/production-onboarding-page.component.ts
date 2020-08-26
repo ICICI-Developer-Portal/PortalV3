@@ -96,7 +96,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
   domainApiNumber;
   list;
   selectedJiraId;
-  errorMsg:any = "Something went wrong. Please try again in sometimes.";
+  errorMsg:any = "Something went wrong. Please try again in some time.";
   /** Add var for search field */
   myControl = new FormControl();
   APIAutocompletDataSource: any[] = [];
@@ -868,8 +868,10 @@ export class ProductionOnboardingPageComponent implements OnInit {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }

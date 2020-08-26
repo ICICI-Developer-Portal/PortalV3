@@ -108,7 +108,7 @@
              
                <div class="row mb10">
                    <div class="col-md-12">
-                       <button type="submit" class="signInBtn w100p"  (click)="save()">Reset password</button>
+                       <button type="submit" class="signInBtn w100p"  (click)="save()" [attr.disabled] ="ChangepasswForm.controls['confirmPassword'].valid? null:true">Reset password</button>
                    </div>
                </div>
         </form>

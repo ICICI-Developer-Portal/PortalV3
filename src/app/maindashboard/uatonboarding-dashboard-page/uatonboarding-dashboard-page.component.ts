@@ -83,7 +83,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   isemail_reg_check: string = "";
   selectedValue = [];
 term:any;
-errorMsg:any = "Something went wrong. Please try again in sometimes.";
+errorMsg:any = "Something went wrong. Please try again in some time.";
   /** Add var for search field */
   myControl = new FormControl();
   APIAutocompletDataSource:any[] = [];
@@ -845,12 +845,23 @@ else{
 
   }
   
-  toastrmsg(type, title) {
+  /*toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
       title: title,
       showCloseButton: true
     };
+    this.toasterService.pop(toast);
+  }*/
+  toastrmsg(type, title) {
+    var toast: Toast = {
+      type: type,
+      showCloseButton: true,
+      title: "",
+      body: title
+      
+    };
+
     this.toasterService.pop(toast);
   }
 
