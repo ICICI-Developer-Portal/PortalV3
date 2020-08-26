@@ -597,7 +597,7 @@ console.log(headers)
     console.log(form.value.Response)
     let _reqJson = {apiId : this.idForClickedTab };
    // this.GetTestCases(_reqJson,Headers)
-   
+   console.log(_reqJson)
     let header = new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
       "token" : localStorage.getItem("jwt"),
