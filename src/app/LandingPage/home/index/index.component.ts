@@ -29,8 +29,8 @@ import { CustomValidators } from "../../layout/header/custom-validators";
 declare var $: any;
 @Component({
   selector: "app-index",
-  templateUrl: "./index.component.html"
-  //styleUrls: ['./index.component.css']
+  templateUrl: "./index.component.html",
+  styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
   treeDataKeys: any;

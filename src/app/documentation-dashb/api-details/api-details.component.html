@@ -245,19 +245,27 @@
                                                         </span>
                                                     </div>
                                                     <div class="form-group col-md-6">
+                                                        <!-- <a #toggleButton (click)="toggleMenu($event)">Toggle Menu</a>
+
+                                                        <div class="menu" *ngIf="isMenuOpen" >
+                                                        <div>
+                                                        I'm the menu. Click outside to close me
+                                                        </div>
+                                                        </div> -->
                                                         <div *ngIf="idForClickedTab=='601'">
                                                             <label class="mb-1 mt-3 bold">Test Case :</label>
-                                                            <input id="check01" type="checkbox" name="menu" value="" />
-                                                            <label for="check01" class="mb-1 custom-select-box"><span
+                                                            <!-- <input id="check01" type="checkbox" name="menu" value="" /> -->
+                                                            <label #toggleButton (click)="toggleMenu($event)" for="check01" class="mb-1 custom-select-box">
+                                                                <span
                                                                     *ngIf="!testApiResID.length>0">Select</span><span
                                                                     *ngIf="testApiResID.length>0">TestCaseID:
                                                                     <b>{{testApiResID}}</b> &nbsp; &nbsp; &nbsp;
                                                                     &nbsp;TesCaseName:<b>
                                                                         {{testApiResName}}</b></span></label>
                                                                        
-                                                            <div class="submenu">
+                                                            <div class="submenu menu"  *ngIf="isMenuOpen" >
                                                                 <div>
-                                                                    <table style="width:100%" class="dynamicData">
+                                                                    <table style="width:100%" class="dynamicData" (click)="handleTableClick">
                                                                         <tr>
                                                                             <th>Test Case Number</th>
                                                                             <th>Description</th>
@@ -270,14 +278,15 @@
                                                                             [attr.name]="i.testCaseName"
                                                                             [attr.requestPacket]="i.requestPacket"
                                                                             [attr.responsePacket]="i.responsePacket"
-                                                                            class="cursorPointer">
+                                                                            class="cursorPointer"
+                                                                            [class.highlighted]="i.testCaseId === clickedTestCaseID">
                                                                             <td [attr.id]="i | json">
                                                                                 {{i.testCaseId}}{{testApiresponseFor601[i]}}
                                                                             </td>
-                                                                            <td>i.length</td>
+                                                                            <td>dummy</td>
                                                                             <td> <input type="checkbox"
                                                                                     style="display: block;"
-                                                                                    disabled>{{i.testCaseName}}</td>
+                                                                                    disabled></td>
                                                                         </tr>
 
                                                                     </table>
