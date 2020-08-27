@@ -1056,7 +1056,7 @@ export class IndexComponent implements OnInit {
 
   show_build(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/buildingblock"]);
+      this.router.navigate(["/rootdetails/1"]);
     } else {
       this.modalRef = this.modalService.show(signin, { backdrop: "static" });
     }
@@ -1064,7 +1064,7 @@ export class IndexComponent implements OnInit {
 
   loans(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/loanandcard"]);
+      this.router.navigate(["/rootdetails/30"]);
     } else {
       this.modalRef = this.modalService.show(signin, { backdrop: "static" });
     }
@@ -1072,7 +1072,7 @@ export class IndexComponent implements OnInit {
 
   account(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/accountdeposit"]);
+      this.router.navigate(["/rootdetails/209"]);
     } else {
       this.browse_api(signin);
     }
@@ -1080,7 +1080,7 @@ export class IndexComponent implements OnInit {
 
   payment(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/payment"]);
+      this.router.navigate(["/rootdetails/104"]);
     } else {
       this.browse_api(signin);
     }
@@ -1088,7 +1088,7 @@ export class IndexComponent implements OnInit {
 
   corporate(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/corporatebank"]);
+      this.router.navigate(["/rootdetails/247"]);
     } else {
       this.browse_api(signin);
     }
@@ -1096,7 +1096,7 @@ export class IndexComponent implements OnInit {
 
   commercial(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/commercialbank"]);
+      this.router.navigate(["/rootdetails/292"]);
     } else {
       this.browse_api(signin);
     }
