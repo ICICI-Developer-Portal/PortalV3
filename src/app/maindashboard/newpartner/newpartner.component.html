@@ -161,11 +161,11 @@
 
 
 </div>
-  <div class=" feedbackSection">
-    <h3>Want to be a Partner? <b>Let's get Connected</b></h3>
-    <p class="text-center mb50 fs16">
+  <div class=" feedbackSection blueBackground colorWhite">
+    <h3 class="textAlign">Want to be a Partner? <b>Let's get Connected</b></h3>
+    <p class="text-center mb20 fs16">
       Drop in your Credentials to get conversation started with our team and explore the possibilities.
-    </p><br>
+    </p>
     
     <form [formGroup]="signupForm">
 
@@ -176,7 +176,7 @@
     <textarea class="w100p mb35" name="" placeholder="Write your Remarks" formControlName="remarks" ></textarea>
 
     <div class="row">
-      <a class="signInBtn marginAutoHr"  (click)= "submit()">Submit</a>
+      <button class="signInBtn marginAutoHr"  (click)= "submit()">Submit</button>
     </div>
   </form>
   </div>

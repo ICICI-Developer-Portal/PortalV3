@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder,FormsModule, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { LoginService } from "src/app/services";
 import { PasswordValidation } from "../../layout/header/password.validator";

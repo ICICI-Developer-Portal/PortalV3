@@ -306,13 +306,14 @@
                                                         <textarea name="Request" *ngIf="!testApiResID.length>0"
                                                             class="form-control setHeight" cols="50" rows="100"
                                                             [(ngModel)]="reqParamValue"
-                                                            [attr.responseData]="testApiResData">
+                                                            [attr.responseData]="testApiResData" required>
                                                             </textarea>
                                                         <textarea name="Request" *ngIf="testApiResID.length>0"
                                                             class="form-control setHeight" cols="50" rows="100"
                                                             [(ngModel)]="testApiReqData"
-                                                            [attr.responseData]="testApiResData">
+                                                            [attr.responseData]="testApiResData" required>
                                                                 </textarea>
+                                                                
 
                                                     </div>
                                                     <div class="form-group cod col-md-6">
@@ -324,19 +325,19 @@
                                                             class="form-control setHeight" cols="50" rows="100" disabled
                                                             [(ngModel)]="testApiResData">
 
-                                                            {{testApiResID}}   ssdd
+                                                            {{testApiResID}}   
                                                           </textarea>
                                                         <textarea *ngIf="!testApiResID.length>0"
                                                             class="form-control setHeight" cols="50" rows="100" disabled
                                                             [(ngModel)]="testApiresponse">
-                                                            {{testApiresponse | json}}aaaa
+                                                            {{testApiresponse | json}}
                                                             
                                                             </textarea>
 
                                                     </div>
                                                     <div class="col-md-12">
                                                         <button type="submit"
-                                                            class="btn signInBtn btn-dark pull-right mt-30">Test</button>
+                                                            class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid">Test</button>
                                                         <!-- <button type="submit" href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
                                                             [disabled]="!testApiResData.length>0"
