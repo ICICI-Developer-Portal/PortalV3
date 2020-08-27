@@ -3,7 +3,7 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router ,NavigationEnd} from "@angular/router";
 import { LoginService } from "src/app/services";
 import { PasswordValidation } from "../../layout/header/password.validator";
 import { VariablesService } from "src/app/services/Variables.service";
@@ -203,7 +203,16 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    
     var self = this;
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+  });
     this.getMenuTree();
     //api for get menu tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
@@ -1088,6 +1097,13 @@ export class IndexComponent implements OnInit {
   commercial(signin: any) {
     if (localStorage.getItem("id") != null) {
       this.router.navigate(["/commercialbank"]);
+    } else {
+      this.browse_api(signin);
+    }
+  }
+  corporates(signin: any) {
+    if (localStorage.getItem("id") != null) {
+      this.router.navigate(["/rootdetails/370"]);
     } else {
       this.browse_api(signin);
     }

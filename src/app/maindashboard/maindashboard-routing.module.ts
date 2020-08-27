@@ -38,7 +38,7 @@ const routes: Routes = [
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
     { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},
     { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]},
-    { path: 'newpartner', component: NewpartnerComponent , canActivate: [AuthGuard] },
+    { path: 'newpartner', component: NewpartnerComponent  },
 
 ];
 

@@ -3,7 +3,7 @@
     
 }
 .list li{
-    font-size: 17px;
+    font-size: 14px;
     
 }
 .head{
@@ -17,7 +17,7 @@
 }
 .orange{
     color:rgb(241, 115,13);
-    font-size: 25px;
+    font-size: 20px;
     margin-left: 50px;
 }
 
@@ -28,7 +28,7 @@ p{
 }
 .box
 {
-    width: 471px;
+    width: 391px;
     height: 74px;
     border:1px solid #000;
     text-align: center;
@@ -44,3 +44,11 @@ p{
 div{
  margin: auto;
 }
+ 
+.feedbackSection h3{
+    text-align: center;
+}
+.align{
+    padding: 17px 25px;
+}
+

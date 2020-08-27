@@ -470,18 +470,7 @@ export class SigninModalComponent implements OnInit {
       },);
     } catch {}
   }
-  //send OTP button change and seconds
-  name = 'Angular';
-  btnText = 'send OTP ';
-  btnDisabled = false;
-  buttonClick1() {
-  this.btnDisabled = true;
-  this.btnText = 'Please wait';
-  setTimeout(() => {
-   this.btnText = 'Resend OTP';
-   this.btnDisabled = false
-    }, 30000);
-  }
+ 
 
   verifyOtp1() {
     try {
@@ -712,4 +701,16 @@ export class SigninModalComponent implements OnInit {
       this.router.navigate(['error']);
     },);
   }
+   //send OTP button change and seconds
+   name = 'Angular';
+   btnText = 'send OTP ';
+   btnDisabled = false;
+   buttonClick1() {
+   this.btnDisabled = true;
+   this.btnText = 'Please wait';
+   setTimeout(() => {
+    this.btnText = 'Resend OTP';
+    this.btnDisabled = false
+     }, 30000);
+   }
 }
