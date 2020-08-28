@@ -64,7 +64,7 @@ export class ApiDetailsComponent implements OnInit {
   populateRes;
   clickedTestCaseID;
   isMenuOpen = true
-
+  tesAPiSuccesufulResponse;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
@@ -486,6 +486,7 @@ set reqParamValue(v) {
             else if(this.contentType=="XML"){  this.testApiresponse=data._body;}
            
             console.log(this.testApiresponse)
+           this.tesAPiSuccesufulResponse=this.testApiresponse.Success
           }
            this.spinnerService.hide();
         },

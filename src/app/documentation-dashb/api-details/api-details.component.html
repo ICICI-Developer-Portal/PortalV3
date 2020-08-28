@@ -343,7 +343,7 @@
                                                             [disabled]="!testApiResData.length>0"
                                                             (click)="createTransactionHistory(bodyForm)">Callback
                                                             Response</button> -->
-                                                        <button data-toggle="modal" *ngIf="testApiResData.length"
+                                                        <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
                                                             href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
                                                             (click)="createTransactionHistory(bodyForm)">
