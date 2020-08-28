@@ -2,8 +2,13 @@ import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
+<<<<<<< HEAD
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router ,NavigationEnd} from "@angular/router";
+=======
+import { FormBuilder,FormsModule, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+>>>>>>> c9d12d4312ec0d6ec415793f1de4b52f0e8e15ef
 import { LoginService } from "src/app/services";
 import { PasswordValidation } from "../../layout/header/password.validator";
 import { VariablesService } from "src/app/services/Variables.service";
@@ -29,8 +34,8 @@ import { CustomValidators } from "../../layout/header/custom-validators";
 declare var $: any;
 @Component({
   selector: "app-index",
-  templateUrl: "./index.component.html"
-  //styleUrls: ['./index.component.css']
+  templateUrl: "./index.component.html",
+  styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
   treeDataKeys: any;

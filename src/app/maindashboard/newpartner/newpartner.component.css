@@ -50,4 +50,19 @@ div{
 }
 .align{
     padding: 17px 25px;
+<<<<<<< HEAD
 }
+=======
+}
+.blueBackground{
+    background: #142734;
+}
+.colorWhite{
+    color : #fff;
+}
+.textAlign{
+    text-align: left!important;
+}
+
+.mb20{margin-bottom: 20px!important;}
+>>>>>>> c9d12d4312ec0d6ec415793f1de4b52f0e8e15ef

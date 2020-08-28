@@ -43,6 +43,7 @@ export class NewpartnerComponent implements OnInit {
         location: [""],
         remarks: [""]
       });
+<<<<<<< HEAD
   }
 
   get name() {
@@ -61,6 +62,26 @@ export class NewpartnerComponent implements OnInit {
     return this.signupForm.get("remarks");
   }
 
+=======
+  }
+
+  get name() {
+    return this.signupForm.get("name");
+  }
+  get mobileNo() {
+    return this.signupForm.get("mobileNo");
+  }
+  get emailId() {
+    return this.signupForm.get("emailId");
+  }
+  get location() {
+    return this.signupForm.get("location");
+  }
+  get remarks() {
+    return this.signupForm.get("remarks");
+  }
+
+>>>>>>> c9d12d4312ec0d6ec415793f1de4b52f0e8e15ef
   submit() {
     try {
      
@@ -102,4 +123,9 @@ export class NewpartnerComponent implements OnInit {
     };
     this.toasterService.pop(toast);
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> c9d12d4312ec0d6ec415793f1de4b52f0e8e15ef

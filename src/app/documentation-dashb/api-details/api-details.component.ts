@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, Pipe,ViewChild, ɵConsole } from '@angular/core';
+import { Component, OnInit, TemplateRef, Renderer2, Pipe,ViewChild, HostListener, ElementRef, ɵConsole } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { LoginService } from 'src/app/services';
@@ -16,7 +16,10 @@ declare var $:any;
 @Component({
   selector: 'app-api-details',
   templateUrl: './api-details.component.html',
-  styleUrls: ["./api-details.component.css"]
+  styleUrls: ["./api-details.component.css"],
+  host: {
+    "(window:click)": "onClick()"
+  }
 
 })
 @Pipe({ name: 'safe' })
@@ -59,11 +62,15 @@ export class ApiDetailsComponent implements OnInit {
   idForClickedTab;
   testApiresponseFor601;
   populateRes;
+  clickedTestCaseID;
+  isMenuOpen = true
+
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
+
     ) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -77,13 +84,19 @@ export class ApiDetailsComponent implements OnInit {
 
       this.GetTestCases(_reqJson,Headers);
     });
-    
-
-   
+     
     this.error_code();
     this.Sample_packet();
     
    }
+   toggleMenu($event) {    
+    $event.stopPropagation();
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  onClick() {
+    this.isMenuOpen = false;
+  }
 
    transform(url:any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -498,13 +511,26 @@ set reqParamValue(v) {
   // get typeSelectedMethod() {
   //   return this.typeSelected;
   // }
+  
+  
+  @HostListener('document:click', ['$event']) clickout(event) {
+    // Click outside of the menu was detected
+  }
+  
+  handleTableClick(event: Event) {
+    alert("h")
+    event.stopPropagation(); // Stop the propagation to prevent reaching document
+  }
+  
   getReqRes(e,i){
     console.log(e,e.target)
     this.testApiReqData=[];
     this.testApiResData=[];
     this.testApiResID=[];
     this.testApiResName =[];
+    this.clickedTestCaseID=e.target.parentNode.getAttribute("id");
 
+    console.log(e.target.parentNode.getAttribute("id"))
    
     console.log(e.target.parentNode.getAttribute("requestpacket"))
     console.log(e.target.parentNode.getAttribute("responsePacket"))
