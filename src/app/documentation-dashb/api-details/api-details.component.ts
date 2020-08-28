@@ -1,4 +1,6 @@
-import { Component, OnInit, TemplateRef, Pipe, ɵConsole } from '@angular/core';
+import { Component, OnInit, TemplateRef, Pipe,ViewChild, ɵConsole } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+
 import { LoginService } from 'src/app/services';
 import { NgxXml2jsonService } from 'ngx-xml2json';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -58,7 +60,7 @@ export class ApiDetailsComponent implements OnInit {
   testApiresponseFor601;
   populateRes;
 
-
+  @ViewChild('Prodconfirm') Prodconfirm;
 
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
@@ -82,6 +84,7 @@ export class ApiDetailsComponent implements OnInit {
     this.Sample_packet();
     
    }
+
    transform(url:any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
@@ -100,8 +103,9 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class3 = true;
     }
   }
-
   ngOnInit() { 
+    this.contentType="JSON";
+
     console.log( this.idForClickedTab,"====================")
     this.dataArray.push(
       {
@@ -127,6 +131,8 @@ console.log(this.sandBoxForm ,)
 
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane').removeClass('show');
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane:first').addClass('show');
+
+
   
  }
  addheader() {
@@ -223,8 +229,34 @@ Sample_packet(){
     this.modalRef = this.modalService.show(Authentication, { backdrop:'static',class: 'modal-lg' }); 
   }
 
+  openModalcallbackURL(Prodconfirm: TemplateRef<any>) {
+    // var json = {"username":localStorage.getItem('username'),"password":localStorage.getItem('password')};
+    // this.adm.Login(json)
+    this.modalRef = this.modalService.show(this.Prodconfirm, { backdrop:'static',class: 'modal-lg' }); 
+  }
 
-  
+  closeTestApiPopup(){
+    this.modalRef.hide();
+    console.log(this.modalRef)
+
+    this.testApiresponse="";
+   }
+   Close_ConfirmProd() {
+     console.log(this.modalRef)
+   // this.Prodconfirm.nativeElement.click();
+     this.modalRef.hide();
+    // console.log( $(this)
+    // this.modalRef = this.modalService.show(Authentication, { backdrop:'static',class: 'modal-lg' }); 
+    // $('#modalCapturedData').hide();
+    // console.log( $(this).attr("class"))
+
+   // $("#Prodconfirm").modal("hide");
+    //  this.modalRef = this.modalService.hide(this.Prodconfirm); 
+
+
+    // this.router.navigate(["/index"]);
+
+  }
 
 
   
@@ -452,11 +484,7 @@ set reqParamValue(v) {
     );
   
    }
-   closeTestApiPopup(){
-    this.modalRef.hide();
-    this.testApiresponse="";
-   }
-   
+  
 
 
 
@@ -527,8 +555,18 @@ console.log(headers)
         this.adm.createTranscationHistory(body,header).subscribe(
           (data:any) => {
               console.log(JSON.parse(JSON.stringify(data)));
+              // this.modalRef = this.modalService.show(this.Prodconfirm, {
+              //   backdrop: "static"
+              // });
+              let callbackResponse="Your callback response is captured sucessfully"
+              // this.confirmMsgProd = res.jiraId;
+  //  this.modalRef ;
+    // this.openModalcallbackURL(this.Prodconfirm) 
+
             },
             err => {
+              let callbackResponse="Failed"
+
               console.log('err', err);
              // this.router.navigate(['error']);
             },
@@ -538,17 +576,28 @@ console.log(headers)
    }
   
   onSubmitBody(form:NgForm){
+    console.log(this.testApiReqData, this.testApiReqData.length)
     this.contentType=form.value.type;
     this.testApiResData=[];
-    this.testApiResData.push(this.populateRes);
-    console.log(this.testApiResID)
+    if(this.testApiReqData.length>0){
+      this.testApiResData.push(this.populateRes);
+    }
+    console.log(this.testApiResID, this.testApiResData.length)
+   
     console.log(form.value)
   
     console.log(form.controls)
+ 
+     this.testApiCall()
+    console.log(form.value)
+  }
+ 
+  createTransactionHistory(form:NgForm){
+    this.contentType=form.value.type;
     console.log(form.value.Response)
     let _reqJson = {apiId : this.idForClickedTab };
-    this.GetTestCases(_reqJson,Headers)
-   
+   // this.GetTestCases(_reqJson,Headers)
+   console.log(_reqJson)
     let header = new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
       "token" : localStorage.getItem("jwt"),
@@ -565,7 +614,7 @@ console.log(headers)
         
       }
      
-      let formData = new URLSearchParams();
+       let formData = new URLSearchParams();
       formData.set("headers","application/json");
       formData.set("cType","json")
       formData.set("reqBody",form.value.Request)
@@ -576,15 +625,12 @@ console.log(headers)
       formData.set("Token",localStorage.getItem("jwt"))
       formData.set("userName",localStorage.getItem("username"))
       formData.set("apiName","QR Code")
-
+// console.log("yes created")
       this.createTrnxnHistory(formData.toString(),header);
 
     }else{}
    
-    console.log( this.GetTestCases(_reqJson,Headers));
+  //  console.log( this.GetTestCases(_reqJson,Headers));
    
-     this.testApiCall()
-    console.log(form.value)
   }
-
 }

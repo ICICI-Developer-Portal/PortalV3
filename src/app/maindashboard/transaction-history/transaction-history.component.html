@@ -27,12 +27,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let i of getTrxnTableData">
-              <td>{{i.transactionId}}</td>
-              <td>{{i.apiName}}</td>
-              <td><textarea id="a">{{i.requestPacket}}</textarea></td>
-              <td><textarea id="a">{{i.responsePacket}}</textarea></td>
-              <td>{{i.time}}</td>
+            <tr *ngFor="let data of getTrxnTableData;let i=index">
+              <td>{{i+1}}</td>
+              <td>{{data.apiName}}</td>
+              <td><textarea id="a">{{data.requestPacket}}</textarea></td>
+              <td><textarea id="a">{{data.responsePacket}}</textarea></td>
+              <td>{{data.time}}</td>
             </tr>            
           </tbody>
         </table>

@@ -28,7 +28,7 @@ p{
 }
 .box
 {
-    width: 391px;
+    width: 471px;
     height: 74px;
     border:1px solid #000;
     text-align: center;
@@ -51,4 +51,3 @@ div{
 .align{
     padding: 17px 25px;
 }
-

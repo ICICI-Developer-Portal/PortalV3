@@ -103,4 +103,3 @@ export class NewpartnerComponent implements OnInit {
     this.toasterService.pop(toast);
   }
 }
-
