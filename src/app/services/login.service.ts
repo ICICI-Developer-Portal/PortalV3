@@ -887,4 +887,7 @@ createConnectedPartner(requestParam) {
   return this.http.post(this.UAT_apiUrl+"createPartner",query,options);
 }
 
+// create all transaction istory table data
+
+
 }

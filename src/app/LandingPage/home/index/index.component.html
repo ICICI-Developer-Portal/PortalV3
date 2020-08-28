@@ -48,24 +48,26 @@
         ICICI Bank APIs in just few easy steps.
       </p>
       <div class="row howItWorksContainerMargin mb50">
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
-          <div class="workImageContainer">
-            <!-- <img src="assets/images/signup.svg" alt=""> -->
-            <h2>
-              <p>1</p>
-            </h2>
-          </div>
-          <p>Sign up for an ICICI Developer Account.</p>
-        </a>
-        <div class="nextArrows">
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+            <div class="workImageContainer">
+              <!-- <img src="assets/images/signup.svg" alt=""> -->
+              <h2>
+                <p>1</p>
+              </h2>
+            </div>
+            <p>Sign up for an ICICI Developer Account.</p>
+          </a>
+        </div>
+        <div class="col-md-1 nextArrows">
           <img src="assets/images/nextarrows.svg" alt="" />
         </div>
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+        <!--  <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
           <div class="workImageContainer">
             <h2>
               <p>2</p>
             </h2>
-            <!-- <img src="assets/images/createapp.svg" alt=""> -->
+            <!-- <img src="assets/images/createapp.svg" alt=""> --
           </div>
           <p>Create an Application</p>
         </a>
@@ -77,34 +79,38 @@
             <h2>
               <p>3</p>
             </h2>
-            <!-- <img src="assets/images/testthepp.svg" alt=""> -->
+            <!-- <img src="assets/images/testthepp.svg" alt=""> --
           </div>
           <p>Select the Application</p>
         </a>
         <div class="nextArrows">
           <img src="assets/images/nextarrows.svg" alt="" />
+        </div>-->
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+            <div class="workImageContainer">
+              <!-- <img src="assets/images/testitout.svg" alt=""> -->
+              <h2>
+                <p>2</p>
+              </h2>
+            </div>
+            <p>Select API</p>
+          </a>
         </div>
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
-          <div class="workImageContainer">
-            <!-- <img src="assets/images/testitout.svg" alt=""> -->
-            <h2>
-              <p>4</p>
-            </h2>
-          </div>
-          <p>Test it Out</p>
-        </a>
-        <div class="nextArrows">
+        <div class="col-md-1 nextArrows">
           <img src="assets/images/nextarrows.svg" alt="" />
         </div>
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
-          <div class="workImageContainer">
-            <h2>
-              <p>5</p>
-            </h2>
-            <!-- <img src="assets/images/getcode.svg" alt=""> -->
-          </div>
-          <p>Get Sample Code</p>
-        </a>
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+            <div class="workImageContainer">
+              <h2>
+                <p>3</p>
+              </h2>
+              <!-- <img src="assets/images/getcode.svg" alt=""> -->
+            </div>
+            <p> Test it Out</p>
+          </a>
+        </div>
       </div>
       <div class="row">
         <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" (click)="openModal2(signup)">SIGN UP</a>
@@ -256,6 +262,21 @@
             </div>
           </a>
         </div>
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="corporates(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/retail-shape.svg" alt="" />
+              </div>
+              <h4>Corporate API Suite</h4>
+              <p>
+                We bring to you corporate API suite a bouquet of APIs selected specially to cater to the evolving needs
+                of corporate clients. We have come up with this assortment of APIs after carefuly studying the needs and
+                journey of the corporates. Please feel free to browse and choose from our thoughtful API offerings.
+              </p>
+            </div>
+          </a>
+        </div>
       </div>
       <div id="availableAPIs" class="owl-carousel owl-theme mb30">
         <div class="sectionAPICard availableAPICard">
@@ -331,6 +352,18 @@
             Incorporate remittances and bank guarantees APIs to make your trade
             and business easy with our latest offerings tailormade as per the
             latest requirements of the market.
+          </p>
+        </div>
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/retail-shape.svg" alt="" />
+          </div>
+          <h4>Corporate API Suite </h4>
+          <p>
+            We bring to you corporate API suite a bouquet of APIs selected specially to cater to the evolving needs
+            of corporate clients. We have come up with this assortment of APIs after carefuly studying the needs and
+            journey of the corporates. Please feel free to browse and choose from our thoughtful API offerings.
+         
           </p>
         </div>
       </div>
@@ -538,7 +571,7 @@
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">
-      <h3 class="fs32 color-blue ff-bold mb25">Frequently Asked Questions</h3>
+      <h3 class="fs32 color-blue ff-bold mb25">Frequently Asked Questions 3</h3>
       <img class="w-xs-100p" src="assets/images/faq-banner.svg" alt="" />
     </div>
     <div id="accordion" class="faqmainSection">
@@ -2896,19 +2929,18 @@
                 </li>
                 <li>
                   <a [ngStyle]="{ color: active }" (click)="HWI_link(2)">
-                    Create an App <i class="fa fa-angle-right"></i></a>
+                    Select API <i class="fa fa-angle-right"></i></a>
                 </li>
                 <li>
-                  <a [ngStyle]="{ color: active }" (click)="HWI_link(3)">Select App <i
-                      class="fa fa-angle-right"></i></a>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(3)">Test it Out </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a [ngStyle]="{ color: active }" (click)="HWI_link(4)">Test it Out <i
                       class="fa fa-angle-right"></i></a>
-                </li>
-                <li>
+                </li> -->
+                <!-- <li>
                   <a [ngStyle]="{ color: active }" (click)="HWI_link(5)">Get Sample Code</a>
-                </li>
+                </li> -->
               </ul>
               <div class="row mb30" *ngIf="showTab == '1'">
                 <div class="col-md-12 mb-xs-10">
@@ -2917,7 +2949,7 @@
                     step 2. Else follow the steps to create an account
                   </h6>
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#1</span>Go to our
+                    <span class="stepNumber stepNumber mr-1">Step 1:</span>Go to our
                     sign-up page.
                   </h6>
                 </div>
@@ -2936,13 +2968,13 @@
                 </div>
                 <div class="col-md-12 mb-xs-10">
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#2</span>Complete
+                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Complete
                     the registration by entering your details and create an
                     account.
                   </h6>
                   <br />
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#3</span>
+                    <span class="stepNumber stepNumber mr-1">Step 3:</span>
                     When authorized, an email will be sent to your registered
                     email-id with a link to activate your account by logging in.
                     You now have access to your dashboard. From here you can
@@ -2953,80 +2985,41 @@
               <div class="row mb30" *ngIf="showTab == '2'">
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#1</span>In your
-                    Dashboard, click Applications tab.
+                    <span class="stepNumber stepNumber mr-1">Step 1:</span>In order to select an API, go to the Documentation
+                    page. The left-hand side navigation pane consists of all the APIs in a hierarchial tree structure.
                   </h6>
-                  <img src="assets/images/AddApplication.png" class="frame" width="100%" />
                 </div>
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#2</span>If there
-                    are no applications, you have to create an Application first
-                    to test the fuctionalities of APIs by adding them in the
-                    Application.
+                    <span class="stepNumber stepNumber mr-1">Step 2:</span>On clicking a selected API, the details related to it (such as Input/Output parameters, Sample packets etc) will be populated on the main screen.
                   </h6>
-                  <img src="assets/images/CreateApplication.png" class="frame" width="100%" />
+                  <img src="assets/images/selectAPI1.png" class="frame" width="100%" />
                 </div>
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#3</span>In the
-                    Application Information tab; you have to specify your
-                    application's name and on which platform your application is
-                    going to be running.
+                    <span class="stepNumber stepNumber mr-1">Step :3</span>By clicking the Test API button at the bottom right, you can test how the API will respond in a simulated live environment.
                   </h6>
-                  <img src="assets/images/CreateApplication1.png" class="frame" width="100%" />
+                 
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#4</span>In API
-                    Management tab; you will choose the API(s) that you are
-                    going to be using in your application.
-                  </h6>
-                  <img src="assets/images/SelectAPI.png" class="frame" width="100%" />
-                </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#5</span>In the
-                    Auth tab; fields are optional.
-                  </h6>
-                  <img src="assets/images/Authentication.png" class="frame" width="100%" />
-                </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#6</span>After you
-                    click Save button, you will see your application in the
-                    Applications tab.
-                  </h6>
-                  <img src="assets/images/ViewApplication.png" class="frame" width="100%" />
-                </div>
+                
+                
               </div>
               <div class="row mb30" *ngIf="showTab == '3'">
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#1</span>In our API
-                    Explorer page, you can test the APIs using your API Key/Api
-                    Secret. You can also test any API in documentation
-                    page.Select application you created
+                    <span class="stepNumber stepNumber mr-1">Step 1:</span>On Clicking the Test API button, a pop-up is opened. This pop-up is prepopulated with a sample request packet as shown in the image. The user can select the content type from the content type dropdown.
                   </h6>
-                  <img src="assets/images/sandbox.png" class="frame" width="100%" />
+                  <img src="assets/images/Testitout1.png" class="frame" width="100%" />
                 </div>
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#2</span>Select
-                    Service Authentication as API Key.Corresponding fields
-                    should be filled automatically.
+                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Once the sample request packet is loaded, on clicking Test button at the bottom right of the pop-up, the response packet is returned as shown in the image.
                   </h6>
-                  <img src="assets/images/sandboxAPIkey.png" class="frame" width="100%" />
+                  <img src="assets/images/Testitout2.png" class="frame" width="100%" />
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#3</span>You should
-                    add your API Key with Add Parameter option.
-                  </h6>
-                  <img src="assets/images/paramterapiKey.png" class="frame" width="100%" />
-                </div>
+                
               </div>
-              <div class="row mb30" *ngIf="showTab == '4'">
+              <!-- <div class="row mb30" *ngIf="showTab == '4'">
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
                     <span class="stepNumber stepNumber mr-1">#1</span>Once the
@@ -3037,8 +3030,8 @@
                   </h6>
                   <img src="assets/images/TryitOut.png" class="frame" width="100%" />
                 </div>
-              </div>
-              <div class="row mb30" *ngIf="showTab == '5'">
+              </div> -->
+              <!-- <div class="row mb30" *ngIf="showTab == '5'">
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
                     <span class="stepNumber stepNumber mr-1">#1</span>Once you
@@ -3048,7 +3041,7 @@
                   </h6>
                   <img src="assets/images/sampleCode.png" class="frame" width="100%" />
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </form>
