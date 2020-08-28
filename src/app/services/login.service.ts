@@ -888,22 +888,6 @@ createConnectedPartner(requestParam) {
 }
 
 // create all transaction istory table data
-createConnectedPartner(requestParam) {
-  var query = "";
-  var key;
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
-  }
-  let headers = new Headers({
-     "Content-Type": "application/x-www-form-urlencoded",
-     "Token" : localStorage.getItem("jwt")
-  });
- 
-  
-  let options = new RequestOptions({ headers: headers });
 
-  return this.http.post(this.UAT_apiUrl+"createPartner",query,options);
-}
 
 }
