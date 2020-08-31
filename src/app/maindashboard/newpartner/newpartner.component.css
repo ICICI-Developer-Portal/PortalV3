@@ -24,14 +24,14 @@
 p{
    
         font-weight: bold;
-   margin: auto;
+   /* margin: auto; */
 }
 .box
 {
     width: 471px;
     height: 74px;
     border:1px solid #000;
-    text-align: center;
+    /* text-align: center; */
     color: #fff;
     padding: 19px;    
     background-color: rgb(241, 115,13);
@@ -57,8 +57,14 @@ div{
 .colorWhite{
     color : #fff;
 }
-.textAlign{
+.textAlignLeft{
     text-align: left!important;
 }
 
 .mb20{margin-bottom: 20px!important;}
+.mb5 {
+    margin-top: 5%;
+}
+.fW100{
+    font-weight: 100;
+}

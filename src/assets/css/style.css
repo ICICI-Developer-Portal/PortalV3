@@ -89,16 +89,12 @@ body {
 }
 .mt25 {
   margin-top: 25px !important;
-<<<<<<< Updated upstream
-  }
-  .mb0 {
-=======
+
 }
 .mt26 {
   margin-top: 10px !important;
 }
 .mb0 {
->>>>>>> Stashed changes
   margin-bottom: 0px;
 }
 .mb10 {
@@ -2638,7 +2634,7 @@ input:checked + .slider:before {
   /* box-shadow: 10px 10px 50px 0 rgba(0, 0, 0, 0.5); */
   background: #ffffff;
   z-index: 3;
-  min-width: 165px;
+  min-width: 190px;
   max-width: 130px;
 }
 
