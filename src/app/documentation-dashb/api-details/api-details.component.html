@@ -257,22 +257,50 @@
                                                         <p class="mb-1 bold">Request:</p>
                                                         <textarea name="Request"
                                                             class="form-control setHeight" cols="50" rows="100"
-                                                            [(ngModel)]="reqParamValue">
+                                                            [(ngModel)]="reqParamValue"
+                                                            [attr.responseData]="testApiResData" required>
                                                             </textarea>
+                                                        <textarea name="Request" *ngIf="testApiResID.length>0"
+                                                            class="form-control setHeight" cols="50" rows="100"
+                                                            [(ngModel)]="testApiReqData"
+                                                            [attr.responseData]="testApiResData" required>
+                                                                </textarea>
                                                                 
+
                                                     </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Response:</p>
                                                         <!-- <div disabled
                                                             name="Response" class="form-control" cols="50" rows="10"
                                                           >{{reponse | json}}</div> -->
-                                                          <textarea  class="form-control setHeight" cols="50" rows="100" disabled [(ngModel)]="testApireponse"> {{contentType === "XML" ? testApireponse : testApireponse | json }}
+                                                        <textarea name="Response" *ngIf="testApiResID.length>0"
+                                                            class="form-control setHeight" cols="50" rows="100" disabled
+                                                            [(ngModel)]="testApiResData">
+
+                                                            {{testApiResID}}   
+                                                          </textarea>
+                                                        <textarea *ngIf="!testApiResID.length>0"
+                                                            class="form-control setHeight" cols="50" rows="100" disabled
+                                                            [(ngModel)]="testApiresponse">
+                                                            {{testApiresponse | json}}
                                                             
                                                             </textarea>
                                                     </div>
-                                                    <div class="col-md-12">     
-                                                    <button type="submit" class="btn signInBtn btn-dark pull-right mt-30" >Test</button>
-                                                    <!--<button type="submit" class="btn signInBtn btn-dark pull-right mt-30 mr-3" disabled>Callback Respons</button>-->
+                                                    <div class="col-md-12">
+                                                        <button type="submit"
+                                                            class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid">Test</button>
+                                                        <!-- <button type="submit" href="#myModal2"
+                                                            class="btn signInBtn btn-dark pull-right mt-30 mr-3"
+                                                            [disabled]="!testApiResData.length>0"
+                                                            (click)="createTransactionHistory(bodyForm)">Callback
+                                                            Response</button> -->
+                                                        <button data-toggle="modal" *ngIf="testApiResData.length"
+                                                            href="#myModal2"
+                                                            class="btn signInBtn btn-dark pull-right mt-30 mr-3"
+                                                            (click)="createTransactionHistory(bodyForm)">
+                                                            Callback
+                                                            Response</button>
+
 
 
                                                         

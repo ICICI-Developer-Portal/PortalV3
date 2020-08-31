@@ -46,13 +46,15 @@
             <a [routerLink]="['/dashboard']" class="nav-link dropdown-item" id="pills-account-dashboard-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-dashboard"
               aria-selected="true" (click)="addActiveClass($event)">Dashboard</a>
-            <a [routerLink]="['/application']" class="nav-link dropdown-item" id="pills-account-applications-tab"
+              <a style="line-height: 21px;cursor: pointer;" routerLink="../transactionHistory" class="nav-link dropdown-item">Transaction  History</a>
+
+            <!-- <a [routerLink]="['/application']" class="nav-link dropdown-item" id="pills-account-applications-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-applications"
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
-            </a>
+            </a> -->
             <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-              aria-selected="true"  (click)="addActiveClass($event)">Onboarding<br />Requests</a>
+              aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
             <a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
             </a>
             <a style="line-height: 21px;cursor: pointer;" routerLink="../mis" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
@@ -171,7 +173,7 @@
   <!-- Signin Modal -->
   <ng-template #signin>
     <div class="modal-header">
-      <h3 class="modal-title pull-left">Please Login </h3>
+      <h3 class="modal-title pull-left">Please Login 2</h3>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -287,7 +289,7 @@
   <!-- Modal for Signup -->
   <ng-template #signup>
     <div class="modal-header"  tabindex="-1" role="dialog">
-      <h3 class="modal-title pull-left">Let's get you On-board </h3>
+      <h3 class="modal-title pull-left">Let's get you On-board 2</h3>
   
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
         <span aria-hidden="true">&times;</span>

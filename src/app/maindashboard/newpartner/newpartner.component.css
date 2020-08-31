@@ -1,0 +1,64 @@
+.list{
+    color: rgb(5, 45, 129);
+    
+}
+.list li{
+    font-size: 14px;
+    
+}
+.head{
+    color: #800000; font-family: sans-serif; font-size: 29.6707px; 
+     font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400;
+     
+     letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; 
+     text-transform: none; white-space: pre; widows: 2; word-spacing: 0px;
+      -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
+      padding: 7px;
+}
+.orange{
+    color:rgb(241, 115,13);
+    font-size: 20px;
+    margin-left: 50px;
+}
+
+p{
+   
+        font-weight: bold;
+   margin: auto;
+}
+.box
+{
+    width: 471px;
+    height: 74px;
+    border:1px solid #000;
+    text-align: center;
+    color: #fff;
+    padding: 19px;    
+    background-color: rgb(241, 115,13);
+    border-radius: 0.7em;
+    font-weight: bold;
+    font-size: 28px;
+    margin-left: 85px;
+}
+
+div{
+ margin: auto;
+}
+ 
+.feedbackSection h3{
+    text-align: center;
+}
+.align{
+    padding: 17px 25px;
+}
+.blueBackground{
+    background: #142734;
+}
+.colorWhite{
+    color : #fff;
+}
+.textAlign{
+    text-align: left!important;
+}
+
+.mb20{margin-bottom: 20px!important;}
