@@ -225,8 +225,10 @@ export class AppathonDashboardComponent implements OnInit {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }
@@ -268,8 +270,8 @@ export class AppathonDashboardComponent implements OnInit {
       },
       err => {
         this.spinnerService.hide();
-        this.toastrmsg("error", "Something went wrong!");
-        this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+        //this.router.navigate(['error']);
       }
     );
   }
@@ -364,8 +366,8 @@ export class AppathonDashboardComponent implements OnInit {
         err => {
           this.spinnerService.hide();
           this.disableSubmit = false;
-          this.toastrmsg("error", "Something went wrong!");
-          this.router.navigate(['error']);
+          this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+          //this.router.navigate(['error']);
         }
       );
     }
@@ -457,7 +459,8 @@ export class AppathonDashboardComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
   }
 }

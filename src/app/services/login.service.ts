@@ -7,7 +7,7 @@ import {
   RequestMethod,
   ResponseContentType
 } from "@angular/http";
-import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Config } from "../config/config";
 import { Alert } from "selenium-webdriver";
@@ -763,22 +763,11 @@ getDocDetails(json) {
 // Get MIS   download 
  
 getMisFile(json) {
-  //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
-  //UAT_apiUrl
-  /*let query = "";
-  let headers = new Headers({
-    "Content-Type": "application/x-www-form-urlencoded"
-  });
-  let options = new RequestOptions({ headers: headers });
-  if(json && json.userName && json.fileDate){
-    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
-  }
-  return this.http.get(this.apiUrl +"getMisFile?"+query,{ responseType: ResponseContentType.Blob });
-  */ 
+  
  let query = "";
  if(json && json.userName && json.fileDate){
   query = "fileDate="+ json.fileDate;
-}
+  } 
  
  let headers = new Headers({
    "Content-Type": "application/x-www-form-urlencoded",
@@ -786,15 +775,25 @@ getMisFile(json) {
    "username" :json.userName,
  });
  let options = new RequestOptions({ headers: headers });
- console.log("mis query is =="+ JSON.stringify(query));
- console.log("mis header is =="+ JSON.stringify(options));
  return this.http.post(this.apiUrl + "getMisFile", query, options);
- 
+
+/*let query = "";
+if(json && json.userName && json.fileDate){
+ query = "fileDate=25-June-20";
+ } 
+
+let headers = new Headers({
+  "Content-Type": "application/x-www-form-urlencoded",
+  "Token" : "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaHVrdW1hcjAzMDkiLCJpYXQiOjE1OTAxNzQyNTUsInN1YiI6IkpXVCBUT2tlbiBmb3IgRGV2ZWxvcGVyIHBvcnRhbCIsImlzcyI6IklDSUNJIERldmVsb3BlciBwb3J0YWwiLCJleHAiOjMxODAzNDg1MTF9.v0qnqdzNBLSFPhqS9Zza0igW2Ppl2oXUS2UXy4q58OY",
+  "username" :"priyanshukumar0309",
+});
+let options = new RequestOptions({ headers: headers });
+return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);*/
 }
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
 }
-test_apiJSON(requestParam,apiName) {
+test_api(requestParam,apiName) {
   var query = "";
   var key;
   for (key in requestParam) {
@@ -807,84 +806,60 @@ test_apiJSON(requestParam,apiName) {
   let options = new RequestOptions({ headers: headers });
   return this.http.post(apiName , query, options);
 }
- 
 test_apiXML(requestParam,apiName) {
-  var query = "";
-  var key;
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
-  }
+  
   let headers = new Headers({
-
-    "Content-Type": "application/xml"
-
+    "Content-Type": "text/xml"
   });
-
   let options = new RequestOptions({ headers: headers });
-
   return this.http.post(apiName , requestParam, options);
 }
 
-// test api
-getTestCases(json,headers){
-  var body = "apiId=" +  json.apiId;
-  console.log(this.UAT_apiUrl+"getTestCase")
-   headers = new Headers({
+
+getTestCases(json) {
+  
+  let query = "";
+  if(json && json.apiId){
+   query = "apiId="+ json.apiId;
+   } 
+  
+  let headers = new Headers({
     "Content-Type": "application/x-www-form-urlencoded",
-    "token" : localStorage.getItem("jwt"),
-    "username" :localStorage.getItem('username'),
+    "Token" : localStorage.getItem("jwt"),
+    "username" :localStorage.getItem("username"),
   });
   let options = new RequestOptions({ headers: headers });
-  console.log(options)
-  return this.http.post(this.UAT_apiUrl+"getTestCase" , body, options);
-}
-// get all transaction istory table data
-getTranscationHistory() {
-  let headers = new Headers({
-     "Content-Type": "application/x-www-form-urlencoded",
-    "userName" :localStorage.getItem('username'),
-     "Token" : localStorage.getItem("jwt")
-  });
-  let body = new FormData();
-  let options = new RequestOptions({ headers: headers });
-  console.log(options)
-  return this.http.post(this.UAT_apiUrl+"getTxHistory",body,options);
-}
+  return this.http.post(this.UAT_apiUrl + "getTestCase", query, options);
+  
+ }
 
-// create all transaction istory table data
-createTranscationHistory(body,header) {
+ getTransactionHistory() {
+  let query = "";
   let headers = new Headers({
-     "Content-Type": "application/x-www-form-urlencoded",
-    "userName" :localStorage.getItem('username'),
-     "Token" : localStorage.getItem("jwt")
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "username" :localStorage.getItem("username"),
   });
- 
-  // var body = new FormData();
-  // var body = "apiId=" +  json.apiId;
-  // body
   let options = new RequestOptions({ headers: headers });
-  console.log(options)
-  console.log(body)
+  return this.http.post(this.UAT_apiUrl + "getTxHistory", query, options);
+  
+ }
 
-  return this.http.post(this.UAT_apiUrl+"createTxHistory",body,options);
-}
-createConnectedPartner(requestParam) {
-  var query = "";
-  var key;
+ createTransactionHistory(requestParam) {
+  let query = "";
+  let key;
   for (key in requestParam) {
     query +=
       encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
   }
   let headers = new Headers({
-     "Content-Type": "application/x-www-form-urlencoded",
-     "Token" : localStorage.getItem("jwt")
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "userName" :localStorage.getItem("username"),
   });
- 
-  
   let options = new RequestOptions({ headers: headers });
- 
-  return this.http.post(this.UAT_apiUrl+"createPartner",query,options);
+  return this.http.post(this.UAT_apiUrl + "createTxHistory", query, options);
 }
+ 
 
 }

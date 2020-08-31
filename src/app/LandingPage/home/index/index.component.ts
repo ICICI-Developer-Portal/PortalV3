@@ -3,7 +3,7 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router,NavigationEnd  } from "@angular/router";
 import { LoginService } from "src/app/services";
 import { PasswordValidation } from "../../layout/header/password.validator";
 import { VariablesService } from "src/app/services/Variables.service";
@@ -29,8 +29,8 @@ import { CustomValidators } from "../../layout/header/custom-validators";
 declare var $: any;
 @Component({
   selector: "app-index",
-  templateUrl: "./index.component.html",
-  styleUrls: ['./index.component.css']
+  templateUrl: "./index.component.html"
+  //styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
   treeDataKeys: any;
@@ -177,6 +177,7 @@ export class IndexComponent implements OnInit {
   interval_Check: any;
   companyNamesDetails: any;
   companyNames: any;
+  errorMsg:any = "Something went wrong. Please try again in some time.";
 
   constructor(
     private http: Http,
@@ -204,12 +205,21 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     var self = this;
+
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+  });
     this.getMenuTree();
     //api for get menu tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
     //   this.responseData = JSON.parse(data._body);
     //   this.menuArray = this.getMenuData(this.responseData);
     // });
+
     this.settings = {
       singleSelection: false,
       text: "Select Fields",
@@ -230,6 +240,7 @@ export class IndexComponent implements OnInit {
       domainNm: ["", [Validators.required]],
       CITY: [""],
       RM: [""],
+      partnerCode: [""],
       email: ["", [Validators.required, Validators.email]],
       otp_verified: ["0"],
       otp_send: ["0"]
@@ -408,7 +419,8 @@ export class IndexComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+    //  this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -612,6 +624,9 @@ export class IndexComponent implements OnInit {
     return this.signupForm.get("RM");
   }
 
+  get partnerCode() {
+    return this.signupForm.get("partnerCode");
+  }
   get mobile_no() {
     return this.signupForm2.get("mobile_no");
   }
@@ -640,8 +655,10 @@ export class IndexComponent implements OnInit {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }
@@ -737,10 +754,10 @@ export class IndexComponent implements OnInit {
         this.adm.sendUserId(obj.data.id);
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-            this.router.navigate(["/index"]);
+            this.router.navigate([this.router.url]);
           },
           err => {
-            this.router.navigate(["/index"]);
+            this.router.navigate([this.router.url]);
           }
         );
         this.spinnerService.hide();
@@ -753,7 +770,8 @@ export class IndexComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -779,6 +797,7 @@ export class IndexComponent implements OnInit {
         contactNo: this.signupForm2.value.mobile_no,
         CITY: this.signupForm.value.CITY,
         RM: this.signupForm.value.RM,
+        partnerCode: this.signupForm.value.partnerCode,
         tncConfirmed: "1",
         tncConfirmedDt: CurrentTime,
         approverName: "YES",
@@ -815,7 +834,8 @@ export class IndexComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },);
     } catch {
       this.toastrmsg("error", console.error());
@@ -846,6 +866,7 @@ export class IndexComponent implements OnInit {
       contactNo: this.signupForm2.value.mobile_no,
       CITY: this.signupForm.value.CITY,
       RM: this.signupForm.value.RM,
+      partnerCode: this.signupForm.value.partnerCode,
       tncConfirmed: "1",
       tncConfirmedDt: CurrentTime,
       approverName: "YES",
@@ -884,7 +905,8 @@ export class IndexComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },);
     } catch { }
   }
@@ -904,7 +926,8 @@ export class IndexComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },);
     } catch { }
   }
@@ -934,7 +957,8 @@ export class IndexComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+        //  this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
         },);
     } catch { }
   }
@@ -1000,7 +1024,8 @@ export class IndexComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -1019,7 +1044,8 @@ export class IndexComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+       this.toastrmsg('error',this.errorMsg);
       },);
     } catch { }
   }
@@ -1038,14 +1064,15 @@ export class IndexComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+       this.toastrmsg('error',this.errorMsg);
       },);
     } catch { }
 
     //alert(Email);
   }
 
-  show_build(signin: any) {
+  /*show_build(signin: any) {
     if (localStorage.getItem("id") != null) {
       this.router.navigate(["/buildingblock"]);
     } else {
@@ -1093,6 +1120,68 @@ export class IndexComponent implements OnInit {
     }
   }
 
+  corporates(signin: any) {
+    if (localStorage.getItem("id") != null) {
+      this.router.navigate(["/corporate"]);
+    } else {
+      this.browse_api(signin);
+    }
+  }
+*/
+show_build(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/1"]);
+  } else {
+    this.modalRef = this.modalService.show(signin, { backdrop: "static" });
+  }
+}
+
+loans(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/30"]);
+  } else {
+    this.modalRef = this.modalService.show(signin, { backdrop: "static" });
+  }
+}
+
+account(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/209"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+
+payment(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/104"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+
+corporate(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/247"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+
+commercial(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/292"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+corporates(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/370"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
   Hide_signbtn() {
     if (!localStorage.getItem("id")) {
       this.hideSignupbtn1 = true;
@@ -1112,7 +1201,8 @@ export class IndexComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -1441,7 +1531,8 @@ export class IndexComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -1625,7 +1716,8 @@ export class IndexComponent implements OnInit {
             },
             err => {
               console.log('err', err);
-              this.router.navigate(['error']);
+              //this.router.navigate(['error']);
+              this.toastrmsg('error',this.errorMsg);
             },
           );
         }
@@ -1639,7 +1731,8 @@ export class IndexComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+      //  this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
       },
     );
   }
@@ -1715,7 +1808,8 @@ export class IndexComponent implements OnInit {
       },
       err => {
         this.list = [];
-        this.router.navigate(['error']);
+      // this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       }
     );
   }
@@ -1873,7 +1967,8 @@ export class IndexComponent implements OnInit {
             },
             err => {
               console.log('err', err);
-              this.router.navigate(['error']);
+             // this.router.navigate(['error']);
+             this.toastrmsg('error',this.errorMsg);
             },
           );
         }
@@ -1887,7 +1982,8 @@ export class IndexComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },
     );
   }
@@ -1925,7 +2021,8 @@ export class IndexComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+         // this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
         },);
       } else {
         this.browse_api(signin);
@@ -1990,7 +2087,8 @@ export class IndexComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -2085,7 +2183,8 @@ export class IndexComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -2095,21 +2194,9 @@ export class IndexComponent implements OnInit {
     if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
         alert( 'Please disable your Pop-up blocker and try again.');
     }
-    
-  /*   let dwldLink = document.createElement("a");
-    
-   let isSafariBrowser =
-      navigator.userAgent.indexOf("Safari") != -1 &&
-      navigator.userAgent.indexOf("Chrome") == -1;
-    if (isSafariBrowser) {
-      dwldLink.setAttribute("target", "_blank");
-    }
-    dwldLink.setAttribute("target", "_blank");
-    dwldLink.setAttribute("href", url);
-    //dwldLink.setAttribute("download", fileName + ".csv");
-    dwldLink.style.visibility = "hidden";
-    document.body.appendChild(dwldLink);
-    dwldLink.click();
-    document.body.removeChild(dwldLink);*/
+  
   }  
+  
+
+  
 }

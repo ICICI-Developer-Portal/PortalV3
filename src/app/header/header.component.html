@@ -46,8 +46,6 @@
             <a [routerLink]="['/dashboard']" class="nav-link dropdown-item" id="pills-account-dashboard-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-dashboard"
               aria-selected="true" (click)="addActiveClass($event)">Dashboard</a>
-              <a style="line-height: 21px;cursor: pointer;" routerLink="../transactionHistory" class="nav-link dropdown-item">Transaction <br/> History</a>
-
             <a [routerLink]="['/application']" class="nav-link dropdown-item" id="pills-account-applications-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-applications"
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
@@ -412,6 +410,14 @@
                 <div *ngIf="RM.invalid && (RM.dirty || isSubmitted)" class="text-danger form-error">
                   RM Employee ID is required (numeric).
                 </div>
+              </div>
+            </div>
+            <br>
+            <div class="row mb20">
+              <div class="col-md-12 mb-xs-30">
+                <div><label for="password">Partner Code</label></div>
+                <input name="partnerCode" class="input-login" formControlName="partnerCode" [pattern]="'^[a-zA-Z0-9 \'\-]+$'"/>
+               
               </div>
             </div>
   
