@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services';
 import { Router } from '@angular/router';
+import { ToasterService, Toast } from 'angular2-toaster';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-jwt-auth',
@@ -19,7 +20,8 @@ export class JwtAuthComponent implements OnInit {
     
   constructor(
     private adm: LoginService,
-    private router:Router
+    private router:Router,
+    private toasterService: ToasterService,
     // private formBuilder: FormBuilder,
   ) { }
 loginResponse:any;
@@ -50,7 +52,8 @@ loginResponse:any;
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+   //   this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
     // this.adm.Login(btoa(this.f.username.value), btoa(this.f.password.value))
     //         .pipe(first())
@@ -71,5 +74,13 @@ loginResponse:any;
     // console.log(this.conversionEncryptOutput); 
     return false;
   }
-  
+  toastrmsg(type ,title) {
+    var toast: Toast = {
+      type: type,
+      title:"",
+      body:title,
+      showCloseButton: true 
+    }; 
+    this.toasterService.pop(toast);
+  }
 }

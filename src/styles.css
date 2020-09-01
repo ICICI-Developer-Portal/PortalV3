@@ -291,6 +291,7 @@ button.toast-close-button {
 /* toaster end */
 .modal-content {
   padding: 14px;
+  width: 80%;
 }
 
 .signIn {
@@ -660,7 +661,7 @@ body {
     padding: 0px;
   }
   .sanboxTable td{
-    width: 33%;
+    width: 15%;
     border: none;
   }
   .sanboxTable tr{
@@ -710,3 +711,6 @@ body {
     top: 100% !important;
   }
 } */
+.index-howitworks{
+  width: 80%;
+}

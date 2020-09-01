@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
+import { ToasterService, Toast } from 'angular2-toaster';
 declare var $:any;
 @Component({
   selector: 'app-documentupload',
@@ -29,6 +30,7 @@ export class DocumentuploadComponent implements OnInit {
     private formbuilder: FormBuilder,
     private modalService: BsModalService,
     private router: Router,
+    private toasterService: ToasterService
     ) { 
     this.spinnerService.show();
   }
@@ -57,7 +59,8 @@ export class DocumentuploadComponent implements OnInit {
   },
   err => {
     console.log('err', err);
-    this.router.navigate(['error']);
+   // this.router.navigate(['error']);
+   this.toastrmsg('error',"Something went wrong. Please try again in some time.");
   },);
 
 }
@@ -101,12 +104,23 @@ btnConfirm(UATconfirm) {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+          //this.router.navigate(['error']);
+          this.toastrmsg('error',"Something went wrong. Please try again in some time.");
         },
       );
     this.modalRef = this.modalService.show(UATconfirm);
 }
 Close_ConfirmId() {
   this.modalRef.hide();
+}
+
+toastrmsg(type ,title) {
+  var toast: Toast = {
+    type: type,
+    title:"",
+    body:title,
+    showCloseButton: true 
+  }; 
+  this.toasterService.pop(toast);
 }
 }

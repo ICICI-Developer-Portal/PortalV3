@@ -21,6 +21,7 @@ export class OnboardingrequestComponent implements OnInit {
 
   currentId: number = 0;
   dropdownList:any=[];
+  errorMsg:any = "Something went wrong. Please try again in some time.";
 
   constructor(private HttpClient:HttpClient,private formbuilder:FormBuilder,private router:Router, private adm:LoginService, private toasterService: ToasterService) { }
 
@@ -49,7 +50,8 @@ export class OnboardingrequestComponent implements OnInit {
   toastrmsg(type ,title) {
     var toast: Toast = {
       type: type,
-      title:title,
+      title:"",
+      body:title,
       showCloseButton: true 
     }; 
     this.toasterService.pop(toast);
@@ -126,7 +128,8 @@ export class OnboardingrequestComponent implements OnInit {
        },
        err => {
          console.log('err', err);
-         this.router.navigate(['error']);
+        // this.router.navigate(['error']);
+         this.toastrmsg('error',this.errorMsg);
        },   
     );
   }

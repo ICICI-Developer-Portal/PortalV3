@@ -67,7 +67,7 @@
             <h2>
               <p>2</p>
             </h2>
-            <img src="assets/images/createapp.svg" alt=""> --
+            <!-- <img src="assets/images/createapp.svg" alt=""> --
           </div>
           <p>Create an Application</p>
         </a>
@@ -79,7 +79,7 @@
             <h2>
               <p>3</p>
             </h2>
-            <img src="assets/images/testthepp.svg" alt=""> --
+            <!-- <img src="assets/images/testthepp.svg" alt=""> --
           </div>
           <p>Select the Application</p>
         </a>
@@ -444,11 +444,12 @@
       </div>
     </section>
     <!-- Strategit partner-->
-    <section id="partners" class="sectionAPIs featuredAPIs" style="padding-bottom: 75px; background: #f6f6f6; ">
-    <h3  class="mb60">Strategic <span >Partner</span></h3>
+   <!-- Strategit partner-->
+   <section id="partners" class="sectionAPIs featuredAPIs" style="padding-bottom: 75px; background: #f6f6f6; ">
+    <h3  class="">Strategic <span >Partner</span></h3>
     <section><div class="row">
       <div class="container  mb20">
-      <div style="background:white;width: 82%;    margin: 0 auto;">
+      <div style="width: 82%;margin: 0 auto;">
 
    <div class="col-md-3" style="
       display: inline-block;
@@ -533,6 +534,7 @@
   </section>
 
     <!-- Strategic partner change end-->
+
     <section class="sectionAPIs letsGetConnected" *ngIf="!logged_in">
       <h3>Want to get Started? <span>Let's get Connected</span></h3>
       <p class="mb50">
@@ -559,7 +561,7 @@
           <option value="Suggestion">Suggestion</option>
           <option value="Others">Others</option>
         </select>
-      <select class="select mb25" name="Suggestion" [(ngModel)] ="Suggestion">
+        <!-- <select class="select mb25" name="Suggestion" [(ngModel)] ="Suggestion">
                <option value="">Select</option>
                <option value="Suggestion">Suggestion</option>
                <option value="Others">Others</option>
@@ -1232,7 +1234,15 @@
               </div>
             </div>
           </div>
+          <br>
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Partner Code</label></div>
+              <input name="partnerCode" class="input-login" formControlName="partnerCode"
+                [pattern]="'^[a-zA-Z0-9 \'\-]+$'" />
 
+            </div>
+          </div>
           <div class="clearfix"></div>
           <br />
           <ul class="nav nav-tabs nav-tabs1" role="tablist">
@@ -2916,15 +2926,17 @@
 
 <!--How It Work modalbox -->
 <ng-template #modal_hwi>
-  <div class="modal-header">
+  
+  <!-- <div class="index-howitworks"> -->
+  <div class="header">
     <h3></h3>
     <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
     <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
       close
     </button>
   </div>
-  <div class="modal-body">
-    <div class="row">
+  <div class="modal-body "  >
+    <div class="row md30">
       <div class="col-md-12 mb-xs-10">
         <form id="regForm" method="POST" name="regForm" action="">
           <div class="tab disp-block">
@@ -2960,27 +2972,27 @@
                     sign-up page.
                   </h6>
                 </div>
-                <div class="col-md-6">
-                  <p>a. Enter your Credentials.</p>
-                  <img src="assets/images/SignUp1.png" class="frame" width="100%" />
+                <div ><br>
+                  <p style="font-size: 13px;">a. Enter your Credentials.</p>
+                  <img src="assets/images/SignUp1.png" class="frame" width="100%"  />
                 </div>
-                <div class="col-md-6">
-                  <p>b. Verify your Mobile Number.</p>
+                <div ><br>
+                  <p style="font-size: 13px;">b. Verify your Mobile Number.</p>
                   <img src="assets/images/SignUp2.png" class="frame" width="100%" />
                 </div>
-                <div class="col-md-6">
-                  <p>c. Create Username and Password</p>
+                <div ><br>
+                  <p style="font-size: 13px;">c. Create Username and Password</p>
                   <img src="assets/images/SignUp3.png" class="frame" width="100%" />
                   <br /><br />
-                </div>
+                </div><br>
                 <div class="col-md-12 mb-xs-10">
-                  <h6 class="fs14 pt8">
+                  <h6 class="fs12 pt8">
                     <span class="stepNumber stepNumber mr-1">Step 2:</span>Complete
                     the registration by entering your details and create an
                     account.
                   </h6>
                   <br />
-                  <h6 class="fs14 pt8">
+                  <h6 class="fs12 pt8">
                     <span class="stepNumber stepNumber mr-1">Step 3:</span>
                     When authorized, an email will be sent to your registered
                     email-id with a link to activate your account by logging in.
@@ -2990,20 +3002,21 @@
                 </div>
               </div>
               <div class="row mb30" *ngIf="showTab == '2'">
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
+                <div >
+                  <h6 class="fs12 pt8">
                     <span class="stepNumber stepNumber mr-1">Step 1:</span>In order to select an API, go to the Documentation
-                    page. The left-hand side navigation pane consists of all the APIs in a hierarchial tree structure.
+                    page.The left-hand side navigation pane consists of all the APIs in a hierarchial tree structure.
                   </h6>
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
+                <br>
+                <div >
+                  <h6 class="fs12 pt8">
                     <span class="stepNumber stepNumber mr-1">Step 2:</span>On clicking a selected API, the details related to it (such as Input/Output parameters, Sample packets etc) will be populated on the main screen.
                   </h6>
-                  <img src="assets/images/selectAPI1.png" class="frame" width="100%" />
-                </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
+                  <img src="assets/images/image11.png" class="frame " width="100%"  />
+                </div><br>
+                <div >
+                  <h6 class="fs12 pt8">
                     <span class="stepNumber stepNumber mr-1">Step :3</span>By clicking the Test API button at the bottom right, you can test how the API will respond in a simulated live environment.
                   </h6>
                  
@@ -3012,17 +3025,17 @@
                 
               </div>
               <div class="row mb30" *ngIf="showTab == '3'">
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
+                <div >
+                  <h6 class="fs12 pt8">
                     <span class="stepNumber stepNumber mr-1">Step 1:</span>On Clicking the Test API button, a pop-up is opened. This pop-up is prepopulated with a sample request packet as shown in the image. The user can select the content type from the content type dropdown.
                   </h6>
-                  <img src="assets/images/Testitout1.png" class="frame" width="100%" />
+                  <img src="assets/images/image22.png" class="frame" width="100%" />
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
+                <div ><br>
+                  <h6 class="fs12 pt8">
                     <span class="stepNumber stepNumber mr-1">Step 2:</span>Once the sample request packet is loaded, on clicking Test button at the bottom right of the pop-up, the response packet is returned as shown in the image.
                   </h6>
-                  <img src="assets/images/Testitout2.png" class="frame" width="100%" />
+                  <img src="assets/images/image33.png" class="frame" width="100%" />
                 </div>
                 
               </div>
@@ -3055,5 +3068,7 @@
       </div>
     </div>
   </div>
+
+  <!-- </div> -->
 </ng-template>
 <!-- End Modalbox -->

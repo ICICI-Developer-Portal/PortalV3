@@ -96,6 +96,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
   domainApiNumber;
   list;
   selectedJiraId;
+  errorMsg:any = "Something went wrong. Please try again in some time.";
   /** Add var for search field */
   myControl = new FormControl();
   APIAutocompletDataSource: any[] = [];
@@ -421,7 +422,8 @@ export class ProductionOnboardingPageComponent implements OnInit {
     },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);this.toastrmsg('error',
+       this.toastrmsg('error',this.errorMsg);
       });
 
   }
@@ -585,7 +587,8 @@ export class ProductionOnboardingPageComponent implements OnInit {
       },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+          //this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
         });
     }
     else {
@@ -753,13 +756,15 @@ export class ProductionOnboardingPageComponent implements OnInit {
             err => {
               console.log('err', err);
               // this.router.navigate(['error']);
+              this.toastrmsg('error',this.errorMsg);
             },
           );
         }
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+      //  this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
       },
     );
 
@@ -863,8 +868,10 @@ export class ProductionOnboardingPageComponent implements OnInit {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }
@@ -964,7 +971,8 @@ export class ProductionOnboardingPageComponent implements OnInit {
     },
       err => {
         this.list = [];
-        this.router.navigate(['error']);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       }
     );
   }

@@ -45,8 +45,10 @@ export class LoginComponent implements OnInit {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
       showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }
@@ -104,7 +106,8 @@ export class LoginComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+    //  this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
   }
 
@@ -122,7 +125,8 @@ export class LoginComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
   }
 }

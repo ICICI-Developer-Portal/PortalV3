@@ -7,12 +7,12 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
 import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
-import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
 import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { DownloadComponent } from './download/download.component';
 import { MisComponent } from './mis/mis.component';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { NewpartnerComponent } from './newpartner/newpartner.component';
 
 

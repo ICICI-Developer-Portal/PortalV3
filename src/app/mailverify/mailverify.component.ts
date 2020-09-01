@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { HttpClient, HttpParams } from "@angular/common/http";
+import { ToasterService, Toast } from 'angular2-toaster';
 @Component({
   selector: "app-mailverify",
   templateUrl: "./mailverify.component.html"
@@ -19,6 +20,7 @@ export class MailverifyComponent implements OnInit {
     private adm: LoginService,
     private activeRoute: ActivatedRoute,
     private router: Router,
+    private toasterService: ToasterService,
     private auth: AuthService
   ) {
     this.user_name = localStorage.getItem("username");
@@ -45,7 +47,8 @@ export class MailverifyComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+     //this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong. Please try again in some time.");
       },);
     } catch { }
   }
@@ -74,5 +77,14 @@ export class MailverifyComponent implements OnInit {
     setTimeout(function () {
       document.querySelector(id).scrollIntoView({ behavior: "smooth" });
     }, 10);
+  }
+  toastrmsg(type ,title) {
+    var toast: Toast = {
+      type: type,
+      title:"",
+      body:title,
+      showCloseButton: true 
+    }; 
+    this.toasterService.pop(toast);
   }
 }

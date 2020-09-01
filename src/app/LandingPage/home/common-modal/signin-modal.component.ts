@@ -4,13 +4,7 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { Router } from "@angular/router";
 import { LoginService } from "src/app/services";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordValidation } from "../../layout/header/password.validator";
 import { ChangeDetectorRef } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
@@ -68,6 +62,7 @@ export class SigninModalComponent implements OnInit {
   modalRef9: BsModalRef;
   companyNamesDetails: any;
   companyNames: any;
+  errorMsg: any = "Something went wrong. Please try again in some time.";
   constructor(
     private SessionService: SessionService,
     private authService: AuthService,
@@ -91,6 +86,7 @@ export class SigninModalComponent implements OnInit {
       this.user_name = data;
     });
     this.get_domain_and_apis();
+    
   }
 
   ngOnInit() {
@@ -103,24 +99,55 @@ export class SigninModalComponent implements OnInit {
       domainNm: ["", [Validators.required]],
       CITY: ["", [Validators.required]],
       RM: ["", [Validators.required]],
+      partnerCode:[""],
       email: ["", [Validators.required, Validators.email]],
       otp_verified: ["0"],
       otp_send: ["0"]
     });
 
     this.signupForm2 = this.formbuilder.group({
-      mobile_no: [
-        "",
-        [Validators.required, Validators.pattern(this.mobnumPattern)]
-      ],
+      mobile_no: ["", [Validators.required, Validators.pattern(this.mobnumPattern)]],
       otp_code: ["", [Validators.required]]
     });
 
-    
+    this.signupForm3 = this.formbuilder.group(
+      {
+        uname :["",[Validators.required]],
+        //uname: ["", [Validators.required]],
+        //password: ["", [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+
+        password: ["", [Validators.required,
+          // check whether the entered password has a number
+          CustomValidators.patternValidator(/\d/, {
+            hasNumber: true
+          }),
+          // check whether the entered password has upper case letter
+          CustomValidators.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true
+          }),
+          // check whether the entered password has a lower case letter
+          CustomValidators.patternValidator(/[a-z]/, {
+            hasSmallCase: true
+          }),
+          // check whether the entered password has a special character
+          CustomValidators.patternValidator(
+            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            {
+              hasSpecialCharacters: true
+            }
+          ),
+          Validators.minLength(8)
+        ]],
+        confirmPassword: ["", [Validators.required]],
+        term: ["", [Validators.required]]
+      },
+      {
+        validator: CustomValidators.passwordMatchValidator // your validation method
+      }
+    );
     this.signupForm4 = this.formbuilder.group({
       termsandcondition: ["", [Validators.required]]
     });
-
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
@@ -143,7 +170,9 @@ export class SigninModalComponent implements OnInit {
   get RM() {
     return this.signupForm.get("RM");
   }
-
+  get partnerCode() {
+    return this.signupForm.get("partnerCode");
+  }
   get mobile_no() {
     return this.signupForm2.get("mobile_no");
   }
@@ -173,8 +202,10 @@ export class SigninModalComponent implements OnInit {
     console.log("toastermsg", type, title);
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }
@@ -190,6 +221,8 @@ export class SigninModalComponent implements OnInit {
   }
 
   openModal2(signup: TemplateRef<any>) {
+    console.log(this.domainLst )
+  
     this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
 
     try {
@@ -199,6 +232,10 @@ export class SigninModalComponent implements OnInit {
     this.signupForm.controls["otp_verified"].setValue("0");
     this.otp_verified = 0;
     this.ref.markForCheck();
+    this.shfrmSFFirst = true;
+    this.shfrmSFSecond = false;
+    this.shfrmSFThird = false;
+    
   }
   openModal(signin: TemplateRef<any>) {
     //this.modalRef = this.modalService.show(signin, { backdrop: 'static' });
@@ -273,10 +310,10 @@ export class SigninModalComponent implements OnInit {
 
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-             this.router.navigate(['/index']);
+            this.router.navigate([this.router.url]);
           },
           err => {
-            this.router.navigate(['/index']);
+            this.router.navigate([this.router.url]);
           }
         );
         this.dialogRef.close();
@@ -307,7 +344,8 @@ export class SigninModalComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
   //  Signup function
@@ -344,6 +382,7 @@ export class SigninModalComponent implements OnInit {
         contactNo: this.signupForm2.value.mobile_no,
         CITY: this.signupForm.value.CITY,
         RM: this.signupForm.value.RM,
+        partnerCode:this.signupForm.value.partnerCode,
         tncConfirmed: "1",
         tncConfirmedDt: CurrentTime,
         approverName: "YES",
@@ -381,7 +420,8 @@ export class SigninModalComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },);
     } catch {
       this.toastrmsg("error", console.error());
@@ -401,6 +441,7 @@ export class SigninModalComponent implements OnInit {
       contactNo: this.signupForm2.value.mobile_no,
       CITY: this.signupForm.value.CITY,
       RM: this.signupForm.value.RM,
+      partnerCode:this.signupForm.value.partnerCode,
       tncConfirmed: "1",
       tncConfirmedDt: CurrentTime,
       approverName: "YES",
@@ -441,7 +482,8 @@ export class SigninModalComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },);
     } catch {}
   }
@@ -466,7 +508,8 @@ export class SigninModalComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },);
     } catch {}
   }
@@ -499,7 +542,8 @@ export class SigninModalComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+         // this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
         },);
     } catch {}
   }
@@ -558,7 +602,8 @@ export class SigninModalComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -580,7 +625,8 @@ export class SigninModalComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
       },);
     } catch {}
   }
@@ -600,7 +646,8 @@ export class SigninModalComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+         // this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
         },);
       }
     } catch {}
@@ -661,7 +708,8 @@ export class SigninModalComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
 
@@ -698,7 +746,8 @@ export class SigninModalComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
     },);
   }
    //send OTP button change and seconds

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { DashboardService } from "src/app/services";
 import { document } from "ngx-bootstrap";
+import { ToasterService, Toast } from 'angular2-toaster';
 
 declare var $: any;
 
@@ -29,7 +30,8 @@ export class SidebarComponent implements OnInit {
    */
   constructor(
     private router: Router,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private toasterService: ToasterService
   ) {
     var counter2 = 0;
     //on load introduction active
@@ -142,8 +144,19 @@ export class SidebarComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
+  }
+
+  toastrmsg(type ,title) {
+    var toast: Toast = {
+      type: type,
+      title:"",
+      body:title,
+      showCloseButton: true 
+    }; 
+    this.toasterService.pop(toast);
   }
 
   /** create tree and jquery for menu tree expand/collapse
