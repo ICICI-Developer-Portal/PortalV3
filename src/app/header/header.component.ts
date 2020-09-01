@@ -88,7 +88,8 @@ export class HeaderComponent implements OnInit {
   showOptn: boolean = false;
   showAppDash: boolean = false;
   userName: any;
-
+  errorMsg:any = "Something went wrong. Please try again in some time.";
+  
   
 
   constructor(
@@ -134,6 +135,7 @@ export class HeaderComponent implements OnInit {
       domainNm: ["", [Validators.required]],
       CITY: ["", [Validators.required]],
       RM: ["", [Validators.required]],
+      partnerCode:[""],
       email: ["", [Validators.required, Validators.email]],
       otp_verified: ["0"],
       otp_send: ["0"]
@@ -293,7 +295,9 @@ export class HeaderComponent implements OnInit {
   get RM() {
     return this.signupForm.get("RM");
   }
-
+  get partnerCode() {
+    return this.signupForm.get("partnerCode");
+  }
   get mobile_no() {
     return this.signupForm2.get("mobile_no");
   }
@@ -319,12 +323,23 @@ export class HeaderComponent implements OnInit {
     return this.forgetpassForm.get("username1");
   }
 
-  toastrmsg(type, title) {
+ /* toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
       title: title,
       showCloseButton: true
     };
+    this.toasterService.pop(toast);
+  }*/
+toastrmsg(type, title) {
+  var toast: Toast = {
+    type: type,
+    showCloseButton: true,
+    title: "",
+    body: title
+    
+  };
+
     this.toasterService.pop(toast);
   }
 
@@ -450,7 +465,7 @@ export class HeaderComponent implements OnInit {
           console.log(this.router.url);
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-            this.router.navigate(['/index']);
+            this.router.navigate([this.router.url]);
           },
           err => {
             this.router.navigate([this.router.url]);
@@ -467,6 +482,8 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
     localStorage.setItem("role", this.loginResponse.data.role);
+    this.userName = localStorage.getItem("username");
+    
     localStorage.setItem(
       "appathonusername",
       this.loginResponse.data.appathonusername
@@ -474,6 +491,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("appathonUserName", this.loginResponse.data.username);
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
+    this.userName = localStorage.getItem("username");
     this.router.navigate([this.router.url]);
     
     /**
@@ -492,7 +510,10 @@ export class HeaderComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
+
+      
     },);
   }
   // Signup function
@@ -529,6 +550,7 @@ export class HeaderComponent implements OnInit {
         contactNo: this.signupForm2.value.mobile_no,
         CITY: this.signupForm.value.CITY,
         RM: this.signupForm.value.RM,
+        partnerCode:this.signupForm.value.partnerCode,
         tncConfirmed: "1",
         tncConfirmedDt: CurrentTime,
         approverName: "YES",
@@ -565,7 +587,9 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
+
       },);
     } catch {
       this.toastrmsg("error", console.error());
@@ -656,7 +680,9 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+        //  this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
+
       },);
     } catch {
       this.toastrmsg("error", console.error());
@@ -677,6 +703,7 @@ export class HeaderComponent implements OnInit {
       contactNo: this.signupForm2.value.mobile_no,
       CITY: this.signupForm.value.CITY,
       RM: this.signupForm.value.RM,
+      partnerCode:this.signupForm.value.partnerCode,
       tncConfirmed: "1",
       tncConfirmedDt: CurrentTime,
       approverName: "YES",
@@ -717,7 +744,9 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
+
       },);
     } catch {}
   }
@@ -763,7 +792,9 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+      //  this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
+
       },);
     } catch {}
   }
@@ -788,7 +819,9 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+       this.toastrmsg('error',this.errorMsg);
+
       },);
     } catch {}
   }
@@ -823,7 +856,9 @@ export class HeaderComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+       //   this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
+
         },);
     } catch {}
   }
@@ -855,7 +890,9 @@ export class HeaderComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+         // this.router.navigate(['error']);
+         this.toastrmsg('error',this.errorMsg);
+
         },);
     } catch {}
   }
@@ -921,7 +958,9 @@ export class HeaderComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',this.errorMsg);
+
     },);
   }
 
@@ -943,7 +982,9 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
+
       },);
     } catch {}
   }
@@ -963,7 +1004,9 @@ export class HeaderComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+         // this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
+
         },);
       }
     } catch {}
@@ -1024,7 +1067,9 @@ export class HeaderComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',this.errorMsg);
+
     },);
   }
 
@@ -1108,7 +1153,9 @@ export class HeaderComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',this.errorMsg);
+
     },);
   }
 }

@@ -83,14 +83,14 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   isemail_reg_check: string = "";
   selectedValue = [];
 term:any;
+errorMsg:any = "Something went wrong. Please try again in some time.";
   /** Add var for search field */
   myControl = new FormControl();
   APIAutocompletDataSource:any[] = [];
   filteredOptions: Observable<string[]>;
   searchedItem:any;
   searchedFieldValue:any;
-
-  /** end here */
+/** end here */
   constructor(private HttpClient: HttpClient,
     private formbuilder: FormBuilder,
     private objOnBoarding: VariablesService,
@@ -405,7 +405,8 @@ ifIPpatternNotmatches(){
     },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+      //  this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
       });
   
   }
@@ -570,7 +571,8 @@ if(this.selectedValue.length>0){
   },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',this.errorMsg);
     });
 }
 else{
@@ -737,14 +739,16 @@ else{
             },
             err => {
               console.log('err', err);
-              this.router.navigate(['error']);
+              this.toastrmsg('error',this.errorMsg);
+            //  this.router.navigate(['error']);
             },
           );
         }
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+       this.toastrmsg('error',this.errorMsg);
       },
     );
 
@@ -841,12 +845,23 @@ else{
 
   }
   
-  toastrmsg(type, title) {
+  /*toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
       title: title,
       showCloseButton: true
     };
+    this.toasterService.pop(toast);
+  }*/
+  toastrmsg(type, title) {
+    var toast: Toast = {
+      type: type,
+      showCloseButton: true,
+      title: "",
+      body: title
+      
+    };
+
     this.toasterService.pop(toast);
   }
 

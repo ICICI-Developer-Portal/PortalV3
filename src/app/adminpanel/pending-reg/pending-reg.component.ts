@@ -44,7 +44,8 @@ export class PendingRegComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },
 ); 
 }
@@ -66,7 +67,8 @@ approve_Reg(approveUser:any){
   },
   err => {
     console.log('err', err);
-    this.router.navigate(['error']);
+    //this.router.navigate(['error']);
+    this.toastrmsg('error',"Something went wrong. Please try again in some time.");
   },
 ); 
 }

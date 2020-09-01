@@ -64,7 +64,9 @@ export class ApiDetailsComponent implements OnInit {
   populateRes;
   clickedTestCaseID;
   isMenuOpen = true
-
+  tesAPiSuccesufulResponse;
+   keyVal;
+   val;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
@@ -118,12 +120,13 @@ export class ApiDetailsComponent implements OnInit {
   }
   ngOnInit() { 
     this.contentType="JSON";
-
-    console.log( this.idForClickedTab,"====================")
+  
+    // if(this.dataArray.length==1){ this.keyVal="1234";this.val='123'}else{ this.keyVal="";this.val=''} 
+    // console.log( this.idForClickedTab,"====================")
     this.dataArray.push(
       {
-        key :"",
-        value:""
+        key :this.idForClickedTab,
+        value:"f219f506-1079-4c76-8ea6-439774f96265"
       }
     )
     this.sandBoxForm = {
@@ -149,12 +152,14 @@ console.log(this.sandBoxForm ,)
   
  }
  addheader() {
+ 
+   console.log(this.dataArray.length)
   if(this.dataArray.length<=4){ 
   this.dataArray.push(
     {
       id:this.dataArray.length+1,
-      key :"",
-      value:""
+      key :this.keyVal,
+      value:this.val
     }
   )
   console.log(this.dataArray.length)
@@ -486,6 +491,7 @@ set reqParamValue(v) {
             else if(this.contentType=="XML"){  this.testApiresponse=data._body;}
            
             console.log(this.testApiresponse)
+           this.tesAPiSuccesufulResponse=this.testApiresponse.Success
           }
            this.spinnerService.hide();
         },

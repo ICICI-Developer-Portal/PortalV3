@@ -10,7 +10,8 @@ import { ApplicationComponent } from './application/application.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
-
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+import { NewpartnerComponent } from './newpartner/newpartner.component';
 import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
 
 import { ModalModule } from 'ngx-bootstrap';
@@ -28,9 +29,7 @@ import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
-import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
-import { NewpartnerComponent } from './newpartner/newpartner.component';
-  
+   
 @NgModule({
     imports: [
         CommonModule,   
@@ -63,15 +62,15 @@ import { NewpartnerComponent } from './newpartner/newpartner.component';
         AnalyticsComponent,
         UserprofileComponent,
         FaqComponent,
+TransactionHistoryComponent,NewpartnerComponent,
+
         UATonboardingDashboardPageComponent,
         OnboardingrequestsComponent,
         UATonboardingDashboardPageSidebarComponent,
         DownloadComponent,
         MisComponent,
         FocusOnShowDirective,
-        NestedListFilterPipePipe,
-        TransactionHistoryComponent,
-        NewpartnerComponent
+        NestedListFilterPipePipe
         
     ],
 

@@ -5,6 +5,7 @@ import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { Http, Headers, Response } from "@angular/http";
 import { saveAs } from "file-saver";
 import { Router } from '@angular/router';
+import { ToasterService, Toast } from 'angular2-toaster';
 //declare var require;
 
 @Component({
@@ -21,6 +22,7 @@ export class OnboardingrequestsComponent implements OnInit {
     private adm: LoginService,
     private spinnerService: Ng4LoadingSpinnerService,
     private router:Router,
+    private toasterService: ToasterService,
   ) {
     this.request_data();
   }
@@ -44,7 +46,9 @@ export class OnboardingrequestsComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+      
     },);
   }
 
@@ -66,7 +70,17 @@ export class OnboardingrequestsComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
+  }
+  toastrmsg(type ,title) {
+    var toast: Toast = {
+      type: type,
+      title:"",
+      body:title,
+      showCloseButton: true 
+    }; 
+    this.toasterService.pop(toast);
   }
 }

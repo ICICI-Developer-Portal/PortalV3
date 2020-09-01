@@ -48,7 +48,8 @@ export class MisComponent implements OnInit {
    let today = new Date()
    let priorDate = new Date().setDate(today.getDate()-20);
    this.minDate= datepipe.transform(new Date(priorDate),'yyyy-MM-dd');
-   this.maxDate= datepipe.transform(Date.now(),'yyyy-MM-dd');
+   let prevDate = new Date().setDate(today.getDate()-1);
+   this.maxDate= datepipe.transform(new Date(prevDate),'yyyy-MM-dd');
 
   }
   /** on page load
@@ -114,7 +115,8 @@ downloadCertificate(url) {
   },
   err => {
     console.log('err', err);
-    this.router.navigate(['error']);
+  //  this.router.navigate(['error']);
+    this.toasterService.pop('error', 'Error!', err.message);
   },);
   error => {
     let err = JSON.parse(error._body);
@@ -140,33 +142,11 @@ downloadCertificate(url) {
     this.spinnerService.show();
     this.adm.getMisFile(_json).subscribe((data: any) => {
       this.spinnerService.hide();
-      let response = data;
-      console.log(JSON.stringify(response));
-      if(response && response.status==200){
-        let csvData = data['_body'] || '';
-        this.downloadCSV(csvData,"MIS_REPORT-" + this.dateInput);
-
-      /*  const blob = new Blob([response._body], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  const url= window.URL.createObjectURL(blob);
-  let pwa= window.open(url);
-  if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-    this.spinnerService.hide();
-      alert( 'Please disable your Pop-up blocker and try again.');
-  }*/
-     /*  let res = JSON.parse(response._body);
-        if(res.data){
-          this.spinnerService.show();
-          let pwa= window.open(res.data);
-          if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-            this.spinnerService.hide();
-              alert( 'Please disable your Pop-up blocker and try again.');
-          }
-
-        }else if(res && res.data == null && res.message){ 
-          this.toastrmsg("Info",res.message);
-        }
-       
-     */
+      let response = JSON.parse(data._body);
+     // console.log(JSON.stringify(response));
+      if(response && response.status_code==200){
+        let csvData = response.data;
+        this.downloadCSV(csvData,response.fileName);
       }
       else if(response && response.data == null && response.message){ 
         this.toastrmsg("Info",response.message);
@@ -209,8 +189,10 @@ downloadCertificate(url) {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }

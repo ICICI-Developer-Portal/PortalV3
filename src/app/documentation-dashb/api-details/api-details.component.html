@@ -198,18 +198,18 @@
                                                                             <input type="text" name="key{{obj.id}}"
                                                                                 class="form-control"
                                                                                 aria-describedby="emailHelp"
-                                                                                placeholder="key" [ngModel]="obj.key">
+                                                                                placeholder="" [readonly]="i==0" [ngModel]="obj.key">
                                                                         </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-group form-inline">
                                                                             Value : &nbsp;&nbsp;
                                                                             <input type="text" name="value{{obj.id}}"
-                                                                                class="form-control" placeholder="value"
+                                                                                class="form-control" placeholder=""
                                                                                 [ngModel]="obj.value">
                                                                         </div>
                                                                     </td>
-                                                                    <td> <button class="signInBtn btn-dark pull-right"
+                                                                    <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
                                                                             type="button" ng-reflect-klass="signInBtn"
                                                                             (click)="removeheader(i)"> &minus; </button>
                                                                     </td>
@@ -343,7 +343,7 @@
                                                             [disabled]="!testApiResData.length>0"
                                                             (click)="createTransactionHistory(bodyForm)">Callback
                                                             Response</button> -->
-                                                        <button data-toggle="modal" *ngIf="testApiResData.length"
+                                                        <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
                                                             href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
                                                             (click)="createTransactionHistory(bodyForm)">
