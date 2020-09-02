@@ -125,7 +125,7 @@ export class ApiDetailsComponent implements OnInit {
     // console.log( this.idForClickedTab,"====================")
     this.dataArray.push(
       {
-        key :this.idForClickedTab,
+        key :"API key",
         value:"f219f506-1079-4c76-8ea6-439774f96265"
       }
     )
