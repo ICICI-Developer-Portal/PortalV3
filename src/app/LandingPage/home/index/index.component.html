@@ -48,24 +48,26 @@
         ICICI Bank APIs in just few easy steps.
       </p>
       <div class="row howItWorksContainerMargin mb50">
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
-          <div class="workImageContainer">
-            <!-- <img src="assets/images/signup.svg" alt=""> -->
-            <h2>
-              <p>1</p>
-            </h2>
-          </div>
-          <p>Sign up for an ICICI Developer Account.</p>
-        </a>
-        <div class="nextArrows">
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,1)">
+            <div class="workImageContainer">
+              <!-- <img src="assets/images/signup.svg" alt=""> -->
+              <h2>
+                <p>1</p>
+              </h2>
+            </div>
+            <p>Sign up for an ICICI Developer Account.</p>
+          </a>
+        </div>
+        <div class="col-md-1 nextArrows">
           <img src="assets/images/nextarrows.svg" alt="" />
         </div>
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+        <!--  <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
           <div class="workImageContainer">
             <h2>
               <p>2</p>
             </h2>
-            <!-- <img src="assets/images/createapp.svg" alt=""> -->
+            <!-- <img src="assets/images/createapp.svg" alt=""> --
           </div>
           <p>Create an Application</p>
         </a>
@@ -77,34 +79,38 @@
             <h2>
               <p>3</p>
             </h2>
-            <!-- <img src="assets/images/testthepp.svg" alt=""> -->
+            <!-- <img src="assets/images/testthepp.svg" alt=""> --
           </div>
           <p>Select the Application</p>
         </a>
         <div class="nextArrows">
           <img src="assets/images/nextarrows.svg" alt="" />
+        </div>-->
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,2)">
+            <div class="workImageContainer">
+              <!-- <img src="assets/images/testitout.svg" alt=""> -->
+              <h2>
+                <p>2</p>
+              </h2>
+            </div>
+            <p>Select API</p>
+          </a>
         </div>
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
-          <div class="workImageContainer">
-            <!-- <img src="assets/images/testitout.svg" alt=""> -->
-            <h2>
-              <p>4</p>
-            </h2>
-          </div>
-          <p>Test it Out</p>
-        </a>
-        <div class="nextArrows">
+        <div class="col-md-1 nextArrows">
           <img src="assets/images/nextarrows.svg" alt="" />
         </div>
-        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
-          <div class="workImageContainer">
-            <h2>
-              <p>5</p>
-            </h2>
-            <!-- <img src="assets/images/getcode.svg" alt=""> -->
-          </div>
-          <p>Get Sample Code</p>
-        </a>
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,3)">
+            <div class="workImageContainer">
+              <h2>
+                <p>3</p>
+              </h2>
+              <!-- <img src="assets/images/getcode.svg" alt=""> -->
+            </div>
+            <p> Test it Out</p>
+          </a>
+        </div>
       </div>
       <div class="row">
         <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" (click)="openModal2(signup)">SIGN UP</a>
@@ -256,6 +262,23 @@
             </div>
           </a>
         </div>
+
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="corporates(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/payment.svg" alt="" />
+              </div>
+              <h4>Corporate API Suite</h4>
+              <p>
+                We bring to you corporate API suite a bouquet of APIs selected specially to cater to the evolving needs
+                of corporate clients. We have come up with this assortment of APIs after carefuly studying the needs and
+                journey of the corporates. Please feel free to browse and choose from our thoughtful API offerings.
+              </p>
+            </div>
+          </a>
+        </div>
+
       </div>
       <div id="availableAPIs" class="owl-carousel owl-theme mb30">
         <div class="sectionAPICard availableAPICard">
@@ -333,6 +356,20 @@
             latest requirements of the market.
           </p>
         </div>
+
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/payment.svg" alt="" />
+          </div>
+          <h4>Corporate API Suite </h4>
+          <p>
+            We bring to you corporate API suite a bouquet of APIs selected specially to cater to the evolving needs
+            of corporate clients. We have come up with this assortment of APIs after carefuly studying the needs and
+            journey of the corporates. Please feel free to browse and choose from our thoughtful API offerings.
+         
+          </p>
+        </div>
+
       </div>
       <div class="row">
         <a class="signInBtn marginAutoHr mt15" (click)="browse_api(signin)">BROWSE ALL API</a>
@@ -430,7 +467,7 @@
                 The purpose of Shivaami is to bring positive change in the life of the people we connect by 
                 offering Solutions and Services which brings Profit and Happiness.
               <span  class="row" >
-                <span  class="container" >
+                <span  class="container mr-10" >
 
                   <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
 
@@ -457,16 +494,16 @@
               <p>
                 OASYS TECH Solutions is CMMI LEVEL III Certified with 250+ strength. We provide End-to-End Solutions Services for Digital Transformation in SAP, Microsoft & open source Technologies.
               <span  class="row" >
-                <span  class="container" >
+                <span  class="container mr-10" >
 
                   <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
 
                   (click) ="openFile('https://www.oasystspl.com?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Oasys')">Visit Oasys</button>
 
-                  <button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
+                  <!--<button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
 
                  
-                 >View Offer</button>
+                 >View Offer</button>-->
 
                 </span>
               </span>
@@ -483,24 +520,50 @@
               <p>
                 India SME Accelerator Network provides mentoring to individual business owners through a structured & methodical approach, to deal with their critical business challenges guided by industry experts in specialised domains.
               <span  class="row" >
-                <span  class="container" >
+                <span  class="container mr-10" >
 
                   <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
 
                   (click) ="openFile('https://www.indiasmeaccelerator.org/service/sme-business-consultancy-accelerator-cohort-programs/?utm_source=icici&utm_medium=icici%20bank%20website&utm_campaign=sme%20consultancy')">Visit ISAN</button>
 
-                  <button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
+                 <!-- <button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
 
                   
 
-                 >View Offer</button>
+                 >View Offer</button>-->
 
                 </span>
               </span>
             </div>
           </a>
         </div>
-      
+        <div class="col-md-3">
+          <a class="cursor tdNone" >
+            <div class="sectionAPICard availableAPICard">
+              <div style="margin-bottom: 30px;">
+                <img src="assets/images/infocus.jpg" alt="" class="img2"  />
+              </div>
+              <h4>Infocus</h4>
+              <p>
+                Infocus is SAP Gold Channel partner company, AWS Consulting Partner, CMMI Level 3 certified and DNV certified ISO 9001:2015 Company in the areas of Consulting, Staffing and Training.
+              <span  class="row" >
+                <span  class="container mr-10" >
+
+                  <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
+
+                  (click) ="openFile('https://infocus-in.com/?utm_source=ICICI%20Developer%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Infocus')">Visit Infocus</button>
+
+                 <!-- <button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
+
+                  (click) ="openFile('https://www.icicibank.com/offers/shivaami-offer.page')" 
+
+                 >View Offer</button>-->
+
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
       </div>
       <div id="availableAPIs" class="owl-carousel owl-theme mb30"  style="min-height: 300px;">
         <div class="sectionAPICard availableAPICard" >
@@ -512,7 +575,7 @@
             The purpose of Shivaami is to bring positive change in the life of the people we connect by 
             offering Solutions and Services which brings Profit and Happiness.
           <span  class="row" >
-            <span  class="container" >
+            <span  class="container mr-10" >
 
               <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
 
@@ -535,16 +598,16 @@
           <p>
             OASYS TECH Solutions is CMMI LEVEL III Certified with 250+ strength. We provide End-to-End Solutions Services for Digital Transformation in SAP, Microsoft & open source Technologies.
           <span  class="row" >
-            <span  class="container" >
+            <span  class="container mr-10" >
 
               <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
 
               (click) ="openFile('https://www.oasystspl.com?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Oasys')">Visit Oasys</button>
 
-              <button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
+              <!--<button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
 
              
-             >View Offer</button>
+             >View Offer</button>-->
 
             </span>
           </span>
@@ -557,22 +620,44 @@
           <p>
             India SME Accelerator Network provides mentoring to individual business owners through a structured & methodical approach, to deal with their critical business challenges guided by industry experts in specialised domains.
           <span  class="row" >
-            <span  class="container" >
+            <span  class="container mr-10" >
 
               <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
 
               (click) ="openFile('https://www.indiasmeaccelerator.org/service/sme-business-consultancy-accelerator-cohort-programs/?utm_source=icici&utm_medium=icici%20bank%20website&utm_campaign=sme%20consultancy')">Visit ISAN</button>
 
-              <button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
+              <!--<button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
 
               
 
-             >View Offer</button>
+             >View Offer</button>-->
 
             </span>
           </span>
         </div>
-       
+        <div class="sectionAPICard availableAPICard" >
+          <div  style="margin-bottom: 30px;">
+            <img src="assets/images/infocus.jpg"  alt="" class="img2"  />
+          </div>
+          <h4>Infocus</h4>
+          <p>
+            Infocus is SAP Gold Channel partner company, AWS Consulting Partner, CMMI Level 3 certified and DNV certified ISO 9001:2015 Company in the areas of Consulting, Staffing and Training.
+          <span  class="row" >
+            <span  class="container mr-10" >
+
+              <button type="button" class="btn btn-primary btn-sm mr-3"  style="font-size: 10px;"
+
+              (click) ="openFile('https://infocus-in.com/?utm_source=ICICI%20Developer%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Infocus')">Visit Infocus</button>
+
+            <!-- <button type="button" class="btn btn-primary btn-sm"  style="font-size: 10px;"
+
+              (click) ="openFile('https://www.icicibank.com/offers/shivaami-offer.page')" 
+
+             >View Offer</button>--> 
+
+            </span>
+          </span>
+        </div>
       </div>
      
     </section>
@@ -588,7 +673,7 @@
         <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)">I am interested</a>
       </div>
     </section>
-  <!--  <section class="sectionAPIs feedbackSection">
+  <!-- <section class="sectionAPIs feedbackSection">
       <form>
         <h3>Your <span>Feedback</span></h3>
         <p class="text-center mb50 fs16">
@@ -608,18 +693,25 @@
                <option value="">Select</option>
                <option value="Suggestion">Suggestion</option>
                <option value="Others">Others</option>
-            </select> -->
-      <!--   <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
+            </select> --
+        <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
           placeholder="Your Email" />
         <input class="w100p mb25" name="feedback_location_name" [(ngModel)]="feedback_location_name" type="text"
           placeholder="Location" />
         <textarea class="w100p mb35" name="feedback_email_text" [(ngModel)]="feedback_email_test"
           placeholder="Write your thoughts"></textarea>
+
+          <re-captcha (resolved)="resolved($event)" 
+              [(ngModel)]="recaptchaReactive" 
+              siteKey="6LdTXcQZAAAAAMdP1QX29StjawDrrdzRxhoWuHm7">  
+          </re-captcha>
+
         <div class="row">
           <a class="signInBtn marginAutoHr mb15" (click)="feedback_form_submit(signin)">Submit</a>
         </div>
       </form>
-    </section>-->
+    </section>
+  -->
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">
@@ -2981,32 +3073,31 @@
       close
     </button>
   </div>
-  <div class="modal-body">
-    <div class="row">
+  <div class="modal-body"  >
+    <div class="row md30">
       <div class="col-md-12 mb-xs-10">
         <form id="regForm" method="POST" name="regForm" action="">
           <div class="tab disp-block">
             <div class="tabContent">
               <ul class="breadcrumb">
-                <li>
-                  <a [ngStyle]="{ color: active }" (click)="HWI_link(1)">
+                <li >
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,1)" id ="tab1">
                     Sign up <i class="fa fa-angle-right"></i></a>
                 </li>
-                <li>
-                  <a [ngStyle]="{ color: active }" (click)="HWI_link(2)">
-                    Create an App <i class="fa fa-angle-right"></i></a>
+                <li >
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,2)" id ="tab2">
+                    Select API <i class="fa fa-angle-right"></i></a>
                 </li>
-                <li>
-                  <a [ngStyle]="{ color: active }" (click)="HWI_link(3)">Select App <i
-                      class="fa fa-angle-right"></i></a>
+                <li >
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,3)" id ="tab3">Test it Out </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a [ngStyle]="{ color: active }" (click)="HWI_link(4)">Test it Out <i
                       class="fa fa-angle-right"></i></a>
-                </li>
-                <li>
+                </li> -->
+                <!-- <li>
                   <a [ngStyle]="{ color: active }" (click)="HWI_link(5)">Get Sample Code</a>
-                </li>
+                </li> -->
               </ul>
               <div class="row mb30" *ngIf="showTab == '1'">
                 <div class="col-md-12 mb-xs-10">
@@ -3015,32 +3106,32 @@
                     step 2. Else follow the steps to create an account
                   </h6>
                   <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#1</span>Go to our
+                    <span class="stepNumber stepNumber mr-1">Step 1:</span>Go to our
                     sign-up page.
                   </h6>
                 </div>
-                <div class="col-md-6">
-                  <p>a. Enter your Credentials.</p>
-                  <img src="assets/images/SignUp1.png" class="frame" width="100%" />
+                <div ><br>
+                  <p style="font-size: 13px;">a. Enter your Credentials.</p>
+                  <img src="assets/images/SignUp1.png" class="frame" width="100%"  />
                 </div>
-                <div class="col-md-6">
-                  <p>b. Verify your Mobile Number.</p>
+                <div ><br>
+                  <p style="font-size: 13px;">b. Verify your Mobile Number.</p>
                   <img src="assets/images/SignUp2.png" class="frame" width="100%" />
                 </div>
-                <div class="col-md-6">
-                  <p>c. Create Username and Password</p>
+                <div ><br>
+                  <p style="font-size: 13px;">c. Create Username and Password</p>
                   <img src="assets/images/SignUp3.png" class="frame" width="100%" />
                   <br /><br />
-                </div>
+                </div><br>
                 <div class="col-md-12 mb-xs-10">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#2</span>Complete
+                  <h6 class="fs12 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Complete
                     the registration by entering your details and create an
                     account.
                   </h6>
                   <br />
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#3</span>
+                  <h6 class="fs12 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step 3:</span>
                     When authorized, an email will be sent to your registered
                     email-id with a link to activate your account by logging in.
                     You now have access to your dashboard. From here you can
@@ -3049,82 +3140,44 @@
                 </div>
               </div>
               <div class="row mb30" *ngIf="showTab == '2'">
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#1</span>In your
-                    Dashboard, click Applications tab.
+                <div >
+                  <h6 class="fs12 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step 1:</span>In order to select an API, go to the Documentation
+                    page.The left-hand side navigation pane consists of all the APIs in a hierarchial tree structure.
                   </h6>
-                  <img src="assets/images/AddApplication.png" class="frame" width="100%" />
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#2</span>If there
-                    are no applications, you have to create an Application first
-                    to test the fuctionalities of APIs by adding them in the
-                    Application.
+                <br>
+                <div >
+                  <h6 class="fs12 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step 2:</span>On clicking a selected API, the details related to it (such as Input/Output parameters, Sample packets etc) will be populated on the main screen.
                   </h6>
-                  <img src="assets/images/CreateApplication.png" class="frame" width="100%" />
-                </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#3</span>In the
-                    Application Information tab; you have to specify your
-                    application's name and on which platform your application is
-                    going to be running.
+                  <img src="assets/images/image11.png" class="frame " width="100%"  />
+                </div><br>
+                <div >
+                  <h6 class="fs12 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step :3</span>By clicking the Test API button at the bottom right, you can test how the API will respond in a simulated live environment.
                   </h6>
-                  <img src="assets/images/CreateApplication1.png" class="frame" width="100%" />
+                 
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#4</span>In API
-                    Management tab; you will choose the API(s) that you are
-                    going to be using in your application.
-                  </h6>
-                  <img src="assets/images/SelectAPI.png" class="frame" width="100%" />
-                </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#5</span>In the
-                    Auth tab; fields are optional.
-                  </h6>
-                  <img src="assets/images/Authentication.png" class="frame" width="100%" />
-                </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#6</span>After you
-                    click Save button, you will see your application in the
-                    Applications tab.
-                  </h6>
-                  <img src="assets/images/ViewApplication.png" class="frame" width="100%" />
-                </div>
+                
+                
               </div>
               <div class="row mb30" *ngIf="showTab == '3'">
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#1</span>In our API
-                    Explorer page, you can test the APIs using your API Key/Api
-                    Secret. You can also test any API in documentation
-                    page.Select application you created
+                <div >
+                  <h6 class="fs12 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step 1:</span>On Clicking the Test API button, a pop-up is opened. This pop-up is prepopulated with a sample request packet as shown in the image. The user can select the content type from the content type dropdown.
                   </h6>
-                  <img src="assets/images/sandbox.png" class="frame" width="100%" />
+                  <img src="assets/images/image22.png" class="frame" width="100%" />
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#2</span>Select
-                    Service Authentication as API Key.Corresponding fields
-                    should be filled automatically.
+                <div ><br>
+                  <h6 class="fs12 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Once the sample request packet is loaded, on clicking Test button at the bottom right of the pop-up, the response packet is returned as shown in the image.
                   </h6>
-                  <img src="assets/images/sandboxAPIkey.png" class="frame" width="100%" />
+                  <img src="assets/images/image33.png" class="frame" width="100%" />
                 </div>
-                <div class="col-md-6 mb30">
-                  <h6 class="fs14 pt8">
-                    <span class="stepNumber stepNumber mr-1">#3</span>You should
-                    add your API Key with Add Parameter option.
-                  </h6>
-                  <img src="assets/images/paramterapiKey.png" class="frame" width="100%" />
-                </div>
+                
               </div>
-              <div class="row mb30" *ngIf="showTab == '4'">
+              <!-- <div class="row mb30" *ngIf="showTab == '4'">
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
                     <span class="stepNumber stepNumber mr-1">#1</span>Once the
@@ -3135,8 +3188,8 @@
                   </h6>
                   <img src="assets/images/TryitOut.png" class="frame" width="100%" />
                 </div>
-              </div>
-              <div class="row mb30" *ngIf="showTab == '5'">
+              </div> -->
+              <!-- <div class="row mb30" *ngIf="showTab == '5'">
                 <div class="col-md-6 mb30">
                   <h6 class="fs14 pt8">
                     <span class="stepNumber stepNumber mr-1">#1</span>Once you
@@ -3146,7 +3199,7 @@
                   </h6>
                   <img src="assets/images/sampleCode.png" class="frame" width="100%" />
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </form>

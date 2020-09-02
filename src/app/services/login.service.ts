@@ -860,6 +860,10 @@ getTestCases(json) {
   let options = new RequestOptions({ headers: headers });
   return this.http.post(this.UAT_apiUrl + "createTxHistory", query, options);
 }
+
+sendToken(token){
+  return this.http.post("http://localhost:3000/token_validate", {recaptcha: token})
+}
  
 
 }

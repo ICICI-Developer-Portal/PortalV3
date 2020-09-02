@@ -725,3 +725,9 @@ body {
     top: 100% !important;
   }
 } */
+
+.modal-content {
+  padding: 14px;
+  width: 80%;
+}
+

@@ -1364,6 +1364,7 @@ transform: rotate(180deg);
   padding-right: 15px;
   position: relative;
   height: 50px;
+  top:20px;
 }
 .workImageContainer {
   height: 50px;
@@ -2030,6 +2031,9 @@ table.possibleErrorTable tbody tr td p {
   font-size: 14px;
   font-family: Poppins-Regular;
   margin-right: 15px;
+}
+.breadcrumb li a.active {
+  color: #ae282e !important;
 }
 .breadcrumb a i {
   margin-left: 15px;
@@ -3542,8 +3546,12 @@ color: #ae282e;
  
   min-height: 300px;
 }
-
-
+#partners .mr-10 {
+  margin-top: 10px;
+}
+.pdl-0 {
+padding-left:0px ;
+}
 
   @media screen and (max-width: 240px) {
     .documentTabContent {

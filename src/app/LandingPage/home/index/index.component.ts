@@ -985,11 +985,25 @@ export class IndexComponent implements OnInit {
     }
   }
 
-  HowItWork(modal_hwi: any) {
+  HowItWork(modal_hwi: any,id) {
     this.modalRef = this.modalService.show(modal_hwi, {
       backdrop: "static",
       class: "modal-lg"
     });
+    try {
+      this.showTab = id;
+    //this.active ='#F06321';
+   
+    $('ul.breadcrumb li a').removeClass('active');
+    $('ul.breadcrumb li a').removeClass('show');
+    //$('ul.breadcrumb').find('#tab'+id).first().addClass('active');
+    $('#tab'+id).addClass('active');
+    $('#tab'+id).addClass('show');
+   //$(e.target).addClass('show');
+      
+    } catch (e) {
+
+    }
   }
 
   browse_api(signin: any) {
@@ -1072,7 +1086,7 @@ export class IndexComponent implements OnInit {
     //alert(Email);
   }
 
-  show_build(signin: any) {
+  /*show_build(signin: any) {
     if (localStorage.getItem("id") != null) {
       this.router.navigate(["/buildingblock"]);
     } else {
@@ -1120,6 +1134,68 @@ export class IndexComponent implements OnInit {
     }
   }
 
+  corporates(signin: any) {
+    if (localStorage.getItem("id") != null) {
+      this.router.navigate(["/corporate"]);
+    } else {
+      this.browse_api(signin);
+    }
+  }
+*/
+show_build(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/1"]);
+  } else {
+    this.modalRef = this.modalService.show(signin, { backdrop: "static" });
+  }
+}
+
+loans(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/30"]);
+  } else {
+    this.modalRef = this.modalService.show(signin, { backdrop: "static" });
+  }
+}
+
+account(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/209"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+
+payment(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/104"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+
+corporate(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/247"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+
+commercial(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/292"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
+corporates(signin: any) {
+  if (localStorage.getItem("id") != null) {
+    this.router.navigate(["/rootdetails/370"]);
+  } else {
+    this.browse_api(signin);
+  }
+}
   Hide_signbtn() {
     if (!localStorage.getItem("id")) {
       this.hideSignupbtn1 = true;
@@ -2035,9 +2111,15 @@ export class IndexComponent implements OnInit {
     this.router.navigate(["/documentation"]);
   }
 
-  HWI_link(id) {
+  HWI_link(e,id) {
     this.showTab = id;
     //this.active ='#F06321';
+   
+    $('ul.breadcrumb li a').removeClass('active');
+    $('ul.breadcrumb li a').removeClass('show');
+   $(e.target).addClass('active');
+   $(e.target).addClass('show');
+    
   }
 
   onChangeAccountNum(event) {
@@ -2134,6 +2216,24 @@ export class IndexComponent implements OnInit {
     }
   
   }  
+ //function to resolve the reCaptcha and retrieve a token
+async resolved(captchaResponse: string, res) {
+  console.log(`Resolved response token: ${captchaResponse}`);
+  await this.sendTokenToBackend(captchaResponse); //declaring the token send function with a token parameter
+}
+//function to send the token to the node server
+sendTokenToBackend(tok){
+  //calling the service and passing the token to the service
+  this.adm.sendToken(tok).subscribe(
+    data => {
+      console.log(data)
+    },
+    err => {
+      console.log(err)
+    },
+    () => {}
+  );
+}
 
   
 }
