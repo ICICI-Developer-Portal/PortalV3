@@ -986,11 +986,25 @@ export class IndexComponent implements OnInit {
     }
   }
 
-  HowItWork(modal_hwi: any) {
+  HowItWork(modal_hwi: any,id) {
     this.modalRef = this.modalService.show(modal_hwi, {
       backdrop: "static",
       class: "modal-lg"
     });
+    try {
+      this.showTab = id;
+    //this.active ='#F06321';
+   
+    $('ul.breadcrumb li a').removeClass('active');
+    $('ul.breadcrumb li a').removeClass('show');
+    //$('ul.breadcrumb').find('#tab'+id).first().addClass('active');
+    $('#tab'+id).addClass('active');
+    $('#tab'+id).addClass('show');
+   //$(e.target).addClass('show');
+      
+    } catch (e) {
+
+    }
   }
 
   browse_api(signin: any) {
@@ -2105,9 +2119,15 @@ corporates(signin: any) {
     this.router.navigate(["/documentation"]);
   }
 
-  HWI_link(id) {
+  HWI_link(e,id) {
     this.showTab = id;
     //this.active ='#F06321';
+   
+    $('ul.breadcrumb li a').removeClass('active');
+    $('ul.breadcrumb li a').removeClass('show');
+   $(e.target).addClass('active');
+   $(e.target).addClass('show');
+    
   }
 
   onChangeAccountNum(event) {
@@ -2204,7 +2224,24 @@ corporates(signin: any) {
     }
   
   }  
-  
+ //function to resolve the reCaptcha and retrieve a token
+async resolved(captchaResponse: string, res) {
+  console.log(`Resolved response token: ${captchaResponse}`);
+  await this.sendTokenToBackend(captchaResponse); //declaring the token send function with a token parameter
+}
+//function to send the token to the node server
+sendTokenToBackend(tok){
+  //calling the service and passing the token to the service
+  this.adm.sendToken(tok).subscribe(
+    data => {
+      console.log(data)
+    },
+    err => {
+      console.log(err)
+    },
+    () => {}
+  );
+}
 
   
 }
