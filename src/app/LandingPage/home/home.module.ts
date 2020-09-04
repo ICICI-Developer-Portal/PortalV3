@@ -29,7 +29,6 @@ import {
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 import { FocusOnShowDirective } from './autofocus.directive';
-import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
   imports: [
     CommonModule,
@@ -45,9 +44,7 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     AngularMultiSelectModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule,
-    RecaptchaModule,
-    RecaptchaFormsModule
+    MatInputModule
   ],
 
   declarations: [

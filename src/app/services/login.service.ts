@@ -763,11 +763,22 @@ getDocDetails(json) {
 // Get MIS   download 
  
 getMisFile(json) {
-  
+  //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
+  //UAT_apiUrl
+  /*let query = "";
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  if(json && json.userName && json.fileDate){
+    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
+  }
+  return this.http.get(this.apiUrl +"getMisFile?"+query,{ responseType: ResponseContentType.Blob });
+  */ 
  let query = "";
  if(json && json.userName && json.fileDate){
   query = "fileDate="+ json.fileDate;
-  } 
+}
  
  let headers = new Headers({
    "Content-Type": "application/x-www-form-urlencoded",
@@ -775,20 +786,10 @@ getMisFile(json) {
    "username" :json.userName,
  });
  let options = new RequestOptions({ headers: headers });
+ console.log("mis query is =="+ JSON.stringify(query));
+ console.log("mis header is =="+ JSON.stringify(options));
  return this.http.post(this.apiUrl + "getMisFile", query, options);
-
-/*let query = "";
-if(json && json.userName && json.fileDate){
- query = "fileDate=25-June-20";
- } 
-
-let headers = new Headers({
-  "Content-Type": "application/x-www-form-urlencoded",
-  "Token" : "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaHVrdW1hcjAzMDkiLCJpYXQiOjE1OTAxNzQyNTUsInN1YiI6IkpXVCBUT2tlbiBmb3IgRGV2ZWxvcGVyIHBvcnRhbCIsImlzcyI6IklDSUNJIERldmVsb3BlciBwb3J0YWwiLCJleHAiOjMxODAzNDg1MTF9.v0qnqdzNBLSFPhqS9Zza0igW2Ppl2oXUS2UXy4q58OY",
-  "username" :"priyanshukumar0309",
-});
-let options = new RequestOptions({ headers: headers });
-return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);*/
+ 
 }
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
@@ -805,64 +806,6 @@ test_apiJSON(requestParam,apiName) {
   });
   let options = new RequestOptions({ headers: headers });
   return this.http.post(apiName , query, options);
-}
-// test_apiXML(requestParam,apiName) {
-  
-//   let headers = new Headers({
-//     "Content-Type": "text/xml"
-//   });
-//   let options = new RequestOptions({ headers: headers });
-//   return this.http.post(apiName , requestParam, options);
-// }
-
-
-// getTestCases(json) {
-  
-//   let query = "";
-//   if(json && json.apiId){
-//    query = "apiId="+ json.apiId;
-//    } 
-  
-//   let headers = new Headers({
-//     "Content-Type": "application/x-www-form-urlencoded",
-//     "Token" : localStorage.getItem("jwt"),
-//     "username" :localStorage.getItem("username"),
-//   });
-//   let options = new RequestOptions({ headers: headers });
-//   return this.http.post(this.UAT_apiUrl + "getTestCase", query, options);
-  
-//  }
-
- getTransactionHistory() {
-  let query = "";
-  let headers = new Headers({
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Token" : localStorage.getItem("jwt"),
-    "username" :localStorage.getItem("username"),
-  });
-  let options = new RequestOptions({ headers: headers });
-  return this.http.post(this.UAT_apiUrl + "getTxHistory", query, options);
-  
- }
-
- createTransactionHistory(requestParam) {
-  let query = "";
-  let key;
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
-  }
-  let headers = new Headers({
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Token" : localStorage.getItem("jwt"),
-    "userName" :localStorage.getItem("username"),
-  });
-  let options = new RequestOptions({ headers: headers });
-  return this.http.post(this.UAT_apiUrl + "createTxHistory", query, options);
-}
-
-sendToken(token){
-  return this.http.post("http://localhost:3000/token_validate", {recaptcha: token})
 }
  
 test_apiXML(requestParam,apiName) {
