@@ -185,7 +185,7 @@
 
 
                                                 <!-- ================-->
-                                                <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+                                                <form (ngSubmit)="onSubmit(myForm)" autocomplete="off" #myForm="ngForm">
                                                     <div class="table-responsive sanboxTable">
                                                         <table class="table table-bordered table-hover col-md-12">
                                                             <tbody>
@@ -229,7 +229,7 @@
 
                                             <div class="tab-pane fade  show active" id="nav-profile" role="tabpanel"
                                                 aria-labelledby="nav-profile-tab">
-                                                <form (ngSubmit)="onSubmitBody(bodyForm)" #bodyForm="ngForm" class="row"> 
+                                                <form (ngSubmit)="onSubmitBody(bodyForm)" autocomplete="off" #bodyForm="ngForm" class="row"> 
                                                     <div class="form-group col-md-6">
                                                         <p class="mb-1 mt-3 bold">Select Content Type:</p>
                                                         <span class="custom-dropdown">

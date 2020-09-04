@@ -3553,6 +3553,24 @@ color: #ae282e;
 padding-left:0px ;
 }
 
+.prev-left{
+  font-size: 50px;
+  color: #ae282e;
+
+}
+.prev-right{
+  font-size: 50px;
+  color: #ae282e;
+  float: right;
+
+}
+.controls-top{
+  position: relative !important;
+    top: 182px !important;
+    z-index: 99 !important;
+}
+
+
   @media screen and (max-width: 240px) {
     .documentTabContent {
       top: 59px;

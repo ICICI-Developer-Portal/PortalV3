@@ -144,7 +144,7 @@ downloadCertificate(url) {
       this.spinnerService.hide();
       let response = JSON.parse(data._body);
      // console.log(JSON.stringify(response));
-      if(response && response.status_code==200){
+      if(response && response.status_code==200 && response.data !== null && response.data !== ''){
         let csvData = response.data;
         this.downloadCSV(csvData,response.fileName);
       }

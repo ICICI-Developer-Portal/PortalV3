@@ -673,8 +673,9 @@
         <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)">I am interested</a>
       </div>
     </section>
-  <!-- <section class="sectionAPIs feedbackSection">
-      <form>
+
+  <section class="sectionAPIs feedbackSection">
+      <form autocomplete="off">
         <h3>Your <span>Feedback</span></h3>
         <p class="text-center mb50 fs16">
           Write to us if you have any suggestions related to APIs
@@ -693,25 +694,25 @@
                <option value="">Select</option>
                <option value="Suggestion">Suggestion</option>
                <option value="Others">Others</option>
-            </select> --
+            </select> -->
         <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
           placeholder="Your Email" />
         <input class="w100p mb25" name="feedback_location_name" [(ngModel)]="feedback_location_name" type="text"
           placeholder="Location" />
         <textarea class="w100p mb35" name="feedback_email_text" [(ngModel)]="feedback_email_test"
           placeholder="Write your thoughts"></textarea>
-
+         
           <re-captcha (resolved)="resolved($event)" 
               [(ngModel)]="recaptchaReactive" 
               siteKey="6LdTXcQZAAAAAMdP1QX29StjawDrrdzRxhoWuHm7">  
           </re-captcha>
-
+         <br>
         <div class="row">
           <a class="signInBtn marginAutoHr mb15" (click)="feedback_form_submit(signin)">Submit</a>
         </div>
       </form>
     </section>
-  -->
+
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">
@@ -1271,7 +1272,7 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content tab-content1">
-      <form [formGroup]="signupForm" [hidden]="!shfrmSFFirst">
+      <form [formGroup]="signupForm" autocomplete="off" [hidden]="!shfrmSFFirst">
         <input type="hidden" name="otp_verified" formControlName="otp_verified" class="input-login" #otp_verified />
         <div class="tab-pane">
           <div class="row mb20">
@@ -1390,7 +1391,7 @@
           </ul>
         </div>
       </form>
-      <form [formGroup]="signupForm2" [hidden]="!shfrmSFSecond">
+      <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
@@ -1459,7 +1460,7 @@
         </div>
       </form>
 
-      <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
+      <form [formGroup]="signupForm3" autocomplete="off" [hidden]="!shfrmSFThird">
 
         
 
@@ -1630,7 +1631,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+    <form name="myform" autocomplete="off" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
@@ -1773,7 +1774,7 @@
         <a [ngStyle]="{ color: shfrmUATThird ? '#f06321' : '#919191' }" href="javascript:;">Whitelist IP</a>
       </li>
     </ul>
-    <form #frmUATFirst="ngForm" nonvalidate [hidden]="!shfrmUATFirst">
+    <form #frmUATFirst="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmUATFirst">
       <div [hidden]="frmUATFirst.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -1847,7 +1848,7 @@
         </div>
       </div>
     </form>
-    <form #frmUATSecond="ngForm" nonvalidate *ngIf="shfrmUATSecond">
+    <form #frmUATSecond="ngForm" autocomplete="off" nonvalidate *ngIf="shfrmUATSecond">
       <div [hidden]="frmUATSecond.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -2235,7 +2236,7 @@
         </div>
       </div>
     </form>
-    <form #frmUATThird="ngForm" nonvalidate [hidden]="!shfrmUATThird">
+    <form #frmUATThird="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmUATThird">
       <div [hidden]="frmUATThird.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -2564,7 +2565,7 @@
             class="fa fa-angle-right"></i></a>
       </li>
     </ul>
-    <form #frmProdFirst="ngForm" nonvalidate [hidden]="!shfrmProdFirst">
+    <form #frmProdFirst="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdFirst">
       <div [hidden]="frmProdFirst.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -2630,7 +2631,7 @@
         </div>
       </div>
     </form>
-    <form #frmProdSecond="ngForm" nonvalidate [hidden]="!shfrmProdSecond">
+    <form #frmProdSecond="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdSecond">
       <div [hidden]="frmProdSecond.submitted">
         <div class="tabProdEnvironment">
           <div class="tabContent">
@@ -2661,7 +2662,7 @@
         </div>
       </div>
     </form>
-    <form #frmProdThird="ngForm" nonvalidate [hidden]="!shfrmProdThird">
+    <form #frmProdThird="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdThird">
       <div [hidden]="frmProdthird.submitted">
         <div class="tabProdEnvironment">
           <div class="tabContent">
@@ -2733,7 +2734,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form id="regForm" method="POST" name="regForm" action="">
+    <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-10">
           <div><label for="contactPerson">Full Name</label></div>
@@ -2857,7 +2858,7 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-md-12 mb-xs-10">
-        <form id="regForm" method="POST" name="regForm" action="">
+        <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
           <div class="tab disp-block">
             <div class="tabContent">
               <ul class="breadcrumb">
@@ -3076,7 +3077,7 @@
   <div class="modal-body"  >
     <div class="row md30">
       <div class="col-md-12 mb-xs-10">
-        <form id="regForm" method="POST" name="regForm" action="">
+        <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
           <div class="tab disp-block">
             <div class="tabContent">
               <ul class="breadcrumb">
@@ -3124,56 +3125,83 @@
                   <br /><br />
                 </div><br>
                 <div class="col-md-12 mb-xs-10">
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Complete
-                    the registration by entering your details and create an
-                    account.
-                  </h6>
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                     </h6>
+                     <h6 class="col-md-10 pdl-0">
+                     <p class="fs12 color-black ">Complete
+                      the registration by entering your details and create an
+                      account.</p>
+                     </h6>
+                  </div>
                   <br />
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 3:</span>
-                    When authorized, an email will be sent to your registered
-                    email-id with a link to activate your account by logging in.
-                    You now have access to your dashboard. From here you can
-                    create and configure your apps.
-                  </h6>
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 3:</span>
+                     </h6>
+                     <h6 class="col-md-10 pdl-0">
+                     <p class="fs12 color-black ">When authorized, an email will be sent to your registered
+                      email-id with a link to activate your account by logging in.
+                      You now have access to your dashboard. From here you can
+                      create and configure your apps.</p>
+                     </h6>
+                  </div>
                 </div>
               </div>
               <div class="row mb30" *ngIf="showTab == '2'">
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 1:</span>In order to select an API, go to the Documentation
-                    page.The left-hand side navigation pane consists of all the APIs in a hierarchial tree structure.
-                  </h6>
-                </div>
-                <br>
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 2:</span>On clicking a selected API, the details related to it (such as Input/Output parameters, Sample packets etc) will be populated on the main screen.
-                  </h6>
-                  <img src="assets/images/image11.png" class="frame " width="100%"  />
-                </div><br>
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step :3</span>By clicking the Test API button at the bottom right, you can test how the API will respond in a simulated live environment.
-                  </h6>
-                 
-                </div>
+                <div class="col-md-12 mb-xs-10">
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 1:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                    <p class="fs12 color-black ">In order to select an API, go to the Documentation
+                      page.The left-hand side navigation pane consists of all the APIs in a hierarchial tree structure.</p>
+                    </h6>
+                  </div>
                 
+                    <div class="row mb30">
+                      <h6 class="fs12 color-black ">
+                        <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                      </h6>
+                      <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">On clicking a selected API, the details related to it (such as Input/Output parameters, Sample packets etc) will be populated on the main screen.</p>
+                      </h6>
+                      <img src="assets/images/image11.png" class="frame " width="100%"  />
+                    </div>
                 
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 3:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                    <p class="fs12 color-black ">By clicking the Test API button at the bottom right, you can test how the API will respond in a simulated live environment.</p>
+                    </h6>
+                  </div>
+                </div>
               </div>
               <div class="row mb30" *ngIf="showTab == '3'">
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 1:</span>On Clicking the Test API button, a pop-up is opened. This pop-up is prepopulated with a sample request packet as shown in the image. The user can select the content type from the content type dropdown.
-                  </h6>
-                  <img src="assets/images/image22.png" class="frame" width="100%" />
-                </div>
-                <div ><br>
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Once the sample request packet is loaded, on clicking Test button at the bottom right of the pop-up, the response packet is returned as shown in the image.
-                  </h6>
-                  <img src="assets/images/image33.png" class="frame" width="100%" />
+
+                <div class="col-md-12 mb-xs-10">
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 1:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                    <p class="fs12 color-black ">On Clicking the Test API button, a pop-up is opened. This pop-up is prepopulated with a sample request packet as shown in the image. The user can select the content type from the content type dropdown.</p>
+                    </h6>
+                    <img src="assets/images/image22.png" class="frame" width="100%" />
+                  </div>
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                    <p class="fs12 color-black ">Once the sample request packet is loaded, on clicking Test button at the bottom right of the pop-up, the response packet is returned as shown in the image.</p>
+                    </h6>
+                    <img src="assets/images/image33.png" class="frame" width="100%" />
+                  </div>
                 </div>
                 
               </div>

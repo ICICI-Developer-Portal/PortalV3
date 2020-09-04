@@ -178,6 +178,8 @@ export class IndexComponent implements OnInit {
   companyNamesDetails: any;
   companyNames: any;
   errorMsg:any = "Something went wrong. Please try again in some time.";
+  recaptchaReactive: any;
+  recaptchaFlag: boolean = false;
 
   constructor(
     private http: Http,
@@ -857,7 +859,7 @@ export class IndexComponent implements OnInit {
   signup_jira() {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     var json = {
-      userName: this.signupForm3.value.username,
+      userName: this.signupForm3.value.uname,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
       lastName: this.signupForm.value.firstname,

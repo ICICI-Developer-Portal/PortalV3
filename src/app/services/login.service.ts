@@ -153,7 +153,12 @@ export class LoginService {
     var key;
     var query = "";
     // for (key in data) { query += encodeURIComponent(key)+"="+encodeURIComponent(data[key])+"&"; }
-    let headers = new Headers({ "Content-Type": "application/json" });
+   // let headers = new Headers({ "Content-Type": "application/json" });
+   let headers = new Headers({
+    "Content-Type": "application/json",
+    "Token" : localStorage.getItem("jwt"),
+    "username":localStorage.getItem('username')
+  });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
       "https://developer.icicibank.com/rest/doc/save-portal-details ",
@@ -775,7 +780,7 @@ getMisFile(json) {
    "username" :json.userName,
  });
  let options = new RequestOptions({ headers: headers });
- return this.http.post(this.apiUrl + "getMisFile", query, options);
+ return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);
 
 /*let query = "";
 if(json && json.userName && json.fileDate){
@@ -801,7 +806,8 @@ test_api(requestParam,apiName) {
       encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
   }
   let headers = new Headers({
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "apikey":"f219f506-1079-4c76-8ea6-439774f96265"
   });
   let options = new RequestOptions({ headers: headers });
   return this.http.post(apiName , query, options);
@@ -809,7 +815,8 @@ test_api(requestParam,apiName) {
 test_apiXML(requestParam,apiName) {
   
   let headers = new Headers({
-    "Content-Type": "text/xml"
+    "Content-Type": "text/xml",
+    "apikey":"f219f506-1079-4c76-8ea6-439774f9626"
   });
   let options = new RequestOptions({ headers: headers });
   return this.http.post(apiName , requestParam, options);
@@ -862,7 +869,8 @@ getTestCases(json) {
 }
 
 sendToken(token){
-  return this.http.post("http://localhost:3000/token_validate", {recaptcha: token})
+
+  return this.http.post(this.apiUrl + "tokenValidate", {'g-recaptcha-reponse': token})
 }
  
 
