@@ -291,7 +291,7 @@ button.toast-close-button {
 /* toaster end */
 .modal-content {
   padding: 14px;
-  width: 80%;
+  /* width: 80%; */
 }
 
 .signIn {

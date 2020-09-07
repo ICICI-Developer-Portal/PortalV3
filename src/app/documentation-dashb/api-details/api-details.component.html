@@ -215,6 +215,53 @@
                                                                     </td>
 
                                                                 </tr>
+                                                                <tr>
+                                                                    <td>
+
+                                                                        <div class="form-group form-inline">Key :
+                                                                            &nbsp;&nbsp;
+                                                                            <input type="text" name="key"
+                                                                                class="form-control" placeholder="Priority"
+                                                                              
+                                                                                 readonly >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group form-inline">
+                                                                            Value : &nbsp;&nbsp;
+                                                                            <input type="text" name="value" value="000111"
+                                                                                class="form-control" placeholder="000111">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td> 
+                                                                    </td>
+
+                                                                </tr>
+
+
+                                                                <!-- <tr>
+                                                                    <td>
+
+                                                                        <div class="form-group form-inline">Key :
+                                                                            &nbsp;&nbsp;
+                                                                            <input type="text" name="key"
+                                                                                class="form-control"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="" readonly [ngModel]="obj.key">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group form-inline">
+                                                                            Value : &nbsp;&nbsp;
+                                                                            <input type="text" name="value"
+                                                                                class="form-control" placeholder=""
+                                                                                [ngModel]="obj.value">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+
+                                                                </tr> -->
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -252,7 +299,7 @@
                                                         I'm the menu. Click outside to close me
                                                         </div>
                                                         </div> -->
-                                                        <div *ngIf="idForClickedTab=='601'">
+                                                        <div *ngIf="testApiresponseFor601">
                                                             <label class="mb-1 mt-3 bold">Test Case :</label>
                                                             <!-- <input id="check01" type="checkbox" name="menu" value="" /> -->
                                                             <label #toggleButton (click)="toggleMenu($event)" for="check01" class="mb-1 custom-select-box">
@@ -343,12 +390,14 @@
                                                             [disabled]="!testApiResData.length>0"
                                                             (click)="createTransactionHistory(bodyForm)">Callback
                                                             Response</button> -->
+                                                            <div *ngIf="ApiSubDomain =='Eazypay'">
                                                         <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
                                                             href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
                                                             (click)="createTransactionHistory(bodyForm)">
                                                             Callback
                                                             Response</button>
+                                                            </div>
 
 
                                                     </div>
@@ -362,7 +411,7 @@
                                 </div>
                                 <div class="modal fade" id="myModal2">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content"  >
                                             <!-- <div class="modal-header"> -->
                                             <div>
                                                 <button type="button" class="close" data-dismiss="modal"

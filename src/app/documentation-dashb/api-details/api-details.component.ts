@@ -31,6 +31,7 @@ export class ApiDetailsComponent implements OnInit {
   dataArray=[];
   selectedType : string;
   ApiDomain: any;
+  ApiSubDomain : any
   frmUATFirst: FormGroup;
   typeSelected :string;
   type: "JSON";
@@ -128,6 +129,7 @@ export class ApiDetailsComponent implements OnInit {
         key :"API key",
         value:"f219f506-1079-4c76-8ea6-439774f96265"
       }
+      
     )
     this.sandBoxForm = {
      
@@ -195,7 +197,11 @@ removeheader(i: number) {
         var response= data._body;
         if(response) {
           var obj=JSON.parse(response);
+          console.log(obj)
           this.ApiDomain =obj.ApiData.ApiDomain;
+          this.ApiSubDomain = obj.ApiData.ApiSubDomain;
+          console.log( this.ApiSubDomain)
+
           this.ApiName =obj.ApiData.ApiName;
           this.ApiDesc =obj.ApiData.ApiDesc;
           this.SandboxUrl ="https://developerapi.icicibank.com:8443/"+obj.ApiData.SandboxUrl;
