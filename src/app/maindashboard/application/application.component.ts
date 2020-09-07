@@ -118,7 +118,8 @@ export class ApplicationComponent implements OnInit {
   toastrmsg(type ,title) {
     var toast: Toast = {
       type: type,
-      title:title,
+      title:"",
+      body: title,
       showCloseButton: true 
     }; 
     this.toasterService.pop(toast);
@@ -184,7 +185,8 @@ export class ApplicationComponent implements OnInit {
         },
         err => {
           console.log('err', err);
-          this.router.navigate(['error']);
+        //  this.router.navigate(['error']);
+          this.toastrmsg('error',"Something went wrong. Please try again in some time.");
         },
       );
   }
@@ -250,7 +252,8 @@ export class ApplicationComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong. Please try again in some time.");
       },
     );
 }
@@ -276,7 +279,8 @@ export class ApplicationComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },
   );
 }
@@ -346,7 +350,8 @@ saveAddAppl_Edit(call_back_url:any,scope:any){
      },
      err => {
        console.log('err', err);
-       this.router.navigate(['error']);
+     //  this.router.navigate(['error']);
+       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
      },
        
   );  
@@ -418,7 +423,8 @@ saveAddAppl(call_back_url:any,scope:any){
      },
      err => {
        console.log('err', err);
-       this.router.navigate(['error']);
+     //  this.router.navigate(['error']);
+       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
      },
        
   );  
@@ -482,7 +488,8 @@ saveTab2(selecteddata:any=[])
        },
        err => {
          console.log('err', err);
-         this.router.navigate(['error']);
+        // this.router.navigate(['error']);
+         this.toastrmsg('error',"Something went wrong. Please try again in some time.");
        },
     );  
   } 

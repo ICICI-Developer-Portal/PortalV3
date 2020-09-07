@@ -26,7 +26,8 @@ import { DownloadComponent } from './download/download.component';
 import { MisComponent } from './mis/mis.component';
 import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FocusOnShowDirective } from './autofocus.directive';
+import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
    
 @NgModule({
     imports: [
@@ -64,7 +65,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         OnboardingrequestsComponent,
         UATonboardingDashboardPageSidebarComponent,
         DownloadComponent,
-        MisComponent
+        MisComponent,
+        FocusOnShowDirective,
+        NestedListFilterPipePipe
         
     ],
 

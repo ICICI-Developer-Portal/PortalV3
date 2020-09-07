@@ -26,16 +26,30 @@
  
       <div class="col-md-12 text-right">
         <hr />
+        <a 
+        *ngIf="faq"
+        data-toggle="modal"
+        data-target="#faq"
+        class="tryItFreeBtn"
+        >{{ constants.FAQ }}</a
+      >
         <a
           data-toggle="modal"
           data-target="#viewFlow"
           class="tryItFreeBtn"
           >{{ constants.VIEW_FLOW }}</a
         >
-        <a
+        <!--<a
           [href]="file"
           class="tryItFreeBtn"
+          (click) = "downloadFile"
           download
+          >{{ constants.PDF_DOCUMENT }}</a
+        > -->
+        <a
+          
+          class="tryItFreeBtn"
+          (click) = "downloadFile()"
           >{{ constants.PDF_DOCUMENT }}</a
         >
       </div>
@@ -59,6 +73,81 @@
           </div>
         </div>
       </div>
+
+      <!-- FAQ-->
+
+      <div class="modal" id="faq">
+        <div class="modal-dialog w-max1295">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <i data-dismiss="modal" class="material-icons close">close</i>
+            </div>
+            <div class="modal-body">
+             <div *ngIf="eazypay">
+              <div class="text-center mb50">
+                <h3 class="fs32 color-blue ff-bold mb25">EazyPay APIs – FAQ</h3>
+              </div>
+              <div id="accordion" class="faqmainSection">
+                <div class="card" *ngFor = "let obj of faqObjQues_eazy;let i=index">
+                  <a class="card-header" data-toggle="collapse" href="#tab_{{i}}" aria-expanded="true">
+                      <div class="row">
+                          <div class="col-md-11 col-11" >
+                          <a class="card-link">
+                            {{i+1}}.  {{obj}}
+                          </a>
+                          </div>
+                          <div class="col-md-1 text-right">
+                          <i class="material-icons accordionDropdownIcon">expand_less</i>
+                          </div>
+                      </div>
+                  </a>
+                  <div id="tab_{{i}}" class="collapse show" data-parent="#accordion">
+                      <div class="card-body white-space">
+                          <p>{{faqObjAns_eazy[i]}}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+
+              </div>
+
+             </div>
+             <div *ngIf="compositpay">
+                  <div class="text-center mb50">
+                    <h3 class="fs32 color-blue ff-bold mb25">Composite API – FAQ</h3>
+                  </div>
+                  <div id="accordion" class="faqmainSection">
+                    <div class="card" *ngFor = "let obj of faqObjQues;let i=index">
+                      <a class="card-header" data-toggle="collapse" href="#tab_{{i}}" aria-expanded="true">
+                          <div class="row">
+                              <div class="col-md-11 col-11" >
+                              <a class="card-link">
+                                {{i+1}}.  {{obj}}
+                              </a>
+                              </div>
+                              <div class="col-md-1 text-right">
+                              <i class="material-icons accordionDropdownIcon">expand_less</i>
+                              </div>
+                          </div>
+                      </a>
+                      <div id="tab_{{i}}" class="collapse show" data-parent="#accordion">
+                          <div class="card-body white-space">
+                              <p>{{faqObjAns[i]}}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  
+                    
+                  </div>
+             </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+
   </div>
   <!-- <div class="copyrightSection">
    <p>Copyright 2017 ICICI Bank Ltd. All rights reserved.</p>

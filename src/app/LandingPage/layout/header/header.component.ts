@@ -308,8 +308,10 @@ export class HeaderComponent implements OnInit {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }
@@ -433,10 +435,10 @@ export class HeaderComponent implements OnInit {
 
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-            this.router.navigate(["/index"]);
+            this.router.navigate([this.router.url]);
           },
           err => {
-            this.router.navigate(["/index"]);
+            this.router.navigate([this.router.url]);
           }
         );
          /**
@@ -498,7 +500,7 @@ export class HeaderComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     try {
       var json = {
-        username: this.signupForm3.value.username,
+        username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
         firstname: this.signupForm.value.firstname,
@@ -647,7 +649,7 @@ export class HeaderComponent implements OnInit {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     var json = {
-      userName: this.signupForm3.value.username,
+      userName: this.signupForm3.value.uname,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
       lastName: this.signupForm.value.firstname,

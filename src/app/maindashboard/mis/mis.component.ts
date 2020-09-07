@@ -44,11 +44,12 @@ export class MisComponent implements OnInit {
     private toasterService: ToasterService,
     private spinnerService: Ng4LoadingSpinnerService
   ) {
-   this.dateInput= datepipe.transform(Date.now(),'dd-MMM-yyyy');
+   this.dateInput= datepipe.transform(Date.now(),'dd-MMMM-yyyy');
    let today = new Date()
    let priorDate = new Date().setDate(today.getDate()-20);
    this.minDate= datepipe.transform(new Date(priorDate),'yyyy-MM-dd');
-   this.maxDate= datepipe.transform(Date.now(),'yyyy-MM-dd');
+   let prevDate = new Date().setDate(today.getDate()-1);
+   this.maxDate= datepipe.transform(new Date(prevDate),'yyyy-MM-dd');
 
   }
   /** on page load
@@ -114,7 +115,8 @@ downloadCertificate(url) {
   },
   err => {
     console.log('err', err);
-    this.router.navigate(['error']);
+  //  this.router.navigate(['error']);
+    this.toasterService.pop('error', 'Error!', err.message);
   },);
   error => {
     let err = JSON.parse(error._body);
@@ -130,7 +132,7 @@ downloadCertificate(url) {
   submit() {
     try {
       let selectedDate = this.misForm.get('dateInput').value;
-      this.dateInput = this.datepipe.transform(new Date(selectedDate),'dd-MMM-yyyy');
+      this.dateInput = this.datepipe.transform(new Date(selectedDate),'dd-MMMM-yyyy');
       let _json = {
         
       "userName":localStorage.getItem('username'),
@@ -140,18 +142,14 @@ downloadCertificate(url) {
     this.spinnerService.show();
     this.adm.getMisFile(_json).subscribe((data: any) => {
       this.spinnerService.hide();
-      let response = data;
-      if(response && response.url){
-        this.spinnerService.show();
-        let pwa= window.open(response.url);
-        if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-          this.spinnerService.hide();
-            alert( 'Please disable your Pop-up blocker and try again.');
-        }
-     
+      let response = JSON.parse(data._body);
+     // console.log(JSON.stringify(response));
+      if(response && response.status_code==200 && response.data !== null && response.data !== ''){
+        let csvData = response.data;
+        this.downloadCSV(csvData,response.fileName);
       }
       else if(response && response.data == null && response.message){ 
-        this.toastrmsg("Error",response.message);
+        this.toastrmsg("Info",response.message);
        // alert(response.message);
       }else{
         console.log("getMisFile =="+JSON.stringify(data));
@@ -170,11 +168,31 @@ downloadCertificate(url) {
     }
   }
 
+  downloadCSV(csvData, fileName) {
+    var localblob = new Blob([csvData], { type: "text/csv" });
+    let dwldLink = document.createElement("a");
+    let url = window.URL.createObjectURL(localblob);
+    let isSafariBrowser =
+      navigator.userAgent.indexOf("Safari") != -1 &&
+      navigator.userAgent.indexOf("Chrome") == -1;
+    if (isSafariBrowser) {
+      dwldLink.setAttribute("target", "_blank");
+    }
+    dwldLink.setAttribute("href", url);
+    dwldLink.setAttribute("download", fileName + ".csv");
+    dwldLink.style.visibility = "hidden";
+    document.body.appendChild(dwldLink);
+    dwldLink.click();
+    document.body.removeChild(dwldLink);
+  }      
+
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }

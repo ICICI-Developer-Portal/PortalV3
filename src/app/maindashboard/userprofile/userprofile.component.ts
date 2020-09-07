@@ -23,7 +23,7 @@ export class UserprofileComponent implements OnInit {
   ChangepasswForm: FormGroup;
   pwdPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
   constructor(private spinnerService: Ng4LoadingSpinnerService,private formbuilder:FormBuilder,private router:Router,private modalService: BsModalService, private adm:LoginService,private toasterService: ToasterService) {
-    this.user_data();
+   // this.user_data();
     this.adm.check_user_log();
    }
 
@@ -47,7 +47,8 @@ export class UserprofileComponent implements OnInit {
   toastrmsg(type ,title) {
     var toast: Toast = {
       type: type,
-      title:title,
+      title:"",
+      body: title,
       showCloseButton: true 
     }; 
     this.toasterService.pop(toast);
@@ -81,7 +82,8 @@ export class UserprofileComponent implements OnInit {
      },
      err => {
        console.log('err', err);
-       this.router.navigate(['error']);
+     //  this.router.navigate(['error']);
+       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
      },
   );  
   
@@ -130,7 +132,8 @@ export class UserprofileComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong. Please try again in some time.");
       },
       
    );
@@ -164,7 +167,8 @@ export class UserprofileComponent implements OnInit {
           },
           err => {
             console.log('err', err);
-            this.router.navigate(['error']);
+           // this.router.navigate(['error']);
+            this.toastrmsg('error',"Something went wrong. Please try again in some time.");
           },
         );  
         
@@ -199,7 +203,8 @@ export class UserprofileComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+      //  this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong. Please try again in some time.");
       },
     );  
     

@@ -27,7 +27,6 @@ import {
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS
 } from "@angular/material/dialog";
-
 import { SigninModalComponent } from "./LandingPage/home/common-modal/signin-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToasterModule, ToasterService } from "angular2-toaster";
@@ -40,6 +39,12 @@ import { JwtAuthComponent } from './jwt-auth/jwt-auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 //import { MisComponent } from './maindashboard/mis/mis.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HeaderComponent } from "./header/header.component";
+import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
+import { FocusOnShowDirective } from "./autofocus.directive";
+import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +54,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AdvertisementComponent,
     AppathonSignupComponent,
     JwtAuthComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    HeaderComponent,
+    FocusOnShowDirective
   ],
   imports: [
     BrowserModule,
@@ -72,7 +79,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    
+    Ng4LoadingSpinnerModule,
+    ProductionOnboardingModule ,
+    RecaptchaModule,
+    RecaptchaFormsModule
     
   ],
   providers: [

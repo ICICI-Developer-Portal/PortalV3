@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Router } from '@angular/router';
+import { ToasterService, Toast } from 'angular2-toaster';
 declare var $: any;
 @Component({
   selector: 'app-root-details',
@@ -30,6 +31,7 @@ export class RootDetailsComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private spinnerService: Ng4LoadingSpinnerService,
     private router:Router,
+    private toasterService: ToasterService,
   ) {
     this.route.params.subscribe(params => {
       this.rootId = params['id'];
@@ -53,7 +55,17 @@ export class RootDetailsComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
+  }
+  toastrmsg(type ,title) {
+    var toast: Toast = {
+      type: type,
+      title:"",
+      body:title,
+      showCloseButton: true 
+    }; 
+    this.toasterService.pop(toast);
   }
 }

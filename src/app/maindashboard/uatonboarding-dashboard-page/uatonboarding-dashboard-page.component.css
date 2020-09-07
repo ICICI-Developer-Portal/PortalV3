@@ -70,6 +70,7 @@ border-bottom: 1px solid #ae282e;
     width: 100%;
     z-index: .0005;
 }
+
 .margin_3px{
 	margin-top: 3px;
 	font-size: 25px;
@@ -481,3 +482,43 @@ ul{
 .b-contain  span{
     font-size: 14px;
 }
+.example-form {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+  }
+  
+  .example-full-width {
+	width: 100%;
+  }
+  .cartApiContainer{
+	color: #ae282e;font-weight: bold;    
+	/* padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+	padding-right: 10px;border: 1px solid gainsboro; */
+	font-size: 12px;
+
+  }
+  .padding-left-0{
+	  padding-left: 0px;
+  }
+  .scroll-y{
+	height: 246px;
+    overflow-y: scroll;
+  }
+  .cart-scroll-y{
+	height: 363px;
+    overflow-y: scroll;
+  }
+  /* .scroll-y::-webkit-scrollbar {
+	width: 12px;               width of the entire scrollbar 
+  }
+  /* .scroll-y::-webkit-scrollbar-track { */
+	/*background: #ae282e;         color of the tracking area */
+  /* } */
+   /*.scroll-y::-webkit-scrollbar-thumb {
+	background-color: #ae282e;    color of the scroll thumb 
+	border-radius: 20px;       /* roundness of the scroll thumb 
+	border: 3px solid #ae282e;  /* creates padding around scroll thumb 
+  }*/

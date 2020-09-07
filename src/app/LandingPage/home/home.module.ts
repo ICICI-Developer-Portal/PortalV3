@@ -24,9 +24,13 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
+
+//import { SigninModalComponent } from "./common-modal/signin-modal.component";
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
-
+import { FocusOnShowDirective } from './autofocus.directive';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+//import { CarouselComponent } from './carousel/carousel.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +46,9 @@ import {
     AngularMultiSelectModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
 
   declarations: [
@@ -54,7 +60,8 @@ import {
     ResetComponent,
     TermsandconditionComponent,
     NDAComponent,
-    ContractComponent
+    ContractComponent,
+    FocusOnShowDirective
   ]
 
   // import { CommonSigninModalComponent } from './common-signin-modal/common-signin-modal.component';

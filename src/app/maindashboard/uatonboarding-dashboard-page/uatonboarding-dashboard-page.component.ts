@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewChildren, ElementRef, QueryList, EventEmitter, Output, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { interval as observableInterval } from "rxjs";
-import { takeWhile, scan, tap } from "rxjs/operators";
+import { interval as observableInterval,Observable } from "rxjs";
+import { takeWhile, scan, tap,map, startWith } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { VariablesService } from 'src/app/services/Variables.service';
@@ -18,6 +18,8 @@ import { CONSTANTS } from 'config/application-constant';
 import { PATTERNS } from 'config/regex-pattern';
 import { DomSanitizer } from '@angular/platform-browser';
 import { element } from '@angular/core/src/render3';
+import { NestedListFilterPipePipe } from 'src/app/maindashboard/nested-list-filter-pipe.pipe';
+
 declare var $: any;
 
 
@@ -27,28 +29,15 @@ declare var $: any;
   styleUrls: ['./uatonboarding-dashboard-page.component.css']
 })
 export class UATonboardingDashboardPageComponent implements OnInit {
-  showMe: boolean = false;
   modalRef: BsModalRef;
-
-  ipInput: string;
-  count: number;
   reactiveForm: FormGroup;
-  submitted = false;
   responseData: [];
   menuArray: any[];
-  showMore = 'show More'
-  hidden: boolean;
-  css: boolean;
-  clicked = 0;
-  objOnB: any;
-  apiArr: any = [];
-  idArr: any = [];
-  selectedCheckboxValue: [];
   arrayObjectOfListIds = [];
+  arrayObjectOfDomain= [];
   arrayObjectOfValue = [];
   logged_in: Boolean = false;
   additionalParams: any;
-  Ecollection_Show: Boolean = false;
   refJIRAID: boolean = false;
 
   headers: boolean = false;
@@ -78,12 +67,9 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   amount: boolean = false;
   uatTestingID: boolean = false;
   nestedCheckboxesList: boolean = false;
-  confirmMsg: any;
   showTab = 1;
   apiGreenCheck: string = "invalid";
   confirmMsgProd: any;
-  showError: string = "hidden";
-  addFalse:boolean=true;
   selectedDay: string = '';
   paymentMode:any[] = [ "Cash","ICICI Cheque" ,"ICICI DD","Non-ICICI Cheque","Non-ICICI DD","Debit Authorization","Other"];
   yesNo:any[] = [ "Yes","No"];
@@ -93,7 +79,114 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   environmentOption:any[] = [ "UAT","CUG","Production"];
   certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
   callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats.\n For Isurepay we require two webservice URLs";
-  
+  isemail_check: boolean = false;
+  isemail_reg_check: string = "";
+  selectedValue = [];
+term:any;
+errorMsg:any = "Something went wrong. Please try again in some time.";
+  /** Add var for search field */
+  myControl = new FormControl();
+  APIAutocompletDataSource:any[] = [];
+  filteredOptions: Observable<string[]>;
+  searchedItem:any;
+  searchedFieldValue:any;
+/** end here */
+  constructor(private HttpClient: HttpClient,
+    private formbuilder: FormBuilder,
+    private objOnBoarding: VariablesService,
+    private spinnerService: Ng4LoadingSpinnerService,
+    private modalService: BsModalService,
+    private router: Router,
+    private adm: LoginService,
+    private toasterService: ToasterService,
+    private dashboardService: DashboardService,
+    private elementRef: ElementRef) {
+    this.adm.getUserId().subscribe(data => {
+      this.logged_in =
+        data != "" && data != null && data != undefined ? true : false;
+    });
+
+  }
+  ngOnInit() {
+    document.getElementById("merchantName").focus();
+
+    this.logged_in = this.adm.check_log();
+
+    console.log(this.dashboardService.getMenuTreeData())
+    this.dashboardService.getMenuTreeData().subscribe((data: any) => {
+      this.responseData = JSON.parse(data._body);
+      console.log(this.responseData)
+      this.menuArray = this.getMenuData(this.responseData);
+      console.log(this.menuArray, "hhhhhhhhh  ")
+     
+    }
+    );
+
+    // testing......
+    let edit = ''
+    this.resetForm(edit);
+    function isNumberKey(evt) {
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode != 46 && charCode > 31
+        && (charCode < 48 || charCode > 57))
+        return false;
+
+      return true;
+    }
+    $('body').on('click','.deleteRemoveObject', function () {
+      var currentId = $(this).attr("class");
+      console.log(currentId, $(this).parent())
+      $(this).parent().remove();
+    });
+    $('body').on('click', 'span.dynamic', function () {
+      var currentId = $(this).attr("id");
+      $("#" + currentId).parent().parent().parent().parent().parent().remove();
+      $("#countexceeder").remove();
+    });
+
+    $(document).off().on('click', '.first-level li', function (e) {
+      $(this).children(".display-none").toggle();
+      e.stopPropagation();
+    });
+    $("#searchFilter").keyup(function () {
+      var text = $("#searchFilter").val().toLowerCase();
+      var items = $(".customcsscontainer label");
+    
+      if ($.trim($("#searchFilter").val()) == '') {
+         console.log(items.length)
+        $("").css("display","");
+         // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
+          $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
+          $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
+          $(".second-level,third-level,.fourth-level,.fifth-level").hide();
+         
+
+      } else {
+        items.each(function() {
+          var block;
+          block = $(this);
+          // console.log( $(this).attr('greatgreatgrandparentname'))
+          // console.log( $(this).attr('greatgrandparentname'))
+          // console.log( $(this).attr('grandparentname'))
+          // console.log( $(this).attr('parentname'))
+          if (block.text().toLowerCase().indexOf(text) != 0) {
+              block.hide();              
+          } else {
+              block.show();
+              console.log(block)
+             $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
+             
+             $(".first-level p").hide();
+              
+
+          }
+      });
+         
+      }
+$(".first-level").show();
+  })
+  }
+
   
   selectChangeHandler (event: any) {
     this.selectedDay = event.target.value;
@@ -164,15 +257,8 @@ ifIPpatternNotmatches(){
   // ====================================
 
 
-  select(i) {
-    this.clicked = i;
-    alert(i)
-  }
+ 
   isChecked: any;
-  toggle() {
-    this.hidden = !this.hidden;
-    this.css = !this.css;
-  }
   parentDataDomainName: string;
   childData: string;
   // ----------------------------------------------------------------
@@ -191,19 +277,120 @@ ifIPpatternNotmatches(){
     this.showTab = id;
     //this.active ='#F06321';
   }
+  additionalFieldComingFromServer(addtionalParams){
+
+    for (var i = 0; i < addtionalParams.length; i++) {
+      console.log(addtionalParams[i]);
+
+      if (addtionalParams[i].match("Account Number")) {
+        this.accNo = true;
+      }
+      if (addtionalParams[i].match("Client Code")) {
+        this.clientCode = true;
+      }
+      if (addtionalParams[i].match("URL")) {
+        this.ifFieldisVisible(addtionalParams[i]);
+        this.url = true;
+      }
+      if (addtionalParams[i].match("IP")) {
+        this.ifFieldisVisible(addtionalParams[i]);
+        this.ip = true;
+      }
+      if (addtionalParams[i].match("Port")) {
+        this.port = true;
+      }
+      if (addtionalParams[i].match("Checksum")) {
+        this.checksum = true;
+      }
+      if (addtionalParams[i].match("Encryption")) {
+        this.encryption = true;
+      }
+      if (addtionalParams[i].match("Certificate")) {
+        this.certificate = true;
+      }
+      if (addtionalParams[i].match("Service Type")) {
+        this.service = true;
+      }
+      if (addtionalParams[i].match("Communication Method")) {
+        this.message = true;
+      }
+      if (addtionalParams[i].match("IFSC Code")) {
+        this.ifsc = true;
+      }
+      if (addtionalParams[i].match("Virtual Code")) {
+        this.virtualCode = true;
+      }
+      if (addtionalParams[i].match("IPS Refund Code")) {
+        this.ips = true;
+      }
+      if (addtionalParams[i].match("Intermediate Account Number")) {
+        this.interAccNo = true;
+      }
+      if (addtionalParams[i].match("Account Name")) {
+        this.accName = true;
+      }
+      if (addtionalParams[i].match("Authorization Level")) {
+        this.authLevel = true;
+      }
+      if (addtionalParams[i].match("URN")) {
+        this.urn = true;
+      }
+      if (addtionalParams[i].match("Environment")) {
+        this.env = true;
+      }
+      if (addtionalParams[i].match("Validation Mode")) {
+        this.valid = true;
+      }
+      if (addtionalParams[i].match("Acceptance Mode")) {
+        this.accept = true;
+      }
+      if (addtionalParams[i].match("Recipient Mail ID")) {
+        this.recipient = true;
+      }
+      if (addtionalParams[i].match("Mode Offered")) {
+        this.mode = true;
+      }
+      if (addtionalParams[i].match("Transaction Limit")) {
+        this.trans = true;
+      }
+      if (addtionalParams[i].match("Amount")) {
+        this.amount = true;
+      }
+      if (addtionalParams[i].match("Headers")) {
+        console.log(addtionalParams[i], "hiii")
+        this.headers = true;
+      }
+      if (addtionalParams[i].match("TestingID")) {
+        this.uatTestingID = true;
+      }
+    }
+
+
+
+  }
   onClickContinueBtn() {
+    console.log("rchd inside cninue btn")
+
     if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements"); }
     else { $("#thrdSectionChld").addClass("overlay_parent");    }
     //this.modalRef.hide();
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.id
     }).get()
-    console.log(this.arrayObjectOfListIds)
+    this.arrayObjectOfDomain = $(".customcsscontainer input:checkbox:checked").map(function () {
+      return this.getAttribute("domainName")
+    }).get()
+  
+    console.log(this.arrayObjectOfDomain.join())
+
+    console.log(this.arrayObjectOfListIds.join())
     const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
     var json = {
       ID: this.arrayObjectOfListIds.join(),
     };
-    console.log("json", json.ID);
+    this.additionalFieldComingFromServer(json);
+    console.log("json", json);
+    
     this.adm.getUATFromData(json).subscribe((data: any) => {
       console.log(data);
       var response = data._body;
@@ -213,123 +400,16 @@ ifIPpatternNotmatches(){
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
       localStorage.setItem('additonalFields', this.additionalParams)
 
-      for (var i = 0; i < this.additionalParams.length; i++) {
-        console.log(this.additionalParams[i]);
-
-        if (this.additionalParams[i].match("Account Number")) {
-          this.accNo = true;
-        }
-        if (this.additionalParams[i].match("Client Code")) {
-          this.clientCode = true;
-        }
-        if (this.additionalParams[i].match("URL")) {
-          this.ifFieldisVisible(this.additionalParams[i]);
-          this.url = true;
-        }
-        if (this.additionalParams[i].match("IP")) {
-          this.ifFieldisVisible(this.additionalParams[i]);
-          this.ip = true;
-        }
-        if (this.additionalParams[i].match("Port")) {
-          this.port = true;
-        }
-        if (this.additionalParams[i].match("Checksum")) {
-          this.checksum = true;
-        }
-        if (this.additionalParams[i].match("Encryption")) {
-          this.encryption = true;
-        }
-        if (this.additionalParams[i].match("Certificate")) {
-          this.certificate = true;
-        }
-        if (this.additionalParams[i].match("Service Type")) {
-          this.service = true;
-        }
-        if (this.additionalParams[i].match("Communication Method")) {
-          this.message = true;
-        }
-        if (this.additionalParams[i].match("IFSC Code")) {
-          this.ifsc = true;
-        }
-        if (this.additionalParams[i].match("Virtual Code")) {
-          this.virtualCode = true;
-        }
-        if (this.additionalParams[i].match("IPS Refund Code")) {
-          this.ips = true;
-        }
-        if (this.additionalParams[i].match("Intermediate Account Number")) {
-          this.interAccNo = true;
-        }
-        if (this.additionalParams[i].match("Account Name")) {
-          this.accName = true;
-        }
-        if (this.additionalParams[i].match("Authorization Level")) {
-          this.authLevel = true;
-        }
-        if (this.additionalParams[i].match("URN")) {
-          this.urn = true;
-        }
-        if (this.additionalParams[i].match("Environment")) {
-          this.env = true;
-        }
-        if (this.additionalParams[i].match("Validation Mode")) {
-          this.valid = true;
-        }
-        if (this.additionalParams[i].match("Acceptance Mode")) {
-          this.accept = true;
-        }
-        if (this.additionalParams[i].match("Recipient Mail ID")) {
-          this.recipient = true;
-        }
-        if (this.additionalParams[i].match("Mode Offered")) {
-          this.mode = true;
-        }
-        if (this.additionalParams[i].match("Transaction Limit")) {
-          this.trans = true;
-        }
-        if (this.additionalParams[i].match("Amount")) {
-          this.amount = true;
-        }
-        if (this.additionalParams[i].match("Headers")) {
-          console.log(this.additionalParams[i], "hiii")
-          this.headers = true;
-        }
-        if (this.additionalParams[i].match("TestingID")) {
-          this.uatTestingID = true;
-        }
-      }
+     this.additionalFieldComingFromServer( this.additionalParams)
       console.log("final", this.additionalParams);
     },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+      //  this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
       });
-
+  
   }
-
-  // addIPs() {
-
-  //   var count = $('.countIp').length;
-  //   console.log(this.count)
-  //   if (count <= 9) {
-  //     console.log(count, "$$$$$$$$$$$$$")
-  //     var addinput = $("<div class='form-group col-md-6 countIp'><div class='width_100prcnt'><label for='contract'>IP</label></div><div class='col-md-11'><div class='row'><div class='input-group '><input aria-describedby='basic-addon2' aria-label='IP' class='form-control ipValues' placeholder='Your IP' type='text'><div class='input-group-append'><span _ngcontent-c1 class='input-group-text add-ip-addon dynamic' id='basic-addon2" + count + "' (click)='removeInputField()'>-</span></div></div></div></div></div>");
-  //     addinput.insertAfter("#addIPUnique");
-  //     $("#countexceeder").remove();
-  //     count++;
-
-  //   }
-  //   else {
-  //     if ($("#countexceeder").length < 1) {
-  //       $("<span style='color: #ae282e;'  id='countexceeder'>You can add maximum 10 IP</span>").insertAfter(".addErrorclasafter");
-
-  //     }
-  //   }
-
-  //   //$("#addIPUnique").append("<div class='form-group col-md-6' *ngIf='ip'><div class='width_100prcnt'><label for='contract'>IP</label></div><input class='form-control col-md-11' placeholder='Your IP' formControlName='ip' type='text' />");
-  // }
-
-  // adding ip Field.......via $$$
 
 
   // ================================================================
@@ -337,8 +417,13 @@ ifIPpatternNotmatches(){
   @ViewChild('RequestedApiList') RequestedApiList: ElementRef;
   @ViewChild('businessBankingList') businessBankingList: ElementRef;
   @ViewChild('whitelistIpList') whitelistIpList: ElementRef;
-  //@ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   @ViewChild('checkboxes') checkboxes: ElementRef;
+  @ViewChild('cartApiContainer', {read: ElementRef}) private cartApiContainer: ElementRef;
+  @ViewChild('matInput', {read: ElementRef}) private matInput: ElementRef;
+
+
+
+
   // onClickOfCheckboxes() {
   //   alert(this.checkboxes.nativeElement.checked ? "it's checked" : "it's not checked")
   // }
@@ -359,25 +444,17 @@ ifIPpatternNotmatches(){
     console.log("document.querySelector", document.querySelector);
     if (data == "BasicDetailsList") {
       console.log(this);
-      //  document.querySelector( data).scrollIntoView({behavior:"smooth"});
-      //this.scrollIntoView({behavior:"smooth"});
-      // this.scrollToTop(this.BasicDetailsList)
       this.BasicDetailsList.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-      // this.BasicDetailsList.nativeElement.scrollTo(0);
     }
     else if (data == "RequestedApiList") {
-      //   data.scrollIntoView({behavior:"smooth"});
       this.RequestedApiList.nativeElement.scrollIntoView({ behavior: "smooth" });
     }
     else if (data == "businessBankingList") {
-      // data.scrollIntoView({behavior:"smooth"});
       this.businessBankingList.nativeElement.scrollIntoView({ behavior: "smooth" });
     }
     else if (data == "whitelistIpList") {
       this.whitelistIpList.nativeElement.scrollIntoView({ behavior: "smooth" });
-    }
-
-    ;
+    };
   }
   scrollToTop(el) {
     const duration = 600;
@@ -388,24 +465,7 @@ ifIPpatternNotmatches(){
       tap(position => el.scrollTop = position),
       takeWhile(val => val > 0)).subscribe();
   }
-  //merchantName = new FormControl('');
 
-  constructor(private HttpClient: HttpClient,
-    private formbuilder: FormBuilder,
-    private objOnBoarding: VariablesService,
-    private spinnerService: Ng4LoadingSpinnerService,
-    private modalService: BsModalService,
-    private router: Router,
-    private adm: LoginService,
-    private toasterService: ToasterService,
-    private dashboardService: DashboardService,) {
-    this.adm.getUserId().subscribe(data => {
-      this.logged_in =
-        data != "" && data != null && data != undefined ? true : false;
-    });
-
-  }
-  // requested api dropdown
   getMenuData(data): Array<object> {
     let tempArray = [];
     Object.keys(data).forEach(async (eachKey, index) => {
@@ -425,64 +485,107 @@ ifIPpatternNotmatches(){
     );
     return tempArray;
   }
-  // selectedDomainName: string = '';
-
-  // //event handler for the select element's change event
-  // selectChangeHandler(event: any) {
-  //   //update the ui
-  //   this.parentDataDomainName = event.target.value;
-  //   console.log(this.parentDataDomainName)
-
-  // }
-  multipleSelectAPI(e){
-    this.accNo = false;
-    this.clientCode = false;
-    this.url = false;
-    this.ip = false;
-    this.port = false;
-    this.checksum = false;
-    this.encryption = false;
-    this.certificate = false;
-    this.service = false;
-    this.message = false;
-    this.ifsc = false;
-    this.virtualCode = false;
-    this.ips = false;
-    this.interAccNo = false;
-    this.accName = false;
-    this.authLevel = false;
-    this.urn = false;
-    this.env = false;
-    this.valid = false;
-    this.accept = false;
-    this.recipient = false;
-    this.mode = false;
-    this.trans = false;
-    this.amount = false;
-    this.headers = false;
-    this.uatTestingID = false;
+  // "IP", "Port", "Account Number", "Client Code", "URL", "Checksum", "Encryption", "Certificate", "Service Type", "Communication Method", "IFSC Code", "Virtual Code", "IPS Refund Code", "Intermediate Account Number", "Account Name", "Authorization Level", "URN", "Environment", "Validation Mode", "Acceptance Mode", "Recipient Mail ID", "Mode Offered", "Transaction Limit", "API Name", "Headers", "TestingID"
+  forResetiingAdditionalFields(){
+    this.accNo    = false; this.clientCode = false; this.url         = false; this.ip         = false; this.port     = false;
+    this.checksum = false; this.encryption = false; this.certificate = false; this.service    = false; this.message  = false;
+    this.ifsc     = false; this.virtualCode= false; this.ips         = false; this.interAccNo = false; this.accName  = false; 
+    this.authLevel= false; this.urn        = false; this.env         = false; this.valid      = false; this.accept   = false; 
+    this.recipient = false;this.mode       = false; this.trans       = false; this.amount     = false; this.headers   = false; 
+    this.uatTestingID= false;
     this.resetField();
-  
-  if ($(".customcsscontainer input:checkbox:checked").length) {
-    $('.ContinueBtn').prop('disabled', false);
-    //alert(($(".customcsscontainer input:checkbox:checked").length))
-    //  $("#thrdSectionChld").removeClass("overlay_parent")
-    $("#dynamic-list-check").css("display", "block");
-    $("#scndSectionWhitelistIp").addClass("ng-valid");
-    $("#scndSectionWhitelistIp").removeClass("ng-invalid");
-   
   }
-  else {
-    $('.ContinueBtn').prop('disabled', true);
-    $("#thrdSectionChld").addClass("overlay_parent");
-    $("#dynamic-list-check").css("display", "none");
-    $("#scndSectionWhitelistIp").addClass("ng-invalid");
-    $("#scndSectionWhitelistIp").removeClass("ng-valid");   
-    $("#submitButton,#file1").addClass("blockElements")
-    
+  multipleSelectAPI(e, isChecked: boolean){
+   this.forResetiingAdditionalFields();
+    if ($(".customcsscontainer input:checkbox:checked").length) {
+      $('.ContinueBtn').prop('disabled', false);
+      $("#dynamic-list-check").css("display", "block");
+      $("#scndSectionWhitelistIp").addClass("ng-valid");
+      $("#scndSectionWhitelistIp").removeClass("ng-invalid");
+     
+    }
+    else {
+      $('.ContinueBtn').prop('disabled', true);
+      $("#thrdSectionChld").addClass("overlay_parent");
+      $("#dynamic-list-check").css("display", "none");
+      $("#scndSectionWhitelistIp").addClass("ng-invalid");
+      $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+      $("#submitButton,#file1").addClass("blockElements")
+    }
+        if(isChecked) {
+          this.selectedValue.push({
+          "childName": e.target.getAttribute('value'),
+          "parentName" :e.target.getAttribute('parentName'),
+          "grandParentName":e.target.getAttribute('grandParentName'),
+          "greatGrandParentName": e.target.getAttribute('greatGrandParentName'),
+          "greatGreatGrandParentName": e.target.getAttribute('greatGreatGrandParentName'),
+          "id": e.target.getAttribute('id')
+        });
+          console.log(this.selectedValue)
 
+        } else {
+  
+          let index = this.selectedValue.indexOf(e);
+          console.log(e.target);
+          this.selectedValue.splice(index,1);
+          console.log(this.selectedValue,"this.selectedValue");               
         }
+          
 }
+deleteRemoveObjectFromCart(e){
+  this.forResetiingAdditionalFields(); 
+console.log(e.target);
+
+console.log(this.selectedValue.length)
+console.log(e.target.getAttribute("id"));
+let deletedId=e.target.getAttribute("id");
+$("input[id=" + e.target.getAttribute("id") + "]").prop("checked",false);
+  this.selectedValue = this.selectedValue.filter(function( obj ) {
+    console.log( obj.childName , e.target.getAttribute("class"))
+    return obj.childName !== e.target.getAttribute("class");
+    
+});
+
+console.log(this.selectedValue)
+if(this.selectedValue.length>0){
+   this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
+    return this.id
+  }).get()
+  
+  console.log(this.arrayObjectOfListIds)
+  const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
+  var json = {
+    ID: this.arrayObjectOfListIds.join(),
+  };
+  this.adm.getUATFromData(json).subscribe((data: any) => {
+    console.log(data);
+    var response = data._body;
+    var obj = JSON.parse(response);
+    console.log("obj reached", obj);
+    localStorage.setItem('nodevalue', obj.API_NAME)
+    this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
+    localStorage.setItem('additonalFields', this.additionalParams)
+
+   this.additionalFieldComingFromServer( this.additionalParams)
+    console.log("final", this.additionalParams);
+  },
+    err => {
+      console.log('err', err);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',this.errorMsg);
+    });
+}
+else{
+  $('.ContinueBtn').prop('disabled', true);
+  $("#thrdSectionChld").addClass("overlay_parent");
+  $("#dynamic-list-check").css("display", "none");
+  $("#scndSectionWhitelistIp").addClass("ng-invalid");
+  $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+  $("#submitButton,#file1").addClass("blockElements");
+ 
+}
+}
+
   onSubmitUATForm(Prodconfirm) {
 
     let ipValues = [];
@@ -501,7 +604,7 @@ ifIPpatternNotmatches(){
    
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: localStorage.getItem("nodevalue"),
+      domainName: '(' +this.arrayObjectOfDomain.join()+ ')',
       domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
@@ -581,10 +684,7 @@ ifIPpatternNotmatches(){
     formData.append("Acc_amount", inputFields["Acc_amount"]);
     formData.append("Acc_headers", inputFields["Acc_headers"]);
     formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
-
-
     console.log(formData);
-
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
     console.log("a", a);
     for (let k = 0; k < a.length; k++) {
@@ -639,14 +739,16 @@ ifIPpatternNotmatches(){
             },
             err => {
               console.log('err', err);
-              this.router.navigate(['error']);
+              this.toastrmsg('error',this.errorMsg);
+            //  this.router.navigate(['error']);
             },
           );
         }
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+       this.toastrmsg('error',this.errorMsg);
       },
     );
 
@@ -688,16 +790,16 @@ ifIPpatternNotmatches(){
     const regURL = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
     const ipReg = '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$';  
     this.reactiveForm = new FormGroup({
-
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
-        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([A-Za-z]{2,6}(?:\\.[A-Za-z]{2,6})?)$")]),
+        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
         "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
         "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
       }),
       "nestedCheckboxesList": new FormGroup({
-        "nestedList": new FormArray([])
+        "nestedList": new FormArray([]),
+        "nestedCheckboxFilter": new FormControl(),
       }),
       "whitelistIpSection": new FormGroup({
         "AccountNo": new FormControl(),
@@ -742,118 +844,60 @@ ifIPpatternNotmatches(){
     })
 
   }
-  ngOnInit() {
-    document.getElementById("merchantName").focus();
-    this.logged_in = this.adm.check_log();
-
-    console.log(this.dashboardService.getMenuTreeData())
-    this.dashboardService.getMenuTreeData().subscribe((data: any) => {
-      this.responseData = JSON.parse(data._body);
-      console.log(this.responseData)
-      this.menuArray = this.getMenuData(this.responseData);
-      console.log(this.menuArray, "hhhhhhhhh  ")
-    }
-    );
-    // ipvalidation
-    // function validateIp(ip) {
-    //   if ( ip == null || ip === '' ) {
-    //   return true;
-    // }
-
-    // const parts = ip.split('.');
-    // if(parts.length !== 4) {
-    //   return true;
-    // }
-
-    // for(let i = 0; i < parts.length; i++) {
-    //   const part = parseInt(parts[i]);
-    //   if(part < 0 || part > 255) {
-    //       return true;
-    //   }
-    // }
-
-    // if(ip.endsWith('.')) {
-    //   return true;
-    // }
-
-    // return false;
-    // }
-
-    // const input = '1.1.1.1,2.2.2.2,3.3.3.,4.4.4.256';
-    // const arr = input.split(',');
-    // const wrongIps = arr.filter(validateIp);
-
-
-    // console.log(arr)
-    // console.log(wrongIps)
-    // ========
-
-
-    // testing......
-    let edit = ''
-    this.resetForm(edit);
-    function isNumberKey(evt) {
-      var charCode = (evt.which) ? evt.which : evt.keyCode;
-      if (charCode != 46 && charCode > 31
-        && (charCode < 48 || charCode > 57))
-        return false;
-
-      return true;
-    }
-    $('body').on('click', 'span.dynamic', function () {
-      var currentId = $(this).attr("id");
-      $("#" + currentId).parent().parent().parent().parent().parent().remove();
-      $("#countexceeder").remove();
-    });
-
-
-
-    //$(document).on('click', '.first-level li', function (e) {
-    $(document).off().on('click', '.first-level li', function (e) {
-
-     // $(".first-level li").unbind().click(function() {
-      //  
-      // alert(JSON.stringify($(this).parent().attr('class')))
-      // $(this).children(".dropdownIcon").toggle();
-      $(this).children(".display-none").toggle();
-      e.stopPropagation();
-      // $('.first-level li a').click(function(){
-      // $(this).children('ul').stop().slideToggle(350);
-      // $(this).toggleClass("open");
-      // event.stopPropagation();
-    });
-
-
-
-    // ============================    
-
-    // this.reactiveForm = this.formbuilder.group({
-    //   ipRows: this.formbuilder.array([
-    //       this.initipRows(),
-    //   ])
-    // });
-    // ==============================
-  }
-
-  toastrmsg(type, title) {
+  
+  /*toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
       title: title,
       showCloseButton: true
     };
     this.toasterService.pop(toast);
+  }*/
+  toastrmsg(type, title) {
+    var toast: Toast = {
+      type: type,
+      showCloseButton: true,
+      title: "",
+      body: title
+      
+    };
+
+    this.toasterService.pop(toast);
   }
 
-
-  togglefrstList() {
-    this.showMe = !this.showMe;
-  }
   ngAfterViewInit() {
     console.log(this.BasicDetailsList, "2", this.RequestedApiList, "3", this.businessBankingList, "4", this.whitelistIpList,
       this.checkboxes)
     console.log(this.reactiveForm);
+     var d1 = this.cartApiContainer.nativeElement;
+     console.log(d1)
+    console.log(this.matInput.nativeElement.value);
   }
-  // ngAfterViewChecked() { }
+ 
+  createCart(){
+    console.log(this.reactiveForm.controls);
 
+    console.log(this.matInput.nativeElement.value);
+    console.log(this.matInput.nativeElement);
+
+    console.log( this.cartApiContainer)
+
+    this.cartApiContainer.nativeElement.insertAdjacentHTML('beforeend', '<label _ngcontent-c1="" style="padding-top: 10px; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border: 1px solid gainsboro; margin-bottom: 0px;"><span _ngcontent-c1="">Domain</span><span _ngcontent-c1="">&gt; Sub Domain</span><span _ngcontent-c1=""> &gt;&gt; '+this.matInput.nativeElement.value+'</span><span _ngcontent-c1="" class="pull-right deleteRemoveObject" style="cursor: pointer;" >✖</span></label>');
+   
+  }
+
+  displayAPIName(api:any): string {
+    if(api && api.ApiId){
+        this.searchedItem = api.ApiId;
+        
+        console.log("You have selected API " +api.name + " Id="+this.searchedItem );
+      //  this.cartApiContainer.nativeElement.insertAdjacentHTML('beforeend', '<div class="two">'+api.name +'</div><p> Id='+this.searchedItem+' </p');
+console.log( this.cartApiContainer,event.target)
+this.searchedFieldValue=api.name ;
+console.log(this.searchedFieldValue);
+
+    }
+    return api && api.name ? api.name : '';
+  }
 
 }

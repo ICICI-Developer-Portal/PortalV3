@@ -11,7 +11,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 //import { MisComponent } from "./maindashboard/mis/mis.component";
 
 const routes: Routes = [
-  // { path: '', redirectTo :'index', pathMatch :'full' },
+ //{ path: '', redirectTo :'index', pathMatch :'full' },
   { path: "layout", component: LayoutComponent, canActivate: [AuthGuard] },
   {
     path: "dashboard",
@@ -23,18 +23,9 @@ const routes: Routes = [
     component: JwtAuthComponent,
     canActivate: [AuthGuard],
   },
- /* {
-    path:'download',
-    component : DownloadComponent
+  //{path: '404', component: ErrorPageComponent},
+ // {path: '**', redirectTo: '/404'},
 
-
-  },
-  {
-    path:'mis',
-    component : MisComponent
-
-
-  },*/
   {
     path: 'error',
     component: ErrorPageComponent,
@@ -60,7 +51,9 @@ const routes: Routes = [
           "./appathon-landing/appathon-landing.module#AppathonLandingModule"
       }
     ]
-  }
+  },
+ // {path: '404', component: ErrorPageComponent},
+  //{path: '**',  component: ErrorPageComponent,},
 
   // {
   //   path: 'documentation',

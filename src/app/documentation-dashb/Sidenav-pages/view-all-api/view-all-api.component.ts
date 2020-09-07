@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { forEach } from '@angular/router/src/utils/collection';
+import { ToasterService, Toast } from 'angular2-toaster';
 // import { HttpClientModule } from '@angular/common/http';
 declare var $:any;
 
@@ -16,7 +17,7 @@ export class ViewAllApiComponent implements OnInit {
   appNameList =[];
   AppId:any={};
   //searchText: string; 
-  constructor(private adm:LoginService,public router:Router) {     
+  constructor(private adm:LoginService,public router:Router, private toasterService: ToasterService) {     
     this.Get_All_API_List();    
   }
 
@@ -71,7 +72,9 @@ export class ViewAllApiComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+    //  this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+      
     },); 
   }
 
@@ -133,7 +136,8 @@ export class ViewAllApiComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+      //  this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong. Please try again in some time.");
       },)      
   }
 
@@ -156,5 +160,14 @@ export class ViewAllApiComponent implements OnInit {
      $('html, body').animate({
         scrollTop: 0
     }, 100);
+  }
+  toastrmsg(type ,title) {
+    var toast: Toast = {
+      type: type,
+      title:"",
+      body:title,
+      showCloseButton: true 
+    }; 
+    this.toasterService.pop(toast);
   }
 }

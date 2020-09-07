@@ -5,7 +5,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {FormControl, FormArray, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
+
 import { Router } from "@angular/router";
+import { ThrowStmt } from '@angular/compiler';
 declare var $:any;
 
 @Component({
@@ -16,7 +19,14 @@ declare var $:any;
 
 
 export class ApiDetailsComponent implements OnInit {
+  testApireponse;
+  reqParamjson;
+  dataArray=[];
+  selectedType : string;
   ApiDomain: any;
+  frmUATFirst: FormGroup;
+  typeSelected :string;
+  type: "JSON";
   ApiName: any;
   ApiDesc: any;
   reqDetails: any;
@@ -34,6 +44,10 @@ export class ApiDetailsComponent implements OnInit {
   isactive_class1 :boolean = true;
   isactive_class2 :boolean = false;
   isactive_class3 :boolean = false;
+  sandBoxForm;
+  Request :object;
+  contentType:any = "JSON";
+
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
     ) {
@@ -45,8 +59,29 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class1 = true;
       this.isactive_class2 = false;
       this.isactive_class3 = false;
+     // this.GetTestCases();
+    /*testing */  
+   /*   this.adm.getTransactionHistory()
+        .subscribe(
+          (data:any) => {
+            let response= data._body;
+            if(response && response !== null){ 
+              let obj=JSON.parse(response);
+              console.log("TransactionHistory data ="+ obj);
+            }else{ 
+              alert("No transaction history found.");
+            }
+          },
+          err => {
+            console.log('err', err);
+          },
+        );*/
+    /* End here */  
+
     });
     
+
+   
     this.error_code();
     this.Sample_packet();
     
@@ -71,6 +106,22 @@ export class ApiDetailsComponent implements OnInit {
   }
 
   ngOnInit() { 
+    console.log()
+    this.dataArray.push(
+      {
+        key :"",
+        value:""
+      }
+    )
+    this.sandBoxForm = {
+     
+      type: 'JSON',
+      Request :this.reqParam
+    };
+console.log(this.sandBoxForm ,)
+
+
+
      $('ul.toggleTabs li').removeClass('active');
     $('ul.toggleTabs li a').removeClass('active');
     $('ul.toggleTabs li a').removeClass('show');
@@ -80,9 +131,22 @@ export class ApiDetailsComponent implements OnInit {
 
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane').removeClass('show');
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane:first').addClass('show');
-
     
  }
+ addheader() {
+  if(this.dataArray.length<=4){ 
+  this.dataArray.push(
+    {
+      id:this.dataArray.length+1,
+      key :"",
+      value:""
+    }
+  )
+  console.log(this.dataArray.length)
+}}
+removeheader(i: number) {
+  this.dataArray.splice(i, 1);
+}
   error_code(){
     var json ={
       "username":localStorage.getItem('username')
@@ -108,20 +172,24 @@ export class ApiDetailsComponent implements OnInit {
   .subscribe(
     (data:any) => {
         var response= data._body;
-        var obj=JSON.parse(response);
-        this.ApiDomain =obj.ApiData.ApiDomain;
-        this.ApiName =obj.ApiData.ApiName;
-        this.ApiDesc =obj.ApiData.ApiDesc;
-        this.SandboxUrl ="https://sandbox.icicibank.com/documentation/"+obj.ApiData.SandboxUrl;
-        this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
-        this.reqDetails =obj.ReqParam;
-        this.resDetails =obj.ResParam;
-        this.spinnerService.hide();
+        if(response) {
+          var obj=JSON.parse(response);
+          this.ApiDomain =obj.ApiData.ApiDomain;
+          this.ApiName =obj.ApiData.ApiName;
+          this.ApiDesc =obj.ApiData.ApiDesc;
+          this.SandboxUrl ="https://developerapi.icicibank.com:8443/"+obj.ApiData.SandboxUrl;
+          this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
+          this.reqDetails =obj.ReqParam;
+          this.resDetails =obj.ResParam;
+          this.spinnerService.hide();
+        }
+        
+       
 
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
       },
   );
 }
@@ -148,7 +216,7 @@ Sample_packet(){
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+      //this.router.navigate(['error']);
     },
   );
 }
@@ -265,8 +333,181 @@ Sample_packet(){
     //PART 3: return formatted string (source)
     return  xmlArr.join('\n');  //rejoin the array to a string and return it
   }
-  
-  
+  // 
 
+  
+    
+  
+  
+  reqParam= {
+    "folderName": "9898989",
+    "fileDetails": [
+      {
+        "file": "U3VjY2VzcyBjYXNlIDo6D.....ZSBleGNlZWRzIDMEtCLiINCn0=",
+        "docName": "test.pdf",
+        "docDataClass": {
+          "className": "APSOD_CAM",
+          "indexName": "ApplictaionFormNo",
+          "indexId": "405",
+          "indexValue": "KYC_doc"
+        },
+        "folderDataClass": {
+          "className": "Case_Folder",
+          "indexName": "ApplicationFormNo",
+          "indexId": "118",
+          "indexValue": "KYC_doc"
+        }
+      },
+      {
+        "file": "U3VjY2VzcyBjYXNlIDo6D.....ZSBleGNlZWRzIDMEtCLiINCn0=",
+        "docName": "test_1.jpg",
+        "docDataClass": {
+          "className": "APSOD_Photograph",
+          "indexName": "ApplictaionFormNo",
+          "indexId": "408",
+          "indexValue": "aadhar_front"
+        },
+        "folderDataClass": {
+          "className": "Case_Folder",
+          "indexName": "ScannedImage",
+          "indexId": "2019",
+          "indexValue": "aadhar_front"
+        }
+      }
+    ]
+  }
+  
+get reqParamValue() {
+  return this.prettyPkt;
+}
+
+set reqParamValue(v) {
+  try {
+    this.reqParam = JSON.parse(v);
+  } catch (e) {
+    console.log("error occored while you were typing the JSON");
+  }
+}
+   testApiCall(){
+  
+    console.log("reqParam=="+this.reqParam);
+    console.log("SandboxUrl=="+this.SandboxUrl);
+    if(this.contentType == "JSON"){
+      this.reqParam = JSON.parse(this.prettyPkt);
+      this.adm.test_api(this.reqParam,this.SandboxUrl).subscribe(
+        (data:any) => {
+           // console.log(JSON.parse(JSON.stringify(data)));
+            if(data && data._body){
+              this.testApireponse=JSON.parse(data._body);
+              console.log(this.testApireponse)
+            }
+             this.spinnerService.hide();
+    
+          },
+          err => {
+            console.log('err', err);
+            this.testApireponse= err;
+           // this.router.navigate(['error']);
+          },
+      );
+    }else if(this.contentType == "XML"){
+      this.reqParam = this.prettyPkt;
+      this.adm.test_apiXML(this.reqParam,this.SandboxUrl).subscribe(
+        (data:any) => {
+         // data = JSON.parse(data);
+            if(data && data._body){
+             // data._body.replace(/['"]+/g, '');
+              this.testApireponse=this.formatXML(data._body.replace(/['"]+/g, '')," ");
+            }
+             this.spinnerService.hide();
+    
+          },
+          err => {
+            console.log('err', err);
+            this.testApireponse= err;
+           // this.router.navigate(['error']);
+          },
+      );
+    } //end else block
+   
+   }
+   closeTestApiPopup(){
+    this.modalRef.hide();
+    this.testApireponse="";
+   }
+   /* 
+   ** Get test cases for API dropdown
+   */
+   GetTestCases(){
+    let _reqJson = {apiId : this.id };
+    this.adm.getTestCases(_reqJson).subscribe(
+      (data:any) => {
+          console.log(JSON.parse(JSON.stringify(data)));
+          if(data && data._body){
+            let testApireponse=JSON.parse(data._body);
+            console.log("GetTestCases==" +testApireponse);
+            this.CreateTransactionHistory();
+          }
+           
+  
+        },
+        err => {
+          console.log('err', err);
+         // this.router.navigate(['error']);
+        },
+    );
+   }
+   /* 
+   ** * Create Transaction History 
+   */
+   CreateTransactionHistory(){
+     let _reqBody ={"tranRefNo": "629359730EC5474","amount": "1.00","senderAcctNo": "000451000301","beneAccNo": "000405002777","beneName": "Yogesh","beneIFSC": "ICIC0000011","narration1": "Test","crpId": "PRACHICIB1","crpUsr": "USER3","aggrId": "CUST0116","urn": "9F25878CF1BD4E4","aggrName": "UDAAN","txnType": "TPA"};
+     let _resBody ={"RESPONSE":"Failure","MESSAGE":"Connection to RIB failed."};
+    let _reqJson = {
+      headers	:"application/json",
+      cType	:"json",
+      apiId	:"601",
+      apiName	:"QR code",
+      reqBody	:_reqBody,
+      resBody	:_resBody,
+      testCaseId	:"601-1",
+      testCaseStatus	:"Sample TC 1"
+      };
+    this.adm.createTransactionHistory(_reqJson).subscribe(
+      (data:any) => {
+          if(data && data._body){
+            let testApireponse=JSON.parse(data._body);
+            console.log(testApireponse)
+          }
+        },
+        err => {
+          console.log('err', err);
+         // this.router.navigate(['error']);
+        },
+    );
+   }
+
+
+  // getVal() {
+  //   console.log(this.type); // returns selected object
+  //  }
+  // selectTypeHandler(e:any){
+  //   console.log(e);
+  //   this.selectedType = e;  
+  // }
+  // get typeSelectedMethod() {
+  //   return this.typeSelected;
+  // }
+
+  onSubmit(form:NgForm){
+    // this.getVal() ;
+    console.log(form.value)
+  }
+  
+  onSubmitBody(form:NgForm){
+    this.testApiCall()
+    console.log(form.value)
+  }
+  
 
 }

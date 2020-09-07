@@ -48,7 +48,7 @@ export class DownloadComponent implements OnInit {
   }*/
   try {
     this.spinnerService.show();
-    let _json = {"docId":"104"};
+    let _json = {"docId":"1"};
     console.log("getDocDetails request == "+ JSON.stringify(_json));
     this.adm.getDocDetails(_json).subscribe((data: any) => {
       var response = JSON.parse(data._body);

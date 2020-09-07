@@ -126,7 +126,7 @@
            <!-- tab start here -->
            <div class="tab-content tab-content1">
             <div role="tabpanel" class="tab-pane active" id="AppInfo">
-               <form [hidden]="!shfrmSFFirst" [formGroup]="ApiInfoForm" novalidate>
+               <form [hidden]="!shfrmSFFirst" autocomplete="off" [formGroup]="ApiInfoForm" novalidate>
                   <div class="row mb30">
                      <div class="col-md-12 mb10">
                         <div class="mt15"><label for="password">User platform to be tested</label></div>
@@ -175,7 +175,7 @@
                </form>
             </div><!-- tab 1 end -->
               <div role="tabpanel" class="tab-pane" id="ApiManage">
-                 <form [hidden]="!shfrmSFSecond" [formGroup]="ApiManageForm" novalidate>
+                 <form [hidden]="!shfrmSFSecond" autocomplete="off" [formGroup]="ApiManageForm" novalidate>
                        <div class="row mb25">
                           <div class="col-md-12 mb-xs-10">
 
@@ -301,7 +301,7 @@
          <!-- tab start here -->
          <div class="tab-content tab-content1">
           <div role="tabpanel" class="tab-pane active" id="AppInfo">
-             <form [formGroup]="ApiInfoForm" [hidden]="!shfrmSFFirst" novalidate>
+             <form [formGroup]="ApiInfoForm" autocomplete="off" [hidden]="!shfrmSFFirst" novalidate>
                 <div class="row mb30">
                    <div class="col-md-12 mb10">
                       <div class="mt15"><label for="password">User platform to be tested</label></div>
@@ -350,7 +350,7 @@
              </form>
           </div><!-- tab 1 end -->
             <div role="tabpanel" class="tab-pane" id="ApiManage" z="z">
-               <form [hidden]="!shfrmSFSecond" [formGroup]="ApiManageForm" novalidate>
+               <form [hidden]="!shfrmSFSecond" autocomplete="off" [formGroup]="ApiManageForm" novalidate>
                      <div class="row mb25">
                         <div class="col-md-12 mb-xs-10">
                            <ng-multiselect-dropdown #multiSelect 
@@ -398,7 +398,7 @@
                </form>
             </div><!-- tab 2 end -->
             <div role="tabpanel" class="tab-pane" id="Auth">
-             <form [hidden]="!shfrmSFThird" [formGroup]="AuthForm" novalidate>
+             <form [hidden]="!shfrmSFThird" autocomplete="off" [formGroup]="AuthForm" novalidate>
                    <div class="row mb25">
                          <div class="col-md-12">
                             <div><label for="callbackURL">Call Back URL</label></div>

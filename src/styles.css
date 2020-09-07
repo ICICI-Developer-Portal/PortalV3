@@ -29,9 +29,13 @@
 }
 
 .toast-close-button {
-  position: relative;
-  right: -0.3em;
-  top: -0.3em;
+  position: absolute;
+  right: .2em;
+  top: 25%;
+  width: 25px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 20px;
   float: right;
   font-size: 20px;
   font-weight: bold;
@@ -42,6 +46,17 @@
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   filter: alpha(opacity=80);
   z-index: 999;
+ 
+  
+}
+.ui-dialog .ui-dialog-titlebar-close {
+  position: absolute;
+  right: .3em;
+  top: 50%;
+  width: 21px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 20px;
 }
 
 .toast-close-button:hover,
@@ -597,12 +612,101 @@ body {
   text-align: justify !important;
 }
 .drp-cnt-width {
-  min-width: 175px !important;
+  min-width: 180px !important;
 }
 .txtAlign{
   text-align: center;
 }
- /* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+.sandBox-navTab .nav-item{
+  border: 1px solid gainsboro;
+
+}
+.sandBox-navTabs .nav-link.active {
+  color: #495057 !important;
+  /* //background-color:#f7f6f6 !important; */
+  background: #e3e1e1;
+  border-color: gray !important;
+  }
+  .tabContentSandbox .custom-dropdown::after {
+    content: '\f107';
+    height: 1em;
+    font-size: 20px;
+    line-height: 1;
+    right: 4%;
+    top: 50%;
+    margin-top: -0.5em;
+    color: #747582;
+    opacity: 0.6;
+    font-family: FontAwesome;
+}
+.bold{
+  font-weight: bold;
+}
+.sandBox-navTab .nav-item.show .nav-link, .sandBox-navTab .nav-link.active {
+  color: #fff !important;
+  background-color: #ae282e;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+  .sandBox-navTabs .nav-home-tab{background-color:#f7f6f6 !important;}
+  .sandBox-navTab a{
+    color: black !important;
+    font-weight: bold;
+  }
+  .sandBox-navTabs{
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+  }
+  .tabContentSandbox{
+    margin-top: 0px;
+  }
+  .tabContentSandbox .tab-pane{
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    border-right: 1px solid gainsboro;
+    padding-bottom: 15px;
+
+  }
+  .mt-30{
+    margin-top: 30px;
+  }
+  .padding-0{
+    padding: 0px;
+  }
+  .sanboxTable td{
+    width: 33%;
+    border: none;
+  }
+  .sanboxTable tr{
+    box-shadow: -1px -2px 4px 0px #CCC, inset 0px -11px 8px -10px #CCC;
+    margin: 0px;
+    padding: 0px;
+  }
+  .sanboxTable table{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+  .sanboxTable td,.sanboxTable div{
+    margin: 0px;
+    padding: 0px;
+  }
+  ::placeholder {
+   font-size: 13px;
+   font-family: Poppins-Regular !important;
+
+  }
+
+  input::placeholder, isindex::placeholder {
+    font-size: 13px;
+    font-family: Poppins-Regular !important;
+
+
+  }
+.setHeight{
+    min-height: 250px;
+  }
+   /* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
   html {
     transform: rotate(-90deg);
     transform-origin: left top;
@@ -613,11 +717,17 @@ body {
     top: 100%;
     left: 0;
   }
-} 
+}
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
   .cdk-global-scrollblock {
     width: 100vh !important;
     top: 100% !important;
   }
 } */
+/*
+.modal-content {
+  padding: 14px;
+  width: 80%;
+}
+*/

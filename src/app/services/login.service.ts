@@ -19,6 +19,7 @@ import { timeout, catchError, map, mapTo } from "rxjs/operators";
 export class LoginService {
   
   apiUrl: string;
+  UAT_apiUrl: string;
   private user_id = new Subject<any>();
   private user_name = new Subject<any>();
 
@@ -29,6 +30,7 @@ export class LoginService {
     private router: Router
   ) {
     this.apiUrl = config.apiUrl;
+    this.UAT_apiUrl = config.UAT_apiUrl;
   }
 
   sendUserId(id: string) {
@@ -81,7 +83,8 @@ export class LoginService {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl + "login", query, options);
+   return this.http.post(this.apiUrl + "login", query, options);
+   // return this.http.post(this.UAT_apiUrl + "login", query, options);
   }
   //#JWT Login Api
   LoginJWT(data) {
@@ -96,6 +99,7 @@ export class LoginService {
     });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.apiUrl + 'loginJWT', query, options);
+   // return this.http.post(this.UAT_apiUrl + 'loginJWT', query, options);
   }
 
   LoginPortal(json) {
@@ -149,7 +153,12 @@ export class LoginService {
     var key;
     var query = "";
     // for (key in data) { query += encodeURIComponent(key)+"="+encodeURIComponent(data[key])+"&"; }
-    let headers = new Headers({ "Content-Type": "application/json" });
+   // let headers = new Headers({ "Content-Type": "application/json" });
+   let headers = new Headers({
+    "Content-Type": "application/json",
+    "Token" : localStorage.getItem("jwt"),
+    "username":localStorage.getItem('username')
+  });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
       "https://developer.icicibank.com/rest/doc/save-portal-details ",
@@ -734,30 +743,140 @@ export class LoginService {
  
 getDocDetails(json) {
   //let json = {"docId":"6"}
-  let query = "";
+  //UAT_apiUrl
+  /*let query = "";
   if(json && json.docId){
     query = "docId="+json.docId;
   }
   
-  return this.http.get(this.apiUrl +"getDocDetails?"+query);
+  return this.http.get(this.apiUrl +"getDocDetails?"+query);*/
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "username" :localStorage.getItem("username"),
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "getDocDetails", query, options);
 }
  
 // Get MIS   download 
  
 getMisFile(json) {
-  //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
-  let query = "";
-  let headers = new Headers({
-    "Content-Type": "application/x-www-form-urlencoded"
-  });
-  let options = new RequestOptions({ headers: headers });
-  if(json && json.userName && json.fileDate){
-    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
-  }
-  return this.http.get(this.apiUrl +"getMisFile?"+query,{ responseType: ResponseContentType.Blob }); 
+  
+ let query = "";
+ if(json && json.userName && json.fileDate){
+  query = "fileDate="+ json.fileDate;
+  } 
+ 
+ let headers = new Headers({
+   "Content-Type": "application/x-www-form-urlencoded",
+   "Token" : localStorage.getItem("jwt"),
+   "username" :json.userName,
+ });
+ let options = new RequestOptions({ headers: headers });
+ return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);
+
+/*let query = "";
+if(json && json.userName && json.fileDate){
+ query = "fileDate=25-June-20";
+ } 
+
+let headers = new Headers({
+  "Content-Type": "application/x-www-form-urlencoded",
+  "Token" : "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaHVrdW1hcjAzMDkiLCJpYXQiOjE1OTAxNzQyNTUsInN1YiI6IkpXVCBUT2tlbiBmb3IgRGV2ZWxvcGVyIHBvcnRhbCIsImlzcyI6IklDSUNJIERldmVsb3BlciBwb3J0YWwiLCJleHAiOjMxODAzNDg1MTF9.v0qnqdzNBLSFPhqS9Zza0igW2Ppl2oXUS2UXy4q58OY",
+  "username" :"priyanshukumar0309",
+});
+let options = new RequestOptions({ headers: headers });
+return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);*/
 }
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
+}
+test_api(requestParam,apiName) {
+  var query = "";
+  var key;
+  for (key in requestParam) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": 'application/json'
+  });
+  let options = new RequestOptions({ headers: headers });
+  /*const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      "apikey":"f219f506-1079-4c76-8ea6-439774f96265"
+    })
+  };  */
+  
+  //return this.HttpClient.post<any>(apiName , query, httpOptions);
+  return this.http.post(apiName , query, options);
+}
+test_apiXML(requestParam,apiName) {
+  
+  let headers = new Headers({
+    "Content-Type": "text/xml"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(apiName , requestParam, options);
+}
+
+
+getTestCases(json) {
+  
+  let query = "";
+  if(json && json.apiId){
+   query = "apiId="+ json.apiId;
+   } 
+  
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "username" :localStorage.getItem("username"),
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "getTestCase", query, options);
+  
+ }
+
+ getTransactionHistory() {
+  let query = "";
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "username" :localStorage.getItem("username"),
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "getTxHistory", query, options);
+  
+ }
+
+ createTransactionHistory(requestParam) {
+  let query = "";
+  let key;
+  for (key in requestParam) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "userName" :localStorage.getItem("username"),
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "createTxHistory", query, options);
+}
+
+sendToken(token){
+
+  return this.http.post(this.apiUrl + "tokenValidate", {'g-recaptcha-reponse': token})
 }
  
 

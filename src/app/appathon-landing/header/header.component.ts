@@ -313,8 +313,10 @@ export class HeaderComponent implements OnInit {
   toastrmsg(type, title) {
     var toast: Toast = {
       type: type,
-      title: title,
-      showCloseButton: true
+      showCloseButton: true,
+      title: "",
+      body: title
+      
     };
     this.toasterService.pop(toast);
   }
@@ -476,7 +478,8 @@ export class HeaderComponent implements OnInit {
     },
     err => {
       console.log('err', err);
-      this.router.navigate(['error']);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',"Something went wrong.Please try again.");
     },);
   }
   // Signup function
@@ -503,7 +506,7 @@ export class HeaderComponent implements OnInit {
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     try {
       var json = {
-        username: this.signupForm3.value.username,
+        username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
         firstname: this.signupForm.value.firstname,
@@ -549,7 +552,8 @@ export class HeaderComponent implements OnInit {
       },
       err => {
         console.log('err', err);
-        this.router.navigate(['error']);
+       // this.router.navigate(['error']);
+        this.toastrmsg('error',"Something went wrong.Please try again.");
       },);
     } catch {
       this.toastrmsg("error", console.error());
