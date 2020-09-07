@@ -89,16 +89,22 @@ body {
 }
 .mt25 {
   margin-top: 25px !important;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   }
   .mb0 {
 =======
+=======
+>>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
 }
 .mt26 {
   margin-top: 10px !important;
 }
 .mb0 {
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
   margin-bottom: 0px;
 }
 .mb10 {
@@ -606,8 +612,13 @@ input:focus {
 padding: 10px 25px;
 } */
 ul.nav.nav-tabs {
+<<<<<<< HEAD
   margin: 0% 7%;
   width: 86%;
+=======
+  margin: 0% 9%;
+  width: 82%;
+>>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
   position: relative;
   align-items: center;
 }
@@ -1364,7 +1375,10 @@ transform: rotate(180deg);
   padding-right: 15px;
   position: relative;
   height: 50px;
+<<<<<<< HEAD
   top:20px;
+=======
+>>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
 }
 .workImageContainer {
   height: 50px;
@@ -2032,9 +2046,11 @@ table.possibleErrorTable tbody tr td p {
   font-family: Poppins-Regular;
   margin-right: 15px;
 }
+
 .breadcrumb li a.active {
   color: #ae282e !important;
 }
+
 .breadcrumb a i {
   margin-left: 15px;
   font-size: 16px;
@@ -2642,7 +2658,8 @@ input:checked + .slider:before {
   /* box-shadow: 10px 10px 50px 0 rgba(0, 0, 0, 0.5); */
   background: #ffffff;
   z-index: 3;
-  min-width: 165px;
+
+  min-width: 185px;
   max-width: 130px;
 }
 
@@ -3535,6 +3552,7 @@ color: #ae282e;
 }
 .docsMenubar{
         padding: 14px 0px 14px 0px;
+
         box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
     }
 
@@ -3546,6 +3564,7 @@ color: #ae282e;
  
   min-height: 300px;
 }
+
 #partners .mr-10 {
   margin-top: 10px;
 }
@@ -3596,6 +3615,7 @@ padding-left:0px ;
     }
     .sideMenu {
       top: 160px;
+
     }
   }
   @media screen and (min-width: 481px) and (max-width: 768px) {
@@ -3606,6 +3626,7 @@ padding-left:0px ;
     .sideMenu {
       top: 160px;
     }
+
   }
   @media screen and (min-width: 769px) and (max-width: 1024px) {
     .documentTabContent {
@@ -3616,6 +3637,18 @@ padding-left:0px ;
       top: 160px;
     }
   }
+
+  .box1
+{
+  width: 100%;
+  height: 76px;
+    border:1px solid #f6f6f6;
+    font-size: 23px;
+    text-align: center;
+     
+    
+}
+
   
 
 

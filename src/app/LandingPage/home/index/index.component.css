@@ -1,0 +1,28 @@
+
+.heightWidth100prcnt{
+    height: 100%;
+    width:100%;
+}
+.whiteBG{
+    background: #ffffff;
+}
+.lightGray{
+    background: #fcfcfc;
+}
+.width559px{
+    width: 559.438px!important;
+}
+.apiCardWithLabelForStrategicParner {
+    padding: 0px 0px;
+    background: aquamarine;
+}
+.sectionAPICardForStrategicPartner {
+    border-radius: 4px;
+    box-shadow: 0 0 0px 0 rgba(69, 69, 69, 0.2);
+    background-color: #ffffff;
+    transition: all 0.5s;
+    padding: 30px 20px;
+    /* min-height: 262px; */
+    min-height: 289px;
+}
+

@@ -10,7 +10,8 @@ import { ApplicationComponent } from './application/application.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
-
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+import { NewpartnerComponent } from './newpartner/newpartner.component';
 import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
 
 import { ModalModule } from 'ngx-bootstrap';
@@ -61,6 +62,8 @@ import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
         AnalyticsComponent,
         UserprofileComponent,
         FaqComponent,
+TransactionHistoryComponent,NewpartnerComponent,
+
         UATonboardingDashboardPageComponent,
         OnboardingrequestsComponent,
         UATonboardingDashboardPageSidebarComponent,
