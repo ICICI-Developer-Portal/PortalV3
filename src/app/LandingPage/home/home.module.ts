@@ -30,6 +30,7 @@ import {
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+//import { CarouselComponent } from './carousel/carousel.component';
 @NgModule({
   imports: [
     CommonModule,

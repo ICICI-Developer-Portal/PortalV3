@@ -776,47 +776,42 @@ getMisFile(json) {
  
  let headers = new Headers({
    "Content-Type": "application/x-www-form-urlencoded",
+   
    "Token" : localStorage.getItem("jwt"),
    "username" :json.userName,
  });
  let options = new RequestOptions({ headers: headers });
  return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);
 
-/*let query = "";
-if(json && json.userName && json.fileDate){
- query = "fileDate=25-June-20";
- } 
-
-let headers = new Headers({
-  "Content-Type": "application/x-www-form-urlencoded",
-  "Token" : "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaHVrdW1hcjAzMDkiLCJpYXQiOjE1OTAxNzQyNTUsInN1YiI6IkpXVCBUT2tlbiBmb3IgRGV2ZWxvcGVyIHBvcnRhbCIsImlzcyI6IklDSUNJIERldmVsb3BlciBwb3J0YWwiLCJleHAiOjMxODAzNDg1MTF9.v0qnqdzNBLSFPhqS9Zza0igW2Ppl2oXUS2UXy4q58OY",
-  "username" :"priyanshukumar0309",
-});
-let options = new RequestOptions({ headers: headers });
-return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);*/
 }
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
 }
 test_api(requestParam,apiName) {
-  var query = "";
-  var key;
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+
+  let requestPkt ={
+    "apikey":"f219f506-1079-4c76-8ea6-439774f96265",
+    "requestPacket":requestParam
   }
+  
   let headers = new Headers({
-    "Content-Type": "application/json",
-    "apikey":"f219f506-1079-4c76-8ea6-439774f96265"
+    "Content-Type": 'application/json'
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post(apiName , query, options);
+  /*const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      "apikey":"f219f506-1079-4c76-8ea6-439774f96265"
+    })
+  };  */
+  
+  //return this.HttpClient.post<any>(apiName , query, httpOptions);
+  return this.http.post(apiName , requestParam, options);
 }
 test_apiXML(requestParam,apiName) {
   
   let headers = new Headers({
-    "Content-Type": "text/xml",
-    "apikey":"f219f506-1079-4c76-8ea6-439774f9626"
+    "Content-Type": "text/xml"
   });
   let options = new RequestOptions({ headers: headers });
   return this.http.post(apiName , requestParam, options);

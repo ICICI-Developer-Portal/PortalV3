@@ -89,16 +89,11 @@ body {
 }
 .mt25 {
   margin-top: 25px !important;
-<<<<<<< Updated upstream
-  }
-  .mb0 {
-=======
 }
 .mt26 {
   margin-top: 10px !important;
 }
 .mb0 {
->>>>>>> Stashed changes
   margin-bottom: 0px;
 }
 .mb10 {
@@ -1288,8 +1283,9 @@ transform: rotate(180deg);
   top: -50px;
   z-index: 2;
 }
+
 .availableAPICard p {
-  display: none;
+ display: none;
 }
 .availableAPICard:hover h4 {
   margin-bottom: 20px;
@@ -3617,5 +3613,39 @@ padding-left:0px ;
     }
   }
   
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* display 3 */
+@media (min-width: 768px) {
+    
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(33.333%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-33.333%);
+    }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+}
+
 
 

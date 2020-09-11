@@ -203,6 +203,9 @@ export class IndexComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
     });
+
+    
+    
   }
 
   ngOnInit() {
@@ -214,7 +217,7 @@ export class IndexComponent implements OnInit {
           return;
       }
       window.scrollTo(0, 0)
-  });
+    });
     this.getMenuTree();
     //api for get menu tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
@@ -312,6 +315,33 @@ export class IndexComponent implements OnInit {
     this.frmProd_A3 = true;
 
     this.get_domain_and_apis();
+  /*  $(document).ready(function() {
+      console.log( "ready!" );
+     /* $('#recipeCarousel').carousel({
+        interval: 10000
+      })*
+      
+      $('.carousel .carousel-item').each(function(){
+          var minPerSlide = 3;
+          var next = $(this).next();
+          if (!next.length) {
+          next = $(this).siblings(':first');
+          }
+          next.children(':first-child').clone().appendTo($(this));
+          
+          for (var i=0;i<minPerSlide;i++) {
+              next=next.next();
+              if (!next.length) {
+                next = $(this).siblings(':first');
+              }
+              
+              next.children(':first-child').clone().appendTo($(this));
+            }
+      });
+  
+      
+    });*/
+   
   }
 
   appathonReg() {

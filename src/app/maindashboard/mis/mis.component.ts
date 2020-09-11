@@ -46,7 +46,7 @@ export class MisComponent implements OnInit {
   ) {
    this.dateInput= datepipe.transform(Date.now(),'dd-MMMM-yyyy');
    let today = new Date()
-   let priorDate = new Date().setDate(today.getDate()-20);
+   let priorDate = new Date().setDate(today.getDate()-30);
    this.minDate= datepipe.transform(new Date(priorDate),'yyyy-MM-dd');
    let prevDate = new Date().setDate(today.getDate()-1);
    this.maxDate= datepipe.transform(new Date(prevDate),'yyyy-MM-dd');
