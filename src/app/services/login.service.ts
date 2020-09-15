@@ -763,34 +763,29 @@ getDocDetails(json) {
 // Get MIS   download 
  
 getMisFile(json) {
-  //let json = {"userName":"Naresh","fileDate":"20-jan-2020"}
-  //UAT_apiUrl
-  /*let query = "";
+  
+  let query = "";
+  if(json && json.userName && json.fileDate){
+   query = "fileDate="+ json.fileDate;
+   } 
+  
   let headers = new Headers({
-    "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
+     //  observe: "response" as 'body',
+      // localStorage.getItem('username'),
+ 
+   //  "Token" : localStorage.getItem("jwt"),
+   //  "username" :json.userName,
+   "userName":json.userName,
+   // "apibanking",
+   "Token":localStorage.getItem("jwt"),
+   // "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhcGliYW5raW5nIiwiaWF0IjoxNTkxMzM3OTc4LCJzdWIiOiJKV1QgVE9rZW4gZm9yIERldmVsb3BlciBwb3J0YWwiLCJpc3MiOiJJQ0lDSSBEZXZlbG9wZXIgcG9ydGFsIiwiZXhwIjozMTgyNjc1OTU2fQ.BPPDRPG-XhmyN1ialyH39QwA52iSqRdZu8LIb_5oKbQ",
+   // "fileDate":"14-Aug-2020"
   });
   let options = new RequestOptions({ headers: headers });
-  if(json && json.userName && json.fileDate){
-    query = "userName="+json.userName +"&fileDate="+ json.fileDate;
-  }
-  return this.http.get(this.apiUrl +"getMisFile?"+query,{ responseType: ResponseContentType.Blob });
-  */ 
- let query = "";
- if(json && json.userName && json.fileDate){
-  query = "fileDate="+ json.fileDate;
-}
+  return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);
  
- let headers = new Headers({
-   "Content-Type": "application/x-www-form-urlencoded",
-   "Token" : localStorage.getItem("jwt"),
-   "username" :json.userName,
- });
- let options = new RequestOptions({ headers: headers });
- console.log("mis query is =="+ JSON.stringify(query));
- console.log("mis header is =="+ JSON.stringify(options));
- return this.http.post(this.apiUrl + "getMisFile", query, options);
- 
-}
+ }
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
 }

@@ -26,19 +26,17 @@ p{
         font-weight: bold;
    /* margin: auto; */
 }
-.box
-{
-    width: 471px;
-    height: 74px;
-    border:1px solid #000;
-    /* text-align: center; */
+.orangebtnCB{
     color: #fff;
-    padding: 19px;    
     background-color: rgb(241, 115,13);
     border-radius: 0.7em;
-    font-weight: bold;
-    font-size: 28px;
     margin-left: 85px;
+    width: 35%;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 15px;
+    font-size: 15px;
+
 }
 
 div{
@@ -67,4 +65,15 @@ div{
 }
 .fW100{
     font-weight: 100;
+}
+.width80prcnt{
+    width:80%;
+}
+.width70prcnt{
+    width:70%;
+
+}
+.width74prcnt{
+    width:74%;
+
 }

@@ -31,6 +31,7 @@ export class ApiDetailsComponent implements OnInit {
   dataArray=[];
   selectedType : string;
   ApiDomain: any;
+  ApiSubDomain : any
   frmUATFirst: FormGroup;
   typeSelected :string;
   type: "JSON";
@@ -67,6 +68,9 @@ export class ApiDetailsComponent implements OnInit {
   tesAPiSuccesufulResponse;
    keyVal;
    val;
+   keyPriority;
+   priority_value;
+   storeValue;store_priority_value;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
@@ -126,8 +130,14 @@ export class ApiDetailsComponent implements OnInit {
     this.dataArray.push(
       {
         key :"API key",
-        value:"f219f506-1079-4c76-8ea6-439774f96265"
+        value:"f219f506-1079-4c76-8ea6-439774f96265",
+        keyPriority : "Priority",
+        priority_value : "000010",
+        storeValue :"f219f506-1079-4c76-8ea6-439774f96265",
+        store_priority_value : "000010"
       }
+      
+      
     )
     this.sandBoxForm = {
      
@@ -135,6 +145,7 @@ export class ApiDetailsComponent implements OnInit {
       Request :this.reqParam
     };
 console.log(this.sandBoxForm ,)
+
 
 
 
@@ -159,7 +170,11 @@ console.log(this.sandBoxForm ,)
     {
       id:this.dataArray.length+1,
       key :this.keyVal,
-      value:this.val
+      value:this.val,
+      keyPriority : this.keyPriority,
+      priority_value : this.priority_value,
+      storeValue :this.storeValue,
+      store_priority_value : this.store_priority_value
     }
   )
   console.log(this.dataArray.length)
@@ -195,7 +210,11 @@ removeheader(i: number) {
         var response= data._body;
         if(response) {
           var obj=JSON.parse(response);
+          console.log(obj)
           this.ApiDomain =obj.ApiData.ApiDomain;
+          this.ApiSubDomain = obj.ApiData.ApiSubDomain;
+          console.log( this.ApiSubDomain)
+
           this.ApiName =obj.ApiData.ApiName;
           this.ApiDesc =obj.ApiData.ApiDesc;
           this.SandboxUrl ="https://developerapi.icicibank.com:8443/"+obj.ApiData.SandboxUrl;
@@ -627,6 +646,8 @@ console.log(headers)
   createTransactionHistory(form:NgForm){
     this.contentType=form.value.type;
     console.log(form.value.Response)
+    console.log(form.controls.priority_value.value)
+
     let _reqJson = {apiId : this.idForClickedTab };
    // this.GetTestCases(_reqJson,Headers)
    console.log(_reqJson)

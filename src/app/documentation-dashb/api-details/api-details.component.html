@@ -188,8 +188,8 @@
                                                 <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
                                                     <div class="table-responsive sanboxTable">
                                                         <table class="table table-bordered table-hover col-md-12">
-                                                            <tbody>
-                                                                <tr *ngFor="let obj of dataArray;let i = index;"
+                                                            <tbody *ngFor="let obj of dataArray;let i = index;">
+                                                                <tr 
                                                                     class="mb-2">
                                                                     <td>
 
@@ -197,16 +197,21 @@
                                                                             &nbsp;&nbsp;
                                                                             <input type="text" name="key{{obj.id}}"
                                                                                 class="form-control"
+                                                                                
                                                                                 aria-describedby="emailHelp"
                                                                                 placeholder="" [readonly]="i==0" [ngModel]="obj.key">
                                                                         </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-group form-inline">
-                                                                            Value : &nbsp;&nbsp;
-                                                                            <input type="text" name="value{{obj.id}}"
-                                                                                class="form-control" placeholder=""
-                                                                                [ngModel]="obj.value">
+                                                                            Value : &nbsp;&nbsp;                             
+                                                                             <input type="text" hidden [ngModel]="obj.value"  name="value{{obj.id}}" #firstKeyActualValue>
+                                                                            <input type="text" name="value{{obj.id}}" #firstKeyUsersValue
+                                                                            class="form-control" placeholder=""
+                                                                            [ngModel]="obj.value">
+                                                                                <span class="text-danger"  *ngIf="firstKeyActualValue.value != firstKeyUsersValue.value">value has been changed</span>
+                                                                                <!-- {{firstKeyActualValue.value}}<br/>
+                                                                                {{firstKeyUsersValue.value}} -->
                                                                         </div>
                                                                     </td>
                                                                     <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
@@ -215,12 +220,61 @@
                                                                     </td>
 
                                                                 </tr>
+                                                                <tr *ngIf="ApiSubDomain =='Composite API' &&  !i>0"                                                                 class="mb-2">
+                                                                    <td>
+
+                                                                        <div class="form-group form-inline">Key :
+                                                                            &nbsp;&nbsp;
+                                                                        
+                                                                            <input type="text" name="keyPriority{{obj.id}}"
+                                                                                class="form-control"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="" [readonly]="i==0" [ngModel]="obj.keyPriority">
+                                                                               
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group form-inline">
+                                                                            Value : &nbsp;&nbsp;
+                                                                            <input type="text" #priority_value_compare name="priority_value{{obj.id}}"
+                                                                          
+                                                                            [ngModel]="obj.priority_value"  hidden>
+                                                                            <input type="text" #priority_value name="priority_value{{obj.id}}"
+                                                                                class="form-control" placeholder=""
+                                                                                [ngModel]="obj.priority_value">
+                                                                                <!-- {{priority_value.value}}
+                                                                                {{priority_value_compare.value}} -->
+                                                                                <span class="text-danger"  *ngIf="priority_value.value != priority_value_compare.value">value has been changed</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
+                                                                            type="button" ng-reflect-klass="signInBtn"
+                                                                            (click)="removeheader(i)"> &minus; </button>
+                                                                    </td>
+                                                                    <!-- {{ priority_value.value}} zdskdasfjskd -->
+                                                                </tr>
+                                                              
                                                             </tbody>
                                                         </table>
                                                     </div>
+<!-- {{firstKeyActualValue.value != firstKeyUsersValue.value}} -->
+<!-- <span *ngIf="firstKeyActualValue.value != firstKeyUsersValue.value && priority_value.value != priority_value_compare.value">true</span> -->
+{{myForm.controls.priority_value.value}}
+{{myForm.controls.firstKeyUsersValue.value}}
 
-                                                    <button type="submit"
-                                                        class="btn signInBtn btn-dark pull-right mt-30">Test</button>
+<!-- {{myForm.controls.firstKeyUsersValue.controls[i].value }}
+{{myForm.controls.priority_value.value}} -->
+
+{{myForm.controls.firstKeyActualValue.get(value)}}dd
+
+<!-- {{myForm.controls.priority_value_compare.value}} -->
+                                                    <button   [disabled]="myForm.controls.priority_value.value != myForm.controls.priority_value_compare.value"
+                                                  
+                                                    type="submit"
+                                                        class="btn signInBtn btn-dark pull-right mt-30" 
+                                                      >Test  zdskdasfjskd</button>
+
+
 
                                                 </form>
                                                 <!--================== -->
@@ -252,7 +306,7 @@
                                                         I'm the menu. Click outside to close me
                                                         </div>
                                                         </div> -->
-                                                        <div *ngIf="idForClickedTab=='601'">
+                                                        <div *ngIf="testApiresponseFor601">
                                                             <label class="mb-1 mt-3 bold">Test Case :</label>
                                                             <!-- <input id="check01" type="checkbox" name="menu" value="" /> -->
                                                             <label #toggleButton (click)="toggleMenu($event)" for="check01" class="mb-1 custom-select-box">
@@ -343,12 +397,14 @@
                                                             [disabled]="!testApiResData.length>0"
                                                             (click)="createTransactionHistory(bodyForm)">Callback
                                                             Response</button> -->
+                                                            <div *ngIf="ApiSubDomain =='Eazypay'">
                                                         <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
                                                             href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
                                                             (click)="createTransactionHistory(bodyForm)">
                                                             Callback
                                                             Response</button>
+                                                            </div>
 
 
                                                     </div>
@@ -362,7 +418,7 @@
                                 </div>
                                 <div class="modal fade" id="myModal2">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content"  >
                                             <!-- <div class="modal-header"> -->
                                             <div>
                                                 <button type="button" class="close" data-dismiss="modal"

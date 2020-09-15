@@ -49,7 +49,7 @@
           
         </div>
 
-        <form [formGroup]="misForm" class="frm-mrg">
+        <form [formGroup]="misForm" autocomplete="off" class="frm-mrg">
           <div class="row mb20">
             <div class="form-group col-md-12">
               <label for="dateInput">Select Date</label>
@@ -86,8 +86,7 @@
                 [disabled]="!misForm.valid"
                 [ngClass]="misForm.valid ? 'btn-blue' : 'btn-white'"
               >
-                <!-- {{ constants.SUBMIT }} -->
-                SUBMIT
+               Submit
               </button>
             </div>
 
