@@ -28,3 +28,6 @@
 .display_block{
     display: block !important;
 }
+a:hover{
+    color: #ffffff !important;
+}
