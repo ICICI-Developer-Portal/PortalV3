@@ -203,8 +203,6 @@ export class IndexComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
     });
-
-    
     
   }
 
@@ -315,11 +313,11 @@ export class IndexComponent implements OnInit {
     this.frmProd_A3 = true;
 
     this.get_domain_and_apis();
-  /*  $(document).ready(function() {
+    $(document).ready(function() {
       console.log( "ready!" );
-     /* $('#recipeCarousel').carousel({
-        interval: 10000
-      })*
+      $('#recipeCarousel').carousel({
+        interval: 100000000
+      })
       
       $('.carousel .carousel-item').each(function(){
           var minPerSlide = 3;
@@ -340,7 +338,7 @@ export class IndexComponent implements OnInit {
       });
   
       
-    });*/
+    });
    
   }
 
