@@ -43,7 +43,7 @@ import { HeaderComponent } from "./header/header.component";
 import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
 import { FocusOnShowDirective } from "./autofocus.directive";
 import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
-import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+// import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -81,15 +81,15 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule ,
-    RecaptchaModule,
-    RecaptchaFormsModule
+    // RecaptchaModule,
+    // RecaptchaFormsModule
     
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     Config,
     LoginService,
-    VariablesService,
+    VariablesService,   
     DashboardService
     // { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
   ],
