@@ -199,6 +199,7 @@ Sample_packet(){
     "id":this.id,
     "username":localStorage.getItem('username')
   }
+  console.log(this.id)
   this.adm.Sample_packet(json)
   .subscribe(
     (data:any) => {
