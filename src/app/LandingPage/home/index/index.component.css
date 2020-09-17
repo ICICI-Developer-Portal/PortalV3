@@ -9,6 +9,7 @@
 .lightGray{
     background: #fcfcfc;
 }
+
 .width559px{
     width: 559.438px!important;
 }
@@ -25,4 +26,67 @@
     /* min-height: 262px; */
     min-height: 289px;
 }
+.display_block{
+    display: block !important;
+}
+a:hover{
+    color: #ffffff !important;
+}
+.carousel-control-prev{
+    width: 2%;
+    height: 3%;
+    top: 39%;
+    left: 2%;
+}
+.carousel-control-next{
+    width: 2%;
+    height: 3%;
+    top: 39%;
+    right: 2%;
+}
+.midContentContainer{
+height: 145px !important;
+display: block;
+padding-left: 22px;
+padding-right: 20px;
+text-align: left;
 
+}
+.cardsImage{
+    height: 27%;
+}
+.img-responsive{
+    width: 100%;
+    height: auto;
+}
+.card-body1 {
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #303030;
+    padding-top: 0px;
+    height: 330px;
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 640px) {
+    /* Styles */
+    .card-body1 {
+        font-family: Poppins-Regular;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #303030;
+        padding-top: 0px;
+        height: 370px;
+    }
+    .midContentContainer{
+        height: 200px !important;
+        display: block;
+        padding-left: 22px;
+        padding-right: 10px;
+        text-align: left;
+        
+        }
+    }
+
+
+
+    

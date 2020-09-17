@@ -185,7 +185,7 @@
 
 
                                                 <!-- ================-->
-                                                <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+                                                <form (ngSubmit)="onSubmitBody(myForm)" #myForm="ngForm">
                                                     <div class="table-responsive sanboxTable">
                                                         <table class="table table-bordered table-hover col-md-12">
                                                             <tbody *ngFor="let obj of dataArray;let i = index;">
@@ -205,11 +205,14 @@
                                                                     <td>
                                                                         <div class="form-group form-inline">
                                                                             Value : &nbsp;&nbsp;                             
-                                                                             <input type="text" hidden [ngModel]="obj.value"  name="value{{obj.id}}" #firstKeyActualValue>
-                                                                            <input type="text" name="value{{obj.id}}" #firstKeyUsersValue
+                                                                            <input type="text" #storeValue name="storeValue{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.storeValue"  hidden>
+                                                                            <input type="text" name="value{{obj.id}}" #value
                                                                             class="form-control" placeholder=""
                                                                             [ngModel]="obj.value">
-                                                                                <span class="text-danger"  *ngIf="firstKeyActualValue.value != firstKeyUsersValue.value">value has been changed</span>
+                                                                            <!-- {{value.value}}
+                                                                            {{storeValue.value}} -->
+                                                                                <!-- <span class="text-danger"   *ngIf="key1==false">value has been changed</span> -->
                                                                                 <!-- {{firstKeyActualValue.value}}<br/>
                                                                                 {{firstKeyUsersValue.value}} -->
                                                                         </div>
@@ -222,7 +225,6 @@
                                                                 </tr>
                                                                 <tr *ngIf="ApiSubDomain =='Composite API' &&  !i>0"                                                                 class="mb-2">
                                                                     <td>
-
                                                                         <div class="form-group form-inline">Key :
                                                                             &nbsp;&nbsp;
                                                                         
@@ -230,49 +232,48 @@
                                                                                 class="form-control"
                                                                                 aria-describedby="emailHelp"
                                                                                 placeholder="" [readonly]="i==0" [ngModel]="obj.keyPriority">
+                                                                                
                                                                                
                                                                         </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-group form-inline">
                                                                             Value : &nbsp;&nbsp;
-                                                                            <input type="text" #priority_value_compare name="priority_value{{obj.id}}"
-                                                                          
-                                                                            [ngModel]="obj.priority_value"  hidden>
+                                                                            <input type="text" #store_priority_value name="store_priority_value{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.store_priority_value"  hidden>
                                                                             <input type="text" #priority_value name="priority_value{{obj.id}}"
                                                                                 class="form-control" placeholder=""
                                                                                 [ngModel]="obj.priority_value">
                                                                                 <!-- {{priority_value.value}}
                                                                                 {{priority_value_compare.value}} -->
-                                                                                <span class="text-danger"  *ngIf="priority_value.value != priority_value_compare.value">value has been changed</span>
+                                                                                <!-- <span class="text-danger"  *ngIf="key2==false">value has been changed</span> -->
                                                                         </div>
                                                                     </td>
                                                                     <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
                                                                             type="button" ng-reflect-klass="signInBtn"
                                                                             (click)="removeheader(i)"> &minus; </button>
                                                                     </td>
-                                                                    <!-- {{ priority_value.value}} zdskdasfjskd -->
-                                                                </tr>
-                                                              
+                                                                </tr> 
+
                                                             </tbody>
                                                         </table>
                                                     </div>
 <!-- {{firstKeyActualValue.value != firstKeyUsersValue.value}} -->
 <!-- <span *ngIf="firstKeyActualValue.value != firstKeyUsersValue.value && priority_value.value != priority_value_compare.value">true</span> -->
-{{myForm.controls.priority_value.value}}
-{{myForm.controls.firstKeyUsersValue.value}}
+<!-- {{myForm.controls.priority_value.value}}<br/>
+{{myForm.controls.store_priority_value.value}}<br/>
+{{myForm.controls.storeValue.value}}<br/>
+{{myForm.controls.value.value}}<br/> -->
+
 
 <!-- {{myForm.controls.firstKeyUsersValue.controls[i].value }}
 {{myForm.controls.priority_value.value}} -->
 
-{{myForm.controls.firstKeyActualValue.get(value)}}dd
 
 <!-- {{myForm.controls.priority_value_compare.value}} -->
-                                                    <button   [disabled]="myForm.controls.priority_value.value != myForm.controls.priority_value_compare.value"
-                                                  
-                                                    type="submit"
+                                                    <!-- <button  type="submit"
                                                         class="btn signInBtn btn-dark pull-right mt-30" 
-                                                      >Test  zdskdasfjskd</button>
+                                                      >Test</button> -->
 
 
 
@@ -300,7 +301,6 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <!-- <a #toggleButton (click)="toggleMenu($event)">Toggle Menu</a>
-
                                                         <div class="menu" *ngIf="isMenuOpen" >
                                                         <div>
                                                         I'm the menu. Click outside to close me
@@ -310,8 +310,9 @@
                                                             <label class="mb-1 mt-3 bold">Test Case :</label>
                                                             <!-- <input id="check01" type="checkbox" name="menu" value="" /> -->
                                                             <label #toggleButton (click)="toggleMenu($event)" for="check01" class="mb-1 custom-select-box">
-                                                                <span
-                                                                    *ngIf="!testApiResID.length>0">Select</span><span
+                                                                <span 
+                                                                    *ngIf="!testApiResID.length>0">Select</span>
+                                                                    <span class="wrap-text"
                                                                     *ngIf="testApiResID.length>0">TestCaseID:
                                                                     <b>{{testApiResID}}</b> &nbsp; &nbsp; &nbsp;
                                                                     &nbsp;TesCaseName:<b>
@@ -322,7 +323,7 @@
                                                                     <table style="width:100%" class="dynamicData" (click)="handleTableClick">
                                                                         <tr>
                                                                             <th>Test Case Number</th>
-                                                                            <th>Description</th>
+                                                                            <th>TesCaseName</th>
 
                                                                             <th>Status </th>
                                                                         </tr>
@@ -332,12 +333,13 @@
                                                                             [attr.name]="i.testCaseName"
                                                                             [attr.requestPacket]="i.requestPacket"
                                                                             [attr.responsePacket]="i.responsePacket"
+                                                                            [attr.testCaseDescription]=i.testCaseDescription
                                                                             class="cursorPointer"
                                                                             [class.highlighted]="i.testCaseId === clickedTestCaseID">
                                                                             <td [attr.id]="i | json">
                                                                                 {{i.testCaseId}}{{testApiresponseFor601[i]}}
                                                                             </td>
-                                                                            <td>dummy</td>
+                                                                            <td>{{i.testCaseName}}</td>
                                                                             <td> <input type="checkbox"
                                                                                     style="display: block;"
                                                                                     disabled></td>
@@ -354,6 +356,16 @@
                                                             height: 8px;"></span>
 
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-6" *ngIf="testApiResID.length>0"></div>
+                                                    <div    class="col-md-6 mb-3" *ngIf="testApiResID.length>0">
+                                                        <!-- <label _ngcontent-c7="" class="mb-1 bold">Descreption :</label> -->
+                                                        <label  *ngIf="testApiResID.length>0" _ngcontent-c4="" _ngcontent-c7="" class="mb-1 bold">Description: <span _ngcontent-c4="" style="
+                                                            font-weight: 100;
+                                                            color: gray;font-size: 12px;
+                                                        ">{{testCaseDescription}}</span></label>
+                                                    <!-- <label _ngcontent-c7="" class="mb-1 custom-select-box" for="check01" style="background-color: #e9ecef;">
+                                                        <p>dummy dkjnfkjdskjgdkjgkjfdgnfdgfd</p></label> -->
                                                     </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Request:</p>

@@ -29,9 +29,13 @@
 }
 
 .toast-close-button {
-  position: relative;
-  right: -0.3em;
-  top: -0.3em;
+  position: absolute;
+  right: .2em;
+  top: 25%;
+  width: 25px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 20px;
   float: right;
   font-size: 20px;
   font-weight: bold;
@@ -42,6 +46,17 @@
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   filter: alpha(opacity=80);
   z-index: 999;
+ 
+  
+}
+.ui-dialog .ui-dialog-titlebar-close {
+  position: absolute;
+  right: .3em;
+  top: 50%;
+  width: 21px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 20px;
 }
 
 .toast-close-button:hover,
@@ -291,7 +306,6 @@ button.toast-close-button {
 /* toaster end */
 .modal-content {
   padding: 14px;
-  /* width: 80%; */
 }
 
 .signIn {
@@ -661,7 +675,7 @@ body {
     padding: 0px;
   }
   .sanboxTable td{
-    width: 15%;
+    width: 33%;
     border: none;
   }
   .sanboxTable tr{
@@ -711,6 +725,9 @@ body {
     top: 100% !important;
   }
 } */
-.index-howitworks{
+/*
+.modal-content {
+  padding: 14px;
   width: 80%;
 }
+*/

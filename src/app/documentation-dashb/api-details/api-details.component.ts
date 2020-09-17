@@ -64,6 +64,7 @@ export class ApiDetailsComponent implements OnInit {
   testApiresponseFor601;
   populateRes;
   clickedTestCaseID;
+  testCaseDescription;
   isMenuOpen = true
   tesAPiSuccesufulResponse;
    keyVal;
@@ -71,6 +72,9 @@ export class ApiDetailsComponent implements OnInit {
    keyPriority;
    priority_value;
    storeValue;store_priority_value;
+   key1= false;
+   key2= false;
+   storeRequestValue;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
@@ -130,10 +134,10 @@ export class ApiDetailsComponent implements OnInit {
     this.dataArray.push(
       {
         key :"API key",
+        storeValue :"f219f506-1079-4c76-8ea6-439774f96265",
         value:"f219f506-1079-4c76-8ea6-439774f96265",
         keyPriority : "Priority",
         priority_value : "000010",
-        storeValue :"f219f506-1079-4c76-8ea6-439774f96265",
         store_priority_value : "000010"
       }
       
@@ -488,6 +492,7 @@ set reqParamValue(v) {
     this.reqParam = JSON.parse(v);
   } catch (e) {
     console.log("error occored while you were typing the JSON");
+    this.storeRequestValue=false;
   }
 }
    testApiCall(){
@@ -554,6 +559,7 @@ set reqParamValue(v) {
     this.testApiResID=[];
     this.testApiResName =[];
     this.clickedTestCaseID=e.target.parentNode.getAttribute("id");
+    this.testCaseDescription=e.target.parentNode.getAttribute("testCaseDescription");
 
     console.log(e.target.parentNode.getAttribute("id"))
    
@@ -575,7 +581,38 @@ set reqParamValue(v) {
   }
   onSubmit(form:NgForm){
     // this.getVal() ;
-    console.log(form.value)
+
+    // this.getVal() ;
+
+
+    if(form.controls.storeValue.value!=form.controls.value.value){
+      this.key1=false;
+      console.log(form.controls.storeValue.value!=form.controls.value.value,this.key1,+"yes rched")
+    }
+    else{
+      this.key1=true;
+      console.log("rchd inside true")
+    }
+    if(form.controls.store_priority_value.value!=form.controls.priority_value.value){
+      this.key2=false;
+      console.log(form.controls.store_priority_value.value,form.controls.priority_value.value,this.key2,+"yes rched")
+    }else{
+      this.key2=true;
+      console.log("rchd inside  key true")
+    
+    
+    }
+    
+        console.log(form.value.store_priority_value)
+        console.log(form.controls.priority_value.value)
+        console.log(form.controls.storeValue.value)
+    this.store_priority_value=form.value.store_priority_value;
+    this.priority_value=form.controls.priority_value.value;
+    this.storeValue=form.controls.storeValue.value;
+        console.log(form.controls.value.value)
+    
+        
+        console.log(form.value)
   }    
   GetTestCases(_reqJson,headers){
  headers = new Headers({
@@ -628,6 +665,9 @@ console.log(headers)
   
   onSubmitBody(form:NgForm){
     console.log(this.testApiReqData, this.testApiReqData.length)
+    console.log(form.controls.Request.value)
+    this.storeRequestValue=form.controls.Request.value;
+
     this.contentType=form.value.type;
     this.testApiResData=[];
     if(this.testApiReqData.length>0){

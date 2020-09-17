@@ -2,8 +2,8 @@ import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
-import { FormBuilder,FormsModule, FormGroup, Validators } from "@angular/forms";
-import { Router,NavigationEnd } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router,NavigationEnd  } from "@angular/router";
 import { LoginService } from "src/app/services";
 import { PasswordValidation } from "../../layout/header/password.validator";
 import { VariablesService } from "src/app/services/Variables.service";
@@ -178,6 +178,8 @@ export class IndexComponent implements OnInit {
   companyNamesDetails: any;
   companyNames: any;
   errorMsg:any = "Something went wrong. Please try again in some time.";
+  recaptchaReactive: any;
+  recaptchaFlag: boolean = false;
 
   constructor(
     private http: Http,
@@ -201,19 +203,19 @@ export class IndexComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
     });
+    
   }
 
   ngOnInit() {
-
-    
     var self = this;
+
 
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
       window.scrollTo(0, 0)
-  });
+    });
     this.getMenuTree();
     //api for get menu tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
@@ -311,6 +313,33 @@ export class IndexComponent implements OnInit {
     this.frmProd_A3 = true;
 
     this.get_domain_and_apis();
+    $(document).ready(function() {
+      console.log( "ready!" );
+      $('#recipeCarousel').carousel({
+        interval: 100000000
+      })
+      
+      $('.carousel .carousel-item').each(function(){
+          var minPerSlide = 3;
+          var next = $(this).next();
+          if (!next.length) {
+          next = $(this).siblings(':first');
+          }
+          next.children(':first-child').clone().appendTo($(this));
+          
+          for (var i=0;i<minPerSlide;i++) {
+              next=next.next();
+              if (!next.length) {
+                next = $(this).siblings(':first');
+              }
+              
+              next.children(':first-child').clone().appendTo($(this));
+            }
+      });
+  
+      
+    });
+   
   }
 
   appathonReg() {
@@ -858,7 +887,7 @@ export class IndexComponent implements OnInit {
   signup_jira() {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     var json = {
-      userName: this.signupForm3.value.username,
+      userName: this.signupForm3.value.uname,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
       lastName: this.signupForm.value.firstname,
@@ -986,11 +1015,25 @@ export class IndexComponent implements OnInit {
     }
   }
 
-  HowItWork(modal_hwi: any) {
+  HowItWork(modal_hwi: any,id) {
     this.modalRef = this.modalService.show(modal_hwi, {
       backdrop: "static",
       class: "modal-lg"
     });
+    try {
+      this.showTab = id;
+    //this.active ='#F06321';
+   
+    $('ul.breadcrumb li a').removeClass('active');
+    $('ul.breadcrumb li a').removeClass('show');
+    //$('ul.breadcrumb').find('#tab'+id).first().addClass('active');
+    $('#tab'+id).addClass('active');
+    $('#tab'+id).addClass('show');
+   //$(e.target).addClass('show');
+      
+    } catch (e) {
+
+    }
   }
 
   browse_api(signin: any) {
@@ -1075,7 +1118,7 @@ export class IndexComponent implements OnInit {
 
   /*show_build(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/1"]);
+      this.router.navigate(["/buildingblock"]);
     } else {
       this.modalRef = this.modalService.show(signin, { backdrop: "static" });
     }
@@ -1083,7 +1126,7 @@ export class IndexComponent implements OnInit {
 
   loans(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/30"]);
+      this.router.navigate(["/loanandcard"]);
     } else {
       this.modalRef = this.modalService.show(signin, { backdrop: "static" });
     }
@@ -1091,7 +1134,7 @@ export class IndexComponent implements OnInit {
 
   account(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/209"]);
+      this.router.navigate(["/accountdeposit"]);
     } else {
       this.browse_api(signin);
     }
@@ -1099,7 +1142,7 @@ export class IndexComponent implements OnInit {
 
   payment(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/104"]);
+      this.router.navigate(["/payment"]);
     } else {
       this.browse_api(signin);
     }
@@ -1107,7 +1150,7 @@ export class IndexComponent implements OnInit {
 
   corporate(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/247"]);
+      this.router.navigate(["/corporatebank"]);
     } else {
       this.browse_api(signin);
     }
@@ -1115,14 +1158,7 @@ export class IndexComponent implements OnInit {
 
   commercial(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/292"]);
-    } else {
-      this.browse_api(signin);
-    }
-  }
-  corporates(signin: any) {
-    if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/370"]);
+      this.router.navigate(["/commercialbank"]);
     } else {
       this.browse_api(signin);
     }
@@ -2105,9 +2141,15 @@ corporates(signin: any) {
     this.router.navigate(["/documentation"]);
   }
 
-  HWI_link(id) {
+  HWI_link(e,id) {
     this.showTab = id;
     //this.active ='#F06321';
+   
+    $('ul.breadcrumb li a').removeClass('active');
+    $('ul.breadcrumb li a').removeClass('show');
+   $(e.target).addClass('active');
+   $(e.target).addClass('show');
+    
   }
 
   onChangeAccountNum(event) {
@@ -2204,7 +2246,24 @@ corporates(signin: any) {
     }
   
   }  
-  
+ //function to resolve the reCaptcha and retrieve a token
+async resolved(captchaResponse: string, res) {
+  console.log(`Resolved response token: ${captchaResponse}`);
+  await this.sendTokenToBackend(captchaResponse); //declaring the token send function with a token parameter
+}
+//function to send the token to the node server
+sendTokenToBackend(tok){
+  //calling the service and passing the token to the service
+  this.adm.sendToken(tok).subscribe(
+    data => {
+      console.log(data)
+    },
+    err => {
+      console.log(err)
+    },
+    () => {}
+  );
+}
 
   
 }

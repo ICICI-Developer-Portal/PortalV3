@@ -21,7 +21,8 @@
               <!--/First slide-->
               <!--Second slide-->
               <div class="carousel-item">
-                <img src="assets/images/image 1.JPG" alt="Second slide" />
+                <!-- <img src="assets/images/image 1.JPG" alt="Second slide" /> -->
+                <img src="assets/images/Image1.JPG"alt="Second slide"/>
               </div>
               <!--/Second slide-->
             </div>
@@ -49,7 +50,7 @@
       </p>
       <div class="row howItWorksContainerMargin mb50">
         <div class="col-md-3 text-lg-center mb-xs-30">
-          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,1)">
             <div class="workImageContainer">
               <!-- <img src="assets/images/signup.svg" alt=""> -->
               <h2>
@@ -87,7 +88,7 @@
           <img src="assets/images/nextarrows.svg" alt="" />
         </div>-->
         <div class="col-md-3 text-lg-center mb-xs-30">
-          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,2)">
             <div class="workImageContainer">
               <!-- <img src="assets/images/testitout.svg" alt=""> -->
               <h2>
@@ -101,7 +102,7 @@
           <img src="assets/images/nextarrows.svg" alt="" />
         </div>
         <div class="col-md-3 text-lg-center mb-xs-30">
-          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,3)">
             <div class="workImageContainer">
               <h2>
                 <p>3</p>
@@ -262,11 +263,12 @@
             </div>
           </a>
         </div>
+
         <div class="col-md-3">
           <a class="cursor tdNone" (click)="corporates(signin)">
             <div class="sectionAPICard availableAPICard">
               <div class="sectionAPICardImage">
-                <img src="assets/images/retail-shape.svg" alt="" />
+                <img src="assets/images/payment.svg" alt="" />
               </div>
               <h4>Corporate API Suite</h4>
               <p>
@@ -277,6 +279,7 @@
             </div>
           </a>
         </div>
+
       </div>
       <div id="availableAPIs" class="owl-carousel owl-theme mb30">
         <div class="sectionAPICard availableAPICard">
@@ -354,18 +357,20 @@
             latest requirements of the market.
           </p>
         </div>
+
         <div class="sectionAPICard availableAPICard">
           <div class="sectionAPICardImage">
-            <img src="assets/images/retail-shape.svg" alt="" />
+            <img src="assets/images/payment.svg" alt="" />
           </div>
           <h4>Corporate API Suite </h4>
           <p>
             We bring to you corporate API suite a bouquet of APIs selected specially to cater to the evolving needs
             of corporate clients. We have come up with this assortment of APIs after carefuly studying the needs and
             journey of the corporates. Please feel free to browse and choose from our thoughtful API offerings.
-         
+
           </p>
         </div>
+
       </div>
       <div class="row">
         <a class="signInBtn marginAutoHr mt15" (click)="browse_api(signin)">BROWSE ALL API</a>
@@ -444,96 +449,208 @@
       </div>
     </section>
     <!-- Strategit partner-->
-   <!-- Strategit partner-->
-   <section id="partners" class="sectionAPIs featuredAPIs" style="padding-bottom: 75px; background: #f6f6f6; ">
-    <h3  class="">Strategic <span >Partner</span></h3>
-    <section><div class="row">
-      <div class="container  mb20">
-      <div class="whiteBG" style="width: 82%;margin: 0 auto;">
 
-   <div class="col-md-3" style="
-      display: inline-block;
-      text-align: right;
-  ">
-  <img  alt="" class="heightWidth100prcnt" src="../../../../assets/newpartner/newpartner.jpg" style="height: 100px;width: 188px;">
-      </div>
-          <div class="'col-md-6" style="
-      display: inline-block;
-  ">
-      <p  class="fs16" style="margin-top: 26px;line-height: 46px;text-align: center;">Power your platform with ICICI Bank Connected Banking.</p>
-  
-      </div> 
-          <div class="col-md-3" style="
-      display: inline-block;
-  ">
-      <a  class="signInBtn mt-4" href="#/connectedBanking" ng-reflect-router-link="../connectedBanking" routerlink="../connectedBanking" style="
-          margin-top: 26px;
-          /* line-height: 46px; */
-          /* text-align: center; */
-          ">Know More</a>
-  
-      </div>
-      </div>
-      </div>
-       </div>    <!--shivami cart end here from here-->
-    </section>
-         <!--shivami cart started from here-->
-      <div class="row mb30 hidden-xs success-label-div" style="min-height: 300px;">
-        <div class="col-md-3  " style="margin-top: 50px;">
-          <a class="cursor tdNone">
-            <div class="sectionAPICard availableAPICard">
-              <div style="margin-bottom: 20px;">
-                <img src="assets/images/shivaami.jpg" alt="" class="img2" />
-              </div>
-              <h4>Shivaami</h4>
-              <p>
-                The purpose of Shivaami is to bring positive change in the life of the people we connect by
-                offering Solutions and Services which brings Profit and Happiness.
-                <span class="row">
-                  <span class="container">
 
-                    <button type="button" class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
-                      (click)="openFile('https://www.shivaami.com/shivaami-icici-bundle/?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Shivaami')">Visit
-                      Shivaami</button>
 
-                    <button type="button" class="btn btn-primary btn-sm" style="font-size: 10px;"
-                      (click)="openFile('https://www.icicibank.com/offers/shivaami-offer.page')">View Offer</button>
 
-                  </span>
-                </span>
-            </div>
-          </a>
-        </div>
 
-      </div>
-      <div id="availableAPIs" class="owl-carousel owl-theme mb30" style="min-height: 300px;">
-        <div class="sectionAPICard availableAPICard">
-          <div style="margin-bottom: 20px;">
-            <img src="assets/images/shivaami.jpg" alt="" class="img2" />
-          </div>
-          <h4>Shivaami</h4>
-          <p>
-            The purpose of Shivaami is to bring positive change in the life of the people we connect by
-            offering Solutions and Services which brings Profit and Happiness.
-            <span class="row">
-              <span class="container">
 
-                <button type="button" class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
-                  (click)="openFile('https://www.shivaami.com/shivaami-icici-bundle/?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Shivaami')">Visit
-                  Shivaami</button>
 
-                <button type="button" class="btn btn-primary btn-sm" style="font-size: 10px;"
-                  (click)="openFile('https://www.icicibank.com/offers/shivaami-offer.page')">View Offer</button>
-
-              </span>
-            </span>
-        </div>
-
-      </div>
-    <!--shivami cart end here from here-->
-  </section>
 
     <!-- Strategic partner change end-->
+
+    <!-- Strategit partner-->
+    <!-- Strategit partner-->
+
+    <!-- END Strategit partner-->
+    <!--New carousel-->
+
+    <section class="sectionAPIs sectionAPIsGrayBg" id="partners">
+      <div class="container text-center my-3 ">
+        <h3 >Strategic <span>Partners </span></h3>
+        <section class="mb60"><div _ngcontent-c6="" class="row"><div _ngcontent-c6="" class="container  mb20"><div _ngcontent-c6="" class="whiteBG" style="width: 82%;margin: 0 auto;"><div _ngcontent-c6="" class="col-md-3" style="
+          display: inline-block;
+          text-align: right;
+      "><img _ngcontent-c6="" alt="" class="heightWidth100prcnt" src="../../../../assets/newpartner/newpartner.jpg" style="height: 100px;width: 188px;"></div><div _ngcontent-c6="" class="'col-md-6" style="
+          display: inline-block;
+      "><p _ngcontent-c6="" class="fs16" style="margin-top: 26px;line-height: 46px;text-align: center;">Power your platform with ICICI Bank Connected Banking.</p></div><div _ngcontent-c6="" class="col-md-3" style="
+          display: inline-block;
+      "><a _ngcontent-c6="" class="signInBtn mt-4" href="#/connectedBanking" ng-reflect-router-link="../connectedBanking" routerlink="../connectedBanking" style="
+              margin-top: 26px;
+              /* line-height: 46px; */
+              /* text-align: center; */
+              ">Know More</a></div></div></div></div></section>
+    
+      
+        <div class="row mx-auto my-auto">
+          <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+              <div class="carousel-item active">
+               
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/shivaami.jpg" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> Shivaami</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      The purpose of Shivaami is to bring positive change in the life of the people we connect by
+                      offering Solutions and Services which brings Profit and Happiness. </p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a  class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
+                         href='https://www.shivaami.com/shivaami-icici-bundle/?utm_source=ICICI%20Dev%20portal&amp;utm_medium=Banner&amp;utm_campaign=Strategic%20Partnership&amp;utm_term=Shivaami'  target="_blank">Visit
+                          Shivaami</a>
+        
+                        <a class="btn btn-primary btn-sm" style="font-size: 10px;"
+                          href="https://www.icicibank.com/offers/shivaami-offer.page" target="_blank">View
+                          Offer</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="carousel-item  ">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/OASYS.png" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> Oasys Tech</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      OASYS TECH Solutions is CMMI LEVEL III Certified with 250+ strength. We provide End-to-End
+                              Solutions
+                              Services for Digital Transformation in SAP, Microsoft & open source Technologies.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+                          <a class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
+                          href='https://www.oasystspl.com?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Oasys'  target="_blank">Visit
+                           Oasys</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/isan.png" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> ISAN</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      India SME Accelerator Network provides mentoring to individual business owners through a
+                              structured
+                              & methodical approach, to deal with their critical business challenges guided by industry experts
+                              in
+                              specialised domains.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+                          <a class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
+                                   href='https://www.indiasmeaccelerator.org/service/sme-business-consultancy-accelerator-cohort-programs/?utm_source=icici&utm_medium=icici%20bank%20website&utm_campaign=sme%20consultancy'  target="_blank">Visit
+                                    ISAN</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/TechNexa.png" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> TechNexa Technologies</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      TechNEXA Technologies is one of the leading IT consultants providing cloud services & support,
+                      network & infrastructure design, managed services, email services, storage solutions, network
+                      security and emerging IT business solutions to companies.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
+                        href='http://www.technexa.net/?utm_source=icici&utm_medium=website&utm_campaign=partner'  target="_blank">Visit
+                        TechNexa</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/infocus.jpeg" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> Infocus Technologies Pvt.Ltd</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      Infocus is SAP Gold Channel partner Company, AWS Consulting Partner, CMMI Level 3 certified and DNV certified ISO 9001:2015 Company providing SAP & Cloud, Consulting and staffing services.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a type="button" class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
+                                  href="https://infocus-in.com/?utm_source=ICICI%20Developer%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Infocus" target="_blank">Visit
+                                  Infocus</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/IFITech.jpeg" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> IFI Tech</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      IFI Tech is a born in cloud Microsoft Gold Partner and a Cloud Solutions Provider (CSP) to help global customers ranging from Enterprises to SMBs and Start-ups with their digital transformation journey.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a type="button" class="btn btn-primary btn-sm mr-3" style="font-size: 10px;"
+                        href='https://ifi.tech/?utm_source=ICICI%20Developer%20Portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=IFI  '  target="_blank">Visit
+                         IFI Tech</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>   
+              </div>
+
+            </div>
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!--End new carousel-->
+
+
+
 
     <section class="sectionAPIs letsGetConnected" *ngIf="!logged_in">
       <h3>Want to get Started? <span>Let's get Connected</span></h3>
@@ -545,8 +662,9 @@
         <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)">I am interested</a>
       </div>
     </section>
-    <!--  <section class="sectionAPIs feedbackSection">
-      <form>
+
+    <!--<section class="sectionAPIs feedbackSection">
+      <form autocomplete="off">
         <h3>Your <span>Feedback</span></h3>
         <p class="text-center mb50 fs16">
           Write to us if you have any suggestions related to APIs
@@ -565,22 +683,29 @@
                <option value="">Select</option>
                <option value="Suggestion">Suggestion</option>
                <option value="Others">Others</option>
-            </select> -->
-    <!--   <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
+            </select> --
+        <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
           placeholder="Your Email" />
         <input class="w100p mb25" name="feedback_location_name" [(ngModel)]="feedback_location_name" type="text"
           placeholder="Location" />
         <textarea class="w100p mb35" name="feedback_email_text" [(ngModel)]="feedback_email_test"
           placeholder="Write your thoughts"></textarea>
+         
+          <re-captcha (resolved)="resolved($event)" 
+              [(ngModel)]="recaptchaReactive" 
+              siteKey="6LdTXcQZAAAAAMdP1QX29StjawDrrdzRxhoWuHm7">  
+          </re-captcha>
+         <br>
         <div class="row">
           <a class="signInBtn marginAutoHr mb15" (click)="feedback_form_submit(signin)">Submit</a>
         </div>
       </form>
-    </section>-->
+    </section>
+  -->
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">
-      <h3 class="fs32 color-blue ff-bold mb25">Frequently Asked Questions 3</h3>
+      <h3 class="fs32 color-blue ff-bold mb25">Frequently Asked Questions</h3>
       <img class="w-xs-100p" src="assets/images/faq-banner.svg" alt="" />
     </div>
     <div id="accordion" class="faqmainSection">
@@ -1136,7 +1261,7 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content tab-content1">
-      <form [formGroup]="signupForm" [hidden]="!shfrmSFFirst">
+      <form [formGroup]="signupForm" autocomplete="off" [hidden]="!shfrmSFFirst">
         <input type="hidden" name="otp_verified" formControlName="otp_verified" class="input-login" #otp_verified />
         <div class="tab-pane">
           <div class="row mb20">
@@ -1256,7 +1381,7 @@
           </ul>
         </div>
       </form>
-      <form [formGroup]="signupForm2" [hidden]="!shfrmSFSecond">
+      <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
@@ -1323,7 +1448,7 @@
         </div>
       </form>
 
-      <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
+      <form [formGroup]="signupForm3" autocomplete="off" [hidden]="!shfrmSFThird">
 
 
 
@@ -1500,7 +1625,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+    <form name="myform" autocomplete="off"
+      (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
       <div class="row mb30">
         <div class="col-md-12 mb-xs-10">
           <div><label for="user">Username</label></div>
@@ -1644,7 +1770,7 @@
         <a [ngStyle]="{ color: shfrmUATThird ? '#f06321' : '#919191' }" href="javascript:;">Whitelist IP</a>
       </li>
     </ul>
-    <form #frmUATFirst="ngForm" nonvalidate [hidden]="!shfrmUATFirst">
+    <form #frmUATFirst="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmUATFirst">
       <div [hidden]="frmUATFirst.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -1718,7 +1844,7 @@
         </div>
       </div>
     </form>
-    <form #frmUATSecond="ngForm" nonvalidate *ngIf="shfrmUATSecond">
+    <form #frmUATSecond="ngForm" autocomplete="off" nonvalidate *ngIf="shfrmUATSecond">
       <div [hidden]="frmUATSecond.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -2099,7 +2225,7 @@
         </div>
       </div>
     </form>
-    <form #frmUATThird="ngForm" nonvalidate [hidden]="!shfrmUATThird">
+    <form #frmUATThird="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmUATThird">
       <div [hidden]="frmUATThird.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -2425,7 +2551,7 @@
             class="fa fa-angle-right"></i></a>
       </li>
     </ul>
-    <form #frmProdFirst="ngForm" nonvalidate [hidden]="!shfrmProdFirst">
+    <form #frmProdFirst="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdFirst">
       <div [hidden]="frmProdFirst.submitted">
         <div class="tabEnvironment">
           <div class="tabContent">
@@ -2490,7 +2616,7 @@
         </div>
       </div>
     </form>
-    <form #frmProdSecond="ngForm" nonvalidate [hidden]="!shfrmProdSecond">
+    <form #frmProdSecond="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdSecond">
       <div [hidden]="frmProdSecond.submitted">
         <div class="tabProdEnvironment">
           <div class="tabContent">
@@ -2521,7 +2647,7 @@
         </div>
       </div>
     </form>
-    <form #frmProdThird="ngForm" nonvalidate [hidden]="!shfrmProdThird">
+    <form #frmProdThird="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdThird">
       <div [hidden]="frmProdthird.submitted">
         <div class="tabProdEnvironment">
           <div class="tabContent">
@@ -2593,7 +2719,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form id="regForm" method="POST" name="regForm" action="">
+    <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-10">
           <div><label for="contactPerson">Full Name</label></div>
@@ -2717,7 +2843,7 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-md-12 mb-xs-10">
-        <form id="regForm" method="POST" name="regForm" action="">
+        <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
           <div class="tab disp-block">
             <div class="tabContent">
               <ul class="breadcrumb">
@@ -2926,32 +3052,30 @@
 
 <!--How It Work modalbox -->
 <ng-template #modal_hwi>
-  
-  <!-- <div class="index-howitworks"> -->
-  <div class="header">
+  <div class="modal-header">
     <h3></h3>
     <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
     <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
       close
     </button>
   </div>
-  <div class="modal-body "  >
+  <div class="modal-body">
     <div class="row md30">
       <div class="col-md-12 mb-xs-10">
-        <form id="regForm" method="POST" name="regForm" action="">
+        <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
           <div class="tab disp-block">
             <div class="tabContent">
               <ul class="breadcrumb">
                 <li>
-                  <a [ngStyle]="{ color: active }" (click)="HWI_link(1)">
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,1)" id="tab1">
                     Sign up <i class="fa fa-angle-right"></i></a>
                 </li>
                 <li>
-                  <a [ngStyle]="{ color: active }" (click)="HWI_link(2)">
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,2)" id="tab2">
                     Select API <i class="fa fa-angle-right"></i></a>
                 </li>
                 <li>
-                  <a [ngStyle]="{ color: active }" (click)="HWI_link(3)">Test it Out </a>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,3)" id="tab3">Test it Out </a>
                 </li>
                 <!-- <li>
                   <a [ngStyle]="{ color: active }" (click)="HWI_link(4)">Test it Out <i
@@ -2972,72 +3096,105 @@
                     sign-up page.
                   </h6>
                 </div>
-                <div ><br>
+                <div><br>
                   <p style="font-size: 13px;">a. Enter your Credentials.</p>
-                  <img src="assets/images/SignUp1.png" class="frame" width="100%"  />
+                  <img src="assets/images/SignUp1.png" class="frame" width="100%" />
                 </div>
-                <div ><br>
+                <div><br>
                   <p style="font-size: 13px;">b. Verify your Mobile Number.</p>
                   <img src="assets/images/SignUp2.png" class="frame" width="100%" />
                 </div>
-                <div ><br>
+                <div><br>
                   <p style="font-size: 13px;">c. Create Username and Password</p>
                   <img src="assets/images/SignUp3.png" class="frame" width="100%" />
                   <br /><br />
                 </div><br>
                 <div class="col-md-12 mb-xs-10">
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Complete
-                    the registration by entering your details and create an
-                    account.
-                  </h6>
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">Complete
+                        the registration by entering your details and create an
+                        account.</p>
+                    </h6>
+                  </div>
                   <br />
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 3:</span>
-                    When authorized, an email will be sent to your registered
-                    email-id with a link to activate your account by logging in.
-                    You now have access to your dashboard. From here you can
-                    create and configure your apps.
-                  </h6>
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 3:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">When authorized, an email will be sent to your registered
+                        email-id with a link to activate your account by logging in.
+                        You now have access to your dashboard. From here you can
+                        create and configure your apps.</p>
+                    </h6>
+                  </div>
                 </div>
               </div>
               <div class="row mb30" *ngIf="showTab == '2'">
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 1:</span>In order to select an API, go to the Documentation
-                    page.The left-hand side navigation pane consists of all the APIs in a hierarchial tree structure.
-                  </h6>
+                <div class="col-md-12 mb-xs-10">
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 1:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">In order to select an API, go to the Documentation
+                        page.The left-hand side navigation pane consists of all the APIs in a hierarchial tree
+                        structure.</p>
+                    </h6>
+                  </div>
+
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">On clicking a selected API, the details related to it (such as
+                        Input/Output parameters, Sample packets etc) will be populated on the main screen.</p>
+                    </h6>
+                    <img src="assets/images/image11.png" class="frame " width="100%" />
+                  </div>
+
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 3:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">By clicking the Test API button at the bottom right, you can test how
+                        the API will respond in a simulated live environment.</p>
+                    </h6>
+                  </div>
                 </div>
-                <br>
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 2:</span>On clicking a selected API, the details related to it (such as Input/Output parameters, Sample packets etc) will be populated on the main screen.
-                  </h6>
-                  <img src="assets/images/image11.png" class="frame " width="100%"  />
-                </div><br>
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step :3</span>By clicking the Test API button at the bottom right, you can test how the API will respond in a simulated live environment.
-                  </h6>
-                 
-                </div>
-                
-                
               </div>
               <div class="row mb30" *ngIf="showTab == '3'">
-                <div >
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 1:</span>On Clicking the Test API button, a pop-up is opened. This pop-up is prepopulated with a sample request packet as shown in the image. The user can select the content type from the content type dropdown.
-                  </h6>
-                  <img src="assets/images/image22.png" class="frame" width="100%" />
+
+                <div class="col-md-12 mb-xs-10">
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 1:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">On Clicking the Test API button, a pop-up is opened. This pop-up is
+                        prepopulated with a sample request packet as shown in the image. The user can select the content
+                        type from the content type dropdown.</p>
+                    </h6>
+                    <img src="assets/images/image22.png" class="frame" width="100%" />
+                  </div>
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">Once the sample request packet is loaded, on clicking Test button at
+                        the bottom right of the pop-up, the response packet is returned as shown in the image.</p>
+                    </h6>
+                    <img src="assets/images/image33.png" class="frame" width="100%" />
+                  </div>
                 </div>
-                <div ><br>
-                  <h6 class="fs12 pt8">
-                    <span class="stepNumber stepNumber mr-1">Step 2:</span>Once the sample request packet is loaded, on clicking Test button at the bottom right of the pop-up, the response packet is returned as shown in the image.
-                  </h6>
-                  <img src="assets/images/image33.png" class="frame" width="100%" />
-                </div>
-                
+
               </div>
               <!-- <div class="row mb30" *ngIf="showTab == '4'">
                 <div class="col-md-6 mb30">
@@ -3068,7 +3225,7 @@
       </div>
     </div>
   </div>
-
-  <!-- </div> -->
 </ng-template>
 <!-- End Modalbox -->
+
+
