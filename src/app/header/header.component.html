@@ -55,7 +55,7 @@
               aria-selected="true"  (click)="addActiveClass($event)">Onboarding<br />Requests</a>
             <a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
             </a>
-            <a style="line-height: 21px;cursor: pointer;" routerLink="../mis" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+            <a style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
             </a>
           </div>
         </li>
