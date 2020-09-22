@@ -246,7 +246,7 @@
                           </a>
                           <!-- 1 level -->
                           <ul *ngFor="let j of i.children" class="second-level display-none">
-                            <li>
+                            <li *ngIf="!(j.TREE_ID ==557 || j.TREE_ID ==556 )">
                               <!-- 2 level -->
                               <a class="display-block cursor-pointer padding-left-10prcnt">
                                 <ng-template #other>
