@@ -793,7 +793,7 @@ else{
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
-        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
+        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.email]),
         "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
         "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
       }),
@@ -868,10 +868,17 @@ else{
   ngAfterViewInit() {
     console.log(this.BasicDetailsList, "2", this.RequestedApiList, "3", this.businessBankingList, "4", this.whitelistIpList,
       this.checkboxes)
-    console.log(this.reactiveForm);
+    console.log(this.reactiveForm.controls);
+    console.log(this.reactiveForm.controls.basicDetailsSection.get("email_id").errors);
+
+    console.log(this.reactiveForm.value.get('basicDetailsSection').controls)
+
+    console.log(this.reactiveForm.value.get('basicDetailsSection').controls)
+
      var d1 = this.cartApiContainer.nativeElement;
      console.log(d1)
     console.log(this.matInput.nativeElement.value);
+
   }
  
   createCart(){
