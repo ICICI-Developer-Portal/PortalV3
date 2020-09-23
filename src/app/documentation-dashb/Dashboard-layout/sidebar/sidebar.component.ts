@@ -274,7 +274,7 @@ export class SidebarComponent implements OnInit {
 
     for (var i = 0; i < childrenArr.length; i++) {
       if (childrenArr[i].CHILD_COUNT !== "0") {
-        if (childrenArr[i].TREE_ID == "556" || childrenArr[i].TREE_ID == "557") {
+        if (childrenArr[i].TREE_ID == "556" || childrenArr[i].TREE_ID == "557" ||  childrenArr[i].TREE_ID == "325") {
           console.log(childrenArr[i].TREE_ID)
         }
         else{
@@ -294,7 +294,7 @@ export class SidebarComponent implements OnInit {
         );
      } }else {
        
-      if (childrenArr[i].TREE_ID == "556" || childrenArr[i].TREE_ID == "557") {
+      if (childrenArr[i].TREE_ID == "556" || childrenArr[i].TREE_ID == "557"  ||  childrenArr[i].TREE_ID == "325") {
         console.log(childrenArr[i].TREE_ID)
           }
       else {
