@@ -64,10 +64,17 @@ export class ApiDetailsComponent implements OnInit {
   testApiresponseFor601;
   populateRes;
   clickedTestCaseID;
+  testCaseDescription;
   isMenuOpen = true
   tesAPiSuccesufulResponse;
    keyVal;
    val;
+   keyPriority;
+   priority_value;
+   storeValue;store_priority_value;
+   key1= false;
+   key2= false;
+   storeRequestValue;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
@@ -127,8 +134,13 @@ export class ApiDetailsComponent implements OnInit {
     this.dataArray.push(
       {
         key :"API key",
-        value:"f219f506-1079-4c76-8ea6-439774f96265"
+        storeValue :"f219f506-1079-4c76-8ea6-439774f96265",
+        value:"f219f506-1079-4c76-8ea6-439774f96265",
+        keyPriority : "Priority",
+        priority_value : "000010",
+        store_priority_value : "000010"
       }
+      
       
     )
     this.sandBoxForm = {
@@ -137,6 +149,7 @@ export class ApiDetailsComponent implements OnInit {
       Request :this.reqParam
     };
 console.log(this.sandBoxForm ,)
+
 
 
 
@@ -161,7 +174,11 @@ console.log(this.sandBoxForm ,)
     {
       id:this.dataArray.length+1,
       key :this.keyVal,
-      value:this.val
+      value:this.val,
+      keyPriority : this.keyPriority,
+      priority_value : this.priority_value,
+      storeValue :this.storeValue,
+      store_priority_value : this.store_priority_value
     }
   )
   console.log(this.dataArray.length)
@@ -475,6 +492,7 @@ set reqParamValue(v) {
     this.reqParam = JSON.parse(v);
   } catch (e) {
     console.log("error occored while you were typing the JSON");
+    this.storeRequestValue=false;
   }
 }
    testApiCall(){
@@ -541,6 +559,7 @@ set reqParamValue(v) {
     this.testApiResID=[];
     this.testApiResName =[];
     this.clickedTestCaseID=e.target.parentNode.getAttribute("id");
+    this.testCaseDescription=e.target.parentNode.getAttribute("testCaseDescription");
 
     console.log(e.target.parentNode.getAttribute("id"))
    
@@ -562,7 +581,38 @@ set reqParamValue(v) {
   }
   onSubmit(form:NgForm){
     // this.getVal() ;
-    console.log(form.value)
+
+    // this.getVal() ;
+
+
+    if(form.controls.storeValue.value!=form.controls.value.value){
+      this.key1=false;
+      console.log(form.controls.storeValue.value!=form.controls.value.value,this.key1,+"yes rched")
+    }
+    else{
+      this.key1=true;
+      console.log("rchd inside true")
+    }
+    if(form.controls.store_priority_value.value!=form.controls.priority_value.value){
+      this.key2=false;
+      console.log(form.controls.store_priority_value.value,form.controls.priority_value.value,this.key2,+"yes rched")
+    }else{
+      this.key2=true;
+      console.log("rchd inside  key true")
+    
+    
+    }
+    
+        console.log(form.value.store_priority_value)
+        console.log(form.controls.priority_value.value)
+        console.log(form.controls.storeValue.value)
+    this.store_priority_value=form.value.store_priority_value;
+    this.priority_value=form.controls.priority_value.value;
+    this.storeValue=form.controls.storeValue.value;
+        console.log(form.controls.value.value)
+    
+        
+        console.log(form.value)
   }    
   GetTestCases(_reqJson,headers){
  headers = new Headers({
@@ -612,9 +662,37 @@ console.log(headers)
         );
 
    }
+  onValueChange(value:string):void{
+    console.log(value);
+    if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
+      console.log("1 has changes the prefilled value")
+      $("#headerError1").removeAttr("hidden");
+    }
+     else{
+       console.log("value hasnot been changed")
+      $("#headerError1").attr("hidden",true);
+    //  $("#headerError2").attr("hidden",true);
+       
+     }
+  }
+  onPriorityValueChange(value:string):void{
+    console.log(value);
+    if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
+      console.log("2 has changes the prefilled value")
+      $("#headerError2").removeAttr("hidden");
+    }
+     else{
+       console.log("value hasnot been changed")
+    //  $("#headerError1").attr("hidden",true);
+      $("#headerError2").attr("hidden",true);}
+  }
   
   onSubmitBody(form:NgForm){
+  
     console.log(this.testApiReqData, this.testApiReqData.length)
+    console.log(form.controls.Request.value)
+    this.storeRequestValue=form.controls.Request.value;
+
     this.contentType=form.value.type;
     this.testApiResData=[];
     if(this.testApiReqData.length>0){
@@ -626,13 +704,45 @@ console.log(headers)
   
     console.log(form.controls)
  
-     this.testApiCall()
-    console.log(form.value)
+    //  this.testApiCall();
+    // console.log(form.value);
+    // new line of code 25/Sep/2020
+    console.log($('input[id=value]').val(),$('textarea[id=req1]').val(),$('input[id=req1Compare]').val(),$('textarea[id=req2]').val())
+     if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
+      console.log("1 has changes the prefilled value")
+      $("#headerError1").removeAttr("hidden");
+      
+
+     }else if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
+      console.log("2 has changes the prefilled value")
+      $("#headerError2").removeAttr("hidden");
+      if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
+        console.log("1 has changes the prefilled value")
+        $("#headerError1").removeAttr("hidden");}
+
+     }
+    
+     else{
+       console.log("value hasnot been changed")
+      $("#headerError1").attr("hidden",true);
+      $("#headerError2").attr("hidden",true);
+
+
+       this.testApiCall();
+     }
+    //  else if($('textarea[id=req1]').length  && $('textarea[id=req1]').val()!= $('input[id=req1Compare]').val()){
+    //   console.log("3 has changes the prefilled value")
+    //  }
+    //  else if($('textarea[id=req2]').length  && $('textarea[id=req2]').val()!= $('input[id=req2Compare]').val()){
+    //   console.log("4 has changes the prefilled value")
+    //  }
   }
  
   createTransactionHistory(form:NgForm){
     this.contentType=form.value.type;
     console.log(form.value.Response)
+    console.log(form.controls.priority_value.value)
+
     let _reqJson = {apiId : this.idForClickedTab };
    // this.GetTestCases(_reqJson,Headers)
    console.log(_reqJson)

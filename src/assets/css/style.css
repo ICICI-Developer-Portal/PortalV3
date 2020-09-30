@@ -89,24 +89,9 @@ body {
 }
 .mt25 {
   margin-top: 25px !important;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
+
   }
-  .mb0 {
-=======
-=======
->>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
-}
-.mt26 {
-  margin-top: 10px !important;
-}
-.mb0 {
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
-  margin-bottom: 0px;
-}
+  
 .mb10 {
   margin-bottom: 10px;
 }
@@ -612,13 +597,8 @@ input:focus {
 padding: 10px 25px;
 } */
 ul.nav.nav-tabs {
-<<<<<<< HEAD
-  margin: 0% 7%;
-  width: 86%;
-=======
   margin: 0% 9%;
   width: 82%;
->>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
   position: relative;
   align-items: center;
 }
@@ -1375,10 +1355,6 @@ transform: rotate(180deg);
   padding-right: 15px;
   position: relative;
   height: 50px;
-<<<<<<< HEAD
-  top:20px;
-=======
->>>>>>> 2cb95961ba0655ef372fdc9fb0fc5db7c3eea9b5
 }
 .workImageContainer {
   height: 50px;
@@ -1579,6 +1555,14 @@ transform: rotate(180deg);
   line-height: 1.5;
   color: #303030;
   padding-top: 0px;
+}
+.card-body1{
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #303030;
+  padding-top: 0px;
+  height: 338px;
 }
 
 .card-body p {
@@ -3651,4 +3635,62 @@ padding-left:0px ;
 
   
 
+.prev-left{
+  font-size: 50px;
+  color: #ae282e;
 
+}
+.prev-right{
+  font-size: 50px;
+  color: #ae282e;
+  float: right;
+
+}
+.controls-top{
+  position: relative !important;
+    top: 182px !important;
+    z-index: 99 !important;
+}@media (max-width: 768px) {
+  .carousel-inner .carousel-item > div {
+      display: none;
+  }
+  .carousel-inner .carousel-item > div:first-child {
+      display: block;
+  }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+  display: flex;
+}
+
+/* display 3 */
+@media (min-width: 768px) {
+  
+  .carousel-inner .carousel-item-right.active,
+  .carousel-inner .carousel-item-next {
+    transform: translateX(33.333%);
+  }
+  
+  .carousel-inner .carousel-item-left.active, 
+  .carousel-inner .carousel-item-prev {
+    transform: translateX(-33.333%);
+  }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+transform: translateX(0);
+}
+c-height{
+  height: 338px;
+}
+.card-body1{
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #303030;
+  padding-top: 0px;
+  height: 355px;
+}

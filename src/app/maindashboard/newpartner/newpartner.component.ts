@@ -79,6 +79,7 @@ export class NewpartnerComponent implements OnInit {
       console.log(JSON.stringify(response));
       if(response &&  response.status_code == 201 && response.message ){
         this.toastrmsg('success', response.message);
+        this.signupForm.reset();
       }else{
         this.toastrmsg('error', response.message);
       }

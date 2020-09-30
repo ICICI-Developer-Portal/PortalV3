@@ -9,7 +9,7 @@
       <!-- =========================================================================================================== -->
       <!-- Reactive form starts -->
       <!-- =========================================================================================================== -->
-      <form [formGroup]="reactiveForm" autocomplete="off" nonvalidate>
+      <form [formGroup]="reactiveForm" nonvalidate>
         <!-- =========================================================================================================== -->
         <!-- first section of uat starts -->
         <!-- =========================================================================================================== -->
@@ -213,7 +213,7 @@
                     </div> -->
                     <!--karthik-Auto complete End-->
                     <div class="col-md-11 padding-left-0">
-                      <form id="filter" autocomplete="off">
+                      <form id="filter">
                         <label>Filter API by name:</label>
                         <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
                         <!-- <pre>{{term}} </pre> -->

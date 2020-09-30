@@ -12,7 +12,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form name="myform" autocomplete="off" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
@@ -159,12 +159,12 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content tab-content1">
-      <form [formGroup]="signupForm" autocomplete="off" [hidden]="!shfrmSFFirst">
+      <form [formGroup]="signupForm" [hidden]="!shfrmSFFirst">
         <input type="hidden" name="otp_verified" formControlName="otp_verified" class="input-login" #otp_verified />
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-6 mb-xs-10">
-               
+              
               <div><label for="company">Full Name<span class="text-danger"> *</span></label></div>
               <input name="name" formControlName="firstname" class="input-login" appPrefixFocusAndSelect  #name />
               <div *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)" class="text-danger form-error">
@@ -278,7 +278,7 @@
           </ul>
         </div>
       </form>
-      <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
+      <form [formGroup]="signupForm2" [hidden]="!shfrmSFSecond">
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
@@ -347,7 +347,7 @@
         </div>
       </form>
 
-      <form [formGroup]="signupForm3" autocomplete="off" [hidden]="!shfrmSFThird">
+      <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
 
         
 

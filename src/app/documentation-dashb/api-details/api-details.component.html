@@ -185,11 +185,11 @@
 
 
                                                 <!-- ================-->
-                                                <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+                                                <form (ngSubmit)="onSubmitBody(myForm)" #myForm="ngForm">
                                                     <div class="table-responsive sanboxTable">
                                                         <table class="table table-bordered table-hover col-md-12">
-                                                            <tbody>
-                                                                <tr *ngFor="let obj of dataArray;let i = index;"
+                                                            <tbody *ngFor="let obj of dataArray;let i = index;">
+                                                                <tr 
                                                                     class="mb-2">
                                                                     <td>
 
@@ -197,16 +197,24 @@
                                                                             &nbsp;&nbsp;
                                                                             <input type="text" name="key{{obj.id}}"
                                                                                 class="form-control"
+                                                                                
                                                                                 aria-describedby="emailHelp"
                                                                                 placeholder="" [readonly]="i==0" [ngModel]="obj.key">
                                                                         </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-group form-inline">
-                                                                            Value : &nbsp;&nbsp;
-                                                                            <input type="text" name="value{{obj.id}}"
-                                                                                class="form-control" placeholder=""
-                                                                                [ngModel]="obj.value">
+                                                                            Value : &nbsp;&nbsp;                             
+                                                                            <input type="text" #storeValue id="storeValue" name="storeValue{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.storeValue"  hidden>
+                                                                            <input type="text" name="value{{obj.id}}" #value id="value"
+                                                                            class="form-control" placeholder="" (input)="onValueChange($event.target.value)"
+                                                                            [ngModel]="obj.value">
+                                                                            <!-- {{value.value}}
+                                                                            {{storeValue.value}} -->
+                                                                                <!-- <span class="text-danger"   *ngIf="key1==false">value has been changed</span> -->
+                                                                                <!-- {{firstKeyActualValue.value}}<br/>
+                                                                                {{firstKeyUsersValue.value}} -->
                                                                         </div>
                                                                     </td>
                                                                     <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
@@ -215,57 +223,59 @@
                                                                     </td>
 
                                                                 </tr>
-                                                                <tr *ngIf="ApiSubDomain =='Composite API'">
-                                                                    <td>
-
-                                                                        <div class="form-group form-inline">Key :
-                                                                            &nbsp;&nbsp;
-                                                                            <input type="text" name="key"
-                                                                                class="form-control" placeholder="Priority"
-                                                                              
-                                                                                 readonly >
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="form-group form-inline">
-                                                                            Value : &nbsp;&nbsp;
-                                                                            <input type="text" name="value" value="000111"
-                                                                                class="form-control" placeholder="000111">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td> 
-                                                                    </td>
-
-                                                                </tr>
-
-
-                                                                <!-- <tr>
+                                                                <tr *ngIf="ApiSubDomain =='Composite API' &&  !i>0"                                                                 class="mb-2">
                                                                     <td>
                                                                         <div class="form-group form-inline">Key :
                                                                             &nbsp;&nbsp;
-                                                                            <input type="text" name="key"
-                                                                                class="form-control"
+                                                                        
+                                                                            <input type="text" name="keyPriority{{obj.id}}"
+                                                                                class="form-control" 
                                                                                 aria-describedby="emailHelp"
-                                                                                placeholder="" readonly [ngModel]="obj.key">
+                                                                                placeholder="" [readonly]="i==0" [ngModel]="obj.keyPriority">
+                                                                                
+                                                                               
                                                                         </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-group form-inline">
                                                                             Value : &nbsp;&nbsp;
-                                                                            <input type="text" name="value"
+                                                                            <input type="text" #store_priority_value id="store_priority_value" name="store_priority_value{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.store_priority_value"  hidden>
+                                                                            <input type="text" #priority_value id="priority_value" name="priority_value{{obj.id}}"
                                                                                 class="form-control" placeholder=""
-                                                                                [ngModel]="obj.value">
+                                                                                [ngModel]="obj.priority_value" (input)="onPriorityValueChange($event.target.value)">
+                                                                                <!-- {{priority_value.value}}
+                                                                                {{priority_value_compare.value}} -->
+                                                                                <!-- <span class="text-danger"  *ngIf="key2==false">value has been changed</span> -->
                                                                         </div>
                                                                     </td>
-                                                                    <td>
+                                                                    <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
+                                                                            type="button" ng-reflect-klass="signInBtn"
+                                                                            (click)="removeheader(i)"> &minus; </button>
                                                                     </td>
-                                                                </tr> -->
+                                                                </tr> 
+
                                                             </tbody>
                                                         </table>
                                                     </div>
+<!-- {{firstKeyActualValue.value != firstKeyUsersValue.value}} -->
+<!-- <span *ngIf="firstKeyActualValue.value != firstKeyUsersValue.value && priority_value.value != priority_value_compare.value">true</span> -->
+<!-- {{myForm.controls.priority_value.value}}<br/>
+{{myForm.controls.store_priority_value.value}}<br/>
+{{myForm.controls.storeValue.value}}<br/>
+{{myForm.controls.value.value}}<br/> -->
 
-                                                    <button type="submit"
-                                                        class="btn signInBtn btn-dark pull-right mt-30">Test</button>
+
+<!-- {{myForm.controls.firstKeyUsersValue.controls[i].value }}
+{{myForm.controls.priority_value.value}} -->
+
+
+<!-- {{myForm.controls.priority_value_compare.value}} -->
+                                                    <!-- <button  type="submit"
+                                                        class="btn signInBtn btn-dark pull-right mt-30" 
+                                                      >Test</button> -->
+
+
 
                                                 </form>
                                                 <!--================== -->
@@ -274,7 +284,7 @@
 
                                             <div class="tab-pane fade  show active" id="nav-profile" role="tabpanel"
                                                 aria-labelledby="nav-profile-tab">
-                                                <form (ngSubmit)="onSubmitBody(bodyForm)" #bodyForm="ngForm"
+                                                <form  #bodyForm="ngForm"
                                                     class="row">
                                                     <div class="form-group col-md-6">
                                                         <p class="mb-1 mt-3 bold">Select Content Type:</p>
@@ -300,8 +310,9 @@
                                                             <label class="mb-1 mt-3 bold">Test Case :</label>
                                                             <!-- <input id="check01" type="checkbox" name="menu" value="" /> -->
                                                             <label #toggleButton (click)="toggleMenu($event)" for="check01" class="mb-1 custom-select-box">
-                                                                <span
-                                                                    *ngIf="!testApiResID.length>0">Select</span><span
+                                                                <span 
+                                                                    *ngIf="!testApiResID.length>0">Select</span>
+                                                                    <span class="wrap-text"
                                                                     *ngIf="testApiResID.length>0">TestCaseID:
                                                                     <b>{{testApiResID}}</b> &nbsp; &nbsp; &nbsp;
                                                                     &nbsp;TesCaseName:<b>
@@ -312,7 +323,7 @@
                                                                     <table style="width:100%" class="dynamicData" (click)="handleTableClick">
                                                                         <tr>
                                                                             <th>Test Case Number</th>
-                                                                            <th>Description</th>
+                                                                            <th>TesCaseName</th>
 
                                                                             <th>Status </th>
                                                                         </tr>
@@ -322,12 +333,13 @@
                                                                             [attr.name]="i.testCaseName"
                                                                             [attr.requestPacket]="i.requestPacket"
                                                                             [attr.responsePacket]="i.responsePacket"
+                                                                            [attr.testCaseDescription]=i.testCaseDescription
                                                                             class="cursorPointer"
                                                                             [class.highlighted]="i.testCaseId === clickedTestCaseID">
                                                                             <td [attr.id]="i | json">
                                                                                 {{i.testCaseId}}{{testApiresponseFor601[i]}}
                                                                             </td>
-                                                                            <td>dummy</td>
+                                                                            <td>{{i.testCaseName}}</td>
                                                                             <td> <input type="checkbox"
                                                                                     style="display: block;"
                                                                                     disabled></td>
@@ -345,14 +357,28 @@
 
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6" *ngIf="testApiResID.length>0"></div>
+                                                    <div    class="col-md-6 mb-3" *ngIf="testApiResID.length>0">
+                                                        <!-- <label _ngcontent-c7="" class="mb-1 bold">Descreption :</label> -->
+                                                        <label  *ngIf="testApiResID.length>0" _ngcontent-c4="" _ngcontent-c7="" class="mb-1 bold">Description: <span _ngcontent-c4="" style="
+                                                            font-weight: 100;
+                                                            color: gray;font-size: 12px;
+                                                        ">{{testCaseDescription}}</span></label>
+                                                    <!-- <label _ngcontent-c7="" class="mb-1 custom-select-box" for="check01" style="background-color: #e9ecef;">
+                                                        <p>dummy dkjnfkjdskjgdkjgkjfdgnfdgfd</p></label> -->
+                                                    </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Request:</p>
-                                                        <textarea name="Request" *ngIf="!testApiResID.length>0"
+                                                        <input type="text" id="req1Compare"  name="req1Compare"                                                                          
+                                                        [ngModel]="reqParamValue"  hidden/>
+                                                        <textarea name="Request" *ngIf="!testApiResID.length>0" id="req1"
                                                             class="form-control setHeight" cols="50" rows="100"
                                                             [(ngModel)]="reqParamValue"
                                                             [attr.responseData]="testApiResData" required>
                                                             </textarea>
-                                                        <textarea name="Request" *ngIf="testApiResID.length>0"
+                                                        <input type="text" id="req2Compare" name="req2Compare"   [(ngModel)]="testApiReqData" hidden/>
+
+                                                        <textarea name="Request" *ngIf="testApiResID.length>0" id="req2"
                                                             class="form-control setHeight" cols="50" rows="100"
                                                             [(ngModel)]="testApiReqData"
                                                             [attr.responseData]="testApiResData" required>
@@ -380,8 +406,12 @@
 
                                                     </div>
                                                     <div class="col-md-12">
+                                                        <p class="text-error" id="headerError" hidden style="color: red;">Header value has been changed</p>
+                                                        <p class="text-error" id="headerError1" hidden style="color: red;">API's default value has been changed</p>
+                                                        <p class="text-error" id="headerError2" hidden style="color: red;">API's default priority value has been changed</p>
+
                                                         <button type="submit"
-                                                            class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid">Test</button>
+                                                            class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid" (click)="onSubmitBody(bodyForm)">Test</button>
                                                         <!-- <button type="submit" href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
                                                             [disabled]="!testApiResData.length>0"

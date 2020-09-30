@@ -207,16 +207,15 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    
     var self = this;
+
 
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
       window.scrollTo(0, 0)
-  });
+    });
     this.getMenuTree();
     //api for get menu tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
@@ -314,6 +313,33 @@ export class IndexComponent implements OnInit {
     this.frmProd_A3 = true;
 
     this.get_domain_and_apis();
+    $(document).ready(function() {
+      console.log( "ready!" );
+      $('#recipeCarousel').carousel({
+        interval: 100000000
+      })
+      
+      $('.carousel .carousel-item').each(function(){
+          var minPerSlide = 3;
+          var next = $(this).next();
+          if (!next.length) {
+          next = $(this).siblings(':first');
+          }
+          next.children(':first-child').clone().appendTo($(this));
+          
+          for (var i=0;i<minPerSlide;i++) {
+              next=next.next();
+              if (!next.length) {
+                next = $(this).siblings(':first');
+              }
+              
+              next.children(':first-child').clone().appendTo($(this));
+            }
+      });
+  
+      
+    });
+   
   }
 
   appathonReg() {
@@ -1092,7 +1118,7 @@ export class IndexComponent implements OnInit {
 
   /*show_build(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/1"]);
+      this.router.navigate(["/buildingblock"]);
     } else {
       this.modalRef = this.modalService.show(signin, { backdrop: "static" });
     }
@@ -1100,7 +1126,7 @@ export class IndexComponent implements OnInit {
 
   loans(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/30"]);
+      this.router.navigate(["/loanandcard"]);
     } else {
       this.modalRef = this.modalService.show(signin, { backdrop: "static" });
     }
@@ -1108,7 +1134,7 @@ export class IndexComponent implements OnInit {
 
   account(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/209"]);
+      this.router.navigate(["/accountdeposit"]);
     } else {
       this.browse_api(signin);
     }
@@ -1116,7 +1142,7 @@ export class IndexComponent implements OnInit {
 
   payment(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/104"]);
+      this.router.navigate(["/payment"]);
     } else {
       this.browse_api(signin);
     }
@@ -1124,7 +1150,7 @@ export class IndexComponent implements OnInit {
 
   corporate(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/247"]);
+      this.router.navigate(["/corporatebank"]);
     } else {
       this.browse_api(signin);
     }
@@ -1132,14 +1158,7 @@ export class IndexComponent implements OnInit {
 
   commercial(signin: any) {
     if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/292"]);
-    } else {
-      this.browse_api(signin);
-    }
-  }
-  corporates(signin: any) {
-    if (localStorage.getItem("id") != null) {
-      this.router.navigate(["/rootdetails/370"]);
+      this.router.navigate(["/commercialbank"]);
     } else {
       this.browse_api(signin);
     }

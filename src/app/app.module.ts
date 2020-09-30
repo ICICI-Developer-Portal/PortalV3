@@ -43,7 +43,7 @@ import { HeaderComponent } from "./header/header.component";
 import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
 import { FocusOnShowDirective } from "./autofocus.directive";
 import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
-import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+
 
 @NgModule({
   declarations: [
@@ -80,9 +80,7 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     MatInputModule,
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
-    ProductionOnboardingModule ,
-    RecaptchaModule,
-    RecaptchaFormsModule
+    ProductionOnboardingModule 
     
   ],
   providers: [

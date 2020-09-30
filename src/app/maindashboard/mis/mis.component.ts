@@ -46,7 +46,7 @@ export class MisComponent implements OnInit {
   ) {
    this.dateInput= datepipe.transform(Date.now(),'dd-MMMM-yyyy');
    let today = new Date()
-   let priorDate = new Date().setDate(today.getDate()-20);
+   let priorDate = new Date().setDate(today.getDate()-30);
    this.minDate= datepipe.transform(new Date(priorDate),'yyyy-MM-dd');
    let prevDate = new Date().setDate(today.getDate()-1);
    this.maxDate= datepipe.transform(new Date(prevDate),'yyyy-MM-dd');
@@ -136,24 +136,65 @@ downloadCertificate(url) {
       let _json = {
         
       "userName":localStorage.getItem('username'),
-      "fileDate":this.dateInput
+      "Token":localStorage.getItem("jwt"),
+       "fileDate":this.dateInput
+      
+      // "fileDate":"14-Aug-2020"
     }
     console.log(JSON.stringify(_json));
     this.spinnerService.show();
     this.adm.getMisFile(_json).subscribe((data: any) => {
+     // console.log(data._body.get("MERCHANTNAME"));
+     
+
       this.spinnerService.hide();
-      let response = JSON.parse(data._body);
-     // console.log(JSON.stringify(response));
-      if(response && response.status_code==200 && response.data !== null && response.data !== ''){
-        let csvData = response.data;
-        this.downloadCSV(csvData,response.fileName);
+      let response = data._body;
+      console.log(JSON.stringify(data.header));
+      let header = data.headers;
+      console.log(header)
+      console.log(header["_headers"]["[[Entries]]"])
+      console.log(header["_headers"])
+      console.log(header["_headers"][0])
+      let newHead = header["_headers"];
+      let newHead1= newHead.get("content-type");
+      console.log("'"+newHead1+"'")
+
+
+
+
+
+      var ObjMessageRes= data._body;
+      console.log(ObjMessageRes.message)
+
+console.log()
+
+      // let arrayOfObject =Object.entries(JSON.parse(ObjMessageRes)).map((e)=>({[e[0]]:e[1]}))
+      // console.log(arrayOfObject[0].message)
+
+
+
+
+
+
+
+
+
+
+      // if(response && response.status_code==200 && response.data !== null && response.data !== '' ){
+       if( newHead.get("content-type") =='application/octet-stream'){
+
+        console.log("1")
+        let csvData = response;
+      console.log(response)
+      this.toastrmsg("Info","File downloaded successfully");
+        this.downloadCSV(csvData,this.dateInput);
       }
-      else if(response && response.data == null && response.message){ 
-        this.toastrmsg("Info",response.message);
+      else if(  newHead.get("content-type") =='application/json'){ 
+     
+      let arrayOfObject =Object.entries(JSON.parse(ObjMessageRes)).map((e)=>({[e[0]]:e[1]}))
+      console.log(arrayOfObject[0].message)
+        this.toastrmsg("Info",arrayOfObject[0].message);
        // alert(response.message);
-      }else{
-        console.log("getMisFile =="+JSON.stringify(data));
-        console.log("file downloaded");
       }
       },
       err => {

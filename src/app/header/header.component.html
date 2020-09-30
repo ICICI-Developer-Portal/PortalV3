@@ -173,13 +173,13 @@
   <!-- Signin Modal -->
   <ng-template #signin>
     <div class="modal-header">
-      <h3 class="modal-title pull-left">Please Login </h3>
+      <h3 class="modal-title pull-left">Please Login 2</h3>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <form name="myform" autocomplete="off" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+      <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
       <div class="row mb30">
         <div class="col-md-12 mb-xs-10">
           <div><label for="user">Username</label></div>
@@ -289,7 +289,7 @@
   <!-- Modal for Signup -->
   <ng-template #signup>
     <div class="modal-header"  tabindex="-1" role="dialog">
-      <h3 class="modal-title pull-left">Let's get you On-board </h3>
+      <h3 class="modal-title pull-left">Let's get you On-board 2</h3>
   
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
         <span aria-hidden="true">&times;</span>
@@ -316,7 +316,7 @@
       </ul>
       <!-- Tab panes -->
       <div class="tab-content tab-content1">
-        <form [formGroup]="signupForm" autocomplete="off" [hidden]="!shfrmSFFirst">
+        <form [formGroup]="signupForm" [hidden]="!shfrmSFFirst">
           <input type="hidden" name="otp_verified" formControlName="otp_verified" class="input-login" #otp_verified />
           <div class="tab-pane">
             <div class="row mb20">
@@ -436,7 +436,7 @@
             </ul>
           </div>
         </form>
-        <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
+        <form [formGroup]="signupForm2" [hidden]="!shfrmSFSecond">
           <div class="tab-pane">
             <div class="row mb20">
               <div class="col-md-8 mb-xs-30">
@@ -506,7 +506,7 @@
           </div>
         </form>
   
-        <form [formGroup]="signupForm3" autocomplete="off" [hidden]="!shfrmSFThird">
+        <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
   
           
   
@@ -696,7 +696,7 @@
       </ul>
       <!-- Tab panes -->
       <div class="tab-content tab-content1">
-        <form [formGroup]="appathonSignupForm" autocomplete="off" [hidden]="!shfrmSFFirst1">
+        <form [formGroup]="appathonSignupForm" [hidden]="!shfrmSFFirst1">
           <div class="tab-pane">
             <div class="row mb20">
               <!-- Team Name -->
@@ -852,7 +852,7 @@
             </ul>
           </div>
         </form>
-        <form [formGroup]="appathonSignupForm2" autocomplete="off" [hidden]="!shfrmSFSecond1">
+        <form [formGroup]="appathonSignupForm2" [hidden]="!shfrmSFSecond1">
           <div class="tab-pane">
             <div class="row mb20">
               <div class="col-md-8 mb-xs-30">
@@ -916,7 +916,7 @@
             </ul>
           </div>
         </form>
-        <form [formGroup]="appathonSignupForm3" autocomplete="off" [hidden]="!shfrmSFThird1">
+        <form [formGroup]="appathonSignupForm3" [hidden]="!shfrmSFThird1">
           <div class="tab-pane">
             <div class="row mb20">
               <div class="col-md-12">
@@ -1051,7 +1051,7 @@
       </ul>
       <!-- Tab panes -->
       <div class="tab-content tab-content1">
-        <form [formGroup]="appathonSignupForm" autocomplete="off"  [hidden]="!shfrmSFFirst1">
+        <form [formGroup]="appathonSignupForm" [hidden]="!shfrmSFFirst1">
           <div class="tab-pane">
             <div class="row mb20">
               <!-- Team Name -->
