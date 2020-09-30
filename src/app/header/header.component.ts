@@ -1072,14 +1072,25 @@ toastrmsg(type, title) {
 
     },);
   }
-
   scroll_view(id) {
     this.router.navigate(["index"]);
     setTimeout(function() {
-      document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+    $('html, body').animate({ scrollTop: $(id).offset().top -100});
+
+      // document.querySelector(id).scrollIntoView({ behavior: "smooth" });
     }, 10);
+    console.log("yes")
+  
   }
 
+  // scroll_view(id) {
+  //   this.router.navigate(["index"]);
+  //   setTimeout(function() {
+  //     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  //   }, 10);
+  // }
+
+  
   //login success pop up modal
   clickOk() {
     this.modalRef4.hide();

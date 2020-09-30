@@ -662,8 +662,33 @@ console.log(headers)
         );
 
    }
+  onValueChange(value:string):void{
+    console.log(value);
+    if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
+      console.log("1 has changes the prefilled value")
+      $("#headerError1").removeAttr("hidden");
+    }
+     else{
+       console.log("value hasnot been changed")
+      $("#headerError1").attr("hidden",true);
+    //  $("#headerError2").attr("hidden",true);
+       
+     }
+  }
+  onPriorityValueChange(value:string):void{
+    console.log(value);
+    if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
+      console.log("2 has changes the prefilled value")
+      $("#headerError2").removeAttr("hidden");
+    }
+     else{
+       console.log("value hasnot been changed")
+    //  $("#headerError1").attr("hidden",true);
+      $("#headerError2").attr("hidden",true);}
+  }
   
   onSubmitBody(form:NgForm){
+  
     console.log(this.testApiReqData, this.testApiReqData.length)
     console.log(form.controls.Request.value)
     this.storeRequestValue=form.controls.Request.value;
@@ -679,8 +704,38 @@ console.log(headers)
   
     console.log(form.controls)
  
-     this.testApiCall()
-    console.log(form.value)
+    //  this.testApiCall();
+    // console.log(form.value);
+    // new line of code 25/Sep/2020
+    console.log($('input[id=value]').val(),$('textarea[id=req1]').val(),$('input[id=req1Compare]').val(),$('textarea[id=req2]').val())
+     if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
+      console.log("1 has changes the prefilled value")
+      $("#headerError1").removeAttr("hidden");
+      
+
+     }else if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
+      console.log("2 has changes the prefilled value")
+      $("#headerError2").removeAttr("hidden");
+      if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
+        console.log("1 has changes the prefilled value")
+        $("#headerError1").removeAttr("hidden");}
+
+     }
+    
+     else{
+       console.log("value hasnot been changed")
+      $("#headerError1").attr("hidden",true);
+      $("#headerError2").attr("hidden",true);
+
+
+       this.testApiCall();
+     }
+    //  else if($('textarea[id=req1]').length  && $('textarea[id=req1]').val()!= $('input[id=req1Compare]').val()){
+    //   console.log("3 has changes the prefilled value")
+    //  }
+    //  else if($('textarea[id=req2]').length  && $('textarea[id=req2]').val()!= $('input[id=req2Compare]').val()){
+    //   console.log("4 has changes the prefilled value")
+    //  }
   }
  
   createTransactionHistory(form:NgForm){

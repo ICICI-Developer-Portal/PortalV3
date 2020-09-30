@@ -205,10 +205,10 @@
                                                                     <td>
                                                                         <div class="form-group form-inline">
                                                                             Value : &nbsp;&nbsp;                             
-                                                                            <input type="text" #storeValue name="storeValue{{obj.id}}"                                                                          
+                                                                            <input type="text" #storeValue id="storeValue" name="storeValue{{obj.id}}"                                                                          
                                                                             [ngModel]="obj.storeValue"  hidden>
-                                                                            <input type="text" name="value{{obj.id}}" #value
-                                                                            class="form-control" placeholder=""
+                                                                            <input type="text" name="value{{obj.id}}" #value id="value"
+                                                                            class="form-control" placeholder="" (input)="onValueChange($event.target.value)"
                                                                             [ngModel]="obj.value">
                                                                             <!-- {{value.value}}
                                                                             {{storeValue.value}} -->
@@ -229,7 +229,7 @@
                                                                             &nbsp;&nbsp;
                                                                         
                                                                             <input type="text" name="keyPriority{{obj.id}}"
-                                                                                class="form-control"
+                                                                                class="form-control" 
                                                                                 aria-describedby="emailHelp"
                                                                                 placeholder="" [readonly]="i==0" [ngModel]="obj.keyPriority">
                                                                                 
@@ -239,11 +239,11 @@
                                                                     <td>
                                                                         <div class="form-group form-inline">
                                                                             Value : &nbsp;&nbsp;
-                                                                            <input type="text" #store_priority_value name="store_priority_value{{obj.id}}"                                                                          
+                                                                            <input type="text" #store_priority_value id="store_priority_value" name="store_priority_value{{obj.id}}"                                                                          
                                                                             [ngModel]="obj.store_priority_value"  hidden>
-                                                                            <input type="text" #priority_value name="priority_value{{obj.id}}"
+                                                                            <input type="text" #priority_value id="priority_value" name="priority_value{{obj.id}}"
                                                                                 class="form-control" placeholder=""
-                                                                                [ngModel]="obj.priority_value">
+                                                                                [ngModel]="obj.priority_value" (input)="onPriorityValueChange($event.target.value)">
                                                                                 <!-- {{priority_value.value}}
                                                                                 {{priority_value_compare.value}} -->
                                                                                 <!-- <span class="text-danger"  *ngIf="key2==false">value has been changed</span> -->
@@ -284,7 +284,7 @@
 
                                             <div class="tab-pane fade  show active" id="nav-profile" role="tabpanel"
                                                 aria-labelledby="nav-profile-tab">
-                                                <form (ngSubmit)="onSubmitBody(bodyForm)" #bodyForm="ngForm"
+                                                <form  #bodyForm="ngForm"
                                                     class="row">
                                                     <div class="form-group col-md-6">
                                                         <p class="mb-1 mt-3 bold">Select Content Type:</p>
@@ -369,12 +369,16 @@
                                                     </div>
                                                     <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Request:</p>
-                                                        <textarea name="Request" *ngIf="!testApiResID.length>0"
+                                                        <input type="text" id="req1Compare"  name="req1Compare"                                                                          
+                                                        [ngModel]="reqParamValue"  hidden/>
+                                                        <textarea name="Request" *ngIf="!testApiResID.length>0" id="req1"
                                                             class="form-control setHeight" cols="50" rows="100"
                                                             [(ngModel)]="reqParamValue"
                                                             [attr.responseData]="testApiResData" required>
                                                             </textarea>
-                                                        <textarea name="Request" *ngIf="testApiResID.length>0"
+                                                        <input type="text" id="req2Compare" name="req2Compare"   [(ngModel)]="testApiReqData" hidden/>
+
+                                                        <textarea name="Request" *ngIf="testApiResID.length>0" id="req2"
                                                             class="form-control setHeight" cols="50" rows="100"
                                                             [(ngModel)]="testApiReqData"
                                                             [attr.responseData]="testApiResData" required>
@@ -402,8 +406,12 @@
 
                                                     </div>
                                                     <div class="col-md-12">
+                                                        <p class="text-error" id="headerError" hidden style="color: red;">Header value has been changed</p>
+                                                        <p class="text-error" id="headerError1" hidden style="color: red;">API's default value has been changed</p>
+                                                        <p class="text-error" id="headerError2" hidden style="color: red;">API's default priority value has been changed</p>
+
                                                         <button type="submit"
-                                                            class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid">Test</button>
+                                                            class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid" (click)="onSubmitBody(bodyForm)">Test</button>
                                                         <!-- <button type="submit" href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
                                                             [disabled]="!testApiResData.length>0"
