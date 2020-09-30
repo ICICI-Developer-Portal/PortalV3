@@ -9,7 +9,7 @@
       <!-- =========================================================================================================== -->
       <!-- Reactive form starts -->
       <!-- =========================================================================================================== -->
-      <form [formGroup]="reactiveForm" nonvalidate>
+      <form [formGroup]="reactiveForm" autocomplete="off" nonvalidate>
         <!-- =========================================================================================================== -->
         <!-- first section of uat starts -->
         <!-- =========================================================================================================== -->
@@ -98,11 +98,13 @@
                     <!-- validation -->
                     <div
                       *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched) || reactiveForm.get('basicDetailsSection.email_id').dirty">
-                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required"
+                      <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required" -->
+                      <div *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched)"
+
                         class="text-danger form-error">Email id is required.</div>
                       <!--question mark(?) is a safe navigation operator-->
-                      <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
-                        class="text-danger form-error">Please provide a valid email address</div>
+                      <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
+                        class="text-danger form-error">Please provide a valid email address</div> -->
                     </div>
 
 
@@ -213,7 +215,7 @@
                     </div> -->
                     <!--karthik-Auto complete End-->
                     <div class="col-md-11 padding-left-0">
-                      <form id="filter">
+                      <form id="filter" autocomplete="off">
                         <label>Filter API by name:</label>
                         <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
                         <!-- <pre>{{term}} </pre> -->
@@ -246,7 +248,7 @@
                           </a>
                           <!-- 1 level -->
                           <ul *ngFor="let j of i.children" class="second-level display-none">
-                            <li>
+                            <li *ngIf="!(j.TREE_ID ==557 || j.TREE_ID ==556  || j.TREE_ID ==325 )">
                               <!-- 2 level -->
                               <a class="display-block cursor-pointer padding-left-10prcnt">
                                 <ng-template #other>

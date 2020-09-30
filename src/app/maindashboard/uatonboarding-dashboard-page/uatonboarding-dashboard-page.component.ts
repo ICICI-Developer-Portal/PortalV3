@@ -793,7 +793,7 @@ else{
       'basicDetailsSection': new FormGroup({
         "merchantName": new FormControl(edit ? edit.merchantName : null, Validators.required),
         "description": new FormControl(edit ? edit.description : null, Validators.required),
-        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
+        "email_id": new FormControl(edit ? edit.email_id : null, [Validators.required,Validators.email]),
         "contact_no": new FormControl(edit ? edit.contact_no : null, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
         "r_m_maild_id": new FormControl(edit ? edit.r_m_maild_id : null, [Validators.required]),
       }),

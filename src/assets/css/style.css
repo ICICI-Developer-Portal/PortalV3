@@ -2643,7 +2643,7 @@ input:checked + .slider:before {
   background: #ffffff;
   z-index: 3;
 
-  min-width: 185px;
+  min-width: 180px;  
   max-width: 130px;
 }
 

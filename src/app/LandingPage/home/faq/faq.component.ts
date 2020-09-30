@@ -6,7 +6,7 @@ import { ToasterService, Toast } from 'angular2-toaster';
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
-  //styleUrls: ['./faq.component.css']
+   styleUrls: ['./faq.component.css']
 })
 export class FaqComponent implements OnInit {
   faqObj:any;

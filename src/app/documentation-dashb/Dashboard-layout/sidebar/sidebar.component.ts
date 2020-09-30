@@ -274,6 +274,12 @@ export class SidebarComponent implements OnInit {
 
     for (var i = 0; i < childrenArr.length; i++) {
       if (childrenArr[i].CHILD_COUNT !== "0") {
+        if (childrenArr[i].TREE_ID == "556" || childrenArr[i].TREE_ID == "557" ||  childrenArr[i].TREE_ID == "325") {
+          console.log(childrenArr[i].TREE_ID)
+        }
+        else{
+       
+
         this.treeItems +=
           `<li class="nav-link">` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
@@ -286,13 +292,18 @@ export class SidebarComponent implements OnInit {
           childrenArr[i].TYPE,
           childrenArr[i].LEVEL
         );
-      } else {
+     } }else {
+       
+      if (childrenArr[i].TREE_ID == "556" || childrenArr[i].TREE_ID == "557"  ||  childrenArr[i].TREE_ID == "325") {
+        console.log(childrenArr[i].TREE_ID)
+          }
+      else {
         this.treeItems +=
           `<li class="nav-link">` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${childrenArr[i].TAB_NAME}` +
           `</a>`;
-      }
+      }}
 
       this.treeItems += `</li>`;
     }
