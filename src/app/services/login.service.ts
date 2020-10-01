@@ -215,6 +215,21 @@ export class LoginService {
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.apiUrl + "verify_otp", query, options);
   }
+  verify_otpCopy(data: any = {}, otp_txt_id) {
+    var key;
+    var query = "";
+    data["txn_no"] = otp_txt_id;
+    for (key in data) {
+      query +=
+        encodeURIComponent(key) + "=" + encodeURIComponent(data[key]) + "&";
+    }
+
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded"
+    });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.UAT_apiUrl + "verify_otp", query, options);
+  }
   //  #End region
   //#region Forget Api
   forgetPassw(data) {

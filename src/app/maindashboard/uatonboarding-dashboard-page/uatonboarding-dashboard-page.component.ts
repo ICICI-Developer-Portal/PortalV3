@@ -729,9 +729,9 @@ else{
     formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
     formData.append("Headers", inputFields["Acc_headers"]);
     formData.append("TestingID", inputFields["Acc_uatTestingID"]);
-    formData.forEach((value, key) => {
+   /* formData.forEach((value, key) => {
       console.log(key + " " + value)
-    });
+    });*/
 
     // Jira Service
     //https://developerapi.icicibank.com:8443/api/v2/jira-UAT

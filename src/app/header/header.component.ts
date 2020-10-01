@@ -16,10 +16,13 @@ import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
+import { DatePipe } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
 declare var $: any;
 @Component({
   selector: "icici-header",
-  templateUrl: "./header.component.html"
+  templateUrl: "./header.component.html",
+  providers: [DatePipe]
   //styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
@@ -101,7 +104,8 @@ export class HeaderComponent implements OnInit {
     private modalService: BsModalService,
     private router: Router,
     private adm: LoginService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    public datepipe: DatePipe
   ) {
     this.btn_Sign();
     this.adm.getUserId().subscribe(data => {
@@ -119,7 +123,25 @@ export class HeaderComponent implements OnInit {
     });
     this.get_domain_and_apis();
   }
-
+  decode(val){
+ 
+    // Decryption process
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
+  
+  }
+     
   ngOnInit() {
 
     
@@ -829,11 +851,13 @@ toastrmsg(type, title) {
   verifyOtp1() {
     try {
       this.adm
-        .verify_otp(this.signupForm2.value, this.otp_txt_id)
+        .verify_otpCopy(this.signupForm2.value, this.otp_txt_id)
         .subscribe((data: any) => {
           console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
+          obj = this.decode(obj.data);
+          obj = JSON.parse(obj);
           if (obj.status == true) {
             console.log("otp success");
             this.shfrmSFThird = true;
