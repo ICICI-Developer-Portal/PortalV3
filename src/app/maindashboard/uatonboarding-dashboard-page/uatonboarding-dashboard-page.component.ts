@@ -90,7 +90,10 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   filteredOptions: Observable<string[]>;
   searchedItem:any;
   searchedFieldValue:any;
-/** end here */
+  companyName:any;
+  email:any;
+  mobileNo:any;
+  /** end here */
   constructor(private HttpClient: HttpClient,
     private formbuilder: FormBuilder,
     private objOnBoarding: VariablesService,
@@ -108,6 +111,15 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
 
   }
   ngOnInit() {
+   
+
+    console.log( localStorage.getItem("companyName"))
+    this.companyName = localStorage.getItem("companyName");
+    this.email = localStorage.getItem("email");
+
+    this.mobileNo = localStorage.getItem("mobileNo");
+
+
     document.getElementById("merchantName").focus();
 
     this.logged_in = this.adm.check_log();
@@ -842,7 +854,12 @@ else{
       }),
      
     })
+    this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
 
+    this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);
+
+    
+    this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
   }
   
   /*toastrmsg(type, title) {
