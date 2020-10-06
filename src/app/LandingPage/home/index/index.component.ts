@@ -26,11 +26,14 @@ import { DashboardService } from "src/app/services/dashboard.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { CustomValidators } from "../../layout/header/custom-validators";
+import { DatePipe } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
 declare var $: any;
 @Component({
   selector: "app-index",
   templateUrl: "./index.component.html",
-  styleUrls: ['./index.component.css']
+  styleUrls: ['./index.component.css'],
+  providers: [DatePipe]
 })
 export class IndexComponent implements OnInit {
   treeDataKeys: any;
@@ -191,7 +194,8 @@ export class IndexComponent implements OnInit {
     private router: Router,
     private adm: LoginService,
     private toasterService: ToasterService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    public datepipe: DatePipe
   ) {
     this.objOnB = this.objOnBoarding.getonBoarding();
     this.Hide_signbtn();
@@ -204,6 +208,24 @@ export class IndexComponent implements OnInit {
         data != "" && data != null && data != undefined ? true : false;
     });
     
+  }
+  decode(val){
+ 
+    // Decryption process
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
+  
   }
 
   ngOnInit() {
@@ -842,7 +864,7 @@ export class IndexComponent implements OnInit {
           this.signup_jira();
           this.toastrmsg(
             "success",
-            "Thanks for registering, once your application is approved it would be conveyed to you on mail sign up."
+            "Thank you for registering. Your account has been successfully created. Please log in to continue."
           );
           this.spinnerService.hide();
           this.signupForm.reset();
@@ -965,10 +987,13 @@ export class IndexComponent implements OnInit {
   verifyOtp1() {
     try {
       this.adm
-        .verify_otp(this.signupForm2.value, this.otp_txt_id)
+        .verify_otpCopy(this.signupForm2.value, this.otp_txt_id)
         .subscribe((data: any) => {
+          console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
+          obj = this.decode(obj.data);
+          obj = JSON.parse(obj);
           if (obj.status == true) {
             this.shfrmSFThird = true;
             this.shfrmSFFirst = false;

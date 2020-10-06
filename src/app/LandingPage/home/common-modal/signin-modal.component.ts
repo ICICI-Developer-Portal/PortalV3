@@ -16,11 +16,13 @@ import {
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
 import { CustomValidators } from "../../layout/header/custom-validators";
-
+import { DatePipe } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: "app-common-signin-modal",
   templateUrl: "./signin-modal.component.html",
-  styleUrls: ["./signin-modal.component.css"]
+  styleUrls: ["./signin-modal.component.css"],
+  providers: [DatePipe]
 })
 export class SigninModalComponent implements OnInit {
 
@@ -74,7 +76,8 @@ export class SigninModalComponent implements OnInit {
     private adm: LoginService,
     private toasterService: ToasterService,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<SigninModalComponent>
+    public dialogRef: MatDialogRef<SigninModalComponent>,
+    public datepipe: DatePipe
   ) {
     this.btn_Sign();
     this.adm.getUserId().subscribe(data => {
@@ -88,7 +91,24 @@ export class SigninModalComponent implements OnInit {
     this.get_domain_and_apis();
     
   }
-
+  decode(val){
+ 
+    // Decryption process
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
+  
+  }
   ngOnInit() {
     this.forgetpassForm = this.formbuilder.group({
       username: ["", [Validators.required]]
@@ -397,7 +417,7 @@ export class SigninModalComponent implements OnInit {
           this.signup_jira();
           this.toastrmsg(
             "success",
-            "Thanks for registering, once your application is approved it would be conveyed to you on mail"
+            "Thank you for registering. Your account has been successfully created. Please log in to continue."
           );
           this.spinnerService.hide();
           this.signupForm.reset();
@@ -525,14 +545,17 @@ export class SigninModalComponent implements OnInit {
    this.btnDisabled = false
     }, 30000);
   }
-
+ 
   verifyOtp1() {
     try {
       this.adm
-        .verify_otp(this.signupForm2.value, this.otp_txt_id)
+        .verify_otpCopy(this.signupForm2.value, this.otp_txt_id)
         .subscribe((data: any) => {
+          console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
+          obj = this.decode(obj.data);
+          obj = JSON.parse(obj);
           if (obj.status == true) {
             this.shfrmSFThird = true;
             this.shfrmSFFirst = false;

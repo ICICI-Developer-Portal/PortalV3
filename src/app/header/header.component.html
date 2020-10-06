@@ -446,12 +446,12 @@
                 <div *ngIf="mobile_no.invalid && (mobile_no.dirty || isSubmitted)" class="text-danger form-error">
                   Mobile Number is required.
                 </div>
-                <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+                <div *ngIf="ismobile_reg_check != '' && !(mobile_no.invalid)" class="text-danger form-error">
                   {{ ismobile_reg_check }}
                 </div>
                 <div *ngIf="
                     signupForm.value.otp_send == '1' &&
-                    signupForm.value.otp_verified == 0
+                    signupForm.value.otp_verified == 0 && !(mobile_no.invalid)
                   " class="text-success">
                   OTP sent to your mobile number.
                 </div>
@@ -476,7 +476,7 @@
             </div>
             <!-- <ng-template #elseBlock> -->
             <div class="row mb20" *ngIf="showOtp">
-              <div class="col-md-9 mb-xs-30">
+              <div class="col-md-8 mb-xs-30">
                 <div>
                   <label for="otp">Enter the OTP Received on your Phone Number</label>
                 </div>
@@ -485,7 +485,7 @@
                 <div *ngIf="otp_code.invalid && (otp_code.dirty || isSubmitted)" class="text-danger form-error">
                   OTP is required.
                 </div>
-                <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+                <div *ngIf="ismobile_reg_check != '' "  class="text-danger form-error">
                   {{ isotp_reg_check }}
                 </div>
               </div>

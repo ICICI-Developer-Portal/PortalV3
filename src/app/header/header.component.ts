@@ -587,7 +587,7 @@ toastrmsg(type, title) {
           this.signup_jira();
           this.toastrmsg(
             "success",
-            "Thanks for registering, once your application is approved it would be conveyed to you on mail"
+            "Thank you for registering. Your account has been successfully created. Please log in to continue."
           );
           this.spinnerService.hide();
           this.signupForm.reset();

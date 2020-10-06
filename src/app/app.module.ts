@@ -43,6 +43,7 @@ import { HeaderComponent } from "./header/header.component";
 import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
 import { FocusOnShowDirective } from "./autofocus.directive";
 import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
+import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ProductionOnboardingModule } from "./production-onboarding/production-o
     JwtAuthComponent,
     ErrorPageComponent,
     HeaderComponent,
-    FocusOnShowDirective
+    FocusOnShowDirective,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,7 @@ import { ProductionOnboardingModule } from "./production-onboarding/production-o
     MatInputModule,
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
-    ProductionOnboardingModule ,
+    ProductionOnboardingModule
     // RecaptchaModule,
     // RecaptchaFormsModule
     

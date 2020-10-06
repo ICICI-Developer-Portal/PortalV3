@@ -807,9 +807,10 @@ test_api(requestParam,apiName) {
 
   let requestPkt ={
     "apikey":"f219f506-1079-4c76-8ea6-439774f96265",
-    "requestPacket":requestParam
+    "requestPacket":requestParam,
+    "gatewayURL":apiName
   }
-  
+  console.log(JSON.stringify(requestPkt));
   let headers = new Headers({
     "Content-Type": 'application/json'
   });
