@@ -10,10 +10,13 @@ import { ToasterService, Toast } from 'angular2-toaster';
 
 @Component({
   selector: "app-onboardingrequests",
-  templateUrl: "./onboardingrequests.component.html"
+  templateUrl: "./onboardingrequests.component.html",
+  styleUrls: ['./onboardingrequests.component.css']
+
 })
 export class OnboardingrequestsComponent implements OnInit {
-  dataSource: any;
+  onoardingRequestTableData:any;
+  dataSource: string[] = [];
   p: any = "";
   role: string;
   certificate: any;
@@ -27,9 +30,14 @@ export class OnboardingrequestsComponent implements OnInit {
     this.request_data();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("hi")
+    
+  }
 
   request_data() {
+    console.log("jiii")
+    
     this.spinnerService.show();
     //  this.role=localStorage.getItem('role')
     //   if(localStorage.getItem('role')=='admin'){
@@ -41,7 +49,23 @@ export class OnboardingrequestsComponent implements OnInit {
       var response = data._body;
 
       var obj = JSON.parse(response);
-      this.dataSource = obj;
+      this.onoardingRequestTableData=obj;
+      console.log(this.onoardingRequestTableData)
+      console.log(this.onoardingRequestTableData.length)
+      this.onoardingRequestTableData.forEach( (myObject, index) => {
+        //console.log(myObject)
+        if(myObject.JiraStatus!=404){
+          console.log(myObject.JiraStatus)
+          console.log(myObject)
+          this.dataSource.push( myObject);
+         // this.dataSource = this.onoardingRequestTableData;
+          console.log( this.dataSource)
+        }
+      });
+
+      console.log( this.dataSource)
+   
+     
       this.spinnerService.hide();
     },
     err => {

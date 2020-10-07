@@ -1,0 +1,20 @@
+.width10prcnt{
+    width:10% important;
+}
+.width15prcnt{
+    width:15% important;
+}
+table thead {
+    border-radius: 3px;
+}
+table thead td {
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+table tbody tr td {
+    padding-left: 12px;
+    position: relative;
+}
+table.table thead td:first-child {
+    width: 15% !important;
+}

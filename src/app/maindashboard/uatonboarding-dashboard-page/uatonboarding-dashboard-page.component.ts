@@ -82,6 +82,8 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   isemail_check: boolean = false;
   isemail_reg_check: string = "";
   selectedValue = [];
+  selectedAPINAME = [];
+
 term:any;
 errorMsg:any = "Something went wrong. Please try again in some time.";
   /** Add var for search field */
@@ -90,7 +92,10 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   filteredOptions: Observable<string[]>;
   searchedItem:any;
   searchedFieldValue:any;
-/** end here */
+  companyName:any;
+  email:any;
+  mobileNo:any;
+  /** end here */
   constructor(private HttpClient: HttpClient,
     private formbuilder: FormBuilder,
     private objOnBoarding: VariablesService,
@@ -108,6 +113,15 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
 
   }
   ngOnInit() {
+   
+
+    console.log( localStorage.getItem("companyName"))
+    this.companyName = localStorage.getItem("companyName");
+    this.email = localStorage.getItem("email");
+
+    this.mobileNo = localStorage.getItem("mobileNo");
+
+
     document.getElementById("merchantName").focus();
 
     this.logged_in = this.adm.check_log();
@@ -521,13 +535,17 @@ ifIPpatternNotmatches(){
           "greatGreatGrandParentName": e.target.getAttribute('greatGreatGrandParentName'),
           "id": e.target.getAttribute('id')
         });
-          console.log(this.selectedValue)
+        this.selectedAPINAME.push(
+          e.target.getAttribute('value'));
+          console.log(this.selectedAPINAME)
 
         } else {
   
           let index = this.selectedValue.indexOf(e);
+          let index1= this.selectedAPINAME.indexOf(e);
           console.log(e.target);
           this.selectedValue.splice(index,1);
+          this.selectedAPINAME.splice(index1,1);
           console.log(this.selectedValue,"this.selectedValue");               
         }
           
@@ -604,14 +622,14 @@ else{
    
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: '(' +this.arrayObjectOfDomain.join()+ ')',
-      domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
+      domainName: this.arrayObjectOfDomain.join(),
+      domainApis: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
       spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
       spocPhone: reactiveFromFieldValues.basicDetailsSection.contact_no,
       relManager: reactiveFromFieldValues.basicDetailsSection.r_m_maild_id,
-      env: "UAT",
+      env: "PROD",
       // ips: "",
       // callbackUrl: "",
       AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
@@ -641,7 +659,9 @@ else{
       Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
       Acc_headers: reactiveFromFieldValues.whitelistIpSection.header ? reactiveFromFieldValues.whitelistIpSection.header : '',
       Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.TestingID ? reactiveFromFieldValues.whitelistIpSection.TestingID : '',
-      file1: reactiveFromFieldValues.whitelistIpSection.file1
+      file1: reactiveFromFieldValues.whitelistIpSection.file1,
+     
+      
     };
     console.log(inputFields);
     //console.log(reactiveFromFieldValues.value.Ip);
@@ -726,9 +746,12 @@ else{
     // formData.append("Acc_headers", inputFields["Acc_headers"]);
     // formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
 
-    formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
-    formData.append("Headers", inputFields["Acc_headers"]);
-    formData.append("TestingID", inputFields["Acc_uatTestingID"]);
+    formData.append("refJIRAID", inputFields["Acc_refJIRAID"]); //35
+    formData.append("Headers", inputFields["Acc_headers"]); //36
+    formData.append("TestingID", inputFields["Acc_uatTestingID"]); //37 
+
+    
+   
    /* formData.forEach((value, key) => {
       console.log(key + " " + value)
     });*/
@@ -874,7 +897,12 @@ else{
       }),
      
     })
+    this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
 
+    this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);
+
+    
+    this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
   }
   
   /*toastrmsg(type, title) {
@@ -900,17 +928,10 @@ else{
   ngAfterViewInit() {
     console.log(this.BasicDetailsList, "2", this.RequestedApiList, "3", this.businessBankingList, "4", this.whitelistIpList,
       this.checkboxes)
-    console.log(this.reactiveForm.controls);
-    console.log(this.reactiveForm.controls.basicDetailsSection.get("email_id").errors);
-
-    console.log(this.reactiveForm.value.get('basicDetailsSection').controls)
-
-    console.log(this.reactiveForm.value.get('basicDetailsSection').controls)
-
+    console.log(this.reactiveForm);
      var d1 = this.cartApiContainer.nativeElement;
      console.log(d1)
     console.log(this.matInput.nativeElement.value);
-
   }
  
   createCart(){

@@ -455,6 +455,13 @@ toastrmsg(type, title) {
       console.log(response)
       this.loginResponse = JSON.parse(response);
       console.log(this.loginResponse);
+      console.log(this.loginResponse.data)
+      console.log(this.loginResponse.data.companyName)
+  localStorage.setItem('companyName',this.loginResponse.data.companyName);
+  localStorage.setItem('mobileNo',this.loginResponse.data.mobileNo);
+  localStorage.setItem('email',this.loginResponse.data.email);
+  localStorage.setItem('email',this.loginResponse.data.email);
+
       if (this.loginResponse.status == true) {
         var timer = this.SessionService.session();
         this.show = false;

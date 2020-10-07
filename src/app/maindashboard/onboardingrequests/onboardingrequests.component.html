@@ -29,34 +29,29 @@
             <!-- <input class="form-control search-box" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442; Search"> -->
           </div>
         </div>
-        <table class="table tableApplications">
+        <table class="table ">
           <thead>
             <tr>
-              <td>Request ID</td>
-              <td>Request Status</td>
-              <td>Domain</td>
-              <td>APIs</td>
+              <td style="width: 10% !important;">Request ID</td>
+              <td  style="width: 10% !important;">Request Status</td>
+              <td  style="width: 15% !important;">Domain</td>
+              <td style="width: 20% !important;">APIs</td>
               <!-- <td><div *ngIf="showurl">Approval URL</div></td> -->
-              <td>UAT/Prod</td>
-              <td>UAT Request ID</td>
+              <td  style="width: 10% !important;">UAT/Prod</td>
+              <td style="width: 10% !important;">UAT Request ID</td>
               <td>API Document</td>
               <td>Certificate</td>
             </tr>
           </thead>
-          <tbody>
-            <tr
-              *ngFor="
-                let row of dataSource
-                  | paginate: { itemsPerPage: 5, currentPage: p }
-              "
-            >
+          <tbody  *ngFor="let row of dataSource  | paginate: { itemsPerPage: 5, currentPage: p }">
+            <tr >
               <td>{{ row.JiraId }}</td>
               <td>{{ row.JiraStatus }}</td>
               <td>{{ row.Domain }}</td>
               <td>{{ row.DomainApi }}</td>
               <!-- <td><div *ngIf="showurl">{{row.CallbackUrl}}</div></td> -->
               <td>{{ row.Env }}</td>
-              <td>{{ row.RefJiraId }}</td>
+              <td><p  *ngIf="row.RefJiraId!='undefined'">{{ row.RefJiraId }}</p></td>
               <td *ngIf="row.Url !== ''">
                 <a
                   (click)="downloadCertificate(row.Url)"
