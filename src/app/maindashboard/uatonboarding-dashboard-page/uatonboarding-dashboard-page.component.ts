@@ -19,7 +19,13 @@ import { PATTERNS } from 'config/regex-pattern';
 import { DomSanitizer } from '@angular/platform-browser';
 import { element } from '@angular/core/src/render3';
 import { NestedListFilterPipePipe } from 'src/app/maindashboard/nested-list-filter-pipe.pipe';
-
+import {  catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
+import {
+  
+  HttpEventType,
+  HttpErrorResponse
+} from "@angular/common/http";
 declare var $: any;
 
 
@@ -83,6 +89,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   isemail_reg_check: string = "";
   selectedValue = [];
   selectedAPINAME = [];
+  progress: number;
 
 term:any;
 errorMsg:any = "Something went wrong. Please try again in some time.";
@@ -97,6 +104,7 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   mobileNo:any;
   /** end here */
   constructor(private HttpClient: HttpClient,
+    private http2: HttpClient,
     private formbuilder: FormBuilder,
     private objOnBoarding: VariablesService,
     private spinnerService: Ng4LoadingSpinnerService,
@@ -629,7 +637,7 @@ else{
       spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
       spocPhone: reactiveFromFieldValues.basicDetailsSection.contact_no,
       relManager: reactiveFromFieldValues.basicDetailsSection.r_m_maild_id,
-      env: "PROD",
+      env: "UAT",
       // ips: "",
       // callbackUrl: "",
       AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
@@ -897,12 +905,12 @@ else{
       }),
      
     })
-    this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
+   // this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
 
-    this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);
+   // this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);
 
     
-    this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
+   // this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
   }
   
   /*toastrmsg(type, title) {
@@ -958,6 +966,33 @@ console.log(this.searchedFieldValue);
 
     }
     return api && api.name ? api.name : '';
+  }
+
+  upload(file) {
+    this.progress = 1;
+    const formData = new FormData();
+    formData.append("file", file);
+
+    this.http2
+      .post("https://developer.icicibank.com/fileUpload", formData, {
+        reportProgress: true,
+        observe: "events"
+      })
+      .pipe(
+        map((event: any) => {
+          if (event.type == HttpEventType.UploadProgress) {
+            this.progress = Math.round((100 / event.total) * event.loaded);
+          } else if (event.type == HttpEventType.Response) {
+            this.progress = null;
+          }
+        }),
+        catchError((err: any) => {
+          this.progress = null;
+          alert(err.message);
+          return throwError(err.message);
+        })
+      )
+      .toPromise();
   }
 
 }

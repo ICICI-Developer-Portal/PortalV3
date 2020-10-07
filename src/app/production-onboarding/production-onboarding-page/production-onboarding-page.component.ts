@@ -22,6 +22,13 @@ import { PATTERNS } from 'config/regex-pattern';
 import { DomSanitizer } from '@angular/platform-browser';
 import { element } from '@angular/core/src/render3';
 import { NestedListFilterPipePipe } from 'src/app/maindashboard/nested-list-filter-pipe.pipe';
+import {  catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
+import {
+  
+  HttpEventType,
+  HttpErrorResponse
+} from "@angular/common/http";
 declare var $: any;
 
 
@@ -103,11 +110,13 @@ export class ProductionOnboardingPageComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   searchedItem: any;
   searchedFieldValue: any;
+  progress: number;
 
 
   /** end here */
   constructor(
     private http: Http,
+    private http2: HttpClient,
     private HttpClient: HttpClient,
     private formbuilder: FormBuilder,
     private objOnBoarding: VariablesService,
@@ -702,6 +711,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
     formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
     console.log(formData);
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
+    
     console.log("a", a);
     for (let k = 0; k < a.length; k++) {
       formData.append("file1", a[k]);
@@ -1003,6 +1013,36 @@ export class ProductionOnboardingPageComponent implements OnInit {
       }
     }
   }
+
+  upload(file) {
+    this.progress = 1;
+    const formData = new FormData();
+    formData.append("file", file);
+
+    this.http2
+      .post("https://developer.icicibank.com/fileUpload", formData, {
+        reportProgress: true,
+        observe: "events"
+      })
+      .pipe(
+        map((event: any) => {
+          if (event.type == HttpEventType.UploadProgress) {
+            this.progress = Math.round((100 / event.total) * event.loaded);
+          } else if (event.type == HttpEventType.Response) {
+            this.progress = null;
+          }
+        }),
+        catchError((err: any) => {
+          this.progress = null;
+          alert(err.message);
+          return throwError(err.message);
+        })
+      )
+      .toPromise();
+  }
+
+
+
 
 
 }
