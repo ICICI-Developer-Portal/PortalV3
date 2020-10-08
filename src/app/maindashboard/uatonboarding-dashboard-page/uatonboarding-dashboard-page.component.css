@@ -522,3 +522,21 @@ ul{
 	border-radius: 20px;       /* roundness of the scroll thumb 
 	border: 3px solid #ae282e;  /* creates padding around scroll thumb 
   }*/
+  .progress {
+	background-color: #e9ecef;
+	border-radius: 0.25rem;
+	display: flex;
+	font-size: 1rem;
+	height: 1rem;
+	margin-top:1rem;
+	overflow: hidden;
+	width: 430px;
+  }
+  
+  .progress-bar {
+	align-items: center;
+	background-color: #ae282e;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+  }

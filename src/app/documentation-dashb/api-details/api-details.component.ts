@@ -75,6 +75,8 @@ export class ApiDetailsComponent implements OnInit {
    key1= false;
    key2= false;
    storeRequestValue;
+   onchnageKeyValue;
+   onchangePriorityValue;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
@@ -662,30 +664,37 @@ console.log(headers)
         );
 
    }
-  onValueChange(value:string):void{
-    console.log(value);
-    if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
-      console.log("1 has changes the prefilled value")
-      $("#headerError1").removeAttr("hidden");
-    }
-     else{
-       console.log("value hasnot been changed")
-      $("#headerError1").attr("hidden",true);
-    //  $("#headerError2").attr("hidden",true);
+  // onValueChange(value:string):void{
+  //   console.log(value);
+  //   if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
+  //     console.log("1 has changes the prefilled value")
+  //     this.onchnageKeyValue=true;
+     
+  //  //   $("#headerError1").removeAttr("hidden");
+  //   }
+  //    else{
+  //      this.onchnageKeyValue=false;
+  //      console.log("value hasnot been changed")
+  //     $("#headerError1").attr("hidden",true);
+  //   //  $("#headerError2").attr("hidden",true);
        
-     }
-  }
-  onPriorityValueChange(value:string):void{
-    console.log(value);
-    if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
-      console.log("2 has changes the prefilled value")
-      $("#headerError2").removeAttr("hidden");
-    }
-     else{
-       console.log("value hasnot been changed")
-    //  $("#headerError1").attr("hidden",true);
-      $("#headerError2").attr("hidden",true);}
-  }
+  //    }
+  // }
+  // onPriorityValueChange(value:string):void{
+  //   console.log(value);
+  //   if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
+  //     console.log("2 has changes the prefilled value")
+  //   //  $("#headerError2").removeAttr("hidden");
+  //     this.onchangePriorityValue=true;
+  //   }
+  //    else{
+  //      console.log("value hasnot been changed")
+  //   //  $("#headerError1").attr("hidden",true);
+  //     //$("#headerError2").attr("hidden",true);
+  //     this.onchangePriorityValue=true
+  //   }
+     
+  // }
   
   onSubmitBody(form:NgForm){
   
@@ -713,18 +722,19 @@ console.log(headers)
       $("#headerError1").removeAttr("hidden");
       
 
-     }else if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
+     }else{
+      $("#headerError1").attr("hidden",true);
+
+     }
+      if($('input[id=priority_value]').length  && $('input[id=priority_value]').val()!= $('input[id=store_priority_value]').val()){
       console.log("2 has changes the prefilled value")
       $("#headerError2").removeAttr("hidden");
-      if($('input[id=value]').val()!= $('input[id=storeValue]').val()){
-        console.log("1 has changes the prefilled value")
-        $("#headerError1").removeAttr("hidden");}
+    
 
      }
     
      else{
        console.log("value hasnot been changed")
-      $("#headerError1").attr("hidden",true);
       $("#headerError2").attr("hidden",true);
 
 
