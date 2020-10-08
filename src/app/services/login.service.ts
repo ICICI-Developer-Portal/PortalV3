@@ -83,7 +83,7 @@ export class LoginService {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     let options = new RequestOptions({ headers: headers });
-   return this.http.post(this.apiUrl + "login", query, options);
+   return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/login", query, options);
    // return this.http.post(this.UAT_apiUrl + "login", query, options);
   }
   //#JWT Login Api

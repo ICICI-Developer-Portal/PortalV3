@@ -500,6 +500,8 @@ toastrmsg(type, title) {
     );
     localStorage.setItem("appathonUserName", this.loginResponse.data.username);
     localStorage.setItem("email", this.loginResponse.data.email);
+    localStorage.setItem("rm", this.loginResponse.data.rm);
+
     this.adm.sendUserId(this.loginResponse.data.id);
     this.userName = localStorage.getItem("username");
     this.router.navigate([this.router.url]);
