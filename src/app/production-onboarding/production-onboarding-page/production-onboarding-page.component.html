@@ -316,7 +316,7 @@
                       <div><label for="projectName">Checksum Required </label></div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Checksum">
-                          <option value="Select Checksum">Select Checksum</option>
+                          <option value=" ">Select Checksum</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -330,7 +330,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Encryption"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select Encryption">Select Encryption</option>
+                          <option value=" ">Select Encryption</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -346,7 +346,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="web"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select Service Type">Select Service Type</option>
+                          <option value=" ">Select Service Type</option>
                           <option *ngFor="let option of serviceTypeOption" [value]="option">
                             {{option}}
                           </option>
@@ -362,7 +362,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="message"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select Communication Method">Select Communication Method</option>
+                          <option value=" ">Select Communication Method</option>
                           <option *ngFor="let option of comTypeOption" [value]="option">
                             {{option}}
                           </option>
@@ -381,7 +381,7 @@
                       <span class="custom-dropdown">
                         <select formControlName="IFSC_Code" class="form-control h40 col-md-11"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select IFSC Code">Select IFSC Code</option>
+                          <option value=" ">Select IFSC Code</option>
                           <option *ngFor="let option of ifscCodeOption" [value]="option">
                             {{option}}
                           </option>
@@ -433,7 +433,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Acc_env"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select Environment">Select Environment</option>
+                          <option value=" ">Select Environment</option>
                           <option *ngFor="let option of environmentOption" [value]="option">
                             {{option}}
                           </option>
@@ -453,7 +453,7 @@
                       <span class="custom-dropdown">
                         <select formControlName="Acc_validation" class="form-control h40 col-md-11"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select Amount Validation">Select Amount Validation</option>
+                          <option value=" ">Select Amount Validation</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -473,7 +473,7 @@
                       <span class="custom-dropdown">
                         <select formControlName="Acc_acceptance" class="form-control h40 col-md-11"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select Acceptance Mode">Select Acceptance Mode</option>
+                          <option value=" ">Select Acceptance Mode</option>
 
                           <option *ngFor="let option of paymentMode" [value]="option">
                             {{option}}
@@ -517,7 +517,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Acc_amount"
                           (change)="selectChangeHandler($event)">
-                          <option value="Select Amount">Select Amount</option>
+                          <option value=" ">Select Amount</option>
                           <option>Editable</option>
                           <option>Non- Editable</option>
                         </select>
@@ -642,7 +642,7 @@
                       <div><label for="projectName">Certificate</label></div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Certificate">
-                          <option value="Certificate">Select Certificate</option>
+                          <option value=" ">Select Certificate</option>
                           <option *ngFor="let option of certificateOption" [value]="option">
                             {{option}}
                           </option>
@@ -666,14 +666,14 @@
                         title="Please upload zip file of SSL Certificate and Encryption Certificate"><img alt="loader"
                           class="ml2 cursor_pointer" src="assets/images/information.png"></a>
                       <input type="file"
-                        (change)="upload($event.target.files[0])"
+                        
                         accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
                         id="file1" formControlName="file1"
                         class="form-control input_type_attachment mainField col-md-11 inline_block">
                       <i *ngIf="reactiveForm.get('whitelistIpSection.file1').valid"
                         class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
 
-                        <!--progress bar-->
+                        <!--progress bar (change)="upload($event.target.files[0])"-->
                         <div class="progress" *ngIf="progress">
                           <div class="progress-bar" [style.width]="progress + '%'">{{progress}}%</div>
                         </div>

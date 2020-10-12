@@ -26,6 +26,7 @@ export class BranchDetailsComponent implements OnInit {
   image:any;
   file:any;
   faq:any = false;
+  faqEazypay:any= false;
   eazypay:any ;
   compositpay:any;
   faqObj:any;
@@ -56,18 +57,21 @@ export class BranchDetailsComponent implements OnInit {
       this.newApplication();
       let num = this.branchId;
       if(num === "201" || num === 201 ){
-        this.faq= true;
+        this.faq= false;
+        this.faqEazypay= true;
         this.eazypay= true;
         this.compositpay= false;
         
       }else if(num === "207" || num === 207){
         this.faq= true;
+        this.faqEazypay= false;
         this.compositpay= true;
         this.eazypay= false;
       }else{
         this.faq= false;
         this.eazypay= false;
         this.compositpay= false;
+        this.faqEazypay= false;
       }
     });
   }
@@ -142,7 +146,32 @@ export class BranchDetailsComponent implements OnInit {
     if (isSafariBrowser) {
       dwldLink.setAttribute("target", "_blank");
     }
+
+    if(this.faqEazypay){
+      this.file = "https://developer.icicibank.com/assets/documents/Eazypay.zip";
+    }
     dwldLink.setAttribute("href", this.file);
+    //dwldLink.setAttribute("download", fileName + ".csv");
+    dwldLink.style.visibility = "hidden";
+    document.body.appendChild(dwldLink);
+    dwldLink.click();
+    document.body.removeChild(dwldLink);
+  } 
+   /** get branch node details
+   * @class BranchDetailsComponent
+   * @method downloadFAQ
+   */
+  downloadFAQ() {
+    
+    let dwldLink = document.createElement("a");
+    
+    let isSafariBrowser =
+      navigator.userAgent.indexOf("Safari") != -1 &&
+      navigator.userAgent.indexOf("Chrome") == -1;
+    if (isSafariBrowser) {
+      dwldLink.setAttribute("target", "_blank");
+    }
+    dwldLink.setAttribute("href", "https://developer.icicibank.com/assets/documents/UPI Merchant Integrations FAQs - Consolidated.docx");
     //dwldLink.setAttribute("download", fileName + ".csv");
     dwldLink.style.visibility = "hidden";
     document.body.appendChild(dwldLink);

@@ -628,10 +628,15 @@ else{
     console.log(urlValues)
     let reactiveFromFieldValues = this.reactiveForm.value;
    
+   let tempArr =this.arrayObjectOfDomain;
+   const distinctArray = tempArr.filter((n, i) => tempArr.indexOf(n) === i);
+    
+
+
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: this.arrayObjectOfDomain.join(),
-      domainApis: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
+      domainName: distinctArray.toString(),
+      domainApis: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
       spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,

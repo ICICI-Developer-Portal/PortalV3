@@ -26,10 +26,16 @@
  
       <div class="col-md-12 text-right">
         <hr />
-        <a 
+      <a 
         *ngIf="faq"
         data-toggle="modal"
         data-target="#faq"
+        class="tryItFreeBtn"
+        >{{ constants.FAQ }}</a
+      >
+      <a 
+        *ngIf="faqEazypay"
+        (click) = "downloadFAQ()"
         class="tryItFreeBtn"
         >{{ constants.FAQ }}</a
       >
