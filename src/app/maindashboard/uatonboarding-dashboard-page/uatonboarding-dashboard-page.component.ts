@@ -26,7 +26,6 @@ import {
   HttpEventType,
   HttpErrorResponse
 } from "@angular/common/http";
-
 declare var $: any;
 
 
@@ -633,10 +632,18 @@ else{
     console.log(urlValues)
     let reactiveFromFieldValues = this.reactiveForm.value;
    
+   let tempArr =this.arrayObjectOfDomain;
+   const distinctArray = tempArr.filter((n, i) => tempArr.indexOf(n) === i);
+    
+
+
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: '(' +this.arrayObjectOfDomain.join()+ ')',
-      domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
+      domainName: distinctArray.toString(),
+      domainApis: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
+    
+     // domainName: '(' +this.arrayObjectOfDomain.join()+ ')',
+      //domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
     //  domainApis: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
@@ -673,7 +680,9 @@ else{
       Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
       Acc_headers: reactiveFromFieldValues.whitelistIpSection.header ? reactiveFromFieldValues.whitelistIpSection.header : '',
       Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.TestingID ? reactiveFromFieldValues.whitelistIpSection.TestingID : '',
-      file1: reactiveFromFieldValues.whitelistIpSection.file1
+      file1: reactiveFromFieldValues.whitelistIpSection.file1,
+     
+      
     };
     console.log(inputFields);
     //console.log(reactiveFromFieldValues.value.Ip);
