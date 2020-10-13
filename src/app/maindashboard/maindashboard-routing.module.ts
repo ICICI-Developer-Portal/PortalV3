@@ -12,6 +12,8 @@ import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { DownloadComponent } from './download/download.component';
 import { MisComponent } from './mis/mis.component';
+import { ReportIssuePageComponent } from './report-issue-page/report-issue-page.component';
+
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { NewpartnerComponent } from './newpartner/newpartner.component';
 
@@ -38,6 +40,8 @@ const routes: Routes = [
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
     { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},
     { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]},
+    { path: 'reportIssue', component: ReportIssuePageComponent ,canActivate: [AuthGuard]},
+
     { path: 'connectedBanking', component: NewpartnerComponent  },
 
 ];
