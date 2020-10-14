@@ -363,6 +363,16 @@ export class IndexComponent implements OnInit {
     });
    
   }
+  bannerTArget1($event){
+    // alert("hi")
+    window.open("https://developer.icicibank.com/#/rootdetails/247");
+      }
+      bannerTArget2($event){
+    // alert("hi")
+    window.open("https://developer.icicibank.com/#/rootdetails/104");
+    
+        
+      }
 
   appathonReg() {
     this.modalRef2.hide();

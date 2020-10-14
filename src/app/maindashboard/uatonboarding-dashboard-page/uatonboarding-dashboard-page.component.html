@@ -266,7 +266,7 @@
                               </a>
                               <!-- 2 level -->
                               <ul *ngFor="let k of j.children" class="third-level display-none">
-                                <li>
+                                <li  *ngIf="!(k.TREE_ID ==328 )">
                                   <!-- 3 level -->
                                   <a class="display-block cursor-pointer padding-left-13prcnt">
                                     <ng-template #other >
