@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
+import { RouterModule } from '@angular/router';
 import { AppComponent } from "./app.component";
 import { LayoutModule } from "./LandingPage/layout/layout.module";
 import { HomeModule } from "./LandingPage/home/home.module";
@@ -64,6 +65,7 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    RouterModule,
     LayoutModule,
     HomeModule,
     MaindashboardModule,
