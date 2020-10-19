@@ -243,7 +243,7 @@ export class IndexComponent implements OnInit {
           default: return "other";
       }
   })(window.navigator.userAgent.toLowerCase());
-  alert( browser);
+  // alert( browser);
   if(browser!= "ie" ){
     $(".fstImg,.sndImg").css("width","100%");
 
