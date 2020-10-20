@@ -134,6 +134,13 @@ export class ProductionOnboardingPageComponent implements OnInit {
 
   }
   ngOnInit() {
+
+    $('ul li a[data-toggle="tab"]').removeClass('active');
+$('ul li a[data-toggle="tab"]').removeClass('show');
+
+$('ul li a[data-toggle="dropdown"]').removeClass('active');
+$('ul li a[data-toggle="dropdown"]').removeClass('show');
+$('ul li .usernameClass').addClass('active');
     document.getElementById("merchantName").focus();
 
     this.logged_in = this.adm.check_log();

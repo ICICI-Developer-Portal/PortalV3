@@ -13,7 +13,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { saveAs } from 'file-saver';
 //declare var require;
 import {FormControl} from '@angular/forms';
-
+declare var $: any;
 
 @Component({
   selector: 'app-mis',
@@ -57,6 +57,12 @@ export class MisComponent implements OnInit {
    * @method ngOnInit
    */
   ngOnInit() {
+    $('ul li a[data-toggle="tab"]').removeClass('active');
+    $('ul li a[data-toggle="tab"]').removeClass('show');
+    
+    $('ul li a[data-toggle="dropdown"]').removeClass('active');
+    $('ul li a[data-toggle="dropdown"]').removeClass('show');
+    $('ul li .accountClass').addClass('active');
     //var companyName = 'Niveus Solutions';
     this.misForm = this.formbuilder.group({
       dateInput: ['', [Validators.required]],

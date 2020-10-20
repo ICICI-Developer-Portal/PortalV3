@@ -123,6 +123,13 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   }
   ngOnInit() {
    
+    
+$('ul li a[data-toggle="tab"]').removeClass('active');
+$('ul li a[data-toggle="tab"]').removeClass('show');
+
+$('ul li a[data-toggle="dropdown"]').removeClass('active');
+$('ul li a[data-toggle="dropdown"]').removeClass('show');
+$('ul li .usernameClass').addClass('active');
 
     console.log( localStorage.getItem("companyName"))
     this.companyName = localStorage.getItem("companyName");

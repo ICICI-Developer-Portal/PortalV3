@@ -230,7 +230,7 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     var self = this;
-    alert(navigator.userAgent);
+   // alert(navigator.userAgent);
 
     var browser = (function (agent) {
       switch (true) {
@@ -249,7 +249,7 @@ export class IndexComponent implements OnInit {
 
   }
   else{
-    $(".fstImg,.sndImg").css("width","");
+    $(".fstImg,.sndImg").css("height","100%");
 
   }
     this.router.events.subscribe((evt) => {

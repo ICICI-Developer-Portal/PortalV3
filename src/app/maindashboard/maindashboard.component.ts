@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-maindashboard',
   templateUrl: './maindashboard.component.html',
@@ -11,6 +10,7 @@ export class MaindashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+  
   }
 
 }
