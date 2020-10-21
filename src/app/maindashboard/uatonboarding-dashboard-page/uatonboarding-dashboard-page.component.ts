@@ -102,6 +102,7 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   companyName:any;
   email:any;
   mobileNo:any;
+  rm:any;
   /** end here */
   constructor(private HttpClient: HttpClient,
     private http2: HttpClient,
@@ -122,10 +123,19 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   }
   ngOnInit() {
    
+    
+$('ul li a[data-toggle="tab"]').removeClass('active');
+$('ul li a[data-toggle="tab"]').removeClass('show');
+
+$('ul li a[data-toggle="dropdown"]').removeClass('active');
+$('ul li a[data-toggle="dropdown"]').removeClass('show');
+$('ul li .usernameClass').addClass('active');
 
     console.log( localStorage.getItem("companyName"))
     this.companyName = localStorage.getItem("companyName");
     this.email = localStorage.getItem("email");
+    this.rm = localStorage.getItem("rm");
+
 
     this.mobileNo = localStorage.getItem("mobileNo");
 
@@ -910,12 +920,14 @@ else{
       }),
      
     })
-   // this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
+   this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
 
-   // this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);
+   this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);
 
     
-   // this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
+   this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
+   this.reactiveForm.get("basicDetailsSection.r_m_maild_id").setValue(this.rm);
+
   }
   
   /*toastrmsg(type, title) {

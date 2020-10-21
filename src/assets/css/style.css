@@ -1207,7 +1207,7 @@ transform: rotate(180deg);
   padding: 30px 9%;
 }
 .bannerContent {
-  position: absolute;
+  position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -3582,6 +3582,12 @@ padding-left:0px ;
     .sideMenu {
       top: 160px;
     }
+    .bannerContent h2 {
+      font-size: 20px;
+    }
+    .bannerContent .signInBtn {
+      padding: 6px 18px;
+    }
   }
   @media screen and (min-width: 241px) and (max-width: 480px) {
     .documentTabContent {
@@ -3590,6 +3596,12 @@ padding-left:0px ;
     }
     .sideMenu {
       top: 160px;
+    }
+    .bannerContent h2 {
+      font-size: 25px;
+    }
+    .bannerContent .signInBtn {
+      padding: 8px 20px;
     }
   }
   @media screen and (min-width: 320px) and (max-width: 480px) {
@@ -3601,6 +3613,12 @@ padding-left:0px ;
       top: 160px;
 
     }
+    .bannerContent h2 {
+      font-size: 25px;
+    }
+    .bannerContent .signInBtn {
+      padding: 8px 20px;
+    }
   }
   @media screen and (min-width: 481px) and (max-width: 768px) {
     .documentTabContent {
@@ -3609,6 +3627,12 @@ padding-left:0px ;
     }
     .sideMenu {
       top: 160px;
+    }
+    .bannerContent h2 {
+      font-size: 28px;
+    }
+    .bannerContent .signInBtn {
+      padding: 8px 20px;
     }
 
   }
@@ -3620,6 +3644,10 @@ padding-left:0px ;
     .sideMenu {
       top: 160px;
     }
+    .bannerContent h2 {
+      font-size: 30px;
+    }
+    
   }
 
   .box1

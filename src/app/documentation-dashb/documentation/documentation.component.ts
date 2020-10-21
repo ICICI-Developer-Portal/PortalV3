@@ -3,7 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services';
 import { ToasterService, Toast } from 'angular2-toaster';
-
+declare var $: any;
 
 @Component({
   selector: 'app-documentation',
@@ -21,7 +21,7 @@ export class DocumentationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+  
   }
   
   toastrmsg(type ,title) {

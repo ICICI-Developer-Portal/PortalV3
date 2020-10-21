@@ -104,6 +104,7 @@ export class ApiDetailsComponent implements OnInit {
       this.isactive_class3 = true;
     }
   }
+  
 
   ngOnInit() { 
     console.log()
@@ -122,7 +123,7 @@ console.log(this.sandBoxForm ,)
 
 
 
-     $('ul.toggleTabs li').removeClass('active');
+    $('ul.toggleTabs li').removeClass('active');
     $('ul.toggleTabs li a').removeClass('active');
     $('ul.toggleTabs li a').removeClass('show');
     $('ul.toggleTabs li:first').addClass('active');

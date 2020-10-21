@@ -32,12 +32,12 @@
           <a  href="#" (click)="scroll_view('#partners')" data-toggle="tab">Strategic Partners</a>
         </li>
         <li><a href="#" data-toggle="tab" [routerLink]="['/index/faq']">FAQ</a></li>
-        <li><a  href="#/documentation"  data-toggle="tab" (click)="Documentation(signin)">Documentation </a></li>
+        <li><a  href="#/documentation"  data-toggle="tab" (click)="Documentation(signin)" class="documetationClass">Documentation </a></li>
         
         <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
          
        
-          <a href="#" class="dropdown-toggle lh56 appSignMargin2 " id="navbarMobiles" role="button" data-toggle="dropdown"
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false"   >
           Account </a>
         
@@ -61,7 +61,7 @@
         </li>
         <li class="dropdown" *ngIf="!showbtn">
          
-          <a   href="#" class="dropdown-toggle lh56 appSignMargin2 tt-none" id="navbarMobiles" role="button"
+          <a   href="#" class="dropdown-toggle lh56 appSignMargin2 tt-none usernameClass" id="navbarMobiles" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user-circle-o"></i>&nbsp;{{ userName }}
         </a>
@@ -70,15 +70,15 @@
             <a  [routerLink]="['/uatonboarding-dashboard']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">UAT Onboarding</a>
             
             <a  [routerLink]="['/productionOnboardingPage']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Production Onboarding</a>
-            <a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
-              Dashboard</a>
+            <!--<a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
+              Dashboard</a>-->
             <a class="nav-link dropdown-item" class="nav-link dropdown-item" *ngIf="!showbtn"
               (click)="logout()">Logout</a>
             <!-- <a [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics" aria-selected="true">Analytics</a> -->
           </div>
           <div class="dropdown-content drp-cnt-width" aria-labelledby="navbarMobiles" *ngIf="showOptn === false">
-            <a [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon Dashboard</a>
-            <a [routerLink]="['/application']" class="nav-link dropdown-item lh21">Applications</a>
+            <!--<a [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon Dashboard</a>
+            <a [routerLink]="['/application']" class="nav-link dropdown-item lh21">Applications</a>-->
   
             <a class="nav-link dropdown-item cursor lh21 cursor_pointer" (click)="logout()" >Logout</a>
           </div>

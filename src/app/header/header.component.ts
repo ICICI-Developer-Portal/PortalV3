@@ -460,7 +460,7 @@ toastrmsg(type, title) {
   localStorage.setItem('companyName',this.loginResponse.data.companyName);
   localStorage.setItem('mobileNo',this.loginResponse.data.mobileNo);
   localStorage.setItem('email',this.loginResponse.data.email);
-  localStorage.setItem('email',this.loginResponse.data.email);
+  localStorage.setItem('rm',this.loginResponse.data.rm);
 
       if (this.loginResponse.status == true) {
         var timer = this.SessionService.session();

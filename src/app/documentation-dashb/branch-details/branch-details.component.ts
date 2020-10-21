@@ -100,6 +100,13 @@ export class BranchDetailsComponent implements OnInit {
       }
       //this.faqHeaderList = JSON.parse(this.faqObjList)
      // this.faqHeader = this.faqHeaderList["1"][0]
+
+     $('ul li a[data-toggle="tab"]').removeClass('active');
+     $('ul li a[data-toggle="tab"]').removeClass('show');
+    
+     $('ul li a[data-toggle="dropdown"]').removeClass('active');
+     $('ul li a[data-toggle="dropdown"]').removeClass('show');
+     $('ul li .documetationClass').addClass('active');
   },
   err => {
     console.log('err', err);

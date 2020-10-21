@@ -7,7 +7,7 @@ import { saveAs } from "file-saver";
 import { Router } from '@angular/router';
 import { ToasterService, Toast } from 'angular2-toaster';
 //declare var require;
-
+declare var $: any;
 @Component({
   selector: "app-onboardingrequests",
   templateUrl: "./onboardingrequests.component.html",
@@ -31,8 +31,13 @@ export class OnboardingrequestsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("hi")
     
+    $('ul li a[data-toggle="tab"]').removeClass('active');
+    $('ul li a[data-toggle="tab"]').removeClass('show');
+    
+    $('ul li a[data-toggle="dropdown"]').removeClass('active');
+    $('ul li a[data-toggle="dropdown"]').removeClass('show');
+    $('ul li .accountClass').addClass('active');
   }
 
   request_data() {
