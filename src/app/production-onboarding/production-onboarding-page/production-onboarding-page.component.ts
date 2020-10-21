@@ -134,13 +134,6 @@ export class ProductionOnboardingPageComponent implements OnInit {
 
   }
   ngOnInit() {
-
-    $('ul li a[data-toggle="tab"]').removeClass('active');
-$('ul li a[data-toggle="tab"]').removeClass('show');
-
-$('ul li a[data-toggle="dropdown"]').removeClass('active');
-$('ul li a[data-toggle="dropdown"]').removeClass('show');
-$('ul li .usernameClass').addClass('active');
     document.getElementById("merchantName").focus();
 
     this.logged_in = this.adm.check_log();
@@ -306,7 +299,7 @@ $('ul li .usernameClass').addClass('active');
   Close_ConfirmProd() {
     this.modalRef.hide();
 
-    this.router.navigate(["/index"]);
+    this.router.navigate(["/onboardingrequests"]);
   }
   HWI_link(id) {
     this.showTab = id;
@@ -636,7 +629,9 @@ $('ul li .usernameClass').addClass('active');
 
     let inputFields = {
       userName: localStorage.getItem("username"),
-      domainName: localStorage.getItem("nodevalue"),
+     
+      domainName: this.reactiveForm.controls.nestedCheckboxesList.get("domain").value,
+      refjiraId:this.reactiveForm.controls.basicDetailsSection.get("JiraId").value,
       domainApis: reactiveFromFieldValues.nestedCheckboxesList.domainApi,
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
@@ -679,57 +674,62 @@ $('ul li .usernameClass').addClass('active');
     //console.log(reactiveFromFieldValues.value.Ip);
 
     const formData = new FormData();
-    formData.append("userName", inputFields["userName"]);
-    formData.append("domainName", inputFields["domainName"]);
-    formData.append("domainApis", inputFields["domainApis"]);
-    formData.append("mName", inputFields["mName"]);
-    formData.append("desc", inputFields["desc"]);
-    formData.append("spocEmail", inputFields["spocEmail"]);
-    formData.append("spocPhone", inputFields["spocPhone"]);
-    formData.append("relManager", inputFields["relManager"]);
-    formData.append("env", inputFields["env"]);
-    formData.append("refundCode", inputFields["refundCode"]);
-    formData.append("callbackUrl", inputFields["callbackUrl"]);
-    formData.append("AccountNo", inputFields["AccountNo"]);
-    formData.append("ClientCode", inputFields["ClientCode"]);
-    formData.append("url", inputFields["url"]);
-    formData.append("Ip", inputFields["Ip"]);
-    formData.append("Port", inputFields["Port"]);
-    formData.append("Checksum", inputFields["Checksum"]);
-    formData.append("Encryption", inputFields["Encryption"]);
-    formData.append("Certificate", inputFields["Certificate"]);
-    formData.append("web", inputFields["web"]);
-    formData.append("message", inputFields["message"]);
-    formData.append("IFSC_Code", inputFields["IFSC_Code"]);
-    formData.append("virtualCode", inputFields["virtualCode"]);
-    formData.append("refundCode", inputFields["refundCode"]);
-    formData.append("Account_no", inputFields["Account_no"]);
-    formData.append("Acc_name", inputFields["Acc_name"]);
-    formData.append("Auth_level", inputFields["Auth_level"]);
-    formData.append("Urn", inputFields["Urn"]);
-    formData.append("Acc_env", inputFields["Acc_env"]);
-    formData.append("Acc_validation", inputFields["Acc_validation"]);
-    formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);
-    formData.append("Rec_mail", inputFields["Rec_mail"]);
-    formData.append("Acc_mode", inputFields["Acc_mode"]);
-    formData.append("Acc_trans", inputFields["Acc_trans"]);
-    formData.append("Acc_amount", inputFields["Acc_amount"]);
-    formData.append("Acc_headers", inputFields["Acc_headers"]);
-    formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
+    formData.append("userName", inputFields["userName"]); //1
+    formData.append("domainName", inputFields["domainName"]);//2
+    formData.append("domainApis", inputFields["domainApis"]);//3
+    formData.append("mName", inputFields["mName"]);//4
+    formData.append("desc", inputFields["desc"]);//5
+    formData.append("spocEmail", inputFields["spocEmail"]);//6
+    formData.append("spocPhone", inputFields["spocPhone"]);//7
+    formData.append("relManager", inputFields["relManager"]);//8
+    formData.append("env", inputFields["env"]);//9
+    formData.append("AccountNo", inputFields["AccountNo"]);//10
+    formData.append("ClientCode", inputFields["ClientCode"]);//11
+    formData.append("url", inputFields["url"]);//12
+    formData.append("Ip", inputFields["Ip"]);//13
+    formData.append("Port", inputFields["Port"]);//14
+    formData.append("Checksum", inputFields["Checksum"]);//15
+    formData.append("Encryption", inputFields["Encryption"]);//16
+    formData.append("Certificate", inputFields["Certificate"]); //17
+    formData.append("web", inputFields["web"]);//17
+    formData.append("message", inputFields["message"]);//18
+    formData.append("IFSC_Code", inputFields["IFSC_Code"]);//19
+    formData.append("virtualCode", inputFields["virtualCode"]);//20
+    formData.append("refundCode", inputFields["refundCode"]);//21
+    formData.append("Account_no", inputFields["Account_no"]);//22
+    formData.append("Acc_name", inputFields["Acc_name"]);//23
+    formData.append("Auth_level", inputFields["Auth_level"]);//24
+    formData.append("Urn", inputFields["Urn"]);//25
+    formData.append("Acc_env", inputFields["Acc_env"]);//26
+    formData.append("Acc_validation", inputFields["Acc_validation"]);//27
+    formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);//28
+    formData.append("Rec_mail", inputFields["Rec_mail"]);//29
+    formData.append("Acc_mode", inputFields["Acc_mode"]);//30
+    formData.append("Acc_trans", inputFields["Acc_trans"]);//31
+    formData.append("Acc_amount", inputFields["Acc_amount"]);//32
+
+
+    // formData.append("refundCode", inputFields["refundCode"]);
+    // formData.append("callbackUrl", inputFields["callbackUrl"]);
+    
+
+
+   
+    // formData.append("Acc_headers", inputFields["Acc_headers"]);
+    // formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
     console.log(formData);
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
-    
     console.log("a", a);
     for (let k = 0; k < a.length; k++) {
-      formData.append("file1", a[k]);
+      formData.append("file1", a[k]); //33
       console.log(a[k], "oooooooooo")
       console.log(formData)
     }
     // Appended three new elements
 
-    formData.append("refJIRAID", inputFields["Acc_refJIRAID"]);
-    formData.append("Headers", inputFields["Acc_headers"]);
-    formData.append("TestingID", inputFields["Acc_uatTestingID"]);
+    formData.append("refJIRAID", inputFields["refjiraId"]);//34
+    formData.append("Headers", inputFields["Acc_headers"]);//35
+    formData.append("TestingID", inputFields["Acc_uatTestingID"]);//36
     formData.forEach((value, key) => {
       console.log(key + " " + value)
     });
@@ -1020,7 +1020,6 @@ $('ul li .usernameClass').addClass('active');
       }
     }
   }
-
   upload(file) {
     this.progress = 1;
     const formData = new FormData();
@@ -1047,9 +1046,5 @@ $('ul li .usernameClass').addClass('active');
       )
       .toPromise();
   }
-
-
-
-
 
 }

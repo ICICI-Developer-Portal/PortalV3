@@ -80,6 +80,9 @@ text-align: left;
 }
 .width100{  width: 100%;
 }
+.display_inline_block{
+    display: inline-block;
+}
 @media only screen and (min-device-width : 320px) and (max-device-width : 640px) {
     /* Styles */
     .card-body1 {

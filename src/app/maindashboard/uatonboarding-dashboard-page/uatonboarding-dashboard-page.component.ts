@@ -303,7 +303,7 @@ ifIPpatternNotmatches(){
   Close_ConfirmProd() {
     this.modalRef.hide();
 
-    this.router.navigate(["/index"]);
+    this.router.navigate(["/onboardingrequests"]);
   }
   HWI_link(id) {
     this.showTab = id;

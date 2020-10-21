@@ -279,13 +279,17 @@ export class SidebarComponent implements OnInit {
         }
         else{
        
-
-        this.treeItems +=
-          `<li class="nav-link">` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
-          `${childrenArr[i].TAB_NAME}` +
-          `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
-          `</a>`;
+                if ( childrenArr[i].TREE_ID == "328" ) { // 3nd level
+                        console.log(childrenArr[i].TAB_NAME);
+                }
+                else{
+                this.treeItems +=
+                `<li class="nav-link">` +
+                `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+                `${childrenArr[i].TAB_NAME}` +
+                `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
+                `</a>`;
+                }
 
         this.createUnorderedList(
           childrenArr[i].children,
@@ -298,17 +302,25 @@ export class SidebarComponent implements OnInit {
         console.log(childrenArr[i].TREE_ID)
           }
       else {
-        this.treeItems +=
-          `<li class="nav-link">` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
-          `${childrenArr[i].TAB_NAME}` +
-          `</a>`;
+        if ( childrenArr[i].TREE_ID == "328" ) { // 3nd level
+          console.log(childrenArr[i].TAB_NAME);
+  }
+  else{
+  this.treeItems +=
+  `<li class="nav-link">` +
+  `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+  `${childrenArr[i].TAB_NAME}` +
+  `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
+  `</a>`;
+  }
+
       }}
 
       this.treeItems += `</li>`;
     }
     this.treeItems += `</ul>`;
   }
+
 
   /** get menu data
    * @class SidebarComponent
