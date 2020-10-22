@@ -62,7 +62,10 @@ export class MisComponent implements OnInit {
     
     $('ul li a[data-toggle="dropdown"]').removeClass('active');
     $('ul li a[data-toggle="dropdown"]').removeClass('show');
+
+
     $('ul li .accountClass').addClass('active');
+  
     //var companyName = 'Niveus Solutions';
     this.misForm = this.formbuilder.group({
       dateInput: ['', [Validators.required]],

@@ -16,10 +16,16 @@ export class SidebarComponent implements OnInit {
     } else{
       this.component = true;
     }
-   
+    if(this.router.url == "/mis"){
+      $(".MisSidebar").addClass('active');
+    } else if(this.router.url == "/onboardingrequests"){ 
+      $(".MisSidebar").removeClass('active');
+    }
    }
 
   ngOnInit() {
+    
+
     $(function(){
       $(".sideMenu>.nav-pills li.nav-link").unbind('click');
       $(".sideMenu>.nav-pills li.nav-link").click(function() {
