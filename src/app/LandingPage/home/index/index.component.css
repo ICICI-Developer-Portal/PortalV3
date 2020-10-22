@@ -98,6 +98,9 @@ text-align: left;
 .display_inline_block{
     display: inline-block;
 }
+.left-next{
+    left: 97%;
+}
 @media only screen and (min-device-width : 320px) and (max-device-width : 640px) {
     /* Styles */
     .card-body1 {
@@ -140,5 +143,17 @@ text-align: left;
           display: inline-block;
           font-size: 10px;
         }
+    }
+   
+    @media screen and (max-width: 600px) {
+       .margin-left-220{
+        margin-left: -220px;
+       }
+       .left-next{
+        left: 94%;
+    }
+    .font-18{    font-size: 18px;    margin-top: 6px;
+    }
+
     }
    
