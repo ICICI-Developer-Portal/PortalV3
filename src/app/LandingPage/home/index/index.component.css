@@ -38,6 +38,21 @@
     top: 39%;
     left: -2%;
 }
+.banner-carousel-control-prev{
+    width: 2%;
+    height: 3%;
+    top: 39%;
+    left: -2%;
+}
+.banner-carousel-control-next {
+    width: 2%;
+    height: 3%;
+    top: 39%;
+    /* right: -2%; */
+}
+.carousel-item img{
+    width: 100%;
+}
 .carousel-control-next{
     width: 2%;
     height: 3%;

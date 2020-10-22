@@ -381,6 +381,20 @@ export class IndexComponent implements OnInit {
   
       
     });
+    $('#prv-testimonial').on('click', function(){
+      var $last = $('#testimonial-list li:last');
+      $last.remove().css({ 'margin-left': '-400px' });
+      $('#testimonial-list li:first').before($last);
+      $last.animate({ 'margin-left': '0px' }, 4000);
+  });
+  
+  $('#nxt-testimonial').on('click', function(){
+      var $first = $('#testimonial-list li:first');
+      $first.animate({ 'margin-left': '-400px' }, 4000, function() {
+          $first.remove().css({ 'margin-left': '0px' });
+          $('#testimonial-list li:last').after($first);
+      });
+  });
    
   }
   bannerTArget1($event){
