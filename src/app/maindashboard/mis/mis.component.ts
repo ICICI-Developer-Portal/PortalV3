@@ -63,6 +63,8 @@ export class MisComponent implements OnInit {
     $('ul li a[data-toggle="dropdown"]').removeClass('active');
     $('ul li a[data-toggle="dropdown"]').removeClass('show');
 
+    $('.sideMenu>.nav-pills>li.nav-link').removeClass('active');
+    $('.sideMenu .nav-pills .nav-link ').removeClass('show');
 
     $('ul li .accountClass').addClass('active');
   

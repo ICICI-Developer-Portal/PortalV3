@@ -16,15 +16,41 @@ export class SidebarComponent implements OnInit {
     } else{
       this.component = true;
     }
-    if(this.router.url == "/mis"){
-      $(".MisSidebar").addClass('active');
-    } else if(this.router.url == "/onboardingrequests"){ 
-      $(".MisSidebar").removeClass('active');
-    }
+    var check = setTimeout(() => {
+      if (this.router.url === "/mis") {
+        $(document).ready(function() {
+          
+            $(".sideMenu>.nav-pills li.nav-link")
+              .removeClass("active")
+              .removeClass("openDropdown");
+
+              $(".MisSidebar").addClass('active');
+          });
+        }else if(this.router.url == "/onboardingrequests"){ 
+          $(document).ready(function() {
+              $(".sideMenu>.nav-pills li.nav-link")
+              .removeClass("active")
+              .removeClass("openDropdown");
+
+              $(".OnboardingRequestsSidebar").addClass('active');
+            });
+            }
+        
+      
+    }, 500);
+
+
+
+   
    }
 
   ngOnInit() {
     
+    if(this.router.url == "/mis"){
+      $('.tab-content>.sideMenu>.nav-pills').children('.MisSidebar').removeClass('active');
+    } else if(this.router.url == "/onboardingrequests"){ 
+      $(".MisSidebar").removeClass('active');
+    }
 
     $(function(){
       $(".sideMenu>.nav-pills li.nav-link").unbind('click');

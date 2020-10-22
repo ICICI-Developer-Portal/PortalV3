@@ -7,14 +7,15 @@
 <ng4-loading-spinner> </ng4-loading-spinner>
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active show">
-    <section class="banner">
-      <div class="row">
-        <div class="col-md-12 col-12">
+    <!-- bannner carousel     -->
+    <!-- <section class=""> -->
+      <!-- <div class="">
+        <div class=""> -->
           <!--Carousel Wrapper-->
-          <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="8000">
             <ol class="carousel-indicators">
-              <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
             </ol>
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
@@ -24,32 +25,31 @@
               </div> -->
               <!--/First slide-->
                 <!--First slide-->
-                <div class="carousel-item active">
-                  <img src="assets/images/banner_index_c1.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+                <div class="carousel-item active" style="background: green;height: 100%;width: 100%;">
+                  <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg');height: 100%;width: 100%;"></div> -->
+                  <img src="assets/images/banner_index_c1.jpeg"  class="fstImg img-responsive"  alt="Second slide"  (click)="bannerTArget1($event)" />
                  </div>
                  <!--/First slide-->
               <!--Second slide-->
-              <div class="carousel-item">
+              <div class="carousel-item" style="background: yellow;height: 100%;width: 100%;">
                 <!-- <img src="assets/images/image 1.JPG" alt="Second slide"  (click)="conso('jiii')" /> -->
-                <img src="assets/images/banner_index_c.jpeg" class="sndImg" alt="Second slide"  (click)="bannerTArget2($event)" />
+                <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg') ; height: 100%;width: 100%;"></div> -->
+
+                <img src="assets/images/banner_index_c.jpeg" class="sndImg img-responsive" alt="Second slide"  (click)="bannerTArget2($event)" />
               </div>
               <!--/Second slide-->
             </div>
             <!--/.Slides-->
-            <a _ngcontent-c4="" class="carousel-control-prev w-auto mainbanner" data-slide="prev" href="#carousel-example-1z" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"></span><span _ngcontent-c4="" class="sr-only">Previous</span></a> 
-            <a _ngcontent-c4="" class="carousel-control-next w-auto mainbanner" data-slide="next" href="#carousel-example-1z" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-next-icon bg-dark border border-dark rounded-circle"></span><span _ngcontent-c4="" class="sr-only">Next</span></a>
+            <a _ngcontent-c4="" class="bannercarousel-control-prev w-auto mainbanner" data-slide="prev" href="#myCarousel" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-prev-icon rounded-circle" style="    top: 40%;
+              position: absolute;left: 1%;"></span><span _ngcontent-c4="" class="sr-only">Previous</span></a> 
+            <a _ngcontent-c4="" class="banner-carousel-control-next w-auto mainbanner" data-slide="next" href="#myCarousel" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-next-icon rounded-circle" style="    top: 40%;
+              position: absolute;left: 97%;"></span><span _ngcontent-c4="" class="sr-only">Next</span></a>
           </div>
           <!--/.Carousel Wrapper-->
-        </div>
-        <!-- <div class="col-md-6 col-12 order-md-first">
-          <div class="bannerContent">
-            <h2 class="mb30">Collaborate, Build, Unleash</h2>
-            <a class="signInBtn mr10" [routerLink]="['/documentation']">BROWSE ALL API</a>
-            <a data-toggle="modal" *ngIf="hideSignupbtn"  (click)="openModal2(signup)" class="tryItFreeBtn">SIGN UP</a>
-  </div>
-        </div> -->
-      </div>
-      <div class="row" style="padding-top: 20px;">
+        <!-- </div>
+  
+      </div> -->
+      <div class="row" style="padding-top: 20px;padding-bottom: 40px;">
      
         <div class="col-md-12" style="text-align: center;">
             <div class="bannerContent" >
@@ -58,20 +58,35 @@
               <!-- <a data-toggle="modal" *ngIf="hideSignupbtn"  (click)="openModal2(signup)" class="tryItFreeBtn">SIGN UP</a> -->
               <a class="signInBtn mr10" [routerLink]="['/documentation']">BROWSE ALL API</a>
             
-         
-          <!--<div class="col-md-12" style="display: block;">
-            <div class="bannersContainer" style="margin: 0 auto;left:18%;text-align:center;">
-              <span class="mb30" style="">Collaborate, Build, Unleash
-              <!-- <a data-toggle="modal"
-              *ngIf="hideSignupbtn1"
-                style="margin-top: 0%;padding-top: 16px;position: absolute;margin-left: 18px;width: 28%;"  (click)="openModal2(signup)" class="tryItFreeBtn">SIGN UP</a> --
-              </span>
-            <a class="signInBtn mr10"  style="" [routerLink]="['/documentation']">BROWSE ALL API</a>
-          </div>
-          </div>-->
         </div></div></div>
 
-    </section>
+    <!-- </section> -->
+    <!-- <div class="carousel-nav clearfix">
+      <img src="img/prev.png" id="prv-testimonial" alt="PREV" />
+      <img src="img/next.png" id="nxt-testimonial" alt="NEXT" />
+  </div>
+  <div id="carousel-wrap">
+    <ul id="testimonial-list" class="clearfix">
+      <li> -->
+        <!-- <p class="context">Some testimonial goes right here[1]</p>
+        <span class="creds">Tiffany LastName</span> -->
+        <!-- <img src="assets/images/banner_index_c1.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+
+      </li> -->
+      <!-- <li>
+        <p class="context">"We could not be more pleased. A++ efforts!"</p>
+        <span class="creds">Alan Goodwrench</span>
+      </li> -->
+      <!-- <li> -->
+        <!-- <p class="context">"After just one purchase, we know this is the company to stick with."</p>
+        <span class="creds">Butters Stotch</span> -->
+        <!-- <img src="assets/images/banner_index_c.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+
+      </li>
+    </ul>
+  </div> -->
+
+    <!-- banner carousel -->
     <section class="sectionAPIs sectionAPIsGrayBg">
       <h3>How it <span>Works?</span></h3>
       <!-- <p class="text-center mb50" (click)="browse_api(signin)">Get your developers onboard, very quickly. Learn how to incorporate our
