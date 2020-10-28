@@ -142,15 +142,18 @@ text-align: left;
             width: 30%;
           display: inline-block;
           font-size: 10px;
+
+
+
         }
-    }
+    }    
    
     @media screen and (max-width: 600px) {
        .margin-left-220{
         margin-left: -220px;
        }
        .left-next{
-        left: 94%;
+        left: 94%;        
     }
     .font-18{    font-size: 18px;    margin-top: 6px;
     }
