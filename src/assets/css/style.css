@@ -669,7 +669,7 @@ ul.nav.nav-tabs.documentaionTabs li:last-child {
   color: #ae282e;
 }
 .nav-pills .nav-link.active.viewAllLink a {
-  color: #f06321 !important;
+  color: #fff !important;
 }
 .sideMenu .nav-pills .nav-link a {
   font-family: Poppins-Medium;
@@ -687,10 +687,48 @@ color: #ae282e;
 .sideMenu .nav-pills .nav-link a:focus {
   outline: none;
 }
+
 .sideMenu .nav-pills .nav-link.active > a {
   background: none;
   color: #ae282e;
 }
+.sideMenu .nav-pills .nav-link.active > a {
+  background: none;
+  color: #ae282e;
+}
+.apiDomainCategory  .nav-link.active a   {
+  background: #ae282e !important;  color: #dfdfdf;
+}
+.maroonbg  .nav-link.active a,
+.apiDomainCategory,.maroonbg {
+  background: #ae282e !important;
+  color:white !important;
+}
+/* .sideMenu .nav-pills .nav-link.active > .apiDomainCategory a {
+  background: none;
+  color: #ffff;
+} */
+.sideMenu .nav-pills .nav-link .apiDomainCategory a,.maroonbg a {
+ 
+  border-top: 1px solid #c0c0c0;
+
+  color: #dfdfdf;
+
+}
+.sideMenu .nav-pills .nav-link .apiDomainCategory a:hover, .maroonbg a:hover{
+  color: #ffff !important;
+  text-decoration: none;
+}
+.submenuLevelOne li.viewAllLink:last-child a::before,.apiDomainCategory .submenuLevelOne li.nav-link:last-child  a::before,.apiDomainCategory .submenuLevelTwo li.nav-link:last-child a::before {
+  background: #ae282e !important;
+  height: calc(100% - 17px);
+  bottom: 0;
+}
+.apiDomainCategory {
+  background: #ae282e !important;
+  color:white !important;
+}
+
 .toggleTabs.nav-pills {
   border-bottom: 1px solid #ececec;
   margin-bottom: 30px;
@@ -777,7 +815,7 @@ color: #ae282e;
   top: -2px;
 }
 .viewAllLink a {
-  color: #212121 !important;
+  color: #c0c0c0 !important;
 }
 .dropdownIcon,
 .viewAllDropdown,
@@ -837,6 +875,21 @@ transform: rotate(180deg);
   position: absolute;
   top: 18px;
   left: 25px;
+}
+.maroonbg li.nav-link:last-child a::before {
+  background: #ae282e !important;
+  height: calc(100% - 17px);
+  bottom: 0;
+}
+.sideMenu .securitynavlink .nav-link a {
+  font-family: Poppins-Medium;
+  padding: 16px 12px 16px 24px;
+  border-top: 1px solid #ececec;
+  border-radius: 0px;
+  width: 100%;
+  color: #dddddd;
+  display: block;
+  text-decoration: none;
 }
 .submenuLevelOne li.nav-link:last-child a::before {
   background: #fff;
@@ -1207,7 +1260,7 @@ transform: rotate(180deg);
   padding: 30px 9%;
 }
 .bannerContent {
-  position: absolute;
+  position: relative;
   top: 50%;
   transform: translateY(-50%);
 }

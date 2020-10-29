@@ -27,7 +27,7 @@
        <!-- <li>
           <a  href="#" data-toggle="tab" [routerLink]="['/appathon/landing-page']">Appathon</a>
         </li>-->
-        <li><a href="#" data-toggle="tab" [routerLink]="['/index']">Home</a></li>
+        <li><a href="#" data-toggle="tab" (click)="scroll_view('#home')">Home</a></li>
         <li>
           <a  href="#" (click)="scroll_view('#partners')" data-toggle="tab">Strategic Partners</a>
         </li>
@@ -52,12 +52,11 @@
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-applications"
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
             </a> -->
-            <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
-              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-              aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
+           
             <a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
             </a>
-            <a style="line-height: 21px;cursor: pointer;" routerLink="../mis" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+           
+            <a style="line-height: 21px;cursor: pointer;" routerLink="../reportIssue" class="nav-link dropdown-item"  (click)="addActiveClass($event)"> Report Issue
             </a>
           </div>
         </li>
@@ -70,8 +69,13 @@
           <div class="dropdown-content drp-cnt-width ml-40" aria-labelledby="navbarMobiles" *ngIf="showOptn === true">
             <a [routerLink]="['/userprofile']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Profile</a>
             <a  [routerLink]="['/uatonboarding-dashboard']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">UAT Onboarding</a>
-            
+            <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
             <a  [routerLink]="['/productionOnboardingPage']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Production Onboarding</a>
+           
+            <a style="line-height: 21px;cursor: pointer;" routerLink="../mis" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+            </a>
             <a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
               Dashboard</a>
             <a class="nav-link dropdown-item" class="nav-link dropdown-item" *ngIf="!showbtn"

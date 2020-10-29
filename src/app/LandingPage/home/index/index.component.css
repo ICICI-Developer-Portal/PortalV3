@@ -38,11 +38,29 @@
     top: 39%;
     left: -2%;
 }
+.banner-carousel-control-prev{
+    width: 2%;
+    height: 3%;
+    top: 39%;
+    left: -2%;
+}
+.banner-carousel-control-next {
+    width: 2%;
+    height: 3%;
+    top: 39%;
+    /* right: -2%; */
+}
+.carousel-item img{
+    width: 100%;
+}
 .carousel-control-next{
     width: 2%;
     height: 3%;
     top: 39%;
     right: -2%;
+}
+.mainbanner{
+    top: 47%;
 }
 .midContentContainer{
 height: 145px !important;
@@ -67,6 +85,22 @@ text-align: left;
     padding-top: 0px;
     height: 330px;
 }
+.bannersContainer span{
+
+    margin-bottom: 1%; font-size: 35px; display: inline-block; font-weight: 600;    margin-left: 5px;    color: #004a7f !important;} 
+.bannersContainer a{
+    width: 15%;
+    display: inline-block;
+    font-size: 15px;
+}
+.width100{  width: 100%;
+}
+.display_inline_block{
+    display: inline-block;
+}
+.left-next{
+    left: 97%;
+}
 @media only screen and (min-device-width : 320px) and (max-device-width : 640px) {
     /* Styles */
     .card-body1 {
@@ -78,11 +112,50 @@ text-align: left;
         height: 370px;
     }
     .midContentContainer{
-        height: 200px !important;
-        display: block;
-        padding-left: 22px;
-        padding-right: 10px;
-        text-align: left;
+        width: 15%;
+        display: inline-block;
+        font-size: 10px;
+        padding-top: 17px;
+        margin-top: 11px;
+        margin-left: 10px;
+    
         
         }
+    }
+    @media screen and (max-width: 1500px) {
+        .bannersContainer span{
+
+            margin-bottom: 1%; font-size: 25px; display: inline-block; font-weight: 600;    margin-left: 5px;    color: #004a7f !important;
+        } 
+        .bannersContainer a{
+            width: 15%;
+          display: inline-block;
+          font-size: 10px;
+        }
+    }
+    @media screen and (max-width: 1106px) {
+        .bannersContainer span{
+
+            margin-bottom: 1%; font-size: 25px; display: inline-block; font-weight: 600;    margin-left: 5px;    color: #004a7f !important;
+        } 
+        .bannersContainer a{
+            width: 30%;
+          display: inline-block;
+          font-size: 10px;
+
+
+
+        }
+    }    
+   
+    @media screen and (max-width: 600px) {
+       .margin-left-220{
+        margin-left: -220px;
+       }
+       .left-next{
+        left: 94%;        
+    }
+    .font-18{    font-size: 18px;    margin-top: 6px;
+    }
+
     }

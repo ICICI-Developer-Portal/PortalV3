@@ -1,0 +1,8 @@
+.sideMenu .nav-pills .nav-link > a.apiDomainCategory {
+    background: #ae282e !important;
+    color:white !important;
+}
+.sideMenu .nav-pills .nav-link.active > a.apiDomainCategory {
+    background: #ae282e !important;
+    color:white !important;
+}

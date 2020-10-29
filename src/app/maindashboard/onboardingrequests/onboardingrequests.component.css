@@ -16,5 +16,5 @@ table tbody tr td {
     position: relative;
 }
 table.table thead td:first-child {
-    width: 15% !important;
+    width: 10% !important;
 }

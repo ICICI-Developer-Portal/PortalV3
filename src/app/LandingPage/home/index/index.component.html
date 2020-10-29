@@ -7,14 +7,15 @@
 <ng4-loading-spinner> </ng4-loading-spinner>
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active show">
-    <section class="banner">
-      <div class="row">
-        <div class="col-md-12 col-12">
+    <!-- bannner carousel     -->
+    <!-- <section class=""> -->
+      <!-- <div class="">
+        <div class=""> -->
           <!--Carousel Wrapper-->
-          <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="8000">
             <ol class="carousel-indicators">
-              <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
             </ol>
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
@@ -24,37 +25,78 @@
               </div> -->
               <!--/First slide-->
                 <!--First slide-->
-                <div class="carousel-item active">
-                  <img src="assets/images/banner_index_c1.jpeg"alt="Second slide"  (click)="bannerTArget1($event)" style="width: 100%;"/>
+                <div class="carousel-item active" style="background: green;height: 100%;width: 100%;">
+                  <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg');height: 100%;width: 100%;"></div> -->
+                  <img src="assets/images/banner_index_c1.jpeg"  class="fstImg img-responsive"  alt="Second slide"  (click)="bannerTArget1($event)" />
                  </div>
                  <!--/First slide-->
               <!--Second slide-->
-              <div class="carousel-item">
+              <div class="carousel-item" style="background: yellow;height: 100%;width: 100%;">
                 <!-- <img src="assets/images/image 1.JPG" alt="Second slide"  (click)="conso('jiii')" /> -->
-                <img src="assets/images/banner_index_c.jpeg"alt="Second slide"  (click)="bannerTArget2($event)" style="width: 100%;"/>
+                <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg') ; height: 100%;width: 100%;"></div> -->
+
+                <img src="assets/images/banner_index_c.jpeg" class="sndImg img-responsive" alt="Second slide"  (click)="bannerTArget2($event)" />
               </div>
               <!--/Second slide-->
             </div>
             <!--/.Slides-->
-            <a _ngcontent-c4="" class="carousel-control-prev w-auto" data-slide="prev" href="#carousel-example-1z" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"></span><span _ngcontent-c4="" class="sr-only">Previous</span></a> 
-            <a _ngcontent-c4="" class="carousel-control-next w-auto" data-slide="next" href="#carousel-example-1z" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-next-icon bg-dark border border-dark rounded-circle"></span><span _ngcontent-c4="" class="sr-only">Next</span></a>
+            <a _ngcontent-c4="" class="bannercarousel-control-prev w-auto mainbanner" data-slide="prev" href="#myCarousel" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-prev-icon rounded-circle" style="    top: 40%;
+              position: absolute;left: 1%;"></span><span _ngcontent-c4="" class="sr-only">Previous</span></a> 
+            <a _ngcontent-c4="" class="banner-carousel-control-next w-auto mainbanner" data-slide="next" href="#myCarousel" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-next-icon rounded-circle left-next" style="    top: 40%;
+              position: absolute;"></span><span _ngcontent-c4="" class="sr-only">Next</span></a>
           </div>
           <!--/.Carousel Wrapper-->
-        </div>
-        <!-- <div class="col-md-6 col-12 order-md-first">
-          <div class="bannerContent">
-            <h2 class="mb30">Collaborate, Build, Unleash</h2>
-            <a class="signInBtn mr10" [routerLink]="['/documentation']">BROWSE ALL API</a>
-            <a data-toggle="modal" *ngIf="hideSignupbtn"  (click)="openModal2(signup)" class="tryItFreeBtn">SIGN UP</a>
-          </div>
-        </div> -->
-      </div>
-    </section>
+        <!-- </div>
+  
+      </div> -->     
+      <!-- <div class="row" style="padding-top: 20px;"> -->
+     
+      <!-- <div class="col-md-12" style="text-align: center;">
+          <div class="mt20" >
+           
+            <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="margin-left: -100px;color: #004a7f;
+            font-weight: bold;
+            ">Collaborate, Build, Unleash</h2>
+            <a class="signInBtn mr10 display_inline_block" style="height: 40px;
+            margin-left: 10px;position: absolute;top: -5%;"  [routerLink]="['/documentation']">BROWSE ALL API</a>
+          
+       
+   
+      </div></div> -->
+      <div _ngcontent-c4="" class="col-md-12" style="text-align: center;padding-top: 55px;"><div _ngcontent-c4="" class="bannerContent"><h2 _ngcontent-c4="" class="mb30">Collaborate, Build, Unleash</h2><a _ngcontent-c4="" class="signInBtn mr10" href="#/documentation">BROWSE ALL API</a></div></div>
+    <!-- </div> -->
+
+    <!-- </section> -->
+    <!-- <div class="carousel-nav clearfix">
+      <img src="img/prev.png" id="prv-testimonial" alt="PREV" />
+      <img src="img/next.png" id="nxt-testimonial" alt="NEXT" />
+  </div>
+  <div id="carousel-wrap">
+    <ul id="testimonial-list" class="clearfix">
+      <li> -->
+        <!-- <p class="context">Some testimonial goes right here[1]</p>
+        <span class="creds">Tiffany LastName</span> -->
+        <!-- <img src="assets/images/banner_index_c1.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+      </li> -->
+      <!-- <li>
+        <p class="context">"We could not be more pleased. A++ efforts!"</p>
+        <span class="creds">Alan Goodwrench</span>
+      </li> -->
+      <!-- <li> -->
+        <!-- <p class="context">"After just one purchase, we know this is the company to stick with."</p>
+        <span class="creds">Butters Stotch</span> -->
+        <!-- <img src="assets/images/banner_index_c.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+      </li>
+    </ul>
+  </div> -->
+
+    <!-- banner carousel -->
     <section class="sectionAPIs sectionAPIsGrayBg">
       <h3>How it <span>Works?</span></h3>
       <!-- <p class="text-center mb50" (click)="browse_api(signin)">Get your developers onboard, very quickly. Learn how to incorporate our
             ICICI Bank APIs in just few easy steps.
          </p> -->
+
       <p class="text-center mb50">
         Get your developers onboard, very quickly. Learn how to incorporate our
         ICICI Bank APIs in just few easy steps.
@@ -459,38 +501,13 @@
         </div>
       </div>
     </section>
-    <!-- Strategit partner-->
+  
 
-
-
-
-
-
-
-
-    <!-- Strategic partner change end-->
-
-    <!-- Strategit partner-->
-    <!-- Strategit partner-->
-
-    <!-- END Strategit partner-->
     <!--New carousel-->
 
     <section class="sectionAPIs sectionAPIsGrayBg" id="partners">
       <div class="container text-center my-3 ">
-        <h3 >Strategic <span>Partners </span></h3>
-        <section class="mb60"><div _ngcontent-c6="" class="row"><div _ngcontent-c6="" class="container  mb20"><div _ngcontent-c6="" class="whiteBG" style="width: 82%;margin: 0 auto;"><div _ngcontent-c6="" class="col-md-3" style="
-          display: inline-block;
-          text-align: right;
-      "><img _ngcontent-c6="" alt="" class="heightWidth100prcnt" src="../../../../assets/newpartner/newpartner.jpg" style="height: 100px;width: 188px;"></div><div _ngcontent-c6="" class="'col-md-6" style="
-          display: inline-block;
-      "><p _ngcontent-c6="" class="fs16" style="margin-top: 26px;line-height: 46px;text-align: center;">Power your platform with ICICI Bank Connected Banking.</p></div><div _ngcontent-c6="" class="col-md-3" style="
-          display: inline-block;
-      "><a _ngcontent-c6="" class="signInBtn mt-4" href="#/connectedBanking" ng-reflect-router-link="../connectedBanking" routerlink="../connectedBanking" style="
-              margin-top: 26px;
-              /* line-height: 46px; */
-              /* text-align: center; */
-              ">Know More</a></div></div></div></div></section>
+        <h3 class="mb60">Strategic <span>Partners </span></h3>
     
       
         <div class="row mx-auto my-auto">
@@ -623,7 +640,7 @@
                 <div class="col-md-4">
                   <div class="card card-body1" style="padding: 10px;">
                     <div class="mb9 text-center cardsImage">
-                      <img src="assets/images/IFITech.png" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                      <img src="assets/images/IFITechnew.png" alt="" class="img2 img-responsive" style="width: 85%;margin-top: 5px;">
                      
                     </div> <h5> IFI Tech</h5>   
                    
@@ -734,7 +751,7 @@
             </div>
           </div>
         </div>
-        <div id="faq1" class="collapse show" data-parent="#accordion">
+        <div id="faq1" class="collapse " data-parent="#accordion">
           <div class="card-body">
             <p>
               On the developer portal, click the Sign up button at right top
@@ -1404,12 +1421,12 @@
               <div *ngIf="mobile_no.invalid && (mobile_no.dirty || isSubmitted)" class="text-danger form-error">
                 Mobile Number is required.
               </div>
-              <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+              <div *ngIf="ismobile_reg_check != '' && !(mobile_no.invalid)" class="text-danger form-error">
                 {{ ismobile_reg_check }}
               </div>
               <div *ngIf="
                   signupForm.value.otp_send == '1' &&
-                  signupForm.value.otp_verified == 0
+                  signupForm.value.otp_verified == 0 && !(mobile_no.invalid)
                 " class="text-success">
                 OTP sent to your mobile number.
               </div>
@@ -1431,7 +1448,7 @@
           </div>
           <!-- <ng-template #elseBlock> -->
           <div class="row mb20" *ngIf="showOtp">
-            <div class="col-md-9 mb-xs-30">
+            <div class="col-md-8 mb-xs-30">
               <div>
                 <label for="otp">Enter the OTP Received on your Phone Number</label>
               </div>
@@ -1915,7 +1932,6 @@
                   (ngModelChange)="onChangeAccountNum($event)"
                   type="text"
                 />
-
                 <div
                   *ngIf="accountNumErrorMsg != ''"
                   class="text-danger form-error"
@@ -3238,5 +3254,3 @@
   </div>
 </ng-template>
 <!-- End Modalbox -->
-
-

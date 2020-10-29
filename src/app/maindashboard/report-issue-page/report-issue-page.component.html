@@ -7,13 +7,8 @@
 
 <div class="documentTabContent">
   <div class="tab-content" id="v-pills-tabContent">
-    <div
-      class="tab-pane fade"
-      id="v-pills-dashboard"
-      role="tabpanel"
-      aria-labelledby="v-pills-dashboard-tab"
-    >
-      
+    <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+
     </div>
     <!--karthik-Auto complete-->
     <!--<form class="example-form">
@@ -32,28 +27,173 @@
       </mat-form-field>
     </form> -->
     <!--karthik-Auto complete End-->
-    
-    <div
-      class="tab-pane fade active show"
-      id="v-pills-applications"
-      role="tabpanel"
-      aria-labelledby="v-pills-applications-tab"
-    >
+
+    <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel"
+      aria-labelledby="v-pills-applications-tab">
       <div class="tabContentInner">
-        <div class="row" >
-          <div class="col-md-6" >
-            <h3 class="color-black30 fs24 ff-semibold mb10">
-              
+        <div class="row">
+          <div class="col-md-12">
+            <h5 >
+
               Report Issue Page
-              Report Issue Page
-              Report Issue Page
-              Report Issue Page
-            </h3>
-            
+              <i class="after"></i>
+            </h5>
+
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Select issue type <span class="text-danger"> *</span></label>
+              <div class="radioBtnDiv form-control h40 col-md-11">
+                <label class="radio-inline mr20">
+                  <input class="" type="radio" name="type">&nbsp;Type 1
+                </label>
+                <label class="radio-inline mr20">
+                  <input class="" type="radio" name="type">&nbsp;Type 2
+                </label>
+                <label class="radio-inline mr20">
+                  <input class="" type="radio" name="type">&nbsp;Type 3
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Select the disputed API</label>
+              <!-- <div class="form-group col-md-6"> -->
+
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                  <option value=" ">Select Option</option>
+                  <option value=" ">api integration from services</option>
+                </select>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Select the onboardingID </label>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                  <option value=" ">Select Option</option>
+                  <option value=" ">api integration from services</option>
+                </select>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Problem severity </label>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                  <option value=" ">Select Option</option>
+                  <option value=" ">api integration from services</option>
+                </select>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Issue description <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName" placeholder="Your issue description">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Issue was first observed on</label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName" placeholder="Date and time field( data time picker) ">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="r_m_maild_id">Supporting logs</label>
+              <!-- <a data-toggle="tooltip"
+      title="Please upload zip file for SSL certificate & encryption certificate along with API application form."><img alt="loader"
+        class="ml2 cursor_pointer" src="assets/images/information.png"></a> (change)="upload($event.target.files[0])" -->
+              <input type="file" 
+             
+                accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
+                id="file1" formControlName="file1"
+                class="form-control input_type_attachment mainField col-md-11 inline_block">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Name of contact person <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName" placeholder="Name of contact person ">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Email ID <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName" placeholder="Email ID">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Mobile no</label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName" placeholder="Mobile no">
+            </div>
+          </div>
+
+
+
         </div>
-          
+        <hr _ngcontent-c4="" class="margin_0px">
+        <div class="row">
+          <div class="col-md-12">
+            <h5 >
+
+              My Issue
+            </h5>
+
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Issue ID (Same as JIRA ID) </label>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                  <option value=" ">Select Option</option>
+                  <option value=" ">api integration from services</option>
+                </select>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>dummy</th>
+                  <th>dummy</th>
+                  <th>dummy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>dummy</td>
+                  <td>dummy</td>
+                  <td>dummy</td>
+                </tr>
+                <tr>
+                  <td>dummy</td>
+                  <td>dummy</td>
+                  <td>dummy</td>
+                </tr>
+                <tr>
+                  <td>dummy</td>
+                  <td>dummy</td>
+                  <td>dummy</td>
+                </tr>
+              </tbody>
+            </table>
+
         </div>
-        </div>
-        </div>
-        </div>
-        </div>
+      </div>
+    </div>
+  </div>
+</div>

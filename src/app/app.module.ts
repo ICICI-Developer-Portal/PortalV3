@@ -12,6 +12,8 @@ import { Config } from "./config/config";
 import { MaindashboardModule } from "./maindashboard/maindashboard.module";
 import { MailverifyModule } from "./mailverify/mailverify.module";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
+//import { LocationStrategy, HashLocationStrategy ,Location, PathLocationStrategy } from "@angular/common";
+
 import { DocumentationDashbComponent } from "./documentation-dashb/documentation-dashb.component";
 import { DocumentationDashbModule } from "./documentation-dashb/documentation-dashb.module";
 import { VariablesService } from "./services/Variables.service";
@@ -85,6 +87,8 @@ import { ProductionOnboardingModule } from "./production-onboarding/production-o
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+  // Location, 
+  // {provide: LocationStrategy, useClass: PathLocationStrategy},
     Config,
     LoginService,
     VariablesService,

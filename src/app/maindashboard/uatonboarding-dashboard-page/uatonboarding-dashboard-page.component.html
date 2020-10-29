@@ -465,7 +465,7 @@
                       <div><label for="projectName">Checksum Required </label></div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Checksum">
-                          <option value=" ">Select Checksum</option>
+                          <option selected="selected">Select Checksum</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -479,7 +479,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Encryption"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Encryption</option>
+                          <option selected="selected">Select Encryption</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -495,7 +495,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="web"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Service Type</option>
+                          <option selected="selected">Select Service Type</option>
                           <option *ngFor="let option of serviceTypeOption" [value]="option">
                             {{option}}
                           </option>
@@ -511,7 +511,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="message"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Communication Method</option>
+                          <option selected="selected">Select Communication Method</option>
                           <option *ngFor="let option of comTypeOption" [value]="option">
                             {{option}}
                           </option>
@@ -530,7 +530,7 @@
                       <span class="custom-dropdown">
                         <select formControlName="IFSC_Code" class="form-control h40 col-md-11"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select IFSC Code</option>
+                          <option selected="selected">Select IFSC Code</option>
                           <option *ngFor="let option of ifscCodeOption" [value]="option">
                             {{option}}
                           </option>
@@ -582,7 +582,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Acc_env"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Environment</option>
+                          <option selected="selected">Select Environment</option>
                           <option *ngFor="let option of environmentOption" [value]="option">
                             {{option}}
                           </option>
@@ -602,7 +602,7 @@
                       <span class="custom-dropdown">
                         <select formControlName="Acc_validation" class="form-control h40 col-md-11"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Amount Validation</option>
+                          <option selected="selected">Select Amount Validation</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -622,7 +622,7 @@
                       <span class="custom-dropdown">
                         <select formControlName="Acc_acceptance" class="form-control h40 col-md-11"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Acceptance Mode</option>
+                          <option selected="selected">Select Acceptance Mode</option>
 
                           <option *ngFor="let option of paymentMode" [value]="option">
                             {{option}}
@@ -666,7 +666,7 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Acc_amount"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Amount</option>
+                          <option selected="selected">Select Amount</option>
                           <option>Editable</option>
                           <option>Non- Editable</option>
                         </select>
@@ -791,7 +791,7 @@
                       <div><label for="projectName">Certificate</label></div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Certificate">
-                          <option value=" ">Select Certificate</option>
+                          <option selected="selected">Select Certificate</option>
                           <option *ngFor="let option of certificateOption" [value]="option">
                             {{option}}
                           </option>

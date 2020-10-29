@@ -296,7 +296,7 @@ ifIPpatternNotmatches(){
   Close_ConfirmProd() {
     this.modalRef.hide();
 
-    this.router.navigate(["/index"]);
+    this.router.navigate(["/onboardingrequests"]);
   }
   HWI_link(id) {
     this.showTab = id;
@@ -660,7 +660,9 @@ else{
       Ip: ipValues.toString() ? ipValues.toString() : '',
       Port: reactiveFromFieldValues.whitelistIpSection.port ? reactiveFromFieldValues.whitelistIpSection.port : '',
       Checksum: reactiveFromFieldValues.whitelistIpSection.Checksum ? reactiveFromFieldValues.whitelistIpSection.Checksum : '',
-      Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption ? reactiveFromFieldValues.whitelistIpSection.Encryption : '',
+     // Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption ? reactiveFromFieldValues.whitelistIpSection.Encryption : '',
+     Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption.value ? reactiveFromFieldValues.whitelistIpSection.Encryption.value : '',
+
       Certificate: reactiveFromFieldValues.whitelistIpSection.Certificate ? reactiveFromFieldValues.whitelistIpSection.Certificate : '',
       web: reactiveFromFieldValues.whitelistIpSection.web ? reactiveFromFieldValues.whitelistIpSection.web : '',
       message: reactiveFromFieldValues.whitelistIpSection.message ? reactiveFromFieldValues.whitelistIpSection.message : '',

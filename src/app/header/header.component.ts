@@ -16,10 +16,13 @@ import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
+import { DatePipe } from '@angular/common';
+//import * as CryptoJS from 'crypto-js';
 declare var $: any;
 @Component({
   selector: "icici-header",
-  templateUrl: "./header.component.html"
+  templateUrl: "./header.component.html",
+  providers: [DatePipe]
   //styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
@@ -101,7 +104,8 @@ export class HeaderComponent implements OnInit {
     private modalService: BsModalService,
     private router: Router,
     private adm: LoginService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    public datepipe: DatePipe
   ) {
     this.btn_Sign();
     this.adm.getUserId().subscribe(data => {
@@ -119,7 +123,25 @@ export class HeaderComponent implements OnInit {
     });
     this.get_domain_and_apis();
   }
-
+  // decode(val){
+ 
+  //   // Decryption process
+  //   var key = 'ICICI#~#';
+  //   key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+  //   var encryptedBase64Key=btoa(key); //base64encryption
+  //   var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+  //   var encryptedCipherText = val ; // or encryptedData;
+  //   var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+  //     mode: CryptoJS.mode.ECB,
+  //     padding: CryptoJS.pad.Pkcs7
+  //   } );
+  //   var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+  //   return decryptedText
+  
+  // }
+     
   ngOnInit() {
 
     
@@ -472,7 +494,10 @@ toastrmsg(type, title) {
         // localStorage.setItem('email', obj.data.email);
         // this.adm.sendUserId(obj.data.id);
         this.spinnerService.hide();
-          console.log(this.router.url);
+        localStorage.setItem('companyName',this.loginResponse.data.companyName);
+        localStorage.setItem('mobileNo',this.loginResponse.data.mobileNo);
+        localStorage.setItem('email',this.loginResponse.data.email);
+        localStorage.setItem('rm',this.loginResponse.data.rm);
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
             this.router.navigate([this.router.url]);
@@ -577,7 +602,7 @@ toastrmsg(type, title) {
           this.signup_jira();
           this.toastrmsg(
             "success",
-            "Thanks for registering, once your application is approved it would be conveyed to you on mail"
+            "Thank you for registering. Your account has been successfully created. Please log in to continue."
           );
           this.spinnerService.hide();
           this.signupForm.reset();
@@ -706,7 +731,7 @@ toastrmsg(type, title) {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     var json = {
-      userName: this.signupForm3.value.username,
+      userName: this.signupForm3.value.uname,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
       lastName: this.signupForm.value.firstname,
@@ -841,11 +866,13 @@ toastrmsg(type, title) {
   verifyOtp1() {
     try {
       this.adm
-        .verify_otp(this.signupForm2.value, this.otp_txt_id)
+        .verify_otpCopy(this.signupForm2.value, this.otp_txt_id)
         .subscribe((data: any) => {
           console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
+         // obj = this.decode(obj.data);
+          obj = JSON.parse(obj);
           if (obj.status == true) {
             console.log("otp success");
             this.shfrmSFThird = true;
@@ -1092,6 +1119,12 @@ toastrmsg(type, title) {
       // document.querySelector(id).scrollIntoView({ behavior: "smooth" });
     }, 10);
     console.log("yes")
+  
+  }
+  scroll_viewHome() {
+    this.router.navigate(["index"]);
+   
+    window.scrollTo(0, 0);
   
   }
 
