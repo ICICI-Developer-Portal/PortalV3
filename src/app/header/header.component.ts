@@ -454,13 +454,10 @@ toastrmsg(type, title) {
       var response = data._body;
       console.log(response)
       this.loginResponse = JSON.parse(response);
-      console.log(this.loginResponse);
-      console.log(this.loginResponse.data)
-      console.log(this.loginResponse.data.companyName)
-  localStorage.setItem('companyName',this.loginResponse.data.companyName);
-  localStorage.setItem('mobileNo',this.loginResponse.data.mobileNo);
-  localStorage.setItem('email',this.loginResponse.data.email);
-  localStorage.setItem('rm',this.loginResponse.data.rm);
+     //console.log(this.loginResponse);
+    //  console.log(this.loginResponse.data)
+     // console.log(this.loginResponse.data.companyName)
+  
 
       if (this.loginResponse.status == true) {
         var timer = this.SessionService.session();
@@ -491,7 +488,10 @@ toastrmsg(type, title) {
         // localStorage.setItem('email', obj.data.email);
         // this.adm.sendUserId(obj.data.id);
         this.spinnerService.hide();
-          console.log(this.router.url);
+        localStorage.setItem('companyName',this.loginResponse.data.companyName);
+        localStorage.setItem('mobileNo',this.loginResponse.data.mobileNo);
+        localStorage.setItem('email',this.loginResponse.data.email);
+        localStorage.setItem('rm',this.loginResponse.data.rm);
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
             this.router.navigate([this.router.url]);

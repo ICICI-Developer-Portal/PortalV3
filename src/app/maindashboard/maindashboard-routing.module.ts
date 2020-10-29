@@ -32,7 +32,7 @@ const routes: Routes = [
     //{ path: 'supportticket', component: SupportticketComponent ,canActivate: [AuthGuard]},
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
     { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},
-    { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]},
+    { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]}
 ];
 
 @NgModule({

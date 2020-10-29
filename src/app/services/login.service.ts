@@ -884,6 +884,50 @@ sendToken(token){
 
   return this.http.post(this.apiUrl + "tokenValidate", {'g-recaptcha-reponse': token})
 }
+
+readTable(tableName) {
+  let apiName = "https://apigwuat.icicibank.com:8443/api/v0/merchantUser";
+  let requestParam = {};
+  if(tableName !== ""){
+    requestParam = {
+      "Table_Name":tableName
+      };
+  }else{
+    requestParam = {
+      "Table_Name":"MERCHANT_USER"
+      };
+  }
+  
+  console.log(JSON.stringify(tableName));
+  let headers = new Headers({
+    "Content-Type": 'application/json'
+  });
+  let options = new RequestOptions({ headers: headers });
+ 
+  return this.http.post(apiName , requestParam, options);
+}
+addRecord(requestParam) {
+  let apiName = "https://apigwuat.icicibank.com:8443/api/v0/InsertmerchantUser";
+  if(requestParam && requestParam.MERCHANT_NAME !==""  &&  requestParam.USER_NAME !== ""){
+    requestParam = {
+      "MERCHANT_NAME":requestParam.MERCHANT_NAME,
+      "USER_NAME":requestParam.USER_NAME
+      };
+  }else{
+    requestParam = {
+      "MERCHANT_NAME":"Hatio",
+      "USER_NAME":"apitesting@4"
+      };
+  }
+  
+  console.log(JSON.stringify(requestParam));
+  let headers = new Headers({
+    "Content-Type": 'application/json'
+  });
+  let options = new RequestOptions({ headers: headers });
+ 
+  return this.http.post(apiName , requestParam, options);
+}
  
 
 }

@@ -1,0 +1,16 @@
+input.ng-invalid.ng-touched {
+	border: 1px solid red;
+}
+p.help-block{
+	color: red !important;
+}
+.top{
+    margin-top: 100px;
+}
+.btn-orange {
+    color: #fff;
+    background-color: #ae282e;
+    border-color: #ae282e;
+    
+   
+}

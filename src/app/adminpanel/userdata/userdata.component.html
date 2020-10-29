@@ -1,0 +1,84 @@
+
+<div class="top"></div>
+<div style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+  <form class="example" >
+    <input type="text"  placeholder="Search.." name="search" style="width: 850px;">
+    <button type="submit" style="    height: 42px;
+    color: white;
+    width: 131px;
+    background-color: #ae282e;
+">Fetch Data</button>
+  </form>
+  
+
+  <div class="modal fade" id="add-edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">Merchant Name</label></div>
+            <input type="text" class="input-sm form-control" formControlName="merchantname">
+            <p class="help-block" *ngIf="!userForm.get('merchantname').valid && userForm.get('merchantname').touched">Please enter MERCHANT NAME.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">User Name</label></div>
+            <input type="text" class="input-sm form-control" formControlName="username">
+            <p class="help-block" *ngIf="!userForm.get('username').valid && userForm.get('username').touched">Please enter USER NAME.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm.valid">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal"  (click)="initUser()">Add</button>
+  <!--<data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'merchantname'"
+        [header]="'MERCHANT NAME'"
+        [sortable]="true"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'username'"
+        [header]="'USER_NAME'"
+        [sortable]="true"
+        >        
+    </data-table-column>
+   
+    <!-- <data-table-column
+      [property]="'Actions'"
+      [header]="'Actions'">
+      <template #dataTableCell let-item="item">
+            <span style="color: rgb(232, 0, 0)">
+            <a href="javascript:void(0);" (click)="getData(item)" data-toggle="modal" data-target="#add-edit-Modal">Edit</a>
+            </span>
+            <span style="color: rgb(232, 0, 0)">
+            <a href="javascript:void(0);" (click)="delData(item)">Delete</a>
+            </span>
+      </template>
+    </data-table-column> --
+    
+  </data-table>-->
+</div>
