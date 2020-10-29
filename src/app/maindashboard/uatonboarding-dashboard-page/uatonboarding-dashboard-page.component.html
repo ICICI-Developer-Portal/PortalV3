@@ -815,7 +815,7 @@
                       <a data-toggle="tooltip"
                         title="Please upload zip file for SSL certificate & encryption certificate along with API application form."><img alt="loader"
                           class="ml2 cursor_pointer" src="assets/images/information.png"></a>
-                      <input type="file"
+                      <input type="file" (change)="upload($event.target.files[0])"
                      
                         accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
                         id="file1" formControlName="file1"
