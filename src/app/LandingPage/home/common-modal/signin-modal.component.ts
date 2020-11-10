@@ -328,6 +328,17 @@ export class SigninModalComponent implements OnInit {
         localStorage.setItem("jwt",this.loginResponse.jwttoken)
         this.spinnerService.hide();
 
+        let respData =  this.loginResponse.data;
+        if(respData && respData.companyName ){
+          localStorage.setItem('companyName',respData.companyName);
+        }else if(respData && respData.mobileNo ){
+          localStorage.setItem('mobileNo',respData.mobileNo);
+        }else if(respData && respData.email ){
+          localStorage.setItem('email',respData.email);
+        }else if(respData && respData.rm ){
+          localStorage.setItem('rm',respData.rm);
+        }
+
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
             this.router.navigate([this.router.url]);

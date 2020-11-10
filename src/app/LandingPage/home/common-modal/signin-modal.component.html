@@ -64,11 +64,14 @@
         </div>
       </div>
       <div class="col-12 plr0">
-        <p>
+        <p class="signin_p">
           Do not have an account? Please
           <span
             ><a class="signIn" (click)="openModal2(signup)">Register</a></span
           >
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
     </div>
@@ -492,9 +495,12 @@
   <div class="modal-footer">
     <div class="row w100p m0">
       <div class="col-12 pl0">
-        <p>
+        <p  class="signin_p">
           Already have an account? Please
           <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
       <!-- <span

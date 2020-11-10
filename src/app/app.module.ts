@@ -45,8 +45,8 @@ import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
 import { FocusOnShowDirective } from "./autofocus.directive";
 import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
+import { DataTableModule } from "angular7-data-table";
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +84,8 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
     MatInputModule,
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
-    ProductionOnboardingModule
+    ProductionOnboardingModule,
+    DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
     

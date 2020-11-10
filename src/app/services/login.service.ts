@@ -906,19 +906,15 @@ readTable(tableName) {
  
   return this.http.post(apiName , requestParam, options);
 }
-addRecord(requestParam) {
-  let apiName = "https://apigwuat.icicibank.com:8443/api/v0/InsertmerchantUser";
-  if(requestParam && requestParam.MERCHANT_NAME !==""  &&  requestParam.USER_NAME !== ""){
+dbAccess(requestParam) {
+  let apiName = "https://developer.icicibank.com/ROOT_UAT/rest/tableOperation";
+  
     requestParam = {
-      "MERCHANT_NAME":requestParam.MERCHANT_NAME,
-      "USER_NAME":requestParam.USER_NAME
+      "tableName":requestParam.tableName,
+      "Operation":requestParam.Operation,
+      "data":requestParam.data
       };
-  }else{
-    requestParam = {
-      "MERCHANT_NAME":"Hatio",
-      "USER_NAME":"apitesting@4"
-      };
-  }
+  
   
   console.log(JSON.stringify(requestParam));
   let headers = new Headers({

@@ -1157,6 +1157,13 @@ transform: rotate(180deg);
   margin-left: 0px;
   margin-right: auto;
 }
+
+
+.nav-tabs li:nth-child(2) {
+
+    margin-left: 0px;
+  
+}
 .nav-tabs li:last-child {
   margin-right: 0px;
   margin-left: 8px;
@@ -1378,7 +1385,7 @@ transform: rotate(180deg);
 .workImageContainer img,
 .nextArrows img {
   position: absolute;
-  top: 50%;
+  top: 94%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
@@ -3721,4 +3728,16 @@ c-height{
   color: #303030;
   padding-top: 0px;
   height: 355px;
+}
+
+.signin_p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+.res{
+  margin-left: -53px; 
+  display: block;
+}
+.font-16{
+  font-size: 16px;
 }

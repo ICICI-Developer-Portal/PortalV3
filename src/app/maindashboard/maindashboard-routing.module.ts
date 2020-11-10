@@ -12,6 +12,7 @@ import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { DownloadComponent } from './download/download.component';
 import { MisComponent } from './mis/mis.component';
+import { UserdataComponent } from './userdata/userdata.component';
 
 
 
@@ -32,7 +33,9 @@ const routes: Routes = [
     //{ path: 'supportticket', component: SupportticketComponent ,canActivate: [AuthGuard]},
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
     { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},
-    { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]}
+    { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]},
+   // { path: 'db-access', component: UserdataComponent ,canActivate: [AuthGuard]}
+    
 ];
 
 @NgModule({

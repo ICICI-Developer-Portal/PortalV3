@@ -28,6 +28,9 @@ import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
+import { UserdataComponent } from './userdata/userdata.component';
+import { DataTableModule } from 'angular7-data-table';
+
    
 @NgModule({
     imports: [
@@ -48,7 +51,7 @@ import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
          MatFormFieldModule,
          BrowserAnimationsModule,
          MatInputModule,
-
+         DataTableModule
          
     ],
     declarations: [
@@ -67,7 +70,8 @@ import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
         DownloadComponent,
         MisComponent,
         FocusOnShowDirective,
-        NestedListFilterPipePipe
+        NestedListFilterPipePipe,
+        UserdataComponent
         
     ],
 

@@ -63,7 +63,7 @@
        
    
       </div></div> -->
-      <div _ngcontent-c4="" class="col-md-12" style="text-align: center;padding-top: 55px;"><div _ngcontent-c4="" class="bannerContent"><h2 _ngcontent-c4="" class="mb30">Collaborate, Build, Unleash</h2><a _ngcontent-c4="" class="signInBtn mr10" href="#/documentation">BROWSE ALL API</a></div></div>
+      <div _ngcontent-c4="" class="col-md-12" style="text-align: center;padding-top: 60px;"><div _ngcontent-c4="" class="bannerContent"><h2 _ngcontent-c4="" class="mb30">Collaborate, Build, Unleash</h2><a _ngcontent-c4="" class="signInBtn mr10" href="#/documentation">BROWSE ALL API</a></div></div>
     <!-- </div> -->
 
     <!-- </section> -->
@@ -99,7 +99,7 @@
             ICICI Bank APIs in just few easy steps.
          </p> -->
 
-      <p class="text-center mb50">
+      <p class="text-center mb50 font-16">
         Get your developers onboard, very quickly. Learn how to incorporate our
         ICICI Bank APIs in just few easy steps.
       </p>
@@ -112,7 +112,7 @@
                 <p>1</p>
               </h2>
             </div>
-            <p>Sign up for an ICICI Developer Account.</p>
+            <p class="font-16">Sign up for an ICICI Developer Account.</p>
           </a>
         </div>
         <div class="col-md-1 nextArrows">
@@ -150,7 +150,7 @@
                 <p>2</p>
               </h2>
             </div>
-            <p>Select API</p>
+            <p class="font-16">Select API</p>
           </a>
         </div>
         <div class="col-md-1 nextArrows">
@@ -164,12 +164,12 @@
               </h2>
               <!-- <img src="assets/images/getcode.svg" alt=""> -->
             </div>
-            <p> Test it Out</p>
+            <p class="font-16"> Test it Out</p>
           </a>
         </div>
       </div>
       <div class="row">
-        <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" (click)="openModal2(signup)">SIGN UP</a>
+        <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" (click)="openModal2(signup)" style = "padding: 18px 25px;">SIGN UP</a>
       </div>
     </section>
     <section id="UAT_onboard" class="sectionAPIs text-center">
@@ -428,7 +428,7 @@
 
       </div>
       <div class="row">
-        <a class="signInBtn marginAutoHr mt15" (click)="browse_api(signin)">BROWSE ALL API</a>
+        <a class="signInBtn marginAutoHr mt15" (click)="browse_api(signin)" style = "padding: 18px 25px;">BROWSE ALL API</a>
       </div>
     </section>
     <section class="sectionAPIs featuredAPIs">
@@ -689,7 +689,7 @@
         explore the possibilities
       </p>
       <div class="row">
-        <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)">I am interested</a>
+        <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)" style = "padding: 18px 25px;">I am interested</a>
       </div>
     </section>
 
@@ -735,7 +735,7 @@
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">
-      <h3 class="fs32 color-blue ff-bold mb25">Frequently Asked Questions</h3>
+      <h3 class="fs32 color-blue ff-bold mb25 "  style="padding-top: 20px;">Frequently Asked Questions</h3>
       <img class="w-xs-100p" src="assets/images/faq-banner.svg" alt="" />
     </div>
     <div id="accordion" class="faqmainSection">
@@ -1629,9 +1629,12 @@
   <div class="modal-footer">
     <div class="row w100p m0">
       <div class="col-12 pl0">
-        <p>
+        <p class="fs10 signin_p">
           Already have an account? Please
           <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
       <!-- <span
@@ -1696,9 +1699,12 @@
         </div>
       </div>
       <div class="col-12 plr0">
-        <p>
+        <p class="signin_p">
           Do not have an account? Please
           <span><a class="signIn" (click)="openModal2(signup)">Register</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
     </div>

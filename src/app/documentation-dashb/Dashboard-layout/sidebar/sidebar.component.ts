@@ -125,9 +125,18 @@ export class SidebarComponent implements OnInit {
       .off("click")
       .on("click", ".tree-node", function(e) {
         var selectedId = $(this).attr("role");
-        this.nodeId = selectedId.split("_").pop();
+        if(selectedId === "introduction"){
+          //this.router.navigate(['documentation']);
+          self.AppId('documentation', 'documentation');
+        }else if(selectedId === "security"){
+         // this.router.navigate(['security']);
+          self.AppId('security', 'security');
+        }else{
+          this.nodeId = selectedId.split("_").pop();
         var nodeType = selectedId.split("_", 2).pop();
         self.AppId(this.nodeId, nodeType);
+        }
+        
       });
   }
 
@@ -177,12 +186,12 @@ export class SidebarComponent implements OnInit {
   createTree() {
     this.treeItems =
       `<li class="nav-link active intro">` +
-      `<a id="v-pills-home-tab" data-toggle="pill"  href="#/documentation" role="tab" aria-controls="v-pills-home" aria-selected="true">Introduction` +
+      `<a id="v-pills-home-tab" data-toggle="pill" class="tree-node"  role="introduction" (click) = "navigate_To('/documentation')" role="tab" aria-controls="v-pills-home" aria-selected="true">Introduction` +
       `</a>` +
       `</li>` +
       ` <li class="nav-link">
 
-        <a id="v-pills-messages-tab" data-toggle="pill"  href="#/security" role="tab" aria-controls="v-pills-messages" aria-selected="false"> Security` +
+        <a id="v-pills-messages-tab" data-toggle="pill" class="tree-node"  role="security" (click) ="navigate_To('/security')" role="tab" aria-controls="v-pills-messages" aria-selected="false"> Security` +
       `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
       `</a>` +
       `<ul class="collapse nav-pills-first-level submenuLevelOne list-unstyled">` +
@@ -343,6 +352,9 @@ export class SidebarComponent implements OnInit {
     if (nodeType === "root") {
       this.router.navigate(["rootdetails/" + num]);
     }
+    if(nodeType === "documentation" || nodeType === "security"){
+      this.router.navigate(["/" + nodeType]);
+    }
   }
 
   /** For scroll view
@@ -354,5 +366,9 @@ export class SidebarComponent implements OnInit {
     setTimeout(function() {
       document.querySelector(id).scrollIntoView({ behavior: "smooth" });
     }, 10);
+  }
+  navigate_To(id) {
+    this.router.navigate([id]);
+    
   }
 }

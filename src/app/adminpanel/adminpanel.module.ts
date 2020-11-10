@@ -28,8 +28,6 @@ import {
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DocumentuploadComponent } from './documentupload/documentupload.component';
 import { DocumentdownloadComponent } from './documentdownload/documentdownload.component';
-import { UserdataComponent } from './userdata/userdata.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -61,8 +59,7 @@ import { UserdataComponent } from './userdata/userdata.component';
     PendingRegComponent,
     HomeComponent,
     DocumentuploadComponent,
-    DocumentdownloadComponent,
-    UserdataComponent
+    DocumentdownloadComponent
   ],
 })
 export class AdminpanelModule {}

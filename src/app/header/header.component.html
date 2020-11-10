@@ -4,8 +4,9 @@
     <div  [ngClass]="!showbtn?'menuBar docsMenubar':'menuBar '">
       <ul class="nav nav-tabs " id="mainMenu">
         <li class="active">
-          <a [routerLink]="['/index']" class="navbar-brand" href="#" data-toggle="tab"><img src="assets/images/icici-svg-2.svg" alt="" /></a>
+          <a [routerLink]="['/index']" class="navbar-brand res" href="#" data-toggle="tab"><img src="assets/images/icici-svg-2.svg" alt="" /></a>
         </li>
+        
         <!-- appthon signup button -->
         <!-- appthon signup button -->
         <!-- <li *ngIf="showbtn">
@@ -220,9 +221,12 @@
   
         </div>
         <div class="col-12 plr0">
-          <p>
+          <p class="signin_p">
             Do not have an account? Please
             <span><a class="signIn" (click)="openModal2(signup)">Register</a></span>
+          </p>
+          <p class="fs10 signin_p">
+            <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
           </p>
         </div>
         <!-- <div class="col-12 plr0">
@@ -650,9 +654,12 @@
     <div class="modal-footer">
       <div class="row w100p m0">
         <div class="col-12 pl0">
-          <p>
+          <p class="signin_p">
             Already have an account? Please
             <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+          </p>
+          <p class="fs10 signin_p">
+            <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
           </p>
         </div>
         <!-- <span

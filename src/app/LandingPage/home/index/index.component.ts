@@ -841,6 +841,18 @@ export class IndexComponent implements OnInit {
         this.Hide_signbtn();
         this.show = false;
         this.modalRef.hide();
+
+        let respData =  obj.data;
+        if(respData && respData.companyName ){
+          localStorage.setItem('companyName',respData.companyName);
+        }else if(respData && respData.mobileNo ){
+          localStorage.setItem('mobileNo',respData.mobileNo);
+        }else if(respData && respData.email ){
+          localStorage.setItem('email',respData.email);
+        }else if(respData && respData.rm ){
+          localStorage.setItem('rm',respData.rm);
+        }
+
         localStorage.setItem("id", obj.data.id);
         localStorage.setItem("email", obj.data.email);
         localStorage.setItem("username", obj.data.username);
