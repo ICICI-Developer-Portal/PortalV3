@@ -101,6 +101,12 @@ text-align: left;
 .left-next{
     left: 97%;
 }
+.btn-orange
+    {
+        color: #fff;
+        background-color: #ae282e;
+        border-color: #ae282e;
+    }
 @media only screen and (min-device-width : 320px) and (max-device-width : 640px) {
     /* Styles */
     .card-body1 {

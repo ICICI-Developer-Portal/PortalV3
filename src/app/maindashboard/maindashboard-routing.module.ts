@@ -12,7 +12,7 @@ import { AuthGuard } from '../services/auth.guard';
 import { OnboardingrequestsComponent } from './onboardingrequests/onboardingrequests.component';
 import { DownloadComponent } from './download/download.component';
 import { MisComponent } from './mis/mis.component';
-import { UserdataComponent } from './userdata/userdata.component';
+// import { UserdataComponent } from './userdata/userdata.component';
 
 
 

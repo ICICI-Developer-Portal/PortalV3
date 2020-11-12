@@ -1310,7 +1310,8 @@ transform: rotate(180deg);
   height: 50px;
 }
 .sectionAPICard h4 {
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: 15px;
   font-family: Poppins-SemiBold;
   color: #212121;
   margin: 0px;

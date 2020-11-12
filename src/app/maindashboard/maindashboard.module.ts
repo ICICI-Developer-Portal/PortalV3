@@ -28,8 +28,8 @@ import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
-import { UserdataComponent } from './userdata/userdata.component';
-import { DataTableModule } from 'angular7-data-table';
+// import { UserdataComponent } from './userdata/userdata.component';
+// import { DataTableModule } from 'angular7-data-table';
 
    
 @NgModule({
@@ -51,7 +51,7 @@ import { DataTableModule } from 'angular7-data-table';
          MatFormFieldModule,
          BrowserAnimationsModule,
          MatInputModule,
-         DataTableModule
+        //  DataTableModule
          
     ],
     declarations: [
@@ -71,7 +71,7 @@ import { DataTableModule } from 'angular7-data-table';
         MisComponent,
         FocusOnShowDirective,
         NestedListFilterPipePipe,
-        UserdataComponent
+        // UserdataComponent
         
     ],
 
