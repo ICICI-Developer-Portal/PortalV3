@@ -1254,58 +1254,65 @@ export class IndexComponent implements OnInit {
   }
 */
 show_build(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/1"]);
+  /*if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/1"]);
   } else {
     this.modalRef = this.modalService.show(signin, { backdrop: "static" });
-  }
+  }*/
 }
 
 loans(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/30"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/30"]);
   } else {
     this.modalRef = this.modalService.show(signin, { backdrop: "static" });
-  }
+  } */
 }
 
 account(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/209"]);
+/*   if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/209"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 payment(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/104"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/104"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 corporate(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/247"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/247"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 commercial(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/292"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/292"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 corporates(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/370"]);
+ /*  if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/370"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
   Hide_signbtn() {
     if (!localStorage.getItem("id")) {
