@@ -397,6 +397,11 @@ export class IndexComponent implements OnInit {
   });
    
   }
+
+ 
+  closeSignUp(){
+    this.modalRef2.hide();
+  }
   bannerTArget1($event){
     // alert("hi")
     window.open("https://developer.icicibank.com/#/rootdetails/247");

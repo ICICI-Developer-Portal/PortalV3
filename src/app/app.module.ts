@@ -92,7 +92,7 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
   ],
   providers: [
     Location, 
-    {provide: LocationStrategy, useClass: PathLocationStrategy},
+  //  {provide: LocationStrategy, useClass: PathLocationStrategy},
     Config,
     LoginService,
     VariablesService,   

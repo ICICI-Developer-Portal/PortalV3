@@ -3580,7 +3580,14 @@ padding-left:0px ;
     top: 182px !important;
     z-index: 99 !important;
 }
+.howItWorksContainer .workImageContainer {
+      height: 50px;
+      text-align: center;
+      position: relative;
+      border-radius: 4px;
+      margin-bottom: 10px;
 
+}
 
   @media screen and (max-width: 240px) {
     .documentTabContent {

@@ -157,6 +157,9 @@ export class BranchDetailsComponent implements OnInit {
     if(this.faqEazypay){
       this.file = "https://developer.icicibank.com/assets/documents/Eazypay.zip";
     }
+    if(this.branchId === "177" || this.branchId === 177 ){
+      this.file = "https://developer.icicibank.com/assets/documents/BBPS.pdf";
+    }
     dwldLink.setAttribute("href", this.file);
     //dwldLink.setAttribute("download", fileName + ".csv");
     dwldLink.style.visibility = "hidden";
