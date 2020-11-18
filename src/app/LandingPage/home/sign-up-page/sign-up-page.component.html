@@ -89,7 +89,7 @@
                     <label for="lastName">Last Name 
                       <!-- <span class="text-danger"> *</span> -->
                     </label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="lastName"
+                    <input type="text" class="form-control  col-md-11 inline_block" id="lastName"
                       formControlName="lastName" placeholder="Enter your Last name">
                     <!-- <i *ngIf="reactiveForm.get('firstSection.lastName').valid"
                       class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
@@ -121,8 +121,13 @@
   
                   <div class="form-group col-md-6">
                     <label for="CompanyName">Company Name<span class="text-danger"> *</span></label>
-                    <input type="email" class="form-control mainField col-md-11 inline_block" id="CompanyName"
-                      formControlName="CompanyName" placeholder="Enter your Company name">
+                    <input name="company" formControlName="companyName" class="input-login col-md-11" matInput [matAutocomplete]="auto"
+                      #company (keyup)="getCompanyName(company.value)" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let companyname of companyNames" [value]="companyname">
+                        {{ companyname }}
+                      </mat-option>
+                    </mat-autocomplete>
                     <i *ngIf="reactiveForm.get('firstSection.CompanyName').valid"
                       class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
@@ -151,11 +156,28 @@
                     </div>
                      ======== -->
                   </div>
+                  <!-- <div class="col-md-6">
+                    <div><label for="password">Company Name<span class="text-danger"> *</span></label></div>
+                    <input name="company" formControlName="companyName" class="input-login " matInput [matAutocomplete]="auto"
+                      #company (keyup)="getCompanyName(company.value)" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let companyname of companyNames" [value]="companyname">
+                        {{ companyname }}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <div *ngIf="
+                        companyName.invalid && (companyName.dirty || isSubmitted)
+                      " class="text-danger form-error">
+                      Company Name is required.
+                    </div>
+                  </div> -->
   
                   <div class="form-group col-md-6">
                     <label for="domainName">Domain Name <span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="domainName"
-                      formControlName="domainName" placeholder="Enter your Doamin name">
+                    <select class="form-control select-drop input-login col-md-11" formControlName="domainNm">
+                      <option value="">Select Domain</option>
+                      <option *ngFor="let d of domainLst" [value]="d">{{ d }}</option>
+                    </select>
                     <i *ngIf="reactiveForm.get('firstSection.domainName').valid"
                       class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
@@ -174,6 +196,17 @@
                     </div>
                     ======== -->
                   </div>
+                  <!-- <div class="form-group col-md-6">
+                    <div><label for="password">Domain Name<span class="text-danger"> *</span></label></div>
+  
+                    <select class="form-control select-drop input-login" formControlName="domainNm">
+                      <option value="">Select Domain</option>
+                      <option *ngFor="let d of domainLst" [value]="d">{{ d }}</option>
+                    </select>
+                    <div *ngIf="domainNm.invalid && (domainNm.dirty || isSubmitted)" class="text-danger form-error">
+                      Domain Name is required.
+                    </div>
+                  </div> -->
   
   
                   <div class="form-group col-md-6">
@@ -181,7 +214,7 @@
                         class="text-danger"> *</span></label>
                     <input type="text" class="form-control mainField col-md-11 inline_block" id="pinCode"
                       formControlName="pinCode"
-                      placeholder="Enter your Pin code">
+                      placeholder="Enter your Pin code" (keyup)="getr()">
                     <i *ngIf="reactiveForm.get('firstSection.pinCode').valid"
                       class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                     <!-- validation -->
@@ -197,7 +230,7 @@
                       <!-- <span
                         class="text-danger"> *</span> -->
                       </label>
-                    <input type="text" class="form-control mainField col-md-11 inline_block" id="rm_emp_id"
+                    <input type="text" class="form-control col-md-11 inline_block" id="rm_emp_id"
                       formControlName="rm_emp_id"
                       placeholder="Enter ICICI Bank RM Employee ID">
                     <!-- <i *ngIf="reactiveForm.get('firstSection.rm_emp_id').valid"
@@ -250,6 +283,7 @@
                 <!--Production Confirmation alert modalbox -->
                 <!-- End Modalbox -->
                 <div class="row">
+                  
                   <div class="form-group col-md-6">
                     <label for="mobileNumber">Enter your mobile number</label>
                     <input type="text" class="form-control mainField col-md-11 inline_block" id="mobileNumber"
@@ -262,11 +296,20 @@
                       class="text-danger form-error">
                       Mobile number is required.
                     </div>
+                    <!-- <div *ngIf="
+                    appathonSignupForm.value.otp_send == '1' &&
+                    appathonSignupForm.value.otp_verified == 0
+                  " class="text-success">
+                  OTP sent on your mobile no. Click
+                  <a (click)="appathonSendOtp(mobile_no.value)" href="javasript:;">here</a>
+                  to resend
+                </div> -->
                     <!-- ======== -->
                   </div>
-                  <div class="form-group col-md-6 ">
-                    <label>&nbsp;</label><div class="form-control "   [ngClass]="reactiveForm.get('firstSection').invalid ?  'bgForSecndSection':''" style="    border: 1px solid #fff;
-                    "><a class="signInBtn ng-star-inserted">Send OTP</a></div>
+                  <div class="form-group col-md-6">
+                    <label>&nbsp;</label><div class="form-control"   [ngClass]="reactiveForm.get('firstSection').invalid ?  'bgForSecndSection':''" style="    border: 1px solid #fff;
+                    "><button class="signInBtn ng-star-inserted" [disabled]="!reactiveForm.get('secondSection.mobileNumber').valid"
+                     (click)="appathonSendOtp(reactiveForm.get('secondSection.mobileNumber').value)">Send OTP</button></div>
                   </div> 
   
                   <div class="form-group col-md-6">
@@ -274,18 +317,21 @@
                     <input type="text" class="form-control mainField col-md-11 inline_block" id="otp"
                       formControlName="otp"
                       placeholder="Enter your OTP">
-                    <i *ngIf="reactiveForm.get('secondSection.otp').valid"
-                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                    <!-- <i *ngIf="reactiveForm.get('secondSection.otp').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
                     <!-- validation -->
-                    <div
-                      *ngIf="!reactiveForm.get('secondSection.otp').valid && reactiveForm.get('secondSection.otp').touched"
+                    <!-- <div
                       class="text-danger form-error">
                       Otp is required.
-                    </div>
+                    </div> -->
                     <!-- ======== -->
                   </div>
                   <div class="form-group col-md-6"></div>
-                  <div _ngcontent-c4="" class="form-group col-md-6 mt20"><a _ngcontent-c4="" class="signInBtn ng-star-inserted">Verify</a></div>
+                  <div _ngcontent-c4="" class="form-group col-md-6 mt20">
+                    <button class="btn" (click)="verifyOtp2()"
+                  class="signInBtn verifyBtn">
+                  Verify
+                </button></div>
 
                   <div class="form-group col-md-6"></div>
                   <div class="form-group col-md-6"></div>
@@ -303,8 +349,9 @@
           <!-- </div> -->
         </div>
        
-        <div #BasicDetailsList class="tabContentInner  border-gray" [ngClass]="reactiveForm.get('firstSection').invalid ?  'overlay_parent':''" id="secondSection">
-         
+        <div #BasicDetailsList class="tabContentInner  border-gray" [ngClass]="otp_verified==''?  'overlay_parent':''" id="secondSection">
+         {{ otp_verified}}
+         {{isotp_reg_check}}
           <!-- <div class="row m0"> -->
             <div  formGroupName="thirdSection" class="container" style="    text-align: initial;">
               <div class="" id="Basic-details-list">
@@ -373,8 +420,9 @@
                   </div>
                   <div class="form-group col-md-6"></div>
                  
-  
-                  <div class="form-group col-md-6 mt20"><a class="signInBtn ng-star-inserted">Sign Up</a></div>
+                  <div class="col-md-12"><label class="checkboxContainer"><input formcontrolname="term" required="" type="checkbox" class="ng-untouched ng-pristine ng-invalid"><span class="checkmark"></span><a href="/assets/pdf/Terms.pdf" target="_blank">ACCEPT ALL TERMS &amp; CONDITIONS</a><!----></label><div class="clearfix"></div>
+                </div>
+                  <div class="form-group col-md-6 mt20"><a class="signInBtn ng-star-inserted" (click)="sign_up()">Sign Up</a></div>
                  
                   <div class="form-group col-md-6"></div>
                  
