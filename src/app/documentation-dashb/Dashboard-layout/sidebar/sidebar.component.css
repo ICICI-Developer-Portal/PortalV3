@@ -6,3 +6,13 @@
     background: #ae282e !important;
     color:white !important;
 }
+a[role="tab_branch_2"]:first-of-type + ul ::before{
+    content: '';
+    display: block;
+    width: 0;
+    position: absolute;
+    top: -1px;
+    bottom: 0;
+    left: 15px;
+    border-left: 1px solid #bbbbbb;
+}

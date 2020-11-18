@@ -16,3 +16,17 @@
     margin-left: 0px;
     font-weight: bold;
 }
+.reportIssueHeading{
+    background: #ae282e;
+    color: #fff;
+    padding-left: 15px;
+    padding-right: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.divBorder{
+    border: 1px solid #cccccc;
+}
+.width100prcnt{
+    width:  100%;
+}

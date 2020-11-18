@@ -644,7 +644,7 @@ else{
     
      // domainName: '(' +this.arrayObjectOfDomain.join()+ ')',
       //domainApis: this.arrayObjectOfValue + '(' + this.arrayObjectOfListIds.toString() + ')',  //this.apiArr + '(' + this.idArr + ')',
-    //  domainApis: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
+      domainApisName: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
       spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,

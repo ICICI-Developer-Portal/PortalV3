@@ -31,9 +31,10 @@
     <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel"
       aria-labelledby="v-pills-applications-tab">
       <div class="tabContentInner">
-        <div class="row">
-          <div class="col-md-12">
-            <h5 >
+        <form  [formGroup]="reactiveForm">
+        <div class="row divBorder" formGroupName="basicDetailsSection" >
+          <div class="width100prcnt">
+            <h5 class="reportIssueHeading">
 
               Report Issue Page
               <i class="after"></i>
@@ -45,13 +46,13 @@
               <label for="merchantName">Select issue type <span class="text-danger"> *</span></label>
               <div class="radioBtnDiv form-control h40 col-md-11">
                 <label class="radio-inline mr20">
-                  <input class="" type="radio" name="type">&nbsp;Type 1
+                  <input class="" type="radio" nameI="type" formControlName="issueType">&nbsp;Type 1
                 </label>
                 <label class="radio-inline mr20">
-                  <input class="" type="radio" name="type">&nbsp;Type 2
+                  <input class="" type="radio" nameI="type" formControlName="issueType">&nbsp;Type 2
                 </label>
                 <label class="radio-inline mr20">
-                  <input class="" type="radio" name="type">&nbsp;Type 3
+                  <input class="" type="radio" nameI="type" formControlName="issueType">&nbsp;Type 3
                 </label>
               </div>
             </div>
@@ -62,7 +63,7 @@
               <!-- <div class="form-group col-md-6"> -->
 
               <span class="custom-dropdown">
-                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                <select class="form-control h40 col-md-11" formControlName="api">
                   <option value=" ">Select Option</option>
                   <option value=" ">api integration from services</option>
                 </select>
@@ -73,7 +74,7 @@
             <div class="form-group">
               <label for="merchantName">Select the onboardingID </label>
               <span class="custom-dropdown">
-                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                <select class="form-control h40 col-md-11" formControlName="onboardingID">
                   <option value=" ">Select Option</option>
                   <option value=" ">api integration from services</option>
                 </select>
@@ -84,7 +85,7 @@
             <div class="form-group">
               <label for="merchantName">Problem severity </label>
               <span class="custom-dropdown">
-                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                <select class="form-control h40 col-md-11" formControlName="problemSeverity">
                   <option value=" ">Select Option</option>
                   <option value=" ">api integration from services</option>
                 </select>
@@ -95,14 +96,14 @@
             <div class="form-group">
               <label for="merchantName">Issue description <span class="text-danger"> *</span></label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-                formControlName="merchantName" placeholder="Your issue description">
+                formControlName="issueDescreption" placeholder="Your issue description">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="merchantName">Issue was first observed on</label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-                formControlName="merchantName" placeholder="Date and time field( data time picker) ">
+                formControlName="firstObservedDate" placeholder="Date and time field( data time picker) ">
             </div>
           </div>
           <div class="col-md-6">
@@ -114,7 +115,7 @@
               <input type="file" 
              
                 accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
-                id="file1" formControlName="file1"
+                id="file1" formControlName="supportingLogs"
                 class="form-control input_type_attachment mainField col-md-11 inline_block">
             </div>
           </div>
@@ -122,7 +123,7 @@
             <div class="form-group">
               <label for="merchantName">Name of contact person <span class="text-danger"> *</span></label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-                formControlName="merchantName" placeholder="Name of contact person ">
+                formControlName="name" placeholder="Name of contact person ">
             </div>
           </div>
 
@@ -130,25 +131,35 @@
             <div class="form-group">
               <label for="merchantName">Email ID <span class="text-danger"> *</span></label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-                formControlName="merchantName" placeholder="Email ID">
+                formControlName="email" placeholder="Email ID">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="merchantName">Mobile no</label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-                formControlName="merchantName" placeholder="Mobile no">
+                formControlName="contactNo" placeholder="Mobile no">
+            </div>
+
+          </div>
+          <!-- [disabled]="!bodyForm.valid" -->
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="form-group">
+              
+
+            <a 
+            class="btn signInBtn btn-dark pull-right mt-30"
+           
+              (click)="submitOnReportIssue(reactiveForm)">Report an Issue</a>
             </div>
           </div>
-
-
-
         </div>
+      </form>
         <hr _ngcontent-c4="" class="margin_0px">
-        <div class="row">
-          <div class="col-md-12">
-            <h5 >
-
+        <div class="row divBorder">
+          <div class="width100prcnt">
+            <h5 class="reportIssueHeading">
               My Issue
             </h5>
 

@@ -5,6 +5,8 @@ import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 import { IndexComponent } from "./index/index.component";
 import { FaqComponent } from "./faq/faq.component";
+import { SignUpComponent } from './sign-up/sign-up.component';
+
 import { ModalModule } from "ngx-bootstrap";
 import { ToasterModule } from "angular2-toaster";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -29,6 +31,8 @@ import {
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 import { FocusOnShowDirective } from './autofocus.directive';
+import { SignUpSidebarComponent } from './sign-up-sidebar/sign-up-sidebar.component';
+import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -51,13 +55,18 @@ import { FocusOnShowDirective } from './autofocus.directive';
     HomeComponent,
     IndexComponent,
     FaqComponent,
+    SignUpComponent,
     OnboardingrequestComponent,
     UserprofileComponent,
     ResetComponent,
     TermsandconditionComponent,
     NDAComponent,
     ContractComponent,
-    FocusOnShowDirective
+    FocusOnShowDirective,
+    SignUpComponent,
+    SignUpPageComponent,
+    SignUpSidebarComponent,
+    SignUpPageComponent
   ]
 
   // import { CommonSigninModalComponent } from './common-signin-modal/common-signin-modal.component';

@@ -9,7 +9,7 @@ declare var $: any;
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ["./sidebar.component.css"]
 
 })
 export class SidebarComponent implements OnInit {
@@ -27,7 +27,8 @@ export class SidebarComponent implements OnInit {
   treeData1: any[];
   treeElements: any;
   showMatSpinner: boolean = false;
-
+  businessLendingProducts=["Offer check","New customer information","Customer details modification","Bank statement (i)","Bank statement (ii)","Bank statement (iii)","Instant Sanction","Instant Disbursement","Data fetch","Mini Statement","File sharing","Dashboard","Status Check"];
+newLi;
 
   /** @class SidebarComponent
    * @constructor
@@ -129,6 +130,7 @@ export class SidebarComponent implements OnInit {
       .off("click")
       .on("click", ".tree-node", function(e) {
         var selectedId = $(this).attr("role");
+        console.log(selectedId)
         this.nodeId = selectedId.split("_").pop();
         var nodeType = selectedId.split("_", 2).pop();
         self.AppId(this.nodeId, nodeType);
@@ -143,6 +145,7 @@ export class SidebarComponent implements OnInit {
     this.showMatSpinner = true;
     this.dashboardService.getMenuTreeData().subscribe((data: any) => {
       this.treeData = JSON.parse(data._body);
+      console.log(this.treeData )
       this.createTreeAndJquery();
       this.showMatSpinner = false;
     },
@@ -215,7 +218,24 @@ export class SidebarComponent implements OnInit {
     `</a>` +
     `<ul class="collapse nav-pills-first-level submenuLevelOne list-unstyled apiDomainCategory" id="dynamicDropdownlist">`+    this.createDynamicTree();
     +`</ul>` +
-    `</li>`;
+    `</li>`+`<li class="nav-link viewAllLink">
+    <a id="v-view-all-tab" data-toggle="pill"  href="#/viewallapi" role="tab" aria-controls="v-view-all" aria-selected="true">
+      <div class="viewAllIcon">
+        <i class="material-icons">dashboard</i>
+      </div>
+      VIEW ALL APIs
+      <img
+        class="viewAllDropdownActive"
+        src="assets/images/dropdown-3.svg"
+        alt=""
+      />
+      <img
+        class="viewAllDropdown" 
+        src="assets/images/dropdown-viewall.svg"
+        alt=""
+      />
+    </a>
+  </li>`;
  
 
       return this.treeItems;
@@ -334,8 +354,54 @@ export class SidebarComponent implements OnInit {
           `${childrenArr[i].TAB_NAME}` +
           `</a>`;
       }
+     
+      if(childrenArr[i].TREE_ID =="548" ){
+        // $.each(this.businessLendingProducts,function(index,value){
+        //   console.log("hi")
+        //   this.newLi+=`<li class="nav-link"><a class="tree-node" role="tab_api_1307">`+this.businessLendingProducts[value]+`</a></li>`
+        // }) 
+        this.dynamicTreeList += `</li>
+        <li class="nav-link">
+          <a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_newApi"  aria-controls="v-pills-home" aria-selected="true">Business Lending Products
+            <img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />
+          </a>
+          <ul class="collapse nav-pills-first-level submenuLevelTwo list-unstyled">
+          <li class="nav-link"><a class="tree-node" role="tab_branch_549">Unsecured Overdraft APIs
+          <img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />
+          </a>
+          <ul class="collapse nav-pills-third-level submenuLevelThree list-unstyled">
+          <li class="nav-link"><a class="tree-node" role="tab">Offer check</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">New customer information</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Customer details modification</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Bank statement (i)</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Bank statement (ii)</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Bank statement (iii)</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Instant Sanction</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Instant Disbursement</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Data fetch</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Mini Statement</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">File sharing</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Dashboard</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Status Check</a></li></ul></li></ul></li>`;
 
-      this.dynamicTreeList += `</li>`;
+          // for(var bbDynamic=0;bbDynamic<this.businessLendingProducts.length;bbDynamic++){
+          //   // console.log(this.businessLendingProducts[bbDynamic])
+          //  `<li class="nav-link"><a class="tree-node" role="tab_api_1307">`+this.businessLendingProducts[bbDynamic]+`</a></li>`
+          // }
+        
+        //  this.businessLendingProducts.forEach(item => {
+        //     console.log(this.businessLendingProducts[item])
+        //     // `<li class="nav-link"><a class="tree-node" role="tab">`+this.businessLendingProducts[item]+`</a></li>`
+        //   });
+          
+       
+        console.log("548")
+      }
+      else{
+        console.log()
+        this.dynamicTreeList += `</li>`;
+      }
+      
     }
   }
     

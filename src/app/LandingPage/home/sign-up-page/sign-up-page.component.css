@@ -1,0 +1,28 @@
+.padding-l-r20px{
+    padding-left: 20px;
+    padding-right: 20px;
+}  
+
+.overlay_parent{
+	top: 0;
+    width: 100%;
+    pointer-events: none;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.overlay_child{
+	position: relative;
+    width: 100%;
+    z-index: .0005;
+}
+
+.border-gray{
+    border-top: 1.2px solid #dcdcdc;
+
+}
+.bgForSecndSection{
+   border: 1px solid rgba(0, 0, 0, 0.05);
+   background: 1px solid rgba(0, 0, 0, 0.05);
+
+}

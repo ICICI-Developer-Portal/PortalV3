@@ -1,0 +1,406 @@
+<!-- <div id="container">
+
+<div class="documentTabContent"> -->
+ 
+
+  <div class="tab-content">
+
+ 
+    <div class="text-center mb50 mt10 padding-l-r20px">
+      <!-- <h3 class="fs32 color-blue ff-bold mb25 pt15">Frequently Asked Questions</h3> -->
+      <div class="row">  
+        <div class="">
+           <app-sign-up-sidebar></app-sign-up-sidebar>
+        </div>
+        <div class="col-md-9 " style="margin-left: 20%;">
+      <form [formGroup]="reactiveForm" autocomplete="off" nonvalidate>
+        
+        <div #BasicDetailsList class="tabContentInner" id="Basic_Details_Section">
+          
+            <div formGroupName="firstSection" class="container" style="    text-align: initial;">
+              <h3 class="">Let's get you On-board </h3>
+          <hr/>
+              <div class="" id="Basic-details-list">
+                <h5>Basic Details</h5>
+                 <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+                <ng-template #Prodconfirm>   
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12 mb-xs-10">
+                        <h5 class="fs15">
+                          Onboarding request ID {{ confirmMsgProd }} has been created
+                          sucessfully.
+                        </h5>
+                        <h5 class="fs15">
+                          Please visit Account -> Onboarding Request to check the request
+                          status.
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer ta-center">
+                    <div class="row w100p m0">
+                      <div class="col-12 plr0">
+                        <div>
+                          <button type="submit" class="signInBtn" (click)="Close_ConfirmProd()">
+                            Ok
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <!-- End Modalbox -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- End Modalbox -->
+                <div class="row">
+                  <!-- <div class="form-group col-md-6">
+                    <label for="merchantName">Full Name <span class="text-danger"> *</span></label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                      formControlName="merchantName" placeholder="Your Organization Name">
+                    <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>-->
+                    <!-- validation -->
+                    <!-- <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
+                      class="text-danger form-error">
+                      Merchant Name is required.
+                    </div>
+                  </div> --> 
+                   <!-- ======== -->
+                  <div class="form-group col-md-6">
+                    <label for="firstName">First Name <span class="text-danger"> *</span></label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="firstName"
+                      formControlName="firstName" placeholder="Enter your First name">
+                    <i *ngIf="reactiveForm.get('firstSection.firstName').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('firstSection.firstName').valid && reactiveForm.get('firstSection.firstName').touched"
+                      class="text-danger form-error">
+                      Merchant Name is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="lastName">Last Name 
+                      <!-- <span class="text-danger"> *</span> -->
+                    </label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="lastName"
+                      formControlName="lastName" placeholder="Enter your Last name">
+                    <!-- <i *ngIf="reactiveForm.get('firstSection.lastName').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
+                    <!-- validation -->
+                    <!-- <div
+                      *ngIf="!reactiveForm.get('firstSection.lastName').valid && reactiveForm.get('firstSection.lastName').touched"
+                      class="text-danger form-error">
+                      last Name is required.
+                    </div> -->
+                    <!-- ======== -->
+                  </div>
+  
+  
+                  <div class="form-group col-md-6">
+                    <label for="email">Email <span class="text-danger"> *</span></label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="email"
+                      formControlName="email"
+                      placeholder="Enter your email id">
+                    <i *ngIf="reactiveForm.get('firstSection.email').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('firstSection.email').valid && reactiveForm.get('firstSection.email').touched"
+                      class="text-danger form-error">
+                      Please enter correct email address.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+  
+                  <div class="form-group col-md-6">
+                    <label for="CompanyName">Company Name<span class="text-danger"> *</span></label>
+                    <input type="email" class="form-control mainField col-md-11 inline_block" id="CompanyName"
+                      formControlName="CompanyName" placeholder="Enter your Company name">
+                    <i *ngIf="reactiveForm.get('firstSection.CompanyName').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="(reactiveForm.get('firstSection.CompanyName').invalid && reactiveForm.get('firstSection.CompanyName').touched) || reactiveForm.get('firstSection.CompanyName').dirty">
+                      <!-- <div *ngIf="reactiveForm.get('firstSection.CompanyName').errors?.required" -->
+                      <div *ngIf="(reactiveForm.get('firstSection.CompanyName').invalid && reactiveForm.get('firstSection.CompanyName').touched)"
+  
+                        class="text-danger form-error">Company Name is required.</div>
+                      <!--question mark(?) is a safe navigation operator-->
+                      <!-- <div *ngIf="reactiveForm.get('firstSection.email_id').errors?.pattern"
+                        class="text-danger form-error">Please provide a valid email address</div> -->
+                    </div>
+  
+  
+                    <!--
+                    <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched"
+                      class="text-danger form-error">
+                      Email id is required.
+                    </div>
+                    <div
+                      *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern && reactiveForm.get('basicDetailsSection.email_id').touched"
+                      class="text-danger form-error">
+                      Please provide a valid email address.
+                    </div>
+                     ======== -->
+                  </div>
+  
+                  <div class="form-group col-md-6">
+                    <label for="domainName">Domain Name <span class="text-danger"> *</span></label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="domainName"
+                      formControlName="domainName" placeholder="Enter your Doamin name">
+                    <i *ngIf="reactiveForm.get('firstSection.domainName').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="(reactiveForm.get('firstSection.domainName').invalid && reactiveForm.get('firstSection.domainName').touched) || reactiveForm.get('firstSection.domainName').dirty">
+                      <div *ngIf="reactiveForm.get('firstSection.domainName').errors?.required"
+                        class="text-danger form-error">Doamin name is required.</div>
+                      <!--question mark(?) is a safe navigation operator-->
+                      
+                    </div>
+                    <!--
+                    <div
+                      *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched"
+                      class="text-danger form-error">
+                      Contact no is required.
+                    </div>
+                    ======== -->
+                  </div>
+  
+  
+                  <div class="form-group col-md-6">
+                    <label for="pinCode">Pin Code <span
+                        class="text-danger"> *</span></label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="pinCode"
+                      formControlName="pinCode"
+                      placeholder="Enter your Pin code">
+                    <i *ngIf="reactiveForm.get('firstSection.pinCode').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('firstSection.pinCode').valid && reactiveForm.get('firstSection.pinCode').touched"
+                      class="text-danger form-error">
+                      Pin code is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="rm_emp_id">ICICI Bank RM Employee ID  
+                      <!-- <span
+                        class="text-danger"> *</span> -->
+                      </label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="rm_emp_id"
+                      formControlName="rm_emp_id"
+                      placeholder="Enter ICICI Bank RM Employee ID">
+                    <!-- <i *ngIf="reactiveForm.get('firstSection.rm_emp_id').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i> -->
+                    <!-- validation -->
+                    <!-- <div
+                      *ngIf="!reactiveForm.get('firstSection.rm_emp_id').valid && reactiveForm.get('firstSection.rm_emp_id').touched"
+                      class="text-danger form-error">
+                      RM Employee ID is required (numeric).
+                    </div> -->
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="partnerCode">Partner Code </label><a data-toggle="tooltip" href="#" title="Enter zero in numeric(0) as default value"><img alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+  
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="partnerCode"
+                      formControlName="partnerCode"
+                      placeholder="Enter Partner code">
+                    <i *ngIf="reactiveForm.get('firstSection.partnerCode').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('firstSection.partnerCode').valid && reactiveForm.get('firstSection.partnerCode').touched"
+                      class="text-danger form-error">
+                      Partner code is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                </div>
+  
+                </div>
+                
+            </div>
+          <!-- </div> -->
+        </div>
+       
+  
+        <div #BasicDetailsList class="tabContentInner   border-gray"   [ngClass]="reactiveForm.get('firstSection').invalid ?  'overlay_parent':''" id="secondSection">
+       
+          <!-- <div class="row m0"> -->
+            <div formGroupName="secondSection" class="container" style="    text-align: initial;">
+              <div class="" id="Basic-details-list"> 
+                <h5>Mobile number</h5>
+                 <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+               
+                <!-- End Modalbox -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- End Modalbox -->
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="mobileNumber">Enter your mobile number</label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="mobileNumber"
+                      formControlName="mobileNumber" placeholder="Enter Mobile number">
+                    <i *ngIf="reactiveForm.get('secondSection.mobileNumber').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('secondSection.mobileNumber').valid && reactiveForm.get('secondSection.mobileNumber').touched"
+                      class="text-danger form-error">
+                      Mobile number is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6 ">
+                    <label>&nbsp;</label><div class="form-control "   [ngClass]="reactiveForm.get('firstSection').invalid ?  'bgForSecndSection':''" style="    border: 1px solid #fff;
+                    "><a class="signInBtn ng-star-inserted">Send OTP</a></div>
+                  </div> 
+  
+                  <div class="form-group col-md-6">
+                    <label for="otp">Enter the OTP Received on your Phone Number</label>
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="otp"
+                      formControlName="otp"
+                      placeholder="Enter your OTP">
+                    <i *ngIf="reactiveForm.get('secondSection.otp').valid"
+                      class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('secondSection.otp').valid && reactiveForm.get('secondSection.otp').touched"
+                      class="text-danger form-error">
+                      Otp is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6"></div>
+                  <div _ngcontent-c4="" class="form-group col-md-6 mt20"><a _ngcontent-c4="" class="signInBtn ng-star-inserted">Verify</a></div>
+
+                  <div class="form-group col-md-6"></div>
+                  <div class="form-group col-md-6"></div>
+  
+  
+              
+  
+                 
+                  
+                </div>
+  
+                </div>
+                
+            </div>
+          <!-- </div> -->
+        </div>
+       
+        <div #BasicDetailsList class="tabContentInner  border-gray" [ngClass]="reactiveForm.get('firstSection').invalid ?  'overlay_parent':''" id="secondSection">
+         
+          <!-- <div class="row m0"> -->
+            <div  formGroupName="thirdSection" class="container" style="    text-align: initial;">
+              <div class="" id="Basic-details-list">
+                <h5>Credentials</h5>
+                 <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+               
+                <!-- End Modalbox -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- End Modalbox -->
+                <div  class="row">
+                  <div class="form-group col-md-6">
+                    <label for="userName">Username:</label>
+  
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="userName"
+                      formControlName="userName"
+                      placeholder="Enter User name">
+                    <i *ngIf="reactiveForm.get('thirdSection.userName').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('thirdSection.userName').valid && reactiveForm.get('thirdSection.userName').touched"
+                      class="text-danger form-error">
+                      User name is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6"></div>
+                  <div class="form-group col-md-6"></div>
+                  <div class="form-group col-md-6"></div>
+                  <div class="form-group col-md-6">
+                    <label for="Password">Password:</label>
+  
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="Password"
+                      formControlName="Password"
+                      placeholder="enter your Password">
+                    <i *ngIf="reactiveForm.get('thirdSection.Password').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('thirdSection.Password').valid && reactiveForm.get('thirdSection.Password').touched"
+                      class="text-danger form-error">
+                      Password is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6"></div>
+  
+                  <div class="form-group col-md-6">
+                    <label for="confirmPassowrd">Confirm Password:</label>
+  
+                    <input type="text" class="form-control mainField col-md-11 inline_block" id="confirmPassowrd"
+                      formControlName="confirmPassowrd"
+                      placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
+                    <i *ngIf="reactiveForm.get('thirdSection.confirmPassowrd').valid"
+                      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                    <!-- validation -->
+                    <div
+                      *ngIf="!reactiveForm.get('thirdSection.confirmPassowrd').valid && reactiveForm.get('thirdSection.confirmPassowrd').touched"
+                      class="text-danger form-error">
+                      Confirm Passowrd ID is required.
+                    </div>
+                    <!-- ======== -->
+                  </div>
+                  <div class="form-group col-md-6"></div>
+                 
+  
+                  <div class="form-group col-md-6 mt20"><a class="signInBtn ng-star-inserted">Sign Up</a></div>
+                 
+                  <div class="form-group col-md-6"></div>
+                 
+                  <div class="col-12">
+                    <hr/><p class="signin_p"> Already have an account? Please <span><a class="signIn">Login</a></span></p><p class="fs10 signin_p"><span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password. </p></div><div class="col-5 pr0"><div class="text-right"></div></div>
+  
+              
+  
+                 
+                  
+                </div>
+  
+                </div>
+                
+            </div>
+          <!-- </div> -->
+        </div>
+  
+  
+        
+  
+          
+                
+      </form>
+    </div>
+    
+  </div>
+  </div>
+  </div>

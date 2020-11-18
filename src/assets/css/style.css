@@ -719,6 +719,7 @@ color: #ae282e;
   color: #ffff !important;
   text-decoration: none;
 }
+
 .submenuLevelOne li.viewAllLink:last-child a::before,.apiDomainCategory .submenuLevelOne li.nav-link:last-child  a::before,.apiDomainCategory .submenuLevelTwo li.nav-link:last-child a::before {
   background: #ae282e !important;
   height: calc(100% - 17px);
@@ -853,6 +854,16 @@ transform: rotate(180deg);
   top: -5px;
   bottom: 0;
   left: 25px;
+  border-left: 1px solid #bbbbbb;
+}
+a[role="tab_branch_2"] ul ::before{
+  content: '';
+  display: block;
+  width: 0;
+  position: absolute;
+  top: -1px;
+  bottom: 0;
+  left: 15px;
   border-left: 1px solid #bbbbbb;
 }
 .submenuLevelOne .nav-link {

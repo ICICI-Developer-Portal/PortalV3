@@ -83,7 +83,9 @@ export class LoginService {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     let options = new RequestOptions({ headers: headers });
-   return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/login", query, options);
+  //  return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/login", query, options); //clommented on 16Nov2020
+    return this.http.post("https://developer.icicibank.com/rest/login", query, options);
+
    // return this.http.post(this.UAT_apiUrl + "login", query, options);
   }
   //#JWT Login Api
@@ -982,4 +984,21 @@ addRecord(requestParam) {
   return this.http.post(apiName , requestParam, options);
 }
  
+// create all transaction istory table data
+createReportIssue(body,header) {
+  let headers = new Headers({
+     "Content-Type": "application/x-www-form-urlencoded",
+    "userName" :localStorage.getItem('username'),
+     "Token" : localStorage.getItem("jwt")
+  });
+ 
+  // var body = new FormData();
+  // var body = "apiId=" +  json.apiId;
+  // body
+  let options = new RequestOptions({ headers: headers });
+  console.log(options)
+  console.log(body)
+
+  return this.http.post(this.UAT_apiUrl+"save-reported-issues",body,options);
+}
 }
