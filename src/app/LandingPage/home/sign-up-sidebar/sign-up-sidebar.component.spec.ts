@@ -16,7 +16,7 @@ describe('SignUpSidebarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SignUpSidebarComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();   
+    fixture.detectChanges();
   });
 
   it('should create', () => {

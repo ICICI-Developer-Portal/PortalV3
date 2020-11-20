@@ -4,8 +4,9 @@
     <div  [ngClass]="!showbtn?'menuBar docsMenubar':'menuBar '">
       <ul class="nav nav-tabs " id="mainMenu">
         <li class="active">
-          <a [routerLink]="['/index']" class="navbar-brand" href="#" data-toggle="tab"><img src="assets/images/icici-svg-2.svg" alt="" /></a>
+          <a [routerLink]="['/index']" class="navbar-brand res" href="#" data-toggle="tab"><img src="assets/images/icici-svg-2.svg" alt="" /></a>
         </li>
+        
         <!-- appthon signup button -->
         <!-- appthon signup button -->
         <!-- <li *ngIf="showbtn">
@@ -27,64 +28,58 @@
        <!-- <li>
           <a  href="#" data-toggle="tab" [routerLink]="['/appathon/landing-page']">Appathon</a>
         </li>-->
-        <li><a href="#" data-toggle="tab" (click)="scroll_view('#home')">Home</a></li>
+        <li><a href="#" data-toggle="tab" (click)="scroll_viewHome()">Home</a></li>
         <li>
           <a  href="#" (click)="scroll_view('#partners')" data-toggle="tab">Strategic Partners</a>
         </li>
         <li><a href="#" data-toggle="tab" [routerLink]="['/index/faq']">FAQ</a></li>
-        <li><a   href="#/documentation"  data-toggle="tab" (click)="Documentation(signin)">Documentation </a></li>
+        <li><a  href="#/documentation"  data-toggle="tab" (click)="Documentation(signin)" class="documetationClass">Documentation </a></li>
         
         <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
          
        
-          <a href="#" class="dropdown-toggle lh56 appSignMargin2 " id="navbarMobiles" role="button" data-toggle="dropdown"
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false"   >
           Account </a>
         
 
           <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles">
-            <a [routerLink]="['/dashboard']" class="nav-link dropdown-item" id="pills-account-dashboard-tab"
+            <!-- <a [routerLink]="['/dashboard']" class="nav-link dropdown-item" id="pills-account-dashboard-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-dashboard"
-              aria-selected="true" (click)="addActiveClass($event)">Dashboard</a>
-              <a style="line-height: 21px;cursor: pointer;" routerLink="../transactionHistory" class="nav-link dropdown-item">Transaction  History</a>
-
+              aria-selected="true" (click)="addActiveClass($event)">Dashboard</a> -->
             <!-- <a [routerLink]="['/application']" class="nav-link dropdown-item" id="pills-account-applications-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-applications"
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
             </a> -->
-           
-            <a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
-            </a>
-           
-            <a style="line-height: 21px;cursor: pointer;" routerLink="../reportIssue" class="nav-link dropdown-item"  (click)="addActiveClass($event)"> Report Issue
+            <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
+            <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
+            </a>-->
+            <a style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
             </a>
           </div>
         </li>
         <li class="dropdown" *ngIf="!showbtn">
          
-          <a   href="#" class="dropdown-toggle lh56 appSignMargin2 tt-none" id="navbarMobiles" role="button"
+          <a   href="#" class="dropdown-toggle lh56 appSignMargin2 tt-none usernameClass" id="navbarMobiles" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user-circle-o"></i>&nbsp;{{ userName }}
         </a>
           <div class="dropdown-content drp-cnt-width ml-40" aria-labelledby="navbarMobiles" *ngIf="showOptn === true">
             <a [routerLink]="['/userprofile']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Profile</a>
             <a  [routerLink]="['/uatonboarding-dashboard']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">UAT Onboarding</a>
-            <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
-            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-            aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
+            
             <a  [routerLink]="['/productionOnboardingPage']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Production Onboarding</a>
-           
-            <a style="line-height: 21px;cursor: pointer;" routerLink="../mis" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
-            </a>
-            <a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
-              Dashboard</a>
+            <!--<a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
+              Dashboard</a>-->
             <a class="nav-link dropdown-item" class="nav-link dropdown-item" *ngIf="!showbtn"
               (click)="logout()">Logout</a>
             <!-- <a [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics" aria-selected="true">Analytics</a> -->
           </div>
           <div class="dropdown-content drp-cnt-width" aria-labelledby="navbarMobiles" *ngIf="showOptn === false">
-            <a [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon Dashboard</a>
-            <a [routerLink]="['/application']" class="nav-link dropdown-item lh21">Applications</a>
+            <!--<a [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon Dashboard</a>
+            <a [routerLink]="['/application']" class="nav-link dropdown-item lh21">Applications</a>-->
   
             <a class="nav-link dropdown-item cursor lh21 cursor_pointer" (click)="logout()" >Logout</a>
           </div>
@@ -177,13 +172,13 @@
   <!-- Signin Modal -->
   <ng-template #signin>
     <div class="modal-header">
-      <h3 class="modal-title pull-left">Please Login 2</h3>
+      <h3 class="modal-title pull-left">Please Login </h3>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+      <form name="myform" autocomplete="off" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
       <div class="row mb30">
         <div class="col-md-12 mb-xs-10">
           <div><label for="user">Username</label></div>
@@ -226,9 +221,12 @@
   
         </div>
         <div class="col-12 plr0">
-          <p>
+          <p class="signin_p">
             Do not have an account? Please
             <span><a class="signIn" (click)="openModal2(signup)">Register</a></span>
+          </p>
+          <p class="fs10 signin_p">
+            <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
           </p>
         </div>
         <!-- <div class="col-12 plr0">
@@ -293,7 +291,7 @@
   <!-- Modal for Signup -->
   <ng-template #signup>
     <div class="modal-header"  tabindex="-1" role="dialog">
-      <h3 class="modal-title pull-left">Let's get you On-board 2</h3>
+      <h3 class="modal-title pull-left">Let's get you On-board </h3>
   
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
         <span aria-hidden="true">&times;</span>
@@ -320,7 +318,7 @@
       </ul>
       <!-- Tab panes -->
       <div class="tab-content tab-content1">
-        <form [formGroup]="signupForm" [hidden]="!shfrmSFFirst">
+        <form [formGroup]="signupForm" autocomplete="off" [hidden]="!shfrmSFFirst">
           <input type="hidden" name="otp_verified" formControlName="otp_verified" class="input-login" #otp_verified />
           <div class="tab-pane">
             <div class="row mb20">
@@ -440,7 +438,7 @@
             </ul>
           </div>
         </form>
-        <form [formGroup]="signupForm2" [hidden]="!shfrmSFSecond">
+        <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
           <div class="tab-pane">
             <div class="row mb20">
               <div class="col-md-8 mb-xs-30">
@@ -452,17 +450,17 @@
                 <div *ngIf="mobile_no.invalid && (mobile_no.dirty || isSubmitted)" class="text-danger form-error">
                   Mobile Number is required.
                 </div>
-                <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+                <div *ngIf="ismobile_reg_check != '' && !(mobile_no.invalid)" class="text-danger form-error">
                   {{ ismobile_reg_check }}
                 </div>
                 <div *ngIf="
                     signupForm.value.otp_send == '1' &&
-                    signupForm.value.otp_verified == 0
+                    signupForm.value.otp_verified == 0 && !(mobile_no.invalid)
                   " class="text-success">
                   OTP sent to your mobile number.
                 </div>
               </div>
-              <div class="col-md-4 mt4">
+              <div class="col-md-4 " style="    margin-top: 28px !important; ">
                 <button  [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
                   (click)="SendOtp(Mobile.value)"
                   (click)='buttonClick1()' 
@@ -482,7 +480,7 @@
             </div>
             <!-- <ng-template #elseBlock> -->
             <div class="row mb20" *ngIf="showOtp">
-              <div class="col-md-9 mb-xs-30">
+              <div class="col-md-8 mb-xs-30">
                 <div>
                   <label for="otp">Enter the OTP Received on your Phone Number</label>
                 </div>
@@ -491,7 +489,7 @@
                 <div *ngIf="otp_code.invalid && (otp_code.dirty || isSubmitted)" class="text-danger form-error">
                   OTP is required.
                 </div>
-                <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+                <div *ngIf="ismobile_reg_check != '' "  class="text-danger form-error">
                   {{ isotp_reg_check }}
                 </div>
               </div>
@@ -510,7 +508,7 @@
           </div>
         </form>
   
-        <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
+        <form [formGroup]="signupForm3" autocomplete="off" [hidden]="!shfrmSFThird">
   
           
   
@@ -656,9 +654,12 @@
     <div class="modal-footer">
       <div class="row w100p m0">
         <div class="col-12 pl0">
-          <p>
+          <p class="signin_p">
             Already have an account? Please
             <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+          </p>
+          <p class="fs10 signin_p">
+            <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
           </p>
         </div>
         <!-- <span
@@ -700,7 +701,7 @@
       </ul>
       <!-- Tab panes -->
       <div class="tab-content tab-content1">
-        <form [formGroup]="appathonSignupForm" [hidden]="!shfrmSFFirst1">
+        <form [formGroup]="appathonSignupForm" autocomplete="off" [hidden]="!shfrmSFFirst1">
           <div class="tab-pane">
             <div class="row mb20">
               <!-- Team Name -->
@@ -856,7 +857,7 @@
             </ul>
           </div>
         </form>
-        <form [formGroup]="appathonSignupForm2" [hidden]="!shfrmSFSecond1">
+        <form [formGroup]="appathonSignupForm2" autocomplete="off" [hidden]="!shfrmSFSecond1">
           <div class="tab-pane">
             <div class="row mb20">
               <div class="col-md-8 mb-xs-30">
@@ -920,7 +921,7 @@
             </ul>
           </div>
         </form>
-        <form [formGroup]="appathonSignupForm3" [hidden]="!shfrmSFThird1">
+        <form [formGroup]="appathonSignupForm3" autocomplete="off" [hidden]="!shfrmSFThird1">
           <div class="tab-pane">
             <div class="row mb20">
               <div class="col-md-12">
@@ -1055,7 +1056,7 @@
       </ul>
       <!-- Tab panes -->
       <div class="tab-content tab-content1">
-        <form [formGroup]="appathonSignupForm" [hidden]="!shfrmSFFirst1">
+        <form [formGroup]="appathonSignupForm" autocomplete="off"  [hidden]="!shfrmSFFirst1">
           <div class="tab-pane">
             <div class="row mb20">
               <!-- Team Name -->

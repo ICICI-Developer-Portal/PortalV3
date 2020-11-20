@@ -17,7 +17,7 @@ import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
 import { DatePipe } from '@angular/common';
-//import * as CryptoJS from 'crypto-js';
+// import * as CryptoJS from 'crypto-js';
 declare var $: any;
 @Component({
   selector: "icici-header",
@@ -453,18 +453,12 @@ toastrmsg(type, title) {
     this.adm.Login(json).subscribe((data: any) => {
       var response = data._body;
       console.log(response)
-    
       this.loginResponse = JSON.parse(response);
-      console.log(this.loginResponse.data)
-      console.log(this.loginResponse.data.companyName)
-  localStorage.setItem('companyName',this.loginResponse.data.companyName);
-  localStorage.setItem('mobileNo',this.loginResponse.data.mobileNo);
-  localStorage.setItem('email',this.loginResponse.data.email);
-  localStorage.setItem('email',this.loginResponse.data.email);
+     //console.log(this.loginResponse);
+    //  console.log(this.loginResponse.data)
+     // console.log(this.loginResponse.data.companyName)
+  
 
-
-
-      console.log(this.loginResponse);
       if (this.loginResponse.status == true) {
         var timer = this.SessionService.session();
         this.show = false;
@@ -494,10 +488,21 @@ toastrmsg(type, title) {
         // localStorage.setItem('email', obj.data.email);
         // this.adm.sendUserId(obj.data.id);
         this.spinnerService.hide();
-        localStorage.setItem('companyName',this.loginResponse.data.companyName);
-        localStorage.setItem('mobileNo',this.loginResponse.data.mobileNo);
-        localStorage.setItem('email',this.loginResponse.data.email);
-        localStorage.setItem('rm',this.loginResponse.data.rm);
+        
+        let respData =  this.loginResponse.data;
+        if(respData && respData.companyName ){
+          localStorage.setItem('companyName',respData.companyName);
+        }else if(respData && respData.mobileNo ){
+          localStorage.setItem('mobileNo',respData.mobileNo);
+        }else if(respData && respData.email ){
+          localStorage.setItem('email',respData.email);
+        }else if(respData && respData.rm ){
+          localStorage.setItem('rm',respData.rm);
+        }
+        
+       
+        
+       
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
             this.router.navigate([this.router.url]);
@@ -525,8 +530,6 @@ toastrmsg(type, title) {
     );
     localStorage.setItem("appathonUserName", this.loginResponse.data.username);
     localStorage.setItem("email", this.loginResponse.data.email);
-    localStorage.setItem("rm", this.loginResponse.data.rm);
-
     this.adm.sendUserId(this.loginResponse.data.id);
     this.userName = localStorage.getItem("username");
     this.router.navigate([this.router.url]);
@@ -871,7 +874,7 @@ toastrmsg(type, title) {
           console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
-         // obj = this.decode(obj.data);
+          // obj = this.decode(obj.data);
           obj = JSON.parse(obj);
           if (obj.status == true) {
             console.log("otp success");
@@ -1111,8 +1114,10 @@ toastrmsg(type, title) {
 
     },);
   }
+
   scroll_view(id) {
     this.router.navigate(["index"]);
+    
     setTimeout(function() {
     $('html, body').animate({ scrollTop: $(id).offset().top -100});
 
@@ -1128,14 +1133,6 @@ toastrmsg(type, title) {
   
   }
 
-  // scroll_view(id) {
-  //   this.router.navigate(["index"]);
-  //   setTimeout(function() {
-  //     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
-  //   }, 10);
-  // }
-
-  
   //login success pop up modal
   clickOk() {
     this.modalRef4.hide();

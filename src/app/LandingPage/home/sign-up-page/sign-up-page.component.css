@@ -39,3 +39,7 @@
     margin-top: 3px;
     font-size: 25px;
 }
+footer{
+    position: relative;
+    z-index: 9999;
+}
