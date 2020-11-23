@@ -1,11 +1,12 @@
-import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
+import { Component, OnInit, TemplateRef, ɵConsole,ViewChild, ViewChildren, ElementRef, QueryList, EventEmitter, Output, Input } from '@angular/core';
+
 import { Toast, ToasterService } from "angular2-toaster";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { LoginService } from "src/app/services";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { PasswordValidation } from "../LandingPage/layout/header/password.validator";
+import { PasswordValidation } from "../../../LandingPage/layout/header/password.validator";
 
 import { ChangeDetectorRef } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
@@ -15,19 +16,26 @@ import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
-import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
+import { CustomValidators } from "../../../LandingPage/layout/header/custom-validators";
 import { DatePipe } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
+import { SigninModalComponent } from '../common-modal/signin-modal.component';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+declare var $: any;
+
 declare var $: any;
 @Component({
-  selector: "icici-header",
-  templateUrl: "./header.component.html",
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css'],
   providers: [DatePipe]
-  //styleUrls: ['./header.component.css']
+
 })
-export class HeaderComponent implements OnInit {
-  
-  
+export class SignUpComponent implements OnInit {
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
@@ -90,6 +98,8 @@ export class HeaderComponent implements OnInit {
   teamMemberArr: any[];
   showOptn: boolean = false;
   showAppDash: boolean = false;
+  parentDataDomainName: string;
+  childData: string;
   userName: any;
   errorMsg:any = "Something went wrong. Please try again in some time.";
   
@@ -105,7 +115,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private adm: LoginService,
     private toasterService: ToasterService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    public dialog: MatDialog
   ) {
     this.btn_Sign();
     this.adm.getUserId().subscribe(data => {
@@ -153,10 +164,11 @@ export class HeaderComponent implements OnInit {
     });
     this.signupForm = this.formbuilder.group({
       firstname: ["", [Validators.required]],
+      lastname: [""],
       companyName: ["", [Validators.required]],
       domainNm: ["", [Validators.required]],
       CITY: ["", [Validators.required]],
-      RM: ["", [Validators.required]],
+      RM: [""],
       partnerCode:[""],
       email: ["", [Validators.required, Validators.email]],
       otp_verified: ["0"],
@@ -302,6 +314,10 @@ export class HeaderComponent implements OnInit {
   get firstname() {
     return this.signupForm.get("firstname");
   }
+  
+  get lastname() {
+    return this.signupForm.get("lastname");
+  }
   get companyName() {
     return this.signupForm.get("companyName");
   }
@@ -375,14 +391,13 @@ toastrmsg(type, title) {
   }
 
   openModal2(signup: TemplateRef<any>) {
-    //this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
     try {
       this.modalRef.hide();
     } catch (e) {}
     this.signupForm.controls["otp_verified"].setValue("0");
     this.otp_verified = 0;
     this.ref.markForCheck();
-    this.router.navigate(['/index/sign-up']);
   }
 
   //aapathonSignUpForm
@@ -398,12 +413,17 @@ toastrmsg(type, title) {
     this.ref.markForCheck();
   }
   //aapathonSignUpForm
-  openModal(signin: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(signin, { backdrop: "static" });
+  openModal() {
 
-    try {
-      this.modalRef2.hide();
-    } catch (e) {}
+   
+    const dialogRef = this.dialog.open(SigninModalComponent, {
+      disableClose: true,
+    });
+    
+    setTimeout(function() {
+      this.router.navigate(["index"]);
+    }, 10);
+  
   }
   Modalforgotpassw(forgotpassw: TemplateRef<any>) {
     this.modalRef3 = this.modalService.show(forgotpassw, {
@@ -585,7 +605,7 @@ toastrmsg(type, title) {
         password: this.signupForm3.value.password,
         email: this.signupForm.value.email,
         firstname: this.signupForm.value.firstname,
-        lastName: this.signupForm.value.firstname,
+        lastName: this.signupForm.value.lastname,
         domainNm: this.signupForm.value.domainNm,
         companyName: this.signupForm.value.companyName,
         contactNo: this.signupForm2.value.mobile_no,
@@ -738,7 +758,7 @@ toastrmsg(type, title) {
       userName: this.signupForm3.value.uname,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
-      lastName: this.signupForm.value.firstname,
+      lastName: this.signupForm.value.lastname,
       domainNm: this.signupForm.value.domainNm,
       companyName: this.signupForm.value.companyName,
       contactNo: this.signupForm2.value.mobile_no,
@@ -1097,7 +1117,25 @@ toastrmsg(type, title) {
       this.shfrmSFThird = id == 3 ? true : false;
     }
   }
-
+  @ViewChild('basicDetails') BasicDetailsList: ElementRef;
+  @ViewChild('mobileNumber') mobileNumber: ElementRef;
+  @ViewChild('credentials') credentials: ElementRef;
+  parentMethod(data) {
+    console.log(data, "yessss"); console.log("agn", data, "yess", "#" + data);
+    this.childData = data;
+    console.log("document.querySelector", document.querySelector);
+    if (data == "BasicDetailsList") {
+      console.log(this);
+      this.BasicDetailsList.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }
+    else if (data == "mobileNumber") {
+      this.mobileNumber.nativeElement.scrollIntoView({ behavior: "smooth" });
+    }
+    else if (data == "credentials") {
+      this.credentials.nativeElement.scrollIntoView({ behavior: "smooth" });
+    }
+ 
+  }
   // To get Domain List
   get_domain_and_apis() {
     this.adm.domain_and_apis().subscribe((data: any) => {
@@ -1117,7 +1155,7 @@ toastrmsg(type, title) {
   }
 
   scroll_view(id) {
-    this.router.navigate(["index"]);
+    this.router.navigate(["signUp"]);
     
     setTimeout(function() {
     $('html, body').animate({ scrollTop: $(id).offset().top -100});
@@ -1128,7 +1166,7 @@ toastrmsg(type, title) {
   
   }
   scroll_viewHome() {
-    this.router.navigate(["index"]);
+    this.router.navigate(["signUp"]);
    
     window.scrollTo(0, 0);
   
@@ -1212,4 +1250,6 @@ toastrmsg(type, title) {
 
     },);
   }
+
+ 
 }

@@ -243,7 +243,7 @@ export class SigninModalComponent implements OnInit {
   openModal2(signup: TemplateRef<any>) {
     console.log(this.domainLst )
   
-    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+  // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
 
     try {
       //this.modalRef.hide();
@@ -255,6 +255,7 @@ export class SigninModalComponent implements OnInit {
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
+    this.router.navigate(['/index/sign-up']);
     
   }
   openModal(signin: TemplateRef<any>) {

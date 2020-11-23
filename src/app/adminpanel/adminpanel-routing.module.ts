@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../services/auth.guard';
+
 import { AdminpanelComponent } from './adminpanel.component';
 import { RequestsComponent } from './requests/requests.component';
 import { ApprovalComponent } from './approval/approval.component';
@@ -9,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { PendingRegComponent } from './pending-reg/pending-reg.component';
 import { DocumentuploadComponent } from './documentupload/documentupload.component'
 import { DocumentdownloadComponent } from './documentdownload/documentdownload.component'
+import { AdminAuthGuard } from '../services/admin-auth.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +24,7 @@ const routes: Routes = [
       { path: 'document-upload', component: DocumentuploadComponent },
       { path: 'document-download', component: DocumentdownloadComponent }
     ],
-    canActivate: [AuthGuard],
+    canActivate: [AdminAuthGuard],
   },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },

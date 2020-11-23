@@ -84,7 +84,7 @@ export class LoginService {
     });
     let options = new RequestOptions({ headers: headers });
    return this.http.post(this.apiUrl + "login", query, options);
-   // return this.http.post(this.UAT_apiUrl + "login", query, options);
+  // return this.http.post(this.UAT_apiUrl + "login", query, options);
   }
   //#JWT Login Api
   LoginJWT(data) {
@@ -99,7 +99,7 @@ export class LoginService {
     });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.apiUrl + 'loginJWT', query, options);
-   // return this.http.post(this.UAT_apiUrl + 'loginJWT', query, options);
+   //return this.http.post(this.UAT_apiUrl + 'loginJWT', query, options);
   }
 
   LoginPortal(json) {
@@ -797,7 +797,7 @@ getMisFile(json) {
    "username" :json.userName,
  });
  let options = new RequestOptions({ headers: headers });
- return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);
+ return this.http.post(this.apiUrl + "getMisFile", query, options);
 
 }
 downloadFromURL(url: string){

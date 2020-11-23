@@ -73,6 +73,9 @@ export class BranchDetailsComponent implements OnInit {
         this.compositpay= false;
         this.faqEazypay= false;
       }
+      if(num === "177" || num === 177){
+        this.image = "https://developer.icicibank.com/assets/images/BBPS.png";
+      }
     });
   }
   constants = CONSTANTS;
@@ -131,6 +134,9 @@ export class BranchDetailsComponent implements OnInit {
       this.description = this.obj[0].DESCRIPTION;
       this.image = this.obj[0].IMAGE_URL;
       this.file = this.obj[0].FILE_URL;
+      if(this.branchId === "177" || this.branchId === 177){
+        this.image = "https://developer.icicibank.com/assets/images/BBPS.png";
+      }
     },
     err => {
       console.log('err', err);

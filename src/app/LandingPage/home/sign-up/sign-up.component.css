@@ -1,0 +1,13 @@
+.overlay_parent{
+	top: 0;
+    width: 100%;
+    pointer-events: none;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.borderCustom{
+    border-top: 1.2px solid #dcdcdc;
+}
+.padding20px{    padding: 20px;
+}

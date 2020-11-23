@@ -491,6 +491,7 @@ input:focus {
   color: #747582;
   opacity: 0.6;
   font-family: FontAwesome;
+  margin-right: -57px;
 }
 
 .custom-dropdown::before {

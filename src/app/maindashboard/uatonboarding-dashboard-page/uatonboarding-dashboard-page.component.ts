@@ -647,6 +647,11 @@ else{
       userName: localStorage.getItem("username"),
       domainName: distinctArray.toString(),
       domainApis: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
+      
+      apiId: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,
+      apiName: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
+      
+      
       mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
       desc: reactiveFromFieldValues.basicDetailsSection.description,
       spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
@@ -693,6 +698,10 @@ else{
     formData.append("userName", inputFields["userName"]); //1
     formData.append("domainName", inputFields["domainName"]); //2
     formData.append("domainApis", inputFields["domainApis"]); //3
+
+  //  formData.append("apiId", inputFields["apiId"]); //
+  //  formData.append("apiName",inputFields["apiName"]); //
+
     formData.append("mName", inputFields["mName"]);  //4
     formData.append("desc", inputFields["desc"]); //5
     formData.append("spocEmail", inputFields["spocEmail"]); //6
@@ -782,6 +791,7 @@ else{
     // Jira Service
     //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
     //https://developerapi.icicibank.com:8443/api/v2/jira
+    //https://developer.icicibank.com/ROOT_UAT/rest/create-jira-new
     this.HttpClient.post<any>(
       "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData

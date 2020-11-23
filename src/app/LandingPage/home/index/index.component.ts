@@ -772,13 +772,14 @@ export class IndexComponent implements OnInit {
   }
 
   openModal2(signup: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+   // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
     try {
       this.modalRef.hide();
     } catch (e) { }
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
+    this.router.navigate(['/index/sign-up']);
   }
   already_Log(alreadylogin: any, signup: any) {
     if (localStorage.getItem("id") != null) {
