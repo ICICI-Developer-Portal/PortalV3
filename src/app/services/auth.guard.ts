@@ -41,6 +41,10 @@ export class AuthGuard implements CanActivate {
       !localStorage.getItem('username')
     ) {
       this.adm.sendUserId('');
+
+      const dialogRef = this.dialog.open(SigninModalComponent, {
+        disableClose: true,
+      });
       this.adm.LogoutPortal().subscribe(
         res => {
           //   this.router.navigate(['/index'], {
@@ -48,9 +52,9 @@ export class AuthGuard implements CanActivate {
           //   });
           //   return false;
 
-          const dialogRef = this.dialog.open(SigninModalComponent, {
+         /*  const dialogRef = this.dialog.open(SigninModalComponent, {
             disableClose: true,
-          });
+          }); */
           return false;
         },
         err => {
@@ -59,9 +63,9 @@ export class AuthGuard implements CanActivate {
           //   });
           //   return false;
 
-          const dialogRef = this.dialog.open(SigninModalComponent, {
+        /*   const dialogRef = this.dialog.open(SigninModalComponent, {
             disableClose: true,
-          });
+          }); */
           return false;
         },
       );

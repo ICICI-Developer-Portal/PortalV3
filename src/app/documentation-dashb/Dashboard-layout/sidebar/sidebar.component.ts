@@ -280,9 +280,9 @@ export class SidebarComponent implements OnInit {
       class="collapse nav-pills-third-level submenuLevelThree list-unstyled"
     >`;
     }
-
+//childrenArr[i].TREE_ID == "557" || 
     for (var i = 0; i < childrenArr.length; i++) {
-      if(childrenArr[i].TREE_ID =="556" || childrenArr[i].TREE_ID == "557" ||  childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
+      if(childrenArr[i].TREE_ID =="556" ||  childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
 
       else{
       if (childrenArr[i].CHILD_COUNT !== "0") {

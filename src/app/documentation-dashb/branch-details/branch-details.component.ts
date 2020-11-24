@@ -166,6 +166,9 @@ export class BranchDetailsComponent implements OnInit {
     if(this.branchId === "177" || this.branchId === 177 ){
       this.file = "https://developer.icicibank.com/assets/documents/BBPS.pdf";
     }
+    if(this.branchId === "570" || this.branchId === 570 ){
+      this.file = "https://developer.icicibank.com/assets/documents/InstaOD_API_Specification_Latest.pdf";
+    }
     dwldLink.setAttribute("href", this.file);
     //dwldLink.setAttribute("download", fileName + ".csv");
     dwldLink.style.visibility = "hidden";
