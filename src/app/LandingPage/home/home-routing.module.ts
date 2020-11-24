@@ -10,7 +10,6 @@ import { TermsandconditionComponent } from './termsandcondition/termsandconditio
 import { NDAComponent } from './nda/nda.component';
 import { ContractComponent } from './contract/contract.component';
 import { AuthGuard } from '../../services/auth.guard';
-import { SignUpComponent } from './sign-up/sign-up.component';
 //import { AppathonComponent } from '../../LandingPage/home/appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 const routes: Routes = [
@@ -21,7 +20,6 @@ const routes: Routes = [
     children: [
       { path: '', component: IndexComponent },
       { path: 'faq', component: FaqComponent },
-      { path: 'sign-up', component: SignUpComponent },
       {
         path: 'userprofile',
         component: UserprofileComponent,

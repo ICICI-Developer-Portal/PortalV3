@@ -8,6 +8,8 @@ import { AppathonComponent } from "./appathon/appathon.component";
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component'
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
+import { SignUpComponent } from './sign-up/sign-up.component';
+
 //import { DownloadComponent } from "./maindashboard/download/download.component";
 //import { MisComponent } from "./maindashboard/mis/mis.component";
 
@@ -24,6 +26,8 @@ const routes: Routes = [
     component: JwtAuthComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'sign-up', component: SignUpComponent },
+
   //{path: '404', component: ErrorPageComponent},
  // {path: '**', redirectTo: '/404'},
 
