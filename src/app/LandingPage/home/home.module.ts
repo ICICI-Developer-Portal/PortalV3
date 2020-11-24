@@ -29,8 +29,7 @@ import {
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 import { FocusOnShowDirective } from './autofocus.directive';
-import { SignUpComponent } from "./sign-up/sign-up.component";
-import { SignUpSidebarComponent } from "./sign-up-sidebar/sign-up-sidebar.component";
+
 //import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 //import { CarouselComponent } from './carousel/carousel.component';
 @NgModule({
@@ -64,8 +63,7 @@ import { SignUpSidebarComponent } from "./sign-up-sidebar/sign-up-sidebar.compon
     NDAComponent,
     ContractComponent,
     FocusOnShowDirective,
-    SignUpComponent,
-    SignUpSidebarComponent
+   
     
   ]
 

@@ -6,7 +6,7 @@ import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/ro
 import { LoginService } from "src/app/services";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { PasswordValidation } from "../../../LandingPage/layout/header/password.validator";
+import { PasswordValidation } from "../LandingPage/layout/header/password.validator";
 
 import { ChangeDetectorRef } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
@@ -16,10 +16,10 @@ import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
-import { CustomValidators } from "../../../LandingPage/layout/header/custom-validators";
+import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
 import { DatePipe } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
-import { SigninModalComponent } from '../common-modal/signin-modal.component';
+import { SigninModalComponent } from '../LandingPage/home/common-modal/signin-modal.component';
 import {
   MatDialog,
   MatDialogRef,

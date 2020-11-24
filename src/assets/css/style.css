@@ -383,6 +383,10 @@ input:focus {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+footer{
+  z-index: 9999;
+  position: relative;
+}
 .radioBtnContainer .checkmark:after {
   content: '';
   position: absolute;
