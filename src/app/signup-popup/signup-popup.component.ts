@@ -30,12 +30,12 @@ import { DatePipe } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
 declare var $: any;
 @Component({
-  selector: "app-signup-popuo",
-  templateUrl: "./signup-popuo.component.html",
-  styleUrls: ['./signup-popuo.component.css'],
+  selector: "app-signup-popup",
+  templateUrl: "./signup-popup.component.html",
+  styleUrls: ['./signup-popup.component.css'],
   providers: [DatePipe]
 })
-export class SignupPopuoComponent implements OnInit {
+export class SignupPopupComponent implements OnInit {
   treeDataKeys: any;
   responseData: any;
   menuArray: any[];

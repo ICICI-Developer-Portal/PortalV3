@@ -47,7 +47,7 @@ import { ProductionOnboardingModule } from "./production-onboarding/production-o
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 import { SignUpSidebarComponent } from "./sign-up-sidebar/sign-up-sidebar.component";
-import { SignupPopuoComponent } from './signup-popuo/signup-popuo.component';
+import { SignupPopupComponent } from './signup-popup/signup-popup.component';
 // import { DataTableModule } from "angular7-data-table";
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
@@ -65,7 +65,7 @@ import { SignupPopuoComponent } from './signup-popuo/signup-popuo.component';
     PagenotfoundComponent,
     SignUpComponent,
     SignUpSidebarComponent,
-    SignupPopuoComponent
+    SignupPopupComponent
   ],
   imports: [
     BrowserModule,

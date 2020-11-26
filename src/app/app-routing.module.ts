@@ -9,7 +9,7 @@ import { JwtAuthComponent } from './jwt-auth/jwt-auth.component'
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { SignupPopuoComponent } from './signup-popuo/signup-popuo.component';
+import { SignupPopupComponent } from './signup-popup/signup-popup.component';
 
 
 //import { DownloadComponent } from "./maindashboard/download/download.component";
@@ -29,7 +29,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'signUpPage', component: SignupPopuoComponent },
+  { path: 'signUpPage', component: SignupPopupComponent },
 
 
   //{path: '404', component: ErrorPageComponent},
