@@ -5,7 +5,7 @@ import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router,NavigationEnd  } from "@angular/router";
 import { LoginService } from "src/app/services";
-import { PasswordValidation } from "../../layout/header/password.validator";
+import { PasswordValidation } from "src/app/LandingPage/layout/header/password.validator";
 import { VariablesService } from "src/app/services/Variables.service";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import {
@@ -25,17 +25,17 @@ import { PATTERNS } from "config/regex-pattern";
 import { DashboardService } from "src/app/services/dashboard.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { CustomValidators } from "../../layout/header/custom-validators";
+import { CustomValidators } from "src/app/LandingPage/layout/header/custom-validators";
 import { DatePipe } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
 declare var $: any;
 @Component({
-  selector: "app-index",
-  templateUrl: "./index.component.html",
-  styleUrls: ['./index.component.css'],
+  selector: "app-signup-popuo",
+  templateUrl: "./signup-popuo.component.html",
+  styleUrls: ['./signup-popuo.component.css'],
   providers: [DatePipe]
 })
-export class IndexComponent implements OnInit {
+export class SignupPopuoComponent implements OnInit {
   treeDataKeys: any;
   responseData: any;
   menuArray: any[];

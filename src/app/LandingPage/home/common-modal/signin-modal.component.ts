@@ -255,7 +255,7 @@ export class SigninModalComponent implements OnInit {
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
-    this.router.navigate(['/index/sign-up']);
+    this.router.navigate(['/sign-up']);
     
   }
   openModal(signin: TemplateRef<any>) {

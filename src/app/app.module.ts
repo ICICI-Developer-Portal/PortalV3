@@ -47,6 +47,7 @@ import { ProductionOnboardingModule } from "./production-onboarding/production-o
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 import { SignUpSidebarComponent } from "./sign-up-sidebar/sign-up-sidebar.component";
+import { SignupPopuoComponent } from './signup-popuo/signup-popuo.component';
 // import { DataTableModule } from "angular7-data-table";
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
@@ -63,7 +64,8 @@ import { SignUpSidebarComponent } from "./sign-up-sidebar/sign-up-sidebar.compon
     FocusOnShowDirective,
     PagenotfoundComponent,
     SignUpComponent,
-    SignUpSidebarComponent
+    SignUpSidebarComponent,
+    SignupPopuoComponent
   ],
   imports: [
     BrowserModule,

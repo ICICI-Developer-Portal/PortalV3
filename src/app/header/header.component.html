@@ -88,8 +88,12 @@
         <!-- <li><a *ngIf="!showbtn" (click)="logout()">Logout</a></li> -->
         <!-- <li><a data-toggle="tab" [routerLink]="['/index/merchantOnboarding']">Onboarding Request</a></li> -->
         <li>
-          <a class="tryItFreeBtn" *ngIf="showbtn" [routerLink]="['/index/sign-up']" >Sign Up</a>
+          <a class="tryItFreeBtn" *ngIf="showbtn"  (click)="signupNavigation()"  id="signupNavigation">Sign Up</a>
         </li>
+        <!-- <li>
+          <a class="tryItFreeBtn" *ngIf="showbtn" (click)="openModal(signup)" >Sign Up</a>
+        </li> -->
+        
         <li>
           <a class="signInBtn" *ngIf="showbtn" (click)="openModal(signin)">Sign In</a>
         </li>
@@ -155,7 +159,7 @@
               > -->
   
               <a data-dismiss="modal" data-toggle="modal" data-target="#signUp" (click)="openModal2(signup)"
-                class="tryItFreeBtn h-signup">Sign Up</a>
+                class="tryItFreeBtn h-signup" id="signupBtn">Sign Up</a>
               <a data-dismiss="modal" class="signInBtn h-signin" data-toggle="modal" (click)="openModal(signin)"
                 data-target="#signIn">Sign In</a>
             </div>
@@ -172,7 +176,7 @@
   <!-- Signin Modal -->
   <ng-template #signin>
     <div class="modal-header">
-      <h3 class="modal-title pull-left">Please Login </h3>
+      <h3 class="modal-title pull-left">Please Login</h3>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -289,11 +293,12 @@
   <!-- End Modal -->
   <!-- Modal for Signup -->
   <!-- Modal for Signup -->
-  <ng-template #signup>
-    <div class="modal-header"  tabindex="-1" role="dialog">
+  <ng-template #signup >
+    <div class="modal-header"  tabindex="-1" role="dialog" >
       <h3 class="modal-title pull-left">Let's get you On-board </h3>
   
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+      <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.data-dismiss()"> -->
+        <button type="button" class="close pull-right" aria-label="Close" (click)="openModalSigninModal()"> 
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -656,7 +661,10 @@
         <div class="col-12 pl0">
           <p class="signin_p">
             Already have an account? Please
-            <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+            <span>
+              <!-- <a class="signIn" (click)="openModal(signin)">Login</a> -->
+              <a class="signIn"  (click)="openModalSigninModal()">Login</a>
+            </span>
           </p>
           <p class="fs10 signin_p">
             <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.

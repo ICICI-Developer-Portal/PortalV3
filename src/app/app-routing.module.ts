@@ -9,6 +9,8 @@ import { JwtAuthComponent } from './jwt-auth/jwt-auth.component'
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignupPopuoComponent } from './signup-popuo/signup-popuo.component';
+
 
 //import { DownloadComponent } from "./maindashboard/download/download.component";
 //import { MisComponent } from "./maindashboard/mis/mis.component";
@@ -27,6 +29,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'sign-up', component: SignUpComponent },
+  { path: 'signUpPage', component: SignupPopuoComponent },
+
 
   //{path: '404', component: ErrorPageComponent},
  // {path: '**', redirectTo: '/404'},
