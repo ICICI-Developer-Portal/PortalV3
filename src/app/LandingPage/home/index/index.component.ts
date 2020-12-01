@@ -779,7 +779,7 @@ export class IndexComponent implements OnInit {
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
-    this.router.navigate(['/sign-up']);
+    this.router.navigate(['/signUpPage']);
   }
   already_Log(alreadylogin: any, signup: any) {
     if (localStorage.getItem("id") != null) {

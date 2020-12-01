@@ -383,10 +383,6 @@ input:focus {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-footer{
-  z-index: 9999;
-  position: relative;
-}
 .radioBtnContainer .checkmark:after {
   content: '';
   position: absolute;
@@ -1221,7 +1217,7 @@ transform: rotate(180deg);
 .bannerContent {
   position: relative;
   top: 50%;
- /*  transform: translateY(-50%); */
+  transform: translateY(-50%);
 }
 .bannerContent h2 {
   font-family: Poppins-Bold;

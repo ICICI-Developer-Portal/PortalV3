@@ -8,9 +8,8 @@ import { AppathonComponent } from "./appathon/appathon.component";
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component'
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignupPopupComponent } from './signup-popup/signup-popup.component';
-
+import { AdminpanelComponent } from "./adminpanel/adminpanel.component";
 
 //import { DownloadComponent } from "./maindashboard/download/download.component";
 //import { MisComponent } from "./maindashboard/mis/mis.component";
@@ -28,7 +27,7 @@ const routes: Routes = [
     component: JwtAuthComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'sign-up', component: SignUpComponent },
+ 
   { path: 'signUpPage', component: SignupPopupComponent },
 
 
@@ -47,7 +46,23 @@ const routes: Routes = [
   component:PagenotfoundComponent ,
 
 },
-  {
+{ path: 'admin', redirectTo :'/admin', pathMatch :'full' },
+  /* {
+    path: "admin",
+    component: AdminpanelComponent,
+    // canActivate: [true],
+    children: [
+     
+    //  { path: 'login', component: LoginComponent },
+      {
+        path: "",
+        redirectTo: '/admin/login',
+        pathMatch: 'full'
+        
+      },
+    ]
+  }, */
+ /*  {
     path: "admin",
     component: AdminPortalComponent,
     // canActivate: [true],
@@ -57,7 +72,7 @@ const routes: Routes = [
         loadChildren: "./adminpanel/adminpanel.module#AdminpanelModule"
       }
     ]
-  },
+  }, */
   {
     path: "appathon",
     component: AppathonComponent,

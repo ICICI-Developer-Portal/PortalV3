@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef,ElementRef, ɵConsole,ViewChild } from "@angular/core";
+import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
 import { Toast, ToasterService } from "angular2-toaster";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
@@ -27,7 +27,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   
-  @ViewChild('signup') signup:ElementRef;
+  
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
@@ -143,16 +143,8 @@ export class HeaderComponent implements OnInit {
   }
      
   ngOnInit() {
-    console.log(this.router.url,window.location.hash)
-console.log( this.router.url=="#/signUpPage")
 
-console.log("#/signUpPage")
-if(window.location.hash=="#/signUpPage"){
-  document.getElementById("signupBtn").click();
-
-}
-// $('#signup').modal('show');
-// $("#signupBtn").click();
+    
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
@@ -290,13 +282,6 @@ if(window.location.hash=="#/signUpPage"){
     }
     this.userName = localStorage.getItem("username");
   }
-  signupNavigation(){
-    window.location.href = '#/signUpPage';
-   location.reload(true)
-   // window.location.href = 'http://www.google.com'"
-    // window.onload;
-
-  }
 /* active class toggle **/
   addActiveClass(e){
     console.log(e);
@@ -392,14 +377,12 @@ toastrmsg(type, title) {
   openModal2(signup: TemplateRef<any>) {
     //this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
     try {
-      this.modalService.show(signup, {
-        backdrop: "static"
-      });
+      this.modalRef.hide();
     } catch (e) {}
     this.signupForm.controls["otp_verified"].setValue("0");
     this.otp_verified = 0;
     this.ref.markForCheck();
-    this.router.navigate(['/sign-up']);
+    this.router.navigate(['/signUpPage']);
   }
 
   //aapathonSignUpForm
@@ -587,11 +570,6 @@ toastrmsg(type, title) {
     window.sessionStorage.setItem(key, JSON.stringify(newValue));
   }
 
-  openModalSigninModal(){
-    window.location.href = '#/index';
-    location.reload(true)
-
-  }
   today = new Date();
   sign_up() {
     var CurrentTime = formatDate(
@@ -630,8 +608,6 @@ toastrmsg(type, title) {
             "success",
             "Thank you for registering. Your account has been successfully created. Please log in to continue."
           );
-          window.location.href = '#/index';
-          location.reload(true)
           this.spinnerService.hide();
           this.signupForm.reset();
           this.signupForm2.reset();
@@ -642,8 +618,7 @@ toastrmsg(type, title) {
           this.shfrmSFSecond = false;
           this.shfrmSFThird = false;
 
-          // this.router.navigate(["/index"]);
-        
+          this.router.navigate(["/index"]);
         } else {
           this.shfrmSFThird = true;
           this.shfrmSFSecond = false;
@@ -1108,6 +1083,7 @@ toastrmsg(type, title) {
         this.router.navigate(["/index"]);
       }
     );
+    this.router.navigate(["/index"]);
   }
 
   signup_link(id) {

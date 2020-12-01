@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild, ɵConsole } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
@@ -28,6 +28,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { CustomValidators } from "src/app/LandingPage/layout/header/custom-validators";
 import { DatePipe } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
+import { MatDialog } from "@angular/material";
 declare var $: any;
 @Component({
   selector: "app-signup-popup",
@@ -35,7 +36,8 @@ declare var $: any;
   styleUrls: ['./signup-popup.component.css'],
   providers: [DatePipe]
 })
-export class SignupPopupComponent implements OnInit {
+export class SignupPopupComponent implements OnInit, AfterViewInit {
+  @ViewChild('signupBtn') myModal:ElementRef;
   treeDataKeys: any;
   responseData: any;
   menuArray: any[];
@@ -195,7 +197,8 @@ export class SignupPopupComponent implements OnInit {
     private adm: LoginService,
     private toasterService: ToasterService,
     private dashboardService: DashboardService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    public dialog: MatDialog,
   ) {
     this.objOnB = this.objOnBoarding.getonBoarding();
     this.Hide_signbtn();
@@ -231,7 +234,11 @@ export class SignupPopupComponent implements OnInit {
   ngOnInit() {
     var self = this;
    // alert(navigator.userAgent);
-
+ /*   $(document).ready(function(){
+    setTimeout(function(){
+      self.openModal123();
+    },5000); // 5000 to load it after 5 seconds from page load
+ }); */
     var browser = (function (agent) {
       switch (true) {
           case agent.indexOf("edge") > -1: return "edge";
@@ -398,9 +405,19 @@ export class SignupPopupComponent implements OnInit {
    
   }
 
- 
+  ngAfterViewInit () {
+    setTimeout(() =>{
+      this.myModal.nativeElement.click();;
+  //  document.getElementById("signupBtn").click();
+    }, 100)
+  }
   closeSignUp(){
     this.modalRef2.hide();
+    this.router.navigate(["/index"]);
+  }
+  closeSignIn(){
+    this.modalRef.hide();
+    this.router.navigate(["/index"]);
   }
   bannerTArget1($event){
     // alert("hi")
@@ -772,14 +789,14 @@ export class SignupPopupComponent implements OnInit {
   }
 
   openModal2(signup: TemplateRef<any>) {
-   // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
     try {
       this.modalRef.hide();
     } catch (e) { }
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
-    this.router.navigate(['/sign-up']);
+    //this.router.navigate(['/sign-up']);
   }
   already_Log(alreadylogin: any, signup: any) {
     if (localStorage.getItem("id") != null) {
@@ -851,11 +868,11 @@ export class SignupPopupComponent implements OnInit {
         let respData =  obj.data;
         if(respData && respData.companyName ){
           localStorage.setItem('companyName',respData.companyName);
-        }else if(respData && respData.mobileNo ){
+        } if(respData && respData.mobileNo ){
           localStorage.setItem('mobileNo',respData.mobileNo);
-        }else if(respData && respData.email ){
+        }if(respData && respData.email ){
           localStorage.setItem('email',respData.email);
-        }else if(respData && respData.rm ){
+        } if(respData && respData.rm ){
           localStorage.setItem('rm',respData.rm);
         }
 
@@ -868,13 +885,14 @@ export class SignupPopupComponent implements OnInit {
         this.adm.sendUserId(obj.data.id);
         this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-            this.router.navigate([this.router.url]);
+            this.router.navigate(['/index']);
           },
           err => {
-            this.router.navigate([this.router.url]);
+            this.router.navigate(['/index']);
           }
         );
         this.spinnerService.hide();
+        this.router.navigate(['/index']);
       } else {
         this.spinnerService.hide();
         this.isusername = false;

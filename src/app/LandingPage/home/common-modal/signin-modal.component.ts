@@ -255,7 +255,7 @@ export class SigninModalComponent implements OnInit {
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
-    this.router.navigate(['/sign-up']);
+    this.router.navigate(['/signUpPage']);
     
   }
   openModal(signin: TemplateRef<any>) {
@@ -727,6 +727,7 @@ export class SigninModalComponent implements OnInit {
         this.router.navigate(["/index"]);
       }
     );
+    this.router.navigate(["/index"]);
   }
 
   signup_link(id) {

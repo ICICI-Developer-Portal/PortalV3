@@ -48,6 +48,7 @@ export class LoginService {
           this.router.navigate(["/index"]);
         }
       );
+      this.router.navigate(["/index"]);
     }
   }
   clearUserId() {

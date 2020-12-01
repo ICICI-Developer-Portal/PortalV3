@@ -44,18 +44,18 @@
       </div> -->     
       <div class="" style="padding-top: 20px;"> 
      
-       <div class="col-md-12" style="text-align: center;">
-          <div class="mt20" >
+        <div class="col-md-12" style="text-align: center;">
+           <div class="mt20" >
+            
+             <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="font-family: Poppins-Bold;color: #004a7f;
+             font-weight: bold;
+             ">Collaborate, Build, Unleash</h2>
+             <a class="signInBtn mr10 display_inline_block" style="height: 40px;
+             margin-left: 10px;vertical-align: top;"  [routerLink]="['/documentation']">BROWSE ALL API</a>
            
-            <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="color: #004a7f;
-            font-weight: bold;
-            ">Collaborate, Build, Unleash</h2>
-            <a class="signInBtn mr10 display_inline_block" style="height: 40px;
-            margin-left: 10px;vertical-align: top;"  [routerLink]="['/documentation']">BROWSE ALL API</a>
-          
-       
-   
-      </div></div>    </div>  
+        
+    
+       </div></div>    </div>  
       <!-- <div _ngcontent-c4="" class="col-md-12" style="text-align: center;padding-top: 55px;"><div _ngcontent-c4="" class="bannerContent"><h2 _ngcontent-c4="" class="mb30">Collaborate, Build, Unleash</h2><a _ngcontent-c4="" class="signInBtn mr10" href="#/documentation">BROWSE ALL API</a></div></div> -->
     <!-- </div> -->
 
@@ -162,7 +162,7 @@
         </div>
       </div>
       <div class="row">
-        <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" [routerLink]="['/sign-up']" style = "padding: 18px 25px;">SIGN UP</a>
+        <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" [routerLink]="['/signUpPage']" style = "padding: 18px 25px;">SIGN UP</a>
       </div>
     </section>
     <section id="UAT_onboard" class="sectionAPIs text-center">
@@ -1499,11 +1499,14 @@
 </div>
 <!-- Modal for Signup -->
 <!-- Modal for Signup -->
+
+<a data-dismiss="modal" data-toggle="modal" data-target="#signUp" (click)="openModal2(signup)"
+[hidden]="true"  #signupBtn>Sign Up</a>
 <ng-template #signup>
   <div class="modal-header">
     <h3 class="modal-title pull-left">Let's get you On-board</h3>
 
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeSignUp()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -1668,7 +1671,7 @@
                 OTP sent to your mobile number.
               </div>
             </div>
-            <div class="col-md-4 mt4">
+          <!--   <div class="col-md-4 mt4">
               <button [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
                 (click)="SendOtp(Mobile.value)" (click)='buttonClick1()' [disabled]="btnDisabled"
                 [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
@@ -1676,9 +1679,26 @@
 
 
               </button>
-              <!-- <h6><span id="time" >00:00</span></h6> -->
+              <!-- <h6><span id="time" >00:00</span></h6> --
 
               <button type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
+                change
+              </button>
+            </div> -->
+            <div class="col-md-4 " style="    margin-top: 28px !important; ">
+              <button  [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
+                (click)="SendOtp(Mobile.value)"
+                (click)='buttonClick1()' 
+                  [disabled] = "btnDisabled"
+                  [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
+                  {{btnText}}
+               
+                
+              </button>
+              <!-- <h6><span id="time" >00:00</span></h6> -->
+
+
+              <button  type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
                 change
               </button>
             </div>
@@ -1888,7 +1908,7 @@
 <ng-template #signin>
   <div class="modal-header">
     <h3 class="modal-title pull-left">Please Login</h3>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeSignIn()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

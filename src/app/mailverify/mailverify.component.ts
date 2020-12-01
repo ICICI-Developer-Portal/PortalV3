@@ -70,6 +70,7 @@ export class MailverifyComponent implements OnInit {
         this.router.navigate(["/index"]);
       }
     );
+    this.router.navigate(["/index"]);
   }
 
   scroll_view(id) {

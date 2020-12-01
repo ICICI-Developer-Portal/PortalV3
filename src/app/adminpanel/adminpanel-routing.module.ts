@@ -15,7 +15,7 @@ import { AdminAuthGuard } from '../services/admin-auth.guard';
 const routes: Routes = [
   {
     //    path: 'request', component: RequestsComponent
-    path: '',
+    path: 'admin',
     component: AdminpanelComponent,
     children: [
       { path: 'request', component: RequestsComponent },
@@ -28,7 +28,12 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-
+  {
+    path: "",
+    redirectTo: '/admin/login',
+    pathMatch: 'full'
+    
+  },
   //{ path: '**', redirectTo :'admin/login'},
   // { path: 'analytics', component: AnalyticsComponent ,canActivate: [AuthGuard]},
   // { path: 'userprofile', component: UserprofileComponent ,canActivate: [AuthGuard]},

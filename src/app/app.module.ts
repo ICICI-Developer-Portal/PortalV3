@@ -45,9 +45,9 @@ import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
 import { FocusOnShowDirective } from "./autofocus.directive";
 import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
-import { SignUpComponent } from "./sign-up/sign-up.component";
-import { SignUpSidebarComponent } from "./sign-up-sidebar/sign-up-sidebar.component";
+
 import { SignupPopupComponent } from './signup-popup/signup-popup.component';
+import { AdminpanelModule } from "./adminpanel/adminpanel.module";
 // import { DataTableModule } from "angular7-data-table";
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
@@ -63,8 +63,6 @@ import { SignupPopupComponent } from './signup-popup/signup-popup.component';
     HeaderComponent,
     FocusOnShowDirective,
     PagenotfoundComponent,
-    SignUpComponent,
-    SignUpSidebarComponent,
     SignupPopupComponent
   ],
   imports: [
@@ -81,7 +79,7 @@ import { SignupPopupComponent } from './signup-popup/signup-popup.component';
     UserservicesModule,
     MailverifyModule,
     MatDialogModule,
-
+    AdminpanelModule,
     FormsModule,
     ReactiveFormsModule,
     ToasterModule.forRoot(),
@@ -91,6 +89,7 @@ import { SignupPopupComponent } from './signup-popup/signup-popup.component';
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
+  
     // DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
@@ -98,7 +97,7 @@ import { SignupPopupComponent } from './signup-popup/signup-popup.component';
   ],
   providers: [
     Location, 
-  //  {provide: LocationStrategy, useClass: PathLocationStrategy},
+    {provide: LocationStrategy, useClass: PathLocationStrategy},
     Config,
     LoginService,
     VariablesService,   
