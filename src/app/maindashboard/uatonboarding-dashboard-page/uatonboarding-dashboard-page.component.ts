@@ -90,6 +90,7 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   selectedValue = [];
   selectedAPINAME = [];
   progress: number;
+  clicked:boolean=false;
 
 term:any;
 errorMsg:any = "Something went wrong. Please try again in some time.";
@@ -181,42 +182,164 @@ $('ul li .usernameClass').addClass('active');
       e.stopPropagation();
     });
     $("#searchFilter").keyup(function () {
-      var text = $("#searchFilter").val().toLowerCase();
-      var items = $(".customcsscontainer label");
+//       var text = $("#searchFilter").val().toLowerCase();
+//       var items = $(".customcsscontainer label");
     
-      if ($.trim($("#searchFilter").val()) == '') {
-         console.log(items.length)
-        $("").css("display","");
-         // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
-          $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
-          $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
-          $(".second-level,third-level,.fourth-level,.fifth-level").hide();
+//       if ($.trim($("#searchFilter").val()) == '') {
+//          console.log(items.length)
+//         $("").css("display","");
+//           $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
+//           $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
+//           $(".second-level,third-level,.fourth-level,.fifth-level").hide();
          
 
-      } else {
-        items.each(function() {
-          var block;
-          block = $(this);
-          // console.log( $(this).attr('greatgreatgrandparentname'))
-          // console.log( $(this).attr('greatgrandparentname'))
-          // console.log( $(this).attr('grandparentname'))
-          // console.log( $(this).attr('parentname'))
-          if (block.text().toLowerCase().indexOf(text) != 0) {
-              block.hide();              
-          } else {
-              block.show();
-              console.log(block)
-             $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
+//       } else {
+//         items.each(function() {
+//           var block;
+//           block = $(this);
+//           if (block.text().toLowerCase().indexOf(text) != 0) {
+//               block.hide();              
+//           } else {
+//               block.show();
+//               console.log(block)
+//              $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
              
-             $(".first-level p").hide();
+//              $(".first-level p").hide();
               
 
-          }
-      });
+//           }
+//       });
          
-      }
+//       }
+// $(".first-level").show();
+//   })
+
+
+var text = $("#searchFilter").val().toLowerCase();
+var items = $(".customcsscontainer label");
+const arry1=[];
+if ($.trim($("#searchFilter").val()) == '') {
+   console.log(items.length)
+  //  $(".second-level a").removeClass("paddingLeft13")
+  $("").css("display","");
+   // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
+    $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
+    $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
+    $(".second-level,third-level,.fourth-level,.fifth-level").hide();
+   
+
+} else {
+  items.each(function() {
+    var block;
+    block = $(this);
+    
+    
+    // if (block.text().toLowerCase().indexOf(text) != 0) { //search starts with first entered ltr
+      if (block.text().toLowerCase().indexOf(text) < 0) { // search starts with entered text 
+        block.hide();  
+   
+        $(".second-level p").hide();        
+    } else {
+
+     
+       $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
+       
+     
+    }
+});
+$('input[subDomainName]:visible').each(function() {
+  if( $('input[subDomainName]:visible').attr("childName")){
+    console.log("last")
+  }
+  else if( $('input[subDomainName]:visible').attr("parentName")){
+    console.log("last 1")
+  }
+  else if( $('input[subDomainName]:visible').attr("grandParentName")){
+    console.log("last 2")
+  }
+  else if( $('input[subDomainName]:visible').attr("greatGrandParentName")){
+    console.log("last 3")
+  }
+  else if( $('input[subDomainName]:visible').attr("greatGreatGrandParentName")){
+    console.log("last 4")
+  }
+ 
+var  block = $(this);
+      console.log( $('.requestedData-list input[type="text"]:visible').attr("subDomainName"),block)
+      console.log($('.requestedData-list input[type="text"]:visible').parentElement)
+       $(".second-level p[class='"+block[0].attributes[3].nodeValue+"']").show();
+       console.log(block);
+       $(this).parents().eq(4).siblings("a").children("p").css("display","block");
+       $(this).parents().eq(6).siblings("a").children("p").css("display","block");
+       $(this).parents().eq(8).siblings("a").children("p").css("display","block");
+
+
+});
+
+if($('input[domainName="Building Blocks"]:visible').length){
+
+  $(".first-level p.Building").show();
+    $(".first-level p.Building").show();
+
+} else{
+  $(".first-level p.Building").hide();
+}
+ if($('input[domainName="Loans and Cards"]:visible').length){
+
+
+  $(".first-level p.Loans").show();
+}
+else{
+  $(".first-level p.Loans").hide();
+
+}
+ if($('input[domainName="Payments"]:visible').length){
+
+
+  $(".first-level p.Payments").show();
+}
+else{
+  $(".first-level p.Payments").hide();
+}
+ if($('input[domainName="Accounts and Deposits"]:visible').length){
+
+
+  $(".first-level p.Accounts").show();
+}
+else{
+  $(".first-level p.Accounts").hide();
+}
+ if($('input[domainName="Business Banking"]:visible').length){
+
+
+  
+  $(".first-level p.Business").show();
+}
+else{
+  $(".first-level p.Business").hide();
+}
+  if($('input[domainName="Trade Services"]:visible').length){
+ 
+  
+  
+    $(".first-level p.Trade").show();
+  }
+  else{
+    $(".first-level p.Trade").hide();
+  }
+    if($('input[domainName="Corporate API Suite"]:visible').length){
+
+
+ 
+      $(".first-level p.Corporate").show();
+    }
+    else{
+      $(".first-level p.Corporate").hide();
+    }
+console.log($('input[domainName="Building Blocks"]:visible').length);   
+}
 $(".first-level").show();
-  })
+})
   }
 
   
@@ -623,6 +746,9 @@ else{
 }
 
   onSubmitUATForm(Prodconfirm) {
+      $("#submitButton").prop("disabled",true)
+            setTimeout(function(){  $("#submitButton").prop("disabled",false)},5000);
+
 
     let ipValues = [];
     let urlValues= [];
@@ -826,17 +952,21 @@ else{
               console.log(res.jiraId, "rchd");
             },
             err => {
+             
               console.log('err', err);
               this.toastrmsg('error',this.errorMsg);
+            
             //  this.router.navigate(['error']);
             },
           );
         }
       },
       err => {
+       
         console.log('err', err);
        // this.router.navigate(['error']);
        this.toastrmsg('error',this.errorMsg);
+      
       },
     );
 

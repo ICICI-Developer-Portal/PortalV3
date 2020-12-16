@@ -85,7 +85,7 @@ export class LoginService {
     });
     let options = new RequestOptions({ headers: headers });
    return this.http.post(this.apiUrl + "login", query, options);
-  // return this.http.post(this.UAT_apiUrl + "login", query, options);
+  //return this.http.post(this.UAT_apiUrl + "login", query, options);
   }
   //#JWT Login Api
   LoginJWT(data) {

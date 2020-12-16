@@ -1502,6 +1502,8 @@
 
 <a data-dismiss="modal" data-toggle="modal" data-target="#signUp" (click)="openModal2(signup)"
 [hidden]="true"  #signupBtn>Sign Up</a>
+
+
 <ng-template #signup>
   <div class="modal-header">
     <h3 class="modal-title pull-left">Let's get you On-board</h3>
@@ -1518,7 +1520,7 @@
       </li>
       <li role="presentation">
         <a [ngStyle]="{ color: shfrmSFSecond ? '#f06321' : ' #919191' }" href="javascript:;"
-          (click)="signup_link(2)">Mobile Number <i class="fa fa-angle-right"></i></a>
+          (click)="signup_link(2)">Contact Details <i class="fa fa-angle-right"></i></a>
       </li>
       <li role="presentation">
         <a [ngStyle]="{ color: shfrmSFThird ? '#f06321' : '#919191' }" href="javascript:;" (click)="signup_link(3)">
@@ -1535,25 +1537,35 @@
           <div class="row mb20">
             <div class="col-md-6 mb-xs-10">
 
-              <div><label for="company">Full Name<span class="text-danger"> *</span></label></div>
+              <div><label for="company">First Name<span class="text-danger"> *</span></label></div>
               <input name="name" formControlName="firstname" class="input-login" appPrefixFocusAndSelect #name />
               <div *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)" class="text-danger form-error">
-                Full Name is required.
+                First Name is required.
               </div>
             </div>
-            <div class="col-md-6">
-              <div><label for="company">Email<span class="text-danger"> *</span></label></div>
-              <!-- <input name="email" formControlName="email" class="input-login" #Email (input)="OnCheckEmail(Email.value)"> -->
+
+            <div class="col-md-6 mb-xs-10">
+
+              <div><label for="company">Last Name<span class="text-danger"> *</span></label></div>
+              <input name="name" formControlName="lastname" class="input-login"  #name />
+              <div *ngIf="lastname.invalid && (lastname.dirty || isSubmitted)" class="text-danger form-error">
+                Last Name is required.
+              </div>
+            </div>
+
+
+
+            <!-- <div class="col-md-6">
+              <div><label for="company">Last Name<span class="text-danger"> *</span></label></div>
               <input name="email" formControlName="email" class="input-login" #Email
                 (change)="OnCheckEmail(Email.value)" />
-              <!-- <div *ngIf="email.invalid && (email.dirty || isSubmitted)" class="text-danger form-error">
-                Email is required.
-              </div> -->
+             
               <div *ngIf="isemail_reg_check != ''" class="text-danger form-error">
                 {{ isemail_reg_check }}
               </div>
-            </div>
+            </div> -->
           </div>
+          
           <!-- <div class="row mb20">
             <div class="col-md-12 mb-xs-30">
               <div><label for="password">Company Name</label></div>
@@ -1640,17 +1652,36 @@
           <br />
           <ul class="nav nav-tabs nav-tabs1" role="tablist">
             <li>
+              <button type="button" (click)="save1()" [disabled]="!signupForm.valid " [ngClass]="
+                  signupForm.valid ? 'btn-blue' : 'btn-white'
+                " class="btn" class="signInBtn verifyBtn">
+                Next
+              </button>
+            </li>
+            <!-- <li>
               <button type="button" (click)="save1()" [disabled]="!signupForm.valid || !isemail_check" [ngClass]="
                   signupForm.valid || !isemail_check ? 'btn-blue' : 'btn-white'
                 " class="btn" class="signInBtn verifyBtn">
                 Next
               </button>
-            </li>
+            </li> -->
           </ul>
         </div>
       </form>
       <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
-        <div class="tab-pane">
+        <div class="tab-pane">     
+          <div class="row mb20">  
+          <div class="col-md-8 mb-xs-30">
+              <div><label for="company">Please enter Email ID<span class="text-danger"> *</span></label></div>
+              <input name="email" formControlName="email" class="input-login" #Email
+                (change)="OnCheckEmail(Email.value)" />
+             
+              <div *ngIf="isemail_reg_check != ''" class="text-danger form-error">
+                {{ isemail_reg_check }}
+              </div>
+            </div>
+          </div>
+
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
               <div>
@@ -1671,7 +1702,7 @@
                 OTP sent to your mobile number.
               </div>
             </div>
-          <!--   <div class="col-md-4 mt4">
+            <!--   <div class="col-md-4 mt4">
               <button [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
                 (click)="SendOtp(Mobile.value)" (click)='buttonClick1()' [disabled]="btnDisabled"
                 [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
@@ -1686,19 +1717,17 @@
               </button>
             </div> -->
             <div class="col-md-4 " style="    margin-top: 28px !important; ">
-              <button  [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
-                (click)="SendOtp(Mobile.value)"
-                (click)='buttonClick1()' 
-                  [disabled] = "btnDisabled"
-                  [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
-                  {{btnText}}
-               
-                
+              <button [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
+                (click)="SendOtp(Mobile.value)" (click)='buttonClick1()' [disabled]="btnDisabled"
+                [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
+                {{btnText}}
+
+
               </button>
               <!-- <h6><span id="time" >00:00</span></h6> -->
 
 
-              <button  type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
+              <button type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
                 change
               </button>
             </div>
@@ -1724,8 +1753,8 @@
           <br />
           <ul class="nav nav-tabs nav-tabs1" role="tablist">
             <li>
-              <button class="btn" (click)="save2()" [disabled]="!signupForm2.valid"
-                [ngClass]="signupForm2.valid ? 'btn-blue' : 'btn-white'" class="signInBtn verifyBtn">
+              <button class="btn" (click)="save2()" [disabled]="!signupForm2.valid || !isemail_check"
+                [ngClass]="signupForm2.valid || !isemail_check ? 'btn-blue' : 'btn-white'" class="signInBtn verifyBtn">
                 Verify
               </button>
             </li>
@@ -1889,7 +1918,8 @@
           <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
         </p>
         <p class="fs10 signin_p">
-          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain
+          password.
         </p>
       </div>
       <!-- <span

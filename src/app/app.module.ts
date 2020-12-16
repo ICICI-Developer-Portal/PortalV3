@@ -48,6 +48,7 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 
 import { SignupPopupComponent } from './signup-popup/signup-popup.component';
 import { AdminpanelModule } from "./adminpanel/adminpanel.module";
+import { CountryModule } from "./country/country.module";
 // import { DataTableModule } from "angular7-data-table";
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
@@ -89,7 +90,7 @@ import { AdminpanelModule } from "./adminpanel/adminpanel.module";
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
-  
+    CountryModule
     // DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
@@ -97,7 +98,7 @@ import { AdminpanelModule } from "./adminpanel/adminpanel.module";
   ],
   providers: [
     Location, 
-    {provide: LocationStrategy, useClass: PathLocationStrategy},
+  //  {provide: LocationStrategy, useClass: PathLocationStrategy},
     Config,
     LoginService,
     VariablesService,   

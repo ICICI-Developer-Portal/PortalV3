@@ -35,11 +35,11 @@ export class AdminAuthGuard implements CanActivate {
     // this.modalRef = this.modalService.show(HeaderComponent, {
     //   backdrop: 'static',
     // });
-    if(localStorage.getItem('username') !== "admin"){
+     if(localStorage.getItem('username') !== "admin"){
       console.log("yes admin");
       this.router.navigate([this.router.url]);
       return false;
-    }
+    } 
     if (
       localStorage.getItem('username') == '' ||
       !localStorage.getItem('username')

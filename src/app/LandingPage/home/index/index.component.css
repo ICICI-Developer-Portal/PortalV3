@@ -217,11 +217,12 @@ text-align: left;
         text-align: center;
       }
       .info{
-        font-size: 20px;
-        font-weight: bold;
-        color:#f77607;
+        font-size: 16px;
+        font-family: Poppins-SemiBold;
+        
+        color: #212121;
       }
-     
+      
         .ptxt {
             font-size: 13px;
             line-height: 20px;

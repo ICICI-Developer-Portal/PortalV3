@@ -46,7 +46,8 @@ const routes: Routes = [
   component:PagenotfoundComponent ,
 
 },
-{ path: 'admin', redirectTo :'/admin', pathMatch :'full' },
+
+//{ path: 'admin', redirectTo :'/admin-panel', pathMatch :'full' },
   /* {
     path: "admin",
     component: AdminpanelComponent,
@@ -62,7 +63,7 @@ const routes: Routes = [
       },
     ]
   }, */
- /*  {
+  {
     path: "admin",
     component: AdminPortalComponent,
     // canActivate: [true],
@@ -72,7 +73,7 @@ const routes: Routes = [
         loadChildren: "./adminpanel/adminpanel.module#AdminpanelModule"
       }
     ]
-  }, */
+  }, 
   {
     path: "appathon",
     component: AppathonComponent,
@@ -95,7 +96,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ useHash: true })],
+  imports: [RouterModule.forRoot(routes,{useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -13,9 +13,10 @@ import { DocumentdownloadComponent } from './documentdownload/documentdownload.c
 import { AdminAuthGuard } from '../services/admin-auth.guard';
 
 const routes: Routes = [
+
   {
     //    path: 'request', component: RequestsComponent
-    path: 'admin',
+    path: '',
     component: AdminpanelComponent,
     children: [
       { path: 'request', component: RequestsComponent },
@@ -26,14 +27,10 @@ const routes: Routes = [
     ],
     canActivate: [AdminAuthGuard],
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  {
-    path: "",
-    redirectTo: '/admin/login',
-    pathMatch: 'full'
-    
-  },
+    //    path: 'request', component: RequestsComponent
+    { path: 'login', component: LoginComponent },
+    { path: 'home', component: HomeComponent },
+  
   //{ path: '**', redirectTo :'admin/login'},
   // { path: 'analytics', component: AnalyticsComponent ,canActivate: [AuthGuard]},
   // { path: 'userprofile', component: UserprofileComponent ,canActivate: [AuthGuard]},

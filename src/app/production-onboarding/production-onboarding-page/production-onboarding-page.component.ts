@@ -613,6 +613,9 @@ export class ProductionOnboardingPageComponent implements OnInit {
 
   onSubmitProductionForm(Prodconfirm) {
 
+    $("#submitButton").prop("disabled",true)
+    setTimeout(function(){  $("#submitButton").prop("disabled",false)},5000); 
+
     let ipValues = [];
     let urlValues = [];
 

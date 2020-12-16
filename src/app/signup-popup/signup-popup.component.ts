@@ -288,17 +288,22 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     });
     this.signupForm = this.formbuilder.group({
       firstname: ["", [Validators.required]],
+      lastname: ["", [Validators.required]],
+
       companyName: ["", [Validators.required]],
       domainNm: ["", [Validators.required]],
       CITY: [""],
       RM: [""],
       partnerCode: [""],
-      email: ["", [Validators.required, Validators.email]],
+      
       otp_verified: ["0"],
       otp_send: ["0"]
     });
 
     this.signupForm2 = this.formbuilder.group({
+
+      email: ["", [Validators.required, Validators.email]],
+      
       mobile_no: [
         "",
         [Validators.required, Validators.pattern(this.mobnumPattern)]
@@ -726,6 +731,9 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   get firstname() {
     return this.signupForm.get("firstname");
   }
+  get lastname() {
+    return this.signupForm.get("lastname");
+  }
   get companyName() {
     return this.signupForm.get("companyName");
   }
@@ -921,9 +929,9 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       var json = {
         username: this.signupForm3.value.uname,
         password: this.signupForm3.value.password,
-        email: this.signupForm.value.email,
+        email: this.signupForm2.value.email,
         firstname: this.signupForm.value.firstname,
-        lastName: this.signupForm.value.firstname,
+        lastName: this.signupForm.value.lastname,
         domainNm: this.signupForm.value.domainNm,
         companyName: this.signupForm.value.companyName,
         contactNo: this.signupForm2.value.mobile_no,
@@ -990,9 +998,9 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     var json = {
       userName: this.signupForm3.value.uname,
-      email: this.signupForm.value.email,
+      email: this.signupForm2.value.email,
       firstName: this.signupForm.value.firstname,
-      lastName: this.signupForm.value.firstname,
+      lastName: this.signupForm.value.lastname,
       domainNm: this.signupForm.value.domainNm,
       companyName: this.signupForm.value.companyName,
       contactNo: this.signupForm2.value.mobile_no,
