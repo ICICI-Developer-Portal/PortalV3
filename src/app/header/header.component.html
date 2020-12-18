@@ -51,6 +51,9 @@
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-applications"
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
             </a> -->
+            <a [routerLink]="['/transactionHistory']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Transaction History</a>
             <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
               aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
@@ -58,6 +61,9 @@
             </a>-->
             <a style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
             </a>
+            <a [routerLink]="['/reportIssue']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Report Issue</a>
           </div>
         </li>
         <li class="dropdown" *ngIf="!showbtn">

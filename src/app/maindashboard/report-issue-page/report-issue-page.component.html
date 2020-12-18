@@ -41,7 +41,8 @@
             </h5>
 
           </div>
-          <div class="col-md-6">
+          <!-- old code -->
+          <!-- <div class="col-md-6">
             <div class="form-group">
               <label for="merchantName">Select issue type <span class="text-danger"> *</span></label>
               <div class="radioBtnDiv form-control h40 col-md-11">
@@ -60,9 +61,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="merchantName">Select the disputed API</label>
-              <!-- <div class="form-group col-md-6"> -->
-
-              <span class="custom-dropdown">
+                <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="api">
                   <option value=" ">Select Option</option>
                   <option value=" ">api integration from services</option>
@@ -109,9 +108,6 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="r_m_maild_id">Supporting logs</label>
-              <!-- <a data-toggle="tooltip"
-      title="Please upload zip file for SSL certificate & encryption certificate along with API application form."><img alt="loader"
-        class="ml2 cursor_pointer" src="assets/images/information.png"></a> (change)="upload($event.target.files[0])" -->
               <input type="file" 
              
                 accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
@@ -142,7 +138,6 @@
             </div>
 
           </div>
-          <!-- [disabled]="!bodyForm.valid" -->
           <div class="col-md-6"></div>
           <div class="col-md-6">
             <div class="form-group">
@@ -153,7 +148,280 @@
            
               (click)="submitOnReportIssue(reactiveForm)">Report an Issue</a>
             </div>
+          </div> -->
+          <!-- old code over -->
+        
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="productName">Product name<span class="text-danger"> *</span> </label>
+              <!-- <pre>{{getProducts | json}}</pre> -->
+
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="productName"   (change)="selectChangeHandler($event)">
+                  <option *ngFor="let option of getProducts" [value]="option.product">
+                    {{option.product}}
+                  </option>
+                 
+                </select>
+              </span>
+            </div>
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="productName">Environment<span class="text-danger"> *</span> </label>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Environment"  (change)="selectChangeHandlerEnv($event)" >
+                  <option>
+                    Production
+                  </option>
+                  <option>UAT</option>
+                 
+                </select>
+              </span>
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+            <div class="form-group">
+              <label for="Domain">Domain </label>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Domain">
+                  <option *ngFor="let option of domain" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
+          </div> -->
+          <!-- <div class="col-md-6"></div> -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="APIname">API name<span class="text-danger"> *</span> </label>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="APIname">
+                  <option value=" ">Select Option</option>
+                  <option value=" ">{{api}}</option>
+                </select>
+                <!-- <div class="col-md-11 padding-left-0">
+                  <form id="filter" autocomplete="off">
+                    <label>Filter API by name:</label>
+                    <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
+                 
+                </form>
+                <span class="text-danger" *ngIf="(responseData | filter: term).length === 0"> No matches found</span>
+
+                </div> -->
+                <!-- <div class=" col-md-11 padding-left-0 scroll-y"> -->
+
+                  <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
+                 
+                
+                  <!-- <ul class="requestedData-list sideMenu" *ngFor="let i of responseData " class="first-level"> -->
+                    <!-- <li *ngIf="(responseData | filterBy: term).length === 0">No matches found</li>   -->
+
+                    <!-- <li> -->
+
+                      <!-- 1 level -->
+                      <!-- <a class="display-block cursor-pointer padding-left-25">
+
+                        <ng-template #other>
+                          <div class="customcsscontainer"> <label for="{{i.API_ID}}">
+                              <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{i.API_ID}}"
+                                value="{{i.TAB_NAME}}" #checkboxes>
+                              {{i.TAB_NAME}} </label>
+                          </div>
+                        </ng-template>
+                        <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
+                              class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
+                      </a> -->
+                      <!-- 1 level -->
+                      <!-- <ul *ngFor="let j of i.children" class="second-level display-none">
+                        <li *ngIf="!(j.TREE_ID ==557 || j.TREE_ID ==556  || j.TREE_ID ==325 )"> -->
+                          <!-- 2 level -->
+                          <!-- <a class="display-block cursor-pointer padding-left-10prcnt">
+                            <ng-template #other>
+                              <div class="customcsscontainer"> <label for="{{j.API_ID}}"> <input type="checkbox" 
+                                [attr.domainName]="i.TAB_NAME"
+                                    (change)="multipleSelectAPI($event,$event.target.checked)" 
+                                    [attr.parentName]="i.TAB_NAME"
+                                    id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
+                                    #checkboxes>{{j.TAB_NAME}}</label>
+                              </div>
+                            </ng-template>
+                            <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
+                              <span class="inline_block pull-right"><img class="dropdownIcon"
+                                  src="assets/images/dropdown-2.svg" alt=""></span></p>
+                          </a> -->
+                          <!-- 2 level -->
+                          <!-- <ul *ngFor="let k of j.children" class="third-level display-none">
+                            <li> -->
+                              <!-- 3 level -->
+                              <!-- <a class="display-block cursor-pointer padding-left-13prcnt">
+                                <ng-template #other >
+                                  <div class="customcsscontainer"> <label for="{{k.API_ID}}"> <input type="checkbox" 
+                                    [attr.domainName]="i.TAB_NAME"
+                                        (change)="multipleSelectAPI($event,$event.target.checked)" id="{{k.API_ID}}"
+                                       [attr.parentName]="j.TAB_NAME" [attr.grandParentName]="i.TAB_NAME" value="{{k.TAB_NAME}}"
+                                        #checkboxes>{{k.TAB_NAME}}</label>
+                                  </div>
+                                </ng-template>
+                                <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
+                                  <span class="inline_block pull-right"><img class="dropdownIcon"
+                                      src="assets/images/dropdown-2.svg" alt=""></span></p>
+                              </a> -->
+                              <!-- 3 level -->
+                              <!-- <ul *ngFor="let L of k.children" class="fourth-level display-none">
+                                <li> -->
+                                  <!-- 4 level -->
+                                  <!-- <a class="display-block cursor-pointer padding-left-20prcnt">
+                                    <ng-template #other>
+                                      <div class="customcsscontainer"> <label for="{{L.API_ID}}">
+                                          <input type="checkbox" 
+                                          [attr.domainName]="i.TAB_NAME" (change)="multipleSelectAPI($event,$event.target.checked)" 
+                                          [attr.parentName]="k.TAB_NAME" [attr.grandParentName]="j.TAB_NAME" [attr.greatGrandParentName]="i.TAB_NAME" id="{{L.API_ID}}"
+                                            value="{{L.TAB_NAME}}" #checkboxes>{{L.TAB_NAME}}</label></div>
+                                    </ng-template>
+                                    <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
+                                      <span class="inline_block pull-right"><img class="dropdownIcon"
+                                          src="assets/images/dropdown-2.svg" alt=""></span>
+                                    </p>
+                                  </a> -->
+                                  <!-- 4 level -->
+                                  <!-- <ul *ngFor="let M of L.children" class="fifth-level display-none">
+                                    <li> -->
+                                      <!-- 5 level -->
+                                      <!-- <a class="display-block cursor-pointer padding-left-25prcnt"> -->
+                                        <!-- <ng-template #other> <input type="checkbox" 
+                                          [attr.domainName]="" (change)="multipleSelectAPI($event,$event.target.checked)"    /></ng-template>{{k.TAB_NAME}} <span
+                                                                                      *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
+                                                                                        src="assets/images/dropdown-2.svg" alt=""></span> -->
+                                        <!-- <ng-template #other>
+                                          <div class="customcsscontainer"> <label for="M.API_ID">
+                                             <input
+                                                type="checkbox" 
+                                                [attr.domainName]="i.TAB_NAME" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
+                                                [attr.parentName]="L.TAB_NAME" [attr.grandParentName]="k.TAB_NAME" [attr.greatGrandParentName]="j.TAB_NAME" [attr.greatGreatGrandParentName]="i.TAB_NAME" 
+                                                value="{{M.TAB_NAME}}">
+                                              {{M.TAB_NAME}}</label></div>
+                                        </ng-template>
+                                        <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
+                                          <span class="inline_block pull-right"><img class="dropdownIcon"
+                                              src="assets/images/dropdown-2.svg" alt=""></span>
+                                        </p>
+                                      </a> -->
+                                      <!-- 5 level -->
+                                    <!-- </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    
+                  </ul> -->
+                  <!-- <span *ngIf="responseData.length === 0">No data</span> -->
+                  <!-- <p> Selected value: {{selectedValue | json}}{{responseData.length}} </p>
+                  <pre>Form values: {{reactiveForm.value | json}}</pre> -->
+
+                  <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+                <!-- </div> -->
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="issueType">Issue type<span class="text-danger"> *</span></label>
+              <span class="custom-dropdown" *ngIf="issueType!=''">
+                <select class="form-control h40 col-md-11" formControlName="issueType" n *ngFor="let option of issueType">
+                  <option *ngFor="let i of option" [value]="option">
+                    {{i.issueType }} 
+                    <!-- <span  ></span> -->
+                  </option>
+                </select>
+              </span>
+              <!-- <p *ngIf="reactiveForm.get(basicDetailsSection.productName)=='' && reactiveForm..get(basicDetailsSection.Environment=='' ">select Product name and Environment for getting the Issue Type</p> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="issueType">Issue first observed one<span class="text-danger"> *</span></label>
+              <input type="datetime-local" class="form-control mainField col-md-11 inline_block" id="merchantName"
+              formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="requestPacket">Request packet<span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="requestPacket"
+                formControlName="requestPacket" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="reportIssue">Response packet<span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="reportIssue"
+                formControlName="requestPacket" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="errorrcvd">Error message received<span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="errorrcvd"
+                formControlName="errorrcvd" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label for="Notes display-block" style="display: block;">Notes </label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="Notes"
+                formControlName="Notes" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="Attachments">Attachments<span class="text-danger"> *</span></label>
+              <input type="file" class="form-control mainField col-md-11 inline_block" id="Attachments"
+                formControlName="Attachments" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="contactName">Contact name</label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="contactName"
+                formControlName="contactName" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="contactnumber">Contact number</label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="contactnumber"
+                formControlName="contactnumber" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="contactEmail">Contact email</label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="contactEmail"
+                formControlName="contactEmail" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="RMname">RM name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="RMname">
+            </div>
+          </div>
+          <div class="col-md-6"></div>
+            <div class="col-md-6">
+            <div class="form-group">
+             <button class="signInBtn"   (click)="submitOnReportIssue(reactiveForm)">Report Issue
+               
+             </button>
+            </div>
+          </div>
+          
         </div>
       </form>
         <hr _ngcontent-c4="" class="margin_0px">
@@ -175,6 +443,62 @@
               </span>
             </div>
           </div>
+          <!-- <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Merchant name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName">
+            </div>
+          </div> -->
           <div class="col-md-12">
             <table class="table">
               <thead>

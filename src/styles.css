@@ -469,7 +469,11 @@ a:hover {
 .mb10 {
   margin-bottom: 10px;
 }
-
+.btn-orange {
+  color: #fff;
+  background-color: #ae282e;
+  border-color: #ae282e;
+}
 .workImageContainer h2 p {
   background-color: #ae282e;
   width: 47px;

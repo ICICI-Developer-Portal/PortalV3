@@ -29,6 +29,14 @@ input[type="textbox"]{
 .margin-leftminus15{
 	margin-left: -15px;
 }
+.btndisabld{
+	cursor: not-allowed;
+    background-color: #f5f5f5;
+    color: #919191 !important;
+}
+.paddingLeft13{
+	padding-left:13% !important;
+}
 .mainField.ng-invalid.ng-touched{
 border-left: 5px solid #ae282e;
 border-right: 1px solid #ae282e;

@@ -1001,4 +1001,23 @@ createReportIssue(body,header) {
 
   return this.http.post(this.UAT_apiUrl+"save-reported-issues",body,options);
 }
+
+getProductIssues(header){
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+  //  "userName" :localStorage.getItem('username'),
+  //   "Token" : localStorage.getItem("jwt")
+ });
+
+ // var body = new FormData();
+ // var body = "apiId=" +  json.apiId;
+ // body
+ var query = "";
+
+//  let options = new RequestOptions({ headers: headers });
+//  console.log(options)
+
+
+  return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/getProductIssues",headers);
+}
 }

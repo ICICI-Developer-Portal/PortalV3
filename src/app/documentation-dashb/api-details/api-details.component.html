@@ -412,10 +412,10 @@
 
                                                         <button type="submit"
                                                             class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid" (click)="onSubmitBody(bodyForm)">Test</button>
-                                                        <!-- <button type="submit" href="#myModal2"
+                                                        <!-- <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
+                                                            href="#myModal2"
                                                             class="btn signInBtn btn-dark pull-right mt-30 mr-3"
-                                                            [disabled]="!testApiResData.length>0"
-                                                            (click)="createTransactionHistory(bodyForm)">Callback
+                                                            (click)="createTransactionHistory(bodyForm)">>Callback
                                                             Response</button> -->
                                                             <div *ngIf="ApiSubDomain =='Eazypay'">
                                                         <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"

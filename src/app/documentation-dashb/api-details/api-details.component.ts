@@ -518,6 +518,7 @@ set reqParamValue(v) {
            
             console.log(this.testApiresponse)
            this.tesAPiSuccesufulResponse=this.testApiresponse.Success
+           this.createTransactionHistory;
           }
            this.spinnerService.hide();
         },
