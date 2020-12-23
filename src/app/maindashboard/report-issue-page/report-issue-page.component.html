@@ -199,7 +199,7 @@
               <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="APIname">
                   <option value=" ">Select Option</option>
-                  <option value=" ">{{api}}</option>
+                  <option *ngFor="let i of api" value=" ">{{api}}kkkkk</option>
                 </select>
                 <!-- <div class="col-md-11 padding-left-0">
                   <form id="filter" autocomplete="off">
@@ -407,7 +407,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="RMname">RM name<span class="text-danger"> *</span></label>
+              <label for="RMname">Relationship manager ID<span class="text-danger"> *</span></label>
                 <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
                 formControlName="RMname">
             </div>

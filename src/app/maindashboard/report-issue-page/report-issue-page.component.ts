@@ -849,14 +849,20 @@ export class ReportIssuePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    let headers = new Headers({
+        "Content-Type": "application/x-www-form-urlencoded",
+      //  "userName" :localStorage.getItem('username'),
+      //   "Token" : localStorage.getItem("jwt")
+     });
+    
     console.log(this.dashboardService.getMenuTreeData())
-    // this.adm.getProductIssues().subscribe((data: any) => {
-    //   this.getProductIssue = JSON.parse(data._body);
-    //   console.log(this.getProductIssue)
-      // this.menuArray = this.getMenuData(this.getProductIssue);
-      // console.log(this.menuArray, "hhhhhhhhh  ")
+    this.adm.getProductIssueItem(headers).subscribe((data: any) => {
+      this.getProductIssue = JSON.parse(data._body);
+      console.log(this.getProductIssue)
+      this.menuArray = this.getMenuData(this.getProductIssue);
+      console.log(this.menuArray, "hhhhhhhhh  ")
      
-    // });
+    });
  
     
 
@@ -966,9 +972,14 @@ selectChangeHandlerEnv(event: any) {
     this.issueType=[];
     for (var i in this.getProductIssue) {
         if(this.getProductIssue[i].product==this.reactiveForm.value.basicDetailsSection.productName && this.getProductIssue[i].environment==this.reactiveForm.value.basicDetailsSection.Environment ){
-console.log(this.getProductIssue[i].api);
-(this.api).push(this.getProductIssue[i].api);
+(this.api).push(this.getProductIssue[i].api.split(','));
+console.log(this.getProductIssue[i].api.split(','));
+console.log(this.api);
+
 (this.issueType).push(this.getProductIssue[i].issues)
+
+// var array = this.getProductIssue[i].api.split(',');
+
 
         }
       }

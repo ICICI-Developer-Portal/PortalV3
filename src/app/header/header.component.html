@@ -297,7 +297,7 @@
   <!-- Modal for Signup -->
   <ng-template #signup>
     <div class="modal-header"  tabindex="-1" role="dialog">
-      <h3 class="modal-title pull-left">Let's get you On-board </h3>
+      <h3 class="modal-title pull-left">Let's get you On-board</h3>
   
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
         <span aria-hidden="true">&times;</span>
@@ -401,7 +401,7 @@
             <div class="row mb20">
               <div class="col-md-12 mb-xs-30">
                 <div><label for="password">Pin Code<span class="text-danger"> *</span></label></div>
-                <input name="City" class="input-login" formControlName="CITY" />
+                <input name="City" class="input-login" formControlName="CITY" (keyup)=onkeyupgetRMID($event)/>
                 <div *ngIf="CITY.invalid && (CITY.dirty || isSubmitted)" class="text-danger form-error">
                   Pin Code is required.
                 </div>
@@ -416,7 +416,7 @@
                       src="assets/images/information.png" alt="loader" class="ml2 cursor_pointer" /></a>
                 </div>
                 <input name="RM" class="input-login" formControlName="RM" pattern="[0-9]*"
-                  (ngModelChange)="employeeIdChanged(RM.value)" />
+                  (ngModelChange)="employeeIdChanged(RM.value)" readonly style="    background: #f2f2f2;" />
                 <div *ngIf="RM.invalid && (RM.dirty || isSubmitted)" class="text-danger form-error">
                   RM Employee ID is required (numeric).
                 </div>

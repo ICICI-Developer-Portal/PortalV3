@@ -1195,6 +1195,48 @@ toastrmsg(type, title) {
   onChangeInput3(val) {
     this.exampleArray3.push(val);
   }
+  rmData: any[] = [
+		{
+      "pincode": "12345",
+      "rmDetails": {
+          "rmNo": 3,
+          "rmName": "David Vivek",
+          "rmId": 370215,
+          "rmEmail": "david.s@icicibank.com"
+      }
+  }
+	    
+  ];
+  userInput;
+  rmid;
+  onkeyupgetRMID(event: any) {
+    this.userInput = event.target.value;
+   console.log( this.userInput )
+   
+   this.getRmId();
+  }
+  getRmId(){
+    this.rmid=[];
+  console.log(this.rmData)
+    for (var i in this.rmData) {
+  console.log(i)
+
+        if(this.rmData[i].pincode==this.signupForm.value.CITY ){
+(this.rmid).push(this.rmData[i].rmid);
+console.log(this.rmData[i].pincode);
+console.log(this.rmData[i].rmDetails);
+console.log(this.rmData[i].rmDetails.rmId);
+console.log(this.signupForm.controls.RM.setValue(this.rmData[i].rmDetails.rmId));
+// this.signupForm.value.RM.setValue(this.rmData[i].rmDetails.rmId);
+
+
+        }
+        else{
+console.log(this.signupForm.controls.RM.setValue(""));
+
+        }
+      }
+    }
 
   //componay name autocomplete
   getCompanyName(companyName) {
