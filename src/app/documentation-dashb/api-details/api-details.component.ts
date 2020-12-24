@@ -267,9 +267,15 @@ Sample_packet(){
   );
 }
   openModal(Authentication: TemplateRef<any>) {
+
     var json = {"username":localStorage.getItem('username'),"password":localStorage.getItem('password')};
     this.adm.Login(json)
     this.modalRef = this.modalService.show(Authentication, { backdrop:'static',class: 'modal-lg' }); 
+    this.testApiresponse="";
+    $("input:text").val("");
+    $("textarea.texareaRes").val("");
+    this.testApiResName=[];
+    this.testCaseDescription="";
   }
 
   openModalcallbackURL(Prodconfirm: TemplateRef<any>) {
@@ -282,7 +288,7 @@ Sample_packet(){
     this.modalRef.hide();
     console.log(this.modalRef)
 
-    this.testApiresponse="";
+  
    }
    Close_ConfirmProd() {
      console.log(this.modalRef)

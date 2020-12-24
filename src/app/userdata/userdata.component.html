@@ -1,0 +1,683 @@
+
+<div class="top"></div>
+<div  class="container ">
+<label style="margin-left: 65px;" for="tableName">Select Table</label>
+<select style="margin-left: 65px;" class="form-control   col-md-11 inline_block ng-pristine ng-invalid ng-touched fs12" (change)="changeTableName($event.target.value)"  >
+  <option selected="selected">Select table</option>
+  <option *ngFor="let option of tableList" [value]="option">
+    {{option}}
+  </option>
+  </select>
+</div>
+
+<div id="Merchant_user" *ngIf="Merchant_user" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+ 
+ 
+  
+  <div class="modal fade" id="add-edit-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm" (ngSubmit)="saveUser(formFlag)">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">Merchant Name</label></div>
+            <input type="text" class="input-sm form-control" formControlName="merchantname">
+            <p class="help-block" *ngIf="!userForm.get('merchantname').valid && userForm.get('merchantname').touched">Please enter MERCHANT NAME.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">User Name</label></div>
+            <input type="text" class="input-sm form-control" formControlName="username">
+            <p class="help-block" *ngIf="!userForm.get('username').valid && userForm.get('username').touched">Please enter USER NAME.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm.valid" >Save changes</button>
+        </div>
+        </form>
+
+
+        
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+ 
+  
+  <button style="margin-top: 15px;" type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal"  (click)="initUser()">Add</button>
+  <h2>Merchant table</h2>
+  <data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'merchantname'"
+        [header]="'MERCHANT NAME'"
+        [sortable]="true"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'username'"
+        [header]="'USER NAME'"
+        [sortable]="true"
+        style="text-align: center;" >        
+    </data-table-column>
+   
+ 
+    
+  </data-table>
+</div>
+
+<!--Second -->
+<div id="API_Sample_packet" *ngIf="API_Sample_packet"  style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+ 
+  
+  <div class="modal fade" id="add-edit-Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm1" (ngSubmit)="saveUser(formFlag)">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">PACKET ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="packetID">
+            <p class="help-block" *ngIf="!userForm1.get('packetID').valid && userForm1.get('packetID').touched">Please enter PACKET ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiID">
+            <p class="help-block" *ngIf="!userForm1.get('apiID').valid && userForm1.get('apiID').touched">Please enter API ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">SAMPLE REQUEST</label></div>
+            <input type="text" class="input-sm form-control" formControlName="samplerequest">
+            <p class="help-block" *ngIf="!userForm1.get('samplerequest').valid && userForm1.get('samplerequest').touched">Please enter SAMPLE REQUEST.</p>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm1.valid">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <button style="margin-top: 15px;"type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal2"  (click)="initUser()">Add</button>
+  <h2>Api Sample Packet</h2>
+  <data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'packetID'"
+        [header]="'PACKET_ID'"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'apiID'"
+        [header]="'API_ID'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'samplerequest'"
+        [header]="'SAMPLE_REQUEST'"
+        
+        style="text-align: center;" >        
+    </data-table-column>
+   
+  
+    
+  </data-table>
+</div>
+
+<!--third table-->
+
+<div id="ADD_Parameters_Table" *ngIf="ADD_Parameters_Table" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+ 
+  <div class="modal fade" id="add-edit-Modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table </b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm2" (ngSubmit)="saveUser(formFlag)">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">API ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiID">
+            <p class="help-block" *ngIf="!userForm2.get('apiID').valid && userForm2.get('apiID').touched">Please enter API ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">FIELD NAMES</label></div>
+            <input type="text" class="input-sm form-control" formControlName="fieldname">
+            <p class="help-block" *ngIf="!userForm2.get('fieldname').valid && userForm2.get('fieldname').touched">Please enter FIELD NAMES.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API NAME</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiname">
+            <p class="help-block" *ngIf="!userForm2.get('apiname').valid && userForm2.get('apiname').touched">Please enter API NAME.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm2.valid">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <button style="margin-top: 15px;" type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal3"  (click)="initUser()">Add</button>
+  <h2>ADD parameter Table</h2>
+  <data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'apiID'"
+        [header]="'API_ID'"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'fieldname'"
+        [header]="'FIELD_NAMES'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'apiname'"
+        [header]="'API_NAME'"
+        style="text-align: center;" >        
+    </data-table-column>
+   
+   
+    
+  </data-table>
+</div>
+
+
+<!--Fourth -->
+
+<div id="API_REQ_PARAMETER_Table" *ngIf="API_REQ_PARAMETER_Table" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+ 
+ 
+  
+  <div class="modal fade" id="add-edit-Modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table </b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm3" (ngSubmit)="saveUser(formFlag)">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">REQ_ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="reqID">
+            <p class="help-block" *ngIf="!userForm3.get('reqID').valid && userForm3.get('reqID').touched">Please enter API_ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API_ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiID">
+            <p class="help-block" *ngIf="!userForm3.get('apiID').valid && userForm3.get('apiID').touched">Please enter API_ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">REQ_NAME</label></div>
+            <input type="text" class="input-sm form-control" formControlName="reqName">
+            <p class="help-block" *ngIf="!userForm3.get('reqName').valid && userForm3.get('reqName').touched">Please enter REQ_NAME.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">REQ_TYPE</label></div>
+            <input type="text" class="input-sm form-control" formControlName="reqType">
+            <p class="help-block" *ngIf="!userForm3.get('reqType').valid && userForm3.get('reqType').touched">Please enter REQ_TYPE.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">REQ_DESC</label></div>
+            <input type="text" class="input-sm form-control" formControlName="reqDesc">
+            <p class="help-block" *ngIf="!userForm3.get('reqDesc').valid && userForm3.get('reqDesc').touched">Please enter REQ_DESC.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">REQ_MAND</label></div>
+            <input type="text" class="input-sm form-control" formControlName="reqMand">
+            <p class="help-block" *ngIf="!userForm3.get('reqMand').valid && userForm3.get('reqMand').touched">Please enter REQ_MAND.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm3.valid">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <button  style="margin-top: 15px;" type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal4"  (click)="initUser()">Add</button>
+  <h2>API_REQ_PARAMETER table</h2>
+  <data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'reqID'"
+        [header]="'REQ_ID'"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'apiID'"
+        [header]="'API_ID'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'reqName'"
+        [header]="'REQ_NAME'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'reqType'"
+        [header]="'REQ_TYPE'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'reqDesc'"
+        [header]="'REQ_DESC'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+    [property]="'reqMand'"
+    [header]="'REQ_MAND'"
+    style="text-align: center;" >        
+</data-table-column>
+   
+   
+    
+  </data-table>
+</div>
+
+
+
+ <!--Fifth -->
+
+<div id="API_RES_PARAMETER_Table" *ngIf="API_RES_PARAMETER_Table" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+
+  
+  <div class="modal fade" id="add-edit-Modal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table </b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm5" (ngSubmit)="saveUser(formFlag)">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">RESP_ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="respID">
+            <p class="help-block" *ngIf="!userForm5.get('respID').valid && userForm5.get('respID').touched">Please enter RESP_ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API_ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiID">
+            <p class="help-block" *ngIf="!userForm5.get('apiID').valid && userForm5.get('apiID').touched">Please enter API_ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">RESP_NAME</label></div>
+            <input type="text" class="input-sm form-control" formControlName="respName">
+            <p class="help-block" *ngIf="!userForm5.get('respName').valid && userForm5.get('respName').touched">Please enter RESP_NAME.</p>
+          </div>
+          
+          <div class="form-group">
+            <div><label for="user">RESP_DESC</label></div>
+            <input type="text" class="input-sm form-control" formControlName="respDesc">
+            <p class="help-block" *ngIf="!userForm5.get('respDesc').valid && userForm5.get('respDesc').touched">Please enter RESP_DESC.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">RESP_TYPE</label></div>
+            <input type="text" class="input-sm form-control" formControlName="respType">
+            <p class="help-block" *ngIf="!userForm5.get('respType').valid && userForm5.get('respType').touched">Please enter RESP_TYPE.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm5.valid">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+ 
+
+  <button style="margin-top: 15px;" type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal5"  (click)="initUser()">Add</button>
+  <h2>API_RES_PARAMETER table</h2>
+  <data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'respID'"
+        [header]="'RESP_ID'"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'apiID'"
+        [header]="'API_ID'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'respName'"
+        [header]="'RESP_NAME'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'respDesc'"
+        [header]="'RESP_DESC'"
+        style="text-align: center;" >        
+    </data-table-column>
+   
+    <data-table-column
+    [property]="'respType'"
+    [header]="'RESP_TYPE'"
+    style="text-align: center;" >        
+</data-table-column>
+   
+    
+    
+  </data-table>
+</div>
+
+<!--sixth-->
+
+<div id="TEST_CASE" *ngIf="TEST_CASE" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+ 
+  
+  <div class="modal fade" id="add-edit-Modal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table </b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm6" (ngSubmit)="saveUser(formFlag)">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">TESTCASE_ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="testcaseId">
+            <p class="help-block" *ngIf="!userForm6.get('testcaseId').valid && userForm6.get('testcaseId').touched">Please enter TESTCASE_ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">TESTCASE_NAME</label></div>
+            <input type="text" class="input-sm form-control" formControlName="testcaseName">
+            <p class="help-block" *ngIf="!userForm6.get('testcaseName').valid && userForm6.get('testcaseName').touched">Please enter TESTCASE_NAME.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">REQUEST_PACKET</label></div>
+            <input type="text" class="input-sm form-control" formControlName="requestpacket">
+            <p class="help-block" *ngIf="!userForm6.get('requestpacket').valid && userForm6.get('requestpacket').touched">Please enter REQUEST_PACKET.</p>
+          </div>
+          
+          <div class="form-group">
+            <div><label for="user">RESPONSE_PACKET</label></div>
+            <input type="text" class="input-sm form-control" formControlName="responsepacket">
+            <p class="help-block" *ngIf="!userForm6.get('responsepacket').valid && userForm6.get('responsepacket').touched">Please enter RESPONSE_PACKET.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">TESTCASE_DESCRIPTION</label></div>
+            <input type="text" class="input-sm form-control" formControlName="testcaseDesc">
+            <p class="help-block" *ngIf="!userForm6.get('testcaseDesc').valid && userForm6.get('testcaseDesc').touched">Please enter TESTCASE_DESCRIPTION.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm6.valid">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <button style="margin-top: 15px;" type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal5"  (click)="initUser()">Add</button>
+  <h2>TEST_CASE</h2>
+  <data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'testcaseId'"
+        [header]="'TESTCASE_ID'"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'testcaseName'"
+        [header]="'TESTCASE_NAME'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'requestpacket'"
+        [header]="'REQUEST_PACKET'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'responsepacket'"
+        [header]="'RESPONSE_PACKET'"
+        style="text-align: center;" >        
+    </data-table-column>
+   
+    <data-table-column
+    [property]="'testcaseDesc'"
+    [header]="'TESTCASE_DESCRIPTION'"
+    style="text-align: center;" >        
+</data-table-column>
+  
+    
+  </data-table>
+</div>
+
+<!--seventh-->
+<div id="API_DETAIL" *ngIf="API_DETAIL" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+ 
+ 
+  
+  <div class="modal fade" id="add-edit-Modal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add/Edit Table </b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userForm7" (ngSubmit)="saveUser(formFlag)">
+        <div class="modal-body">
+          <input type="hidden" class="input-sm form-control" formControlName="id">
+          <div class="form-group">
+            <div><label for="user">API_ID</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiID">
+            <p class="help-block" *ngIf="!userForm7.get('apiID').valid && userForm7.get('apiID').touched">Please enter API_ID.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API_DOMAIN</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiDomain">
+            <p class="help-block" *ngIf="!userForm7.get('apiDomain').valid && userForm7.get('apiDomain').touched">Please enter API_DOMAIN.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API_NAME</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiName">
+            <p class="help-block" *ngIf="!userForm7.get('apiName').valid && userForm7.get('apiName').touched">Please enter API_NAME.</p>
+          </div>
+          
+          <div class="form-group">
+            <div><label for="user">API_DESC</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiDesc">
+            <p class="help-block" *ngIf="!userForm7.get('apiDesc').valid && userForm7.get('apiDesc').touched">Please enter API_DESC.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API_SUB_DOMAIN</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apisubDomain">
+            <p class="help-block" *ngIf="!userForm7.get('apisubDomain').valid && userForm7.get('apisubDomain').touched">Please enter API_SUB_DOMAIN.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">SANDBOX_URL</label></div>
+            <input type="text" class="input-sm form-control" formControlName="sandboxUrl">
+            <p class="help-block" *ngIf="!userForm7.get('sandboxUrl').valid && userForm7.get('sandboxUrl').touched">Please enter SANDBOX_URL.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">API_LEVEL</label></div>
+            <input type="text" class="input-sm form-control" formControlName="apiLevel">
+            <p class="help-block" *ngIf="!userForm7.get('apiLevel').valid && userForm7.get('apiLevel').touched">Please enter API_LEVEL.</p>
+          </div>
+          <div class="form-group">
+            <div><label for="user">ERRORCODE</label></div>
+            <input type="text" class="input-sm form-control" formControlName="errorCode">
+            <p class="help-block" *ngIf="!userForm7.get('errorCode').valid && userForm7.get('errorCode').touched">Please enter ERRORCODE.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #modalClose data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-orange" [disabled]="!userForm7.valid">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <button style="margin-top: 15px;" type="button" class="btn btn-orange  " data-toggle="modal" data-target="#add-edit-Modal5"  (click)="initUser()">Add</button>
+  <h2>API_DETAIL</h2>
+  <data-table id="persons-grid"
+    headerTitle="hi"
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)"
+
+    (rowClick)="rowClick($event)"
+    [rowTooltip]="rowTooltip"
+    >
+    <data-table-column
+        [property]="'apiID'"
+        [header]="'API_ID'"
+        [resizable]="true"
+        >
+    </data-table-column>
+    <data-table-column
+        [property]="'apiDomain'"
+        [header]="'API_DOMAIN'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'apiName'"
+        [header]="'API_NAME'"
+        style="text-align: center;" >        
+    </data-table-column>
+    <data-table-column
+        [property]="'apiDesc'"
+        [header]="'API_DESC'"
+        style="text-align: center;" >        
+    </data-table-column>
+   
+    <data-table-column
+    [property]="'apisubDomain'"
+    [header]="'API_SUB_DOMAIN'"
+    style="text-align: center;" >        
+</data-table-column>
+<data-table-column
+    [property]="'sandboxUrl'"
+    [header]="'SANDBOX_URL'"
+    style="text-align: center;" >        
+</data-table-column>
+<data-table-column
+    [property]="'apiLevel'"
+    [header]="'API_LEVEL'"
+    style="text-align: center;" >        
+</data-table-column>
+<data-table-column
+    [property]="'errorCode'"
+    [header]="'ERRORCODE'"
+    style="text-align: center;" >        
+</data-table-column>
+   
+    <!-- <data-table-column
+      [property]="'Actions'"
+      [header]="'Actions'">
+      <template #dataTableCell let-item="item">
+            <span style="color: rgb(232, 0, 0)">
+            <a href="javascript:void(0);" (click)="getData(item)" data-toggle="modal" data-target="#add-edit-Modal">Edit</a>
+            </span>
+            <span style="color: rgb(232, 0, 0)">
+            <a href="javascript:void(0);" (click)="delData(item)">Delete</a>
+            </span>
+      </template>
+    </data-table-column> -->
+    
+  </data-table>
+</div>

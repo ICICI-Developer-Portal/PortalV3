@@ -29,7 +29,8 @@ export class ReportIssuePageComponent implements OnInit {
   productName=["Eazypay","Arteria","RTGS","UPI","HL topup","IMPS","NEFT","AL topup"];
   domain=["Business banking", "Loans and Cards", "Payments", "Accounts and Deposits"];
   issueType=[];
-  getProductIssue=[
+  getProductIssue=[];
+  getProductIssuep=[
     {
         "product": "UPI Collections",
         "environment": "Production",
@@ -820,11 +821,7 @@ export class ReportIssuePageComponent implements OnInit {
         ]
     }
 ];
- getProducts = this.getProductIssue.filter((e, i) => {
-    return this.getProductIssue.findIndex((x) => {
-    // return x.room_rate_type_id == e.room_rate_type_id && x.price == e.price;}) == i;
-     return x.product == e.product;}) == i;
-});
+getProducts=[];
 
 // console.log(getProducts);
   menuArray: any[];
@@ -859,8 +856,15 @@ export class ReportIssuePageComponent implements OnInit {
     this.adm.getProductIssueItem(headers).subscribe((data: any) => {
       this.getProductIssue = JSON.parse(data._body);
       console.log(this.getProductIssue)
-      this.menuArray = this.getMenuData(this.getProductIssue);
-      console.log(this.menuArray, "hhhhhhhhh  ")
+    //   this.menuArray = this.getMenuData(this.getProductIssue);
+    //   console.log(this.menuArray, "hhhhhhhhh  ")
+
+    this.getProducts = this.getProductIssue.filter((e, i) => {
+        console.log(e,i)
+      return this.getProductIssue.findIndex((x) => {
+      // return x.room_rate_type_id == e.room_rate_type_id && x.price == e.price;}) == i;
+       return x.product == e.product;}) == i;
+  });
      
     });
  
@@ -882,17 +886,13 @@ export class ReportIssuePageComponent implements OnInit {
         "contactName": new FormControl(),
         "contactEmail": new FormControl(),
         "contactnumber": new FormControl(),
-
-
-
-
-
-
       })
 
     });
     
   }
+ 
+
   getMenuData(data): Array<object> {
     let tempArray = [];
     Object.keys(data).forEach(async (eachKey, index) => {
@@ -972,9 +972,18 @@ selectChangeHandlerEnv(event: any) {
     this.issueType=[];
     for (var i in this.getProductIssue) {
         if(this.getProductIssue[i].product==this.reactiveForm.value.basicDetailsSection.productName && this.getProductIssue[i].environment==this.reactiveForm.value.basicDetailsSection.Environment ){
-(this.api).push(this.getProductIssue[i].api.split(','));
+this.api=(this.getProductIssue[i].api.split(','));
 console.log(this.getProductIssue[i].api.split(','));
+console.log(this.getProductIssue[i].api.split(','));
+
+console.log(this.getProductIssue[i].api);
 console.log(this.api);
+// for (var a in this.api ) {
+//     this.api[a] // Explicitly include base as per Álvaro's comment
+//     console.log(this.api[a],a);
+
+// }
+
 
 (this.issueType).push(this.getProductIssue[i].issues)
 

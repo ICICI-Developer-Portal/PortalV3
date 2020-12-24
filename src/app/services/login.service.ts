@@ -83,10 +83,10 @@ export class LoginService {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     let options = new RequestOptions({ headers: headers });
-  //  return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/login", query, options); //clommented on 16Nov2020
+   // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/login", query, options); //clommented on 16Nov2020
     return this.http.post("https://developer.icicibank.com/rest/login", query, options);
 
-   // return this.http.post(this.UAT_apiUrl + "login", query, options);
+    //return this.http.post(this.UAT_apiUrl + "login", query, options);
   }
   //#JWT Login Api
   LoginJWT(data) {
@@ -1009,9 +1009,6 @@ getProductIssueItem(header){
   //   "Token" : localStorage.getItem("jwt")
  });
 
- // var body = new FormData();
- // var body = "apiId=" +  json.apiId;
- // body
  var query = "";
 
  let options = new RequestOptions({ headers: headers });

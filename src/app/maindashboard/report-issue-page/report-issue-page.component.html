@@ -199,7 +199,10 @@
               <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="APIname">
                   <option value=" ">Select Option</option>
-                  <option *ngFor="let i of api" value=" ">{{api}}kkkkk</option>
+                
+                  <option *ngFor="let i of api" [value]="i ">{{i}}</option>
+
+
                 </select>
                 <!-- <div class="col-md-11 padding-left-0">
                   <form id="filter" autocomplete="off">
