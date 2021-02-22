@@ -3764,3 +3764,18 @@ c-height{
   padding-top: 0px;
   height: 355px;
 }
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .documentTabContent {
+    top: 59px;
+    position: relative;
+  }
+  .sideMenu 
+     {
+       margin-top: 50px;
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sideMenu  a {float: left;}
+    div.content {margin-left: 0;}
+  }
