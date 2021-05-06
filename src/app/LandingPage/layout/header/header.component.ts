@@ -967,6 +967,9 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("id");
     localStorage.removeItem("role");
     localStorage.removeItem("jwt")
+    localStorage.removeItem('lastLoginDate');
+    localStorage.removeItem('misUserVal');
+    localStorage.removeItem('Firstname');
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;

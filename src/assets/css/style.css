@@ -492,6 +492,10 @@ input:focus {
   opacity: 0.6;
   font-family: FontAwesome;
 }
+ .selectWebsites .custom-dropdown::after {
+ 
+  margin-right: -57px !important;
+} 
 
 .custom-dropdown::before {
   /*  Custom dropdown arrow cover */
@@ -1157,6 +1161,13 @@ transform: rotate(180deg);
   margin-left: 0px;
   margin-right: auto;
 }
+
+
+.nav-tabs li:nth-child(2) {
+
+    margin-left: 0px;
+  
+}
 .nav-tabs li:last-child {
   margin-right: 0px;
   margin-left: 8px;
@@ -1303,7 +1314,8 @@ transform: rotate(180deg);
   height: 50px;
 }
 .sectionAPICard h4 {
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: 15px;
   font-family: Poppins-SemiBold;
   color: #212121;
   margin: 0px;
@@ -1378,7 +1390,7 @@ transform: rotate(180deg);
 .workImageContainer img,
 .nextArrows img {
   position: absolute;
-  top: 50%;
+  top: 94%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
@@ -3548,6 +3560,10 @@ color: #ae282e;
  
   min-height: 300px;
 }
+#partners .api-inner {
+ 
+  min-height: 240px !important;
+}
 
 #partners .mr-10 {
   margin-top: 10px;
@@ -3572,7 +3588,14 @@ padding-left:0px ;
     top: 182px !important;
     z-index: 99 !important;
 }
+.howItWorksContainer .workImageContainer {
+      height: 50px;
+      text-align: center;
+      position: relative;
+      border-radius: 4px;
+      margin-bottom: 10px;
 
+}
 
   @media screen and (max-width: 240px) {
     .documentTabContent {
@@ -3721,4 +3744,16 @@ c-height{
   color: #303030;
   padding-top: 0px;
   height: 355px;
+}
+
+.signin_p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+.res{
+  margin-left: -53px; 
+  display: block;
+}
+.font-16{
+  font-size: 16px;
 }

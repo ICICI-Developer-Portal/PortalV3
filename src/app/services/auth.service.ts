@@ -37,6 +37,7 @@ export class AuthService {
            this.router.navigate(['/index']);
          }
        );
+       this.router.navigate(["/index"]);
   }
   ischeck_session(){
    // if(!localStorage.getItem("username")){      

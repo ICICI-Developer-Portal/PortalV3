@@ -47,12 +47,15 @@ export class ApiDetailsComponent implements OnInit {
   sandBoxForm;
   Request :object;
   contentType:any = "JSON";
-
+  env ;
+  isInternalUser:any;
+//
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
     ) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+      this.env = "";
       this.NewApplication();
       this.spinnerService.show();
       this.Sample_packet();
@@ -77,6 +80,8 @@ export class ApiDetailsComponent implements OnInit {
           },
         );*/
     /* End here */  
+
+    this.isInternalUser = localStorage.getItem("isInternalUser");
 
     });
     
@@ -107,7 +112,8 @@ export class ApiDetailsComponent implements OnInit {
   
 
   ngOnInit() { 
-    console.log()
+    console.log();
+    this.spinnerService.hide();
     this.dataArray.push(
       {
         key :"",
@@ -134,6 +140,10 @@ console.log(this.sandBoxForm ,)
     $('#pills-List-Customer-Accounts-tab').next().find('.tab-pane:first').addClass('show');
     
  }
+ ngOnDestroy() {
+  console.log('api detail');
+//  this.modalRef.hide();
+}
  addheader() {
   if(this.dataArray.length<=4){ 
   this.dataArray.push(
@@ -182,6 +192,7 @@ removeheader(i: number) {
           this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
           this.reqDetails =obj.ReqParam;
           this.resDetails =obj.ResParam;
+          this.env = obj.ApiData.ErrorCode;
           this.spinnerService.hide();
         }
         

@@ -10,6 +10,7 @@ import { TermsandconditionComponent } from './termsandcondition/termsandconditio
 import { NDAComponent } from './nda/nda.component';
 import { ContractComponent } from './contract/contract.component';
 import { AuthGuard } from '../../services/auth.guard';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 //import { AppathonComponent } from '../../LandingPage/home/appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'termsandcondition', component: TermsandconditionComponent },
       { path: 'nda', component: NDAComponent },
       { path: 'contract', component: ContractComponent },
+     
     ],
   },
   {
@@ -41,6 +43,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [{ path: 'reset_password', component: ResetComponent }],
   },
+  { path: 'change_password', component: ChangePasswordComponent,canActivate: [AuthGuard]}
 ];
 
 @NgModule({

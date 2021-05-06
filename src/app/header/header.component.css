@@ -1,3 +1,10 @@
 .mt28{
     margin-top: 28px !important;
 }
+.welcome{
+
+    float: right;
+    margin-right: 11.5%;
+    margin-bottom: -25px;
+    color: #919191;text-decoration: none;font-family: Poppins-SemiBold;font-size: 12px;
+}

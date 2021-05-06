@@ -66,6 +66,8 @@ import { PaymentComponent } from "./Sidenav-pages/Sidenav-Subpages/payment/payme
 import { SecurityComponent } from "./Sidenav-pages/security/security.component";
 import { RootDetailsComponent } from "./root-details/root-details.component";
 import { BranchDetailsComponent } from "./branch-details/branch-details.component";
+import { ExploreApiSigninComponent } from "./explore-api-signin/explore-api-signin.component";
+import { NewApiDetailsComponent } from "./new-api-details/new-api-details.component";
 
 const routes: Routes = [
   {
@@ -79,10 +81,20 @@ const routes: Routes = [
         //canActivate: [AuthGuard],
       },
       {
-        path: "apidetails/:id",
-        component: ApiDetailsComponent,
-        canActivate: [AuthGuard]
+        path: "explore-api",
+        component: ExploreApiSigninComponent,
+    //    canActivate: [AuthGuard],
       },
+      {
+        path: "apidetails/:id",
+      //  component: ApiDetailsComponent,
+        component: NewApiDetailsComponent,
+        canActivate: [AuthGuard]
+      },{
+      path: "new-apidetails/:id",
+      component: NewApiDetailsComponent,
+      canActivate: [AuthGuard]
+    },
       // sidenav pages
       {
         path: "accountdeposit",

@@ -8,8 +8,11 @@ import { AppathonComponent } from "./appathon/appathon.component";
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component'
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
+import { SignupPopupComponent } from './signup-popup/signup-popup.component';
+import { AdminpanelComponent } from "./adminpanel/adminpanel.component";
+import { UserdataComponent } from "./userdata/userdata.component";
+import { NewLandingPageComponent } from "./new-landing-page/new-landing-page.component";
 //import { DownloadComponent } from "./maindashboard/download/download.component";
-//import { MisComponent } from "./maindashboard/mis/mis.component";
 
 const routes: Routes = [
  //{ path: '', redirectTo :'index', pathMatch :'full' },
@@ -24,6 +27,12 @@ const routes: Routes = [
     component: JwtAuthComponent,
     canActivate: [AuthGuard],
   },
+ 
+  { path: 'signUpPage', component: SignupPopupComponent },
+  { path: 'dbAccess', component:UserdataComponent  },
+  
+
+
   //{path: '404', component: ErrorPageComponent},
  // {path: '**', redirectTo: '/404'},
 
@@ -39,6 +48,23 @@ const routes: Routes = [
   component:PagenotfoundComponent ,
 
 },
+
+//{ path: 'admin', redirectTo :'/admin-panel', pathMatch :'full' },
+  /* {
+    path: "admin",
+    component: AdminpanelComponent,
+    // canActivate: [true],
+    children: [
+     
+    //  { path: 'login', component: LoginComponent },
+      {
+        path: "",
+        redirectTo: '/admin/login',
+        pathMatch: 'full'
+        
+      },
+    ]
+  }, */
   {
     path: "admin",
     component: AdminPortalComponent,
@@ -49,7 +75,7 @@ const routes: Routes = [
         loadChildren: "./adminpanel/adminpanel.module#AdminpanelModule"
       }
     ]
-  },
+  }, 
   {
     path: "appathon",
     component: AppathonComponent,
@@ -72,7 +98,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

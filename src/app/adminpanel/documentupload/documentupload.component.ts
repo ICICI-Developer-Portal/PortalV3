@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export class DocumentuploadComponent implements OnInit {
   sellersPermitString: string;
   imageSrc;
   uploadDoc:FormGroup;
-
+  remarks:any;
   constructor(
     private adm:LoginService,
     private spinnerService: Ng4LoadingSpinnerService,
@@ -86,16 +86,46 @@ _handleReaderLoaded(e) {
   localStorage.setItem('Imagepath', this.imageSrc);
 }
 
-btnConfirm(UATconfirm) {
+btnConfirm(UATconfirm,remark) {
   event.preventDefault();
+
       var formData = new FormData();
+      this.remarks = remark;
+      formData.append("username",localStorage.getItem('username')); // localStorage.getItem('username')
+      formData.append("jiraId",this.uploadDoc.value.docUpload );//this.uploadDoc.value.docUpload
+      formData.append("remarks", this.remarks); 
+      console.log("remarks=="+ this.remarks);
       let b: any = (<HTMLInputElement>document.getElementById('file1')).files;
       for (let k = 0; k < b.length; k++) {
-        formData.append(this.uploadDoc.value.docUpload, b[k]);
+     //   formData.append(this.uploadDoc.value.docUpload, b[k]);
+        formData.append("file1", b[k]); 
       }
+   //   let json = JSON.parse(formData)
+     /*  this.adm.adminUpload(formData).subscribe((data: any) => {
+        var response = data._body;
+    
+        var obj = JSON.parse(response);
+        this.dataSource = obj;
+        for(var i=0; i<=this.dataSource.length; i++){
+          this.jiraId.push(this.dataSource[i].JiraId);
+        }
+        this.spinnerService.hide();
+      },
+      err => {
+        console.log('err', err);
+       // this.router.navigate(['error']);
+       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+      },); */
+
+
+
+
+     let headers = new HttpHeaders();
+      headers = headers.set(  "Token", localStorage.getItem("jwt"));
       this.HttpClient.post<any>(
-        'https://developer.icicibank.com/PDFfileUpload',
-        formData,
+      //  'https://developer.icicibank.com/PDFfileUpload',
+        'https://developer.icicibank.com/rest/adminFileUpload',
+        formData,{headers: headers}
       ).subscribe(
         res => {
           console.log(res);
@@ -107,8 +137,8 @@ btnConfirm(UATconfirm) {
           //this.router.navigate(['error']);
           this.toastrmsg('error',"Something went wrong. Please try again in some time.");
         },
-      );
-    this.modalRef = this.modalService.show(UATconfirm);
+      ); 
+   this.modalRef = this.modalService.show(UATconfirm);
 }
 Close_ConfirmId() {
   this.modalRef.hide();

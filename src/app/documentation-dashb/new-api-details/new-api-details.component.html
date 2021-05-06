@@ -1,0 +1,505 @@
+<div class="documentTabContent">
+    <ng4-loading-spinner> </ng4-loading-spinner>
+    <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+            dashboard</div>
+        <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel"
+            aria-labelledby="v-pills-applications-tab">
+            <div class="tabContentInner" ng-show="IsApiDetailsAvailable">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="color-black fs12 ff-light mb5">{{ApiDomain}} / <span
+                                class="ff-medium color-red">{{ApiName}}/</span>
+                                
+                               
+                            </h5>
+                        <h4 class="mb20 fs24 color-black ff-medium">{{ApiName}}
+                            <span  *ngIf = "env !== ' '&& isInternalUser == 'true'" style ="background-color: green;color:#fff;font-size: 12px;border: 1px solid green;border-radius: 4px;vertical-align: middle;padding:0px 2px;" 
+                            class="ff-medium color-green" >{{env}}</span></h4>
+                        <p class="fs14 color-black0 fs12 ff-light mb20">{{ApiDesc}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <ul class="nav nav-pills toggleTabs" id="pills-List-Customer-Accounts-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-input-Parameters-tab" data-toggle="pill"
+                                    href="#pills-input-Parameters" role="tab" aria-controls="pills-input-Parameters"
+                                    aria-selected="true">Input Parameters</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-output-Parameters-tab" data-toggle="pill"
+                                    href="#pills-output-Parameters" role="tab" aria-controls="pills-output-Parameters"
+                                    aria-selected="true">Output Parameters</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-Possible-error-tab" data-toggle="pill"
+                                    href="#pills-Possible-error" role="tab" aria-controls="pills-Possible-error"
+                                    aria-selected="false">Possible Errors</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-input-Parameters" role="tabpanel"
+                                aria-labelledby="pills-home-tab">
+                                <h4 class="color-black30 fs16 ff-semibold mb25">Input Parameters details</h4>
+                                <table class="table inputTable">
+                                    <thead>
+                                        <tr class="fs14 color-blue fw900">
+                                            <td>Name</td>
+                                            <td>Type</td>
+                                            <td>Description</td>
+                                            <td>Mandatory</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let detail of reqDetails">
+                                            <td>
+                                                <h5>{{detail.ReqName}}</h5>
+                                                <!-- <p>{{detail.ReqType}}</p> -->
+                                            </td>
+                                            <td>
+                                                <!-- <h5>{{detail.ReqName}}</h5> -->
+                                                <p>{{detail.ReqType}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{detail.ReqDesc}}.</p>
+                                            </td>
+                                            <td>
+                                                <p>{{detail.ReqMand}}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="pills-output-Parameters" role="tabpanel"
+                                aria-labelledby="pills-home-tab">
+                                <h4 class="color-black30 fs16 ff-semibold mb25">Output Parameters Details</h4>
+                                <table class="table">
+                                    <thead>
+                                        <tr class="fs14 color-blue fw900">
+                                            <td>Name</td>
+                                            <td>Type</td>
+                                            <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let detail of resDetails">
+                                            <td>
+                                                <h5>{{detail.ResName}}</h5>
+                                                <!-- <p>{{detail.ResType}}</p> -->
+                                            </td>
+                                            <td>
+                                                <!-- <h5>{{detail.ResName}}</h5> -->
+                                                <p>{{detail.ResType}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{detail.ResDesc}}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="pills-Possible-error" role="tabpanel"
+                                aria-labelledby="pills-Possible-error-tab">
+                                <h4 class="color-black30 fs16 ff-semibold mb25">Error parameter details</h4>
+                                <table class="table possibleErrorTable">
+                                    <thead>
+                                        <tr class="fs14 color-blue fw900">
+                                            <td>Error Code</td>
+                                            <td>Error Name</td>
+                                            <td>Error Logs</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let detail of errorDetails">
+                                            <td>
+                                                <h5>{{detail.ErrCode}}</h5>
+                                            </td>
+                                            <td>
+                                                <p>{{detail.ErrMsg}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{detail.ErrDesc}}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" ng-show="IsApiRequestAvailable">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="ff-semibold fs14 color-black30 mb20">Sample Request Packet</h5>
+                            </div>
+                            <div class="col-4 text-right">
+                                <!-- <img class="mr25" src="assets/images/copy-code.svg" alt="">
+                        <img src="assets/images/play-api.svg" alt=""> -->
+                            </div>
+                        </div>
+
+
+                        <div class="appRequetPacket">
+
+                            <pre>{{prettyPkt}}</pre>
+                            <!-- {{ParseData(sampleobj2)}} -->
+
+                        </div>
+                        <div class="appRequetUrl">
+                            <h5>API URL </h5>
+                            <p>https://developerapi.icicibank.com:8443</p>
+                            <a class="signInBtn" (click)="openModal(Authentication)">Test API</a>
+                            <!-- To open Model on Authenticate button -->
+                            <ng-template #Authentication>
+                                <div class="modal-header">
+                                    <h3 class="modal-title pull-left">Test API</h3>
+                                    <button type="button" class="close pull-right" aria-label="Close"
+                                        (click)="closeTestApiPopup(Authentication)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="row">
+                                    <div class="container">
+                                        <nav>
+                                            <div class="nav nav-tabs sandBox-navTab col-md-12  padding-0" id="nav-tab"
+                                                role="tablist">
+                                                <a class="nav-item nav-link col-md-6 " id="nav-home-tab"
+                                                    data-toggle="tab" href="#nav-home" role="tab"
+                                                    aria-controls="nav-home" aria-selected="true">Header</a>
+                                                <a class="nav-item nav-link active col-md-6" id="nav-profile-tab"
+                                                    data-toggle="tab" href="#nav-profile" role="tab"
+                                                    aria-controls="nav-profile" aria-selected="false">Body</a>
+                                            </div>
+                                        </nav>
+
+
+                                        <div class="tab-content tabContentSandbox mt-0" id="nav-tabContent">
+                                            <div class="tab-pane fade" id="nav-home" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <p class="pull-left mt-3 "><b>Request header :</b></p>
+
+
+                                                <button class="signInBtn btn-dark pull-right  mt-3 " type="button"
+                                                    ng-reflect-klass="signInBtn" (click)="addheader()"
+                                                    id="submitButton"> Add
+                                                    Header
+                                                </button>
+
+
+
+
+                                                <!-- ================-->
+                                                <form (ngSubmit)="onSubmitBody(myForm)" #myForm="ngForm">
+                                                    <div class="table-responsive sanboxTable">
+                                                        <table class="table table-bordered table-hover col-md-12">
+                                                            <tbody *ngFor="let obj of dataArray;let i = index;">
+                                                                <tr 
+                                                                    class="mb-2">
+                                                                    <td>
+
+                                                                        <div class="form-group form-inline">Key :
+                                                                            &nbsp;&nbsp;
+                                                                            <input type="text" name="key{{obj.id}}"
+                                                                                class="form-control"
+                                                                                
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="" [readonly]="i==0" [ngModel]="obj.key">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group form-inline">
+                                                                            Value : &nbsp;&nbsp;                             
+                                                                            <input type="text" #storeValue id="storeValue" name="storeValue{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.storeValue"  hidden>
+                                                                            <input type="text" name="value{{obj.id}}" #value id="value"
+                                                                            class="form-control" placeholder="" (input)="onValueChange($event.target.value)"
+                                                                            [ngModel]="obj.value">
+                                                                            <!-- {{value.value}}
+                                                                            {{storeValue.value}} -->
+                                                                                <!-- <span class="text-danger"   *ngIf="key1==false">value has been changed</span> -->
+                                                                                <!-- {{firstKeyActualValue.value}}<br/>
+                                                                                {{firstKeyUsersValue.value}} -->
+                                                                        </div>
+                                                                    </td>
+                                                                    <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
+                                                                            type="button" ng-reflect-klass="signInBtn"
+                                                                            (click)="removeheader(i)"> &minus; </button>
+                                                                    </td>
+
+                                                                </tr>
+                                                                <tr *ngIf="ApiSubDomain =='Composite API' &&  !i>0"                                                                 class="mb-2">
+                                                                    <td>
+                                                                        <div class="form-group form-inline">Key :
+                                                                            &nbsp;&nbsp;
+                                                                        
+                                                                            <input type="text" name="keyPriority{{obj.id}}"
+                                                                                class="form-control" 
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="" [readonly]="i==0" [ngModel]="obj.keyPriority">
+                                                                                
+                                                                               
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group form-inline">
+                                                                            Value : &nbsp;&nbsp;
+                                                                            <input type="text" #store_priority_value id="store_priority_value" name="store_priority_value{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.store_priority_value"  hidden>
+                                                                            <input type="text" #priority_value id="priority_value" name="priority_value{{obj.id}}"
+                                                                                class="form-control" placeholder=""
+                                                                                [ngModel]="obj.priority_value" (input)="onPriorityValueChange($event.target.value)">
+                                                                                <!-- {{priority_value.value}}
+                                                                                {{priority_value_compare.value}} -->
+                                                                                <!-- <span class="text-danger"  *ngIf="key2==false">value has been changed</span> -->
+                                                                        </div>
+                                                                    </td>
+                                                                    <td> <button *ngIf="i>0" class="signInBtn btn-dark pull-right"
+                                                                            type="button" ng-reflect-klass="signInBtn"
+                                                                            (click)="removeheader(i)"> &minus; </button>
+                                                                    </td>
+                                                                </tr> 
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+<!-- {{firstKeyActualValue.value != firstKeyUsersValue.value}} -->
+<!-- <span *ngIf="firstKeyActualValue.value != firstKeyUsersValue.value && priority_value.value != priority_value_compare.value">true</span> -->
+<!-- {{myForm.controls.priority_value.value}}<br/>
+{{myForm.controls.store_priority_value.value}}<br/>
+{{myForm.controls.storeValue.value}}<br/>
+{{myForm.controls.value.value}}<br/> -->
+
+
+<!-- {{myForm.controls.firstKeyUsersValue.controls[i].value }}
+{{myForm.controls.priority_value.value}} -->
+
+
+<!-- {{myForm.controls.priority_value_compare.value}} -->
+                                                    <!-- <button  type="submit"
+                                                        class="btn signInBtn btn-dark pull-right mt-30" 
+                                                      >Test</button> -->
+
+
+
+                                                </form>
+                                                <!--================== -->
+                                            </div>
+
+
+                                            <div class="tab-pane fade  show active" id="nav-profile" role="tabpanel"
+                                                aria-labelledby="nav-profile-tab">
+                                                <form  #bodyForm="ngForm"
+                                                    class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <p class="mb-1 mt-3 bold">Select Content Type:</p>
+                                                        <span class="custom-dropdown">
+                                                            <select class="form-control h40 " id="type" name="type"
+                                                                [(ngModel)]="contentType">
+                                                                <option value="JSON" selected name="JSON"
+                                                                    [selected]="isSelected">JSON</option>
+                                                                <option value="XML" name="XML">XML</option>
+
+                                                            </select>
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <!-- <a #toggleButton (click)="toggleMenu($event)">Toggle Menu</a>
+                                                        <div class="menu" *ngIf="isMenuOpen" >
+                                                        <div>
+                                                        I'm the menu. Click outside to close me
+                                                        </div>
+                                                        </div> -->
+                                                        <div *ngIf="testApiresponseFor601">
+                                                            <label class="mb-1 mt-3 bold">Test Case :</label>
+                                                            <!-- <input id="check01" type="checkbox" name="menu" value="" /> -->
+                                                            <label #toggleButton (click)="toggleMenu($event)" for="check01" class="mb-1 custom-select-box">
+                                                                <span 
+                                                                    *ngIf="!testApiResID.length>0">Select</span>
+                                                                    <span class="wrap-text"
+                                                                    *ngIf="testApiResID.length>0">
+                                                                    <!-- TestCaseID:
+                                                                    <b>{{testApiResID}}</b> &nbsp; &nbsp; &nbsp;
+                                                                    &nbsp; -->
+                                                                    TesCaseName:<b>
+                                                                        {{testApiResName}}</b></span></label>
+                                                                       
+                                                            <div class="submenu menu"  *ngIf="isMenuOpen" >
+                                                                <div>
+                                                                    <table style="width:100%" class="dynamicData" (click)="handleTableClick">
+                                                                        <tr>
+                                                                            <th>Test Case ID</th>
+                                                                            <th>TesCaseName</th>
+
+                                                                            <!-- <th>Status </th> -->
+                                                                        </tr>
+                                                                        <tr *ngFor="let i of testApiresponseFor601"
+                                                                            (click)="getReqRes($event,$event.target)"
+                                                                            [attr.id]="i.testCaseId"
+                                                                            [attr.name]="i.testCaseName"
+                                                                            [attr.requestPacket]="i.requestPacket"
+                                                                            [attr.responsePacket]="i.responsePacket"
+                                                                            [attr.testCaseDescription]=i.testCaseDescription
+                                                                            class="cursorPointer"
+                                                                            [class.highlighted]="i.testCaseId === clickedTestCaseID">
+                                                                            <td [attr.id]="i | json" style="word-break:break-all;">
+                                                                                {{i.testCaseId}}
+                                                                             
+                                                                            </td>
+                                                                            <td style="word-break:break-all;">{{i.testCaseName}}</td>
+                                                                            <!-- <td> <input type="checkbox"
+                                                                                    style="display: block;"
+                                                                                    disabled></td> -->
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <span _ngcontent-c6="" class="inline_block pull-right"
+                                                            style="
+                                                            margin-top: -33px;
+                                                            margin-right: 17px;
+                                                            "><img _ngcontent-c6="" alt="" class="dropdownIcon" src="assets/images/dropdown-2.svg" style="
+                                                            height: 8px;"></span>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" *ngIf="testApiResID.length>0"></div>
+                                                    <div    class="col-md-6 mb-3" *ngIf="testApiResID.length>0">
+                                                        <!-- <label _ngcontent-c7="" class="mb-1 bold">Descreption :</label> -->
+                                                        <label  *ngIf="testApiResID.length>0" _ngcontent-c4="" _ngcontent-c7="" class="mb-1 bold">Description: <span _ngcontent-c4="" style="
+                                                            font-weight: 100;
+                                                            color: gray;font-size: 12px;
+                                                        ">{{testCaseDescription}}</span></label>
+                                                    <!-- <label _ngcontent-c7="" class="mb-1 custom-select-box" for="check01" style="background-color: #e9ecef;">
+                                                        <p>dummy dkjnfkjdskjgdkjgkjfdgnfdgfd</p></label> -->
+                                                    </div>
+                                                    <div class="form-group cod col-md-6">
+                                                        <p class="mb-1 bold">Request:</p>
+                                                        <input type="text" id="req1Compare"  name="req1Compare"                                                                          
+                                                        [ngModel]="reqParamValue"  hidden/>
+                                                        <textarea name="Request" *ngIf="!testApiResID.length>0" id="req1"
+                                                            class="form-control setHeight" cols="50" rows="100"
+                                                            [(ngModel)]="reqParamValue"
+                                                            [attr.responseData]="testApiResData" required>
+                                                            </textarea>
+                                                        <input type="text" id="req2Compare" name="req2Compare"   [(ngModel)]="testApiReqData" hidden/>
+
+                                                        <textarea name="Request" *ngIf="testApiResID.length>0" id="req2"
+                                                            class="form-control setHeight" cols="50" rows="100"
+                                                            [(ngModel)]="testApiReqData"
+                                                            [attr.responseData]="testApiResData" required>
+                                                                </textarea>
+                                                                
+
+                                                    </div>
+                                                    <div class="form-group cod col-md-6">
+                                                        <p class="mb-1 bold">Response:</p>
+                                                        <!-- <div disabled
+                                                            name="Response" class="form-control" cols="50" rows="10"
+                                                          >{{reponse | json}}</div> -->
+                                                        <textarea name="Response" *ngIf="testApiResID.length>0"
+                                                            class="form-control setHeight texareaRes" cols="50" rows="100" disabled
+                                                            [(ngModel)]="testApiResData">
+
+                                                            {{testApiResID}}   
+                                                          </textarea>
+                                                        <textarea *ngIf="!testApiResID.length>0"
+                                                            class="form-control setHeight texareaRes" cols="50" rows="100" disabled
+                                                            [(ngModel)]="testApiresponse">
+                                                            {{testApiresponse | json}}
+                                                            
+                                                            </textarea>
+
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <p class="text-error" id="headerError" hidden style="color: red;">Header value has been changed</p>
+                                                        <p class="text-error" id="headerError1" hidden style="color: red;">API's default value has been changed</p>
+                                                        <p class="text-error" id="headerError2" hidden style="color: red;">API's default priority value has been changed</p>
+
+                                                        <button type="submit"
+                                                            class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid" (click)="onSubmitBody(bodyForm)">Test</button>
+                                                        <!-- <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
+                                                            href="#myModal2"
+                                                            class="btn signInBtn btn-dark pull-right mt-30 mr-3"
+                                                            (click)="createTransactionHistory(bodyForm)">>Callback
+                                                            Response</button> -->
+                                                            <div *ngIf="ApiSubDomain =='Eazypay'">
+                                                        <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
+                                                            href="#myModal2"
+                                                            class="btn signInBtn btn-dark pull-right mt-30 mr-3"
+                                                            (click)="createTransactionHistory(bodyForm)">
+                                                            Callback
+                                                            Response</button>
+                                                            </div>
+
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="myModal2">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content"  >
+                                            <!-- <div class="modal-header"> -->
+                                            <div>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">×</button>
+
+
+                                            </div>
+                                            <div class="container"></div>
+                                            <div class="modal-body">
+                                                <p>{{callbackResponse}}</p>
+                                                <!-- <a data-toggle="modal" href="#myModal3" class="btn btn-primary">Launch modal</a> -->
+
+                                                <p class="fs15">
+                                                    Please visit Account -> Transaction History to check the captured
+                                                    data.
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-12">
+                                    <button class="signInBtn btn-dark pull-right" type="button"
+                                        ng-reflect-klass="signInBtn" (click)="onSubmitUATForm()" id="submitButton">
+                                        Submit
+                                    </button></div> -->
+
+                            </ng-template>
+
+                            <!-- End Modal -->
+
+
+                        </div>
+                        <!-- ===================================== -->
+                        <!--Production Confirmation alert modalbox -->
+                        <!-- ===================================== -->
+                        <!--Production Confirmation alert modalbox -->
+
+
+
+                        <!-- End Modalbox -->
+                        <!--Production Confirmation alert modalbox -->
+                        <!-- End Modalbox -->
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>

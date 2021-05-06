@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from "src/app/services";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+
 // import 'rxjs/Rx';
 import { Http, Headers, Response } from "@angular/http";
 import { saveAs } from "file-saver";
@@ -15,6 +17,7 @@ import { ToasterService, Toast } from 'angular2-toaster';
 
 })
 export class OnboardingrequestsComponent implements OnInit {
+  modalRef: BsModalRef;
   onoardingRequestTableData:any;
   dataSource: string[] = [];
   p: any = "";
@@ -26,6 +29,7 @@ export class OnboardingrequestsComponent implements OnInit {
     private spinnerService: Ng4LoadingSpinnerService,
     private router:Router,
     private toasterService: ToasterService,
+    private modalService: BsModalService
   ) {
     this.request_data();
   }
@@ -33,6 +37,12 @@ export class OnboardingrequestsComponent implements OnInit {
   ngOnInit() {
     console.log("hi")
     
+  }
+  UAT_help(UAT_Help: any) {
+    this.modalRef = this.modalService.show(UAT_Help, {
+      backdrop: "static",
+      class: "modal-lg"
+    });
   }
 
   request_data() {
@@ -85,6 +95,28 @@ export class OnboardingrequestsComponent implements OnInit {
     var fileName = url.substring(url.lastIndexOf("/") + 1);
 
     this.adm.downloadCertificate(json).subscribe((data: any) => {
+      this.certificate = data._body;
+      console.log(data._body);
+      var blob = new Blob([this.certificate], {
+        type: "text/plain"
+      });
+      saveAs(blob, fileName);
+    },
+    err => {
+      console.log('err', err);
+     // this.router.navigate(['error']);
+      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+    },);
+  }
+  downloadDocument(jiraID,type,url) {
+    var json = {
+      jiraid: jiraID,
+      type:type
+    };
+
+    var fileName = url.substring(url.lastIndexOf("/") + 1);
+
+    this.adm.customDownload(json).subscribe((data: any) => {
       this.certificate = data._body;
       console.log(data._body);
       var blob = new Blob([this.certificate], {

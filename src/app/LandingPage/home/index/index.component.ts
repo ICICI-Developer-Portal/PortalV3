@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild, ɵConsole } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
@@ -35,7 +35,8 @@ declare var $: any;
   styleUrls: ['./index.component.css'],
   providers: [DatePipe]
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit,  AfterViewInit {
+  @ViewChild('signinBtn') myModal:ElementRef;
   treeDataKeys: any;
   responseData: any;
   menuArray: any[];
@@ -183,6 +184,7 @@ export class IndexComponent implements OnInit {
   errorMsg:any = "Something went wrong. Please try again in some time.";
   recaptchaReactive: any;
   recaptchaFlag: boolean = false;
+  IntrestForm: FormGroup;
 
   constructor(
     private http: Http,
@@ -207,8 +209,10 @@ export class IndexComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
     });
-    
+  // this.getRM();
+  this.spinnerService.hide();
   }
+  //sessionStorage.setIten("autoLogout",true);
   decode(val){
  
     // Decryption process
@@ -231,7 +235,7 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     var self = this;
    // alert(navigator.userAgent);
-
+   this.spinnerService.hide();
     var browser = (function (agent) {
       switch (true) {
           case agent.indexOf("edge") > -1: return "edge";
@@ -340,6 +344,15 @@ export class IndexComponent implements OnInit {
       termsandcondition: ["", [Validators.required]]
     });
 
+    this.IntrestForm = this.formbuilder.group({
+      fullname: ["", [Validators.required,Validators.pattern(/^[a-zA-Z ]*$/)]],
+      emailid: ["", [Validators.required, Validators.email]],
+      mobileNumber: ["", [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      location: ["",[Validators.pattern("[a-zA-Z][a-zA-Z ]+")]],
+      company: ["",[Validators.pattern(/^([a-zA-Z0-9 _-]+)$/)]],
+      requirements: ["",[Validators.pattern(/^[a-zA-Z ]*$/)]],
+    });
+
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
@@ -396,6 +409,24 @@ export class IndexComponent implements OnInit {
       });
   });
    
+  }
+  ngAfterViewInit () {
+    setTimeout(() =>{
+      console.log(localStorage.getItem("autoLogout"));
+      if(localStorage.getItem("autoLogout") == "true"){
+        localStorage.removeItem("autoLogout");
+        this.myModal.nativeElement.click();
+       
+      }
+      //document.getElementById("signupBtn").click();
+    }, 100)
+  }
+  ngOnDestroy() {
+    console.log('lading page destroy');
+
+  }
+  closeSignUp(){
+    this.modalRef2.hide();
   }
   bannerTArget1($event){
     // alert("hi")
@@ -767,13 +798,14 @@ export class IndexComponent implements OnInit {
   }
 
   openModal2(signup: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+   // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
     try {
       this.modalRef.hide();
     } catch (e) { }
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
+    this.router.navigate(['/signUpPage']);
   }
   already_Log(alreadylogin: any, signup: any) {
     if (localStorage.getItem("id") != null) {
@@ -841,6 +873,29 @@ export class IndexComponent implements OnInit {
         this.Hide_signbtn();
         this.show = false;
         this.modalRef.hide();
+
+        let respData =  obj.data;
+        if(respData && respData.misUser ){
+          
+          localStorage.setItem('misUserVal',respData.misUser);
+        }  if(respData && respData.firstName ){
+          
+          localStorage.setItem('Firstname',respData.firstName);
+        }  if(respData && respData.lastLoginDt ){
+         
+          localStorage.setItem('lastLoginDate',respData.lastLoginDt);
+        }
+
+        if(respData && respData.companyName ){
+          localStorage.setItem('companyName',respData.companyName);
+        }if(respData && respData.mobileNo ){
+          localStorage.setItem('mobileNo',respData.mobileNo);
+        } if(respData && respData.email ){
+          localStorage.setItem('email',respData.email);
+        } if(respData && respData.rm ){
+          localStorage.setItem('rm',respData.rm);
+        }
+
         localStorage.setItem("id", obj.data.id);
         localStorage.setItem("email", obj.data.email);
         localStorage.setItem("username", obj.data.username);
@@ -1242,58 +1297,65 @@ export class IndexComponent implements OnInit {
   }
 */
 show_build(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/1"]);
+  /*if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/1"]);
   } else {
     this.modalRef = this.modalService.show(signin, { backdrop: "static" });
-  }
+  }*/
 }
 
 loans(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/30"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/30"]);
   } else {
     this.modalRef = this.modalService.show(signin, { backdrop: "static" });
-  }
+  } */
 }
 
 account(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/209"]);
+/*   if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/209"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 payment(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/104"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/104"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 corporate(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/247"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/247"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 commercial(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/292"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/292"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 corporates(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/370"]);
+ /*  if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/370"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
   Hide_signbtn() {
     if (!localStorage.getItem("id")) {
@@ -2150,24 +2212,34 @@ corporates(signin: any) {
   Inter_requirements: String = "";
 
   inter_submit() {
-    // var feedback =
-    //   'User Interested Full Name = ' +
-    //   this.Inter_full_name +
-    //   ' Contact Number =' +
-    //   this.Inter_contactnumber;
-    // var json = { email: this.Inter_email, feedbackIn: feedback };
-    // this.adm.feedback(json).subscribe((data: any) => {
-    //   var obj = JSON.parse(data._body);
-    //   if (obj.status == true) {
-    //     this.toastrmsg('success', 'Thank your for your Request.');
-    //     this.Inter_full_name = '';
-    //     this.Inter_contactnumber = '';
-    //     this.Inter_email = '';
-    //     this.modalRef.hide();
-    //   } else {
-    //     this.toastrmsg('error', obj.message);
-    //   }
-    // });
+   
+    
+
+
+    if(this.IntrestForm.controls['fullname'].hasError('required') || this.IntrestForm.controls['emailid'].hasError('required') || this.IntrestForm.controls['mobileNumber'].hasError('required')){
+      this.toastrmsg("error", "Field marked as * is mandatory.");
+    }else if(this.IntrestForm.controls['fullname'].hasError('pattern')){
+
+      this.toastrmsg("error", "Full name should contain only Alphabets and spaces.");
+    }else if(this.IntrestForm.controls['emailid'].hasError('email')){
+      this.toastrmsg("error", "Please enter valid Email ID.");
+
+    }
+    else if(this.IntrestForm.controls['mobileNumber'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid mobile number.");
+
+    }else if(this.IntrestForm.controls['location'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid location.");
+
+    }
+    else if(this.IntrestForm.controls['company'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid company name.");
+
+    }else if(this.IntrestForm.controls['requirements'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid requirements.");
+
+    }
+    else{
     var feedback =
       "User Interested Full Name = " +
       this.Inter_full_name +
@@ -2204,6 +2276,8 @@ corporates(signin: any) {
       this.toastrmsg('error',this.errorMsg);
     },);
   }
+  }
+
 
   alredy_login() {
     this.modalRef7.hide();
@@ -2332,6 +2406,44 @@ sendTokenToBackend(tok){
     },
     () => {}
   );
+}
+
+getRM() {
+ 
+ try {
+    var json = {
+      pincode: "1112125"
+    };
+    this.spinnerService.show();
+    this.adm.getProductIssuesList().subscribe((data: any) => {
+      var response = data._body;
+      var obj = JSON.parse(response);
+      console.log(obj);
+    },
+    err => {
+      console.log('err', err);
+      //this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
+    },);
+  } catch {
+    this.toastrmsg("error", console.error());
+  }
+}
+
+// searchbar added 
+viewApi($event){
+  // this.router.navigate(['http://localhost:4200/#/documentation']);
+  if($event.which == 13) {
+  console.log($("#viewApisearch").val())
+  let searchbox= $("#viewApisearch").val();
+  if(searchbox!=""){
+  localStorage.setItem("userEnteredText",$("#viewApisearch").val());
+ // document.location.href='#/viewallapi',true;
+  this.router.navigate(['viewallapi']);
+  }
+  $event.preventDefault();
+
+}
 }
 
   

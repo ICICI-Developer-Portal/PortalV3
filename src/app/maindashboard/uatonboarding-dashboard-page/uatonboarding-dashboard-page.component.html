@@ -220,6 +220,7 @@
                         <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
                         <!-- <pre>{{term}} </pre> -->
                     </form>
+                   
                     <span class="text-danger" *ngIf="(responseData | filter: term).length === 0"> No matches found</span>
 
                     </div>
@@ -234,7 +235,7 @@
                         <li>
 
                           <!-- 1 level -->
-                          <a class="display-block cursor-pointer padding-left-25">
+                          <a class="display-block cursor-pointer padding-left-25 {{i.TAB_NAME}}">
 
                             <ng-template #other>
                               <div class="customcsscontainer"> <label for="{{i.API_ID}}">
@@ -243,7 +244,7 @@
                                   {{i.TAB_NAME}} </label>
                               </div>
                             </ng-template>
-                            <p class="margin_0px"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
+                            <p class="margin_0px {{i.TAB_NAME}}"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
                                   class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
                           </a>
                           <!-- 1 level -->
@@ -252,26 +253,27 @@
                               <!-- 2 level -->
                               <a class="display-block cursor-pointer padding-left-10prcnt">
                                 <ng-template #other>
-                                  <div class="customcsscontainer"> <label for="{{j.API_ID}}"> <input type="checkbox" 
-                                    [attr.domainName]="i.TAB_NAME"
+                                  <div class="customcsscontainer"> <label for="{{j.API_ID}}">
+                                     <input type="checkbox" 
+                                    [attr.domainName]="i.TAB_NAME"  [attr.subDomainName]="j.TAB_NAME"
                                         (change)="multipleSelectAPI($event,$event.target.checked)" 
                                         [attr.parentName]="i.TAB_NAME"
                                         id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
                                         #checkboxes>{{j.TAB_NAME}}</label>
                                   </div>
                                 </ng-template>
-                                <p *ngIf="j.children; else other" class="margin_0px">{{j.TAB_NAME}}
+                                <p *ngIf="j.children; else other" class="margin_0px {{j.TAB_NAME}}">{{j.TAB_NAME}}
                                   <span class="inline_block pull-right"><img class="dropdownIcon"
                                       src="assets/images/dropdown-2.svg" alt=""></span></p>
                               </a>
                               <!-- 2 level -->
                               <ul *ngFor="let k of j.children" class="third-level display-none">
-                                <li  *ngIf="!(k.TREE_ID ==328 )">
+                                <li>
                                   <!-- 3 level -->
                                   <a class="display-block cursor-pointer padding-left-13prcnt">
                                     <ng-template #other >
                                       <div class="customcsscontainer"> <label for="{{k.API_ID}}"> <input type="checkbox" 
-                                        [attr.domainName]="i.TAB_NAME"
+                                        [attr.domainName]="i.TAB_NAME"   [attr.subDomainName]="j.TAB_NAME"
                                             (change)="multipleSelectAPI($event,$event.target.checked)" id="{{k.API_ID}}"
                                            [attr.parentName]="j.TAB_NAME" [attr.grandParentName]="i.TAB_NAME" value="{{k.TAB_NAME}}"
                                             #checkboxes>{{k.TAB_NAME}}</label>
@@ -289,7 +291,8 @@
                                         <ng-template #other>
                                           <div class="customcsscontainer"> <label for="{{L.API_ID}}">
                                               <input type="checkbox" 
-                                              [attr.domainName]="i.TAB_NAME" (change)="multipleSelectAPI($event,$event.target.checked)" 
+                                              [attr.domainName]="i.TAB_NAME"   [attr.subDomainName]="j.TAB_NAME"
+                                              (change)="multipleSelectAPI($event,$event.target.checked)" 
                                               [attr.parentName]="k.TAB_NAME" [attr.grandParentName]="j.TAB_NAME" [attr.greatGrandParentName]="i.TAB_NAME" id="{{L.API_ID}}"
                                                 value="{{L.TAB_NAME}}" #checkboxes>{{L.TAB_NAME}}</label></div>
                                         </ng-template>
@@ -311,7 +314,8 @@
                                               <div class="customcsscontainer"> <label for="M.API_ID">
                                                  <input
                                                     type="checkbox" 
-                                                    [attr.domainName]="i.TAB_NAME" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
+                                                    [attr.domainName]="i.TAB_NAME"   [attr.subDomainName]="j.TAB_NAME" 
+                                                    (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
                                                     [attr.parentName]="L.TAB_NAME" [attr.grandParentName]="k.TAB_NAME" [attr.greatGrandParentName]="j.TAB_NAME" [attr.greatGreatGrandParentName]="i.TAB_NAME" 
                                                     value="{{M.TAB_NAME}}">
                                                   {{M.TAB_NAME}}</label></div>
@@ -465,7 +469,7 @@
                       <div><label for="projectName">Checksum Required </label></div>
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Checksum">
-                          <option value=" ">Select Checksum</option>
+                          <option selected="selected">Select Checksum</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -479,7 +483,8 @@
                       <span class="custom-dropdown">
                         <select class="form-control h40 col-md-11" formControlName="Encryption"
                           (change)="selectChangeHandler($event)">
-                          <option value=" ">Select Encryption</option>
+                         
+                          <option selected="selected">Select Encryption</option>
                           <option *ngFor="let option of yesNo" [value]="option">
                             {{option}}
                           </option>
@@ -850,7 +855,7 @@
 
                     <div class="col-md-12">
                       <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
-                        ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid"
+                        ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid "
                         (click)="onSubmitUATForm(Prodconfirm)" id="submitButton"> Submit
                       </button></div>
 

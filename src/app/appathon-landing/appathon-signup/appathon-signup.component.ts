@@ -392,7 +392,7 @@ export class AppathonSignupComponent implements OnInit {
         );
         this.sessionSet('username', this.loginResponse.data.username);
         localStorage.setItem('username', this.loginResponse.data.username);
-        localStorage.setItem('password', this.loginResponse.data.password);
+        //localStorage.setItem('password', this.loginResponse.data.password);
         localStorage.setItem('id', this.loginResponse.data.id);
         localStorage.setItem('role',  this.loginResponse.data.role);
         localStorage.setItem('appathonusername',  this.loginResponse.data.appathonusername);

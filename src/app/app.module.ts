@@ -6,13 +6,13 @@ import { AppComponent } from "./app.component";
 import { LayoutModule } from "./LandingPage/layout/layout.module";
 import { HomeModule } from "./LandingPage/home/home.module";
 import { HttpModule } from "@angular/http";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { UserservicesModule } from "./services/userservice.module";
 import { LoginService, DashboardService } from "./services";
 import { Config } from "./config/config";
 import { MaindashboardModule } from "./maindashboard/maindashboard.module";
 import { MailverifyModule } from "./mailverify/mailverify.module";
-import { LocationStrategy, HashLocationStrategy } from "@angular/common";
+import { LocationStrategy, HashLocationStrategy ,Location, PathLocationStrategy, CommonModule } from "@angular/common";
 import { DocumentationDashbComponent } from "./documentation-dashb/documentation-dashb.component";
 import { DocumentationDashbModule } from "./documentation-dashb/documentation-dashb.module";
 import { VariablesService } from "./services/Variables.service";
@@ -45,8 +45,26 @@ import { Ng4LoadingSpinnerModule } from "ng4-loading-spinner";
 import { FocusOnShowDirective } from "./autofocus.directive";
 import { ProductionOnboardingModule } from "./production-onboarding/production-onboarding.module";
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
-// import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
+import { SignupPopupComponent } from './signup-popup/signup-popup.component';
+import { AdminpanelModule } from "./adminpanel/adminpanel.module";
+
+import { AutoLogoutService } from "./services/auto-logout.service";
+
+import { UserdataComponent } from "./userdata/userdata.component";
+//  import { DataTableModule } from "angular7-data-table";
+import { NewLandingPageComponent } from './new-landing-page/new-landing-page.component';
+import { ExploreApiSigninComponent } from './documentation-dashb/explore-api-signin/explore-api-signin.component';
+import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
+//import { MyHttpInterceptor } from "./services/my-http-interceptor";
+//import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
+// import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
+import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-prod-onboarding-page.component';
+
+
+
+
+// import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,10 +77,18 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
     ErrorPageComponent,
     HeaderComponent,
     FocusOnShowDirective,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    SignupPopupComponent,
+    UserdataComponent,
+    NewLandingPageComponent,
+    NewProdOnboardingPageComponent,
+    ExploreApiSigninComponent,
+    AutoLogoutComponent
+   
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     RouterModule,
@@ -75,7 +101,7 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
     UserservicesModule,
     MailverifyModule,
     MatDialogModule,
-
+    AdminpanelModule,
     FormsModule,
     ReactiveFormsModule,
     ToasterModule.forRoot(),
@@ -84,17 +110,26 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
     MatInputModule,
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
-    ProductionOnboardingModule
+    ProductionOnboardingModule,
+    //  DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
     
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    Location, 
+  // {provide: LocationStrategy, useClass: PathLocationStrategy},
     Config,
     LoginService,
     VariablesService,   
-    DashboardService
+    DashboardService,
+    AutoLogoutService,
+   /*  {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true
+    } , */
+   // { provide: DEFAULT_TIMEOUT, useValue: defaultTimeout }
     // { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
   ],
   entryComponents: [

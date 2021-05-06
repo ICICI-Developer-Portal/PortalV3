@@ -613,6 +613,9 @@ export class ProductionOnboardingPageComponent implements OnInit {
 
   onSubmitProductionForm(Prodconfirm) {
 
+    $("#submitButton").prop("disabled",true)
+    setTimeout(function(){  $("#submitButton").prop("disabled",false)},10000); 
+
     let ipValues = [];
     let urlValues = [];
 
@@ -738,7 +741,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
     //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
     //https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
-      "https://developerapi.icicibank.com:8443/api/v2/jira",
+      "https://developer.icicibank.com/rest/create-jira-new",
       formData
     ).subscribe(
       res => {
