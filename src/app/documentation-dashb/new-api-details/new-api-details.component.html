@@ -240,9 +240,22 @@
                                                                                 
                                                                                
                                                                         </div>
+
+                                                                        
                                                                     </td>
                                                                     <td>
-                                                                        <div class="form-group form-inline">
+                                                                        <div class="form-group form-inline" *ngIf="ApiName !='IMPS'">
+                                                                            Value : &nbsp;&nbsp;
+                                                                            <input type="text" #store_priority_value id="store_priority_value" name="store_priority_value{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.store_priority_value"  hidden>
+                                                                            <input type="text" #priority_value id="priority_value" name="priority_value{{obj.id}}"
+                                                                                class="form-control" placeholder=""
+                                                                                [ngModel]="obj.priority_value" (input)="onPriorityValueChange($event.target.value)">
+                                                                                <!-- {{priority_value.value}}
+                                                                                {{priority_value_compare.value}} -->
+                                                                                <!-- <span class="text-danger"  *ngIf="key2==false">value has been changed</span> -->
+                                                                        </div>
+                                                                        <div class="form-group form-inline" *ngIf="ApiName =='IMPS'">
                                                                             Value : &nbsp;&nbsp;
                                                                             <input type="text" #store_priority_value id="store_priority_value" name="store_priority_value{{obj.id}}"                                                                          
                                                                             [ngModel]="obj.store_priority_value"  hidden>
