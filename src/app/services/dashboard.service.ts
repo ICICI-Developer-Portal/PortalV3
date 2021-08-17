@@ -19,7 +19,7 @@ export class DashboardService {
   apiUrl: string;
   private user_id = new Subject<any>();
   private user_name = new Subject<any>();
-
+  private environmentData = new Subject<any>();
   constructor(
     private http: Http,
     private config: Config,
@@ -28,7 +28,7 @@ export class DashboardService {
   ) {
     this.apiUrl = config.apiUrl;
   }
-
+ 
   // getTreeData() {
   //   let headers = new Headers({
   //     "Content-Type": "application/x-www-form-urlencoded"
@@ -39,9 +39,16 @@ export class DashboardService {
   //     options
   //   );
   // }
+  //"https://developer.icicibank.com/ROOT_UAT/rest/getMenuTree?ID=0"
   getMenuTreeData() {
     return this.http.get(
       "https://developer.icicibank.com/rest/getMenuTree?ID=0"
     );
+  }
+  getEnvironment(): Observable<any> {
+    return this.environmentData.asObservable();
+  }
+  sendEnvironment(env: string) {
+    this.environmentData.next(env);
   }
 }

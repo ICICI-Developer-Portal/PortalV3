@@ -29,7 +29,8 @@ export class SidebarComponent implements OnInit {
   showMatSpinner: boolean = false;
   businessLendingProducts=["Offer check","New customer information","Customer details modification","Bank statement (i)","Bank statement (ii)","Bank statement (iii)","Instant Sanction","Instant Disbursement","Data fetch","Mini Statement","File sharing","Dashboard","Status Check"];
 newLi;
-
+Env:any;
+isInternalUser:any;
   /** @class SidebarComponent
    * @constructor
    */
@@ -64,7 +65,9 @@ newLi;
   ngOnInit() {
     var self = this;
     //api for get menu tree data
+    this.isInternalUser = localStorage.getItem("isInternalUser");
     this.getMenuTree();
+    console.log("jiiiiiiiiiiii jiiii")
 
     //api for get tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
@@ -126,13 +129,21 @@ newLi;
     });
 
     //for dynamic data click event handle
+    let that = this;
     $(document)
       .off("click")
       .on("click", ".tree-node", function(e) {
         var selectedId = $(this).attr("role");
         console.log(selectedId)
+        
         this.nodeId = selectedId.split("_").pop();
         var nodeType = selectedId.split("_", 2).pop();
+        let env = selectedId.split("_", 3).pop();
+        console.log(env);
+        that.Env = env;
+       
+       // this.setdata(env);
+       // this.dashboardService.environmentData = env;
         self.AppId(this.nodeId, nodeType);
       });
   }
@@ -174,6 +185,8 @@ newLi;
     this.treeElements = this.createTree();
     setTimeout(() => {
       this.assignClickToNodes();
+      $(".dynamicTree").append('<li class="nav-link intro viewAllApi" (click)="viewAllApi($event)"><a href="#/viewallapi" role="tab"> VIEW ALL APIs</a></li>')
+
     }, 1000);
   }
 
@@ -208,7 +221,7 @@ newLi;
       `</li>` +
       `</ul>` +
       `</li>`
-      + ` <li class="nav-link">
+      + ` <li class="nav-link dynamicTree">
 
       <a id="v-pills-messages-tab" data-toggle="pill"  href="#/APIDomains" role="tab" aria-controls="v-pills-messages" aria-selected="false" class=""  style="
       background: #ae282e !important;
@@ -218,24 +231,7 @@ newLi;
     `</a>` +
     `<ul class="collapse nav-pills-first-level submenuLevelOne list-unstyled apiDomainCategory" id="dynamicDropdownlist">`+    this.createDynamicTree();
     +`</ul>` +
-    `</li>`+`<li class="nav-link viewAllLink">
-    <a id="v-view-all-tab" data-toggle="pill"  href="#/viewallapi" role="tab" aria-controls="v-view-all" aria-selected="true">
-      <div class="viewAllIcon">
-        <i class="material-icons">dashboard</i>
-      </div>
-      VIEW ALL APIs
-      <img
-        class="viewAllDropdownActive"
-        src="assets/images/dropdown-3.svg"
-        alt=""
-      />
-      <img
-        class="viewAllDropdown" 
-        src="assets/images/dropdown-viewall.svg"
-        alt=""
-      />
-    </a>
-  </li>`;
+    `</li>`+`<li></li>`;
  
 
       return this.treeItems;
@@ -275,35 +271,42 @@ newLi;
           );
         }
      
-      } else {
+      } else if(this.treeData[i].display == "1") {
         this.dynamicTreeList +=
           `<li class="nav-link">` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${this.treeData[i].TYPE}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"   role="tab_${this.treeData[i].TYPE}_${this.treeData[i].ENVIRONMENT}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${this.treeData[i].TAB_NAME}` +
+          `</a>` +
+          `</span>`;
+      }else if(this.treeData[i].display == "0" && this.isInternalUser == "true") {
+        this.dynamicTreeList +=
+          `<li class="nav-link">` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"   role="tab_${this.treeData[i].TYPE}_${this.treeData[i].ENVIRONMENT}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${this.treeData[i].TAB_NAME}` +
           `</a>` +
           `</span>`;
       }
 
-      this.dynamicTreeList = this.dynamicTreeList + `</li>`;
+      this.dynamicTreeList = this.dynamicTreeList + `</li><li></li>`;
     }
-    this.dynamicTreeList += `<li class="nav-link viewAllLink">
-        <a id="v-view-all-tab" data-toggle="pill"  href="#/viewallapi" role="tab" aria-controls="v-view-all" aria-selected="true">
-          <div class="viewAllIcon">
-            <i class="material-icons">dashboard</i>
-          </div>
-          VIEW ALL APIs
-          <img
-            class="viewAllDropdownActive"
-            src="assets/images/dropdown-3.svg"
-            alt=""
-          />
-          <img
-            class="viewAllDropdown" 
-            src="assets/images/dropdown-viewall.svg"
-            alt=""
-          />
-        </a>
-      </li>`;
+    // this.dynamicTreeList += `<li class="nav-link viewAllLink">
+    //     <a id="v-view-all-tab" data-toggle="pill"  href="#/viewallapi" role="tab" aria-controls="v-view-all" aria-selected="true">
+    //       <div class="viewAllIcon">
+    //         <i class="material-icons">dashboard</i>
+    //       </div>
+    //       VIEW ALL APIs
+    //       <img
+    //         class="viewAllDropdownActive"
+    //         src="assets/images/dropdown-3.svg"
+    //         alt=""
+    //       />
+    //       <img
+    //         class="viewAllDropdown" 
+    //         src="assets/images/dropdown-viewall.svg"
+    //         alt=""
+    //       />
+    //     </a>
+    //   </li>`;
 
     return this.dynamicTreeList;
   }
@@ -336,7 +339,7 @@ newLi;
       if (childrenArr[i].CHILD_COUNT !== "0") {
 
         this.dynamicTreeList +=
-          `<li class="nav-link">` +
+          `<li class="nav-link" >` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${childrenArr[i].TAB_NAME}` +
           `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
@@ -347,12 +350,28 @@ newLi;
           childrenArr[i].TYPE,
           childrenArr[i].LEVEL
         );
-      } else {
+      } else if(childrenArr[i].display == "1") {
+       
+
         this.dynamicTreeList +=
-          `<li class="nav-link">` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `<li class="nav-link " 
+         
+         >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_${childrenArr[i].TYPE}_${childrenArr[i].ENVIRONMENT}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${childrenArr[i].TAB_NAME}` +
           `</a>`;
+          // [ngStyle]="`+childrenArr[i].display==0+` ?  {'display': 'block'} : {'display': 'none'}"
+      }else if(childrenArr[i].display == "0" && this.isInternalUser == "true") {
+       
+
+        this.dynamicTreeList +=
+          `<li class="nav-link " 
+         
+         >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_${childrenArr[i].TYPE}_${childrenArr[i].ENVIRONMENT}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${childrenArr[i].TAB_NAME}` +
+          `</a>`;
+          // [ngStyle]="`+childrenArr[i].display==0+` ?  {'display': 'block'} : {'display': 'none'}"
       }
      
       if(childrenArr[i].TREE_ID =="548" ){
@@ -438,6 +457,9 @@ newLi;
    */
   AppId(num: any, nodeType: any) {
     if (nodeType === "api") {
+       if(this.Env){
+      this.dashboardService.sendEnvironment(this.Env);
+    }
       this.router.navigate(["apidetails/" + num]);
     }
     if (nodeType === "branch") {
@@ -446,8 +468,9 @@ newLi;
     if (nodeType === "root") {
       this.router.navigate(["rootdetails/" + num]);
     }
+   
   }
-
+ 
   /** For scroll view
    * @class SidebarComponent
    * @method scroll_view

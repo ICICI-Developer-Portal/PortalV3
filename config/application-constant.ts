@@ -63,5 +63,6 @@ export const CONSTANTS = {
   CONTACT_US_LS1:
     "For Programme related queries and support, please reach us at iciciappathon@icicibank.com",
   CONTACT_US_LS2:
-    " For technology support related queries, please reach us at appathontech@icicibank.com"
+    " For technology support related queries, please reach us at appathontech@icicibank.com",
+    SUBMIT: "Submit"
 };

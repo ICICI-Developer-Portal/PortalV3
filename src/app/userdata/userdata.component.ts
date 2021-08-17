@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Toast, ToasterService } from 'angular2-toaster';
-// import { DataTableResource } from 'angular7-data-table';
+import { DataTableResource } from 'angular7-data-table';
 import { LoginService } from 'src/app/services';
 
 
@@ -45,7 +45,7 @@ export class UserdataComponent implements OnInit {
 	   
 	    
 	];
-	itemResource ;//= new DataTableResource(this.persons);
+	itemResource = new DataTableResource(this.persons);
 	items = [];
 	itemCount = 0;
 	params = {offset: 0, limit: 10}; //Static can be changed as per your need
@@ -278,19 +278,19 @@ export class UserdataComponent implements OnInit {
 			"data":this.data
 		}
 		
-		// this.adm.dbAccess(req).subscribe((data: any) => {
-		// 	var response = data._body;
+		this.adm.dbAccess(req).subscribe((data: any) => {
+			var response = data._body;
 	  
-		// 	var obj = JSON.parse(response);
-		// 	console.log(obj.message);
+			var obj = JSON.parse(response);
+			console.log(obj.message);
 			
-		//   },
-		//   err => {
-		// 	console.log('err', err);
-		//    // this.router.navigate(['error']);
-		// 	this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+		  },
+		  err => {
+			console.log('err', err);
+		   // this.router.navigate(['error']);
+			this.toastrmsg('error',"Something went wrong. Please try again in some time.");
 			
-		//   },);
+		  },);
 
 	}
 	toastrmsg(type, title) {

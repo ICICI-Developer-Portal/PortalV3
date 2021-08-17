@@ -16,6 +16,9 @@ import { ReportIssuePageComponent } from './report-issue-page/report-issue-page.
 
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { NewpartnerComponent } from './newpartner/newpartner.component';
+import { AnalyticPageComponent } from './analytic-page/analytic-page.component';
+import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
+// import { UserdataComponent } from './userdata/userdata.component';
 
 
 
@@ -29,7 +32,7 @@ const routes: Routes = [
             { path: 'transactionHistory', component: TransactionHistoryComponent ,canActivate: [AuthGuard]},
 
             { path: 'faq', component: FaqComponent },
-            {path:'uatonboarding-dashboard',component: UATonboardingDashboardPageComponent,canActivate: [AuthGuard]  },
+            {path:'uatonboarding-dashboard',component: NewUatonboardingPageComponent,canActivate: [AuthGuard]  },
 
         ]
     },
@@ -40,9 +43,11 @@ const routes: Routes = [
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
     { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},
     { path: 'mis', component: MisComponent ,canActivate: [AuthGuard]},
-    { path: 'reportIssue', component: ReportIssuePageComponent ,canActivate: [AuthGuard]},
+    { path: 'reportIssue', component: ReportIssuePageComponent },
 
     { path: 'connectedBanking', component: NewpartnerComponent  },
+    // { path: 'dbDataAccess', component: UserdataComponent  }
+    { path: 'analyticPage', component: AnalyticPageComponent ,canActivate: [AuthGuard]},
 
 ];
 

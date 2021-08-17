@@ -5,8 +5,6 @@ import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 import { IndexComponent } from "./index/index.component";
 import { FaqComponent } from "./faq/faq.component";
-import { SignUpComponent } from './sign-up/sign-up.component';
-
 import { ModalModule } from "ngx-bootstrap";
 import { ToasterModule } from "angular2-toaster";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -31,8 +29,9 @@ import {
 //import { AppathonComponent } from './appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 import { FocusOnShowDirective } from './autofocus.directive';
-import { SignUpSidebarComponent } from './sign-up-sidebar/sign-up-sidebar.component';
-import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
+import { ChangePasswordComponent } from "./change-password/change-password.component";
+//import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+//import { CarouselComponent } from './carousel/carousel.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -48,14 +47,15 @@ import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
     AngularMultiSelectModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    // RecaptchaModule,
+    // RecaptchaFormsModule
   ],
 
   declarations: [
     HomeComponent,
     IndexComponent,
     FaqComponent,
-    SignUpComponent,
     OnboardingrequestComponent,
     UserprofileComponent,
     ResetComponent,
@@ -63,10 +63,8 @@ import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
     NDAComponent,
     ContractComponent,
     FocusOnShowDirective,
-    SignUpComponent,
-    SignUpPageComponent,
-    SignUpSidebarComponent,
-    SignUpPageComponent
+    ChangePasswordComponent
+    
   ]
 
   // import { CommonSigninModalComponent } from './common-signin-modal/common-signin-modal.component';

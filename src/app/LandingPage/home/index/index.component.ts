@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild, ɵConsole } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
@@ -8,6 +8,8 @@ import { LoginService } from "src/app/services";
 import { PasswordValidation } from "../../layout/header/password.validator";
 import { VariablesService } from "src/app/services/Variables.service";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+// import * as CryptoJS from 'crypto-js';
+
 import {
   Http,
   Headers,
@@ -26,13 +28,17 @@ import { DashboardService } from "src/app/services/dashboard.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { CustomValidators } from "../../layout/header/custom-validators";
+import { DatePipe } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
 declare var $: any;
 @Component({
   selector: "app-index",
   templateUrl: "./index.component.html",
-  styleUrls: ['./index.component.css']
+  styleUrls: ['./index.component.css'],
+  providers: [DatePipe]
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit,  AfterViewInit {
+  @ViewChild('signinBtn') myModal:ElementRef;
   treeDataKeys: any;
   responseData: any;
   menuArray: any[];
@@ -180,6 +186,7 @@ export class IndexComponent implements OnInit {
   errorMsg:any = "Something went wrong. Please try again in some time.";
   recaptchaReactive: any;
   recaptchaFlag: boolean = false;
+  IntrestForm: FormGroup;
 
   constructor(
     private http: Http,
@@ -191,7 +198,8 @@ export class IndexComponent implements OnInit {
     private router: Router,
     private adm: LoginService,
     private toasterService: ToasterService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    public datepipe: DatePipe
   ) {
     this.objOnB = this.objOnBoarding.getonBoarding();
     this.Hide_signbtn();
@@ -203,13 +211,75 @@ export class IndexComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
     });
-    
+  // this.getRM();
+  this.spinnerService.hide();
+  }
+  //sessionStorage.setIten("autoLogout",true);
+  decode(val){
+ 
+    // Decryption process
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
+  
   }
 
   ngOnInit() {
     var self = this;
+   // alert(navigator.userAgent);
+   
+   this.adm.getSaltValue().subscribe((data: any) => {
+    console.log("data rchd")
+    var headers = data.headers;
+    var setCookieHeader = headers.get('Set-Cookie')
+     console.log(data)
+     console.log( data.headers)
+     console.log(data._body)
+     console.log(setCookieHeader)
+    // var response = data._body;
+    // var obj = JSON.parse(response);
+    // console.log(obj)
+
+  },
+  err => {
+    console.log('err', err);
+    //this.router.navigate(['error']);
+  },);
 
 
+
+
+   this.spinnerService.hide();
+    var browser = (function (agent) {
+      switch (true) {
+          case agent.indexOf("edge") > -1: return "edge";
+          case agent.indexOf("edg") > -1: return "chromium based edge (dev or canary)";
+          case agent.indexOf("chrome") > -1: return "chrome";
+          case agent.indexOf("trident") > -1: return "ie";
+          case agent.indexOf("firefox") > -1: return "firefox";
+          case agent.indexOf("safari") > -1: return "safari";
+          default: return "other";
+      }
+  })(window.navigator.userAgent.toLowerCase());
+  // alert( browser);
+  if(browser!= "ie" ){
+    $(".fstImg,.sndImg").css("width","100%");
+
+  }
+  else{
+    $(".fstImg,.sndImg").css("height","100%");
+
+  }
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;
@@ -298,6 +368,15 @@ export class IndexComponent implements OnInit {
       termsandcondition: ["", [Validators.required]]
     });
 
+    this.IntrestForm = this.formbuilder.group({
+      fullname: ["", [Validators.required,Validators.pattern(/^[a-zA-Z ]*$/)]],
+      emailid: ["", [Validators.required, Validators.email]],
+      mobileNumber: ["", [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      location: ["",[Validators.pattern("[a-zA-Z][a-zA-Z ]+")]],
+      company: ["",[Validators.pattern(/^([a-zA-Z0-9 _-]+)$/)]],
+      requirements: ["",[Validators.pattern(/^[a-zA-Z ]*$/)]],
+    });
+
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
@@ -339,18 +418,51 @@ export class IndexComponent implements OnInit {
   
       
     });
+    $('#prv-testimonial').on('click', function(){
+      var $last = $('#testimonial-list li:last');
+      $last.remove().css({ 'margin-left': '-400px' });
+      $('#testimonial-list li:first').before($last);
+      $last.animate({ 'margin-left': '0px' }, 4000);
+  });
+  
+  $('#nxt-testimonial').on('click', function(){
+      var $first = $('#testimonial-list li:first');
+      $first.animate({ 'margin-left': '-400px' }, 4000, function() {
+          $first.remove().css({ 'margin-left': '0px' });
+          $('#testimonial-list li:last').after($first);
+      });
+  });
    
   }
-  bannerTArget1($event){
-// alert("hi")
-window.open("https://developer.icicibank.com/#/rootdetails/247");
+  ngAfterViewInit () {
+    setTimeout(() =>{
+      console.log(localStorage.getItem("autoLogout"));
+      if(localStorage.getItem("autoLogout") == "true"){
+        localStorage.removeItem("autoLogout");
+        this.myModal.nativeElement.click();
+       
+      }
+      //document.getElementById("signupBtn").click();
+    }, 100)
   }
-  bannerTArget2($event){
-// alert("hi")
-window.open("https://developer.icicibank.com/#/rootdetails/104");
+  ngOnDestroy() {
+    console.log('lading page destroy');
 
-    
   }
+  closeSignUp(){
+    this.modalRef2.hide();
+  }
+  bannerTArget1($event){
+    // alert("hi")
+    window.open("https://developer.icicibank.com/#/rootdetails/247");
+      }
+      bannerTArget2($event){
+    // alert("hi")
+    window.open("https://developer.icicibank.com/#/rootdetails/104");
+    
+        
+      }
+
   appathonReg() {
     this.modalRef2.hide();
     this.router.navigate(["/appathon/landing-page"]);
@@ -710,13 +822,14 @@ window.open("https://developer.icicibank.com/#/rootdetails/104");
   }
 
   openModal2(signup: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+   // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
     try {
       this.modalRef.hide();
     } catch (e) { }
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
+    this.router.navigate(['/signUpPage']);
   }
   already_Log(alreadylogin: any, signup: any) {
     if (localStorage.getItem("id") != null) {
@@ -784,6 +897,29 @@ window.open("https://developer.icicibank.com/#/rootdetails/104");
         this.Hide_signbtn();
         this.show = false;
         this.modalRef.hide();
+
+        let respData =  obj.data;
+        if(respData && respData.misUser ){
+          
+          localStorage.setItem('misUserVal',respData.misUser);
+        }  if(respData && respData.firstName ){
+          
+          localStorage.setItem('Firstname',respData.firstName);
+        }  if(respData && respData.lastLoginDt ){
+         
+          localStorage.setItem('lastLoginDate',respData.lastLoginDt);
+        }
+
+        if(respData && respData.companyName ){
+          localStorage.setItem('companyName',respData.companyName);
+        }if(respData && respData.mobileNo ){
+          localStorage.setItem('mobileNo',respData.mobileNo);
+        } if(respData && respData.email ){
+          localStorage.setItem('email',respData.email);
+        } if(respData && respData.rm ){
+          localStorage.setItem('rm',respData.rm);
+        }
+
         localStorage.setItem("id", obj.data.id);
         localStorage.setItem("email", obj.data.email);
         localStorage.setItem("username", obj.data.username);
@@ -851,7 +987,7 @@ window.open("https://developer.icicibank.com/#/rootdetails/104");
           this.signup_jira();
           this.toastrmsg(
             "success",
-            "Thanks for registering, once your application is approved it would be conveyed to you on mail sign up."
+            "Thank you for registering. Your account has been successfully created. Please log in to continue."
           );
           this.spinnerService.hide();
           this.signupForm.reset();
@@ -974,10 +1110,13 @@ window.open("https://developer.icicibank.com/#/rootdetails/104");
   verifyOtp1() {
     try {
       this.adm
-        .verify_otp(this.signupForm2.value, this.otp_txt_id)
+        .verify_otpCopy(this.signupForm2.value, this.otp_txt_id)
         .subscribe((data: any) => {
+          console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
+          obj = this.decode(obj.data);
+          obj = JSON.parse(obj);
           if (obj.status == true) {
             this.shfrmSFThird = true;
             this.shfrmSFFirst = false;
@@ -1182,58 +1321,65 @@ window.open("https://developer.icicibank.com/#/rootdetails/104");
   }
 */
 show_build(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/1"]);
+  /*if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/1"]);
   } else {
     this.modalRef = this.modalService.show(signin, { backdrop: "static" });
-  }
+  }*/
 }
 
 loans(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/30"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/30"]);
   } else {
     this.modalRef = this.modalService.show(signin, { backdrop: "static" });
-  }
+  } */
 }
 
 account(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/209"]);
+/*   if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/209"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 payment(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/104"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/104"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 corporate(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/247"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/247"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 
 commercial(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/292"]);
+  /* if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/292"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
 corporates(signin: any) {
-  if (localStorage.getItem("id") != null) {
+  this.router.navigate(["/rootdetails/370"]);
+ /*  if (localStorage.getItem("id") != null) {
     this.router.navigate(["/rootdetails/370"]);
   } else {
     this.browse_api(signin);
-  }
+  } */
 }
   Hide_signbtn() {
     if (!localStorage.getItem("id")) {
@@ -2090,24 +2236,34 @@ corporates(signin: any) {
   Inter_requirements: String = "";
 
   inter_submit() {
-    // var feedback =
-    //   'User Interested Full Name = ' +
-    //   this.Inter_full_name +
-    //   ' Contact Number =' +
-    //   this.Inter_contactnumber;
-    // var json = { email: this.Inter_email, feedbackIn: feedback };
-    // this.adm.feedback(json).subscribe((data: any) => {
-    //   var obj = JSON.parse(data._body);
-    //   if (obj.status == true) {
-    //     this.toastrmsg('success', 'Thank your for your Request.');
-    //     this.Inter_full_name = '';
-    //     this.Inter_contactnumber = '';
-    //     this.Inter_email = '';
-    //     this.modalRef.hide();
-    //   } else {
-    //     this.toastrmsg('error', obj.message);
-    //   }
-    // });
+   
+    
+
+
+    if(this.IntrestForm.controls['fullname'].hasError('required') || this.IntrestForm.controls['emailid'].hasError('required') || this.IntrestForm.controls['mobileNumber'].hasError('required')){
+      this.toastrmsg("error", "Field marked as * is mandatory.");
+    }else if(this.IntrestForm.controls['fullname'].hasError('pattern')){
+
+      this.toastrmsg("error", "Full name should contain only Alphabets and spaces.");
+    }else if(this.IntrestForm.controls['emailid'].hasError('email')){
+      this.toastrmsg("error", "Please enter valid Email ID.");
+
+    }
+    else if(this.IntrestForm.controls['mobileNumber'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid mobile number.");
+
+    }else if(this.IntrestForm.controls['location'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid location.");
+
+    }
+    else if(this.IntrestForm.controls['company'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid company name.");
+
+    }else if(this.IntrestForm.controls['requirements'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid requirements.");
+
+    }
+    else{
     var feedback =
       "User Interested Full Name = " +
       this.Inter_full_name +
@@ -2144,6 +2300,8 @@ corporates(signin: any) {
       this.toastrmsg('error',this.errorMsg);
     },);
   }
+  }
+
 
   alredy_login() {
     this.modalRef7.hide();
@@ -2272,6 +2430,44 @@ sendTokenToBackend(tok){
     },
     () => {}
   );
+}
+
+getRM() {
+ 
+ try {
+    var json = {
+      pincode: "1112125"
+    };
+    this.spinnerService.show();
+    this.adm.getProductIssuesList().subscribe((data: any) => {
+      var response = data._body;
+      var obj = JSON.parse(response);
+      console.log(obj);
+    },
+    err => {
+      console.log('err', err);
+      //this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
+    },);
+  } catch {
+    this.toastrmsg("error", console.error());
+  }
+}
+
+// searchbar added 
+viewApi($event){
+  // this.router.navigate(['http://localhost:4200/#/documentation']);
+  if($event.which == 13) {
+  console.log($("#viewApisearch").val())
+  let searchbox= $("#viewApisearch").val();
+  if(searchbox!=""){
+  localStorage.setItem("userEnteredText",$("#viewApisearch").val());
+ // document.location.href='#/viewallapi',true;
+  this.router.navigate(['viewallapi']);
+  }
+  $event.preventDefault();
+
+}
 }
 
   

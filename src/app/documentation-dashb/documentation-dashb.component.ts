@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-
+declare var $: any;
 @Component({
   selector: "app-documentation-dashb",
   templateUrl: "./documentation-dashb.component.html"
@@ -16,5 +16,11 @@ export class DocumentationDashbComponent implements OnInit {
     if (url !== "/appathon-dashboard") {
       this.showSidebar = true;
     }
+    $('ul li a[data-toggle="tab"]').removeClass('active');
+    $('ul li a[data-toggle="tab"]').removeClass('show');
+   
+    $('ul li a[data-toggle="dropdown"]').removeClass('active');
+    $('ul li a[data-toggle="dropdown"]').removeClass('show');
+    $('ul li .documetationClass').addClass('active');
   }
 }

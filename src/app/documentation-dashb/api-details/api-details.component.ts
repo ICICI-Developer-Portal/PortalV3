@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, Renderer2, Pipe,ViewChild, HostListener, ElementRef, ɵConsole } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { LoginService } from 'src/app/services';
+import { DashboardService, LoginService } from 'src/app/services';
 import { NgxXml2jsonService } from 'ngx-xml2json';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -77,15 +77,22 @@ export class ApiDetailsComponent implements OnInit {
    storeRequestValue;
    onchnageKeyValue;
    onchangePriorityValue;
+   env ;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
   constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
     private router: Router,
-
+    private dashboardService: DashboardService,
     ) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+      this.env = "";
+      this.dashboardService.getEnvironment().subscribe(
+        data => {
+          this.env = data;
+          console.log("this.env " + this.env );
+        });
       this.NewApplication();
       this.spinnerService.show();
       this.Sample_packet();
@@ -95,10 +102,12 @@ export class ApiDetailsComponent implements OnInit {
   let _reqJson = {apiId : this.idForClickedTab };
 
       this.GetTestCases(_reqJson,Headers);
+      this.error_code();
+      this.Sample_packet();
+    
     });
      
-    this.error_code();
-    this.Sample_packet();
+   
     
    }
    toggleMenu($event) {    
@@ -109,6 +118,7 @@ export class ApiDetailsComponent implements OnInit {
   onClick() {
     this.isMenuOpen = false;
   }
+  
 
    transform(url:any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -133,6 +143,7 @@ export class ApiDetailsComponent implements OnInit {
   
     // if(this.dataArray.length==1){ this.keyVal="1234";this.val='123'}else{ this.keyVal="";this.val=''} 
     // console.log( this.idForClickedTab,"====================")
+    
     this.dataArray.push(
       {
         key :"API key",
@@ -267,15 +278,16 @@ Sample_packet(){
   );
 }
   openModal(Authentication: TemplateRef<any>) {
-
     var json = {"username":localStorage.getItem('username'),"password":localStorage.getItem('password')};
     this.adm.Login(json)
     this.modalRef = this.modalService.show(Authentication, { backdrop:'static',class: 'modal-lg' }); 
     this.testApiresponse="";
+    this.testApiResID=[];
     $("input:text").val("");
     $("textarea.texareaRes").val("");
     this.testApiResName=[];
     this.testCaseDescription="";
+    this.clickedTestCaseID="";
   }
 
   openModalcallbackURL(Prodconfirm: TemplateRef<any>) {
@@ -288,7 +300,7 @@ Sample_packet(){
     this.modalRef.hide();
     console.log(this.modalRef)
 
-  
+    this.testApiresponse="";
    }
    Close_ConfirmProd() {
      console.log(this.modalRef)
@@ -630,7 +642,7 @@ set reqParamValue(v) {
   "username" :localStorage.getItem("username"),
 });
 console.log(headers)
-    this.adm.getTestCases(_reqJson,headers).subscribe(
+    this.adm.getTestCases(_reqJson).subscribe(
       (data:any) => {
           console.log(JSON.parse(JSON.stringify(data)));
           if(data && data._body){
@@ -798,4 +810,6 @@ console.log(headers)
   //  console.log( this.GetTestCases(_reqJson,Headers));
    
   }
+
+  
 }

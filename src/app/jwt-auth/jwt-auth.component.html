@@ -17,8 +17,8 @@
 
     <div class="col-md-12 request-production">
       <div><label for="password" type="password">Password</label></div>
-      <input name="password" type="password" class="input-login" [(ngModel)]="encPassword" #password/>
-      <!-- <div class="text-danger form-error ng-star-inserted">
+     <!--  <input name="password" type="password" class="input-login" [(ngModel)]="encPassword" #password/> -->
+      <input name="password" type="password" class="input-login" [(ngModel)]="encPassword" onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password /> <!-- <div class="text-danger form-error ng-star-inserted">
         Please Enter Password.
       </div> -->
     </div>

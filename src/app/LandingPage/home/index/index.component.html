@@ -5,8 +5,25 @@
 </style>
 <toaster-container></toaster-container>
 <ng4-loading-spinner> </ng4-loading-spinner>
+<!-- <app-auto-logout></app-auto-logout> -->
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active show">
+
+        <!-- searchbar added -->
+        <div _ngcontent-c5="" style="
+        z-index: 1;
+        position: absolute;
+        margin-left: 69%;
+        margin-top: 2%;
+       ">
+        
+             <div _ngcontent-c5="" class="searchBarViewAll" style="width: 290px;"><input _ngcontent-c5=""
+                 class="ng-valid ng-dirty ng-touched" id="viewApisearch" (keypress)="viewApi($event)" ng-reflect-model=""
+                 placeholder="Search API by Name, Description" type="text" ><i _ngcontent-c5=""
+                 class="material-icons">search</i></div>
+           </div>
+
+   
     <!-- bannner carousel     -->
     <!-- <section class=""> -->
       <!-- <div class="">
@@ -27,7 +44,7 @@
                 <!--First slide-->
                 <div class="carousel-item active" style="background: green;height: 100%;width: 100%;">
                   <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg');height: 100%;width: 100%;"></div> -->
-                  <img src="assets/images/banner_index_c1.jpeg"  class="fstImg img-responsive"  alt="Second slide"  (click)="bannerTArget1($event)" />
+                  <img src="assets/images/banner_index_c1.jpeg"  style="max-height:470px;width:auto;" class="fstImg img-responsive"  alt="Second slide"  (click)="bannerTArget1($event)" />
                  </div>
                  <!--/First slide-->
               <!--Second slide-->
@@ -35,7 +52,7 @@
                 <!-- <img src="assets/images/image 1.JPG" alt="Second slide"  (click)="conso('jiii')" /> -->
                 <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg') ; height: 100%;width: 100%;"></div> -->
 
-                <img src="assets/images/banner_index_c.jpeg" class="sndImg img-responsive" alt="Second slide"  (click)="bannerTArget2($event)" />
+                <img src="assets/images/banner_index_c.jpeg" style="max-height:470px;width:auto;" class="sndImg img-responsive" alt="Second slide"  (click)="bannerTArget2($event)" />
               </div>
               <!--/Second slide-->
             </div>
@@ -49,24 +66,20 @@
         <!-- </div>
   
       </div> -->     
-      <!-- <div class="row" style="padding-top: 20px;"> -->
+       <div class="" style="padding-top: 20px;"> 
      
-      <!-- <div class="col-md-12" style="text-align: center;">
+       <div class="col-md-12" style="text-align: center;">
           <div class="mt20" >
            
-            <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="margin-left: -100px;color: #004a7f;
+            <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="font-family: Poppins-Bold;color: #004a7f;
             font-weight: bold;
             ">Collaborate, Build, Unleash</h2>
             <a class="signInBtn mr10 display_inline_block" style="height: 40px;
-            margin-left: 10px;position: absolute;top: -5%;"  [routerLink]="['/documentation']">BROWSE ALL API</a>
+            margin-left: 10px;vertical-align: top;"  [routerLink]="['/documentation']">BROWSE ALL API</a>
           
        
    
-      </div></div> -->
-      <div _ngcontent-c4="" class="" style="padding-top: 20px;"><div _ngcontent-c4="" class="col-md-12" style="text-align: center;"><div _ngcontent-c4="" class="mt20"><h2 _ngcontent-c4="" class="mb30 display_inline_block  margin-left-220  font-18" style="font-family: Poppins-Bold;color: #004a7f;
-        font-weight: bold;
-        ">Collaborate, Build, Unleash</h2><a _ngcontent-c4="" class="signInBtn mr10 display_inline_block" style="height: 40px;
-        margin-left: 10px;vertical-align: top;" href="#/documentation">BROWSE ALL API</a></div></div></div>
+      </div></div>    </div>  
       <!-- <div _ngcontent-c4="" class="col-md-12" style="text-align: center;padding-top: 55px;"><div _ngcontent-c4="" class="bannerContent"><h2 _ngcontent-c4="" class="mb30">Collaborate, Build, Unleash</h2><a _ngcontent-c4="" class="signInBtn mr10" href="#/documentation">BROWSE ALL API</a></div></div> -->
     <!-- </div> -->
 
@@ -81,6 +94,7 @@
         <!-- <p class="context">Some testimonial goes right here[1]</p>
         <span class="creds">Tiffany LastName</span> -->
         <!-- <img src="assets/images/banner_index_c1.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+
       </li> -->
       <!-- <li>
         <p class="context">"We could not be more pleased. A++ efforts!"</p>
@@ -90,6 +104,7 @@
         <!-- <p class="context">"After just one purchase, we know this is the company to stick with."</p>
         <span class="creds">Butters Stotch</span> -->
         <!-- <img src="assets/images/banner_index_c.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+
       </li>
     </ul>
   </div> -->
@@ -101,7 +116,7 @@
             ICICI Bank APIs in just few easy steps.
          </p> -->
 
-      <p class="text-center mb50">
+      <p class="text-center mb50 font-16">
         Get your developers onboard, very quickly. Learn how to incorporate our
         ICICI Bank APIs in just few easy steps.
       </p>
@@ -114,7 +129,7 @@
                 <p>1</p>
               </h2>
             </div>
-            <p>Sign up for an ICICI Developer Account.</p>
+            <p class="font-16">Sign up for an ICICI Developer Account.</p>
           </a>
         </div>
         <div class="col-md-1 nextArrows">
@@ -137,7 +152,7 @@
             <h2>
               <p>3</p>
             </h2>
-            <!-- <img src="assets/images/testthepp.svg" alt=""> --
+            <img src="assets/images/testthepp.svg" alt=""> --
           </div>
           <p>Select the Application</p>
         </a>
@@ -152,7 +167,7 @@
                 <p>2</p>
               </h2>
             </div>
-            <p>Select API</p>
+            <p class="font-16">Select API</p>
           </a>
         </div>
         <div class="col-md-1 nextArrows">
@@ -166,12 +181,12 @@
               </h2>
               <!-- <img src="assets/images/getcode.svg" alt=""> -->
             </div>
-            <p> Test it Out</p>
+            <p class="font-16"> Test it Out</p>
           </a>
         </div>
       </div>
       <div class="row">
-        <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" (click)="openModal2(signup)">SIGN UP</a>
+        <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" [routerLink]="['/signUpPage']" style = "padding: 18px 25px;">SIGN UP</a>
       </div>
     </section>
     <section id="UAT_onboard" class="sectionAPIs text-center">
@@ -187,7 +202,7 @@
         <div class="col-md-1">
           <img alt="" src="assets/images/nextarrows.svg" class="nxt-img" />
         </div>
-        <div class="col-md-3 text-lg-center mb-xs-30">
+        <div class="col-md-4 text-lg-center mb-xs-30">
           <a class="ff-bold fs16 color-black onBoardLink" routerLink="/uatonboarding-dashboard">
             <img class="mb30 mb-xs-15" src="assets/images/group-28.svg" alt="" />
             <div>UAT</div>
@@ -196,7 +211,7 @@
         <div class="col-md-1">
           <img alt="" src="assets/images/nextarrows.svg" class="nxt-img" />
         </div>
-        <div class="col-md-4 text-lg-center mb-xs-30">
+        <div class="col-md-3 text-lg-center mb-xs-30">
           <!-- <a data-toggle="modal" data-target="#productionSignedIn" class="ff-bold fs16 color-black onBoardLink"> -->
           <!--<a class="ff-bold fs16 color-black onBoardLink" (click)="get_Production(Production, signin)"> -->
           <a class="ff-bold fs16 color-black onBoardLink" [routerLink]="['/productionOnboardingPage']">
@@ -430,12 +445,12 @@
 
       </div>
       <div class="row">
-        <a class="signInBtn marginAutoHr mt15" (click)="browse_api(signin)" style="padding: 18px 25px;">BROWSE ALL API</a>
+        <a class="signInBtn marginAutoHr mt15" (click)="browse_api(signin)" style = "padding: 18px 25px;">BROWSE ALL API</a>
       </div>
     </section>
     <section class="sectionAPIs featuredAPIs">
       <h3 class="mb60">Featured <span>APIs</span></h3>
-      <div class="owl-carousel owl-theme mb30 mb-xs-0 sectionAPIsGrayBg owl-loaded">
+      <!-- <div class="owl-carousel owl-theme mb30 mb-xs-0 sectionAPIsGrayBg owl-loaded">
         <div class="owl-stage-outer">
           <div class="owl-stage loan-style">
             <div class="owl-item active w280">
@@ -503,6 +518,76 @@
         <div class="owl-dots disabled">
           <button role="button" class="owl-dot active"><span></span></button>
         </div>
+      </div> -->
+      <!-- ============================================================ -->
+      <div class="mb30 mb-xs-0 sectionAPIsGrayBg ">
+        <div class="row" style="padding: 20px; ">
+          <div class="col-md-3 col-sm-6 ">
+            <div class="">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>Auto Loan</h4>
+                  <h5>Cards and Loans</h5>
+                  <p>
+                    A suite of APIs covering various stages of the lifecycle of
+                    automobile loans from checking eligibility, sanctioning,
+                    applying to facilitate disbursement and view current
+                    status/dues.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-md-3 col-sm-6 ">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>iWish</h4>
+                  <h5>Accounts and Deposits</h5>
+                  <p>
+                    These collection of APIs have services to set financial
+                    goals and track till achievement of targets for iWish
+                    products. APIs to facilitate creation, status checks,
+                    servicing and closure of fixed accounts.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>Cash Management</h4>
+                  <h5>Business Banking APIs</h5>
+                  <p>
+                    ICICI Bank's Cash Management caters to all your cash
+                    management requirements, optimises your cash flow position
+                    and effectively manages your business operation.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>Banking Offers</h4>
+                  <h5>Building Blocks</h5>
+                  <p>
+                    This Set of APIs are used to leverage various facilities
+                    related to bank offers available as products of Loans, Cards
+                    and Paylater for customers along with validation services.
+                  </p>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- <div class="owl-nav disabled">
+          <button type="button" role="presentation" class="owl-prev">
+            <span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next">
+            <span aria-label="Next">›</span>
+          </button>
+        </div>
+        <div class="owl-dots disabled">
+          <button role="button" class="owl-dot active"><span></span></button>
+        </div> -->
       </div>
     </section>
   
@@ -533,11 +618,11 @@
                     <div class="row display_block buttonContainer" >
                       <span class="container mr-10 text-center" >
         
-                        <a  class="btn btn-primary btn-sm btn-orange mr-3" style="font-size: 10px;"
+                        <a  class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
                          href='https://www.shivaami.com/shivaami-icici-bundle/?utm_source=ICICI%20Dev%20portal&amp;utm_medium=Banner&amp;utm_campaign=Strategic%20Partnership&amp;utm_term=Shivaami'  target="_blank">Visit
                           Shivaami</a>
         
-                        <a class="btn btn-primary btn-sm btn-orange" style="font-size: 10px;"
+                        <a class="btn btn-orange btn-sm" style="font-size: 10px;"
                           href="https://www.icicibank.com/offers/shivaami-offer.page" target="_blank">View
                           Offer</a>
                       </span>
@@ -561,7 +646,7 @@
                               Services for Digital Transformation in SAP, Microsoft & open source Technologies.</p>
                     <div class="row display_block buttonContainer" >
                       <span class="container mr-10 text-center" >
-                          <a class="btn btn-primary btn-sm btn-orange mr-3" style="font-size: 10px;"
+                          <a class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
                           href='https://www.oasystspl.com?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Oasys'  target="_blank">Visit
                            Oasys</a>
                       </span>
@@ -586,7 +671,7 @@
                               specialised domains.</p>
                     <div class="row display_block buttonContainer" >
                       <span class="container mr-10 text-center" >
-                          <a class="btn btn-primary btn-sm btn-orange mr-3" style="font-size: 10px;"
+                          <a class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
                                    href='https://www.indiasmeaccelerator.org/service/sme-business-consultancy-accelerator-cohort-programs/?utm_source=icici&utm_medium=icici%20bank%20website&utm_campaign=sme%20consultancy'  target="_blank">Visit
                                     ISAN</a>
                       </span>
@@ -610,7 +695,7 @@
                     <div class="row display_block buttonContainer" >
                       <span class="container mr-10 text-center" >
         
-                        <a class="btn btn-primary btn-sm btn-orange mr-3" style="font-size: 10px;"
+                        <a class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
                         href='http://www.technexa.net/?utm_source=icici&utm_medium=website&utm_campaign=partner'  target="_blank">Visit
                         TechNexa</a>
                       </span>
@@ -632,7 +717,7 @@
                     <div class="row display_block buttonContainer" >
                       <span class="container mr-10 text-center" >
         
-                        <a type="button" class="btn btn-primary btn-sm btn-orange mr-3" style="font-size: 10px;"
+                        <a type="button" class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
                                   href="https://infocus-in.com/infocus-icici/?utm_source=ICICI%20Developer%20Portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Infocus" target="_blank">Visit
                                   Infocus</a>
                       </span>
@@ -654,7 +739,7 @@
                     <div class="row display_block buttonContainer" >
                       <span class="container mr-10 text-center" >
         
-                        <a type="button" class="btn btn-primary btn-sm btn-orange mr-3" style="font-size: 10px;"
+                        <a type="button" class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
                         href='https://ifi.tech/?utm_source=ICICI%20Developer%20Portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=IFI  '  target="_blank">Visit
                          IFI Tech</a>
                       </span>
@@ -683,17 +768,185 @@
 
 
 
-
     <section class="sectionAPIs letsGetConnected" *ngIf="!logged_in">
       <h3>Want to get Started? <span>Let's get Connected</span></h3>
       <p class="mb50">
-        Drop your credentials to get conversation started with our team and
-        explore the possibilities
+        Drop in your credentials to get a conversation started with our team and
+        explore the possibilities.
       </p>
       <div class="row">
-        <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)">I am interested</a>
+        <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)" style = "padding: 18px 25px;">I am interested</a>
       </div>
     </section>
+
+
+    <!--Blogs Section start  here-->
+
+
+    <section class="sectionAPIs " id="partners">
+      <div class=" text-center my-3 ">
+        <h3 class="mb60"> API <span>Blogs </span></h3>
+    
+      
+        <div class="row mx-auto my-auto sectionAPIsGrayBg">
+          <div id="recipeCarousel1" class="carousel slide w-100 " data-ride="carousel" style="padding: 15px 10px ;">
+            <div class="carousel-inner w-100 api-inner" role="listbox" >
+              <div class="carousel-item active">
+               
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                  <div class="container1">
+                    <img src="https://www.icicibank.com/managed-assets/images/blog/big/features-and-benefits-of-api-in-banking.jpg" alt="Avatar" class="image1">
+                    <div class="info"> Features and Benefits of API in Banking.</div>
+                    
+                    
+                    <div class="overlay1">
+                      <div class="ptxt" style="margin-top: 45px;">                      
+                        
+                       <p > An increasing number of financial institutions in India are now realising the potential benefits of Open Banking</p>
+                       <br>
+                       <a class="signInBtn" href="https://www.icicibank.com/blogs/api-banking/features-and-benefits-of-api-in-banking.page?" target="_blank">Know More</a>
+                       <br><br>
+                       <div class="ptxt"> see all
+                         <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                       </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+              <div class="carousel-item  ">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/how-to-apply-for-api-banking-services.jpg" alt="Avatar" class="image1">
+                      <div class="info"> How to apply for API Banking services?.</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p >An increasing number of fin-tech companies now make use of APIs offered by some of the top banks in India.</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/api-banking/how-to-apply-for-api-banking-services.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/why-api-integration-is-a-must-for-digital-banking-growth.jpg" alt="Avatar" class="image1">
+                      <div class="info"> Why is API Integration a must for Digital Banking growth?</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p > The Open Banking model and use of APIs are said to accelerate the growth of online banking in India further.</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/api-banking/why-api-integration-is-a-must-for-digital-banking-growth.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/how-to-incorporate-our-icici-bank-apis-in-just-few-easy-steps.jpg" alt="Avatar" class="image1">
+                      <div class="info"> How to incorporate ICICI Bank APIs in just few easy steps?</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p > By switching to BaaS through APIs, tech-savvy banks like ICICI Bank are embracing Open Banking and transforming the traditional</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/mobile-banking/how-to-incorporate-our-icici-bank-apis-in-just-few-easy-steps.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">   
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/what-is-api-banking-services-and-how-it-works.jpg" alt="Avatar" class="image1">
+                      <div class="info"> What is API Banking Services and how it works?</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p >Open Banking, with the help of APIs, is considered to be one of the biggest advancements in the banking industry.</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/mobile-banking/what-is-api-banking-services-and-how-it-works.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+            </div>
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel1" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel1" role="button" data-slide="next">
+              <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+<!--Blogs End here->
 
     <!--<section class="sectionAPIs feedbackSection">
       <form autocomplete="off">
@@ -711,7 +964,7 @@
           <option value="Suggestion">Suggestion</option>
           <option value="Others">Others</option>
         </select>
-        <!-- <select class="select mb25" name="Suggestion" [(ngModel)] ="Suggestion">
+        <select class="select mb25" name="Suggestion" [(ngModel)] ="Suggestion">
                <option value="">Select</option>
                <option value="Suggestion">Suggestion</option>
                <option value="Others">Others</option>
@@ -737,7 +990,7 @@
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">
-      <h3 class="fs32 color-blue ff-bold mb25">Frequently Asked Questions</h3>
+      <h3 class="fs32 color-blue ff-bold mb25 "  style="padding-top: 20px;">Frequently Asked Questions</h3>
       <img class="w-xs-100p" src="assets/images/faq-banner.svg" alt="" />
     </div>
     <div id="accordion" class="faqmainSection">
@@ -1631,9 +1884,12 @@
   <div class="modal-footer">
     <div class="row w100p m0">
       <div class="col-12 pl0">
-        <p>
+        <p class="fs10 signin_p">
           Already have an account? Please
           <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
       <!-- <span
@@ -1649,9 +1905,11 @@
 
 <!-- End Modal -->
 <!-- Signin Modal -->
+<a data-dismiss="modal" data-toggle="modal" data-target="#signin" (click)="openModal(signin)"
+[hidden]="true"  #signinBtn>Sign In</a>
 <ng-template #signin>
   <div class="modal-header">
-    <h3 class="modal-title pull-left">Please Login </h3>
+    <h3 class="modal-title pull-left">Please Login</h3>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -1665,14 +1923,15 @@
           <input name="user" class="input-login" #username (keydown.space)="$event.preventDefault();"
             appPrefixFocusAndSelect />
           <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
-            Please Enter UserNames.
+            Please Enter Username.
           </div>
         </div>
       </div>
       <div class="row mb10">
         <div class="col-md-12">
           <div><label for="password" type="password">Password</label></div>
-          <input name="password" type="password" class="input-login" #password />
+        <!--   <input name="password" type="password" class="input-login" #password /> -->
+        <input name="password" type="password" class="input-login" onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password />
           <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
             Please Enter Password.
           </div>
@@ -1698,9 +1957,12 @@
         </div>
       </div>
       <div class="col-12 plr0">
-        <p>
+        <p class="signin_p">
           Do not have an account? Please
           <span><a class="signIn" (click)="openModal2(signup)">Register</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
     </div>
@@ -1936,6 +2198,7 @@
                   (ngModelChange)="onChangeAccountNum($event)"
                   type="text"
                 />
+
                 <div
                   *ngIf="accountNumErrorMsg != ''"
                   class="text-danger form-error"
@@ -2741,6 +3004,8 @@
 </ng-template>
 <!-- End Production Modal -->
 <!--iAmInterested-->
+
+
 <ng-template #Interesteds>
   <div class="modal-header">
     <h3>Let's get Connected</h3>
@@ -2750,42 +3015,105 @@
     </button>
   </div>
   <div class="modal-body">
-    <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
-      <div class="row mb30">
-        <div class="col-lg-12 col-md-12 mb-xs-10">
-          <div><label for="contactPerson">Full Name</label></div>
-          <input class="w100p fs12" name="fullName" [(ngModel)]="Inter_full_name" />
+    <form id="regForm" [formGroup]="IntrestForm" autocomplete="off" method="POST" name="regForm" action="">
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-10">
+            <label for="fullname">Full Name<span class="text-danger"> *</span></label>
+            <input class="w100p fs12" formControlName="fullname" type="text" name="fullname" class="form-control"
+              [(ngModel)]="Inter_full_name" />
+            <div *ngIf="IntrestForm.controls['fullname'].touched">
+              <div class="text-danger" *ngIf="IntrestForm.controls['fullname'].hasError('required')">
+                Full Name is Required.
+              </div>
+              <div class="text-danger" *ngIf="IntrestForm.controls['fullname'].hasError('pattern')">
+                Full name should contain only Alphabets and spaces.
+               </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row mb30">
-        <div class="col-lg-12 col-md-12 mb-xs-10">
-          <div><label for="contactPerson">Email ID</label></div>
-          <input class="w100p fs12" name="email" [(ngModel)]="Inter_email" />
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-10">
+            <label for="emailid">Email ID<span class="text-danger"> *</span></label>
+            <input class="w100p fs12" formControlName="emailid" type="text" class="form-control" name="emailid"
+              [(ngModel)]="Inter_email" />
+            <div *ngIf="IntrestForm.controls['emailid'].touched">
+              <div class="text-danger" *ngIf="IntrestForm.controls['emailid'].hasError('required')">
+                Email id is Required.
+              </div>
+              <div class="text-danger" *ngIf="IntrestForm.controls['emailid'].hasError('email')">
+                Please enter valid Email ID.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-30">
+            <label for="mobileNumber">Contact Number<span class="text-danger"> *</span></label>
+            <input type="number" formControlName="mobileNumber" id="mobileNumber" type="number" class="form-control"
+              class="w100p fs12" name="mobileNumber" [(ngModel)]="Inter_contactnumber" />
+              <div *ngIf="IntrestForm.controls['mobileNumber'].touched">
+                <div class="text-danger" *ngIf="IntrestForm.controls['mobileNumber'].hasError('required')">
+                  Contact Number is Required.
+                </div>
+                <div class="text-danger" *ngIf="IntrestForm.controls['mobileNumber'].hasError('pattern')">
+                 Please Enter valid 10 digit Contact number.
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="contactPerson">Contact Number</label></div>
-          <input type="number" class="w100p fs12" name="contactnumber" [(ngModel)]="Inter_contactnumber" />
+          <label for="location">Location</label>
+          <input class="w100p fs12"formControlName="location" id="location" type="text" class="form-control" name="location" [(ngModel)]="Inter_location" />
+          <div *ngIf="IntrestForm.controls['location'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['location'].hasError('required')">
+              Location  is Required.
+            </div>
+            <div class="text-danger" *ngIf="IntrestForm.controls['location'].hasError('pattern')">
+              Location should contain only Alphabets.
+            </div>
+          </div>
         </div>
       </div>
+      </div>
+
+      <div class="form-group">
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="location">Location</label></div>
-          <input class="w100p fs12" name="location" [(ngModel)]="Inter_location" />
+          <label for="company">Company</label>
+          <input class="w100p fs12" formControlName="company" id="company" type="text" class="form-control"  name="company" [(ngModel)]="Inter_company" />
+          <div *ngIf="IntrestForm.controls['company'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['company'].hasError('required')">
+              company  is Required.
+            </div>
+            <div class="text-danger" *ngIf="IntrestForm.controls['company'].hasError('pattern')">
+             Company name should contain only Alphanumeric.
+             </div>
+          </div>
         </div>
       </div>
+      </div>
+      <div class="form-group">
+
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="company">Company</label></div>
-          <input class="w100p fs12" name="company" [(ngModel)]="Inter_company" />
+          <label for="requirements">Requirements</label>
+          <textarea class="w100p fs12" formControlName="requirements" id="requirements" type="text" class="form-control" name="requirements" [(ngModel)]="Inter_requirements"></textarea>
+          <div *ngIf="IntrestForm.controls['requirements'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['requirements'].hasError('pattern')">
+              Requirements text should contain only Alphanumeric.
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row mb30">
-        <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="requirements">Requirements</label></div>
-          <textarea class="w100p fs12" name="requirements" [(ngModel)]="Inter_requirements"></textarea>
-        </div>
       </div>
     </form>
   </div>
@@ -2801,6 +3129,7 @@
     </div>
   </div>
 </ng-template>
+
 <!--iAmInterested-->
 <!--UAT Confirmation alert modalbox -->
 <ng-template #UATconfirm>

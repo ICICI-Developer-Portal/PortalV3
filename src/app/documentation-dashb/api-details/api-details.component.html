@@ -9,8 +9,14 @@
                 <div class="row">
                     <div class="col-8">
                         <h5 class="color-black fs12 ff-light mb5">{{ApiDomain}} / <span
-                                class="ff-medium color-red">{{ApiName}}</span></h5>
-                        <h4 class="mb20 fs24 color-black ff-medium">{{ApiName}}</h4>
+                                class="ff-medium color-red">{{ApiName}}/</span>
+                                
+                               
+                            </h5>
+                        <h4 class="mb20 fs24 color-black ff-medium">{{ApiName}}
+                            <span style ="background-color: green;color:#fff;font-size: 12px;border: 1px solid green;border-radius: 4px;vertical-align: middle;padding:0px 2px;" *ngIf="env !== ''"
+                            class="ff-medium color-green">{{env}}</span>
+                        </h4>
                         <p class="fs14 color-black0 fs12 ff-light mb20">{{ApiDesc}}</p>
                     </div>
                 </div>
@@ -324,10 +330,10 @@
                                                                 <div>
                                                                     <table style="width:100%" class="dynamicData" (click)="handleTableClick">
                                                                         <tr>
-                                                                            <th>Test Case Number</th>
+                                                                            <th>Test Case ID</th>
                                                                             <th>TesCaseName</th>
 
-                                                                            <th>Status </th>
+                                                                            <!-- <th>Status </th> -->
                                                                         </tr>
                                                                         <tr *ngFor="let i of testApiresponseFor601"
                                                                             (click)="getReqRes($event,$event.target)"
@@ -338,13 +344,14 @@
                                                                             [attr.testCaseDescription]=i.testCaseDescription
                                                                             class="cursorPointer"
                                                                             [class.highlighted]="i.testCaseId === clickedTestCaseID">
-                                                                            <td [attr.id]="i | json">
-                                                                                {{i.testCaseId}}{{testApiresponseFor601[i]}}
+                                                                            <td [attr.id]="i | json" style="word-break:break-all;">
+                                                                                {{i.testCaseId}}
+                                                                             
                                                                             </td>
-                                                                            <td>{{i.testCaseName}}</td>
-                                                                            <td> <input type="checkbox"
+                                                                            <td style="word-break:break-all;">{{i.testCaseName}}</td>
+                                                                            <!-- <td> <input type="checkbox"
                                                                                     style="display: block;"
-                                                                                    disabled></td>
+                                                                                    disabled></td> -->
                                                                         </tr>
 
                                                                     </table>
@@ -388,7 +395,7 @@
                                                                 
 
                                                     </div>
-                                                    <div class="form-group cod col-md-6 ">
+                                                    <div class="form-group cod col-md-6">
                                                         <p class="mb-1 bold">Response:</p>
                                                         <!-- <div disabled
                                                             name="Response" class="form-control" cols="50" rows="10"

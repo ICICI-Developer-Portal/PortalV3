@@ -7,11 +7,15 @@ import { AdminPortalComponent } from "./admin-portal/admin-portal.component";
 import { AppathonComponent } from "./appathon/appathon.component";
 import { JwtAuthComponent } from './jwt-auth/jwt-auth.component'
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
+import { SignupPopupComponent } from './signup-popup/signup-popup.component';
+import { AdminpanelComponent } from "./adminpanel/adminpanel.component";
+import { UserdataComponent } from "./userdata/userdata.component";
+import { NewLandingPageComponent } from "./new-landing-page/new-landing-page.component";
 //import { DownloadComponent } from "./maindashboard/download/download.component";
-//import { MisComponent } from "./maindashboard/mis/mis.component";
 
 const routes: Routes = [
-  // { path: '', redirectTo :'index', pathMatch :'full' },
+ //{ path: '', redirectTo :'index', pathMatch :'full' },
   { path: "layout", component: LayoutComponent, canActivate: [AuthGuard] },
   {
     path: "dashboard",
@@ -23,22 +27,44 @@ const routes: Routes = [
     component: JwtAuthComponent,
     canActivate: [AuthGuard],
   },
- /* {
-    path:'download',
-    component : DownloadComponent
+ 
+  { path: 'signUpPage', component: SignupPopupComponent },
+  { path: 'dbAccess', component:UserdataComponent  },
+  
 
 
-  },
-  {
-    path:'mis',
-    component : MisComponent
+  //{path: '404', component: ErrorPageComponent},
+ // {path: '**', redirectTo: '/404'},
 
-
-  },*/
   {
     path: 'error',
     component: ErrorPageComponent,
   },
+  
+{
+
+  path: 'pagenotfound',
+
+  component:PagenotfoundComponent ,
+
+},
+
+//{ path: 'admin', redirectTo :'/admin-panel', pathMatch :'full' },
+  /* {
+    path: "admin",
+    component: AdminpanelComponent,
+    // canActivate: [true],
+    children: [
+     
+    //  { path: 'login', component: LoginComponent },
+      {
+        path: "",
+        redirectTo: '/admin/login',
+        pathMatch: 'full'
+        
+      },
+    ]
+  }, */
   {
     path: "admin",
     component: AdminPortalComponent,
@@ -49,7 +75,7 @@ const routes: Routes = [
         loadChildren: "./adminpanel/adminpanel.module#AdminpanelModule"
       }
     ]
-  },
+  }, 
   {
     path: "appathon",
     component: AppathonComponent,
@@ -60,7 +86,9 @@ const routes: Routes = [
           "./appathon-landing/appathon-landing.module#AppathonLandingModule"
       }
     ]
-  }
+  },
+ // {path: '404', component: ErrorPageComponent},
+  //{path: '**',  component: ErrorPageComponent,},
 
   // {
   //   path: 'documentation',
@@ -70,9 +98,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-// imports: [RouterModule.forRoot(routes,{ useHash: true })],
-
+  imports: [RouterModule.forRoot(routes,{useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

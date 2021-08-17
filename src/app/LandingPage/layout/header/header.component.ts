@@ -649,7 +649,7 @@ export class HeaderComponent implements OnInit {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds();
     var json = {
-      userName: this.signupForm3.value.username,
+      userName: this.signupForm3.value.uname,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
       lastName: this.signupForm.value.firstname,
@@ -967,6 +967,9 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("id");
     localStorage.removeItem("role");
     localStorage.removeItem("jwt")
+    localStorage.removeItem('lastLoginDate');
+    localStorage.removeItem('misUserVal');
+    localStorage.removeItem('Firstname');
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;

@@ -13,7 +13,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { saveAs } from 'file-saver';
 //declare var require;
 import {FormControl} from '@angular/forms';
-
+declare var $: any;
 
 @Component({
   selector: 'app-mis',
@@ -46,7 +46,7 @@ export class MisComponent implements OnInit {
   ) {
    this.dateInput= datepipe.transform(Date.now(),'dd-MMMM-yyyy');
    let today = new Date()
-   let priorDate = new Date().setDate(today.getDate()-30);
+   let priorDate = new Date().setDate(today.getDate()-45);
    this.minDate= datepipe.transform(new Date(priorDate),'yyyy-MM-dd');
    let prevDate = new Date().setDate(today.getDate()-1);
    this.maxDate= datepipe.transform(new Date(prevDate),'yyyy-MM-dd');
@@ -57,6 +57,18 @@ export class MisComponent implements OnInit {
    * @method ngOnInit
    */
   ngOnInit() {
+    this.spinnerService.hide();
+    $('ul li a[data-toggle="tab"]').removeClass('active');
+    $('ul li a[data-toggle="tab"]').removeClass('show');
+    
+    $('ul li a[data-toggle="dropdown"]').removeClass('active');
+    $('ul li a[data-toggle="dropdown"]').removeClass('show');
+
+    $('.sideMenu>.nav-pills>li.nav-link').removeClass('active');
+    $('.sideMenu .nav-pills .nav-link ').removeClass('show');
+
+    $('ul li .accountClass').addClass('active');
+  
     //var companyName = 'Niveus Solutions';
     this.misForm = this.formbuilder.group({
       dateInput: ['', [Validators.required]],

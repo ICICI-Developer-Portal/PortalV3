@@ -38,10 +38,16 @@
                         /></td>
                         <!-- [(ngModel)]="objOnB.file1" -->
                         <!-- #file1="ngModel" -->
-                        <td>
-                           <button class="btn signInBtn btn-block"  type="Submit" (click)=btnConfirm(confirmId) >Submit</button>                           
+                        <td rowspan = 2>
+                           <button class="btn signInBtn btn-block"  type="Submit" (click)=btnConfirm(confirmId,remark.value) >Submit</button>                           
                            </td>
                         </tr>
+                        <tr><td colspan= 2>
+                          <div class="form-group">
+                            <label for="remark">Remark</label>
+                            <textarea class="form-control rounded-0" id="remark" rows="25" #remark></textarea>
+                          </div>
+                        </td></tr>
                     
                     </tbody>
                 </table>

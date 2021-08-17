@@ -10,11 +10,13 @@
       <div class="tabContentInner">
          <div class="row mb30">
             <div class="col-md-8">
-               <h3 class="ff-medium fs24 color-black">APIs at a Glance 2</h3>
+               <h3 class="ff-medium fs24 color-black">APIs at a Glance </h3>
             </div>
             <div class="col-md-4 text-right">
                <div class="searchBarViewAll" >
-                  <input type="text" placeholder="Search API by Name, Description" value="{{seartext}}" (input)="onSearchChange($event.target.value)" >
+                
+                <input type="text" id="searchForApi" placeholder="Search API by Name, Description" value="{{seartext}}" (input)="onSearchChange($event.target.value)" [(ngModel)]='enteredText' >
+                  <!-- <input type="text" placeholder="Search API by Name, Description" value="{{seartext}}" (input)="onSearchChange($event.target.value)" > -->
                   <i class="material-icons">search</i>
                </div>
             </div>

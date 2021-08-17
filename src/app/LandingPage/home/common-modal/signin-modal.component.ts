@@ -16,11 +16,13 @@ import {
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
 import { CustomValidators } from "../../layout/header/custom-validators";
-
+import { DatePipe } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: "app-common-signin-modal",
   templateUrl: "./signin-modal.component.html",
-  styleUrls: ["./signin-modal.component.css"]
+  styleUrls: ["./signin-modal.component.css"],
+  providers: [DatePipe]
 })
 export class SigninModalComponent implements OnInit {
 
@@ -63,6 +65,8 @@ export class SigninModalComponent implements OnInit {
   companyNamesDetails: any;
   companyNames: any;
   errorMsg: any = "Something went wrong. Please try again in some time.";
+  status_code:any;
+  salt:string;
   constructor(
     private SessionService: SessionService,
     private authService: AuthService,
@@ -74,7 +78,8 @@ export class SigninModalComponent implements OnInit {
     private adm: LoginService,
     private toasterService: ToasterService,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<SigninModalComponent>
+    public dialogRef: MatDialogRef<SigninModalComponent>,
+    public datepipe: DatePipe
   ) {
     this.btn_Sign();
     this.adm.getUserId().subscribe(data => {
@@ -85,10 +90,31 @@ export class SigninModalComponent implements OnInit {
     this.adm.getUserName().subscribe(data => {
       this.user_name = data;
     });
+    this.adm.getSaltValue().subscribe(data => {
+       this.salt = data
+       
+     });
     this.get_domain_and_apis();
     
   }
-
+  decode(val){
+ 
+    // Decryption process
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
+  
+  }
   ngOnInit() {
     this.forgetpassForm = this.formbuilder.group({
       username: ["", [Validators.required]]
@@ -223,7 +249,7 @@ export class SigninModalComponent implements OnInit {
   openModal2(signup: TemplateRef<any>) {
     console.log(this.domainLst )
   
-    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+  // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
 
     try {
       //this.modalRef.hide();
@@ -235,6 +261,7 @@ export class SigninModalComponent implements OnInit {
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
+    this.router.navigate(['/signUpPage']);
     
   }
   openModal(signin: TemplateRef<any>) {
@@ -265,6 +292,26 @@ export class SigninModalComponent implements OnInit {
   }
 }
 
+encode(key,val){
+  var encryptedBase64Key=btoa(key); //base64encryption
+  var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+ let encryptedVal = CryptoJS.AES.encrypt(val, parsedBase64Key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+    });
+    return encryptedVal;
+}
+reloadToken(){
+  this.adm.getSalt().subscribe((data: any) => {
+    
+    this.adm.sendSalt(data._body);
+    this.salt = data._body;
+  },
+  err => {
+    console.log('err', err);
+  });
+}
+
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
     //localStorage.setItem('username',username);
@@ -276,6 +323,7 @@ export class SigninModalComponent implements OnInit {
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
+    this.status_code = "";
     if (username == "") {
       this.isusername = true;
       return;
@@ -284,38 +332,64 @@ export class SigninModalComponent implements OnInit {
       this.issetpwd = true;
       return;
     }
+    
     username = btoa(username);
-    password = btoa(password);
-    console.log("username password"+username+':' +password)
-    var json = { username: username, password: password };
+    //   password = btoa(password);
+   
+    
+     let pwd = this.encode(this.salt,password);
+      
+       var key = 'ICICI#~#';
+       key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+     let newSalt = this.encode(key,this.salt);
+     var json = { username: username, password: pwd ,Token:newSalt};
+    // var json = { username: username, password: password };
+    // console.log("username password == "+username+':' +password) 
     this.spinnerService.show();
-    this.adm.Login(json).subscribe((data: any) => {
+   //this.adm.Login(json).subscribe((data: any) => {
+       this.adm.Login1(json).subscribe((data: any) => {
       var response = data._body;
       this.loginResponse = JSON.parse(response);
       if (this.loginResponse.status == true) {
         var timer = this.SessionService.session();
         this.show = false;
 
-        //this.modalRef.hide();
-        //this.toastrmsg('success', "Login has been Successfully");
-        // this.sessionSet('username', obj.data.username);
-        // localStorage.setItem('username', obj.data.username);
-        // localStorage.setItem('password', obj.data.password);
-        // localStorage.setItem('id', obj.data.id);
-        // localStorage.setItem('role', 'user');
-        // localStorage.setItem('email', obj.data.email);
-        // this.adm.sendUserId(obj.data.id);
         localStorage.setItem("jwt",this.loginResponse.jwttoken)
         this.spinnerService.hide();
 
-        this.adm.LoginPortal(nonEncodedJson).subscribe(
+        let respData =  this.loginResponse.data;
+
+        if(respData ){
+          
+          localStorage.setItem('misUserVal',respData.misUser);
+        }  if(respData && respData.firstName ){
+          localStorage.setItem('Firstname',respData.firstName);
+        }  if(respData && respData.lastLoginDt ){
+          localStorage.setItem('lastLoginDate',respData.lastLoginDt);
+        }if(respData  ){
+        localStorage.setItem('isInternalUser',respData.internalUser);
+      }
+
+        if(respData && respData.companyName ){
+          localStorage.setItem('companyName',respData.companyName);
+        } if(respData && respData.mobileNo ){
+          localStorage.setItem('mobileNo',respData.mobileNo);
+        }if(respData && respData.email ){
+          localStorage.setItem('email',respData.email);
+        }if(respData && respData.rm ){
+          localStorage.setItem('rm',respData.rm);
+        }
+
+        /* this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-            this.router.navigate([this.router.url]);
+            console.log("LoginPortal success");
+            //this.router.navigate([this.router.url]);
           },
           err => {
-            this.router.navigate([this.router.url]);
+            console.log("LoginPortal error")
+           // this.router.navigate([this.router.url]);
           }
-        );
+        ); */
         this.dialogRef.close();
         /**
          * Start here 
@@ -328,21 +402,34 @@ export class SigninModalComponent implements OnInit {
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
 
-    this.router.navigate([this.router.url]);
+   
     /**
      * End here
      */
         this.modalRef4 = this.modalService.show(loginsuccess, {
           backdrop: "static"
         });
+
+       // this.router.navigate([this.router.url]);
       } else {
+        this.reloadToken();
         this.spinnerService.hide();
         this.isusername = false;
         this.issetpwd = false;
-        this.is_res_error = this.loginResponse.message;
+        if(this.loginResponse.status_code == 111 || this.loginResponse.status_code == "111" ){
+          this.status_code = 111;
+        this.is_res_error = "Your account is locked because of "+this.loginResponse.message +" days inactive.";
+       
+        }else if(this.loginResponse.status_code == 112 || this.loginResponse.status_code == "112" ){
+          this.is_res_error = this.loginResponse.message;
+        }else{
+         this.is_res_error = this.loginResponse.message;
+         }
+      
       }
     },
     err => {
+      this.reloadToken();
       console.log('err', err);
      // this.router.navigate(['error']);
       this.toastrmsg('error',this.errorMsg);
@@ -397,7 +484,7 @@ export class SigninModalComponent implements OnInit {
           this.signup_jira();
           this.toastrmsg(
             "success",
-            "Thanks for registering, once your application is approved it would be conveyed to you on mail"
+            "Thank you for registering. Your account has been successfully created. Please log in to continue."
           );
           this.spinnerService.hide();
           this.signupForm.reset();
@@ -410,7 +497,7 @@ export class SigninModalComponent implements OnInit {
           this.shfrmSFThird = false;
           this.currentPath = this.router.url;
 
-          this.router.navigate([this.currentPath]);
+         // this.router.navigate([this.currentPath]);
         } else {
           this.shfrmSFThird = true;
           this.shfrmSFSecond = false;
@@ -432,7 +519,7 @@ export class SigninModalComponent implements OnInit {
     var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds();
     var json = {
-      userName: this.signupForm3.value.username,
+      userName: this.signupForm3.value.uname,
       email: this.signupForm.value.email,
       firstName: this.signupForm.value.firstname,
       lastName: this.signupForm.value.firstname,
@@ -513,15 +600,29 @@ export class SigninModalComponent implements OnInit {
       },);
     } catch {}
   }
+  //send OTP button change and seconds
+  name = 'Angular';
+  btnText = 'send OTP ';
+  btnDisabled = false;
+  buttonClick1() {
+  this.btnDisabled = true;
+  this.btnText = 'Please wait';
+  setTimeout(() => {
+   this.btnText = 'Resend OTP';
+   this.btnDisabled = false
+    }, 30000);
+  }
  
-
   verifyOtp1() {
     try {
       this.adm
-        .verify_otp(this.signupForm2.value, this.otp_txt_id)
+        .verify_otpCopy(this.signupForm2.value, this.otp_txt_id)
         .subscribe((data: any) => {
+          console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
+          obj = this.decode(obj.data);
+          obj = JSON.parse(obj);
           if (obj.status == true) {
             this.shfrmSFThird = true;
             this.shfrmSFFirst = false;
@@ -670,9 +771,14 @@ export class SigninModalComponent implements OnInit {
     localStorage.removeItem("id");
     localStorage.removeItem("role");
     localStorage.removeItem("jwt")
+    localStorage.removeItem('lastLoginDate');
+    localStorage.removeItem('misUserVal');
+    localStorage.removeItem('Firstname');
+    localStorage.removeItem('isInternalUser');
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;
+    this.reloadToken();
     this.adm.LogoutPortal().subscribe(
       res => {
         this.router.navigate(["/index"]);
@@ -681,6 +787,7 @@ export class SigninModalComponent implements OnInit {
         this.router.navigate(["/index"]);
       }
     );
+    this.router.navigate(["/index"]);
   }
 
   signup_link(id) {
@@ -721,8 +828,17 @@ export class SigninModalComponent implements OnInit {
   }
 
   //login success pop up modal
-  clickOk() {
+  clickOk() {                    
     this.modalRef4.hide();
+    if (this.router.url === "/documentation"){
+      this.router.navigate(['explore-api']); 
+    } else if( localStorage.getItem("userEnteredText")!= "" || localStorage.getItem("userEnteredText")!= undefined ){
+      this.router.navigate(['viewallapi']);
+    }
+    else{
+      this.router.navigate([this.currentPath]);
+    }
+    
    /* this.sessionSet("username", this.loginResponse.data.username);
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);
@@ -750,16 +866,4 @@ export class SigninModalComponent implements OnInit {
       this.toastrmsg('error',this.errorMsg);
     },);
   }
-   //send OTP button change and seconds
-   name = 'Angular';
-   btnText = 'send OTP ';
-   btnDisabled = false;
-   buttonClick1() {
-   this.btnDisabled = true;
-   this.btnText = 'Please wait';
-   setTimeout(() => {
-    this.btnText = 'Resend OTP';
-    this.btnDisabled = false
-     }, 30000);
-   }
 }

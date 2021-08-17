@@ -155,6 +155,7 @@ select.input-lg {
     -o-appearance: none;
     /* no standardized syntax available, no ie-friendly solution available */
   }
+  
   .text-danger{
 	color: #ae282e !important;
   
@@ -572,3 +573,24 @@ ul{
 	display: flex;
 	justify-content: center;
   }
+  .okbtn{ border-radius: 3px;
+	font-family: Poppins-Bold!important;
+	font-size: 12px;
+	text-align: center;
+	border: none;
+	outline: 0!important;
+	padding: 12px 25px;
+	cursor: pointer;
+	text-decoration: none!important;
+	text-transform: uppercase;
+	height: 38px;
+	background: #ae282e;
+	position: absolute;
+	/* top: 50%; */
+	/* margin: 0 auto; */
+	color: #fff!important;
+	opacity: 1;
+	}
+	.mt30{
+		margin-top: 30px;
+	}

@@ -17,7 +17,8 @@ import { startWith, map } from "rxjs/operators";
 import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
 import { DatePipe } from '@angular/common';
-// import * as CryptoJS from 'crypto-js';
+import * as CryptoJS from 'crypto-js';
+// import * as bcrypt from 'bcryptjs';
 declare var $: any;
 @Component({
   selector: "icici-header",
@@ -92,8 +93,14 @@ export class HeaderComponent implements OnInit {
   showAppDash: boolean = false;
   userName: any;
   errorMsg:any = "Something went wrong. Please try again in some time.";
-  
-  
+  misUserVal:any = false;
+  Firstname: any="";
+  lastLoginDate: any="";
+  status_code:any;
+  isInternalUser:any = false;
+  salt:string;
+  userEmailId;
+
 
   constructor(
     private SessionService: SessionService,
@@ -112,6 +119,19 @@ export class HeaderComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
       this.showbtn = !this.logged_in;
+      if(localStorage.getItem('misUserVal') != ""){
+        this.misUserVal = localStorage.getItem('misUserVal');
+      }if(localStorage.getItem('Firstname') != ""){
+        this.Firstname = localStorage.getItem('Firstname');
+      }if(localStorage.getItem('lastLoginDate') != ""){
+        this.lastLoginDate = localStorage.getItem('lastLoginDate');
+      }if(localStorage.getItem('username') != ""){
+        this.userName = localStorage.getItem('username');
+      }if(localStorage.getItem('isInternalUser') != ""){
+        this.isInternalUser = localStorage.getItem('isInternalUser');
+      }
+     
+
     });
     this.adm.getUserName().subscribe(data => {
       this.appathonFirstName = localStorage.getItem("appathonFirstName");
@@ -121,29 +141,55 @@ export class HeaderComponent implements OnInit {
       this.appathonUserName = localStorage.getItem("appathonUserName");
       this.user_name = data;
     });
+
+    this.adm.getSaltValue().subscribe(data => {
+     // console.log(data);
+      this.salt = data
+    //  let pwd = CryptoJS.AES.encrypt(password, data).toString();  
+      
+    });
     this.get_domain_and_apis();
   }
-  // decode(val){
+  decode(val){
  
-  //   // Decryption process
-  //   var key = 'ICICI#~#';
-  //   key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+    // Decryption process
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
   
-  //   var encryptedBase64Key=btoa(key); //base64encryption
-  //   var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
   
-  //   var encryptedCipherText = val ; // or encryptedData;
-  //   var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
-  //     mode: CryptoJS.mode.ECB,
-  //     padding: CryptoJS.pad.Pkcs7
-  //   } );
-  //   var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
-  //   return decryptedText
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
   
-  // }
+  }
+  decode1(val,key){
+ 
+    // Decryption process
+  //  var key = 'ICICI#~#';
+//    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
+  
+  }
      
   ngOnInit() {
 
+    this.userEmailId=localStorage.getItem("email");
     
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
@@ -281,10 +327,18 @@ export class HeaderComponent implements OnInit {
       this.showAppDash = true;
     }
     this.userName = localStorage.getItem("username");
+
+    if(localStorage.getItem('misUserVal') != ""){
+      this.misUserVal = localStorage.getItem('misUserVal');
+    }if(localStorage.getItem('Firstname') != ""){
+      this.Firstname = localStorage.getItem('Firstname');
+    }if(localStorage.getItem('lastLoginDate') != ""){
+      this.lastLoginDate = localStorage.getItem('lastLoginDate');
+    } 
   }
 /* active class toggle **/
   addActiveClass(e){
-    console.log(e);
+   // console.log(e);
     $('ul li a[data-toggle="tab"]').removeClass('active');
     $('ul li a[data-toggle="tab"]').removeClass('show');
    
@@ -375,13 +429,14 @@ toastrmsg(type, title) {
   }
 
   openModal2(signup: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
+    //this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
     try {
       this.modalRef.hide();
     } catch (e) {}
     this.signupForm.controls["otp_verified"].setValue("0");
     this.otp_verified = 0;
     this.ref.markForCheck();
+    this.router.navigate(['/signUpPage']);
   }
 
   //aapathonSignUpForm
@@ -433,10 +488,12 @@ toastrmsg(type, title) {
       username : username,
       password : password
     };
-    console.log(nonEncodedJson)
+  //  console.log(nonEncodedJson)
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
+    this.status_code = "";
+
     if (username == "") {
       this.isusername = true;
       return;
@@ -446,116 +503,187 @@ toastrmsg(type, title) {
       return;
     }
     username = btoa(username);
-    password = btoa(password);
-    console.log("username password"+username+':' +password)
-    var json = { username: username, password: password };
+ //   password = btoa(password);
+
+ 
+  let pwd = this.encode(this.salt,password);
+  let challengeId = this.salt;
     this.spinnerService.show();
-    this.adm.Login(json).subscribe((data: any) => {
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  let newSalt = this.encode(key,this.salt);
+  var json = { username: username, password: pwd ,Token:newSalt};
+ // var json = { username: username, password: password };
+ // console.log("username password == "+username+':' +password) 
+//this.adm.Login(json).subscribe((data: any) => {
+    this.adm.Login1(json).subscribe((data: any) => {
       var response = data._body;
-      console.log(response)
-      // console.log(response.data.misUser)
+      //console.log(response)
       this.loginResponse = JSON.parse(response);
      //console.log(this.loginResponse);
     //  console.log(this.loginResponse.data)
      // console.log(this.loginResponse.data.companyName)
   
 
-      if (this.loginResponse.status == true) {
-        var timer = this.SessionService.session();
-        this.show = false;
-        this.modalRef.hide();
-        //this.toastrmsg('success', "Login has been Successfully");
-        // this.sessionSet('username', obj.data.username);
-        localStorage.setItem(
-          "appathonFirstName",
-          this.loginResponse.data.firstName
-        );
-        localStorage.setItem(
-          "appathonCompanyEmail",
-          this.loginResponse.data.email
-        );
-        localStorage.setItem(
-          "appathonMobileNumber",
-          this.loginResponse.data.mobileNo
-        );
-        localStorage.setItem(
-          "appathonCompanyName",
-          this.loginResponse.data.companyName
-        );
-        localStorage.setItem("jwt",this.loginResponse.jwttoken)
-        // localStorage.setItem('password', obj.data.password);
-        // localStorage.setItem('id', obj.data.id);
-        // localStorage.setItem('role', 'user');
-        // localStorage.setItem('email', obj.data.email);
-        // this.adm.sendUserId(obj.data.id);
-        this.spinnerService.hide();
-        
-        let respData =  this.loginResponse.data;
-        if(respData && respData.companyName ){
-          localStorage.setItem('companyName',respData.companyName);
-        }else if(respData && respData.mobileNo ){
-          localStorage.setItem('mobileNo',respData.mobileNo);
-        }else if(respData && respData.email ){
-          localStorage.setItem('email',respData.email);
-        }else if(respData && respData.rm ){
-          localStorage.setItem('rm',respData.rm);
-        }
-        
-       
-        
-       
-        this.adm.LoginPortal(nonEncodedJson).subscribe(
-          res => {
-            this.router.navigate([this.router.url]);
-          },
-          err => {
+      if (this.loginResponse.status == true  ) {
+        if(this.loginResponse.data.challengeId !== challengeId){
+
+          this.spinnerService.hide();
+          this.isusername = false;
+          this.issetpwd = false;
+          this.reloadToken();
+          this.is_res_error = "Unable to login ,try again.";
+
+        }else{
+          var timer = this.SessionService.session();
+          this.show = false;
+          this.modalRef.hide();
+  
+          let respData =  this.loginResponse.data;
+          if(respData  ){
+            this.misUserVal = respData.misUser;
+            localStorage.setItem('misUserVal',this.misUserVal);
+          }  if(respData && respData.firstName ){
+            this.Firstname=respData.firstName;
+            localStorage.setItem('Firstname',this.Firstname);
+          }  if(respData && respData.lastLoginDt ){
+            this.lastLoginDate=respData.lastLoginDt;
+            localStorage.setItem('lastLoginDate',this.lastLoginDate);
+          }if(respData  ){
+            localStorage.setItem('isInternalUser',respData.internalUser);
+            this.isInternalUser = respData.internalUser;
+          }
+          if(respData && respData.companyName ){
+            localStorage.setItem('companyName',respData.companyName);
+          } if(respData && respData.mobileNo ){
+            localStorage.setItem('mobileNo',respData.mobileNo);
+          }if(respData && respData.email ){
+            localStorage.setItem('email',respData.email);
+          }if(respData && respData.rm ){
+            localStorage.setItem('rm',respData.rm);
+          }
+          //this.toastrmsg('success', "Login has been Successfully");
+          // this.sessionSet('username', obj.data.username);
+          localStorage.setItem(
+            "appathonFirstName",
+            this.loginResponse.data.firstName
+          );
+          localStorage.setItem(
+            "appathonCompanyEmail",
+            this.loginResponse.data.email
+          );
+          localStorage.setItem(
+            "appathonMobileNumber",
+            this.loginResponse.data.mobileNo
+          );
+          localStorage.setItem(
+            "appathonCompanyName",
+            this.loginResponse.data.companyName
+          );
+          localStorage.setItem("jwt",this.loginResponse.jwttoken)
+          // localStorage.setItem('password', obj.data.password);
+          // localStorage.setItem('id', obj.data.id);
+          // localStorage.setItem('role', 'user');
+          // localStorage.setItem('email', obj.data.email);
+          // this.adm.sendUserId(obj.data.id);
+          this.spinnerService.hide();
+           
+         /*  this.adm.LoginPortal(nonEncodedJson).subscribe(
+            res => {
+              this.router.navigate([this.router.url]);
+            },
+            err => {
+              this.router.navigate([this.router.url]);
+            }
+          ); */
+           /**
+           * Changing the flow as login shd complete even if loginsuccess popup eacaped
+           */
+          $('ul li a[data-toggle="tab"]').removeClass('active');
+          $('ul li a[data-toggle="tab"]').removeClass('show');
+              this.userName = this.loginResponse.data.username;
+          this.sessionSet("username", this.loginResponse.data.username);
+          localStorage.setItem("username", this.loginResponse.data.username);
+          localStorage.setItem("password", this.loginResponse.data.password);
+          localStorage.setItem("id", this.loginResponse.data.id);
+          localStorage.setItem("role", this.loginResponse.data.role);
+          this.userName = localStorage.getItem("username");
+          
+          localStorage.setItem(
+            "appathonusername",
+            this.loginResponse.data.appathonusername
+          );
+          localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+          localStorage.setItem("email", this.loginResponse.data.email);
+          this.adm.sendUserId(this.loginResponse.data.id);
+          this.userName = localStorage.getItem("username");
+  
+          if (this.router.url === "/documentation"){
+            this.router.navigate(['explore-api']); 
+          }else{
             this.router.navigate([this.router.url]);
           }
-        );
-         /**
-         * Changing the flow as login shd complete even if loginsuccess popup eacaped
-         */
-        $('ul li a[data-toggle="tab"]').removeClass('active');
-        $('ul li a[data-toggle="tab"]').removeClass('show');
-        this.userName = this.loginResponse.data.username;
-    this.sessionSet("username", this.loginResponse.data.username);
-    localStorage.setItem("username", this.loginResponse.data.username);
-    localStorage.setItem("password", this.loginResponse.data.password);
-    localStorage.setItem("id", this.loginResponse.data.id);
-    localStorage.setItem("role", this.loginResponse.data.role);
-    this.userName = localStorage.getItem("username");
-    
-    localStorage.setItem(
-      "appathonusername",
-      this.loginResponse.data.appathonusername
-    );
-    localStorage.setItem("appathonUserName", this.loginResponse.data.username);
-    localStorage.setItem("email", this.loginResponse.data.email);
-    this.adm.sendUserId(this.loginResponse.data.id);
-    this.userName = localStorage.getItem("username");
-    this.router.navigate([this.router.url]);
-    
-    /**
-     * End here
-     */
+          
+          
+          /**
+           * End here
+           */
+  
+          this.modalRef4 = this.modalService.show(loginsuccess, {
+            backdrop: "static"
+          });
+        }
+       
 
-        this.modalRef4 = this.modalService.show(loginsuccess, {
-          backdrop: "static"
-        });
+        
       } else {
         this.spinnerService.hide();
         this.isusername = false;
         this.issetpwd = false;
-        this.is_res_error = this.loginResponse.message;
+        this.reloadToken();
+        if(this.loginResponse.status_code == 111 || this.loginResponse.status_code == "111" ){
+          this.status_code = 111;
+        this.is_res_error = "Your account is locked because of "+this.loginResponse.message +" days inactive.";
+       
+        }else if(this.loginResponse.status_code == 112 || this.loginResponse.status_code == "112" ){
+          this.is_res_error = this.loginResponse.message;
+        }else{
+         this.is_res_error = this.loginResponse.message;
+         }
+       
       }
     },
     err => {
       console.log('err', err);
+      this.reloadToken();
      // this.router.navigate(['error']);
       this.toastrmsg('error',this.errorMsg);
 
       
     },);
+  }
+  encode(key,val){
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+   let encryptedVal = CryptoJS.AES.encrypt(val, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+      });
+      return encryptedVal;
+  }
+  reloadToken(){
+    this.adm.getSalt().subscribe((data: any) => {
+      
+      this.adm.sendSalt(data._body);
+      this.salt = data._body;
+    },
+    err => {
+      console.log('err', err);
+    });
+  }
+  closeLoginPopup(){
+   this.is_res_error = '';
+   this.modalRef.hide();
   }
   // Signup function
 
@@ -694,7 +822,7 @@ toastrmsg(type, title) {
       this.adm.appathon_sign_up(json).subscribe((data: any) => {
         var response = data._body;
         var obj = JSON.parse(response);
-        console.log(obj);
+       // console.log(obj);
         if (obj.status == true) {
           //this.signup_jira();
           this.toastrmsg(
@@ -875,7 +1003,7 @@ toastrmsg(type, title) {
           console.log("otp verification section");
           var response = data._body;
           var obj = JSON.parse(response);
-          // obj = this.decode(obj.data);
+          obj = this.decode(obj.data);
           obj = JSON.parse(obj);
           if (obj.status == true) {
             console.log("otp success");
@@ -972,8 +1100,17 @@ toastrmsg(type, title) {
   // }
   // }
   Documentation(signin: any) {
-    this.router.navigate(["/documentation"]);
-    localStorage.setItem("IsReload", "true");
+     if (
+      localStorage.getItem('username') == '' ||
+      !localStorage.getItem('username')
+    ){
+     this.router.navigate(["/documentation"]);
+     //this.router.navigate(["/explore-api"]);
+    }else{
+      this.router.navigate(["/explore-api"]);
+    } 
+   /*  this.router.navigate(["/documentation"]);
+    localStorage.setItem("IsReload", "true"); */
   }
 
   // forget Password function
@@ -1057,9 +1194,11 @@ toastrmsg(type, title) {
 
   btn_Sign() {
     if (localStorage.getItem("id") != null) {
+      
       this.showbtn = false;
       this.showlogoutbtn = true;
     } else {
+      
       this.showbtn = true;
       this.showlogoutbtn = false;
     }
@@ -1067,24 +1206,35 @@ toastrmsg(type, title) {
 
   // Fuction for Logout
   logout() {
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-    localStorage.removeItem("id");
-    localStorage.removeItem("role");
-    localStorage.removeItem("jwt")
-    this.adm.sendUserId("");
-    this.showbtn = true;
-    this.showlogoutbtn = false;
-    this.adm.LogoutPortal().subscribe(
+   
+    this.adm.logout().subscribe(
       res => {
+        console.log("logout success");
+        this.resetUserData();
         this.router.navigate(["/index"]);
       },
       err => {
+        console.log("logout failure");
+        this.resetUserData();
         this.router.navigate(["/index"]);
-      }
-    );
+      });
   }
-
+resetUserData(){
+  localStorage.removeItem("username");
+  localStorage.removeItem("password");
+  localStorage.removeItem("id");
+  localStorage.removeItem("role");
+  localStorage.removeItem("jwt")
+  localStorage.removeItem('lastLoginDate');
+  localStorage.removeItem('misUserVal');
+  localStorage.removeItem('Firstname');
+  localStorage.removeItem('isAdmin');
+  localStorage.removeItem('isInternalUser');
+  this.adm.sendUserId("");
+  this.showbtn = true;
+  this.showlogoutbtn = false;
+  this.reloadToken();
+}
   signup_link(id) {
     if (this.shfrmSFFirst) {
       this.shfrmSFFirst = true;
@@ -1171,7 +1321,7 @@ toastrmsg(type, title) {
   // }
 
   numericOnly(event): boolean {
-    console.log("keypress");
+  //  console.log("keypress");
     let patt = /^([0-9])$/;
     let result = patt.test(event.key);
     return result;
@@ -1196,48 +1346,6 @@ toastrmsg(type, title) {
   onChangeInput3(val) {
     this.exampleArray3.push(val);
   }
-  rmData: any[] = [
-		{
-      "pincode": "12345",
-      "rmDetails": {
-          "rmNo": 3,
-          "rmName": "David Vivek",
-          "rmId": 370215,
-          "rmEmail": "david.s@icicibank.com"
-      }
-  }
-	    
-  ];
-  userInput;
-  rmid;
-  onkeyupgetRMID(event: any) {
-    this.userInput = event.target.value;
-   console.log( this.userInput )
-   
-   this.getRmId();
-  }
-  getRmId(){
-    this.rmid=[];
-  console.log(this.rmData)
-    for (var i in this.rmData) {
-  console.log(i)
-
-        if(this.rmData[i].pincode==this.signupForm.value.CITY ){
-(this.rmid).push(this.rmData[i].rmid);
-console.log(this.rmData[i].pincode);
-console.log(this.rmData[i].rmDetails);
-console.log(this.rmData[i].rmDetails.rmId);
-console.log(this.signupForm.controls.RM.setValue(this.rmData[i].rmDetails.rmId));
-// this.signupForm.value.RM.setValue(this.rmData[i].rmDetails.rmId);
-
-
-        }
-        else{
-console.log(this.signupForm.controls.RM.setValue(""));
-
-        }
-      }
-    }
 
   //componay name autocomplete
   getCompanyName(companyName) {
@@ -1252,6 +1360,6 @@ console.log(this.signupForm.controls.RM.setValue(""));
      // this.router.navigate(['error']);
      this.toastrmsg('error',this.errorMsg);
 
-    },);
+    },);   
   }
 }

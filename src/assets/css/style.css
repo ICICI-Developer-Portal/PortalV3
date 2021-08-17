@@ -479,7 +479,6 @@ input:focus {
   pointer-events: none;
 }
 
-
 .custom-dropdown::after {
   /*  Custom dropdown arrow */
   content: '\f107';
@@ -493,6 +492,10 @@ input:focus {
   opacity: 0.6;
   font-family: FontAwesome;
 }
+ .selectWebsites .custom-dropdown::after {
+ 
+  margin-right: -57px !important;
+} 
 
 .custom-dropdown::before {
   /*  Custom dropdown arrow cover */
@@ -557,12 +560,7 @@ input:focus {
 }
 .signInBtn1 {
   background: #ae282e;
-  color: #ffffff ;
-}
-.btndisabld{
-	cursor: not-allowed !important;
-    background-color: #f5f5f5 !important;
-    color: #919191 !important;
+  color: #ffffff !important;
 }
 .signInBtn1[disabled] {
   cursor: not-allowed;
@@ -571,6 +569,11 @@ input:focus {
 }
 .signInBtn:hover{
   color: white !important;
+}
+.signInBtn:hover{
+  background: #ae282e;
+  color: #ffffff !important;  
+  border: none;
 }
 .signInBtn[disabled] {
   cursor: not-allowed;
@@ -675,7 +678,7 @@ ul.nav.nav-tabs.documentaionTabs li:last-child {
   color: #ae282e;
 }
 .nav-pills .nav-link.active.viewAllLink a {
-  color: #fff !important;
+  color: #f06321 !important;
 }
 .sideMenu .nav-pills .nav-link a {
   font-family: Poppins-Medium;
@@ -693,49 +696,10 @@ color: #ae282e;
 .sideMenu .nav-pills .nav-link a:focus {
   outline: none;
 }
-
 .sideMenu .nav-pills .nav-link.active > a {
   background: none;
   color: #ae282e;
 }
-.sideMenu .nav-pills .nav-link.active > a {
-  background: none;
-  color: #ae282e;
-}
-.apiDomainCategory  .nav-link.active a   {
-  background: #ae282e !important;  color: #dfdfdf;
-}
-.maroonbg  .nav-link.active a,
-.apiDomainCategory,.maroonbg {
-  background: #ae282e !important;
-  color:white !important;
-}
-/* .sideMenu .nav-pills .nav-link.active > .apiDomainCategory a {
-  background: none;
-  color: #ffff;
-} */
-.sideMenu .nav-pills .nav-link .apiDomainCategory a,.maroonbg a {
- 
-  border-top: 1px solid #c0c0c0;
-
-  color: #dfdfdf;
-
-}
-.sideMenu .nav-pills .nav-link .apiDomainCategory a:hover, .maroonbg a:hover{
-  color: #ffff !important;
-  text-decoration: none;
-}
-
-.submenuLevelOne li.viewAllLink:last-child a::before,.apiDomainCategory .submenuLevelOne li.nav-link:last-child  a::before,.apiDomainCategory .submenuLevelTwo li.nav-link:last-child a::before {
-  background: #ae282e !important;
-  height: calc(100% - 17px);
-  bottom: 0;
-}
-.apiDomainCategory {
-  background: #ae282e !important;
-  color:white !important;
-}
-
 .toggleTabs.nav-pills {
   border-bottom: 1px solid #ececec;
   margin-bottom: 30px;
@@ -822,7 +786,7 @@ color: #ae282e;
   top: -2px;
 }
 .viewAllLink a {
-  color: #c0c0c0 !important;
+  color: #212121 !important;
 }
 .dropdownIcon,
 .viewAllDropdown,
@@ -862,16 +826,6 @@ transform: rotate(180deg);
   left: 25px;
   border-left: 1px solid #bbbbbb;
 }
-a[role="tab_branch_2"] ul ::before{
-  content: '';
-  display: block;
-  width: 0;
-  position: absolute;
-  top: -1px;
-  bottom: 0;
-  left: 15px;
-  border-left: 1px solid #bbbbbb;
-}
 .submenuLevelOne .nav-link {
   border: none !important;
   padding: 11px 12px 12px 48px !important;
@@ -892,21 +846,6 @@ a[role="tab_branch_2"] ul ::before{
   position: absolute;
   top: 18px;
   left: 25px;
-}
-.maroonbg li.nav-link:last-child a::before {
-  background: #ae282e !important;
-  height: calc(100% - 17px);
-  bottom: 0;
-}
-.sideMenu .securitynavlink .nav-link a {
-  font-family: Poppins-Medium;
-  padding: 16px 12px 16px 24px;
-  border-top: 1px solid #ececec;
-  border-radius: 0px;
-  width: 100%;
-  color: #dddddd;
-  display: block;
-  text-decoration: none;
 }
 .submenuLevelOne li.nav-link:last-child a::before {
   background: #fff;
@@ -1227,6 +1166,13 @@ a[role="tab_branch_2"] ul ::before{
   margin-left: 0px;
   margin-right: auto;
 }
+
+
+.nav-tabs li:nth-child(2) {
+
+    margin-left: 0px;
+  
+}
 .nav-tabs li:last-child {
   margin-right: 0px;
   margin-left: 8px;
@@ -1373,7 +1319,8 @@ a[role="tab_branch_2"] ul ::before{
   height: 50px;
 }
 .sectionAPICard h4 {
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: 15px;
   font-family: Poppins-SemiBold;
   color: #212121;
   margin: 0px;
@@ -1448,7 +1395,7 @@ a[role="tab_branch_2"] ul ::before{
 .workImageContainer img,
 .nextArrows img {
   position: absolute;
-  top: 50%;
+  top: 94%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
@@ -3618,6 +3565,10 @@ color: #ae282e;
  
   min-height: 300px;
 }
+#partners .api-inner {
+ 
+  min-height: 240px !important;
+}
 
 #partners .mr-10 {
   margin-top: 10px;
@@ -3642,7 +3593,14 @@ padding-left:0px ;
     top: 182px !important;
     z-index: 99 !important;
 }
+.howItWorksContainer .workImageContainer {
+      height: 50px;
+      text-align: center;
+      position: relative;
+      border-radius: 4px;
+      margin-bottom: 10px;
 
+}
 
   @media screen and (max-width: 240px) {
     .documentTabContent {
@@ -3652,6 +3610,12 @@ padding-left:0px ;
     .sideMenu {
       top: 160px;
     }
+    .bannerContent h2 {
+      font-size: 20px;
+    }
+    .bannerContent .signInBtn {
+      padding: 6px 18px;
+    }
   }
   @media screen and (min-width: 241px) and (max-width: 480px) {
     .documentTabContent {
@@ -3660,6 +3624,12 @@ padding-left:0px ;
     }
     .sideMenu {
       top: 160px;
+    }
+    .bannerContent h2 {
+      font-size: 25px;
+    }
+    .bannerContent .signInBtn {
+      padding: 8px 20px;
     }
   }
   @media screen and (min-width: 320px) and (max-width: 480px) {
@@ -3671,6 +3641,12 @@ padding-left:0px ;
       top: 160px;
 
     }
+    .bannerContent h2 {
+      font-size: 25px;
+    }
+    .bannerContent .signInBtn {
+      padding: 8px 20px;
+    }
   }
   @media screen and (min-width: 481px) and (max-width: 768px) {
     .documentTabContent {
@@ -3679,6 +3655,12 @@ padding-left:0px ;
     }
     .sideMenu {
       top: 160px;
+    }
+    .bannerContent h2 {
+      font-size: 28px;
+    }
+    .bannerContent .signInBtn {
+      padding: 8px 20px;
     }
 
   }
@@ -3690,6 +3672,10 @@ padding-left:0px ;
     .sideMenu {
       top: 160px;
     }
+    .bannerContent h2 {
+      font-size: 30px;
+    }
+    
   }
 
   .box1
@@ -3764,18 +3750,15 @@ c-height{
   padding-top: 0px;
   height: 355px;
 }
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .documentTabContent {
-    top: 59px;
-    position: relative;
-  }
-  .sideMenu 
-     {
-       margin-top: 50px;
-      width: 100%;
-      height: auto;
-      position: relative;
-    }
-    .sideMenu  a {float: left;}
-    div.content {margin-left: 0;}
-  }
+
+.signin_p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+.res{
+  margin-left: -53px; 
+  display: block;
+}
+.font-16{
+  font-size: 16px;
+}

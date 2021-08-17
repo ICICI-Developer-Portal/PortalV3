@@ -166,7 +166,7 @@ button.toast-close-button {
 
 #toast-container > div {
   margin: 0 0 6px;
-  padding: 0px 27px 20px 26px;
+  padding: 0px 27px 20px 50px;
   width: 320px;
   -moz-border-radius: 3px 3px 3px 3px;
   -webkit-border-radius: 3px 3px 3px 3px;
@@ -469,11 +469,7 @@ a:hover {
 .mb10 {
   margin-bottom: 10px;
 }
-.btn-orange {
-  color: #fff;
-  background-color: #ae282e;
-  border-color: #ae282e;
-}
+
 .workImageContainer h2 p {
   background-color: #ae282e;
   width: 47px;
@@ -636,7 +632,7 @@ body {
     height: 1em;
     font-size: 20px;
     line-height: 1;
-    right: 4%;
+    right: 10%;
     top: 50%;
     margin-top: -0.5em;
     color: #747582;

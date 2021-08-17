@@ -126,3 +126,6 @@ table.dynamicData  tbody td, thead th {
   width : 200px; 
  /* // border-right: 2px solid black;  */
 } 
+.tabContentInner .badge{
+  background-color: green;color:#fff;font-size: 12px;border: 1px solid green;border-radius: 2px;
+}

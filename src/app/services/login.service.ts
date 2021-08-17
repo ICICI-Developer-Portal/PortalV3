@@ -7,7 +7,7 @@ import {
   RequestMethod,
   ResponseContentType
 } from "@angular/http";
-import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Config } from "../config/config";
 import { Alert } from "selenium-webdriver";
@@ -22,12 +22,15 @@ export class LoginService {
   UAT_apiUrl: string;
   private user_id = new Subject<any>();
   private user_name = new Subject<any>();
+  private salt = new Subject<any>();
 
+  
   constructor(
     private http: Http,
     private config: Config,
     private HttpClient: HttpClient,
     private router: Router
+
   ) {
     this.apiUrl = config.apiUrl;
     this.UAT_apiUrl = config.UAT_apiUrl;
@@ -36,6 +39,7 @@ export class LoginService {
   sendUserId(id: string) {
     this.user_id.next(id);
     this.user_name.next(localStorage.getItem("username"));
+   
   }
   check_user_log() {
     if (localStorage.getItem("id") == "" || !localStorage.getItem("id")) {
@@ -48,6 +52,7 @@ export class LoginService {
           this.router.navigate(["/index"]);
         }
       );
+      this.router.navigate(["/index"]);
     }
   }
   clearUserId() {
@@ -70,6 +75,19 @@ export class LoginService {
   getUserName(): Observable<any> {
     return this.user_name.asObservable();
   }
+ 
+  sendSalt(id: string) {
+    this.salt.next(id);
+  }
+
+  clearSalt() {
+    this.salt.next();
+  }
+
+  getSaltValueO(): Observable<any> {
+    return this.salt.asObservable();
+  }
+ 
 
   //#region Login Api
   Login(data) {
@@ -83,10 +101,8 @@ export class LoginService {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     let options = new RequestOptions({ headers: headers });
-   // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/login", query, options); //clommented on 16Nov2020
-    return this.http.post("https://developer.icicibank.com/rest/login", query, options);
-
-    //return this.http.post(this.UAT_apiUrl + "login", query, options);
+  return this.http.post(this.apiUrl + "login", query, options);
+// return this.http.post(this.UAT_apiUrl + "login", query, options);
   }
   //#JWT Login Api
   LoginJWT(data) {
@@ -101,7 +117,7 @@ export class LoginService {
     });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.apiUrl + 'loginJWT', query, options);
-   // return this.http.post(this.UAT_apiUrl + 'loginJWT', query, options);
+   //return this.http.post(this.UAT_apiUrl + 'loginJWT', query, options);
   }
 
   LoginPortal(json) {
@@ -181,7 +197,8 @@ export class LoginService {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl + "send_otp", query, options);
+    //return this.http.post(this.apiUrl + "send_otp", query, options); 
+    return this.http.post(this.apiUrl + "send_otpUAT", query, options);
   }
   //  #End region
 
@@ -230,7 +247,7 @@ export class LoginService {
       "Content-Type": "application/x-www-form-urlencoded"
     });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.UAT_apiUrl + "verify_otp", query, options);
+    return this.http.post(this.apiUrl + "verify_otp", query, options);
   }
   //  #End region
   //#region Forget Api
@@ -428,22 +445,7 @@ export class LoginService {
 
   // Get api-details of documentation page
 
-  api_details(json) {
-    var query = "";
-    var key;
-    for (key in json) {
-      query +=
-        encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
-    }
-    let headers = new Headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Token" : localStorage.getItem("jwt")
-    });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl + "load-api-data", query, options);
-    //return this.http.get(this.apiUrl+'load-api-data'+json);
-    // "https://thingproxy.freeboard.io/fetch/"+
-  }
+  
 
   // Get error code of documentation page
   mis1(json){
@@ -615,7 +617,8 @@ export class LoginService {
       "Token" : localStorage.getItem("jwt")
     });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl + "fetch-jiraid-v2", query, options);
+   return this.http.post(this.apiUrl + "fetch-jiraid-v2", query, options);
+ // return this.http.post(this.UAT_apiUrl + "fetch-jiraid-v2", query, options);
   }
 
   Onboardrequests() {
@@ -784,6 +787,7 @@ getDocDetails(json) {
  
 // Get MIS   download 
  
+
 getMisFile(json) {
   
  let query = "";
@@ -793,35 +797,25 @@ getMisFile(json) {
  
  let headers = new Headers({
    "Content-Type": "application/x-www-form-urlencoded",
+   
    "Token" : localStorage.getItem("jwt"),
    "username" :json.userName,
  });
  let options = new RequestOptions({ headers: headers });
- return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);
+ return this.http.post(this.apiUrl + "getMisFile", query, options);
 
-/*let query = "";
-if(json && json.userName && json.fileDate){
- query = "fileDate=25-June-20";
- } 
-
-let headers = new Headers({
-  "Content-Type": "application/x-www-form-urlencoded",
-  "Token" : "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaHVrdW1hcjAzMDkiLCJpYXQiOjE1OTAxNzQyNTUsInN1YiI6IkpXVCBUT2tlbiBmb3IgRGV2ZWxvcGVyIHBvcnRhbCIsImlzcyI6IklDSUNJIERldmVsb3BlciBwb3J0YWwiLCJleHAiOjMxODAzNDg1MTF9.v0qnqdzNBLSFPhqS9Zza0igW2Ppl2oXUS2UXy4q58OY",
-  "username" :"priyanshukumar0309",
-});
-let options = new RequestOptions({ headers: headers });
-return this.http.post(this.UAT_apiUrl + "getMisFile", query, options);*/
 }
 downloadFromURL(url: string){
   return this.http.get(url, { responseType: ResponseContentType.Blob})
 }
 test_api(requestParam,apiName) {
-  var query = "";
-  var key;
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+
+  let requestPkt ={
+    "apikey":"f219f506-1079-4c76-8ea6-439774f96265",
+    "requestPacket":requestParam,
+    "gatewayURL":apiName
   }
+  console.log(JSON.stringify(requestPkt));
   let headers = new Headers({
     "Content-Type": 'application/json'
   });
@@ -834,62 +828,35 @@ test_api(requestParam,apiName) {
   };  */
   
   //return this.HttpClient.post<any>(apiName , query, httpOptions);
-  return this.http.post(apiName , query, options);
+  return this.http.post(apiName , requestParam, options);
 }
-
-
-
- 
-
-sendToken(token){
-
-  return this.http.post(this.apiUrl + "tokenValidate", {'g-recaptcha-reponse': token})
-}
-test_apiJSON(requestParam,apiName) {
-  var query = "";
-  var key;
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
-  }
-  let headers = new Headers({
-    "Content-Type": "application/json"
-  });
-  let options = new RequestOptions({ headers: headers });
-  return this.http.post(apiName , query, options);
-}
- 
 test_apiXML(requestParam,apiName) {
-  var query = "";
-  var key;
-  for (key in requestParam) {
-    query +=
-      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
-  }
+  
   let headers = new Headers({
-
-    "Content-Type": "application/xml"
-
+    "Content-Type": "text/xml"
   });
-
   let options = new RequestOptions({ headers: headers });
-
   return this.http.post(apiName , requestParam, options);
 }
 
-// test api
-getTestCases(json,headers){
-  var body = "apiId=" +  json.apiId;
-  console.log(this.UAT_apiUrl+"getTestCase")
-   headers = new Headers({
+
+getTestCases(json) {
+  
+  let query = "";
+  if(json && json.apiId){
+   query = "apiId="+ json.apiId;
+   } 
+  
+  let headers = new Headers({
     "Content-Type": "application/x-www-form-urlencoded",
-    "token" : localStorage.getItem("jwt"),
-    "username" :localStorage.getItem('username'),
+    "Token" : localStorage.getItem("jwt"),
+    "username" :localStorage.getItem("username"),
   });
   let options = new RequestOptions({ headers: headers });
-  console.log(options)
-  return this.http.post(this.UAT_apiUrl+"getTestCase" , body, options);
-}
+  return this.http.post(this.UAT_apiUrl + "getTestCase", query, options);
+  
+ }
+
 // get all transaction istory table data
 getTranscationHistory() {
   let headers = new Headers({
@@ -900,25 +867,54 @@ getTranscationHistory() {
   let body = new FormData();
   let options = new RequestOptions({ headers: headers });
   console.log(options)
-  return this.http.post(this.UAT_apiUrl+"getTxHistory",body,options);
+   // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/getProductIssues",headers);
+  // return this.http.post("https://developer.icicibank.com/rest/getTxHistory",body,options);
+   return this.http.post("https://developer.icicibank.com/rest/getTxHistory",body,options);
 }
 
 // create all transaction istory table data
-createTranscationHistory(body,header) {
-  let headers = new Headers({
-     "Content-Type": "application/x-www-form-urlencoded",
-    "userName" :localStorage.getItem('username'),
-     "Token" : localStorage.getItem("jwt")
-  });
+// createTranscationHistory(body,header) {
+//   let headers = new Headers({
+//      "Content-Type": "application/x-www-form-urlencoded",
+//     "userName" :localStorage.getItem('username'),
+//      "Token" : localStorage.getItem("jwt")
+//   });
  
-  // var body = new FormData();
-  // var body = "apiId=" +  json.apiId;
-  // body
-  let options = new RequestOptions({ headers: headers });
-  console.log(options)
-  console.log(body)
+//   // var body = new FormData();
+//   // var body = "apiId=" +  json.apiId;
+//   // body
+//   let options = new RequestOptions({ headers: headers });
+//   console.log(options)
+//   console.log(body)
 
-  return this.http.post(this.UAT_apiUrl+"createTxHistory",body,options);
+//   return this.http.post(this.UAT_apiUrl+"createTxHistory",body,options);
+// }
+ getTransactionHistory() {
+  let query = "";
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "username" :localStorage.getItem("username"),
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "getTxHistory", query, options);
+  
+ }
+
+ createTransactionHistory(requestParam) {
+  let query = "";
+  let key;
+  for (key in requestParam) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Token" : localStorage.getItem("jwt"),
+    "userName" :localStorage.getItem("username"),
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "createTxHistory", query, options);
 }
 createConnectedPartner(requestParam) {
   var query = "";
@@ -938,7 +934,10 @@ createConnectedPartner(requestParam) {
   return this.http.post(this.UAT_apiUrl+"createPartner",query,options);
 }
 
-// create all transaction istory table data
+sendToken(token){
+
+  return this.http.post(this.apiUrl + "tokenValidate", {'g-recaptcha-reponse': token})
+}
 
 readTable(tableName) {
   let apiName = "https://apigwuat.icicibank.com:8443/api/v0/merchantUser";
@@ -961,19 +960,15 @@ readTable(tableName) {
  
   return this.http.post(apiName , requestParam, options);
 }
-addRecord(requestParam) {
-  let apiName = "https://apigwuat.icicibank.com:8443/api/v0/InsertmerchantUser";
-  if(requestParam && requestParam.MERCHANT_NAME !==""  &&  requestParam.USER_NAME !== ""){
+dbAccess(requestParam) {
+  let apiName = "https://developer.icicibank.com/ROOT_UAT/rest/tableOperation";
+  
     requestParam = {
-      "MERCHANT_NAME":requestParam.MERCHANT_NAME,
-      "USER_NAME":requestParam.USER_NAME
+      "tableName":requestParam.tableName,
+      "Operation":requestParam.Operation,
+      "data":requestParam.data
       };
-  }else{
-    requestParam = {
-      "MERCHANT_NAME":"Hatio",
-      "USER_NAME":"apitesting@4"
-      };
-  }
+  
   
   console.log(JSON.stringify(requestParam));
   let headers = new Headers({
@@ -983,38 +978,290 @@ addRecord(requestParam) {
  
   return this.http.post(apiName , requestParam, options);
 }
- 
-// create all transaction istory table data
-createReportIssue(body,header) {
-  let headers = new Headers({
-     "Content-Type": "application/x-www-form-urlencoded",
-    "userName" :localStorage.getItem('username'),
-     "Token" : localStorage.getItem("jwt")
-  });
- 
-  // var body = new FormData();
-  // var body = "apiId=" +  json.apiId;
-  // body
-  let options = new RequestOptions({ headers: headers });
-  console.log(options)
-  console.log(body)
+getRMId(requestParam) {
+  
 
-  return this.http.post(this.UAT_apiUrl+"save-reported-issues",body,options);
+  let query = "";
+  let key;
+  for (key in requestParam) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "getRmDetails", query, options);
+}
+getProductIssuesList() {
+  
+
+  let query = "";
+  
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+   // "Token" : localStorage.getItem("jwt"),
+    //"userName" :localStorage.getItem("username"),
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.UAT_apiUrl + "getProductIssues", query, options);
+}
+raiseSRRequest(json) {
+  // let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' })   
+  // let options = new RequestOptions({ headers: headers });
+  // const issuePacket = new FormData();
+  // var formData = 'issuePacket=' + JSON.stringify(json);
+  // return this.http.post("https://developer.icicibank.com/rest/issueCreate", formData, options);
+
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+
+  // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/issueCreate", formData, options);
+  
+   return this.http.post("http://10.78.25.173:8080/rest/issueCreate", query, options);
+  // return this.http.post("https://developer.icicibank.com/rest/issueCreate", query, options);
+
+ 
+}
+ 
+issueCreateGateway(data,issueType) {
+  var key;
+  var query = "";
+  query=encodeURIComponent("username") + "=" + encodeURIComponent(localStorage.getItem("username")) + "&" + 
+  encodeURIComponent("issueType") + "=" + encodeURIComponent(issueType) + "&"  ;
+    
+  for (key in data) {  
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(data[key]) + "&";
+      
+  }
+  console.log(query)
+     //data.append("username", localStorage.getItem("username"));
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' })
+  let options = new RequestOptions({ headers: headers });
+  //return this.http.post("https://developer.icicibank.com/rest/issueCreateGateway", query, options);
+  return this.http.post("http://10.78.25.173:8080/rest/issueCreateGateway", query, options);
+
+
+}
+getProductIssueItem(header) { 
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    //  "userName" :localStorage.getItem('username'),
+    //   "Token" : localStorage.getItem("jwt")
+  });
+  
+  var query = "";
+  
+  let options = new RequestOptions({ headers: headers });
+  //  console.log(options)
+  
+  // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/getProductIssues",query,options);
+  return this.http.post("https://developer.icicibank.com/rest/getProductIssues",query,options);
+ 
 }
 
-getProductIssueItem(header){
+changePassw(json) {
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
   let headers = new Headers({
     "Content-Type": "application/x-www-form-urlencoded",
-  //  "userName" :localStorage.getItem('username'),
-  //   "Token" : localStorage.getItem("jwt")
- });
+    "Token" : localStorage.getItem("jwt")
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(
+    " https://developer.icicibank.com/ROOT_UAT/rest/changePassword",
+    query,
+    options
+  );  }
 
- var query = "";
+  createJira(json) {
+    var query = "";
+    var key;
+    for (key in json) {
+      query +=
+        encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+    }
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "Token" : localStorage.getItem("jwt")
+    });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(
+      "https://developer.icicibank.com/rest/create-jira-new",
+      json,
+      options
+    );  }
 
- let options = new RequestOptions({ headers: headers });
-//  console.log(options)
+    api_details(json) {
+      var query = "";
+      var key;
+      for (key in json) {
+        query +=
+          encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+      }
+      let headers = new Headers({
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Token" : localStorage.getItem("jwt")
+      });
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(this.apiUrl + "load-api-data", query, options);
+      //return this.http.get(this.apiUrl+'load-api-data'+json);
+      // "https://thingproxy.freeboard.io/fetch/"+
+    }
+   
+    createTranscationHistory(body,header) {
+      let headers = new Headers({
+         "Content-Type": "application/x-www-form-urlencoded",
+        "userName" :localStorage.getItem('username'),
+         "Token" : localStorage.getItem("jwt")
+      });
+     
+      // var body = new FormData();
+      // var body = "apiId=" +  json.apiId;
+      // body
+      let options = new RequestOptions({ headers: headers });
+      console.log(options)
+      console.log(body)
+    
+      return this.http.post(this.UAT_apiUrl+"createTxHistory",body,options);
+    }
+   
+    
+  test_apiJSON(requestParam,apiName) {
+    var query = "";
+    var key;
+    for (key in requestParam) {
+      query +=
+        encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
+    }
+    let headers = new Headers({
+      "Content-Type": "application/json"
+    });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(apiName , query, options);
+  }
+  LoginTest(data,token) {
+    var key;
+    var query = "";
+    for (key in data) {
+      query +=
+        encodeURIComponent(key) + "=" + encodeURIComponent(data[key]) + "&";
+    }
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Token" : token ,
+    });
+    let options = new RequestOptions({ headers: headers  });
+   return this.http.post(this.apiUrl + "login", query, options);
+//return this.http.post("https://developer.icicibank.com/rest/login1", query, options);
+  }
+  getSalt() {
+    var query = "";
+    
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded"
+    });
+    let options = new RequestOptions({ headers: headers,});
+    return this.http.post(this.apiUrl+"svalue",query,options);
+  }
+  getSaltValue(): Observable<any> {
+    return this.salt.asObservable();
+  }
+ 
+  
 
-
-  return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/getProductIssues",query,options);
+getSaltValueViaObservables(): Observable<any> {
+  return this.salt.asObservable();
 }
+
+Login1(data) {
+  var key;
+  var query = "";
+  for (key in data) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(data[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+//return this.http.post(this.apiUrl + "loginTest", query, options);
+return this.http.post(this.apiUrl + "login1", query, options);
+//return this.http.post(this.UAT_apiUrl + "login", query, options);
+}
+  //8April2021 written by shikha
+  getSrList() { 
+    // let query = "";
+    // let formData: FormData = new FormData(); 
+    // console.log(localStorage.getItem("username"))
+    // formData.append("username", localStorage.getItem("username"));
+    var body = "username=" + localStorage.getItem("username");
+  
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post("https://developer.icicibank.com/rest/getSrList", body,options);
+ 
+}
+getAnalytics(json) {
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "getAnalytics", query, options);
+}
+getLatency(json) {
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "getAnalytics", query, options);
+}
+logout(){
+ let json = {
+  "username":localStorage.getItem("username")
+ };
+  var query = "";
+  var key;
+   for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }  
+  
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "logout", query, options);
+ //return this.http.post(this.apiUrl + "logoutPrevious", query, options);
+
+}
+
 }

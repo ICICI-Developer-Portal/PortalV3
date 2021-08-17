@@ -31,14 +31,19 @@
     <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel"
       aria-labelledby="v-pills-applications-tab">
       <div class="tabContentInner">
-        <form  [formGroup]="reactiveForm">
+        <form  [formGroup]="reactiveForm"  autocomplete="off" nonvalidate>
         <div class="row divBorder" formGroupName="basicDetailsSection" >
           <div class="width100prcnt">
-            <h5 class="reportIssueHeading">
+            <h5 class="reportIssueHeading" (click)="showReportIssue = !showReportIssue" >
 
-              Report Issue Page
-              <i class="after"></i>
+              Report Issue
+               <!-- {{showReportIssue== false}} -->
+              <span *ngIf="showReportIssue == false" style="float: right;" >+</span>
+              <span *ngIf="showReportIssue == true" style="float: right;">-</span>
+
+              <!-- <i class="after"></i> -->
             </h5>
+             
 
           </div>
           <!-- old code -->
@@ -150,14 +155,17 @@
             </div>
           </div> -->
           <!-- old code over -->
-        
-          <div class="col-md-6">
+          
+
+        <div class="row" *ngIf="showReportIssue" style=" width: 100%; padding: 20px;">
+          <div class="col-md-6" >
             <div class="form-group">
               <label for="productName">Product name<span class="text-danger"> *</span> </label>
               <!-- <pre>{{getProducts | json}}</pre> -->
 
               <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="productName"   (change)="selectChangeHandler($event)">
+                  <option [ngValue]="null" [disabled]="true" hidden>Select Product name</option>
                   <option *ngFor="let option of getProducts" [value]="option.product">
                     {{option.product}}
                   </option>
@@ -170,12 +178,12 @@
             <div class="form-group">
               <label for="productName">Environment<span class="text-danger"> *</span> </label>
               <span class="custom-dropdown">
-                <select class="form-control h40 col-md-11" formControlName="Environment"  (change)="selectChangeHandlerEnv($event)" >
+                <select class="form-control h40 col-md-11" formControlName="Environment" (change)="selectChangeHandlerEnv($event)" >
+                  <option [ngValue]="null" [disabled]="true" hidden>Select Environment</option>
                   <option>
                     Production
                   </option>
-                  <option>UAT</option>
-                 
+                  <!-- <option>UAT</option> -->
                 </select>
               </span>
             </div>
@@ -198,7 +206,8 @@
               <label for="APIname">API name<span class="text-danger"> *</span> </label>
               <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="APIname">
-                  <option value=" ">Select Option</option>
+                  <option [ngValue]="null" [disabled]="true" hidden>Select API name</option>
+                  <!-- <option value=" ">Select Option</option> -->
                 
                   <option *ngFor="let i of api" [value]="i ">{{i}}</option>
 
@@ -336,20 +345,52 @@
             <div class="form-group">
               <label for="issueType">Issue type<span class="text-danger"> *</span></label>
               <span class="custom-dropdown">
-                <select class="form-control h40 col-md-11" formControlName="issueType" n *ngFor="let option of issueType">
-                  <option *ngFor="let i of option" [value]="option">
+                <select class="form-control h40 col-md-11 issues" formControlName="issueType" (change)="selectChangeHandlerIssues($event)" *ngFor="let option of issueType">
+                  <option *ngFor="let i of option" [value]="i.issueType" [attr.team]="i.team" [attr.issueType]="i.issueType"   [attr.issueId]="i.issueId" [attr.severity]="i.severity">
                     {{i.issueType }} 
                     <!-- <span  ></span> -->
                   </option>
                 </select>
+                <input class="form-control h40 col-md-11" disabled style="background-color: #fff;border:1px solid #acacac;" *ngIf="issueType.length==0" />
               </span>
             </div>
           </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <label for="merchantName">Issue description <span class="text-danger"> *</span></label>
+              <textarea name="issueDescreption"
+              class="form-control setHeight" cols="50" rows="10"
+             class="form-control mainField col-md-11 inline_block" id="issueDescreption"
+                formControlName="issueDescreption" placeholder="Your issue description"> </textarea>
+                <div
+          *ngIf="!reactiveForm.get('basicDetailsSection.issueDescreption').valid && reactiveForm.get('basicDetailsSection.issueDescreption').touched"
+          class="text-danger form-error">
+          Issue description is required.
+        </div>
+            </div>
+            
+          </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="issueType">Issue first observed one<span class="text-danger"> *</span></label>
-              <input type="datetime-local" class="form-control mainField col-md-11 inline_block" id="merchantName"
-              formControlName="merchantName">
+              <label for="merchantName">Endpoint URL <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="endpointURL"
+                formControlName="endpointURL" placeholder="Your Endpoint URL">
+                <div
+            *ngIf="!reactiveForm.get('basicDetailsSection.endpointURL').valid && reactiveForm.get('basicDetailsSection.endpointURL').touched"
+            class="text-danger form-error">
+            Endpoint URL is required.
+          </div>
+            </div>
+            
+          </div>
+          <div class="col-md-6">       
+            <div class="form-group">
+              <label for="issueType">Issue first observed on<span class="text-danger"> *</span></label>
+              <input type="date"  max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" id="issueFirstObserved"
+              formControlName="issueFirstObserved" placeholder="Issue first observed on">
+              <!-- <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+              formControlName="issueFirstObserved" placeholder="Date"> -->
+              
             </div>
           </div>
           <div class="col-md-6">
@@ -357,20 +398,37 @@
               <label for="requestPacket">Request packet<span class="text-danger"> *</span></label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="requestPacket"
                 formControlName="requestPacket" placeholder="">
+                <div
+            *ngIf="!reactiveForm.get('basicDetailsSection.requestPacket').valid && reactiveForm.get('basicDetailsSection.requestPacket').touched"
+            class="text-danger form-error">
+            Request packet is required.
+          </div>
             </div>
+            
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="reportIssue">Response packet<span class="text-danger"> *</span></label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="reportIssue"
-                formControlName="requestPacket" placeholder="">
+                formControlName="responsetPacket" placeholder="">
+                <div
+            *ngIf="!reactiveForm.get('basicDetailsSection.responsetPacket').valid && reactiveForm.get('basicDetailsSection.responsetPacket').touched"
+            class="text-danger form-error">
+            Response packet is required.
+          </div>
             </div>
+            
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="errorrcvd">Error message received<span class="text-danger"> *</span></label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="errorrcvd"
                 formControlName="errorrcvd" placeholder="">
+                <div
+                *ngIf="!reactiveForm.get('basicDetailsSection.errorrcvd').valid && reactiveForm.get('basicDetailsSection.errorrcvd').touched"
+                class="text-danger form-error">
+                Error message is required.
+              </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -378,67 +436,120 @@
               <label for="Notes display-block" style="display: block;">Notes </label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="Notes"
                 formControlName="Notes" placeholder="">
+                <div
+            *ngIf="!reactiveForm.get('basicDetailsSection.Notes').valid && reactiveForm.get('basicDetailsSection.Notes').touched"
+            class="text-danger form-error">
+            Notes is required.
+          </div>
             </div>
+            
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="Attachments">Attachments<span class="text-danger"> *</span></label>
-              <input type="file" class="form-control mainField col-md-11 inline_block" id="Attachments"
-                formControlName="Attachments" placeholder="">
+              <label for="Attachments">Attachments
+              </label>
+              <input type="file" class="form-control mainField col-md-11 inline_block" type="file" id="Attachments"
+                formControlName="Attachments" placeholder=""  (change)="readFile($event)" >
             </div>
+            <span class="fileError text-danger"></span>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="contactName">Contact name</label>
+              <label for="contactName">Contact name<span class="text-danger"> *</span> </label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="contactName"
-                formControlName="contactName" placeholder="">
+                formControlName="contactName" placeholder="" (keypress)="omit_special_char($event)"> 
+                <i *ngIf="reactiveForm.get('basicDetailsSection.contactName').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                <div
+          *ngIf="!reactiveForm.get('basicDetailsSection.contactName').valid && reactiveForm.get('basicDetailsSection.contactName').touched"
+          class="text-danger form-error">
+          Contact name is required.
+        </div>
             </div>
+            
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="contactnumber">Contact number</label>
+              <label for="contactnumber">Contact number <span class="text-danger"> *</span> </label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="contactnumber"
-                formControlName="contactnumber" placeholder="">
+                formControlName="contactnumber" placeholder="" maxlength="10" (keypress)="keyPressNumber($event)"> 
+                <i *ngIf="reactiveForm.get('basicDetailsSection.contactnumber').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                <div
+            *ngIf="(reactiveForm.get('basicDetailsSection.contactnumber').invalid && reactiveForm.get('basicDetailsSection.contactnumber').touched) || reactiveForm.get('basicDetailsSection.contactnumber').dirty">
+            <div *ngIf="reactiveForm.get('basicDetailsSection.contactnumber').errors?.required"
+              class="text-danger form-error">Contact no is required.</div>
+            <!--question mark(?) is a safe navigation operator-->
+            <div *ngIf="reactiveForm.get('basicDetailsSection.contactnumber').errors?.pattern"
+              class="text-danger form-error">Please provide a valid contact no</div>
+          </div>
             </div>
+            
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="contactEmail">Contact email</label>
+              <label for="contactEmail">Contact email<span class="text-danger"> *</span> </label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="contactEmail"
                 formControlName="contactEmail" placeholder="">
+                <i *ngIf="reactiveForm.get('basicDetailsSection.contactEmail').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                <div
+                *ngIf="!reactiveForm.get('basicDetailsSection.contactEmail').valid && reactiveForm.get('basicDetailsSection.contactEmail').touched"
+                class="text-danger form-error">
+               Email ID is required.
+              </div>
             </div>
+           
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="RMname">Relationship manager ID<span class="text-danger"> *</span></label>
+              <label for="RMname">Relationship manager ID<span class="text-danger"> *</span><a data-toggle="tooltip" title="Please enter the RM employee ID" class="inline_block"><img alt="loader" class="ml2 cursor_pointer"
+                src="assets/images/information.png"></a></label>
                 <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-                formControlName="RMname">
-            </div>
-          </div>
-          <div class="col-md-6"></div>
-            <div class="col-md-6">
-            <div class="form-group">
-             <button class="signInBtn"   (click)="submitOnReportIssue()">Report Issue
-             </button>
+                formControlName="RMname" (keypress)="keyPressAlphaNumeric($event)" maxlength="9">        
+                <i *ngIf="reactiveForm.get('basicDetailsSection.RMname').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+                <div
+                      *ngIf="(reactiveForm.get('basicDetailsSection.RMname').invalid && reactiveForm.get('basicDetailsSection.RMname').touched) || reactiveForm.get('basicDetailsSection.RMname').dirty">
+                      <div *ngIf="reactiveForm.get('basicDetailsSection.RMname').errors?.required"
+                        class="text-danger form-error">Please enter the Relationship manager ID.</div>
+                        <div *ngIf="reactiveForm.get('basicDetailsSection.RMname').errors?.minlength"
+                        class="text-danger form-error">Please enter correct Relationship manager ID.</div>
+
+                      <!--question mark(?) is a safe navigation operator-->
+                      <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.RMname').length!=6 || reactiveForm.get('basicDetailsSection.RMname').length!=9"
+                        class="text-danger form-error">Please enter the rm employee ID</div> -->
+                    </div>
             </div>
           </div>
           
+          <!-- <div class="col-md-6"></div>  -->
+            <div class="col-md-6">
+            <div class="form-group">
+             <button class="signInBtn mt30" [disabled]="!reactiveForm.get('basicDetailsSection').valid"   (click)="submitOnReportIssue()">Report Issue
+             </button>
+            </div>
+          </div>
+          </div>
         </div>
       </form>
-        <hr _ngcontent-c4="" class="margin_0px">
-        <div class="row divBorder">
+        <hr _ngcontent-c4="" class="margin_0px hidden">
+        <div class="row divBorder ">
           <div class="width100prcnt">
-            <h5 class="reportIssueHeading">
+            <h5 class="reportIssueHeading"  (click)="showMyIssue = !showMyIssue">
               My Issue
+              <span *ngIf="showMyIssue == false" style="float: right;">+</span>
+              <span *ngIf="showMyIssue == true" style="float: right;">-</span>
             </h5>
 
           </div>
+         
           <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" hidden>
               <label for="merchantName">Issue ID (Same as JIRA ID) </label>
               <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="Checksum">
-                  <option value=" ">Select Option</option>
+                  <!-- <option value=" ">Select Option</option> -->
                   <option value=" ">api integration from services</option>
                 </select>
               </span>
@@ -500,36 +611,116 @@
                 formControlName="merchantName">
             </div>
           </div> -->
+          <div class="row" *ngIf="showMyIssue" style=" width: 100%; padding: 20px;">
           <div class="col-md-12">
             <table class="table">
               <thead>
                 <tr>
-                  <th>dummy</th>
-                  <th>dummy</th>
-                  <th>dummy</th>
+                 
+                  <th>SR Number</th>
+                  <th>Issue Type</th>
+                  <th>Requested Date</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>dummy</td>
-                  <td>dummy</td>
-                  <td>dummy</td>
+                <tr *ngFor="let i of myIssues">   
+                  <td>{{i.srNumber}}</td>
+                  <td>{{i.issueType}}</td>
+                  <td>{{i.requestedDate}}</td>
+                  <td>{{i.expectedDate }}</td>
+                  <td><button type="button" class="signInBtn pull-right" style="padding: 11px; height: 35px;"><i class="fa fa-refresh" aria-hidden="true"></i>
+                  </button></td>
+
                 </tr>
-                <tr>
-                  <td>dummy</td>
-                  <td>dummy</td>
-                  <td>dummy</td>
-                </tr>
-                <tr>
-                  <td>dummy</td>
-                  <td>dummy</td>
-                  <td>dummy</td>
-                </tr>
+               
               </tbody>
             </table>
 
         </div>
+        </div>
       </div>
     </div>
   </div>
+   <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+                <!-- ===================================== -->
+                <!--Production Confirmation alert modalbox -->
+              
+                <div class="modal fade" id="myModal2">
+                  <div class="modal-dialog" style="    z-index: 1;
+                  margin: 0 auto;
+                  margin-top: 11%;">
+                      <div class="modal-content"  >
+                          <!-- <div class="modal-header"> -->
+                          <div>
+                              <button type="button" class="close" data-dismiss="modal"
+                                  aria-hidden="true">×</button>
+        
+        
+                          </div>
+                          <div class="container"></div>
+                          <div class="modal-body">
+                             
+                              <!-- <a data-toggle="modal" href="#myModal3" class="btn btn-primary">Launch modal</a>(click)='reactiveForm.reset()' -->
+        
+                              <p class="fs15">
+                                  Thankyou.Your SR has been created.
+                                  {{issueCreatedOnGateway | json}}
+                              </p>
+                              <div class="" style="text-align: center;margin-bottom: 8%;">
+                              <a  class="okbtn"  type="button" (click)="pageRefresh()" >OK</a>
+                       
+                            </div>
+                        </div>
+
+        
+                      </div>
+                  </div>
+              </div>
+                        <!-- End Modalbox -->
+                        <!--Production Confirmation alert modalbox -->
+                        <!-- End Modalbox -->
+
+                        <!-- <div class="bs-example">
+                          <div class="accordion" id="accordionExample">
+                              <div class="card">
+                                  <div class="card-header" id="headingOne">
+                                      <h2 class="mb-0">
+                                          <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-plus"></i> What is HTML?</button>									
+                                      </h2>
+                                  </div>
+                                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                      <div class="card-body">
+                                          <p>HTML stands for HyperText Markup Language. HTML is the standard markup language for describing the structure of web pages. <a href="https://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-header" id="headingTwo">
+                                      <h2 class="mb-0">
+                                          <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"><i class="fa fa-plus"></i> What is Bootstrap?</button>
+                                      </h2>
+                                  </div>
+                                  <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                      <div class="card-body">
+                                          <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-header" id="headingThree">
+                                      <h2 class="mb-0">
+                                          <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"><i class="fa fa-plus"></i> What is CSS?</button>                     
+                                      </h2>
+                                  </div>
+                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                      <div class="card-body">
+                                          <p>CSS stands for Cascading Style Sheet. CSS allows you to specify various style properties for a given HTML element such as colors, backgrounds, fonts etc. <a href="https://www.tutorialrepublic.com/css-tutorial/" target="_blank">Learn more.</a></p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div> -->
 </div>

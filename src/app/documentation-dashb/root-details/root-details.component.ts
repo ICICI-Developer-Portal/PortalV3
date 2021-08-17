@@ -39,7 +39,10 @@ export class RootDetailsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+
+  }
   /** To send data to next page
    * @class RootDetailsComponent
    * @method newApp

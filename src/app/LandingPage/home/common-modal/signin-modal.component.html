@@ -1,7 +1,7 @@
 <!-- <ng4-loading-spinner> </ng4-loading-spinner> -->
 <div>
   <div class="modal-header">
-    <h3 class="modal-title pull-left">Please Login 1</h3>
+    <h3 class="modal-title pull-left">Please Login </h3>
     <button
       type="button"
       class="close pull-right"
@@ -12,20 +12,20 @@
     </button>
   </div>
   <div class="modal-body">
-    <form name="myform" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+    <form name="myform" autocomplete="off" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
     <div class="row mb30">
       <div class="col-md-12 mb-xs-10">
         <div><label for="user">Username</label></div>
         <input name="user" class="input-login" #username  (keydown.space)="$event.preventDefault();" appPrefixFocusAndSelect />
         <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
-          Please Enter UserNames.
+          Please Enter Username.
         </div>
       </div>
     </div>
     <div class="row mb10">
       <div class="col-md-12">
         <div><label for="password" type="password">Password</label></div>
-        <input name="password" type="password" class="input-login" #password />
+        <input name="password" id="password2"  type="text" class="input-login" #password />
         <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
           Please Enter Password.
         </div>
@@ -57,18 +57,23 @@
           <div
             id="isResError"
             class="text-danger form-error ng-star-inserted"
-            *ngIf="is_res_error != ''"
+            *ngIf="is_res_error != ''" style="font-size:12px;" 
           >
-            {{ is_res_error }}.
+          {{ is_res_error }} <span *ngIf="status_code === 111" > <a (click)="Modalforgotpassw(activateAccount)" style="text-decoration: underline;"> Please activate</a></span>.
           </div>
+
+         
         </div>
       </div>
       <div class="col-12 plr0">
-        <p>
+        <p class="signin_p">
           Do not have an account? Please
           <span
             ><a class="signIn" (click)="openModal2(signup)">Register</a></span
           >
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
     </div>
@@ -129,6 +134,36 @@
   </div>
   </ng-template>
 <!-- End Modal -->
+<!--  Model for Activate user -->
+<ng-template #activateAccount>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Activate Account</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef3.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mb30">
+      <div class="col-md-12 mb-xs-10">
+        <div><label for="user">Username/Email</label></div>
+        <input name="user" class="input-login" #activateUsername />
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <div class="row w100p m0">
+        <div class="col-12 plr0 mb30">
+          <div>
+            <button type="submit" class="signInBtn w100p" (click)="forgot(activateUsername.value,forgotpasswreset)">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+ <!-- end model -->
 <!-- Modal for Signup -->
 <!-- Modal for Signup -->
 <!-- Modal for Signup -->
@@ -159,12 +194,12 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content tab-content1">
-      <form [formGroup]="signupForm" [hidden]="!shfrmSFFirst">
+      <form [formGroup]="signupForm" autocomplete="off" [hidden]="!shfrmSFFirst">
         <input type="hidden" name="otp_verified" formControlName="otp_verified" class="input-login" #otp_verified />
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-6 mb-xs-10">
-              
+               
               <div><label for="company">Full Name<span class="text-danger"> *</span></label></div>
               <input name="name" formControlName="firstname" class="input-login" appPrefixFocusAndSelect  #name />
               <div *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)" class="text-danger form-error">
@@ -278,7 +313,7 @@
           </ul>
         </div>
       </form>
-      <form [formGroup]="signupForm2" [hidden]="!shfrmSFSecond">
+      <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
         <div class="tab-pane">
           <div class="row mb20">
             <div class="col-md-8 mb-xs-30">
@@ -290,12 +325,12 @@
               <div *ngIf="mobile_no.invalid && (mobile_no.dirty || isSubmitted)" class="text-danger form-error">
                 Mobile Number is required.
               </div>
-              <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+              <div *ngIf="ismobile_reg_check != '' && !(mobile_no.invalid) " class="text-danger form-error">
                 {{ ismobile_reg_check }}
               </div>
               <div *ngIf="
                   signupForm.value.otp_send == '1' &&
-                  signupForm.value.otp_verified == 0
+                  signupForm.value.otp_verified == 0 && !(mobile_no.invalid)
                 " class="text-success">
                 OTP sent to your mobile number.
               </div>
@@ -319,7 +354,7 @@
           </div>
           <!-- <ng-template #elseBlock> -->
           <div class="row mb20" *ngIf="showOtp">
-            <div class="col-md-9 mb-xs-30">
+            <div class="col-md-8 mb-xs-30">
               <div>
                 <label for="otp">Enter the OTP Received on your Phone Number</label>
               </div>
@@ -347,7 +382,7 @@
         </div>
       </form>
 
-      <form [formGroup]="signupForm3" [hidden]="!shfrmSFThird">
+      <form [formGroup]="signupForm3" autocomplete="off" [hidden]="!shfrmSFThird">
 
         
 
@@ -492,9 +527,12 @@
   <div class="modal-footer">
     <div class="row w100p m0">
       <div class="col-12 pl0">
-        <p>
+        <p  class="signin_p">
           Already have an account? Please
           <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
         </p>
       </div>
       <!-- <span

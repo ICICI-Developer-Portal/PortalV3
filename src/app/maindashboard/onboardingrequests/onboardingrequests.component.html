@@ -43,6 +43,7 @@
               <td class="width10prcnt">UAT Request ID</td>
               <td>API Document</td>
               <td>Certificate</td>
+              <td  class="width15prcnt">Remarks</td>  
             </tr>
           </thead>
           <tbody  *ngFor="let row of dataSource  | paginate: { itemsPerPage: 5, currentPage: p }">
@@ -50,7 +51,7 @@
               <td>{{ row.JiraId }}</td>
               <td>{{ row.JiraStatus }}</td>
               <td>{{ row.Domain }}</td>
-              <td>{{ row.DomainApi }}</td>
+              <td>{{ row.ApiName }}</td>
               <!-- <td><div *ngIf="showurl">{{row.CallbackUrl}}</div></td> -->
               <td>{{ row.Env }}</td>
               <td><p  *ngIf="row.RefJiraId!='undefined'">{{ row.RefJiraId }}</p></td>
@@ -81,7 +82,9 @@
                     <path fill-rule="evenodd" d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
                   </svg></label></a>
               </td>
-              <td *ngIf="row.Certificate === ''"></td>
+              <td><a *ngIf="row.Certificate === ''" href="#0"  role="tab"  id="userGuide" (click)="UAT_help(UAT_Help)" > <span class="help-ico"><i _ngcontent-c2="" aria-hidden="true" class="fa fa-question-circle"></i></span></a></td>
+              <td >{{ row.Remarks }}</td>
+
             </tr>
           </tbody>
         </table>
@@ -101,6 +104,33 @@
     >
       analytics
     </div>
+      <!-- ===================================== -->
+        <!--Production Confirmation alert modalbox -->
+        <!-- ===================================== -->
+
+        <ng-template #UAT_Help>
+          <div class="modal-header">
+            <h3></h3>
+            <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
+            <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
+              close
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12 mb-xs-10">
+                <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
+                  <div class="tab disp-block">
+                    <div class="tabContent">
+                      <h5>Dummy text</h5>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <!-- End Modalbox -->
   </div>
   <!-- <div class="copyrightSection">
          <p>Copyright 2017 ICICI Bank Ltd. All rights reserved.</p>

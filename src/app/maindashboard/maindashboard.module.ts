@@ -10,8 +10,7 @@ import { ApplicationComponent } from './application/application.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { FaqComponent } from './faq/faq.component';
-import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
-import { NewpartnerComponent } from './newpartner/newpartner.component';
+
 import { UATonboardingDashboardPageComponent } from './uatonboarding-dashboard-page/uatonboarding-dashboard-page.component';
 
 import { ModalModule } from 'ngx-bootstrap';
@@ -30,7 +29,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
 import { ReportIssuePageComponent } from './report-issue-page/report-issue-page.component';
-   
+import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
+
+import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-prod-onboarding-page.component';
+import { NewpartnerComponent } from './newpartner/newpartner.component';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+import { SafePipe } from './safe.pipe';
+import { AnalyticPageComponent } from './analytic-page/analytic-page.component';
+// import { UserdataComponent } from './userdata/userdata.component';
+// import { DataTableModule } from 'angular7-data-table';
+
+
 @NgModule({
     imports: [
         CommonModule,   
@@ -50,7 +59,7 @@ import { ReportIssuePageComponent } from './report-issue-page/report-issue-page.
          MatFormFieldModule,
          BrowserAnimationsModule,
          MatInputModule,
-
+        //  DataTableModule
          
     ],
     declarations: [
@@ -63,8 +72,6 @@ import { ReportIssuePageComponent } from './report-issue-page/report-issue-page.
         AnalyticsComponent,
         UserprofileComponent,
         FaqComponent,
-TransactionHistoryComponent,NewpartnerComponent,
-
         UATonboardingDashboardPageComponent,
         OnboardingrequestsComponent,
         UATonboardingDashboardPageSidebarComponent,
@@ -72,7 +79,14 @@ TransactionHistoryComponent,NewpartnerComponent,
         MisComponent,
         FocusOnShowDirective,
         NestedListFilterPipePipe,
-        ReportIssuePageComponent
+        ReportIssuePageComponent,
+        NewUatonboardingPageComponent,
+        NewProdOnboardingPageComponent,
+        NewpartnerComponent,
+        TransactionHistoryComponent,
+        SafePipe,
+        AnalyticPageComponent
+       // UserdataComponent
         
     ],
 

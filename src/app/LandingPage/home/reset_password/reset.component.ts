@@ -90,6 +90,7 @@ toastrmsg(type ,title) {
       {   
           this.toastrmsg('success', "Password Change Successfully");
           this.ChangepasswForm.reset();
+          this.router.navigate(["/index"]);
       }
       else
       {

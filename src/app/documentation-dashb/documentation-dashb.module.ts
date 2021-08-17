@@ -85,6 +85,7 @@ import {
   MatProgressSpinnerModule
 } from "@angular/material";
 import { FocusOnShowDirective } from './autofocus.directive';
+import { NewApiDetailsComponent } from "./new-api-details/new-api-details.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -173,7 +174,8 @@ import { FocusOnShowDirective } from './autofocus.directive';
     SecurityComponent,
     BranchDetailsComponent,
     RootDetailsComponent,
-    FocusOnShowDirective
+    FocusOnShowDirective,
+    NewApiDetailsComponent
   ]
 })
 export class DocumentationDashbModule {}
