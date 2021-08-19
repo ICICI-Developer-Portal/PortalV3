@@ -928,10 +928,10 @@ $('#issueFirstObserved').prop('min', minDate);
     
     // Toggle plus minus icon on show hide of collapse element
     $(".collapse").on('show.bs.collapse', function(){
-        alert("hii")
+        // alert("hii")
         $(this).prev(".card-header").find(".fa").removeClass("fa-angle-up,arrow-up").addClass("fa-angle-down,arrow-down");
     }).on('hide.bs.collapse', function(){
-        alert("bye")
+        // alert("bye")
         $(this).prev(".card-header").find(".fa").removeClass("fa-angle-down,arrow-down").addClass("fa-angle-up,arrow-up");
     });
 });
@@ -1158,8 +1158,8 @@ console.log(this.api);
     if (fileEvent.target.files && fileEvent.target.files[0]) {
         // alert("file exist")
     if(file.size > 1048576){ // if file is grtr thn 1mb
-        alert("1mb se jyada")
-        alert("File is too big!");  
+        // alert("1mb se jyada")
+        // alert("File is too big!");  
         $(".fileError").text("File size should not exceed 1 MB limit.")
         $(".fileError").show();
         return false;           

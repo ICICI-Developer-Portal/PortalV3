@@ -52,7 +52,7 @@ import { AdminpanelModule } from "./adminpanel/adminpanel.module";
 import { AutoLogoutService } from "./services/auto-logout.service";
 
 import { UserdataComponent } from "./userdata/userdata.component";
- import { DataTableModule } from "angular7-data-table";
+//  import { DataTableModule } from "angular7-data-table";
 import { NewLandingPageComponent } from './new-landing-page/new-landing-page.component';
 import { ExploreApiSigninComponent } from './documentation-dashb/explore-api-signin/explore-api-signin.component';
 import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
@@ -104,7 +104,7 @@ import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
-     DataTableModule
+    //  DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
     
