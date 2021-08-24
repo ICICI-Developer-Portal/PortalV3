@@ -10,7 +10,7 @@ declare var $:any;
 @Component({
   selector: 'app-documentupload',
   templateUrl: './documentupload.component.html',
-  // styleUrls: ['./documentupload.component.css']
+   styleUrls: ['./documentupload.component.css']
 })
 export class DocumentuploadComponent implements OnInit {
   dataSource: any;
@@ -46,24 +46,29 @@ export class DocumentuploadComponent implements OnInit {
     return this.uploadDoc.get('docUpload');
   }
   request_data() {
-  //  this.spinnerService.show();
-  this.adm.Onboardrequestsuser().subscribe((data: any) => {
-    var response = data._body;
-
-    var obj = JSON.parse(response);
-    this.dataSource = obj;
-    for(var i=0; i<=this.dataSource.length; i++){
-      this.jiraId.push(this.dataSource[i].JiraId);
-    }
-    this.spinnerService.hide();
-  },
-  err => {
-    console.log('err', err);
-   // this.router.navigate(['error']);
-   this.toastrmsg('error',"Something went wrong. Please try again in some time.");
-  },);
-
-}
+    //  this.spinnerService.show();
+  
+    
+    //this.adm.Onboardrequestsuser().subscribe((data: any) => {
+    this.adm.JiraForAdmin().subscribe((data: any) => {
+      var response = data._body;
+  
+      var obj = JSON.parse(response);
+      this.dataSource = obj;
+      for(var i=0; i<=this.dataSource.length; i++){
+        if(this.dataSource[i].JiraStatus!=404){
+          this.jiraId.push(this.dataSource[i].JiraId);
+        }
+      }
+      this.spinnerService.hide();
+    },
+    err => {
+      console.log('err', err);
+     // this.router.navigate(['error']);
+     this.toastrmsg('error',"Something went wrong. Please try again in some time.");
+    },);
+  
+  }
 public picked(event) {
   let fileList: FileList = event.target.files;
   if (fileList.length > 0) {
@@ -129,8 +134,18 @@ btnConfirm(UATconfirm,remark) {
       ).subscribe(
         res => {
           console.log(res);
-          this.confirmMsg = res['message'];
-    this.confirmMsg = this.confirmMsg.substring(51, 44);
+          if( res.status == true || res.status == "true"){
+          //  this.toastrmsg('success',res.message);
+           alert(res.message);
+          }else if(res.status == false || res.status == "false" ){
+           // this.toastrmsg('error',res.message);
+           alert(res.message);
+          }else{
+          //  this.toastrmsg('error',res.message);
+            alert(res.message);
+          }
+           /*  this.confirmMsg = res['message'];
+           this.confirmMsg = this.confirmMsg.substring(51, 44); */
         },
         err => {
           console.log('err', err);
@@ -138,7 +153,7 @@ btnConfirm(UATconfirm,remark) {
           this.toastrmsg('error',"Something went wrong. Please try again in some time.");
         },
       ); 
-   this.modalRef = this.modalService.show(UATconfirm);
+  // this.modalRef = this.modalService.show(UATconfirm);
 }
 Close_ConfirmId() {
   this.modalRef.hide();

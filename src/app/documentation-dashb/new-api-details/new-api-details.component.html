@@ -7,6 +7,7 @@
             aria-labelledby="v-pills-applications-tab">
             <div class="tabContentInner" ng-show="IsApiDetailsAvailable">
                 <div class="row">
+                    
                     <div class="col-8">
                         <h5 class="color-black fs12 ff-light mb5">{{ApiDomain}} / <span
                                 class="ff-medium color-red">{{ApiName}}/</span>
@@ -14,8 +15,8 @@
                                
                             </h5>
                         <h4 class="mb20 fs24 color-black ff-medium">{{ApiName}}
-                            <span  *ngIf = "env !== ' '&& isInternalUser == 'true'" style ="background-color: green;color:#fff;font-size: 12px;border: 1px solid green;border-radius: 4px;vertical-align: middle;padding:0px 2px;" 
-                            class="ff-medium color-green" >{{env}}</span></h4>
+                            <span style ="background-color: green;color:#fff;font-size: 12px;border: 1px solid green;border-radius: 4px;vertical-align: middle;padding:0px 2px;" 
+                            class="ff-medium color-green" *ngIf = "isInternalUser == 'true'">{{env}}</span></h4>
                         <p class="fs14 color-black0 fs12 ff-light mb20">{{ApiDesc}}</p>
                     </div>
                 </div>
@@ -128,6 +129,18 @@
                         </div>
                     </div>
                     <div class="col-md-4" ng-show="IsApiRequestAvailable">
+                        <div class="appRequetUrl"  *ngIf="fileURL !== ' ' && fileURL !== undefined"
+                        style="border: 3px dashed black; padding-top: 5px;margin-bottom: 10px; height: fit-content; padding-bottom: 5px;float: right;">
+                        <p _ngcontent-c5="" style="margin-bottom: 0px"><!-- <a _ngcontent-c5=""
+                            href="#"
+                            (click)="downloadAPIdocument(fileURL)"
+                            style="color: #004a7f;margin-bottom: 0px;" >Click here </a> -->
+                            <a _ngcontent-c5=""
+                        download="/{{fileName}}"
+                        href="{{fileURL}}"
+                        style="color: #004a7f;margin-bottom: 0px;" target ="_blank">Click here </a>to download the API Document</p>
+       
+                      </div>
                         <div class="row">
                             <div class="col-8">
                                 <h5 class="ff-semibold fs14 color-black30 mb20">Sample Request Packet</h5>
@@ -149,6 +162,7 @@
                             <h5>API URL </h5>
                             <p>https://developerapi.icicibank.com:8443</p>
                             <a class="signInBtn" (click)="openModal(Authentication)">Test API</a>
+                           
                             <!-- To open Model on Authenticate button -->
                             <ng-template #Authentication>
                                 <div class="modal-header">
@@ -208,7 +222,20 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <div class="form-group form-inline">
+                                                                        <div class="form-group form-inline" *ngIf="ApiIdNumber==1464">
+                                                                            Value : &nbsp;&nbsp;                             
+                                                                            <!-- <input type="text" #storeValue id="storeValue" name="storeValue{{obj.id}}"                                                                          
+                                                                            [ngModel]="obj.storeValue"  hidden> -->
+                                                                            <input type="text" name="value{{obj.id}}" #value id="value"
+                                                                            class="form-control statuschkclass" placeholder="" (input)="onValueChange($event.target.value)"
+                                                                            [ngModel]="obj.value">
+                                                                            <!-- {{value.value}}
+                                                                            {{storeValue.value}} -->
+                                                                                <!-- <span class="text-danger"   *ngIf="key1==false">value has been changed</span> -->
+                                                                                <!-- {{firstKeyActualValue.value}}<br/>
+                                                                                {{firstKeyUsersValue.value}} -->
+                                                                        </div>
+                                                                        <div class="form-group form-inline" *ngIf="ApiIdNumber!=1464">
                                                                             Value : &nbsp;&nbsp;                             
                                                                             <input type="text" #storeValue id="storeValue" name="storeValue{{obj.id}}"                                                                          
                                                                             [ngModel]="obj.storeValue"  hidden>
@@ -399,13 +426,19 @@
                                                         <!-- <div disabled
                                                             name="Response" class="form-control" cols="50" rows="10"
                                                           >{{reponse | json}}</div> -->
-                                                        <textarea name="Response" *ngIf="testApiResID.length>0"
+                                                        <textarea name="Response" *ngIf="contentType=='JSON' && testApiResID.length>0 && ApiIdNumber!=1464"
                                                             class="form-control setHeight texareaRes" cols="50" rows="100" disabled
                                                             [(ngModel)]="testApiResData">
 
                                                             {{testApiResID}}   
                                                           </textarea>
-                                                        <textarea *ngIf="!testApiResID.length>0"
+                                                        <textarea *ngIf="contentType=='XML'"
+                                                            class="form-control setHeight texareaRes" cols="50" rows="100" disabled
+                                                            [(ngModel)]="testApiresponse">
+                                                            {{testApiresponse }}
+                                                            
+                                                            </textarea>
+                                                        <textarea *ngIf="contentType=='JSON' && (!testApiResID.length>0 || ApiIdNumber==1464)"
                                                             class="form-control setHeight texareaRes" cols="50" rows="100" disabled
                                                             [(ngModel)]="testApiresponse">
                                                             {{testApiresponse | json}}
@@ -413,11 +446,15 @@
                                                             </textarea>
 
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12" >
+                                                        <div *ngIf="ApiIdNumber!=1464">
                                                         <p class="text-error" id="headerError" hidden style="color: red;">Header value has been changed</p>
                                                         <p class="text-error" id="headerError1" hidden style="color: red;">API's default value has been changed</p>
                                                         <p class="text-error" id="headerError2" hidden style="color: red;">API's default priority value has been changed</p>
-
+                                                        </div>
+                                                        <div *ngIf="ApiIdNumber==1464 && invalidApiKey">
+                                                            <p class="text-error" id="headerError4"  style="color: red;">Invalid API Key or request packet.</p>
+                                                        </div>
                                                         <button type="submit"
                                                             class="btn signInBtn btn-dark pull-right mt-30" [disabled]="!bodyForm.valid" (click)="onSubmitBody(bodyForm)">Test</button>
                                                         <!-- <button data-toggle="modal" [disabled]="!bodyForm.valid" *ngIf="testApiResData.length"
@@ -481,6 +518,7 @@
 
 
                         </div>
+                       
                         <!-- ===================================== -->
                         <!--Production Confirmation alert modalbox -->
                         <!-- ===================================== -->

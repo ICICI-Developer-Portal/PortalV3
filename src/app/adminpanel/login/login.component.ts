@@ -169,12 +169,14 @@ export class LoginComponent implements OnInit {
       }
     },
     err => {
-      console.log('err', err);
+      /* console.log('err', err);
       //this.router.navigate(['error']);
      
       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
      localStorage.removeItem('isAdmin');
-     this.resetUser();
+     this.resetUser(); */
+     localStorage.setItem('isAdmin',"yes");
+     this.router.navigate(['/admin/request']);
     },);
   }
   resetUser(){

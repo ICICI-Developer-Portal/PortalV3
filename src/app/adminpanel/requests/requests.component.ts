@@ -23,13 +23,27 @@ export class RequestsComponent implements OnInit {
   ngOnInit() {
   }
   
-     request_data(){ 
-      this.adm.Onboardrequests()
+  
+  
+request_data(){ 
+   //   this.adm.Onboardrequests() JiraForAdmin
+   this.adm.JiraForAdmin() 
       .subscribe(
           (data:any) => {
           var response= data._body; 
           var obj=JSON.parse(response);
-          this.dataSource=obj;
+          let tempArr = [];
+          obj.forEach( (myObject, index) => {
+            //console.log(myObject)
+            if(myObject.JiraStatus!=404){
+              
+              tempArr.push( myObject);
+            
+            }
+           
+          });
+          this.dataSource = tempArr;
+         // this.dataSource=obj;
           this.spinnerService.hide();
           },
           err => {

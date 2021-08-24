@@ -30,15 +30,14 @@ const routes: Routes = [
         children: [       
             { path: 'faq', component: FaqComponent },
           //  {path:'uatonboarding-dashboard',component: UATonboardingDashboardPageComponent,canActivate: [AuthGuard]  },
-  {path:'uatonboarding-dashboard',component: NewUatonboardingPageComponent,canActivate: [AuthGuard]  },
+             {path:'uatonboarding-dashboard',component: NewUatonboardingPageComponent,canActivate: [AuthGuard]  },
+             { path: 'analytics', component: AnalyticPageComponent ,canActivate: [AuthGuard] }
         ]
     },
     { path: 'application', component: ApplicationComponent ,canActivate: [AuthGuard]},
-   /*  { path: 'analytics', component: AnalyticsComponent ,canActivate: [AuthGuard]},
-    { path: 'analyticPage', component: AnalyticPageComponent ,canActivate: [AuthGuard]}, */
-    { path: 'analytics', component: AnalyticPageComponent ,canActivate: [AuthGuard]},
+   
 
-    { path: 'userprofile', component: UserprofileComponent ,canActivate: [AuthGuard]},
+  /*   { path: 'userprofile', component: UserprofileComponent ,canActivate: [AuthGuard]}, */
     //{ path: 'supportticket', component: SupportticketComponent ,canActivate: [AuthGuard]},
     { path: 'onboardingrequests', component: OnboardingrequestsComponent ,canActivate: [AuthGuard]},
     { path: 'download', component: DownloadComponent ,canActivate: [AuthGuard]},

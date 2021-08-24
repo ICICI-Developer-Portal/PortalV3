@@ -125,7 +125,8 @@ export class ViewAllApiComponent implements OnInit {
         if(word == sort_arr[i][0]){
           pp.push(sort_arr[i]); 
         } else {
-          obj1[word] = pp;
+          const distinctArray = pp.filter((n, i) => pp.indexOf(n) === i);
+          obj1[word] = distinctArray;
           nn.push(obj1);
           word = sort_arr[i][0];
           pp = [];

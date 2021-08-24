@@ -1989,6 +1989,7 @@ corporates(signin: any) {
     );
   }
   open_modal(Interested: TemplateRef<any>) {
+    this.recaptchaFlag = false;
     this.modalRef = this.modalService.show(Interested, { backdrop: "static" });
     try {
       this.modalRef2.hide();
@@ -2259,6 +2260,28 @@ corporates(signin: any) {
       var obj = JSON.parse(data._body);
       if (obj.status == true) {
         this.toastrmsg("success", "Thank your for your Request.");
+        // upload contact for autodialer
+        let json = {
+          name:this.Inter_full_name,
+          mobile:this.Inter_contactnumber,
+          typeOfLead:"IF_IntertFormPopup",
+          domain:"",
+          companyName: this.Inter_company,
+          emailId:this.Inter_email,
+          pincodeLocation:this.Inter_location,
+          dateOfRequest:new Date()         
+        };
+     
+        this.adm.autodialer(json).subscribe((data: any) => {
+          var dialerResponse = data._body;
+          var obj = JSON.parse(dialerResponse);
+          console.log(dialerResponse)
+          },
+          err => {
+            console.log('err', err);
+            this.toastrmsg('error',this.errorMsg);
+        });
+
         this.Inter_full_name = "";
         this.Inter_contactnumber = "";
         this.Inter_email = "";
@@ -2390,16 +2413,22 @@ corporates(signin: any) {
   
   }  
  //function to resolve the reCaptcha and retrieve a token
-async resolved(captchaResponse: string, res) {
+async resolved(captchaResponse: string) {
   console.log(`Resolved response token: ${captchaResponse}`);
   await this.sendTokenToBackend(captchaResponse); //declaring the token send function with a token parameter
 }
 //function to send the token to the node server
 sendTokenToBackend(tok){
   //calling the service and passing the token to the service
-  this.adm.sendToken(tok).subscribe(
-    data => {
+  this.adm.sendToken(tok).subscribe((data: any) => {
       console.log(data)
+      var resp = data._body;
+      var obj = JSON.parse(resp);
+      if(obj && obj.success == true){
+        this.recaptchaFlag= true;
+      }else{
+        this.recaptchaFlag= false;
+      }
     },
     err => {
       console.log(err)

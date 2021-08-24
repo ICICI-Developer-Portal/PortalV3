@@ -50,9 +50,15 @@ export class ApiDetailsComponent implements OnInit {
   env ;
   isInternalUser:any;
 //
-  constructor(private spinnerService: Ng4LoadingSpinnerService, private route: ActivatedRoute,private adm:LoginService,private ngxXml2jsonService: NgxXml2jsonService,private modalService: BsModalService,private sanitizer:DomSanitizer,
+  constructor(private spinnerService: Ng4LoadingSpinnerService,
+     private route: ActivatedRoute,
+     private adm:LoginService,
+     private ngxXml2jsonService: NgxXml2jsonService,
+     private modalService: BsModalService,
+     private sanitizer:DomSanitizer,
     private router: Router,
     ) {
+      //
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.env = "";

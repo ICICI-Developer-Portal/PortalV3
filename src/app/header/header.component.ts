@@ -100,6 +100,8 @@ export class HeaderComponent implements OnInit {
   isInternalUser:any = false;
   salt:string;
   userEmailId;
+  showBUH: boolean = false;
+  showBU: boolean = false;
 
   constructor(
     private SessionService: SessionService,
@@ -129,7 +131,17 @@ export class HeaderComponent implements OnInit {
       }if(localStorage.getItem('isInternalUser') != ""){
         this.isInternalUser = localStorage.getItem('isInternalUser');
       }
-     
+      if(localStorage.getItem('role') != ""){
+        let role = localStorage.getItem('role');
+        if (role === "BUH") {
+          this.showBUH = true;
+        
+        }else 
+        if (role === "BU") {
+          this.showBU = true;
+        
+        }
+      }
 
     });
     this.adm.getUserName().subscribe(data => {
@@ -187,6 +199,13 @@ export class HeaderComponent implements OnInit {
   }
      
   ngOnInit() {
+
+
+    
+
+
+
+
 
     this.userEmailId=localStorage.getItem("email");
     //aapathonSignUpForm
@@ -323,6 +342,15 @@ export class HeaderComponent implements OnInit {
     }
     if (localStorage.getItem("role") === "Both") {
       this.showAppDash = true;
+    
+    }
+    if (localStorage.getItem("role") === "BUH") {
+      this.showBUH = true;
+    
+    }
+    if (localStorage.getItem("role") === "BU") {
+      this.showBU = true;
+    
     }
     this.userName = localStorage.getItem("username");
 
@@ -480,8 +508,11 @@ toastrmsg(type, title) {
 
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
-    //localStorage.setItem('username',username);
-    //localStorage.setItem('password',password);
+ 
+  /*   $("#passwordbackup").val( $("#password").val())
+    let passwordLength=$("#password").val().length;   
+    $("#password").val("********")
+ */
     var nonEncodedJson = {
       username : username,
       password : password
@@ -597,6 +628,14 @@ this.adm.Login(json).subscribe((data: any) => {
         localStorage.setItem("password", this.loginResponse.data.password);
         localStorage.setItem("id", this.loginResponse.data.id);
         localStorage.setItem("role", this.loginResponse.data.role);
+        if (this.loginResponse.data.role === "BUH") {
+          this.showBUH = true;
+        
+        }
+        if (this.loginResponse.data.role === "BU") {
+          this.showBU = true;
+        
+        }
         this.userName = localStorage.getItem("username");
         
         localStorage.setItem(
@@ -1208,19 +1247,29 @@ this.adm.Login(json).subscribe((data: any) => {
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isInternalUser');
     localStorage.removeItem('email');
+    localStorage.removeItem("userEnteredText");
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;
+    this.showBUH= false;
+    this.showBU= false;
+  
     this.reloadToken();
-    this.adm.LogoutPortal().subscribe(
+    this.adm.logout().subscribe(
       res => {
-        this.router.navigate(["/index"]);
+        console.log("logout success")
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       },
       err => {
-        this.router.navigate(["/index"]);
+        console.log("logout failed")
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       }
     );
-    this.router.navigate(["/index"]);
+   //this.router.navigate(["/index"]);
   }
 
   signup_link(id) {
@@ -1350,4 +1399,14 @@ this.adm.Login(json).subscribe((data: any) => {
 
     },);
   }
+
+  values:any='';
+  onKeyPress(event: any) {
+    let values = event.target.value;
+    console.log(values);
+    let regex = "/^[ A-Za-z0-9_@./#&+-]*$/";
+    // console.log(values.replaceAll(new RegExp(regex, "ig"), m => '*'.repeat(m.length)));  
+    values.replaceAll(new RegExp(regex, "ig"), m => '*'.repeat(m.length))
+};
+
 }

@@ -8,155 +8,152 @@
 	right: 0;
   margin: auto;
   width: 78%;">
-<div>
-  <div class="progress progress-custom"  [ngClass] = "[ (step_no == 3)? 'active-progress' : '']">
-    <div class="progress-bar " role="progressbar" [ngStyle]="{'width':currentProgress3 +'%'}" aria-valuenow="currentProgress3" aria-valuemin="0" aria-valuemax="100">
-    </div>
-  </div> 
-  <div class="progress progress-custom"   [ngClass] = "[ (step_no == 2)? 'active-progress' : '']">
-    <div class="progress-bar " role="progressbar" [ngStyle]="{'width':currentProgress2 +'%'}" aria-valuenow="currentProgress2" aria-valuemin="0" aria-valuemax="100">
-       </div>
-  </div> 
-  <div class="progress progress-custom" [ngClass] = "[ (step_no == 1)? 'active-progress' : '']">
-    <div class="progress-bar "  role="progressbar" [ngStyle]="{'width':currentProgress1 +'%'}" aria-valuenow="currentProgress1" aria-valuemin="0" aria-valuemax="100">
+    <div>
+      <div class="progress progress-custom" [ngClass]="[ (step_no == 3)? 'active-progress' : '']">
+        <div class="progress-bar " role="progressbar" [ngStyle]="{'width':currentProgress3 +'%'}"
+          aria-valuenow="currentProgress3" aria-valuemin="0" aria-valuemax="100">
+        </div>
       </div>
-  </div>
-  <div style="float:right;font-weight: bold;">
-    <span> Step {{step_no}} of 3</span>
-  </div>
-  
-</div>
+      <div class="progress progress-custom" [ngClass]="[ (step_no == 2)? 'active-progress' : '']">
+        <div class="progress-bar " role="progressbar" [ngStyle]="{'width':currentProgress2 +'%'}"
+          aria-valuenow="currentProgress2" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+      <div class="progress progress-custom" [ngClass]="[ (step_no == 1)? 'active-progress' : '']">
+        <div class="progress-bar " role="progressbar" [ngStyle]="{'width':currentProgress1 +'%'}"
+          aria-valuenow="currentProgress1" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+      <div style="float:right;font-weight: bold;">
+        <span> Step {{step_no}} of 3</span>
+      </div>
 
- <!-- ===================================== -->
-                <!--Production Confirmation alert modalbox -->
-                <!-- ===================================== -->
-                <!--Production Confirmation alert modalbox -->
-                <ng-template #Prodconfirm>
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col-md-12 mb-xs-10">
-                        <h5 class="fs15">
-                          Onboarding request ID {{ confirmMsgProd }} has been created
-                          sucessfully.
-                        </h5>
-                        <h5 class="fs15">
-                          Please visit Account -> Onboarding Request to check the request
-                          status.
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer ta-center">
-                    <div class="row w100p m0">
-                      <div class="col-12 plr0">
-                        <div>
-                          <button type="submit" class="signInBtn" (click)="Close_ConfirmProd()">
-                            Ok
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-                <!-- End Modalbox -->
-                <!--Production Confirmation alert modalbox -->
-                <!-- End Modalbox -->
+    </div>
+
+    <!-- ===================================== -->
+    <!--Production Confirmation alert modalbox -->
+    <!-- ===================================== -->
+    <!--Production Confirmation alert modalbox -->
+    <ng-template #Prodconfirm>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12 mb-xs-10">
+            <h5 class="fs15">
+              Onboarding request ID {{ confirmMsgProd }} has been created
+              sucessfully.
+            </h5>
+            <h5 class="fs15">
+              Please visit Account -> Onboarding Request to check the request
+              status.
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer ta-center">
+        <div class="row w100p m0">
+          <div class="col-12 plr0">
+            <div>
+              <button type="submit" class="signInBtn" (click)="Close_ConfirmProd()">
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <!-- End Modalbox -->
+    <!--Production Confirmation alert modalbox -->
+    <!-- End Modalbox -->
 
     <nav>
-      <div class="nav nav-tabs sandBox-navTab col-md-12  padding-0" id="nav-tab"
-          role="tablist">
-          <a class="nav-item nav-link col-4 col-sm4 col-md-4  active" id="nav-basic-tab"
-              data-toggle="tab" href="#tab1" role="tab"
-              aria-controls="tab1" aria-selected="true" (click)="setProgress(1)">Basic Details</a>
-          <a class="nav-item nav-link  col-4 col-sm4 col-md-4" *ngIf="reactiveForm.get('basicDetailsSection').invalid==true"
-          id="nav-api-tab"
-              >Requested API
-            </a>
-            <a class="nav-item nav-link  col-4 col-sm4 col-md-4" (click)="setProgress(2)" *ngIf="reactiveForm.get('basicDetailsSection').invalid==false"
-            id="nav-api-tab"
-                data-toggle="tab" href="#tab2" role="tab"
-                aria-controls="tab2" aria-selected="false">Requested API
-              </a>
-            <a class="nav-item nav-link  col-4 col-sm4 col-md-4"  *ngIf="reactiveForm.get('basicDetailsSection').invalid==true || selectedValue.length==0" 
-            id="nav-additional-tab0"
-            
-           >Additional Field
-          </a>
-          <a class="nav-item nav-link  col-4 col-sm4 col-md-4"  style="margin: 0px;padding: 0px;"  *ngIf="reactiveForm.get('basicDetailsSection').invalid==false && selectedValue.length>0" 
-            id="nav-additional-tab"
-            data-toggle="tab" href="#tab3" role="tab"
-            aria-selected="false"><span (click)="onClickContinueBtn()" style="display: block;
+      <div class="nav nav-tabs sandBox-navTab col-md-12  padding-0" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link col-4 col-sm4 col-md-4  active" id="nav-basic-tab" data-toggle="tab" href="#tab1"
+          role="tab" aria-controls="tab1" aria-selected="true" (click)="setProgress(1)">Basic Details</a>
+        <a class="nav-item nav-link  col-4 col-sm4 col-md-4"
+          *ngIf="reactiveForm.get('basicDetailsSection').invalid==true" id="nav-api-tab">Requested API
+        </a>
+        <a class="nav-item nav-link  col-4 col-sm4 col-md-4" (click)="setProgress(2)"
+          *ngIf="reactiveForm.get('basicDetailsSection').invalid==false" id="nav-api-tab" data-toggle="tab" href="#tab2"
+          role="tab" aria-controls="tab2" aria-selected="false">Requested API
+        </a>
+        <a class="nav-item nav-link  col-4 col-sm4 col-md-4"
+          *ngIf="reactiveForm.get('basicDetailsSection').invalid==true || selectedValue.length==0"
+          id="nav-additional-tab0">Additional Field
+        </a>
+        <a class="nav-item nav-link  col-4 col-sm4 col-md-4" style="margin: 0px;padding: 0px;"
+          *ngIf="reactiveForm.get('basicDetailsSection').invalid==false && selectedValue.length>0"
+          id="nav-additional-tab" data-toggle="tab" href="#tab3" role="tab" aria-selected="false"><span
+            (click)="onClickContinueBtn()" style="display: block;
             width: 100%;
             padding-top: 9px;
             padding-left: 15px;
             padding-bottom: 6px;">Additional Field
-            </span>
-          </a>
+          </span>
+        </a>
       </div>
-  </nav>
-  <!-- ============================================================ -->
-  <form [formGroup]="reactiveForm" autocomplete="off" nonvalidate>
-    <div class="tab-content tabContentSandbox mt-0" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="tab1" role="tabpanel"
-      aria-labelledby="nav-basic-tab">
-      <!-- <p class="pull-left mt-3 "><b>Request header :</b></p> -->
-      
-      <div formGroupName="basicDetailsSection" class="row"  style="    padding-top: 20px;
+    </nav>
+    <!-- ============================================================ -->
+    <form [formGroup]="reactiveForm" autocomplete="off" nonvalidate>
+      <div class="tab-content tabContentSandbox mt-0" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="nav-basic-tab">
+          <!-- <p class="pull-left mt-3 "><b>Request header :</b></p> -->
+
+          <div formGroupName="basicDetailsSection" class="row" style="    padding-top: 20px;
       padding-left: 20px;
     ">
-      <div class="form-group col-md-7">
-        <label for="merchantName">Merchant Name <span class="text-danger"> *</span></label>
-        <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-          formControlName="merchantName" placeholder="Your Organization Name">
-        <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
-          class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
-        <!-- validation -->
-        <div
-          *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
-          class="text-danger form-error">
-          Merchant Name is required.
-        </div>
-        <!-- ======== -->
-      </div>
-      <div class="form-group col-md-5"></div>
+            <div class="form-group col-md-7">
+              <label for="merchantName">Merchant Name <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
+                formControlName="merchantName" placeholder="Your Organization Name">
+              <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
+                class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+              <!-- validation -->
+              <div
+                *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
+                class="text-danger form-error">
+                Merchant Name is required.
+              </div>
+              <!-- ======== -->
+            </div>
+            <div class="form-group col-md-5"></div>
 
-      <div class="form-group col-md-7">
-        <label for="Description">Description <span class="text-danger"> *</span></label>
-        <input type="text" class="form-control mainField col-md-11 inline_block" id="Description"
-          formControlName="description"
-          placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged">
-        <i *ngIf="reactiveForm.get('basicDetailsSection.description').valid"
-          class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
-        <!-- validation -->
-        <div
-          *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched"
-          class="text-danger form-error">
-          Description is required.
-        </div>
-        <!-- ======== -->
-      </div>
+            <div class="form-group col-md-7">
+              <label for="Description">Description <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="Description"
+                formControlName="description"
+                placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged">
+              <i *ngIf="reactiveForm.get('basicDetailsSection.description').valid"
+                class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+              <!-- validation -->
+              <div
+                *ngIf="!reactiveForm.get('basicDetailsSection.description').valid && reactiveForm.get('basicDetailsSection.description').touched"
+                class="text-danger form-error">
+                Description is required.
+              </div>
+              <!-- ======== -->
+            </div>
 
-      <div class="form-group col-md-5"></div>
-      <div class="form-group col-md-7">
-        <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
-        <input type="email" class="form-control mainField col-md-11 inline_block" id="Email_ID"
-          formControlName="email_id" placeholder="Your Email ID">
-        <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
-          class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
-        <!-- validation -->
-        <div
-          *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched) || reactiveForm.get('basicDetailsSection.email_id').dirty">
-          <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required" -->
-          <div *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched)"
-
-            class="text-danger form-error">Email id is required.</div>
-          <!--question mark(?) is a safe navigation operator-->
-          <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
+            <div class="form-group col-md-5"></div>
+            <div class="form-group col-md-7">
+              <label for="Email_ID">Email ID <span class="text-danger"> *</span></label>
+              <input type="email" class="form-control mainField col-md-11 inline_block" id="Email_ID"
+                formControlName="email_id" placeholder="Your Email ID">
+              <i *ngIf="reactiveForm.get('basicDetailsSection.email_id').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+              <!-- validation -->
+              <div
+                *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched) || reactiveForm.get('basicDetailsSection.email_id').dirty">
+                <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.required" -->
+                <div
+                  *ngIf="(reactiveForm.get('basicDetailsSection.email_id').invalid && reactiveForm.get('basicDetailsSection.email_id').touched)"
+                  class="text-danger form-error">Email id is required.</div>
+                <!--question mark(?) is a safe navigation operator-->
+                <!-- <div *ngIf="reactiveForm.get('basicDetailsSection.email_id').errors?.pattern"
             class="text-danger form-error">Please provide a valid email address</div> -->
-        </div>
+              </div>
 
 
-        <!--
+              <!--
         <div
           *ngIf="!reactiveForm.get('basicDetailsSection.email_id').valid && reactiveForm.get('basicDetailsSection.email_id').touched"
           class="text-danger form-error">
@@ -168,92 +165,90 @@
           Please provide a valid email address.
         </div>
          ======== -->
-      </div>
-      <div class="form-group col-md-5"></div>
+            </div>
+            <div class="form-group col-md-5"></div>
 
-      <div class="form-group col-md-7">
-        <label for="Contact_No">Contact No <span class="text-danger"> *</span></label>
-        <input type="text" class="form-control mainField col-md-11 inline_block" id="Contact_No"
-          formControlName="contact_no" placeholder="Your Contact Number">
-        <i *ngIf="reactiveForm.get('basicDetailsSection.contact_no').valid"
-          class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
-        <!-- validation -->
-        <div
-          *ngIf="(reactiveForm.get('basicDetailsSection.contact_no').invalid && reactiveForm.get('basicDetailsSection.contact_no').touched) || reactiveForm.get('basicDetailsSection.contact_no').dirty">
-          <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.required"
-            class="text-danger form-error">Contact no is required.</div>
-          <!--question mark(?) is a safe navigation operator-->
-          <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.pattern"
-            class="text-danger form-error">Please provide a valid contact no</div>
-        </div>
-        <!--
+            <div class="form-group col-md-7">
+              <label for="Contact_No">Contact No <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="Contact_No"
+                formControlName="contact_no" placeholder="Your Contact Number">
+              <i *ngIf="reactiveForm.get('basicDetailsSection.contact_no').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+              <!-- validation -->
+              <div
+                *ngIf="(reactiveForm.get('basicDetailsSection.contact_no').invalid && reactiveForm.get('basicDetailsSection.contact_no').touched) || reactiveForm.get('basicDetailsSection.contact_no').dirty">
+                <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.required"
+                  class="text-danger form-error">Contact no is required.</div>
+                <!--question mark(?) is a safe navigation operator-->
+                <div *ngIf="reactiveForm.get('basicDetailsSection.contact_no').errors?.pattern"
+                  class="text-danger form-error">Please provide a valid contact no</div>
+              </div>
+              <!--
         <div
           *ngIf="!reactiveForm.get('basicDetailsSection.contact_no').valid && reactiveForm.get('basicDetailsSection.contact_no').touched"
           class="text-danger form-error">
           Contact no is required.
         </div>
         ======== -->
-      </div>
+            </div>
 
-      <div class="form-group col-md-5"></div>
+            <div class="form-group col-md-5"></div>
 
-      <div class="form-group col-md-7">
-        <label for="r_m_maild_id">ICICI Bank Relationship Manager /Email ID/Employee ID <span
-            class="text-danger"> *</span></label>
-        <input type="text" class="form-control mainField col-md-11 inline_block" id="r_m_maild_id"
-          formControlName="r_m_maild_id"
-          placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
-        <i *ngIf="reactiveForm.get('basicDetailsSection.r_m_maild_id').valid"
-          class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
-        <!-- validation -->
-        <div
-          *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched"
-          class="text-danger form-error">
-          Relationship Manager/Email ID/Employee ID is required.
-        </div>
-        <!-- ======== -->
-      </div>
-      <div class="form-group col-md-5"></div>
-      <div class="form-group col-md-12">
-        <button class="signInBtn btn-dark pull-right  mt-3 " type="button"
-      ng-reflect-klass="signInBtn"  [disabled]="!reactiveForm.get('basicDetailsSection').valid" (click)="nextTab($event)"
-      style="
+            <div class="form-group col-md-7">
+              <label for="r_m_maild_id">ICICI Bank Relationship Manager /Email ID/Employee ID <span class="text-danger">
+                  *</span></label>
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="r_m_maild_id"
+                formControlName="r_m_maild_id" placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising">
+              <i *ngIf="reactiveForm.get('basicDetailsSection.r_m_maild_id').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+              <!-- validation -->
+              <div
+                *ngIf="!reactiveForm.get('basicDetailsSection.r_m_maild_id').valid && reactiveForm.get('basicDetailsSection.r_m_maild_id').touched"
+                class="text-danger form-error">
+                Relationship Manager/Email ID/Employee ID is required.
+              </div>
+              <!-- ======== -->
+            </div>
+            <div class="form-group col-md-5"></div>
+            <div class="form-group col-md-12">
+              <button class="signInBtn btn-dark pull-right  mt-3 " type="button" ng-reflect-klass="signInBtn"
+                [disabled]="!reactiveForm.get('basicDetailsSection').valid" (click)="nextTab($event)" style="
       margin-right: 38px;
   "> Next
-  </button>
-      </div>
-      
-    </div>
+              </button>
+            </div>
 
-     
+          </div>
 
 
 
 
-      <!-- ================-->
-  
-      <!--================== -->
-  </div>
-  <div class="tab-pane fade" id="tab2" role="tabpanel"
-                                                aria-labelledby="nav-api-tab">
-                                                <!-- <form  #bodyForm="ngForm"
+
+
+          <!-- ================-->
+
+          <!--================== -->
+        </div>
+        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="nav-api-tab">
+          <!-- <form  #bodyForm="ngForm"
                                                     class="row">
                                                     </form> -->
-                                                    <div #RequestedApiList class="" id="Requested-api-list">
+          <div #RequestedApiList class="" id="Requested-api-list">
 
 
-                <!-- <div class="form-group col-md-6" formGroupName="nestedCheckboxesList"> -->
+            <!-- <div class="form-group col-md-6" formGroupName="nestedCheckboxesList"> -->
 
-                <div class="row" formGroupName="nestedCheckboxesList" id="scndSectionWhitelistIp" style=" padding-top: 20px; ">
+            <div class="row" formGroupName="nestedCheckboxesList" id="scndSectionWhitelistIp"
+              style=" padding-top: 20px; ">
 
-                  <div class="form-group col-md-6">
-                    <!-- <h5 class="">Requested API</h5> -->
-                    <label for="merchantName">Select API <span class="text-danger"> *</span><i
-                        class='fa fa-check-circle orange col-md-1 margin_3px float-right' aria-hidden='true'
-                        id='dynamic-list-check'></i></label>
-                    <!--karthik-Auto complete-->
+              <div class="form-group col-md-6">
+                <!-- <h5 class="">Requested API</h5> -->
+                <label for="merchantName">Select API <span class="text-danger"> *</span><i
+                    class='fa fa-check-circle orange col-md-1 margin_3px float-right' aria-hidden='true'
+                    id='dynamic-list-check'></i></label>
+                <!--karthik-Auto complete-->
 
-                    <!-- <div class="row">
+                <!-- <div class="row">
                       <form class="example-form">
                         <div class="input-group col-md-11">
                           <input #matInput class="form-control py-2 border-right-0 border" type="search" placeholder="Search API"
@@ -270,155 +265,188 @@
                         </div>
                       </form>
                     </div> -->
-                    <!--karthik-Auto complete End-->
-                    <div class="col-md-11 padding-left-0">
-                      <!-- <form id="filter" autocomplete="off">
+                <!--karthik-Auto complete End-->
+                <div class="col-md-11 padding-left-0">
+                  <!-- <form id="filter" autocomplete="off">
                         <label>Filter API by name:</label>
                         <input   class="form-control  inline_block mb-3" type="text" name="responseData" id="searchFilter" [(ngModel)]="term" />
                     </form> -->
-                    <!-- <span class="text-danger" *ngIf="(responseData | filter: term).length === 0"> No matches found</span> -->
+                  <!-- <span class="text-danger" *ngIf="(responseData | filter: term).length === 0"> No matches found</span> -->
 
-                    </div>
-                    <div class=" col-md-12 padding-left-0 scroll-y400" >
+                </div>
+                <div class=" col-md-12 padding-left-0 scroll-y400">
 
-                      <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
-                     
-                    
-                      <ul class="requestedData-list sideMenu" *ngFor="let i of responseData;let index=index" class="first-level">
-                        <!-- <li *ngIf="(responseData | filterBy: term).length === 0">No matches found</li>   -->
+                  <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
 
-                        <li>
 
-                          <!-- 1 level -->
-                          <a class="display-block cursor-pointer padding-left-25 {{i.TAB_NAME}}" *ngIf="i.display==1">
+                  <ul class="requestedData-list sideMenu" *ngFor="let i of responseData;let index=index"
+                    class="first-level">
+                    <!-- <li *ngIf="(responseData | filterBy: term).length === 0">No matches found</li>   -->
+
+                    <li>
+
+                      <!-- 1 level -->
+                      <a class="display-block cursor-pointer padding-left-25 {{i.TAB_NAME}}" *ngIf="i.display==1">
+
+                        <ng-template #other>
+
+                          <div class="customcsscontainer">
+                            <label *ngIf="index==0" title="Select all" [attr.domainName]="i.TAB_NAME"
+                              style="position: absolute;position: inherit;margin-top: -40px!important;
+                              /* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; 
+                              */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;">
+                              <input
+                                type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)"
+                                class="selectAll">
+
+                            </label>
+
+                            <label for="{{i.API_ID}}" class="scndCheckbox" style="margin-left: -10px !important;">
+                              <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)"
+                                id="{{i.API_ID}}" value="{{i.TAB_NAME}}" #checkboxes>
+                              {{i.TAB_NAME}} </label>
+                          </div>
+                        </ng-template>
+                        <p class="margin_0px {{i.TAB_NAME}}"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
+                              class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
+                      </a>
+                      <!-- 1 level -->
+                      <ul *ngFor="let j of i.children;let index=index" class="second-level display-none">
+                        <li *ngIf="!(j.TREE_ID ==557 ||  j.TREE_ID ==325 )">
+                          <!-- 2 level -->
+                          <a class="display-block cursor-pointer padding-left-10prcnt" *ngIf="j.display==1">
+                            <!-- <input type="checkbox"  *ngIf="indexOn==0"  (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
+                                                                   {{indexOn==1}}{{indexOn}} -->
 
                             <ng-template #other>
 
                               <div class="customcsscontainer">
-                              <label  *ngIf="index==0" title="Select all" style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;"><input type="checkbox"  (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
-                              
-                              </label>
-                                
-                                <label for="{{i.API_ID}}" class="scndCheckbox" style="margin-left: -10px !important;">
-                                  <input type="checkbox" (change)="multipleSelectAPI($event,$event.target.checked)" id="{{i.API_ID}}"
-                                    value="{{i.TAB_NAME}}" #checkboxes>
-                                  {{i.TAB_NAME}} </label>
+                                <label *ngIf="index==0" title="Select all"
+                                  style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;">
+                                  <input [attr.selectAlldomainName]="i.TREE_ID"
+                                    [attr.parentName]="i.TAB_NAME" type="checkbox"
+                                    (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
+
+                                </label>
+
+                                <label for="{{j.API_ID}}" class="scndCheckbox">
+                                  <input type="checkbox" style="margin-left: -10px !important;"
+                                    [attr.selectAlldomainName]="i.TREE_ID" [attr.domainName]="i.TAB_NAME"
+                                    [attr.subDomainName]="j.TAB_NAME"
+                                    (change)="multipleSelectAPI($event,$event.target.checked)"
+                                    [attr.parentName]="i.TAB_NAME" id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
+                                    #checkboxes>{{j.TAB_NAME}}</label>
                               </div>
                             </ng-template>
-                            <p class="margin_0px {{i.TAB_NAME}}"> {{i.TAB_NAME}}<span class="inline_block pull-right"><img
-                                  class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""></span></p>
+                            <p *ngIf="j.children; else other" class="margin_0px {{j.TAB_NAME}}">{{j.TAB_NAME}}
+                              <span class="inline_block pull-right"><img class="dropdownIcon"
+                                  src="assets/images/dropdown-2.svg" alt=""></span>
+                            </p>
                           </a>
-                          <!-- 1 level -->
-                          <ul *ngFor="let j of i.children;let index=index" class="second-level display-none">
-                            <li *ngIf="!(j.TREE_ID ==557 ||  j.TREE_ID ==325 )">
-                              <!-- 2 level -->
-                              <a class="display-block cursor-pointer padding-left-10prcnt" *ngIf="j.display==1">
-                                <!-- <input type="checkbox"  *ngIf="indexOn==0"  (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
-                                                                   {{indexOn==1}}{{indexOn}} -->
-
+                          <!-- 2 level -->
+                          <ul *ngFor="let k of j.children;let index=index" class="third-level display-none">
+                            <li>
+                              <!-- 3 level -->
+                              <a class="display-block cursor-pointer padding-left-13prcnt" *ngIf="k.display==1">
                                 <ng-template #other>
 
-                                  <div class="customcsscontainer"> 
-                                  <label  *ngIf="index==0" title="Select all" style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;" ><input   [attr.parentName]="i.TAB_NAME" type="checkbox"   (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
-                                  
-                                  </label>
-                                    
-                                    <label for="{{j.API_ID}}"  class="scndCheckbox">
-                                     <input type="checkbox"  style="margin-left: -10px !important;"
-                                    [attr.domainName]="i.TAB_NAME"  [attr.subDomainName]="j.TAB_NAME"
-                                        (change)="multipleSelectAPI($event,$event.target.checked)" 
-                                        [attr.parentName]="i.TAB_NAME"
-                                        id="{{j.API_ID}}" value="{{j.TAB_NAME}}"
-                                        #checkboxes>{{j.TAB_NAME}}</label>
+                                  <div class="customcsscontainer">
+                                    <label *ngIf="index==0" title="Select all"
+                                      style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;">
+                                      <input type="checkbox" [attr.selectAlldomainName]="i.TREE_ID+ j.TREE_ID"
+                                        [attr.parentName]="j.TAB_NAME"
+                                        (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
+
+                                    </label>
+
+                                    <label for="{{k.API_ID}}" class="scndCheckbox"> <input type="checkbox"
+                                        [attr.selectAlldomainName]="i.TREE_ID+ j.TREE_ID"
+                                        [attr.domainName]="i.TAB_NAME" [attr.subDomainName]="j.TAB_NAME"
+                                        (change)="multipleSelectAPI($event,$event.target.checked)" id="{{k.API_ID}}"
+                                        [attr.parentName]="j.TAB_NAME" [attr.grandParentName]="i.TAB_NAME"
+                                        value="{{k.TAB_NAME}}" style="margin-left: -10px !important;"
+                                        #checkboxes>{{k.TAB_NAME}}</label>
                                   </div>
                                 </ng-template>
-                                <p *ngIf="j.children; else other" class="margin_0px {{j.TAB_NAME}}">{{j.TAB_NAME}}
+                                <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
                                   <span class="inline_block pull-right"><img class="dropdownIcon"
-                                      src="assets/images/dropdown-2.svg" alt=""></span></p>
+                                      src="assets/images/dropdown-2.svg" alt=""></span>
+                                </p>
                               </a>
-                              <!-- 2 level -->
-                              <ul *ngFor="let k of j.children;let index=index" class="third-level display-none">
+                              <!-- 3 level -->
+                              <ul *ngFor="let L of k.children;let index=index" class="fourth-level display-none">
                                 <li>
-                                  <!-- 3 level -->
-                                  <a class="display-block cursor-pointer padding-left-13prcnt" *ngIf="k.display==1">
-                                    <ng-template #other >
+                                  <!-- 4 level -->
+                                  <a class="display-block cursor-pointer padding-left-20prcnt" *ngIf="L.display==1">
+                                    <ng-template #other>
 
-                                      <div class="customcsscontainer"> 
-                                      <label  *ngIf="index==0" title="Select all" style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;"><input type="checkbox"  [attr.parentName]="j.TAB_NAME"  (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
-                                      
-                                      </label>
-                                        
-                                        <label for="{{k.API_ID}}"  class="scndCheckbox"> <input type="checkbox" 
-                                        [attr.domainName]="i.TAB_NAME"   [attr.subDomainName]="j.TAB_NAME"
-                                            (change)="multipleSelectAPI($event,$event.target.checked)" id="{{k.API_ID}}"
-                                           [attr.parentName]="j.TAB_NAME" [attr.grandParentName]="i.TAB_NAME" value="{{k.TAB_NAME}}"
-                                           style="margin-left: -10px !important;"
-                                            #checkboxes>{{k.TAB_NAME}}</label>
+
+                                      <div class="customcsscontainer">
+                                        <label *ngIf="index==0" title="Select all"
+                                          style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px; ">
+                                          <input type="checkbox" [attr.selectAlldomainName]="i.TREE_ID+ k.TREE_ID"
+                                            [attr.parentName]="k.TAB_NAME"
+                                            (change)="multipleSelectAPI($event,$event.target.checked)"
+                                            class="selectAll">
+
+                                        </label>
+
+                                        <label for="{{L.API_ID}}" class="scndCheckbox">
+                                          <input type="checkbox" [attr.domainName]="i.TAB_NAME"
+                                            [attr.subDomainName]="j.TAB_NAME"
+                                            (change)="multipleSelectAPI($event,$event.target.checked)"
+                                            [attr.selectAlldomainName]="i.TREE_ID+ k.TREE_ID"
+                                            [attr.parentName]="k.TAB_NAME" [attr.grandParentName]="j.TAB_NAME"
+                                            [attr.greatGrandParentName]="i.TAB_NAME" id="{{L.API_ID}}"
+                                            value="{{L.TAB_NAME}}" style="margin-left: -10px !important;"
+                                            #checkboxes>{{L.TAB_NAME}}</label>
                                       </div>
                                     </ng-template>
-                                    <p *ngIf="k.children; else other" class="margin_0px">{{k.TAB_NAME}}
+                                    <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
                                       <span class="inline_block pull-right"><img class="dropdownIcon"
-                                          src="assets/images/dropdown-2.svg" alt=""></span></p>
+                                          src="assets/images/dropdown-2.svg" alt=""></span>
+                                    </p>
                                   </a>
-                                  <!-- 3 level -->
-                                  <ul *ngFor="let L of k.children;let index=index" class="fourth-level display-none">
+                                  <!-- 4 level -->
+                                  <ul *ngFor="let M of L.children;let index=index" class="fifth-level display-none">
                                     <li>
-                                      <!-- 4 level -->
-                                      <a class="display-block cursor-pointer padding-left-20prcnt" *ngIf="L.display==1">
+                                      <!-- 5 level -->
+                                      <a class="display-block cursor-pointer padding-left-25prcnt" *ngIf="M.display==1">
+                                        <!-- <ng-template #other> <input type="checkbox" 
+                                              [attr.domainName]="" (change)="multipleSelectAPI($event,$event.target.checked)"    /></ng-template>{{k.TAB_NAME}} <span
+                                                                                          *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
+                                                                                            src="assets/images/dropdown-2.svg" alt=""></span> -->
                                         <ng-template #other>
-                                         
 
-                                          <div class="customcsscontainer"> 
-                                            <label  *ngIf="index==0" title="Select all" style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px; "><input type="checkbox" [attr.parentName]="k.TAB_NAME"  (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
-                                            
+
+                                          <div class="customcsscontainer">
+                                            <label *ngIf="index==0" title="Select all"
+                                              style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;"><input
+                                                type="checkbox" [attr.selectAlldomainName]="i.TREE_ID+ M.TREE_ID"
+                                                [attr.parentName]="L.TAB_NAME"
+                                                (change)="multipleSelectAPI($event,$event.target.checked)"
+                                                class="selectAll">
+
                                             </label>
 
-                                            <label for="{{L.API_ID}}"  class="scndCheckbox">
-                                              <input type="checkbox" 
-                                              [attr.domainName]="i.TAB_NAME"   [attr.subDomainName]="j.TAB_NAME"
-                                              (change)="multipleSelectAPI($event,$event.target.checked)" 
-                                              [attr.parentName]="k.TAB_NAME" [attr.grandParentName]="j.TAB_NAME" [attr.greatGrandParentName]="i.TAB_NAME" id="{{L.API_ID}}"
-                                                value="{{L.TAB_NAME}}"  style="margin-left: -10px !important;" #checkboxes>{{L.TAB_NAME}}</label></div>
+                                            <label for="M.API_ID" class="scndCheckbox">
+                                              <input type="checkbox" [attr.selectAlldomainName]="i.TREE_ID+ M.TREE_ID"
+                                                [attr.domainName]="i.TAB_NAME" [attr.subDomainName]="j.TAB_NAME"
+                                                (change)="multipleSelectAPI($event,$event.target.checked)"
+                                                id="{{M.API_ID}}" [attr.parentName]="L.TAB_NAME"
+                                                [attr.grandParentName]="k.TAB_NAME"
+                                                [attr.greatGrandParentName]="j.TAB_NAME"
+                                                [attr.greatGreatGrandParentName]="i.TAB_NAME" value="{{M.TAB_NAME}}"
+                                                style="margin-left: -10px !important;">
+                                              {{M.TAB_NAME}}</label>
+                                          </div>
                                         </ng-template>
-                                        <p *ngIf="L.children; else other" class="margin_0px">{{L.TAB_NAME}}
+                                        <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
                                           <span class="inline_block pull-right"><img class="dropdownIcon"
                                               src="assets/images/dropdown-2.svg" alt=""></span>
                                         </p>
                                       </a>
-                                      <!-- 4 level -->
-                                      <ul *ngFor="let M of L.children;let index=index" class="fifth-level display-none">
-                                        <li>
-                                          <!-- 5 level -->
-                                          <a class="display-block cursor-pointer padding-left-25prcnt" *ngIf="M.display==1">
-                                            <!-- <ng-template #other> <input type="checkbox" 
-                                              [attr.domainName]="" (change)="multipleSelectAPI($event,$event.target.checked)"    /></ng-template>{{k.TAB_NAME}} <span
-                                                                                          *ngIf="k.children; else other" class="margin_0px" class="inline_block pull-right"><img class="dropdownIcon" 
-                                                                                            src="assets/images/dropdown-2.svg" alt=""></span> -->
-                                            <ng-template #other>
-
-
-                                              <div class="customcsscontainer">
-                                              <label  *ngIf="index==0" title="Select all" style="position: absolute;position: inherit;margin-top: -40px!important;/* margin-left: -45px; */margin-top: -37px;/* margin-left: 340px; */float: right;margin-right: 25px;margin-top: -40px;margin-left: -45px;"><input type="checkbox"  [attr.parentName]="L.TAB_NAME"  (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
-                                              
-                                              </label>
-                                                
-                                                <label for="M.API_ID"  class="scndCheckbox">
-                                                 <input
-                                                    type="checkbox" 
-                                                    [attr.domainName]="i.TAB_NAME"   [attr.subDomainName]="j.TAB_NAME" 
-                                                    (change)="multipleSelectAPI($event,$event.target.checked)" id="{{M.API_ID}}"
-                                                    [attr.parentName]="L.TAB_NAME" [attr.grandParentName]="k.TAB_NAME" [attr.greatGrandParentName]="j.TAB_NAME" [attr.greatGreatGrandParentName]="i.TAB_NAME" 
-                                                    value="{{M.TAB_NAME}}"  style="margin-left: -10px !important;">
-                                                  {{M.TAB_NAME}}</label></div>
-                                            </ng-template>
-                                            <p *ngIf="M.children; else other" class="margin_0px">{{M.TAB_NAME}}
-                                              <span class="inline_block pull-right"><img class="dropdownIcon"
-                                                  src="assets/images/dropdown-2.svg" alt=""></span>
-                                            </p>
-                                          </a>
-                                          <!-- 5 level -->
-                                        </li>
-                                      </ul>
+                                      <!-- 5 level -->
                                     </li>
                                   </ul>
                                 </li>
@@ -426,25 +454,27 @@
                             </li>
                           </ul>
                         </li>
-                        
                       </ul>
-                      <!-- <span *ngIf="responseData.length === 0">No data</span> -->
-                      <!-- <p> Selected value: {{selectedValue | json}}{{responseData.length}} </p>
+                    </li>
+
+                  </ul>
+                  <!-- <span *ngIf="responseData.length === 0">No data</span> -->
+                  <!-- <p> Selected value: {{selectedValue | json}}{{responseData.length}} </p>
                       <pre>Form values: {{reactiveForm.value | json}}</pre> -->
 
-                      <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
-                    </div>
-                    <!-- <p class="error" *ngIf="apiGreenCheck!='valid'" hidden="{{showError}}">
+                  <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+                </div>
+                <!-- <p class="error" *ngIf="apiGreenCheck!='valid'" hidden="{{showError}}">
                     select atleast one value.
                   </p> -->
 
-                  </div>
-                  <div class="col-md-6"  *ngIf="selectedValue.length>0">
-                    <!--  Add cart here-->
-                    <div class=" ">
-                      <div class="card-body" >
-                        <label class="card-title" >Selected API</label>
-          <!-- {{selectedValue | json}}mmm
+              </div>
+              <div class="col-md-6" *ngIf="selectedValue.length>0">
+                <!--  Add cart here-->
+                <div class=" ">
+                  <div class="card-body">
+                    <label class="card-title">Selected API</label>
+                    <!-- {{selectedValue | json}}mmm
           <label *ngFor="let i of selectedAPINAME">
             <span class="domianName" *ngIf="i.greatGreatGrandParentName"> {{i.greatGreatGrandParentName}}>>>></span>
             <span  *ngIf="i.greatGrandParentName"> {{i.greatGrandParentName}}>>></span>
@@ -455,548 +485,573 @@
            
 
           </label> -->
-                        <div class="list-group cartApiContainer cart-scroll-y"  #cartApiContainer style="color: #ae282e;font-weight: bold;">
-                          <label *ngFor="let i of selectedValue"  style="border: 1px solid gainsboro;padding: 5px;margin-bottom: 0px;">
-                            <!-- {{i.greatGreatGrandParentName}} {{i.greatGrandParentName}}{{i.grandParentName}}{{i.parentName}}{{i.childName}} -->
-                            <span class="domianName" *ngIf="i.greatGreatGrandParentName"> {{i.greatGreatGrandParentName}}>>>></span>
-                            <span  *ngIf="i.greatGrandParentName"> {{i.greatGrandParentName}}>>></span>
-                            <span *ngIf="i.grandParentName">{{i.grandParentName}}>></span>
-                            <span *ngIf="i.parentName">{{i.parentName}}></span>
-                            <span *ngIf="i.childName"> {{i.childName}}</span>
-                            <span _ngcontent-c1="" class="pull-right" class="{{i.childName}}" id="{{i.id}}" (click)="deleteRemoveObjectFromCart($event)" style="cursor: pointer;float:right;" >✖</span>
-                           
-                       </label>
-                              <!-- {{selectedValue | json}} -->
-                        </div>
+                    <div class="list-group cartApiContainer cart-scroll-y" #cartApiContainer
+                      style="color: #ae282e;font-weight: bold;">
+                      <label *ngFor="let i of selectedValue"
+                        style="border: 1px solid gainsboro;padding: 5px;margin-bottom: 0px;">
+                        <!-- {{i.greatGreatGrandParentName}} {{i.greatGrandParentName}}{{i.grandParentName}}{{i.parentName}}{{i.childName}} -->
+                        <span class="domianName" *ngIf="i.greatGreatGrandParentName">
+                          {{i.greatGreatGrandParentName}}>>>></span>
+                        <span *ngIf="i.greatGrandParentName"> {{i.greatGrandParentName}}>>></span>
+                        <span *ngIf="i.grandParentName">{{i.grandParentName}}>></span>
+                        <span *ngIf="i.parentName">{{i.parentName}}></span>
+                        <span *ngIf="i.childName"> {{i.childName}}</span>
+                        <span _ngcontent-c1="" class="pull-right" class="{{i.childName}}" id="{{i.id}}"
+                          (click)="deleteRemoveObjectFromCart($event)" style="cursor: pointer;float:right;">✖</span>
 
-
-                      </div>
+                      </label>
+                      <!-- {{selectedValue | json}} -->
                     </div>
+
+
                   </div>
-
-
-
-                  <!-- Cart end here-->
-
-
-                  <div class="col-md-12">
-                    <button #continueButtonSecondSection class="signInBtn ContinueBtn btn-dark  pull-right"
-                      name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"
-                      disabled="" (click)="onClickContinueBtn()"> Continue
-                    </button>
-                  </div>
-                  <!-- ------------------------------------------------- -->
-
-                  <!-- =================================================== -->
                 </div>
-
-
-
-
-
               </div>
-  </div>
 
-  <div class="tab-pane fade " id="tab3" role="tabpanel"
-  aria-labelledby="nav-additional-tab" style=" padding-top: 20px; ">
-<div formGroupName="whitelistIpSection" class="row" id="whitelistIpSectionBasedOnSelection">
-  <div class="form-group col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'"></div>
-  <div _ngcontent-c5="" class="col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'">     
-  <div class="form-group col-md-12" *ngIf="compositePay[0] !='Composite Pay'">
-    <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5="" download="/API application form version 112020.pdf" href="/assets/pdf/API application form version 112020.pdf" style="color: #004a7f;margin-bottom: 0px;" target="_blank">Click here </a>to download the Application form</p><p _ngcontent-c5="" style="margin-bottom: 0px">The duly filled and signed form has to be uploaded along with certificate together as a zip file in the certificate upload field.</p></div></div>
-  </div>
-  <div class="form-group col-md-12" *ngIf="compositePay[0] =='Composite Pay'">
-    <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px">Click here to download the<a _ngcontent-c5="" download="/API application form version 112020.pdf" href="/assets/pdf/CAS onboarding form.pdf" style="color: #004a7f;margin-bottom: 0px;" target="_blank"> Application form </a></p><p _ngcontent-c5="" style="margin-bottom: 0px">and the <a _ngcontent-c5="" download="/Business requirement form.docx" href="/assets/pdf/Business requirement form.docx" style="color: #004a7f;margin-bottom: 0px;" target="_blank">Business requirement form</a>. The duly filled and signed forms have to be uploaded along with the certificate together as a zip file in the Document upload field</p></div></div>
-  </div>
-   
-  </div>
 
-  <div class="form-group col-md-6" *ngIf="accNo">
-    <!-- <div class="form-group col-md-6"> -->
 
-    <div><label for="contract">Account Number</label></div>
-    <input class="form-control col-md-11" placeholder="Your Account number" type="text"
-      formControlName="AccountNo" />
-  </div>
+              <!-- Cart end here-->
 
-  <div class="form-group col-md-6" *ngIf="accName">
-    <!-- <div class="form-group col-md-6"> -->
-    <div>
-      <label for="Acc_name">Account Name</label>
-    </div>
-    <input class="form-control col-md-11" placeholder="Account Name" type="text"
-      formControlName="Acc_name" />
-  </div>
 
-  <div class="form-group col-md-6" *ngIf="interAccNo">
-    <!-- <div class="form-group col-md-6"> -->
+              <div class="col-md-12">
+                <button #continueButtonSecondSection class="signInBtn ContinueBtn btn-dark  pull-right"
+                  name="continueBtn" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"
+                  disabled="" (click)="onClickContinueBtn()"> Continue
+                </button>
+              </div>
+              <!-- ------------------------------------------------- -->
 
-    <div>
-      <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
-    </div>
-    <input class="form-control col-md-11" placeholder="Customer Credit A/C Number" type="text"
-      formControlName="Account_no" />
-  </div>
+              <!-- =================================================== -->
+            </div>
 
-  <div class="form-group col-md-6" *ngIf="clientCode">
-    <div><label for="contract">Client code</label>
-      <a data-toggle="tooltip" [title]="clientCodeInfo"><img alt="loader" class="ml2 cursor_pointer"
-        src="assets/images/information.png"></a></div>
-    <input class="form-control col-md-11" placeholder="Your Client code" type="text"
-      formControlName="clientCode" />
-  </div>
 
-  <div class="form-group col-md-6" *ngIf="checksum">
-    <!-- <div class="form-group col-md-6"> -->
 
-    <div><label for="projectName">Checksum Required </label></div>
-    <span class="custom-dropdown">
-      <select class="form-control h40 col-md-11" formControlName="Checksum">
-        <option selected="selected">Select Checksum</option>
-        <option *ngFor="let option of yesNo" [value]="option">
-          {{option}}
-        </option>
-      </select>
-    </span>
-  </div>
 
-  <div class="form-group col-md-6" *ngIf="encryption">
-    <!-- <div class="form-group col-md-6"> -->
-    <div><label for="projectName">Encryption Required</label>
-      <a data-toggle="tooltip" 
-      title="Select Yes if you require encrypted data from bank."><img alt="loader"
-      class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
-    <span class="custom-dropdown">
-      <select class="form-control h40 col-md-11" formControlName="Encryption"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select Encryption</option>
-        <option *ngFor="let option of yesNo" [value]="option">
-          {{option}}
-        </option>
-      </select>
-    </span>
-  </div>
-  <div class="form-group col-md-6" *ngIf="service">
-    <!-- <div class="form-group col-md-6" > -->
 
-    <div>
-      <label for="projectName">Service Type</label>
-    </div>
-    <span class="custom-dropdown">
-      <select class="form-control h40 col-md-11" formControlName="web"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select Service Type</option>
-        <option *ngFor="let option of serviceTypeOption" [value]="option">
-          {{option}}
-        </option>
-      </select>
-    </span>
-  </div>
-  <div class="form-group col-md-6" *ngIf="message">
-    <!-- <div class="form-group col-md-6"> -->
+          </div>
+        </div>
 
-    <div>
-      <label for="projectName"> Communication Method</label>
-      <a data-toggle="tooltip" 
-      title="Select the prefrable communication method."><img alt="loader"
-      class="ml2 cursor_pointer" src="assets/images/information.png"></a>
-    </div>
-    <span class="custom-dropdown">
-      <select class="form-control h40 col-md-11" formControlName="message"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select Communication Method</option>
-        <option *ngFor="let option of comTypeOption" [value]="option">
-          {{option}}
-        </option>
-      </select>
-    </span>
-  </div>
+        <div class="tab-pane fade " id="tab3" role="tabpanel" aria-labelledby="nav-additional-tab"
+          style=" padding-top: 20px; ">
+          <div formGroupName="whitelistIpSection" class="row" id="whitelistIpSectionBasedOnSelection">
+            <div class="form-group col-md-6"
+              *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'"></div>
+            <div _ngcontent-c5="" class="col-md-6"
+              *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'">
+              <div class="form-group col-md-12" *ngIf="compositePay[0] !='Composite Pay'">
+                <div class="form-group">
+                  <div class="form-control col-md-11 "
+                    style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;">
+                    <p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5=""
+                        download="/API application form version 103020.pdf"
+                        href="/assets/pdf/API application form version 103020.pdf"
+                        style="color: #004a7f;margin-bottom: 0px;" target="_blank">Click here </a>to download the
+                      Application form</p>
+                    <p _ngcontent-c5="" style="margin-bottom: 0px">The duly filled and signed form has to be uploaded
+                      along with certificate together as a zip file in the certificate upload field.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-12" *ngIf="compositePay[0] =='Composite Pay'">
+                <div class="form-group">
+                  <div class="form-control col-md-11 "
+                    style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;">
+                    <p _ngcontent-c5="" style="margin-bottom: 0px">Click here to download the<a _ngcontent-c5=""
+                        download="/API application form version 112020.pdf" href="/assets/pdf/CAS onboarding form.pdf"
+                        style="color: #004a7f;margin-bottom: 0px;" target="_blank"> Application form </a></p>
+                    <p _ngcontent-c5="" style="margin-bottom: 0px">and the <a _ngcontent-c5=""
+                        download="/Business requirement form.docx" href="/assets/pdf/Business requirement form.docx"
+                        style="color: #004a7f;margin-bottom: 0px;" target="_blank">Business requirement form</a>. The
+                      duly filled and signed forms have to be uploaded along with the certificate together as a zip file
+                      in the Document upload field</p>
+                  </div>
+                </div>
+              </div>
 
-  <div class="form-group col-md-6" *ngIf="ifsc">
-    <!-- <div class="form-group col-md-6"> -->
+            </div>
 
-    <div>
-      <label for="projectName">IFSC code to be given to the remitter while initiating
-        payment
-      </label>
-    </div>
-    <span class="custom-dropdown">
-      <select formControlName="IFSC_Code" class="form-control h40 col-md-11"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select IFSC Code</option>
-        <option *ngFor="let option of ifscCodeOption" [value]="option">
-          {{option}}
-        </option>
-      </select>
-    </span>
-  </div>
+            <div class="form-group col-md-6" *ngIf="accNo">
+              <!-- <div class="form-group col-md-6"> -->
 
-  <div class="form-group col-md-6" *ngIf="virtualCode">
-    <!-- <div class="form-group col-md-6"> -->
+              <div><label for="contract">Account Number</label></div>
+              <input class="form-control col-md-11" placeholder="Your Account number" type="text"
+                formControlName="AccountNo" />
+            </div>
 
-    <div>
-      <label for="contract">4,3 or 6 Character Virtual Code</label>
-    </div>
-    <input class="form-control col-md-11" placeholder="Your Virtual Code" type="text"
-      formControlName="virtualCode" />
-  </div>
+            <div class="form-group col-md-6" *ngIf="accName">
+              <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Acc_name">Account Name</label>
+              </div>
+              <input class="form-control col-md-11" placeholder="Account Name" type="text" formControlName="Acc_name" />
+            </div>
 
-  <div class="form-group col-md-6" *ngIf="ips">
-    <!-- <div class="form-group col-md-6"> -->
+            <div class="form-group col-md-6" *ngIf="interAccNo">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div><label for="contract">IPS Refund Code</label></div>
-    <input class="form-control col-md-11" placeholder="IPS Refund Code" type="text"
-      formControlName="refundCode" />
-  </div>
+              <div>
+                <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
+              </div>
+              <input class="form-control col-md-11" placeholder="Customer Credit A/C Number" type="text"
+                formControlName="Account_no" />
+            </div>
 
-  <div class="form-group col-md-6" *ngIf="authLevel">
-    <!-- <div class="form-group col-md-6"> -->
+            <div class="form-group col-md-6" *ngIf="clientCode">
+              <div><label for="contract">Client code</label>
+                <a data-toggle="tooltip" [title]="clientCodeInfo"><img alt="loader" class="ml2 cursor_pointer"
+                    src="assets/images/information.png"></a>
+              </div>
+              <input class="form-control col-md-11" placeholder="Your Client code" type="text"
+                formControlName="clientCode" />
+            </div>
 
-    <div>
-      <label for="Auth_level">Authorization Level</label>
-    </div>
-    <input class="form-control col-md-11" placeholder="Authorization Level" type="text"
-      formControlName="Auth_level" />
-  </div>
-  <div class="form-group col-md-6" *ngIf="urn">
-    <!-- <div class="form-group col-md-6"> -->
+            <div class="form-group col-md-6" *ngIf="checksum">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div>
-      <label for="Urn">URN</label>
-    </div>
-    <input class="form-control col-md-11" placeholder="URN" type="text" formControlName="Urn" />
-  </div>
-  <div class="form-group col-md-6" *ngIf="env">
+              <div><label for="projectName">Checksum Required </label></div>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Checksum">
+                  <option selected="selected">Select Checksum</option>
+                  <option *ngFor="let option of yesNo" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
 
-    <!-- <div class="form-group col-md-6"> -->
-    <div>
-      <label for="Acc_env">Environment</label>
-    </div>
-    <span class="custom-dropdown">
-      <select class="form-control h40 col-md-11" formControlName="Acc_env"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select Environment</option>
-        <option *ngFor="let option of environmentOption" [value]="option">
-          {{option}}
-        </option>
-      </select>
-    </span>
-  </div>
+            <div class="form-group col-md-6" *ngIf="encryption">
+              <!-- <div class="form-group col-md-6"> -->
+              <div><label for="projectName">Encryption Required</label>
+                <a data-toggle="tooltip" title="Select Yes if you require encrypted data from bank."><img alt="loader"
+                    class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+              </div>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Encryption"
+                  (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select Encryption</option>
+                  <option *ngFor="let option of yesNo" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div class="form-group col-md-6" *ngIf="service">
+              <!-- <div class="form-group col-md-6" > -->
 
-  <div class="form-group col-md-6" *ngIf="valid">
+              <div>
+                <label for="projectName">Service Type</label>
+              </div>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="web" (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select Service Type</option>
+                  <option *ngFor="let option of serviceTypeOption" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div class="form-group col-md-6" *ngIf="message">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <!-- <div class="form-group col-md-6"> -->
-    <div>
-      <label for="Acc_validation"> Amount Validation Required?</label>
-    </div>
-    <!-- <input class="form-control col-md-11" placeholder="Validation Mode" type="text"
+              <div>
+                <label for="projectName"> Communication Method</label>
+                <a data-toggle="tooltip" title="Select the prefrable communication method."><img alt="loader"
+                    class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+              </div>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="message"
+                  (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select Communication Method</option>
+                  <option *ngFor="let option of comTypeOption" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="ifsc">
+              <!-- <div class="form-group col-md-6"> -->
+
+              <div>
+                <label for="projectName">IFSC code to be given to the remitter while initiating
+                  payment
+                </label>
+              </div>
+              <span class="custom-dropdown">
+                <select formControlName="IFSC_Code" class="form-control h40 col-md-11"
+                  (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select IFSC Code</option>
+                  <option *ngFor="let option of ifscCodeOption" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="virtualCode">
+              <!-- <div class="form-group col-md-6"> -->
+
+              <div>
+                <label for="contract">4,3 or 6 Character Virtual Code</label>
+              </div>
+              <input class="form-control col-md-11" placeholder="Your Virtual Code" type="text"
+                formControlName="virtualCode" />
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="ips">
+              <!-- <div class="form-group col-md-6"> -->
+
+              <div><label for="contract">IPS Refund Code</label></div>
+              <input class="form-control col-md-11" placeholder="IPS Refund Code" type="text"
+                formControlName="refundCode" />
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="authLevel">
+              <!-- <div class="form-group col-md-6"> -->
+
+              <div>
+                <label for="Auth_level">Authorization Level</label>
+              </div>
+              <input class="form-control col-md-11" placeholder="Authorization Level" type="text"
+                formControlName="Auth_level" />
+            </div>
+            <div class="form-group col-md-6" *ngIf="urn">
+              <!-- <div class="form-group col-md-6"> -->
+
+              <div>
+                <label for="Urn">URN</label>
+              </div>
+              <input class="form-control col-md-11" placeholder="URN" type="text" formControlName="Urn" />
+            </div>
+            <div class="form-group col-md-6" *ngIf="env">
+
+              <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Acc_env">Environment</label>
+              </div>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Acc_env"
+                  (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select Environment</option>
+                  <option *ngFor="let option of environmentOption" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="valid">
+
+              <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Acc_validation"> Amount Validation Required?</label>
+              </div>
+              <!-- <input class="form-control col-md-11" placeholder="Validation Mode" type="text"
     formControlName="Acc_validation" /> -->
 
-    <span class="custom-dropdown">
-      <select formControlName="Acc_validation" class="form-control h40 col-md-11"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select Amount Validation</option>
-        <option *ngFor="let option of yesNo" [value]="option">
-          {{option}}
-        </option>
+              <span class="custom-dropdown">
+                <select formControlName="Acc_validation" class="form-control h40 col-md-11"
+                  (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select Amount Validation</option>
+                  <option *ngFor="let option of yesNo" [value]="option">
+                    {{option}}
+                  </option>
 
-      </select>
-    </span>
-  </div>
+                </select>
+              </span>
+            </div>
 
-  <div class="form-group col-md-6" *ngIf="accept">
+            <div class="form-group col-md-6" *ngIf="accept">
 
-    <!-- <div class="form-group col-md-6"> -->
-    <div>
-      <label for="Acc_acceptance">Acceptance Mode</label>
-    </div>
-    <!--<input class="form-control col-md-11" placeholder="Acceptance Mode" type="text"
+              <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Acc_acceptance">Acceptance Mode</label>
+              </div>
+              <!--<input class="form-control col-md-11" placeholder="Acceptance Mode" type="text"
       formControlName="Acc_acceptance" />-->
-    <span class="custom-dropdown">
-      <select formControlName="Acc_acceptance" class="form-control h40 col-md-11"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select Acceptance Mode</option>
+              <span class="custom-dropdown">
+                <select formControlName="Acc_acceptance" class="form-control h40 col-md-11"
+                  (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select Acceptance Mode</option>
 
-        <option *ngFor="let option of paymentMode" [value]="option">
-          {{option}}
-        </option>
+                  <option *ngFor="let option of paymentMode" [value]="option">
+                    {{option}}
+                  </option>
 
-      </select>
-    </span>
-  </div>
-  <div class="form-group col-md-6" *ngIf="recipient">
-    <!-- <div class="form-group col-md-6"> -->
+                </select>
+              </span>
+            </div>
+            <div class="form-group col-md-6" *ngIf="recipient">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div>
-      <label for="Rec_mail">Recipient Mail ID</label>
-    </div>
-    <input class="form-control col-md-11" placeholder="Recipient Mail ID" type="text"
-      formControlName="Rec_mail" />
-  </div>
-  <div class="form-group col-md-6" *ngIf="mode">
-    <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Rec_mail">Recipient Mail ID</label>
+              </div>
+              <input class="form-control col-md-11" placeholder="Recipient Mail ID" type="text"
+                formControlName="Rec_mail" />
+            </div>
+            <div class="form-group col-md-6" *ngIf="mode">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div>
-      <label for="Acc_mode">Mode Offered</label>
-    </div>
-    <input class="form-control col-md-11" placeholder="Mode Offered" type="text"
-      formControlName="Acc_mode" />
-  </div>
-  <div class="form-group col-md-6" *ngIf="trans">
-    <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Acc_mode">Mode Offered</label>
+              </div>
+              <input class="form-control col-md-11" placeholder="Mode Offered" type="text" formControlName="Acc_mode" />
+            </div>
+            <div class="form-group col-md-6" *ngIf="trans">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div>
-      <label for="Acc_trans">Transaction limit for per transaction</label>
-    </div>
-    <input type="number" class="form-control col-md-11" max="5" formControlName="Acc_trans" />
-  </div>
-  <div class="form-group col-md-6" *ngIf="amount">
-    <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Acc_trans">Transaction limit for per transaction</label>
+              </div>
+              <input type="number" class="form-control col-md-11" max="5" formControlName="Acc_trans" />
+            </div>
+            <div class="form-group col-md-6" *ngIf="amount">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div>
-      <label for="Acc_amount"> Amount Field</label>
-    </div>
-    <span class="custom-dropdown">
-      <select class="form-control h40 col-md-11" formControlName="Acc_amount"
-        (change)="selectChangeHandler($event)">
-        <option selected="selected">Select Amount</option>
-        <option>Editable</option>
-        <option>Non- Editable</option>
-      </select>
-    </span>
-  </div>
-  <div class="form-group col-md-6" *ngIf="headers">
-    <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Acc_amount"> Amount Field</label>
+              </div>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Acc_amount"
+                  (change)="selectChangeHandler($event)">
+                  <option selected="selected">Select Amount</option>
+                  <option>Editable</option>
+                  <option>Non- Editable</option>
+                </select>
+              </span>
+            </div>
+            <div class="form-group col-md-6" *ngIf="headers">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div>
-      <label for="Header">Header</label>
-    </div>
-    <input class="form-control  col-md-11" placeholder="Header" type="text"
-      formControlName="header" />
-  </div>
-  <div class="form-group col-md-6" *ngIf="uatTestingID">
-    <!-- <div class="form-group col-md-6"> -->
+              <div>
+                <label for="Header">Header</label>
+              </div>
+              <input class="form-control  col-md-11" placeholder="Header" type="text" formControlName="header" />
+            </div>
+            <div class="form-group col-md-6" *ngIf="uatTestingID">
+              <!-- <div class="form-group col-md-6"> -->
 
-    <div>
-      <label for="TestingID">TestingID</label>
-    </div>
-    <input class="form-control  col-md-11" placeholder="TestingID" type="text"
-      formControlName="uatTestingID" />
-    <!-- validation -->
-    <!-- <div
+              <div>
+                <label for="TestingID">TestingID</label>
+              </div>
+              <input class="form-control  col-md-11" placeholder="TestingID" type="text"
+                formControlName="uatTestingID" />
+              <!-- validation -->
+              <!-- <div
       *ngIf="!reactiveForm.get('whitelistIpSection.TestingID').valid && reactiveForm.get('whitelistIpSection.TestingID').touched"
       class="text-danger form-error">
       Testing ID is required.
     </div> -->
-    <!-- ======== -->
-  </div>
+              <!-- ======== -->
+            </div>
 
-  <!-- ============================= -->
-  <div class="form-group col-md-6 countUrl" *ngIf="url">
-    <div class="width_100prcnt"><label>Callback URL</label>
-      <a data-toggle="tooltip" *ngIf="selectedValue[0]['parentName']=='iSurepay (Cash/Cheque/DD Deposit)'" title="URL should start with Https, we require 2 webservice URL for validating"><img alt="loader" class="ml2 cursor_pointer"
-          src="assets/images/information.png"></a>
-         
-          <a data-toggle="tooltip" *ngIf="selectedValue[0]['parentName']!='iSurepay (Cash/Cheque/DD Deposit)'" title="It should be domain based & start with https"><img alt="loader" class="ml2 cursor_pointer"
-            src="assets/images/information.png"></a>
-        </div>
-    <div formArrayName="url" class="form-group">
-      <!-- =================== -->
-      <div class="row  mb-2"
-        *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('url').controls; let i=index">
+            <!-- ============================= -->
+            <div class="form-group col-md-6 countUrl" *ngIf="url">
+              <div class="width_100prcnt"><label>Callback URL</label>
+                <a data-toggle="tooltip" *ngIf="selectedValue[0]['parentName']=='iSurepay (Cash/Cheque/DD Deposit)'"
+                  title="URL should start with Https, we require 2 webservice URL for validating"><img alt="loader"
+                    class="ml2 cursor_pointer" src="assets/images/information.png"></a>
 
-        <div class="input-group  col-md-11">
-          <input type="text" class="form-control  urlValues" formControlName="{{i}}"
-            placeholder="Your URL" aria-label="URL" aria-describedby="basic-addon2">
+                <a data-toggle="tooltip" *ngIf="selectedValue[0]['parentName']!='iSurepay (Cash/Cheque/DD Deposit)'"
+                  title="It should be domain based & start with https"><img alt="loader" class="ml2 cursor_pointer"
+                    src="assets/images/information.png"></a>
+              </div>
+              <div formArrayName="url" class="form-group">
+                <!-- =================== -->
+                <div class="row  mb-2"
+                  *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('url').controls; let i=index">
 
-          <div class="input-group-append">
-            <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
-              (click)="addNewURLField()">+</span>
-            <span *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2"
-              (click)="deleteURLRow(i)">-</span>
-          </div>
+                  <div class="input-group  col-md-11">
+                    <input type="text" class="form-control  urlValues" formControlName="{{i}}" placeholder="Your URL"
+                      aria-label="URL" aria-describedby="basic-addon2">
 
-        </div>
-        <!-- <i *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].valid"
+                    <div class="input-group-append">
+                      <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                        (click)="addNewURLField()">+</span>
+                      <span *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                        (click)="deleteURLRow(i)">-</span>
+                    </div>
+
+                  </div>
+                  <!-- <i *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].valid"
           class="fa fa-check-circle orange col-md-1 margin_3px margin-leftminus15"
           aria-hidden="true"></i>-->
-        <div
-          *ngIf="!reactiveForm.get('whitelistIpSection').get('url').controls[i].valid && reactiveForm.get('whitelistIpSection').get('url').controls[i].touched"
-          class="text-danger form-error col-md-12">
-          <!-- <span *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.required">
+                  <div
+                    *ngIf="!reactiveForm.get('whitelistIpSection').get('url').controls[i].valid && reactiveForm.get('whitelistIpSection').get('url').controls[i].touched"
+                    class="text-danger form-error col-md-12">
+                    <!-- <span *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.required">
             URL is required.</span>-->
-          <span
-            *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.pattern">Please
-            enter correct URL</span>
-        </div>
-      </div>
+                    <span *ngIf="reactiveForm.get('whitelistIpSection').get('url').controls[i].errors.pattern">Please
+                      enter correct URL</span>
+                  </div>
+                </div>
 
-      <!-- ==================== -->
-    </div>
-  </div>
-  <!-- =============================== -->
-  <!-- --------------------ip -->
-  <div class="form-group col-md-6  countIp" id="addIPUnique" *ngIf="ip">
-    <div class="width_100prcnt"><label for="contract">IP<span class="text-danger"> *</span></label>
-      <a data-toggle="tooltip" title="For dynamic IPs please provide range of IP addresses. You can add maximum 10 IP"><img alt="loader"
-          class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
-    <div formArrayName="ip" class="form-group">
-      <!-- =================== -->
-      <div class="row  mb-2"
-        *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('ip').controls; let i=index">
+                <!-- ==================== -->
+              </div>
+            </div>
+            <!-- =============================== -->
+            <!-- --------------------ip -->
+            <div class="form-group col-md-6  countIp" id="addIPUnique" *ngIf="ip">
+              <div class="width_100prcnt"><label for="contract">IP<span class="text-danger"> *</span></label>
+                <a data-toggle="tooltip"
+                  title="For dynamic IPs please provide range of IP addresses. You can add maximum 10 IP"><img
+                    alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+              </div>
+              <div formArrayName="ip" class="form-group">
+                <!-- =================== -->
+                <div class="row  mb-2"
+                  *ngFor="let itemrow of reactiveForm.get('whitelistIpSection').get('ip').controls; let i=index">
 
-        <div class="input-group  col-md-11">
-          <input type="text" class="form-control mainField ipValues" formControlName="{{i}}"
-            placeholder="Your IP" aria-label="IP" aria-describedby="basic-addon2">
+                  <div class="input-group  col-md-11">
+                    <input type="text" class="form-control mainField ipValues" formControlName="{{i}}"
+                      placeholder="Your IP" aria-label="IP" aria-describedby="basic-addon2">
 
-          <div class="input-group-append">
-            <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
-              (click)="addNewIPField()">+</span>
-            <span *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2"
-              (click)="deleteRow(i)">-</span>
-          </div>
+                    <div class="input-group-append">
+                      <span *ngIf="i == 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                        (click)="addNewIPField()">+</span>
+                      <span *ngIf=" i> 0" class="input-group-text add-ip-addon" id="basic-addon2"
+                        (click)="deleteRow(i)">-</span>
+                    </div>
 
-        </div>
-        <i *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid"
-          class="fa fa-check-circle orange col-md-1 margin_3px margin-leftminus15"
-          aria-hidden="true"></i>
-        <div
-          *ngIf="!reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid && reactiveForm.get('whitelistIpSection').get('ip').controls[i].touched"
-          class="text-danger form-error col-md-12">
-          <span *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].errors.required">
-            IP
-            is required.</span>
-          <span
-            *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].errors.pattern">Please
-            enter correct IP</span>
-        </div>
-      </div>
+                  </div>
+                  <i *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid"
+                    class="fa fa-check-circle orange col-md-1 margin_3px margin-leftminus15" aria-hidden="true"></i>
+                  <div
+                    *ngIf="!reactiveForm.get('whitelistIpSection').get('ip').controls[i].valid && reactiveForm.get('whitelistIpSection').get('ip').controls[i].touched"
+                    class="text-danger form-error col-md-12">
+                    <span *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].errors.required">
+                      IP
+                      is required.</span>
+                    <span *ngIf="reactiveForm.get('whitelistIpSection').get('ip').controls[i].errors.pattern">Please
+                      enter correct IP</span>
+                  </div>
+                </div>
 
-      <!-- ==================== -->
-    </div>
-  </div>
- <!--  <div _ngcontent-c5="" class="col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'"> 
+                <!-- ==================== -->
+              </div>
+            </div>
+            <!--  <div _ngcontent-c5="" class="col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'"> 
     
     
     <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5="" download="/API application form version 112020.pdf" href="/assets/pdf/API application form version 112020.pdf" style="color: #004a7f;margin-bottom: 0px;" target="_blank">Click here </a>to download the application form</p><p _ngcontent-c5="" style="margin-bottom: 0px">The duly filled and signed form has to be uploaded along with certificate together as a zip file in the certificate upload field.</p></div></div></div>
  -->
-  <div class="form-group col-md-6" *ngIf="port">
-    <div class="width_100prcnt"><label for="contract">Port</label><a data-toggle="tooltip" 
-      title="Please provide if Port needs to be open, ICICI default Port is 8443."><img alt="loader"
-      class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
-    <input class="form-control col-md-11" placeholder="Your Port" formControlName="port"
-      type="text" />
+            <div class="form-group col-md-6" *ngIf="port">
+              <div class="width_100prcnt"><label for="contract">Port</label><a data-toggle="tooltip"
+                  title="Please provide if Port needs to be open, ICICI default Port is 8443."><img alt="loader"
+                    class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
+              <input class="form-control col-md-11" placeholder="Your Port" formControlName="port" type="text" />
 
-  </div>
-  <!-- ---------------------port -->
-  <div class="form-group col-md-6" *ngIf="certificate">
-    <!-- <div class="form-group col-md-6"> -->
-    <div><label for="projectName">Certificate</label></div>
-    <span class="custom-dropdown">
-      <select class="form-control h40 col-md-11" formControlName="Certificate">
-        <option selected="selected">Select Certificate</option>
-        <option *ngFor="let option of certificateOption" [value]="option">
-          {{option}}
-        </option>
-      </select>
-    </span>
-  </div>
+            </div>
+            <!-- ---------------------port -->
+            <div class="form-group col-md-6" *ngIf="certificate">
+              <!-- <div class="form-group col-md-6"> -->
+              <div><label for="projectName">Certificate</label></div>
+              <span class="custom-dropdown">
+                <select class="form-control h40 col-md-11" formControlName="Certificate">
+                  <option selected="selected">Select Certificate</option>
+                  <option *ngFor="let option of certificateOption" [value]="option">
+                    {{option}}
+                  </option>
+                </select>
+              </span>
+            </div>
 
-  <div class="form-group col-md-6" *ngIf="refJIRAID">
-    <div>
-      <label for="refJIRAID">Reference JIRA ID</label>
-    </div>
-    <input class="form-control  col-md-11" placeholder="Reference JIRA ID" type="text"
-      formControlName="refJIRAID" />
-  </div>
-  <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="EmpID">
-    <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Channel Id <span class="text-danger"> *</span></label>
-      <a _ngcontent-c5="" data-toggle="tooltip" title="Please contact your RM for the Channel.">
-        <img _ngcontent-c5="" alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png">
-      </a>
-    </div>
-    <input _ngcontent-c7="" class="form-control col-md-11 ng-untouched ng-pristine ng-valid" formcontrolname="EmpID"
-      placeholder="Your Channel Employee ID" type="text">
-       <!-- validation -->
-       <div
-       *ngIf="!reactiveForm.get('whitelistIpSection.EmpID').valid && reactiveForm.get('whitelistIpSection.EmpID').touched"
-       class="text-danger form-error">
-       EmpID is required.
-     </div>
-     <!-- ======== -->
-  </div>
-  <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="SOLID">
-    <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Branch SOL ID <span class="text-danger">
-          *</span></label><a _ngcontent-c5="" data-toggle="tooltip"
-        title="Please enter the first four digitsof your account number."><img _ngcontent-c5="" alt="loader"
-          class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
-    <input _ngcontent-c7="" class="form-control col-md-11 ng-untouched ng-pristine ng-valid" formcontrolname="SOLID"
-      placeholder="Your Branch SOL ID" type="text">
-       <!-- validation -->
-       <div
-       *ngIf="!reactiveForm.get('whitelistIpSection.SOLID').valid && reactiveForm.get('whitelistIpSection.SOLID').touched"
-       class="text-danger form-error">
-       Branch SOL ID  is required.
-     </div>
-     <!-- ======== -->
-  </div>
+            <div class="form-group col-md-6" *ngIf="refJIRAID">
+              <div>
+                <label for="refJIRAID">Reference JIRA ID</label>
+              </div>
+              <input class="form-control  col-md-11" placeholder="Reference JIRA ID" type="text"
+                formControlName="refJIRAID" />
+            </div>
+            <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="EmpID">
+              <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Channel Id <span class="text-danger">
+                    *</span></label>
+                <a _ngcontent-c5="" data-toggle="tooltip" title="Please contact your RM for the Channel.">
+                  <img _ngcontent-c5="" alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png">
+                </a>
+              </div>
+              <input _ngcontent-c7="" class="form-control col-md-11 ng-untouched ng-pristine ng-valid"
+                formcontrolname="EmpID" placeholder="Your Channel Employee ID" type="text">
+              <!-- validation -->
+              <div
+                *ngIf="!reactiveForm.get('whitelistIpSection.EmpID').valid && reactiveForm.get('whitelistIpSection.EmpID').touched"
+                class="text-danger form-error">
+                EmpID is required.
+              </div>
+              <!-- ======== -->
+            </div>
+            <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="SOLID">
+              <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Branch SOL ID <span class="text-danger">
+                    *</span></label><a _ngcontent-c5="" data-toggle="tooltip"
+                  title="Please enter the first four digitsof your account number."><img _ngcontent-c5="" alt="loader"
+                    class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
+              <input _ngcontent-c7="" class="form-control col-md-11 ng-untouched ng-pristine ng-valid"
+                formcontrolname="SOLID" placeholder="Your Branch SOL ID" type="text">
+              <!-- validation -->
+              <div
+                *ngIf="!reactiveForm.get('whitelistIpSection.SOLID').valid && reactiveForm.get('whitelistIpSection.SOLID').touched"
+                class="text-danger form-error">
+                Branch SOL ID is required.
+              </div>
+              <!-- ======== -->
+            </div>
 
-  <!-- ===================================== -->
- 
-  <div class="form-group col-md-6">
-    <label for="r_m_maild_id">Document Upload <span class="text-danger"> *</span></label>
-    <a data-toggle="tooltip"
-      title="Please upload API Application form & SSL certificate & public certificate in zip format. Certificate should be of 4096 bit."><img alt="loader"
-        class="ml2 cursor_pointer" src="assets/images/information.png"></a>
-    <input type="file"
-    (change)="upload($event.target.files[0])"
-      accept="zip,application/zip,application/x-zip,application/x-zip-compressed"
-      id="file1" formControlName="file1"
-      class="form-control input_type_attachment mainField col-md-11 inline_block">
-    <i *ngIf="reactiveForm.get('whitelistIpSection.file1').valid"
-      class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
-        <!--progress bar  (change)="upload($event.target.files[0])"-->
-        <div class="progress" *ngIf="progress">
-          <div class="progress-bar" [style.width]="progress + '%'">{{progress}}%</div>
+            <!-- ===================================== -->
+
+            <div class="form-group col-md-6">
+              <label for="r_m_maild_id">Document Upload <span class="text-danger"> *</span></label>
+              <a data-toggle="tooltip"
+                title="Please upload API Application form & SSL certificate & public certificate in zip format. Certificate should be of 4096 bit."><img
+                  alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+              <input type="file" (change)="upload($event.target.files[0])"
+                accept="zip,application/zip,application/x-zip,application/x-zip-compressed" id="file1"
+                formControlName="file1" class="form-control input_type_attachment mainField col-md-11 inline_block">
+              <i *ngIf="reactiveForm.get('whitelistIpSection.file1').valid"
+                class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
+              <!--progress bar  (change)="upload($event.target.files[0])"-->
+              <div class="progress" *ngIf="progress">
+                <div class="progress-bar" [style.width]="progress + '%'">{{progress}}%</div>
+              </div>
+              <!--progess bar end-->
+              <div
+                *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
+                class="text-danger form-error">
+                Certificate Upload is required.
+              </div>
+            </div>
+            <!-- (click)="downloadPDF('/assets/pdf/test.pdf','test.pdf')" =========-->
+            <div class="customcsscontainerForTnC col-md-12">
+              <label for="checkbox">
+                <input type="checkbox" id="checkbox" formControlName="checkBox" class="">
+                I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
+              <span><a   class="anchor_color" download = "/test.pdf" href = "/assets/pdf/test.pdf"> Click here to
+                  download</a><span class="text-danger"> *</span></span>
+              <div
+                *ngIf="!reactiveForm.get('whitelistIpSection.checkBox').valid && reactiveForm.get('whitelistIpSection.checkBox').touched"
+                class="text-danger" id="checkbox-error">I ACCEPT NON-DISCLOSURE AGREEMENT is required.
+              </div>
+            </div>
+            <!-- ======= -->
+            <!-- <div _ngcontent-c1="" class="col-md-12"><button _ngcontent-c1="" class="signInBtn btn-dark" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"> Submit </button></div> -->
+
+            <div class="col-md-12">
+              <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
+                ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid " (click)="onSubmitUATForm(Prodconfirm)"
+                id="submitButton"> Submit
+              </button>
+            </div>
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          </div>
         </div>
-        <!--progess bar end-->
-    <div
-      *ngIf="!reactiveForm.get('whitelistIpSection.file1').valid && reactiveForm.get('whitelistIpSection.file1').touched"
-      class="text-danger form-error">
-      Certificate Upload is required.
-    </div>
-  </div>
-  <!--  =========-->
-  <div class="customcsscontainerForTnC col-md-12">
-    <label for="checkbox">
-      <input type="checkbox" id="checkbox" formControlName="checkBox" class="">
-      I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
-    <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color"> Click here to
-        download</a><span class="text-danger"> *</span></span>
-    <div
-      *ngIf="!reactiveForm.get('whitelistIpSection.checkBox').valid && reactiveForm.get('whitelistIpSection.checkBox').touched"
-      class="text-danger" id="checkbox-error">I ACCEPT NON-DISCLOSURE AGREEMENT is required.
-    </div>
-  </div>
-  <!-- ======= -->
-  <!-- <div _ngcontent-c1="" class="col-md-12"><button _ngcontent-c1="" class="signInBtn btn-dark" ng-reflect-klass="signInBtn" ng-reflect-ng-class="btn-dark" type="button"> Submit </button></div> -->
+      </div>
+    </form>
 
-  <div class="col-md-12">
-    <button class="signInBtn btn-dark pull-right" type="button" ng-reflect-klass="signInBtn"
-      ng-reflect-ng-class="btn-dark" [disabled]="!reactiveForm.valid "
-      (click)="onSubmitUATForm(Prodconfirm)" id="submitButton"> Submit
-    </button></div>
-  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-</div>
-</div>
-</div>
-</form>
-
-<!-- =============================================================================== -->
-<!-- =============================================================================== -->
+    <!-- =============================================================================== -->
+    <!-- =============================================================================== -->
 
 
 
 
-    
+
   </div>

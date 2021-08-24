@@ -30,7 +30,8 @@ import {
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { ChangePasswordComponent } from "./change-password/change-password.component";
-//import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { ManageUserRoleComponent } from './manage-user-role/manage-user-role.component';
 //import { CarouselComponent } from './carousel/carousel.component';
 @NgModule({
   imports: [
@@ -48,8 +49,8 @@ import { ChangePasswordComponent } from "./change-password/change-password.compo
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    // RecaptchaModule,
-    // RecaptchaFormsModule
+     RecaptchaModule,
+     RecaptchaFormsModule
   ],
 
   declarations: [
@@ -63,7 +64,8 @@ import { ChangePasswordComponent } from "./change-password/change-password.compo
     NDAComponent,
     ContractComponent,
     FocusOnShowDirective,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ManageUserRoleComponent
     
   ]
 

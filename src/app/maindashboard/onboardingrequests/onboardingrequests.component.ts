@@ -60,22 +60,14 @@ export class OnboardingrequestsComponent implements OnInit {
 
       var obj = JSON.parse(response);
       this.onoardingRequestTableData=obj;
-      console.log(this.onoardingRequestTableData)
-      console.log(this.onoardingRequestTableData.length)
       this.onoardingRequestTableData.forEach( (myObject, index) => {
         //console.log(myObject)
         if(myObject.JiraStatus!=404){
-          console.log(myObject.JiraStatus)
-          console.log(myObject)
+          
           this.dataSource.push( myObject);
-         // this.dataSource = this.onoardingRequestTableData;
-          console.log( this.dataSource)
+        
         }
       });
-
-      console.log( this.dataSource)
-   
-     
       this.spinnerService.hide();
     },
     err => {

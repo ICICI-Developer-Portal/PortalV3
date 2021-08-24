@@ -568,7 +568,9 @@ input:focus {
   color: #919191 !important;
 }
 .signInBtn:hover{
-  color: white !important;
+  background: #ae282e;
+  color: #ffffff !important;  
+  border: none;
 }
 .signInBtn[disabled] {
   cursor: not-allowed;

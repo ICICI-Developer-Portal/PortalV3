@@ -14,7 +14,7 @@
                         <th scope="col">Request ID</th>
                         <th scope="col">Request Status</th>
                         <th scope="col">Domain</th>
-                        <th scope="col">APIs</th>
+                        <th class="col" style="width: 10%;"> APIs</th>
                         <th scope="col">UAT/Prod</th>
                         <th scope="col">Approval URL</th>
                         </tr>
@@ -24,7 +24,7 @@
                         <td>{{row.JiraId}}</td>
                         <td>{{row.JiraStatus}}</td>
                         <td>{{row.Domain}}</td>
-                        <td>{{row.DomainApi}}</td>  
+                        <td>{{ row.ApiName }}</td>  
                         <td>{{row.Env}}</td>
                         <td class="url ta-center"><a  data-toggle="tooltip" title="url" target=”_blank”  href="http://jira.icicibankltd.com:7090/browse/{{row.JiraId}}"><i class="fa fa-link" aria-hidden="true"></i></a></td>
                         <!-- <td>http://jira.icicibankltd.com:7090/browse/{{row.JiraId}}</td> -->

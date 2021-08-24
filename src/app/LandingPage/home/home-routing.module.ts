@@ -11,6 +11,7 @@ import { NDAComponent } from './nda/nda.component';
 import { ContractComponent } from './contract/contract.component';
 import { AuthGuard } from '../../services/auth.guard';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ManageUserRoleComponent } from './manage-user-role/manage-user-role.component';
 //import { AppathonComponent } from '../../LandingPage/home/appathon/appathon.component';
 //import { AppathonAdComponent } from '../../LandingPage/home/appathon-ad/appathon-ad.component';
 const routes: Routes = [
@@ -43,7 +44,9 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [{ path: 'reset_password', component: ResetComponent }],
   },
-  { path: 'change_password', component: ChangePasswordComponent,canActivate: [AuthGuard]}
+  { path: 'change_password', component: ChangePasswordComponent,canActivate: [AuthGuard]},
+  { path: 'manageUser', component: ManageUserRoleComponent,canActivate: [AuthGuard]}
+  
 ];
 
 @NgModule({

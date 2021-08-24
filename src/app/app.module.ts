@@ -60,11 +60,14 @@ import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
 //import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
 // import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
 import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-prod-onboarding-page.component';
+import { BillingEngineModule } from "./billing-engine/billing-engine.module";
+import { BillingEngineService } from "./services/billing-engine.service";
+import { MerchantOnboardingModule } from "./merchant-onboarding/merchant-onboarding.module";
 
 
 
 
-// import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+//import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,6 +114,8 @@ import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-p
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
+    BillingEngineModule,
+    MerchantOnboardingModule
     //  DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
@@ -124,6 +129,7 @@ import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-p
     VariablesService,   
     DashboardService,
     AutoLogoutService,
+    BillingEngineService
    /*  {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptor,

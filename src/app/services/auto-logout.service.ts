@@ -67,15 +67,23 @@ export class AutoLogoutService {
     localStorage.removeItem('Firstname');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isInternalUser');
+    localStorage.removeItem("userEnteredText");
     this.adm.sendUserId("");
     this.adm.LogoutPortal().subscribe(
       res => {
-        this.router.navigate(["/index"]);
+       // this.router.navigate(["/index"]);
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       },
       err => {
-        this.router.navigate(["/index"]);
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       }
     );
-    this.router.navigate(["/index"]);
+    this.router.navigate(['/index']).then(() => {
+      window.location.reload();
+    });
   }
 }

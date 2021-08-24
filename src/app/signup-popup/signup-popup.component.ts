@@ -70,7 +70,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   Webservice_Show: Boolean = false;
   Ecollection_Show: Boolean = false;
   showTab = 1;
-  modalRef: BsModalRef;
+  modalRef: BsModalRef;//
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
   modalRef4: BsModalRef;
@@ -999,17 +999,36 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         var obj = JSON.parse(response);
         if (obj.status == true) {
           this.signup_jira();
-          /* this.toastrmsg(
-            "success",
-            "Thank you for registering. Your account has been successfully created. Please log in to continue."
-          ); */
-
           this.modalRef = this.modalService.show(Prodconfirm, {
 
             backdrop: "static"
       
           });
+      // upload contact for autodialer
+     /*  let json = {
+        name:this.signupForm.value.firstname +" "+ this.signupForm.value.lastname,
+        mobile:this.signupForm2.value.mobile_no          
+      }; */
+      let json = {
+        name:this.signupForm.value.firstname +" "+ this.signupForm.value.lastname,
+        mobile:this.signupForm2.value.mobile_no,         
+        typeOfLead:"IF_SignUp",
+        domain:this.signupForm.value.domainNm,
+        companyName: this.signupForm.value.companyName,
+        emailId:this.signupForm2.value.email,
+        pincodeLocation:this.signupForm.value.CITY,
+        dateOfRequest:new Date()         
+      };
       
+      this.adm.autodialer(json).subscribe((data: any) => {
+        var dialerResponse = data._body;
+        var obj = JSON.parse(dialerResponse);
+        console.log(dialerResponse)
+        },
+        err => {
+          console.log('err', err);
+          this.toastrmsg('error',this.errorMsg);
+      });
           this.spinnerService.hide();
           this.signupForm.reset();
           this.signupForm2.reset();
@@ -1064,7 +1083,10 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   }
 
   signup_jira() {
-    var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
+    var CurrentTime = formatDate(this.today,
+      "dd-MM-yyyy hh:mm:ss a",
+      "en-US",
+      "+0530" );
     var json = {
       userName: this.signupForm3.value.uname,
       email: this.signupForm2.value.email,

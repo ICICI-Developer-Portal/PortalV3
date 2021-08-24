@@ -363,7 +363,8 @@ export class SigninModalComponent implements OnInit {
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
-    localStorage.setItem("role", "user");
+  //  localStorage.setItem("role", "user");
+    localStorage.setItem("role", this.loginResponse.data.role);
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
 
@@ -738,6 +739,7 @@ export class SigninModalComponent implements OnInit {
     localStorage.removeItem('misUserVal');
     localStorage.removeItem('Firstname');
     localStorage.removeItem('isInternalUser');
+    localStorage.removeItem("userEnteredText");
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;
@@ -792,8 +794,14 @@ export class SigninModalComponent implements OnInit {
    //login success pop up modal
    clickOk() {
     this.modalRef4.hide();
+    let utmUrl = localStorage.getItem('UTM_url');
+    let utm = utmUrl.split('#');
+    let utm2 = utm[1];
     if (this.router.url === "/documentation"){
       this.router.navigate(['explore-api']); 
+    }
+    if (utm2 === "/analytics"){
+      this.router.navigate(['analytics']); 
     } else if( localStorage.getItem("userEnteredText")!= "" || localStorage.getItem("userEnteredText")!= undefined ){
       this.router.navigate(['viewallapi']);
     }

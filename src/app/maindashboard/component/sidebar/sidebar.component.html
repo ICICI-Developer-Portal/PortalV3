@@ -61,7 +61,7 @@
                 Onboarding Requests
               </a>
             </li>
-            <li class="nav-link MisSidebar " >
+            <li class="nav-link MisSidebar "  *ngIf="misUserVal == 'true'? true:false" >
               <a
                 id="v-pills-home-tab"
                 href="javascript:;"
@@ -74,6 +74,36 @@
                 
               >
                 MIS Download
+              </a>
+            </li>
+            <li class="nav-link report-issues " >
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/report-issues']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+                
+              >
+               Report Issue
+              </a>
+            </li>
+            <li class="nav-link analytics " >
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/analytics']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+                
+              >
+               Analytics
               </a>
             </li>
           </ul>

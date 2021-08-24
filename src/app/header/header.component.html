@@ -35,6 +35,93 @@
         </li>
         <li><a href="#" data-toggle="tab" [routerLink]="['/index/faq']">FAQ</a></li>
         <li><a  href="#"  data-toggle="tab" (click)="Documentation(signin)" class="documetationClass">Explore APIs </a></li>
+        <li class=" dropdown " *ngIf="!showbtn && showOptn === true && showBU === true" >
+         
+       
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"   >
+          Merchant </a>
+        
+
+          <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles">
+            <a [routerLink]="['/merchants']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">BE Merchant List</a>
+            <a [routerLink]="['/MerchantOnboarding']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">Merchant Onboarding</a>
+
+            <!--   <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)"> Requests History</a> -->
+            
+      
+          </div>
+        </li>
+        <li class=" dropdown " *ngIf="!showbtn && showOptn === true && showBUH === true" >
+         
+       
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles2" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"   >
+          Dashboard </a>
+        
+
+          <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles2">
+            <a [routerLink]="['/AppDashboard']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">BE Request History</a>
+            <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">MO Request History</a>
+
+            <!--   <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)"> Requests History</a> -->
+            
+      
+          </div>
+        </li>
+
+        <!-- <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
+         
+       
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"   >
+          App Dashboard </a>
+        
+
+          <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles">
+            <a [routerLink]="['/AppDashboard']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">Dashboard</a>
+            <a [routerLink]="['/MerchantOnboarding']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">Merchant Onboarding</a>
+
+              <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)"> Requests History</a>
+            <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
+            </a>-->
+            <!-- <a  *ngIf="misUserVal == 'true'? true:false" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+            </a> -->
+            <!-- <a [routerLink]="['/report-issues']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Report Issue</a> -->
+          <!-- *ngIf="userEmailId=='gpay@apigee.com'" -->
+          
+            <!-- <a  [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Analytics</a> 
+            -->
+          <!-- </div> -->
+        <!-- </li> --> 
+        <!-- <li> <a [routerLink]="['/AppDashboard']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+          data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+          aria-selected="true"  (click)="addActiveClass($event)">Dashboard</a></li> -->
+
+
+
         
         <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
          
@@ -66,7 +153,7 @@
           
             <a  [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
             data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-            aria-selected="true"  (click)="addActiveClass($event)">Analytics</a> 
+            aria-selected="true"  (click)="addActiveClass($event)"><span class="blink_me">New</span>Analytics</a> 
             <!-- <a  class="nav-link dropdown-item" id="pills-account-analytics-tab"
             data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
             aria-selected="true"  (click)="addActiveClass($event);goToAnalytics()">Analytics</a> -->
@@ -208,7 +295,10 @@
           <div><label for="password" type="password">Password</label></div>
         <!--   <input name="password" type="password" class="input-login" #password /> -->
 
-          <input name="password" type="password" class="input-login"  onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password />
+          <input name="password" type="text" class="input-login"  
+          (keypress)="onKeyPress($event)" required onCopy="return false" 
+          onDrag="return false" onDrop="return false" onPaste="return false" 
+          autocomplete=off  #password  id="password"/>
           <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
             Please Enter Password.
           </div>

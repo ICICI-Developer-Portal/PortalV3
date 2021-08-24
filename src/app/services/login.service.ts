@@ -194,7 +194,7 @@ export class LoginService {
   });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "https://developer.icicibank.com/rest/doc/save-portal-details ",
+      "https://developer.icicibank.com/rest/save-portal-details ",
       data,
       options
     );
@@ -636,6 +636,18 @@ export class LoginService {
    return this.http.post(this.apiUrl + "fetch-jiraid-v2", query, options);
  // return this.http.post(this.UAT_apiUrl + "fetch-jiraid-v2", query, options);
   }
+  
+
+  JiraForAdmin() {
+    var query = "username=" + localStorage.getItem("username");
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Token" : localStorage.getItem("jwt")
+    });
+    let options = new RequestOptions({ headers: headers });
+   return this.http.post(this.apiUrl + "fetch-jiraId-for-admin", query, options);
+ // return this.http.post(this.UAT_apiUrl + "fetch-jiraid-v2", query, options);
+  }
 
   Onboardrequests() {
     var query = "username=" + localStorage.getItem("username");
@@ -913,10 +925,22 @@ getTestCases(json) {
   return this.http.post(this.UAT_apiUrl + "createTxHistory", query, options);
 }
 
-
 sendToken(token){
 
-  return this.http.post(this.apiUrl + "tokenValidate", {'g-recaptcha-reponse': token})
+/*   recaptcha: agweweewwwhw4hw4
+  return this.http.post(this.apiUrl + "tokenValidate", {'g-recaptcha-reponse': token}) */
+let json = {
+  "recaptcha":token
+};
+  var key;
+  var query = "";
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl +"tokenValidate", query, options);
 }
 
 readTable(tableName) {
@@ -1120,23 +1144,7 @@ changePassw(json) {
       return this.http.post(this.UAT_apiUrl+"createTxHistory",body,options);
     }
    
-    createConnectedPartner(requestParam) {
-      var query = "";
-      var key;
-      for (key in requestParam) {
-        query +=
-          encodeURIComponent(key) + "=" + encodeURIComponent(requestParam[key]) + "&";
-      }
-      let headers = new Headers({
-         "Content-Type": "application/x-www-form-urlencoded",
-         "Token" : localStorage.getItem("jwt")
-      });
-     
-      
-      let options = new RequestOptions({ headers: headers });
-     
-      return this.http.post(this.UAT_apiUrl+"createPartner",query,options);
-    }
+    
   test_apiJSON(requestParam,apiName) {
     var query = "";
     var key;
@@ -1175,6 +1183,7 @@ changePassw(json) {
     //return this.http.get(this.apiUrl+'load-api-data'+json);
     // "https://thingproxy.freeboard.io/fetch/"+ 'https://developer.icicibank.com/rest/adminFileUpload',
   }
+  //8April2021 written by shikha
   getSrList() { 
     // let query = "";
     // let formData: FormData = new FormData(); 
@@ -1189,8 +1198,8 @@ changePassw(json) {
   return this.http.post("https://developer.icicibank.com/rest/getSrList", body,options);
  
 }
-  getAnalytics(json) {
-  var query = "";   
+getAnalytics(json) {
+  var query = "";
   var key;
   for (key in json) {
     query +=
@@ -1203,6 +1212,21 @@ changePassw(json) {
   return this.http.post(this.apiUrl + "getAnalytics", query, options);
 }
 getLatency(json) {
+  var query = {};
+  query["issuePacket"] = json;
+  var inputParam = '';
+  for (let key in query) {
+    inputParam =
+      encodeURIComponent(key) + "=" + encodeURIComponent(JSON.stringify(query[key])) + "&";
+  } 
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+   //"Content-Type": "application/json"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "latency ", inputParam, options);
+}
+getAnalyticsApp(json) {
   var query = "";
   var key;
   for (key in json) {
@@ -1213,7 +1237,110 @@ getLatency(json) {
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post(this.apiUrl + "latency ", query, options);
+  return this.http.post(this.apiUrl + "getAnalyticsApp", query, options);
+}
+// 11may2021 autodialer
+autodialer(json) {
+  var key;
+  var query = "";
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
   }
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl +"createAutodialer", query, options);
+}
+test_impsData(requestParam,apikey) {
+  let json = {
+    apiKey:apikey,
+    issuePacket:JSON.stringify(requestParam)
+  };
+  var query = "";
+
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "compStatus", query, options);
+}
+logout(){
+ 
+    var query = "";
+    /* var key;
+     for (key in json) {
+      query +=
+        encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+    }  */
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded"
+    });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.apiUrl + "logout", query, options);
+  
+}
+/**
+ * userInfo
+ * username : MounikaValivarthi
+Token : jyfjyfhjfjfjfjyfjyf
+
+ */
+
+getUserRoleData(json) {
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+  //  "Token" : localStorage.getItem("jwt")
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "userInfo", query, options);
+}
+/**
+ * 
+ * @returns 
+ */
+getUserList() {
+  var query = "";
+ 
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+   // "Token" : localStorage.getItem("jwt")
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "users", query, options);
+ }
+ /**
+  * 
+  * @param json username : MounikaValivarthi
+role : admin
+Token : jyfjyfhjfjfjfjyfjyf
+
+
+  * @returns 
+  */
+updateUserRole(json) {
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+  //  "Token" : localStorage.getItem("jwt")
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(this.apiUrl + "updateRole", query, options);
+ }
 
 }

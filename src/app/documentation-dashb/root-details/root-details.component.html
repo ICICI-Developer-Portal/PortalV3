@@ -8,8 +8,10 @@
         <p class="fs14 color-black0 ff-light mb30">{{ description }}</p>
         <hr />
         <div class="row mb30 linksContainer" *ngFor="let row of obj">
-          <div class="col-md-4" *ngFor="let branch of row.tabs">
-            <a class="nav-link p0" href="#v-pills-collect-from-VPA">
+          <div  *ngFor="let branch of row.tabs" style="display: contents;">
+            <div *ngIf="branch.DISPLAY==1"  style="display: contents;">
+          <div class="col-md-4" *ngIf="branch.DISPLAY==1" >
+            <a class="nav-link p0" >
               <div class="mb30 sectionAPICard">
                 <h4>{{ branch.TAB_NAME }}</h4>
                 <h5>{{ row.TAB_NAME }} category</h5>
@@ -17,6 +19,9 @@
               </div>
             </a>
           </div>
+        </div>
+        </div>
+
         </div>
       </div>
     </div>

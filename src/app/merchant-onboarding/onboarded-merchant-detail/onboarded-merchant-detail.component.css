@@ -1,0 +1,31 @@
+.border-gray{
+
+    border: 1px solid;
+    border-left: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    border-right: 1px solid gainsboro;
+}
+.red-bg{
+    color: #fff !important;
+    background-color: #ae282e;
+    border-color: #dee2e6 #dee2e6 #fff;
+    padding: 10px;    
+}
+.onboarding-row{
+    margin: 0px;
+    padding-left: 35px;
+}
+
+.mainField.ng-invalid.ng-touched{
+    border-left: 5px solid #ae282e;
+    border-right: 1px solid #ae282e;
+    border-top: 1px solid #ae282e;
+    border-bottom: 1px solid #ae282e;
+    }
+    .mainField.ng-valid{
+        border-left: 5px solid #f1730d;
+        border-right: 1px solid #f1730d;
+        border-top: 1px solid #f1730d;
+        border-bottom: 1px solid #f1730d;     
+    
+    }

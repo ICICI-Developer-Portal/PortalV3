@@ -10,6 +10,7 @@ declare var $: any;
 export class SidebarComponent implements OnInit {
 
   component:Boolean=true;
+  misUserVal:any;
   constructor(private router:Router) {
     if(this.router.url == "/dashboard"){
       this.component = false;
@@ -35,6 +36,24 @@ export class SidebarComponent implements OnInit {
               $(".OnboardingRequestsSidebar").addClass('active');
             });
             }
+            else if(this.router.url == "/report-issues"){ 
+              $(document).ready(function() {
+                  $(".sideMenu>.nav-pills li.nav-link")
+                  .removeClass("active")
+                  .removeClass("openDropdown");
+    
+                  $(".report-issues").addClass('active');
+                });
+                }
+                else if(this.router.url == "/analytics"){ 
+                  $(document).ready(function() {
+                      $(".sideMenu>.nav-pills li.nav-link")
+                      .removeClass("active")
+                      .removeClass("openDropdown");
+        
+                      $(".analytics").addClass('active');
+                    });
+                    }
         
       
     }, 500);
@@ -45,6 +64,10 @@ export class SidebarComponent implements OnInit {
    }
 
   ngOnInit() {
+
+    if(localStorage.getItem('misUserVal') != ""){
+      this.misUserVal = localStorage.getItem('misUserVal');
+    }
     
     if(this.router.url == "/mis"){
       $('.tab-content>.sideMenu>.nav-pills').children('.MisSidebar').removeClass('active');
