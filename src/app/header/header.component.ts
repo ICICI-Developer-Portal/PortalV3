@@ -1403,7 +1403,7 @@ this.adm.Login(json).subscribe((data: any) => {
   values:any='';
   onKeyPress(event: any) {
     let values = event.target.value;
-    console.log(values);
+    // console.log(values);
     let regex = "/^[ A-Za-z0-9_@./#&+-]*$/";
     // console.log(values.replaceAll(new RegExp(regex, "ig"), m => '*'.repeat(m.length)));  
     values.replaceAll(new RegExp(regex, "ig"), m => '*'.repeat(m.length))
