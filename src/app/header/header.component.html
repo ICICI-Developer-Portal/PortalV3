@@ -139,17 +139,14 @@
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-applications"
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
             </a> -->
-            <a [routerLink]="['/manageUser']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+           
+            <a  *ngIf="userRole == true" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/manageUser']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Manage User
+            </a>
+            <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-              aria-selected="true"  (click)="addActiveClass($event)">Manage User</a>
+              aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
             <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
             </a>-->
-
-            <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
-            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-            aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
-
-
             <a  *ngIf="misUserVal == 'true'? true:false" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
             </a>
             <a [routerLink]="['/report-issues']" class="nav-link dropdown-item" id="pills-account-analytics-tab"

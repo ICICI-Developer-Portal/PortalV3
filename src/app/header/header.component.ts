@@ -28,7 +28,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   
-  
+  userRole:any = false;
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
@@ -133,14 +133,38 @@ export class HeaderComponent implements OnInit {
       }
       if(localStorage.getItem('role') != ""){
         let role = localStorage.getItem('role');
+        
         if (role === "BUH") {
           this.showBUH = true;
+          this.userRole =false;
+          console.log("11")
+
+
         
         }else 
         if (role === "BU") {
           this.showBU = true;
-        
+          // this.userRole
+          this.userRole =false;
+          console.log("12")
+
+
         }
+        else  if (role === "User") {
+          // this.showBU = true;
+          // this.userRole
+          this.userRole =false;
+          console.log("13")
+
+
+        }
+        if (role === "Regular") {
+          // this.showBU = ;
+           this.userRole =true;
+          console.log("14")
+
+        }
+
       }
 
     });
@@ -348,8 +372,14 @@ export class HeaderComponent implements OnInit {
       this.showBUH = true;
     
     }
-    if (localStorage.getItem("role") === "BU") {
+    if (localStorage.getItem("role") === "User") {
       this.showBU = true;
+      this.userRole=false;
+    
+    }
+    if (localStorage.getItem("role") === "Administrator") {
+      this.showBU = true;
+      this.userRole= true;
     
     }
     this.userName = localStorage.getItem("username");
@@ -583,6 +613,10 @@ this.adm.Login(json).subscribe((data: any) => {
         }if(respData && respData.rm ){
           localStorage.setItem('rm',respData.rm);
         }
+        if(respData && respData.role ){
+          this.userRole = respData.role;
+          localStorage.setItem('role',respData.role);
+        }
         //this.toastrmsg('success', "Login has been Successfully");
         // this.sessionSet('username', obj.data.username);
         localStorage.setItem(
@@ -630,10 +664,29 @@ this.adm.Login(json).subscribe((data: any) => {
         localStorage.setItem("role", this.loginResponse.data.role);
         if (this.loginResponse.data.role === "BUH") {
           this.showBUH = true;
+          this.userRole = false;
+          console.log("1")
+
         
         }
         if (this.loginResponse.data.role === "BU") {
           this.showBU = true;
+          this.userRole = false;
+          console.log("2")
+
+
+        
+        }
+        if (this.loginResponse.data.role === "User") {
+          this.userRole = false;
+          console.log("3")
+
+        
+        }
+        if (this.loginResponse.data.role === "Regular") {
+          this.userRole = true;
+          console.log("4")
+
         
         }
         this.userName = localStorage.getItem("username");
