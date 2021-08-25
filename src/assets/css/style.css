@@ -3806,7 +3806,7 @@ c-height{
   z-index: 2;
 }
 
-#blink-text {
+/* #blink-text {
 
   animation: opacity .2s ease-in-out infinite;
   opacity: 1;
@@ -3824,4 +3824,4 @@ c-height{
 100% {
   opacity: 1;
 }
-}
+} */
