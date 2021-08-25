@@ -3759,3 +3759,69 @@ c-height{
 .font-16{
   font-size: 16px;
 }
+
+
+  
+#burst-12 {
+  background: yellow;
+  width: 35px;
+  height: 35px;
+  /* position: relative; */
+  text-align: center;
+
+
+  position: absolute;
+  margin-left: 90px;
+  margin-top: -3px;
+
+}
+#burst-12:before, #burst-12:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 35px;
+  width: 35px;
+  background: yellow;
+}
+#burst-12:before {
+  -webkit-transform: rotate(30deg);
+     -moz-transform: rotate(30deg);
+      -ms-transform: rotate(30deg);
+       -o-transform: rotate(30deg);
+}
+#burst-12:after {
+  -webkit-transform: rotate(60deg);
+     -moz-transform: rotate(60deg);
+      -ms-transform: rotate(60deg);
+       -o-transform: rotate(60deg);
+}
+ #burst-12 #blink-text {
+  display: block;
+  color: red;
+  position: absolute;
+  font-weight: 900;
+  margin-top: 2px;
+  margin-left: 0px;
+  z-index: 2;
+}
+
+#blink-text {
+
+  animation: opacity .2s ease-in-out infinite;
+  opacity: 1;
+}
+
+@keyframes opacity {
+0% {
+  opacity: 1;
+}
+
+50% {
+  opacity: 0
+}
+
+100% {
+  opacity: 1;
+}
+}

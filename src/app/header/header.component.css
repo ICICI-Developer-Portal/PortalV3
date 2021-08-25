@@ -11,7 +11,7 @@
 #password{
     -webkit-text-security:disc;
 }
-.blink_me {
+/* .blink_me {
     font-size: 5em;
     font-family: serif;
     color: #008000;
@@ -24,4 +24,64 @@
     50% {
       opacity: 0;
     }
+  } */
+
+  
+  
+  #burst-12 {
+    background: yellow;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    text-align: center;
+}
+#burst-12:before, #burst-12:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    background: yellow;
+}
+#burst-12:before {
+    -webkit-transform: rotate(30deg);
+       -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+         -o-transform: rotate(30deg);
+}
+#burst-12:after {
+    -webkit-transform: rotate(60deg);
+       -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+         -o-transform: rotate(60deg);
+}
+   #burst-12 #blink-text {
+ display:block;
+ color:red;
+ position:absolute;
+     font-weight: 900;
+    margin-top: 10px;
+    margin-left: 3px;
+ z-index:2;
+}
+
+#blink-text {
+
+    animation: opacity .2s ease-in-out infinite;
+    opacity: 1;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
   }
+
+  50% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

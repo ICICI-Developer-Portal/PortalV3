@@ -137,7 +137,6 @@ export class HeaderComponent implements OnInit {
         if (role === "BUH") {
           this.showBUH = true;
           this.userRole =false;
-          console.log("11")
 
 
         
@@ -146,7 +145,6 @@ export class HeaderComponent implements OnInit {
           this.showBU = true;
           // this.userRole
           this.userRole =false;
-          console.log("12")
 
 
         }
@@ -158,7 +156,7 @@ export class HeaderComponent implements OnInit {
 
 
         }
-        if (role === "Regular") {
+        if (role === "Administrator") {
           // this.showBU = ;
            this.userRole =true;
           console.log("14")
@@ -377,6 +375,7 @@ export class HeaderComponent implements OnInit {
       this.userRole=false;
     
     }
+    // ******from here sending the calue to template for manageuser visibility
     if (localStorage.getItem("role") === "Administrator") {
       this.showBU = true;
       this.userRole= true;
@@ -665,27 +664,24 @@ this.adm.Login(json).subscribe((data: any) => {
         if (this.loginResponse.data.role === "BUH") {
           this.showBUH = true;
           this.userRole = false;
-          console.log("1")
+          
 
         
         }
         if (this.loginResponse.data.role === "BU") {
           this.showBU = true;
           this.userRole = false;
-          console.log("2")
 
 
         
         }
         if (this.loginResponse.data.role === "User") {
           this.userRole = false;
-          console.log("3")
 
         
         }
-        if (this.loginResponse.data.role === "Regular") {
+        if (this.loginResponse.data.role === "Administrator") {
           this.userRole = true;
-          console.log("4")
 
         
         }
