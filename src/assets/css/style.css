@@ -3806,6 +3806,49 @@ c-height{
   z-index: 2;
 }
 
+
+ 
+#burst-11 {
+  background: yellow;
+  width: 20px;
+  height: 20px;
+  /* position: relative; */
+  text-align: center;
+  position: absolute;
+  margin-left: 63px;
+  margin-top: -53px;
+}
+#burst-11:before, #burst-11:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: yellow;
+}
+#burst-11:before {
+  -webkit-transform: rotate(30deg);
+     -moz-transform: rotate(30deg);
+      -ms-transform: rotate(30deg);
+       -o-transform: rotate(30deg);
+}
+#burst-11:after {
+  -webkit-transform: rotate(60deg);
+     -moz-transform: rotate(60deg);
+      -ms-transform: rotate(60deg);
+       -o-transform: rotate(60deg);
+}
+ #burst-11 #blink-text-acnt {
+  display: block;
+  color: red;
+  position: absolute;
+  font-weight: 900;
+  margin-top: -16px;
+  margin-left: -3px;
+  z-index: 2;
+  font-size: 10px;    
+}
 /* #blink-text {
 
   animation: opacity .2s ease-in-out infinite;
