@@ -433,7 +433,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group ">
-              <label for="Notes display-block" style="display: block;">Notes<span class="text-danger"> *</span> </label>
+              <label for="Notes display-block" style="display: block;">Notes </label>
               <input type="text" class="form-control mainField col-md-11 inline_block" id="Notes"
                 formControlName="Notes" placeholder="">
                 <div
@@ -456,8 +456,8 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="contactName">Contact name<span class="text-danger"> *</span> </label>
-              <input type="text" class="form-control mainField col-md-11 inline_block"  (keypress)="keyPressAlphabet($event)" id="contactName"
-                formControlName="contactName" placeholder=""> 
+              <input type="text" class="form-control mainField col-md-11 inline_block" id="contactName"
+                formControlName="contactName" placeholder="" (keypress)="omit_special_char($event)"> 
                 <i *ngIf="reactiveForm.get('basicDetailsSection.contactName').valid"
                 class="fa fa-check-circle orange col-md-1 margin_3px" aria-hidden="true"></i>
                 <div
@@ -537,7 +537,7 @@
         <div class="row divBorder ">
           <div class="width100prcnt">
             <h5 class="reportIssueHeading"  (click)="showMyIssue = !showMyIssue">
-              My Issues
+              My Issue
               <span *ngIf="showMyIssue == false" style="float: right;">+</span>
               <span *ngIf="showMyIssue == true" style="float: right;">-</span>
             </h5>
@@ -621,7 +621,7 @@
                   <th>Issue Type</th>
                   <th>Requested Date</th>
                   <th>Due Date</th>
-                  <!-- <th>Status</th> -->
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -630,8 +630,8 @@
                   <td>{{i.issueType}}</td>
                   <td>{{i.requestedDate}}</td>
                   <td>{{i.expectedDate }}</td>
-                  <!-- <td><button type="button" class="signInBtn pull-right" style="padding: 11px; height: 35px;"><i class="fa fa-refresh" aria-hidden="true"></i>
-                  </button></td> -->
+                  <td><button type="button" class="signInBtn pull-right" style="padding: 11px; height: 35px;"><i class="fa fa-refresh" aria-hidden="true"></i>
+                  </button></td>
 
                 </tr>
                
@@ -666,7 +666,7 @@
                               <!-- <a data-toggle="modal" href="#myModal3" class="btn btn-primary">Launch modal</a>(click)='reactiveForm.reset()' -->
         
                               <p class="fs15">
-                                <span>{{srCreationText  | json}}</span>
+                                  Thankyou.Your SR has been created.
                                   {{issueCreatedOnGateway | json}}
                               </p>
                               <div class="" style="text-align: center;margin-bottom: 8%;">

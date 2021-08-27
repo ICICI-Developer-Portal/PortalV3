@@ -34,7 +34,7 @@ export class ReportIssuePageComponent implements OnInit {
   reactiveForm: FormGroup;
   selectedProduct:string;
   selectedEnv:string;
-  showReportIssue:boolean=true;
+  showReportIssue:boolean=false;
   showMyIssue:boolean=false;
   api=[];
   productName=["Eazypay","Arteria","RTGS","UPI","HL topup","IMPS","NEFT","AL topup"];
@@ -839,8 +839,6 @@ rm;
 issuecreationmsg;
 getProducts=[];
 issueCreatedOnGateway;
-srCreationText;
-
 Attach;
 fileName;
 filetype;
@@ -886,7 +884,12 @@ myIssues;
   }
 
   ngOnInit() {
-
+    // $("#contactName").keypress(function(e){
+    //     alert("hii")
+    //         var k;
+    //         document.all ? k = e.keyCode : k = e.which;
+    //         return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57) || k == 190 || k == 188);
+    // })
     var now = new Date(),
     // minimum date the user can choose, in this case now and in the future
     minDate = now.toISOString().substring(0,10);
@@ -953,7 +956,7 @@ $('#issueFirstObserved').prop('min', minDate);
         "Attachments": new FormControl(),
         "contactName": new FormControl('',[Validators.required]),  
         "contactEmail":  new FormControl('',[Validators.required,Validators.email]),  
-        "contactnumber": new FormControl('',[Validators.required, Validators.maxLength(10), Validators.pattern('^(\\+?\d{1,4}[\s-])?(?!0+\s+,?$)\\d{10}\s*,?$')]),  
+        "contactnumber": new FormControl('',[Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),  
         "RMname": new FormControl('',[Validators.required,Validators.minLength(6),Validators.maxLength(9)]),  
         "issueFirstObserved":new FormControl('', [Validators.required]),
         "responsetPacket":new FormControl('',[Validators.required]),  
@@ -981,18 +984,6 @@ $('#issueFirstObserved').prop('min', minDate);
           },
       );
   }
-   // Only Alphabet
-   keyPressAlphabet(event) {
-
-    var inp = String.fromCharCode(event.keyCode);
-
-    if (/[a-zA-Z]/.test(inp)) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
-    }
-  }
  
   // Only AlphaNumeric
   keyPressAlphaNumeric(event) {
@@ -1017,6 +1008,11 @@ $('#issueFirstObserved').prop('min', minDate);
       return false;
     }
   }
+  omit_special_char(event){   
+   var k;  
+   k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+   return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57)); 
+}
   UAT_help(UAT_Help: any) {
     this.modalRef = this.modalService.show(UAT_Help, {
       backdrop: "static",
@@ -1149,7 +1145,7 @@ console.log(this.api);
     const file = fileEvent.target.files[0];
     console.log(fileEvent.value)
     // pdf,exe,zip,xlxs,jpeg,png,jpg
-    const allowed_types = ['pdf','exe','zip','xlxs','jpeg','png','jpg'];
+    const allowed_types = ['pdf','exe','zip','xlxs','jpeg','png','jpg','PDF','EXE','ZIP','XLXS','JPEG','PNG','JPG'];
     console.log('size', file.size);
     console.log('type', file.type);
     console.log(fileEvent.target.files[0])
@@ -1160,36 +1156,44 @@ console.log(this.api);
     // console.log((allowed_types).includes(ext),ext)
 
     if (fileEvent.target.files && fileEvent.target.files[0]) {
+        // alert("file exist")
     if(file.size > 1048576){ // if file is grtr thn 1mb
-        alert("File is too big!");  
+        // alert("1mb se jyada")
+        // alert("File is too big!");  
         $(".fileError").text("File size should not exceed 1 MB limit.")
         $(".fileError").show();
         return false;           
      }
      else{
+        // alert("fjefnewjn")
+
         this.fileName=fileEvent.target.files[0].name;
        
         // console.log(this.fileName.substring(0,lastdot))
      
       
         this.filetype=fileEvent.target.files[0].type;
-        const lastdot = this.fileName.lastIndexOf('.');
-        const ext =this.fileName.substring(this.fileName.lastIndexOf('.')+1);
+        let lastdot = this.fileName.lastIndexOf('.');
+        let ext =this.fileName.substring(this.fileName.lastIndexOf('.')+1);
         console.log(ext);
         console.log((allowed_types).includes(ext),ext)
         this.extnsn=ext;
    
         if ((allowed_types).includes(ext)) {
+            // alert("ext alwd")
           
           $(".fileError").text("");
           $(".fileError").hide();
          
        }
        else{
+        // alert("ext not alwd")
+
            this.filetype=fileEvent.target.files[0].type;
            // alert(fileEvent.target.files[0].type)
            $(".fileError").text(ext+"File type not allowed.")
            $(".fileError").text('Only pdf,exe,zip,xlxs,jpeg,png,jpg file type are  allowed')
+           $(".fileError").show();
            return false;
         //    console.log( 'Only ["pdf","exe","zip","xlxs","jpeg","png","jpg"] are not allowed ( exe | bat )');
            // console.log(fileEvent.fileData.rawFile.type)
@@ -1344,17 +1348,7 @@ filename= this.fileName.split('.').slice(0,-1).join('.');
                             
                     console.log(data._body);
                     var JSONObject1 = JSON.parse(data._body);
-                  
-                   if("SrDueDate" in JSONObject1["message"]){
-                    console.log("pass");
-                    this.srCreationText="Thankyou.Your SR has been created.";
-                    this.issueCreatedOnGateway = JSONObject1["message"];
-                   }
-                   else if("ActCode"  in JSONObject1["message"]){
-                    console.log("fail");
-                    this.srCreationText="SR cretion failed";
-                    this.issueCreatedOnGateway = JSONObject1["message"];
-                   }
+                   this.issueCreatedOnGateway = JSONObject1["message"];
                     console.log(messageRes);
                             //
                             $('#myModal2').modal('show');

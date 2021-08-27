@@ -101,6 +101,7 @@ export class HeaderComponent implements OnInit {
   salt:string;
   userEmailId;
 
+
   constructor(
     private SessionService: SessionService,
     private authService: AuthService,
@@ -189,6 +190,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
     this.userEmailId=localStorage.getItem("email");
+    
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
@@ -501,21 +503,20 @@ toastrmsg(type, title) {
       return;
     }
     username = btoa(username);
-    password = btoa(password);
+ //   password = btoa(password);
 
  
-/*    let pwd = this.encode(this.salt,password);
-  let resp =  this.decode1(pwd,this.salt);
-    var json = { username: username, password: pwd };
+  let pwd = this.encode(this.salt,password);
+  let challengeId = this.salt;
     this.spinnerService.show();
     var key = 'ICICI#~#';
     key += this.datepipe.transform(Date.now(),'ddMMyyyy');
   let newSalt = this.encode(key,this.salt);
- */
-  var json = { username: username, password: password };
+  var json = { username: username, password: pwd ,Token:newSalt};
+ // var json = { username: username, password: password };
  // console.log("username password == "+username+':' +password) 
-this.adm.Login(json).subscribe((data: any) => {
-   // this.adm.LoginTest(json,newSalt).subscribe((data: any) => {
+//this.adm.Login(json).subscribe((data: any) => {
+    this.adm.Login1(json).subscribe((data: any) => {
       var response = data._body;
       //console.log(response)
       this.loginResponse = JSON.parse(response);
@@ -524,104 +525,115 @@ this.adm.Login(json).subscribe((data: any) => {
      // console.log(this.loginResponse.data.companyName)
   
 
-      if (this.loginResponse.status == true) {
-        var timer = this.SessionService.session();
-        this.show = false;
-        this.modalRef.hide();
+      if (this.loginResponse.status == true  ) {
+        if(this.loginResponse.data.challengeId !== challengeId){
 
-        let respData =  this.loginResponse.data;
-        if(respData  ){
-          this.misUserVal = respData.misUser;
-          localStorage.setItem('misUserVal',this.misUserVal);
-        }  if(respData && respData.firstName ){
-          this.Firstname=respData.firstName;
-          localStorage.setItem('Firstname',this.Firstname);
-        }  if(respData && respData.lastLoginDt ){
-          this.lastLoginDate=respData.lastLoginDt;
-          localStorage.setItem('lastLoginDate',this.lastLoginDate);
-        }if(respData  ){
-          localStorage.setItem('isInternalUser',respData.internalUser);
-          this.isInternalUser = respData.internalUser;
-        }
-        if(respData && respData.companyName ){
-          localStorage.setItem('companyName',respData.companyName);
-        } if(respData && respData.mobileNo ){
-          localStorage.setItem('mobileNo',respData.mobileNo);
-        }if(respData && respData.email ){
-          localStorage.setItem('email',respData.email);
-        }if(respData && respData.rm ){
-          localStorage.setItem('rm',respData.rm);
-        }
-        //this.toastrmsg('success', "Login has been Successfully");
-        // this.sessionSet('username', obj.data.username);
-        localStorage.setItem(
-          "appathonFirstName",
-          this.loginResponse.data.firstName
-        );
-        localStorage.setItem(
-          "appathonCompanyEmail",
-          this.loginResponse.data.email
-        );
-        localStorage.setItem(
-          "appathonMobileNumber",
-          this.loginResponse.data.mobileNo
-        );
-        localStorage.setItem(
-          "appathonCompanyName",
-          this.loginResponse.data.companyName
-        );
-        localStorage.setItem("jwt",this.loginResponse.jwttoken)
-        // localStorage.setItem('password', obj.data.password);
-        // localStorage.setItem('id', obj.data.id);
-        // localStorage.setItem('role', 'user');
-        // localStorage.setItem('email', obj.data.email);
-        // this.adm.sendUserId(obj.data.id);
-        this.spinnerService.hide();
-         
-        this.adm.LoginPortal(nonEncodedJson).subscribe(
-          res => {
-            this.router.navigate([this.router.url]);
-          },
-          err => {
+          this.spinnerService.hide();
+          this.isusername = false;
+          this.issetpwd = false;
+          this.reloadToken();
+          this.is_res_error = "Unable to login ,try again.";
+
+        }else{
+          var timer = this.SessionService.session();
+          this.show = false;
+          this.modalRef.hide();
+  
+          let respData =  this.loginResponse.data;
+          if(respData  ){
+            this.misUserVal = respData.misUser;
+            localStorage.setItem('misUserVal',this.misUserVal);
+          }  if(respData && respData.firstName ){
+            this.Firstname=respData.firstName;
+            localStorage.setItem('Firstname',this.Firstname);
+          }  if(respData && respData.lastLoginDt ){
+            this.lastLoginDate=respData.lastLoginDt;
+            localStorage.setItem('lastLoginDate',this.lastLoginDate);
+          }if(respData  ){
+            localStorage.setItem('isInternalUser',respData.internalUser);
+            this.isInternalUser = respData.internalUser;
+          }
+          if(respData && respData.companyName ){
+            localStorage.setItem('companyName',respData.companyName);
+          } if(respData && respData.mobileNo ){
+            localStorage.setItem('mobileNo',respData.mobileNo);
+          }if(respData && respData.email ){
+            localStorage.setItem('email',respData.email);
+          }if(respData && respData.rm ){
+            localStorage.setItem('rm',respData.rm);
+          }
+          //this.toastrmsg('success', "Login has been Successfully");
+          // this.sessionSet('username', obj.data.username);
+          localStorage.setItem(
+            "appathonFirstName",
+            this.loginResponse.data.firstName
+          );
+          localStorage.setItem(
+            "appathonCompanyEmail",
+            this.loginResponse.data.email
+          );
+          localStorage.setItem(
+            "appathonMobileNumber",
+            this.loginResponse.data.mobileNo
+          );
+          localStorage.setItem(
+            "appathonCompanyName",
+            this.loginResponse.data.companyName
+          );
+          localStorage.setItem("jwt",this.loginResponse.jwttoken)
+          // localStorage.setItem('password', obj.data.password);
+          // localStorage.setItem('id', obj.data.id);
+          // localStorage.setItem('role', 'user');
+          // localStorage.setItem('email', obj.data.email);
+          // this.adm.sendUserId(obj.data.id);
+          this.spinnerService.hide();
+           
+         /*  this.adm.LoginPortal(nonEncodedJson).subscribe(
+            res => {
+              this.router.navigate([this.router.url]);
+            },
+            err => {
+              this.router.navigate([this.router.url]);
+            }
+          ); */
+           /**
+           * Changing the flow as login shd complete even if loginsuccess popup eacaped
+           */
+          $('ul li a[data-toggle="tab"]').removeClass('active');
+          $('ul li a[data-toggle="tab"]').removeClass('show');
+              this.userName = this.loginResponse.data.username;
+          this.sessionSet("username", this.loginResponse.data.username);
+          localStorage.setItem("username", this.loginResponse.data.username);
+          localStorage.setItem("password", this.loginResponse.data.password);
+          localStorage.setItem("id", this.loginResponse.data.id);
+          localStorage.setItem("role", this.loginResponse.data.role);
+          this.userName = localStorage.getItem("username");
+          
+          localStorage.setItem(
+            "appathonusername",
+            this.loginResponse.data.appathonusername
+          );
+          localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+          localStorage.setItem("email", this.loginResponse.data.email);
+          this.adm.sendUserId(this.loginResponse.data.id);
+          this.userName = localStorage.getItem("username");
+  
+          if (this.router.url === "/documentation"){
+            this.router.navigate(['explore-api']); 
+          }else{
             this.router.navigate([this.router.url]);
           }
-        );
-         /**
-         * Changing the flow as login shd complete even if loginsuccess popup eacaped
-         */
-        $('ul li a[data-toggle="tab"]').removeClass('active');
-        $('ul li a[data-toggle="tab"]').removeClass('show');
-            this.userName = this.loginResponse.data.username;
-        this.sessionSet("username", this.loginResponse.data.username);
-        localStorage.setItem("username", this.loginResponse.data.username);
-        localStorage.setItem("password", this.loginResponse.data.password);
-        localStorage.setItem("id", this.loginResponse.data.id);
-        localStorage.setItem("role", this.loginResponse.data.role);
-        this.userName = localStorage.getItem("username");
-        
-        localStorage.setItem(
-          "appathonusername",
-          this.loginResponse.data.appathonusername
-        );
-        localStorage.setItem("appathonUserName", this.loginResponse.data.username);
-        localStorage.setItem("email", this.loginResponse.data.email);
-        this.adm.sendUserId(this.loginResponse.data.id);
-        this.userName = localStorage.getItem("username");
-
-        if (this.router.url === "/documentation"){
-          this.router.navigate(['explore-api']); 
-        }else{
-          this.router.navigate([this.router.url]);
+          
+          
+          /**
+           * End here
+           */
+  
+          this.modalRef4 = this.modalService.show(loginsuccess, {
+            backdrop: "static"
+          });
         }
-        
-        
-        /**
-         * End here
-         */
-
-        this.modalRef4 = this.modalService.show(loginsuccess, {
-          backdrop: "static"
-        });
+       
 
         
       } else {
@@ -649,9 +661,6 @@ this.adm.Login(json).subscribe((data: any) => {
 
       
     },);
-  }
-  goToAnalytics(){
-    window.location.href= "http://34.93.28.139/icici-drupal/web/apigee/appanalytics?mail="+localStorage.getItem("email");
   }
   encode(key,val){
     var encryptedBase64Key=btoa(key); //base64encryption
@@ -1197,32 +1206,35 @@ this.adm.Login(json).subscribe((data: any) => {
 
   // Fuction for Logout
   logout() {
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-    localStorage.removeItem("id");
-    localStorage.removeItem("role");
-    localStorage.removeItem("jwt")
-    localStorage.removeItem('lastLoginDate');
-    localStorage.removeItem('misUserVal');
-    localStorage.removeItem('Firstname');
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('isInternalUser');
-    localStorage.removeItem('email');
-    this.adm.sendUserId("");
-    this.showbtn = true;
-    this.showlogoutbtn = false;
-    this.reloadToken();
-    this.adm.LogoutPortal().subscribe(
+   
+    this.adm.logout().subscribe(
       res => {
+        console.log("logout success");
+        this.resetUserData();
         this.router.navigate(["/index"]);
       },
       err => {
+        console.log("logout failure");
+        this.resetUserData();
         this.router.navigate(["/index"]);
-      }
-    );
-    this.router.navigate(["/index"]);
+      });
   }
-
+resetUserData(){
+  localStorage.removeItem("username");
+  localStorage.removeItem("password");
+  localStorage.removeItem("id");
+  localStorage.removeItem("role");
+  localStorage.removeItem("jwt")
+  localStorage.removeItem('lastLoginDate');
+  localStorage.removeItem('misUserVal');
+  localStorage.removeItem('Firstname');
+  localStorage.removeItem('isAdmin');
+  localStorage.removeItem('isInternalUser');
+  this.adm.sendUserId("");
+  this.showbtn = true;
+  this.showlogoutbtn = false;
+  this.reloadToken();
+}
   signup_link(id) {
     if (this.shfrmSFFirst) {
       this.shfrmSFFirst = true;
@@ -1348,6 +1360,6 @@ this.adm.Login(json).subscribe((data: any) => {
      // this.router.navigate(['error']);
      this.toastrmsg('error',this.errorMsg);
 
-    },);
+    },);   
   }
 }

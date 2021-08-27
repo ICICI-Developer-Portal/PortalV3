@@ -189,7 +189,6 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   OTP_sent_msg:any= " OTP sent to your mobile number";
   otp_block_error:boolean= false;
   isReadOnly:boolean= true;
-  utm_source:any="";
   constructor(
     private http: Http,
     private HttpClient: HttpClient,
@@ -243,24 +242,6 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       self.openModal123();
     },5000); // 5000 to load it after 5 seconds from page load
  }); */
-
-    let utmUrl = localStorage.getItem('UTM_url');
-    let utm = utmUrl.split('?');
-    let utm2 = utm[1];
-    let src;
-    if(utm2){
-      let qs = utm2.split("&");
-      var param = {};
-      for(let i in qs){
-        let subParam = qs[i].split("=");
-        let key = subParam[0]; let val = subParam[1];
-        param[key] = val;
-      }
-       src =  param["utm_source"];
-    }
-    if(src ){
-      this.utm_source = src ;
-    }
     var browser = (function (agent) {
       switch (true) {
           case agent.indexOf("edge") > -1: return "edge";
@@ -439,6 +420,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     }, 100)
   }
   ngOnDestroy() {
+    console.log('foo destroy')
     this.modalRef2.hide();
   }
   closeSignUp(){
@@ -548,7 +530,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       if (rbtn.is(':checked')) {
         this.selectednode = $(this).attr('role');
         this.apiName = $(this).attr('value');
-         // console.log("api id", this.selectednode)
+          console.log("api id", this.selectednode)
           this.checked =true;
           self.Appnode(this.selectednode,this.checked,this.apiName)
           }
@@ -722,12 +704,12 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     if (index === -1 && checked) {
       this.internalArr.push(num);
       this.apiArr.push(apiName);
-    //  console.log("idarray", this.internalArr,this.apiArr)
+      console.log("idarray", this.internalArr,this.apiArr)
     }
     else {
       this.internalArr.splice(index, 1);
       this.apiArr.splice(index, 1);
- //     console.log("id array uncheck", this.internalArr, this.apiArr)
+      console.log("id array uncheck", this.internalArr, this.apiArr)
     }
   }
   hasDuplicates(arr) {
@@ -889,7 +871,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     }
     username = btoa(username);
     password = btoa(password);
-   // console.log("username password"+username+':' +password)
+    console.log("username password"+username+':' +password)
     var json = { username: username, password: password };
     this.spinnerService.show();
     this.adm.Login(json).subscribe((data: any) => {
@@ -990,8 +972,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         tncConfirmedDt: CurrentTime,
         approverName: "YES",
         approverEmailId: "YES",
-        requestDt: CurrentTime,
-        utm_source:this.utm_source
+        requestDt: CurrentTime
       };
       this.spinnerService.show();
       this.adm.sign_up(json).subscribe((data: any) => {
@@ -1080,8 +1061,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       tncConfirmedDt: CurrentTime,
       approverName: "YES",
       approverEmailId: "YES",
-      requestDt: CurrentTime,
-      utm_source:this.utm_source
+      requestDt: CurrentTime
     };
     this.adm.sign_upjira(json).subscribe((data: any) => {
       var response = data._body;
@@ -1500,7 +1480,7 @@ corporates(signin: any) {
   onItemSelect(item: any) {
     if (item.id) {
       this.idArr.push(item.id);
-    //  console.log("hi", this.idArr);
+      console.log("hi", this.idArr);
       sessionStorage.setItem(this.idArr, "true");
     }
   }
@@ -1508,23 +1488,23 @@ corporates(signin: any) {
   /****** To select group ******/
   onGroupDeSelect(items) {
     if (items.category) {
-     // console.log("check", items.list);
+      console.log("check", items.list);
       for (var i = 0; i < items.list.length; i++) {
         this.idArr.push(items.list[i].id);
       }
-  //    console.log("groupselect", this.idArr, this.catArr);
+      console.log("groupselect", this.idArr, this.catArr);
     }
   }
 
   /****** To Unselect group ******/
   onGroupSelect(items) {
-  //  console.log(items.list);
+    console.log(items.list);
     for (var i = 0; i < items.list.length; i++) {
       for (var j = 0; j < this.idArr.length; j++) {
         if (items.list[i].id === this.idArr[j]) {
-          //console.log("true");
+          console.log("true");
           this.idArr.splice(j, 1);
-         // console.log("gropu arr", this.idArr);
+          console.log("gropu arr", this.idArr);
         }
       }
     }
@@ -1537,19 +1517,19 @@ corporates(signin: any) {
       //   var key = this.getKeyByValue(items, items[i].id);
       // console.log("key",key);
     }
-   // console.log("allselect", this.idArr, this.catArr);
+    console.log("allselect", this.idArr, this.catArr);
   }
   onDeSelectAll(items: any) {
     this.idArr = [];
     this.catArr = [];
-   // console.log("deselect all", this.catArr, this.idArr);
+    console.log("deselect all", this.catArr, this.idArr);
   }
 
   OnItemDeSelect(items: any) {
     for (var i = 0; i < this.idArr.length; i++) {
       if (items.id === this.idArr[i]) {
         this.idArr.splice(i, 1);
-       // console.log(this.idArr);
+        console.log(this.idArr);
       }
       sessionStorage.setItem(items.id, "false");
     }
@@ -1588,7 +1568,7 @@ corporates(signin: any) {
     this.interval_Check = setInterval(() => {
       this.assignClickToNodesCheck();
       counter2 = counter2 + 1;
-     // console.log(counter2)
+      console.log(counter2)
       if (counter2 === 1) {
         clearInterval(this.interval_Check);
       }
@@ -1688,16 +1668,16 @@ corporates(signin: any) {
     // this.idArr = this.idArr.toString();
     this.idArr = this.internalArr.toString();
     this.internalArr = [];
-   // console.log("id array", this.idArr);
+    console.log("id array", this.idArr);
     var json = {
       ID: this.idArr,
     };
-  //  console.log("json", json);
+    console.log("json", json);
     this.adm.getUATFromData(json).subscribe((data: any) => {
-   //   console.log(data);
+      console.log(data);
       var response = data._body;
       var obj = JSON.parse(response);
-     // console.log("obj", obj);
+      console.log("obj", obj);
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
       for (var i = 0; i < this.additionalParams.length; i++) {
         if (this.additionalParams[i].match("Account Number")) {
@@ -1773,7 +1753,7 @@ corporates(signin: any) {
           this.amount = true;
         }
       }
-     // console.log("final", this.additionalParams);
+      console.log("final", this.additionalParams);
     },
     err => {
       console.log('err', err);
@@ -1931,9 +1911,9 @@ corporates(signin: any) {
     formData.append("Acc_trans", inputFields["Acc_trans"]);
     formData.append("Acc_amount", inputFields["Acc_amount"]);
 
-   // console.log(formData);
+    console.log(formData);
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
-  //  console.log("a", a);
+    console.log("a", a);
     for (let k = 0; k < a.length; k++) {
       formData.append("file1", a[k]);
     }
@@ -1944,7 +1924,7 @@ corporates(signin: any) {
       formData
     ).subscribe(
       res => {
-      //  console.log(res);
+        console.log(res);
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
@@ -1958,7 +1938,7 @@ corporates(signin: any) {
             formData
           ).subscribe(
             res => {
-            //  console.log(res);
+              console.log(res);
             },
             err => {
               console.log('err', err);
@@ -2195,7 +2175,7 @@ corporates(signin: any) {
       formData
     ).subscribe(
       res => {
-       // console.log(res);
+        console.log(res);
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
@@ -2209,7 +2189,7 @@ corporates(signin: any) {
             formData
           ).subscribe(
             res => {
-            //  console.log(res);
+              console.log(res);
             },
             err => {
               console.log('err', err);
@@ -2315,7 +2295,7 @@ corporates(signin: any) {
       requirements: this.Inter_requirements,
       feedbackIn: feedback
     };
- //   console.log("josn", json);
+    console.log("josn", json);
     this.adm.feedback(json).subscribe((data: any) => {
       var obj = JSON.parse(data._body);
       if (obj.status == true) {
@@ -2450,7 +2430,7 @@ corporates(signin: any) {
   }  
  //function to resolve the reCaptcha and retrieve a token
 async resolved(captchaResponse: string, res) {
- // console.log(`Resolved response token: ${captchaResponse}`);
+  console.log(`Resolved response token: ${captchaResponse}`);
   await this.sendTokenToBackend(captchaResponse); //declaring the token send function with a token parameter
 }
 //function to send the token to the node server
@@ -2458,7 +2438,7 @@ sendTokenToBackend(tok){
   //calling the service and passing the token to the service
   this.adm.sendToken(tok).subscribe(
     data => {
-     // console.log(data)
+      console.log(data)
     },
     err => {
       console.log(err)
@@ -2482,14 +2462,10 @@ let _domain = this.signupForm.value.domainNm;
  
 }
 onDomainChange(val){
-  if(val == "Business Banking" ){
+  if(val == "Business Banking" || val == "Corporate API Suite"){
     this.isReadOnly = false;
-  }else if( val == "Corporate API Suite"){
-    this.isReadOnly = false;
-    this.signupForm.controls.RM.setValue("453072");
   }else{
     this.isReadOnly = true;
-    this.signupForm.controls.RM.setValue("");
   }
 }
 /* Call service to fetch RM detail on basis of pincode */

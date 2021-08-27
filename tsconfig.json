@@ -1,5 +1,6 @@
 {
   "compileOnSave": false,
+  "allowSyntheticDefaultImports": true,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -12,6 +13,6 @@
     "target": "es5",
     "typeRoots": ["node_modules/@types"],
     "types": ["jasmine", "node"],
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
   }
 }

@@ -111,6 +111,12 @@ export class ProductionOnboardingPageComponent implements OnInit {
   searchedItem: any;
   searchedFieldValue: any;
   progress: number;
+  currentProgress:any = 1;
+  currentProgress1:any = 0;
+  currentProgress2:any = 0;
+  currentProgress3:any = 0;
+  step_no:any = 1;
+  // term:any;
 
 
   /** end here */
@@ -613,9 +619,6 @@ export class ProductionOnboardingPageComponent implements OnInit {
 
   onSubmitProductionForm(Prodconfirm) {
 
-    $("#submitButton").prop("disabled",true)
-    setTimeout(function(){  $("#submitButton").prop("disabled",false)},10000); 
-
     let ipValues = [];
     let urlValues = [];
 
@@ -741,7 +744,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
     //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
     //https://developerapi.icicibank.com:8443/api/v2/jira
     this.HttpClient.post<any>(
-      "https://developer.icicibank.com/rest/create-jira-new",
+      "https://developerapi.icicibank.com:8443/api/v2/jira",
       formData
     ).subscribe(
       res => {
@@ -1049,5 +1052,36 @@ export class ProductionOnboardingPageComponent implements OnInit {
       )
       .toPromise();
   }
+  nextTab($e){
+    $e.preventDefault();
+    // $('"#nav-tab").tabs a[href="#tab2"]').tab('show');
+    this.setProgress(2);
+    $('#nav-tab a[href="#tab2"]').tab('show');
+    // $("#nav-tab").tabs("option", "active", $("#nav-tab").tabs('option', 'active')+1 );
+  }
+
+  setProgress(id){
+ 
+     
+  if(id == 1 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress1 = 0;
+    this.currentProgress2 = 0;
+    this.currentProgress3 = 0;
+    this.step_no = 1;
+  }else if(id == 2 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress1= 100;
+    this.currentProgress2 = 0;
+    this.currentProgress3 = 0;
+    this.step_no = 2;
+  }else if(id == 3 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress2= 100;
+    this.step_no = 3;
+    this.onClickContinueBtn();
+  }else if(id == 4 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress3= 100;
+    this.step_no = 3;
+  }
+
+}
 
 }

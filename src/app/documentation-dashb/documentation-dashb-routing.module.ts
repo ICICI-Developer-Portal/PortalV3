@@ -87,8 +87,7 @@ const routes: Routes = [
       },
       {
         path: "apidetails/:id",
-      //  component: ApiDetailsComponent,
-        component: NewApiDetailsComponent,
+        component: ApiDetailsComponent,
         canActivate: [AuthGuard]
       },{
       path: "new-apidetails/:id",

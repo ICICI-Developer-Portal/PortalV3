@@ -81,7 +81,6 @@ export class NewApiDetailsComponent implements OnInit {
    onchnageKeyValue;
    onchangePriorityValue;
    env ;
-   isInternalUser:any;
 
   @ViewChild('Prodconfirm') Prodconfirm;
 
@@ -92,7 +91,11 @@ export class NewApiDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.env = "";
-     
+      this.dashboardService.getEnvironment().subscribe(
+        data => {
+          this.env = data;
+          console.log("this.env " + this.env );
+        });
       this.NewApplication();
       this.spinnerService.show();
       this.Sample_packet();
@@ -104,7 +107,6 @@ export class NewApiDetailsComponent implements OnInit {
       this.GetTestCases(_reqJson,Headers);
       this.error_code();
       this.Sample_packet();
-      this.isInternalUser = localStorage.getItem("isInternalUser");
     
     });
      
@@ -239,7 +241,6 @@ removeheader(i: number) {
           this.Url = this.sanitizer.bypassSecurityTrustResourceUrl(this.SandboxUrl);
           this.reqDetails =obj.ReqParam;
           this.resDetails =obj.ResParam;
-          this.env = obj.ApiData.ErrorCode;
           this.spinnerService.hide();
         }
         
@@ -303,7 +304,6 @@ Sample_packet(){
     console.log(this.modalRef)
 
     this.testApiresponse="";
-    this.testApiresponseFor601="";
    }
    Close_ConfirmProd() {
      console.log(this.modalRef)
@@ -649,19 +649,10 @@ console.log(headers)
     this.adm.getTestCases(_reqJson).subscribe(
 
       (data:any) => {
-        console.log(data._body)
-
-        
-          if(data && data._body && data._body!=null ){
-        console.log(data._body)
-
-            console.log(JSON.parse(JSON.stringify(data)));
+          console.log(JSON.parse(JSON.stringify(data)));
+          if(data && data._body){
              this.testApiresponseFor601=JSON.parse(data._body);//response based on selection of testcases
             console.log(this.testApiresponseFor601)
-          }
-          else if(data._body==null){   
-            this.testApiresponseFor601="";
-
           }
         },
 

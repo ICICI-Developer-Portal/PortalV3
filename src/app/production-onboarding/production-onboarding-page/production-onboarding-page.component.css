@@ -1,3 +1,15 @@
+.documentTabContent{
+	position:absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.pt-10{
+	padding-top: 10px;
+}
+.p-20{
+	padding: 20px;
+}
 input[type="textbox"]{
     font-family: Poppins-Regular;
     font-size: 14px;
@@ -545,3 +557,47 @@ ul{
 	display: flex;
 	justify-content: center;
   }
+
+  .pgrsFile{
+	background-color: #e9ecef;
+	border-radius: 0.25rem;
+	display: flex;
+	font-size: 1rem;
+	height: 1rem;
+	margin-top:1rem;
+	overflow: hidden;
+	width: 430px;
+  }
+  .progress-custom {
+	margin: 10px 2px;
+    width: 50px;
+    float: right;
+    height: .4rem;
+    border-radius: unset;
+}
+  
+  .progress-bar {
+	align-items: center;
+	background-color: #ae282e;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+  }
+  .sandBox-navTab .nav-item {
+    border: 1px solid #515151; 
+    background: #efeaea;
+}  
+.sandBox-navTab .nav-item.show .nav-link, .sandBox-navTab .nav-link.active {
+    color: #fff !important;
+    background-color: #ae282e;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+#navlist section
+{
+display: inline;
+list-style-type: none;
+padding-right: 20px;
+float: right;}
+.active-progress{
+    border: 1px solid  #ae282e;
+}

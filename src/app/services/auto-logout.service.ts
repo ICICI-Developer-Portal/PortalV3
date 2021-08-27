@@ -48,15 +48,33 @@ export class AutoLogoutService {
     const diff = timeleft - now;
     const isTimeout = diff < 0;
 
-    if (isTimeout && !(localStorage.getItem('username') == '' || !localStorage.getItem('username'))) {
+    if (isTimeout) {
       //localStorage.clear();
+      if(localStorage.getItem("autoLogout") !== "true"){
+        localStorage.setItem("autoLogout","true");
+        this.logout();
+      }
       
-      localStorage.setItem("autoLogout","true");
-      this.logout();
     }
   }
   logout() {
 
+  
+    this.adm.logout().subscribe(
+      res => {
+        console.log("logout success");
+        this.resetUserData();
+        this.router.navigate(["/index"]);
+      },
+      err => {
+        console.log("logout failure");
+        this.resetUserData();
+        this.router.navigate(["/index"]);
+      }
+    );
+   // this.router.navigate(["/index"]);
+  }
+  resetUserData(){
     localStorage.removeItem("username");
     localStorage.removeItem("password");
     localStorage.removeItem("id");
@@ -68,14 +86,5 @@ export class AutoLogoutService {
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isInternalUser');
     this.adm.sendUserId("");
-    this.adm.LogoutPortal().subscribe(
-      res => {
-        this.router.navigate(["/index"]);
-      },
-      err => {
-        this.router.navigate(["/index"]);
-      }
-    );
-    this.router.navigate(["/index"]);
   }
 }

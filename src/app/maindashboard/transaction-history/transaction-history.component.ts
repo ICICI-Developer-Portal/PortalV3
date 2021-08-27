@@ -31,7 +31,7 @@ export class TransactionHistoryComponent implements OnInit {
   
     console.log("hiiii",_json)
     // console.log("hiiii",  this.adm.getTranscationHistory())
-    this.adm.getTransactionHistory().subscribe(
+    this.adm.getTranscationHistory().subscribe(
       (data:any) => {
         if(data && data._body){
          

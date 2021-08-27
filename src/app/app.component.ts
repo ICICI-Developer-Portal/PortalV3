@@ -8,7 +8,6 @@ import {
 // import { AdvertisementComponent } from "./advertisement.component";
 import { Router } from "@angular/router";
 import { LoginService } from "./services";
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 @Component({
   selector: "app-root",
@@ -19,12 +18,9 @@ export class AppComponent implements OnInit {
   title = "ICICI";
   modalRef: BsModalRef;
 
-  constructor(public dialog: MatDialog, private router: Router,
-    private adm: LoginService,
-    private httpClient: HttpClient) {}
+  constructor(public dialog: MatDialog, private router: Router, private adm: LoginService,) {}
 
   ngOnInit() {
-
     this.adm.getSalt().subscribe((data: any) => {
       
       this.adm.sendSalt(data._body);
@@ -32,7 +28,6 @@ export class AppComponent implements OnInit {
     err => {
       console.log('err', err);
     });
-
     // var url = this.router.url;
     // if (url !== "/index/termsandcondition") {
     //   const dialogRef = this.dialog.open(AdvertisementComponent, {

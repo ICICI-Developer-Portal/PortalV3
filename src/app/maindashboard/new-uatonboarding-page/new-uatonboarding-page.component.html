@@ -107,7 +107,7 @@
       <div class="form-group col-md-7">
         <label for="merchantName">Merchant Name <span class="text-danger"> *</span></label>
         <input type="text" class="form-control mainField col-md-11 inline_block" id="merchantName"
-          formControlName="merchantName" placeholder="Your Organization Name">
+          formControlName="merchantName" placeholder="Your Organization Name"  (keypress)="omit_special_char($event)">
         <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
           class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
         <!-- validation -->
@@ -211,15 +211,15 @@
           class="text-danger form-error">
           Relationship Manager/Email ID/Employee ID is required.
         </div>
-        <!-- ======== -->
+        <!-- ======== -->       
       </div>
       <div class="form-group col-md-5"></div>
       <div class="form-group col-md-12">
-        <button class="signInBtn btn-dark pull-right  mt-3 " type="button"
+        <button class="signInBtn btn-dark pull-right  mt-3 " type="button"   
       ng-reflect-klass="signInBtn"  [disabled]="!reactiveForm.get('basicDetailsSection').valid" (click)="nextTab($event)"
       style="
       margin-right: 38px;
-  "> Next
+  "> Next 
   </button>
       </div>
       
@@ -279,7 +279,7 @@
                     <!-- <span class="text-danger" *ngIf="(responseData | filter: term).length === 0"> No matches found</span> -->
 
                     </div>
-                    <div class=" col-md-12 padding-left-0 scroll-y400" >
+                    <div class=" col-md-12 padding-left-0 scroll-y" >
 
                       <!----------------------------------------------------------------Side Nagvigation fetching the data-------------------------------------------------------------->
                      
@@ -310,7 +310,7 @@
                           </a>
                           <!-- 1 level -->
                           <ul *ngFor="let j of i.children;let index=index" class="second-level display-none">
-                            <li *ngIf="!(j.TREE_ID ==557 ||  j.TREE_ID ==325 )">
+                            <li *ngIf="!(j.TREE_ID ==557 || j.TREE_ID ==556  || j.TREE_ID ==325 )">
                               <!-- 2 level -->
                               <a class="display-block cursor-pointer padding-left-10prcnt" *ngIf="j.display==1">
                                 <!-- <input type="checkbox"  *ngIf="indexOn==0"  (change)="multipleSelectAPI($event,$event.target.checked)" class="selectAll">
@@ -502,13 +502,7 @@
 <div formGroupName="whitelistIpSection" class="row" id="whitelistIpSectionBasedOnSelection">
   <div class="form-group col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'"></div>
   <div _ngcontent-c5="" class="col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'">     
-  <div class="form-group col-md-12" *ngIf="compositePay[0] !='Composite Pay'">
-    <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5="" download="/API application form version 112020.pdf" href="/assets/pdf/API application form version 112020.pdf" style="color: #004a7f;margin-bottom: 0px;" target="_blank">Click here </a>to download the Application form</p><p _ngcontent-c5="" style="margin-bottom: 0px">The duly filled and signed form has to be uploaded along with certificate together as a zip file in the certificate upload field.</p></div></div>
-  </div>
-  <div class="form-group col-md-12" *ngIf="compositePay[0] =='Composite Pay'">
-    <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px">Click here to download the<a _ngcontent-c5="" download="/API application form version 112020.pdf" href="/assets/pdf/CAS onboarding form.pdf" style="color: #004a7f;margin-bottom: 0px;" target="_blank"> Application form </a></p><p _ngcontent-c5="" style="margin-bottom: 0px">and the <a _ngcontent-c5="" download="/Business requirement form.docx" href="/assets/pdf/Business requirement form.docx" style="color: #004a7f;margin-bottom: 0px;" target="_blank">Business requirement form</a>. The duly filled and signed forms have to be uploaded along with the certificate together as a zip file in the Document upload field</p></div></div>
-  </div>
-   
+    <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5="" download="/API application form version 112020.pdf"  style="color: #004a7f;margin-bottom: 0px;" href="/assets/pdf/API application form version 112020.pdf">Click here </a>to download the application form</p><p _ngcontent-c5="" style="margin-bottom: 0px">The duly filled and signed form has to be uploaded along with certificate together as a zip file in the certificate upload field.</p></div></div>
   </div>
 
   <div class="form-group col-md-6" *ngIf="accNo">
@@ -909,40 +903,9 @@
     <input class="form-control  col-md-11" placeholder="Reference JIRA ID" type="text"
       formControlName="refJIRAID" />
   </div>
-  <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="EmpID">
-    <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Channel Id <span class="text-danger"> *</span></label>
-      <a _ngcontent-c5="" data-toggle="tooltip" title="Please contact your RM for the Channel.">
-        <img _ngcontent-c5="" alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png">
-      </a>
-    </div>
-    <input _ngcontent-c7="" class="form-control col-md-11 ng-untouched ng-pristine ng-valid" formcontrolname="EmpID"
-      placeholder="Your Channel Employee ID" type="text">
-       <!-- validation -->
-       <div
-       *ngIf="!reactiveForm.get('whitelistIpSection.EmpID').valid && reactiveForm.get('whitelistIpSection.EmpID').touched"
-       class="text-danger form-error">
-       EmpID is required.
-     </div>
-     <!-- ======== -->
-  </div>
-  <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="SOLID">
-    <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Branch SOL ID <span class="text-danger">
-          *</span></label><a _ngcontent-c5="" data-toggle="tooltip"
-        title="Please enter the first four digitsof your account number."><img _ngcontent-c5="" alt="loader"
-          class="ml2 cursor_pointer" src="assets/images/information.png"></a></div>
-    <input _ngcontent-c7="" class="form-control col-md-11 ng-untouched ng-pristine ng-valid" formcontrolname="SOLID"
-      placeholder="Your Branch SOL ID" type="text">
-       <!-- validation -->
-       <div
-       *ngIf="!reactiveForm.get('whitelistIpSection.SOLID').valid && reactiveForm.get('whitelistIpSection.SOLID').touched"
-       class="text-danger form-error">
-       Branch SOL ID  is required.
-     </div>
-     <!-- ======== -->
-  </div>
 
   <!-- ===================================== -->
- 
+
   <div class="form-group col-md-6">
     <label for="r_m_maild_id">Document Upload <span class="text-danger"> *</span></label>
     <a data-toggle="tooltip"
@@ -971,7 +934,8 @@
     <label for="checkbox">
       <input type="checkbox" id="checkbox" formControlName="checkBox" class="">
       I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
-    <span><a href="/assets/pdf/test.pdf" target="_blank" class="anchor_color"> Click here to
+    <span><a 
+      download="/test.pdf" href="/assets/pdf/test.pdf" class="anchor_color"> Click here to
         download</a><span class="text-danger"> *</span></span>
     <div
       *ngIf="!reactiveForm.get('whitelistIpSection.checkBox').valid && reactiveForm.get('whitelistIpSection.checkBox').touched"

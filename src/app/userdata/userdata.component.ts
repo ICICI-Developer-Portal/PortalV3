@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Toast, ToasterService } from 'angular2-toaster';
-// import { DataTableResource } from 'angular7-data-table';
+import { DataTableResource } from 'angular7-data-table';
 import { LoginService } from 'src/app/services';
 
 
@@ -45,7 +45,7 @@ export class UserdataComponent implements OnInit {
 	   
 	    
 	];
-	// itemResource = new DataTableResource(this.persons);
+	itemResource = new DataTableResource(this.persons);
 	items = [];
 	itemCount = 0;
 	params = {offset: 0, limit: 10}; //Static can be changed as per your need
@@ -56,12 +56,12 @@ export class UserdataComponent implements OnInit {
 		private adm: LoginService,
     private toasterService: ToasterService,
 	){
-    //   this.itemResource.count().then(count => this.itemCount = count);
+      this.itemResource.count().then(count => this.itemCount = count);
       this.reloadItems(this.params);
     }  
 
     reloadItems(params) {
-    //   this.itemResource.query(params).then(items => this.items = items);
+      this.itemResource.query(params).then(items => this.items = items);
     }
 
     // special properties:
@@ -198,7 +198,7 @@ export class UserdataComponent implements OnInit {
 	//Reload table manually after add/edit
 	reloadTableManually(){
 		this.reloadItems(this.params);
-		// this.itemResource.count().then(count => this.itemCount = count);
+		this.itemResource.count().then(count => this.itemCount = count);
 	}
 	changeTableName(val){
 

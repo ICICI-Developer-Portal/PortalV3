@@ -8,6 +8,8 @@ import { LoginService } from "src/app/services";
 import { PasswordValidation } from "../../layout/header/password.validator";
 import { VariablesService } from "src/app/services/Variables.service";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+// import * as CryptoJS from 'crypto-js';
+
 import {
   Http,
   Headers,
@@ -235,6 +237,28 @@ export class IndexComponent implements OnInit,  AfterViewInit {
   ngOnInit() {
     var self = this;
    // alert(navigator.userAgent);
+   
+   this.adm.getSaltValue().subscribe((data: any) => {
+    console.log("data rchd")
+    var headers = data.headers;
+    var setCookieHeader = headers.get('Set-Cookie')
+     console.log(data)
+     console.log( data.headers)
+     console.log(data._body)
+     console.log(setCookieHeader)
+    // var response = data._body;
+    // var obj = JSON.parse(response);
+    // console.log(obj)
+
+  },
+  err => {
+    console.log('err', err);
+    //this.router.navigate(['error']);
+  },);
+
+
+
+
    this.spinnerService.hide();
     var browser = (function (agent) {
       switch (true) {

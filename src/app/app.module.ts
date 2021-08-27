@@ -6,7 +6,7 @@ import { AppComponent } from "./app.component";
 import { LayoutModule } from "./LandingPage/layout/layout.module";
 import { HomeModule } from "./LandingPage/home/home.module";
 import { HttpModule } from "@angular/http";
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { UserservicesModule } from "./services/userservice.module";
 import { LoginService, DashboardService } from "./services";
 import { Config } from "./config/config";
@@ -52,17 +52,11 @@ import { AdminpanelModule } from "./adminpanel/adminpanel.module";
 import { AutoLogoutService } from "./services/auto-logout.service";
 
 import { UserdataComponent } from "./userdata/userdata.component";
-//  import { DataTableModule } from "angular7-data-table";
+ import { DataTableModule } from "angular7-data-table";
 import { NewLandingPageComponent } from './new-landing-page/new-landing-page.component';
 import { ExploreApiSigninComponent } from './documentation-dashb/explore-api-signin/explore-api-signin.component';
 import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
-//import { MyHttpInterceptor } from "./services/my-http-interceptor";
 //import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
-// import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
-import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-prod-onboarding-page.component';
-
-
-
 
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 @NgModule({
@@ -81,7 +75,6 @@ import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-p
     SignupPopupComponent,
     UserdataComponent,
     NewLandingPageComponent,
-    NewProdOnboardingPageComponent,
     ExploreApiSigninComponent,
     AutoLogoutComponent
    
@@ -111,7 +104,7 @@ import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-p
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
-    //  DataTableModule
+     DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
     
@@ -123,13 +116,7 @@ import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-p
     LoginService,
     VariablesService,   
     DashboardService,
-    AutoLogoutService,
-   /*  {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MyHttpInterceptor,
-      multi: true
-    } , */
-   // { provide: DEFAULT_TIMEOUT, useValue: defaultTimeout }
+    AutoLogoutService
     // { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
   ],
   entryComponents: [

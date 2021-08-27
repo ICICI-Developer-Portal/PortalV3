@@ -108,28 +108,6 @@ export class OnboardingrequestsComponent implements OnInit {
       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
   }
-  downloadDocument(jiraID,type,url) {
-    var json = {
-      jiraid: jiraID,
-      type:type
-    };
-
-    var fileName = url.substring(url.lastIndexOf("/") + 1);
-
-    this.adm.customDownload(json).subscribe((data: any) => {
-      this.certificate = data._body;
-      console.log(data._body);
-      var blob = new Blob([this.certificate], {
-        type: "text/plain"
-      });
-      saveAs(blob, fileName);
-    },
-    err => {
-      console.log('err', err);
-     // this.router.navigate(['error']);
-      this.toastrmsg('error',"Something went wrong. Please try again in some time.");
-    },);
-  }
   toastrmsg(type ,title) {
     var toast: Toast = {
       type: type,

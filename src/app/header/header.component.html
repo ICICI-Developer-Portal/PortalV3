@@ -53,23 +53,28 @@
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
             </a> -->
             <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
-              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-              aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
-            <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
-            </a>-->
-            <a  *ngIf="misUserVal == 'true'? true:false" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
-            </a>
-            <a [routerLink]="['/report-issues']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
             data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-            aria-selected="true"  (click)="addActiveClass($event)">Report Issue</a>
-          <!-- *ngIf="userEmailId=='gpay@apigee.com'" -->
-          
-            <a  [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
+            <a [routerLink]="['/transactionHistory']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+          data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+          aria-selected="true"  (click)="addActiveClass($event)">Transaction History</a>
+          <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
             data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-            aria-selected="true"  (click)="addActiveClass($event)">Analytics</a> 
-            <!-- <a  class="nav-link dropdown-item" id="pills-account-analytics-tab"
-            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-            aria-selected="true"  (click)="addActiveClass($event);goToAnalytics()">Analytics</a> -->
+            aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
+          <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
+          </a>-->
+          <a *ngIf="misUserVal=='true'" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+          </a>
+          <a [routerLink]="['/reportIssue']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+          data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+          aria-selected="true"  (click)="addActiveClass($event)">Report Issue</a>
+          <a *ngIf="userEmailId=='gpay@apigee.com'" [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+          data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+          aria-selected="true"  (click)="addActiveClass($event)">Analytics</a>
+          <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
+          </a>-->
+          <a  *ngIf="misUserVal == 'true'? true:false" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+          </a>
           </div>
         </li>
         <li class="dropdown" *ngIf="!showbtn">
@@ -192,7 +197,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <form name="myform" autocomplete="off" (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+      <form name="myform" autocomplete="off"  (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
       <div class="row mb30">
         <div class="col-md-12 mb-xs-10">
           <div><label for="user">Username</label></div>
@@ -206,9 +211,9 @@
       <div class="row mb10">
         <div class="col-md-12">
           <div><label for="password" type="password">Password</label></div>
-        <!--   <input name="password" type="password" class="input-login" #password /> -->
+        <!--     <input name="password" type="password" class="input-login" #password /> -->
 
-          <input name="password" type="password" class="input-login"  onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password />
+          <input   name="password" id="password" type="text" class="input-login"  onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password />
           <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
             Please Enter Password.
           </div>

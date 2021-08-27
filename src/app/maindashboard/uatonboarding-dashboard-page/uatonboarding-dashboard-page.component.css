@@ -29,6 +29,14 @@ input[type="textbox"]{
 .margin-leftminus15{
 	margin-left: -15px;
 }
+.btndisabld{
+	cursor: not-allowed;
+    background-color: #f5f5f5;
+    color: #919191 !important;
+}
+.paddingLeft13{
+	padding-left:13% !important;
+}
 .mainField.ng-invalid.ng-touched{
 border-left: 5px solid #ae282e;
 border-right: 1px solid #ae282e;
@@ -151,12 +159,16 @@ select.input-lg {
    .fifth-level{
 	   font-size: 11px;
    }
-   .first-level li a,.second-level li a, .third-level li a,.fourth-level li a,.fifth-level li a {
+   .first-level li a,.second-level li a, .third-level li a,.fourth-level li a,.fifth-level li a ,
+   .first-level li a:hover,.second-level li a:hover, .third-level li a:hover,.fourth-level li a:hover,.fifth-level li a:hover {
 	font-family: Poppins-Medium;
     /* padding: 16px 12px 16px 24px; */
     border-radius: 0px;
     width: 100%;
-    color: #919191;
+	/* color: #919191; */
+	color: #ffffff !important;
+	
+	
     display: block;
     text-decoration: none;
    }
@@ -201,7 +213,8 @@ select.input-lg {
    }
    .dropdownIcon{
 	margin-top: 15px;
-    margin-right: 24px;
+	/* margin-right: 24px; */
+	margin-right: 10px;
    }
   select + i.fa {
     float: right;
@@ -353,8 +366,10 @@ ul{
 	background: #ae282e;
 	border-color: #ae282e;
 }
-.customcsscontainer label input[type=checkbox],.customcsscontainerForTnC  label input[type=checkbox]{
+.selectAllDiv label  input[type=checkbox],.customcsscontainer label input[type=checkbox],.customcsscontainerForTnC  label input[type=checkbox]{
 	margin-right: 5px;
+	margin-left: 10px !important;
+
     -webkit-appearance: none;
     appearance: none;
     outline: none;
@@ -377,13 +392,13 @@ ul{
 .show {
 	display: block;
 }
-.customcsscontainer label input[type=checkbox]:after,.customcsscontainerForTnC  label input[type=checkbox]:after {
+.selectAllDiv label  input[type=checkbox],.customcsscontainer label input[type=checkbox]:after,.customcsscontainerForTnC  label input[type=checkbox]:after {
     font-family: FontAwesome;
     float: left;
     position: relative;
 }
 
-.customcsscontainer label input[type=checkbox]:checked:after,.customcsscontainerForTnC  label input[type=checkbox]:checked:after {
+.selectAllDiv label  input[type=checkbox],.customcsscontainer label input[type=checkbox]:checked:after,.customcsscontainerForTnC  label input[type=checkbox]:checked:after {
     color: #d23a3f;
     font-size: 10px;
     content: "\f00c";
@@ -504,7 +519,9 @@ ul{
 	  padding-left: 0px;
   }
   .scroll-y{
-	height: 246px;
+	height: 290px;
+	background-color: #ae282e;
+	padding-left: 12px;
     overflow-y: scroll;
   }
   .cart-scroll-y{
@@ -522,8 +539,17 @@ ul{
 	border-radius: 20px;       /* roundness of the scroll thumb 
 	border: 3px solid #ae282e;  /* creates padding around scroll thumb 
   }*/
-
-  .progress {
+ /*  .progress {
+	background-color: #e9ecef;
+	border-radius: 0.25rem;
+	display: flex;
+	font-size: 1rem;
+	height: 1rem;
+	margin-top:1rem;
+	overflow: hidden;
+	width: 430px;
+  } */
+ .pgrsFile{
 	background-color: #e9ecef;
 	border-radius: 0.25rem;
 	display: flex;
@@ -533,6 +559,13 @@ ul{
 	overflow: hidden;
 	width: 430px;
   }
+  .progress-custom {
+	margin: 10px 2px;
+    width: 50px;
+    float: right;
+    height: .4rem;
+    border-radius: unset;
+}
   
   .progress-bar {
 	align-items: center;
@@ -541,3 +574,21 @@ ul{
 	display: flex;
 	justify-content: center;
   }
+  .sandBox-navTab .nav-item {
+    border: 1px solid #515151; 
+    background: #efeaea;
+}  
+.sandBox-navTab .nav-item.show .nav-link, .sandBox-navTab .nav-link.active {
+    color: #fff !important;
+    background-color: #ae282e;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+#navlist section
+{
+display: inline;
+list-style-type: none;
+padding-right: 20px;
+float: right;}
+.active-progress{
+    border: 1px solid  #ae282e;
+}

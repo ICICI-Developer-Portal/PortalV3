@@ -166,8 +166,8 @@ select.input-lg {
     border-radius: 0px;
     width: 100%;
 	/* color: #919191; */
-	/* color: #ffffff !important; */
-	color:#ae282e;
+	color: #ffffff !important;
+	
 	
     display: block;
     text-decoration: none;
@@ -518,15 +518,9 @@ ul{
   .padding-left-0{
 	  padding-left: 0px;
   }
-  .scroll-y400{
-	height: 400px;
-	/* background-color: #ae282e; */
-	padding-left: 12px;
-    overflow-y: scroll;
-  }
   .scroll-y{
 	height: 290px;
-	/* background-color: #ae282e; */
+	background-color: #ae282e;
 	padding-left: 12px;
     overflow-y: scroll;
   }

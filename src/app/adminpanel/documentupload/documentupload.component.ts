@@ -91,8 +91,8 @@ btnConfirm(UATconfirm,remark) {
 
       var formData = new FormData();
       this.remarks = remark;
-      formData.append("username",localStorage.getItem('username')); // localStorage.getItem('username')
-      formData.append("jiraId",this.uploadDoc.value.docUpload );//this.uploadDoc.value.docUpload
+      formData.append("username", localStorage.getItem('username'));
+      formData.append("jiraId", this.uploadDoc.value.docUpload);
       formData.append("remarks", this.remarks); 
       console.log("remarks=="+ this.remarks);
       let b: any = (<HTMLInputElement>document.getElementById('file1')).files;
@@ -100,31 +100,11 @@ btnConfirm(UATconfirm,remark) {
      //   formData.append(this.uploadDoc.value.docUpload, b[k]);
         formData.append("file1", b[k]); 
       }
-   //   let json = JSON.parse(formData)
-     /*  this.adm.adminUpload(formData).subscribe((data: any) => {
-        var response = data._body;
-    
-        var obj = JSON.parse(response);
-        this.dataSource = obj;
-        for(var i=0; i<=this.dataSource.length; i++){
-          this.jiraId.push(this.dataSource[i].JiraId);
-        }
-        this.spinnerService.hide();
-      },
-      err => {
-        console.log('err', err);
-       // this.router.navigate(['error']);
-       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
-      },); */
-
-
-
-
-     let headers = new HttpHeaders();
+      let headers = new HttpHeaders();
       headers = headers.set(  "Token", localStorage.getItem("jwt"));
       this.HttpClient.post<any>(
       //  'https://developer.icicibank.com/PDFfileUpload',
-        'https://developer.icicibank.com/rest/adminFileUpload',
+        'https://developer.icicibank.com/adminFileUpload',
         formData,{headers: headers}
       ).subscribe(
         res => {
@@ -137,8 +117,8 @@ btnConfirm(UATconfirm,remark) {
           //this.router.navigate(['error']);
           this.toastrmsg('error',"Something went wrong. Please try again in some time.");
         },
-      ); 
-   this.modalRef = this.modalService.show(UATconfirm);
+      );
+    this.modalRef = this.modalService.show(UATconfirm);
 }
 Close_ConfirmId() {
   this.modalRef.hide();

@@ -10,14 +10,10 @@ import { ProductionSidebarComponent } from './production-sidebar/production-side
 import { ModalModule } from 'ngx-bootstrap';
 import { ToasterModule } from 'angular2-toaster';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-prod-onboarding-page.component';
 
 
 @NgModule({
-  declarations: [ProductionOnboardingPageComponent,
-    ProductionOnboardingComponent,
-     ProductionSidebarComponent,
-     NewProdOnboardingPageComponent],
+  declarations: [ProductionOnboardingPageComponent,ProductionOnboardingComponent, ProductionSidebarComponent],
   imports: [
     CommonModule,
     RouterModule,

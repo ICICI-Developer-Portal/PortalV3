@@ -16,3 +16,53 @@ a[role="tab_branch_2"]:first-of-type + ul ::before{
     left: 15px;
     border-left: 1px solid #bbbbbb;
 }
+.explore-API .navbar{
+    margin: 0px;
+}
+.navbar-toggler{    margin-left: 24rem;
+    margin-top: 2em;
+}
+.sideMenu {
+    width: 314px;}
+@media (max-width: 992px) {
+    
+    .navbar-collapse.collapsing .navbar-nav {
+        display: block;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: -45%;   
+        transition: all 0.2s ease;
+    }
+
+    .navbar-collapse.show .navbar-nav {
+        /* position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        flex-direction: column;
+        height: auto;
+        width: 45%;
+        transition: left 0.35s ease;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
+        position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    flex-direction: column;
+    height: auto;
+    width: 314px;
+    transition: left 0.35s ease;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .documentTabContent {
+      top: 59px;
+      position: relative;
+    }
+    .sideMenu {
+      top: 119px;
+    }
+
+  }
