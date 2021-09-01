@@ -118,6 +118,7 @@
         </div>
         <!-- ======== -->
       </div>
+       
       <div class="form-group col-md-5"></div>
 
       <div class="form-group col-md-7">
@@ -502,7 +503,11 @@
 <div formGroupName="whitelistIpSection" class="row" id="whitelistIpSectionBasedOnSelection">
   <div class="form-group col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'"></div>
   <div _ngcontent-c5="" class="col-md-6" *ngIf="arrayObjectOfDomain[0]=='Business Banking' || arrayObjectOfDomain[0]=='Payments'">     
-    <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5="" download="/API application form version 112020.pdf"  style="color: #004a7f;margin-bottom: 0px;" href="/assets/pdf/API application form version 112020.pdf">Click here </a>to download the application form</p><p _ngcontent-c5="" style="margin-bottom: 0px">The duly filled and signed form has to be uploaded along with certificate together as a zip file in the certificate upload field.</p></div></div>
+    <div class="form-group">  <div class="form-control col-md-11 " style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;"><p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5="" 
+      
+      style="color: #004a7f;margin-bottom: 0px;" 
+     
+      (click)="downloadPDF('/assets/pdf/API application form version 112020.pdf','API application form version 112020.pdf')">Click here </a>to download the application form</p><p _ngcontent-c5="" style="margin-bottom: 0px">The duly filled and signed form has to be uploaded along with certificate together as a zip file in the certificate upload field.</p></div></div>
   </div>
 
   <div class="form-group col-md-6" *ngIf="accNo">
@@ -935,7 +940,8 @@
       <input type="checkbox" id="checkbox" formControlName="checkBox" class="">
       I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
     <span><a 
-      download="/test.pdf" href="/assets/pdf/test.pdf" class="anchor_color"> Click here to
+     
+     (click)="downloadPDF('/assets/pdf/test.pdf','test.pdf')" class="anchor_color"> Click here to
         download</a><span class="text-danger"> *</span></span>
     <div
       *ngIf="!reactiveForm.get('whitelistIpSection.checkBox').valid && reactiveForm.get('whitelistIpSection.checkBox').touched"

@@ -17,6 +17,26 @@ import { timeout, catchError, map, mapTo } from "rxjs/operators";
 
 @Injectable()
 export class LoginService {
+
+  misUserVal:any;
+  Firstname:any;
+  lastLoginDate:any;
+  isInternalUser:any;
+  companyName: any;
+  mobileNo:any;
+  email: any;
+  rm:any;
+  appathonFirstName:any;
+  appathonCompanyEmail: any;
+  appathonMobileNumber:any;
+  appathonCompanyName:any;
+  jwt:any;
+  appathonusername:any;
+  username:any;
+  password:any;
+  id:any;
+  role:any;
+  
   
   apiUrl: string;
   UAT_apiUrl: string;
@@ -24,7 +44,7 @@ export class LoginService {
   private user_name = new Subject<any>();
   private salt = new Subject<any>();
 
-  
+  /*  */
   constructor(
     private http: Http,
     private config: Config,
@@ -1086,7 +1106,9 @@ changePassw(json) {
     " https://developer.icicibank.com/ROOT_UAT/rest/changePassword",
     query,
     options
-  );  }
+  ); 
+ // return this.http.post(this.apiUrl+"changePassword",query,options);
+}
 
   createJira(json) {
     var query = "";
@@ -1199,8 +1221,8 @@ Login1(data) {
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-//return this.http.post(this.apiUrl + "loginTest", query, options);
-return this.http.post(this.apiUrl + "login1", query, options);
+  return this.http.post(this.apiUrl + "loginProd", query, options);
+//return this.http.post(this.apiUrl + "login1", query, options);
 //return this.http.post(this.UAT_apiUrl + "login", query, options);
 }
   //8April2021 written by shikha
@@ -1259,8 +1281,8 @@ logout(){
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post(this.apiUrl + "logout", query, options);
- //return this.http.post(this.apiUrl + "logoutPrevious", query, options);
+ // return this.http.post(this.apiUrl + "logout", query, options);
+ return this.http.post(this.apiUrl + "logoutPrevious", query, options);
 
 }
 

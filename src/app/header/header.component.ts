@@ -134,18 +134,17 @@ export class HeaderComponent implements OnInit {
 
     });
     this.adm.getUserName().subscribe(data => {
-      this.appathonFirstName = localStorage.getItem("appathonFirstName");
-      this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
+    // commented by shikha 1/9/21 IRIS vulnerability reference
+    //this.appathonFirstName = localStorage.getItem("appathonFirstName");
+    // this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
       this.appathonMobileNumber = localStorage.getItem("appathonMobileNumber");
       this.appathonCompanyName = localStorage.getItem("appathonCompanyName");
-      this.appathonUserName = localStorage.getItem("appathonUserName");
+      // this.appathonUserName = localStorage.getItem("appathonUserName");
       this.user_name = data;
     });
 
     this.adm.getSaltValue().subscribe(data => {
-     // console.log(data);
       this.salt = data
-    //  let pwd = CryptoJS.AES.encrypt(password, data).toString();  
       
     });
     this.get_domain_and_apis();
@@ -482,13 +481,10 @@ toastrmsg(type, title) {
 
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
-    //localStorage.setItem('username',username);
-    //localStorage.setItem('password',password);
     var nonEncodedJson = {
       username : username,
       password : password
     };
-  //  console.log(nonEncodedJson)
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
@@ -513,16 +509,10 @@ toastrmsg(type, title) {
     key += this.datepipe.transform(Date.now(),'ddMMyyyy');
   let newSalt = this.encode(key,this.salt);
   var json = { username: username, password: pwd ,Token:newSalt};
- // var json = { username: username, password: password };
- // console.log("username password == "+username+':' +password) 
-//this.adm.Login(json).subscribe((data: any) => {
-    this.adm.Login1(json).subscribe((data: any) => {
+  this.adm.Login1(json).subscribe((data: any) => {
+    console.log("header")
       var response = data._body;
-      //console.log(response)
       this.loginResponse = JSON.parse(response);
-     //console.log(this.loginResponse);
-    //  console.log(this.loginResponse.data)
-     // console.log(this.loginResponse.data.companyName)
   
 
       if (this.loginResponse.status == true  ) {
@@ -542,23 +532,31 @@ toastrmsg(type, title) {
           let respData =  this.loginResponse.data;
           if(respData  ){
             this.misUserVal = respData.misUser;
+            this.adm.misUserVal=this.misUserVal;
             localStorage.setItem('misUserVal',this.misUserVal);
           }  if(respData && respData.firstName ){
             this.Firstname=respData.firstName;
             localStorage.setItem('Firstname',this.Firstname);
+            this.adm.Firstname =this.Firstname;
           }  if(respData && respData.lastLoginDt ){
             this.lastLoginDate=respData.lastLoginDt;
             localStorage.setItem('lastLoginDate',this.lastLoginDate);
+            this.adm.lastLoginDate=this.lastLoginDate;
           }if(respData  ){
             localStorage.setItem('isInternalUser',respData.internalUser);
             this.isInternalUser = respData.internalUser;
+            this.adm.isInternalUser=this.isInternalUser;
           }
           if(respData && respData.companyName ){
             localStorage.setItem('companyName',respData.companyName);
+            this.adm.companyName=respData.companyName;
+
           } if(respData && respData.mobileNo ){
             localStorage.setItem('mobileNo',respData.mobileNo);
+            this.adm.mobileNo=respData.mobileNo;
           }if(respData && respData.email ){
             localStorage.setItem('email',respData.email);
+            this.adm.email=respData.email;
           }if(respData && respData.rm ){
             localStorage.setItem('rm',respData.rm);
           }
@@ -609,11 +607,11 @@ toastrmsg(type, title) {
           localStorage.setItem("role", this.loginResponse.data.role);
           this.userName = localStorage.getItem("username");
           
-          localStorage.setItem(
-            "appathonusername",
-            this.loginResponse.data.appathonusername
-          );
-          localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+          // localStorage.setItem(
+          //   "appathonusername",
+          //   this.loginResponse.data.appathonusername
+          // );
+          // localStorage.setItem("appathonUserName", this.loginResponse.data.username);
           localStorage.setItem("email", this.loginResponse.data.email);
           this.adm.sendUserId(this.loginResponse.data.id);
           this.userName = localStorage.getItem("username");
@@ -1211,12 +1209,16 @@ toastrmsg(type, title) {
       res => {
         console.log("logout success");
         this.resetUserData();
-        this.router.navigate(["/index"]);
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       },
       err => {
         console.log("logout failure");
         this.resetUserData();
-        this.router.navigate(["/index"]);
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       });
   }
 resetUserData(){
@@ -1230,6 +1232,7 @@ resetUserData(){
   localStorage.removeItem('Firstname');
   localStorage.removeItem('isAdmin');
   localStorage.removeItem('isInternalUser');
+  localStorage.clear();
   this.adm.sendUserId("");
   this.showbtn = true;
   this.showlogoutbtn = false;

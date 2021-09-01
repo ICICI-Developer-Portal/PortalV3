@@ -64,12 +64,16 @@ export class AutoLogoutService {
       res => {
         console.log("logout success");
         this.resetUserData();
-        this.router.navigate(["/index"]);
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       },
       err => {
         console.log("logout failure");
         this.resetUserData();
-        this.router.navigate(["/index"]);
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       }
     );
    // this.router.navigate(["/index"]);
@@ -85,6 +89,7 @@ export class AutoLogoutService {
     localStorage.removeItem('Firstname');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isInternalUser');
+    localStorage.clear();
     this.adm.sendUserId("");
   }
 }

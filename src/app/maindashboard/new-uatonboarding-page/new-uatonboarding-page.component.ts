@@ -27,6 +27,7 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 import { Http } from '@angular/http';
+import { saveAs } from "file-saver";
 declare var $: any;
 
 @Component({
@@ -131,13 +132,18 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   ngOnInit() {
    
 
-    console.log( localStorage.getItem("companyName"))
-    this.companyName = localStorage.getItem("companyName");
-    this.email = localStorage.getItem("email");
-    this.rm = localStorage.getItem("rm");
+    console.log(  this.adm.companyName,this.adm.email,this.adm.rm,this.adm.mobileNo)
+    // this.companyName = localStorage.getItem("companyName");
+    // this.email = localStorage.getItem("email");
+    // this.rm = localStorage.getItem("rm");
+    // this.mobileNo = localStorage.getItem("mobileNo");
+    this.companyName =  this.adm.companyName;
+    this.email = this.adm.email;
+    this.rm = this.adm.rm;
+    this.mobileNo= this.adm.mobileNo;
 
 
-    this.mobileNo = localStorage.getItem("mobileNo");
+   
 
 
     document.getElementById("merchantName").focus();
@@ -406,7 +412,6 @@ ifIPpatternNotmatches(){
     this.showTab = id;
     //this.active ='#F06321';
   }
-
   omit_special_char(event){   
     var k;  
     k = event.charCode;  //         k = event.keyCode;  (Both can be used)
@@ -969,7 +974,10 @@ const distinctArray = tempArr.filter((n, i) => tempArr.indexOf(n) === i);
 
 let inputFields = {
 
-  userName: localStorage.getItem("username"),
+  // userName: localStorage.getItem("username")
+  userName:  this.adm.username
+
+  ,
 
   domainName: distinctArray.toString(),
 
@@ -1510,10 +1518,16 @@ setProgress(id){
   }
 
 }
-downloadPDF(path){
+downloadPDF(path,filename){
 
   this.adm.downloadFromURL(path).subscribe((data: any) => {
     console.log(data);
+    let certificate = data._body;
+    console.log(data._body);
+    var blob = new Blob([certificate], {
+      type: "text/pdf"
+    });
+    saveAs(blob,filename);
   },
   err => {
     console.log('err', err);

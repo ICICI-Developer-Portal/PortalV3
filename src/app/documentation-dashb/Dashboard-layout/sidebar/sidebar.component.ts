@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { DashboardService } from "src/app/services";
+import { LoginService } from 'src/app/services';
+
 import { document } from "ngx-bootstrap";
 import { ToasterService, Toast } from 'angular2-toaster';
 
@@ -37,7 +39,9 @@ isInternalUser:any;
   constructor(
     private router: Router,
     private dashboardService: DashboardService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private adm: LoginService,
+
   ) {
     var counter2 = 0;
     //on load introduction active
@@ -63,6 +67,30 @@ isInternalUser:any;
   }
 
   ngOnInit() {
+    console.log( 
+      "======================================",
+      this.adm.misUserVal,
+      this.adm.Firstname,
+      this.adm.lastLoginDate,
+      this.adm.isInternalUser,
+      this.adm.companyName,
+      this.adm.mobileNo,
+      this.adm.email, 
+      this.adm.rm,
+      this.adm.appathonFirstName,
+      this.adm.appathonCompanyEmail, 
+      this.adm.appathonMobileNumber,
+      this.adm.appathonCompanyName,
+      this.adm.jwt,
+      this.adm.appathonusername,
+      this.adm.username,
+      this.adm.password,
+      this.adm.id,
+      this.adm.role,
+      )
+    
+
+      
     var self = this;
     //api for get menu tree data
     this.isInternalUser = localStorage.getItem("isInternalUser");

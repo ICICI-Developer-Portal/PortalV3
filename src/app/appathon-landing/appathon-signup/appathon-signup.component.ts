@@ -395,7 +395,7 @@ export class AppathonSignupComponent implements OnInit {
         localStorage.setItem('password', this.loginResponse.data.password);
         localStorage.setItem('id', this.loginResponse.data.id);
         localStorage.setItem('role',  this.loginResponse.data.role);
-        localStorage.setItem('appathonusername',  this.loginResponse.data.appathonusername);
+        // localStorage.setItem('appathonusername',  this.loginResponse.data.appathonusername);
         localStorage.setItem('email', this.loginResponse.data.email);
         this.adm.sendUserId(this.loginResponse.data.id);
     
