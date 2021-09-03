@@ -39,7 +39,7 @@
         class="tryItFreeBtn"
         >{{ constants.FAQ }}</a
       >
-        <a
+        <a *ngIf="image !== ' '"
           data-toggle="modal"
           data-target="#viewFlow"
           class="tryItFreeBtn"
@@ -51,9 +51,9 @@
           (click) = "downloadFile"
           download
           >{{ constants.PDF_DOCUMENT }}</a
-        > -->
+        >ssss -->
         <a
-          
+          *ngIf="file !== ' '"
           class="tryItFreeBtn"
           (click) = "downloadFile()"
           >{{ constants.PDF_DOCUMENT }}</a

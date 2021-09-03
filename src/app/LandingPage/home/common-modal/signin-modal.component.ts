@@ -65,6 +65,7 @@ export class SigninModalComponent implements OnInit {
   companyNamesDetails: any;
   companyNames: any;
   errorMsg: any = "Something went wrong. Please try again in some time.";
+  status_code:any;
   constructor(
     private SessionService: SessionService,
     private authService: AuthService,
@@ -219,7 +220,7 @@ export class SigninModalComponent implements OnInit {
   }
 
   toastrmsg(type, title) {
-    console.log("toastermsg", type, title);
+  //  console.log("toastermsg", type, title);
     var toast: Toast = {
       type: type,
       showCloseButton: true,
@@ -241,7 +242,7 @@ export class SigninModalComponent implements OnInit {
   }
 
   openModal2(signup: TemplateRef<any>) {
-    console.log(this.domainLst )
+   // console.log(this.domainLst )
   
   // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
 
@@ -297,6 +298,7 @@ export class SigninModalComponent implements OnInit {
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
+    this.status_code = "";
     if (username == "") {
       this.isusername = true;
       return;
@@ -307,7 +309,7 @@ export class SigninModalComponent implements OnInit {
     }
     username = btoa(username);
     password = btoa(password);
-    console.log("username password"+username+':' +password)
+    //console.log("username password"+username+':' +password)
     var json = { username: username, password: password };
     this.spinnerService.show();
     this.adm.Login(json).subscribe((data: any) => {
@@ -317,37 +319,42 @@ export class SigninModalComponent implements OnInit {
         var timer = this.SessionService.session();
         this.show = false;
 
-        //this.modalRef.hide();
-        //this.toastrmsg('success', "Login has been Successfully");
-        // this.sessionSet('username', obj.data.username);
-        // localStorage.setItem('username', obj.data.username);
-        // localStorage.setItem('password', obj.data.password);
-        // localStorage.setItem('id', obj.data.id);
-        // localStorage.setItem('role', 'user');
-        // localStorage.setItem('email', obj.data.email);
-        // this.adm.sendUserId(obj.data.id);
         localStorage.setItem("jwt",this.loginResponse.jwttoken)
         this.spinnerService.hide();
 
         let respData =  this.loginResponse.data;
+
+        if(respData ){
+          
+          localStorage.setItem('misUserVal',respData.misUser);
+        }  if(respData && respData.firstName ){
+          localStorage.setItem('Firstname',respData.firstName);
+        }  if(respData && respData.lastLoginDt ){
+          localStorage.setItem('lastLoginDate',respData.lastLoginDt);
+        }if(respData  ){
+        localStorage.setItem('isInternalUser',respData.internalUser);
+      }
+
         if(respData && respData.companyName ){
           localStorage.setItem('companyName',respData.companyName);
-        }else if(respData && respData.mobileNo ){
+        } if(respData && respData.mobileNo ){
           localStorage.setItem('mobileNo',respData.mobileNo);
-        }else if(respData && respData.email ){
+        }if(respData && respData.email ){
           localStorage.setItem('email',respData.email);
-        }else if(respData && respData.rm ){
+        }if(respData && respData.rm ){
           localStorage.setItem('rm',respData.rm);
         }
 
-        this.adm.LoginPortal(nonEncodedJson).subscribe(
+       /*  this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
-            this.router.navigate([this.router.url]);
+            console.log("LoginPortal success");
+            //this.router.navigate([this.router.url]);
           },
           err => {
-            this.router.navigate([this.router.url]);
+            console.log("LoginPortal error")
+           // this.router.navigate([this.router.url]);
           }
-        );
+        ); */
         this.dialogRef.close();
         /**
          * Start here 
@@ -356,28 +363,84 @@ export class SigninModalComponent implements OnInit {
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
-    localStorage.setItem("role", "user");
+  //  localStorage.setItem("role", "user");
+    localStorage.setItem("role", this.loginResponse.data.role);
     localStorage.setItem("email", this.loginResponse.data.email);
-    this.adm.sendUserId(this.loginResponse.data.id);
 
-    this.router.navigate([this.router.url]);
+    this.adm.Admin_access(this.loginResponse.data.username).subscribe((data: any) => {
+      var response = data._body;
+      var obj = JSON.parse(response);
+      if (obj.message == 'Success') {
+        console.log('yes admin');
+        this.adm.sendUserId(this.loginResponse.data.id);
+       localStorage.setItem('isAdmin',"yes");
+      } else {
+        console.log('no');
+        this.adm.sendUserId(this.loginResponse.data.id);
+      }
+    },
+    err => {
+      /* var obj ={"message":"Success","jwttoken":null,"status":true,"status_code":0,"data":null};
+      if (obj.message == 'Success') {
+        console.log('yes admin');
+       // this.userRole = true;
+       localStorage.setItem('isAdmin',"yes");
+      } else {
+        console.log('no');
+       // this.userRole = false;
+      } */
+      this.adm.sendUserId(this.loginResponse.data.id);
+      console.log('err', err);
+    },);
+
+   
+
+   
     /**
      * End here
      */
         this.modalRef4 = this.modalService.show(loginsuccess, {
           backdrop: "static"
         });
+
+       // this.router.navigate([this.router.url]);
       } else {
         this.spinnerService.hide();
         this.isusername = false;
         this.issetpwd = false;
-        this.is_res_error = this.loginResponse.message;
+        if(this.loginResponse.status_code == 111 || this.loginResponse.status_code == "111" ){
+          this.status_code = 111;
+        this.is_res_error = "Your account is locked because of "+this.loginResponse.message +" days inactive.";
+       
+        }else if(this.loginResponse.status_code == 112 || this.loginResponse.status_code == "112" ){
+          this.is_res_error = this.loginResponse.message;
+        }else{
+         this.is_res_error = this.loginResponse.message;
+         }
+      
       }
     },
     err => {
       console.log('err', err);
      // this.router.navigate(['error']);
       this.toastrmsg('error',this.errorMsg);
+    },);
+  }
+  admin_acccess(username) {
+    this.adm.Admin_access(username).subscribe((data: any) => {
+      var response = data._body;
+      var obj = JSON.parse(response);
+      if (obj.message == 'Success') {
+        console.log('yes admin');
+     //   this.userRole = true;
+      } else {
+        console.log('no');
+       // this.userRole = false;
+      }
+    },
+    err => {
+     
+      console.log('err', err);
     },);
   }
   //  Signup function
@@ -442,7 +505,7 @@ export class SigninModalComponent implements OnInit {
           this.shfrmSFThird = false;
           this.currentPath = this.router.url;
 
-          this.router.navigate([this.currentPath]);
+         // this.router.navigate([this.currentPath]);
         } else {
           this.shfrmSFThird = true;
           this.shfrmSFSecond = false;
@@ -716,6 +779,11 @@ export class SigninModalComponent implements OnInit {
     localStorage.removeItem("id");
     localStorage.removeItem("role");
     localStorage.removeItem("jwt")
+    localStorage.removeItem('lastLoginDate');
+    localStorage.removeItem('misUserVal');
+    localStorage.removeItem('Firstname');
+    localStorage.removeItem('isInternalUser');
+    localStorage.removeItem("userEnteredText");
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;
@@ -767,9 +835,24 @@ export class SigninModalComponent implements OnInit {
     }, 10);
   }
 
-  //login success pop up modal
-  clickOk() {
+   //login success pop up modal
+   clickOk() {
     this.modalRef4.hide();
+    let utmUrl = localStorage.getItem('UTM_url');
+    let utm = utmUrl.split('#');
+    let utm2 = utm[1];
+    if (this.router.url === "/documentation"){
+      this.router.navigate(['explore-api']); 
+    }
+    if (utm2 === "/analytics"){
+      this.router.navigate(['analytics']); 
+    } else if( localStorage.getItem("userEnteredText")!= "" || localStorage.getItem("userEnteredText")!= undefined ){
+      this.router.navigate(['viewallapi']);
+    }
+    else{
+      this.router.navigate([this.currentPath]);
+    }
+    
    /* this.sessionSet("username", this.loginResponse.data.username);
     localStorage.setItem("username", this.loginResponse.data.username);
     localStorage.setItem("password", this.loginResponse.data.password);

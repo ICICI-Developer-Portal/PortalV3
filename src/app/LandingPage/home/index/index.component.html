@@ -5,8 +5,25 @@
 </style>
 <toaster-container></toaster-container>
 <ng4-loading-spinner> </ng4-loading-spinner>
+<!-- <app-auto-logout></app-auto-logout> -->
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active show">
+
+        <!-- searchbar added -->
+        <div _ngcontent-c5="" style="
+        z-index: 1;
+        position: absolute;
+        margin-left: 69%;
+        margin-top: 2%;
+       ">
+        
+             <div _ngcontent-c5="" class="searchBarViewAll" style="width: 290px;"><input _ngcontent-c5=""
+                 class="ng-valid ng-dirty ng-touched" id="viewApisearch" (keypress)="viewApi($event)" ng-reflect-model=""
+                 placeholder="Search API by Name, Description" type="text" ><i _ngcontent-c5=""
+                 class="material-icons">search</i></div>
+           </div>
+
+   
     <!-- bannner carousel     -->
     <!-- <section class=""> -->
       <!-- <div class="">
@@ -27,7 +44,7 @@
                 <!--First slide-->
                 <div class="carousel-item active" style="background: green;height: 100%;width: 100%;">
                   <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg');height: 100%;width: 100%;"></div> -->
-                  <img src="assets/images/banner_index_c1.jpeg"  class="fstImg img-responsive"  alt="Second slide"  (click)="bannerTArget1($event)" />
+                  <img src="assets/images/banner_index_c1.jpeg"  style="max-height:470px;width:auto;" class="fstImg img-responsive"  alt="Second slide"  (click)="bannerTArget1($event)" />
                  </div>
                  <!--/First slide-->
               <!--Second slide-->
@@ -35,7 +52,7 @@
                 <!-- <img src="assets/images/image 1.JPG" alt="Second slide"  (click)="conso('jiii')" /> -->
                 <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg') ; height: 100%;width: 100%;"></div> -->
 
-                <img src="assets/images/banner_index_c.jpeg" class="sndImg img-responsive" alt="Second slide"  (click)="bannerTArget2($event)" />
+                <img src="assets/images/banner_index_c.jpeg" style="max-height:470px;width:auto;" class="sndImg img-responsive" alt="Second slide"  (click)="bannerTArget2($event)" />
               </div>
               <!--/Second slide-->
             </div>
@@ -508,7 +525,7 @@
           <div class="col-md-3 col-sm-6 ">
             <div class="">
               <div class="apiCardWithLabel">
-                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                <div class="sectionAPICard cursor_pointer" (click)="loans(signin)">
                   <h4>Auto Loan</h4>
                   <h5>Cards and Loans</h5>
                   <p>
@@ -523,7 +540,7 @@
           </div>
             <div class="col-md-3 col-sm-6 ">
               <div class="apiCardWithLabel">
-                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                <div class="sectionAPICard cursor_pointer" (click)="account(signin)">
                   <h4>iWish</h4>
                   <h5>Accounts and Deposits</h5>
                   <p>
@@ -537,7 +554,7 @@
             </div>
             <div class="col-md-3 col-sm-6">
               <div class="apiCardWithLabel">
-                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                <div class="sectionAPICard cursor_pointer" (click)="corporate(signin)">
                   <h4>Cash Management</h4>
                   <h5>Business Banking APIs</h5>
                   <p>
@@ -550,7 +567,7 @@
             </div>
             <div class="col-md-3 col-sm-6">
               <div class="apiCardWithLabel">
-                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                <div class="sectionAPICard cursor_pointer" (click)="show_build(signin)">
                   <h4>Banking Offers</h4>
                   <h5>Building Blocks</h5>
                   <p>
@@ -662,7 +679,7 @@
                   </div>
                 </div>
               </div>
-              <div class="carousel-item">
+            <!--  <div class="carousel-item">
                 <div class="col-md-4">
                   <div class="card card-body1" style="padding: 10px;">
                     <div class="mb9 text-center cardsImage">
@@ -685,7 +702,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
               <div class="carousel-item">
                 <div class="col-md-4">
                   <div class="card card-body1" style="padding: 10px;">   
@@ -708,7 +725,7 @@
                   </div>
                 </div>
               </div>
-              <div class="carousel-item">
+             <!-- <div class="carousel-item">
                 <div class="col-md-4">
                   <div class="card card-body1" style="padding: 10px;">
                     <div class="mb9 text-center cardsImage">
@@ -730,7 +747,7 @@
                   </div>
                 </div>   
               </div>
-
+            -->
             </div>
             <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
@@ -773,11 +790,11 @@
       
         <div class="row mx-auto my-auto sectionAPIsGrayBg">
           <div id="recipeCarousel1" class="carousel slide w-100 " data-ride="carousel" style="padding: 15px 10px ;">
-            <div class="carousel-inner w-100" role="listbox" >
+            <div class="carousel-inner w-100 api-inner" role="listbox" >
               <div class="carousel-item active">
                
                 <div class="col-md-4">
-                  <div class="card card-body1" style="padding: 10px;">
+                  <div class="card card-body2" style="padding: 10px;">
                   <div class="container1">
                     <img src="https://www.icicibank.com/managed-assets/images/blog/big/features-and-benefits-of-api-in-banking.jpg" alt="Avatar" class="image1">
                     <div class="info"> Features and Benefits of API in Banking.</div>
@@ -805,7 +822,7 @@
             </div>
               <div class="carousel-item  ">
                 <div class="col-md-4">
-                  <div class="card card-body1" style="padding: 10px;">
+                  <div class="card card-body2" style="padding: 10px;">
                     <div class="container1">
                       <img src="https://www.icicibank.com/managed-assets/images/blog/big/how-to-apply-for-api-banking-services.jpg" alt="Avatar" class="image1">
                       <div class="info"> How to apply for API Banking services?.</div>
@@ -832,7 +849,7 @@
               </div>
               <div class="carousel-item">
                 <div class="col-md-4">
-                  <div class="card card-body1" style="padding: 10px;">
+                  <div class="card card-body2" style="padding: 10px;">
                     <div class="container1">
                       <img src="https://www.icicibank.com/managed-assets/images/blog/big/why-api-integration-is-a-must-for-digital-banking-growth.jpg" alt="Avatar" class="image1">
                       <div class="info"> Why is API Integration a must for Digital Banking growth?</div>
@@ -859,7 +876,7 @@
               </div>
               <div class="carousel-item">
                 <div class="col-md-4">
-                  <div class="card card-body1" style="padding: 10px;">
+                  <div class="card card-body2" style="padding: 10px;">
                     <div class="container1">
                       <img src="https://www.icicibank.com/managed-assets/images/blog/big/how-to-incorporate-our-icici-bank-apis-in-just-few-easy-steps.jpg" alt="Avatar" class="image1">
                       <div class="info"> How to incorporate ICICI Bank APIs in just few easy steps?</div>
@@ -886,7 +903,7 @@
               </div>
               <div class="carousel-item">
                 <div class="col-md-4">
-                  <div class="card card-body1" style="padding: 10px;">   
+                  <div class="card card-body2" style="padding: 10px;">   
                     <div class="container1">
                       <img src="https://www.icicibank.com/managed-assets/images/blog/big/what-is-api-banking-services-and-how-it-works.jpg" alt="Avatar" class="image1">
                       <div class="info"> What is API Banking Services and how it works?</div>
@@ -929,9 +946,9 @@
 
       </div>
     </section>
-<!--Blogs End here->
+<!--Blogs End here-->
 
-    <!--<section class="sectionAPIs feedbackSection">
+    <section class="sectionAPIs feedbackSection">
       <form autocomplete="off">
         <h3>Your <span>Feedback</span></h3>
         <p class="text-center mb50 fs16">
@@ -941,17 +958,17 @@
           <option value="">Select</option>
           <option value="Signup">Signup</option>
           <option value="API Testing">API Testing</option>
-          <option value="Application Creation">Application Creation</option>
+         <!--  <option value="Application Creation">Application Creation</option> -->
           <option value="UAT Form">UAT Form</option>
           <option value="URL Testing">URL Testing</option>
           <option value="Suggestion">Suggestion</option>
           <option value="Others">Others</option>
         </select>
-        <select class="select mb25" name="Suggestion" [(ngModel)] ="Suggestion">
+        <!-- <select class="select mb25" name="Suggestion" [(ngModel)] ="Suggestion">
                <option value="">Select</option>
                <option value="Suggestion">Suggestion</option>
                <option value="Others">Others</option>
-            </select> --
+            </select>  -->
         <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
           placeholder="Your Email" />
         <input class="w100p mb25" name="feedback_location_name" [(ngModel)]="feedback_location_name" type="text"
@@ -964,12 +981,17 @@
               siteKey="6LdTXcQZAAAAAMdP1QX29StjawDrrdzRxhoWuHm7">  
           </re-captcha>
          <br>
-        <div class="row">
-          <a class="signInBtn marginAutoHr mb15" (click)="feedback_form_submit(signin)">Submit</a>
+        <div class="row align-left">
+         
+          <button class="signInBtn marginAutoHr mb15" [disabled] = '!recaptchaFlag' (click)="feedback_form_submit(signin)">
+            Submit
+          </button>
+        
+         <!--  <a class="signInBtn marginAutoHr mb15"   (click)="feedback_form_submit(signin)">Submit</a> -->
         </div>
       </form>
     </section>
-  -->
+
   </div>
   <div id="FAQs" class="tab-pane fade">
     <div class="text-center mb50">
@@ -1888,6 +1910,8 @@
 
 <!-- End Modal -->
 <!-- Signin Modal -->
+<a data-dismiss="modal" data-toggle="modal" data-target="#signin" (click)="openModal(signin)"
+[hidden]="true"  #signinBtn>Sign In</a>
 <ng-template #signin>
   <div class="modal-header">
     <h3 class="modal-title pull-left">Please Login</h3>
@@ -1911,7 +1935,8 @@
       <div class="row mb10">
         <div class="col-md-12">
           <div><label for="password" type="password">Password</label></div>
-          <input name="password" type="password" class="input-login" #password />
+        <!--   <input name="password" type="password" class="input-login" #password /> -->
+        <input name="password" type="password" class="input-login" onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password />
           <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
             Please Enter Password.
           </div>
@@ -2984,59 +3009,130 @@
 </ng-template>
 <!-- End Production Modal -->
 <!--iAmInterested-->
+
+
 <ng-template #Interesteds>
   <div class="modal-header">
     <h3>Let's get Connected</h3>
     <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
-    <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
+    <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide(); recaptchaFlag = false;">
       close
     </button>
   </div>
   <div class="modal-body">
-    <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
-      <div class="row mb30">
-        <div class="col-lg-12 col-md-12 mb-xs-10">
-          <div><label for="contactPerson">Full Name</label></div>
-          <input class="w100p fs12" name="fullName" [(ngModel)]="Inter_full_name" />
+    <form id="regForm" [formGroup]="IntrestForm" autocomplete="off" method="POST" name="regForm" action="">
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-10">
+            <label for="fullname">Full Name<span class="text-danger"> *</span></label>
+            <input class="w100p fs12" formControlName="fullname" type="text" name="fullname" class="form-control"
+              [(ngModel)]="Inter_full_name" />
+            <div *ngIf="IntrestForm.controls['fullname'].touched">
+              <div class="text-danger" *ngIf="IntrestForm.controls['fullname'].hasError('required')">
+                Full Name is Required.
+              </div>
+              <div class="text-danger" *ngIf="IntrestForm.controls['fullname'].hasError('pattern')">
+                Full name should contain only Alphabets and spaces.
+               </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row mb30">
-        <div class="col-lg-12 col-md-12 mb-xs-10">
-          <div><label for="contactPerson">Email ID</label></div>
-          <input class="w100p fs12" name="email" [(ngModel)]="Inter_email" />
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-10">
+            <label for="emailid">Email ID<span class="text-danger"> *</span></label>
+            <input class="w100p fs12" formControlName="emailid" type="text" class="form-control" name="emailid"
+              [(ngModel)]="Inter_email" />
+            <div *ngIf="IntrestForm.controls['emailid'].touched">
+              <div class="text-danger" *ngIf="IntrestForm.controls['emailid'].hasError('required')">
+                Email id is Required.
+              </div>
+              <div class="text-danger" *ngIf="IntrestForm.controls['emailid'].hasError('email')">
+                Please enter valid Email ID.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-30">
+            <label for="mobileNumber">Contact Number<span class="text-danger"> *</span></label>
+            <input type="number" formControlName="mobileNumber" id="mobileNumber" type="number" class="form-control"
+              class="w100p fs12" name="mobileNumber" [(ngModel)]="Inter_contactnumber" />
+              <div *ngIf="IntrestForm.controls['mobileNumber'].touched">
+                <div class="text-danger" *ngIf="IntrestForm.controls['mobileNumber'].hasError('required')">
+                  Contact Number is Required.
+                </div>
+                <div class="text-danger" *ngIf="IntrestForm.controls['mobileNumber'].hasError('pattern')">
+                 Please Enter valid 10 digit Contact number.
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="contactPerson">Contact Number</label></div>
-          <input type="number" class="w100p fs12" name="contactnumber" [(ngModel)]="Inter_contactnumber" />
+          <label for="location">Location</label>
+          <input class="w100p fs12"formControlName="location" id="location" type="text" class="form-control" name="location" [(ngModel)]="Inter_location" />
+          <div *ngIf="IntrestForm.controls['location'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['location'].hasError('required')">
+              Location  is Required.
+            </div>
+            <div class="text-danger" *ngIf="IntrestForm.controls['location'].hasError('pattern')">
+              Location should contain only Alphabets.
+            </div>
+          </div>
         </div>
       </div>
+      </div>
+
+      <div class="form-group">
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="location">Location</label></div>
-          <input class="w100p fs12" name="location" [(ngModel)]="Inter_location" />
+          <label for="company">Company</label>
+          <input class="w100p fs12" formControlName="company" id="company" type="text" class="form-control"  name="company" [(ngModel)]="Inter_company" />
+          <div *ngIf="IntrestForm.controls['company'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['company'].hasError('required')">
+              company  is Required.
+            </div>
+            <div class="text-danger" *ngIf="IntrestForm.controls['company'].hasError('pattern')">
+             Company name should contain only Alphanumeric.
+             </div>
+          </div>
         </div>
       </div>
+      </div>
+      <div class="form-group">
+
       <div class="row mb30">
         <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="company">Company</label></div>
-          <input class="w100p fs12" name="company" [(ngModel)]="Inter_company" />
+          <label for="requirements">Requirements</label>
+          <textarea class="w100p fs12" formControlName="requirements" id="requirements" type="text" class="form-control" name="requirements" [(ngModel)]="Inter_requirements"></textarea>
+          <div *ngIf="IntrestForm.controls['requirements'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['requirements'].hasError('pattern')">
+              Requirements text should contain only Alphanumeric.
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row mb30">
-        <div class="col-lg-12 col-md-12 mb-xs-30">
-          <div><label for="requirements">Requirements</label></div>
-          <textarea class="w100p fs12" name="requirements" [(ngModel)]="Inter_requirements"></textarea>
-        </div>
       </div>
+      <re-captcha (resolved)="resolved($event)" 
+      [(ngModel)]="recaptchaReactive" 
+      siteKey="6LdTXcQZAAAAAMdP1QX29StjawDrrdzRxhoWuHm7">  
+  </re-captcha>
+ <br>
+
     </form>
   </div>
   <div class="modal-footer">
     <div class="row w100p m0">
       <div class="col-12 pr0">
         <div class="text-right">
-          <button class="signInBtn marginAutoHr mb15" (click)="inter_submit()">
+          <button class="signInBtn marginAutoHr mb15" [disabled] = '!recaptchaFlag' (click)="inter_submit()">
             Submit
           </button>
         </div>
@@ -3044,6 +3140,7 @@
     </div>
   </div>
 </ng-template>
+
 <!--iAmInterested-->
 <!--UAT Confirmation alert modalbox -->
 <ng-template #UATconfirm>

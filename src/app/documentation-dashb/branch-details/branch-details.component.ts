@@ -80,7 +80,7 @@ export class BranchDetailsComponent implements OnInit {
   }
   constants = CONSTANTS;
   ngOnInit() {
-   
+    this.spinnerService.hide();
     this.adm.faq().subscribe((data:any)=> {
       this.faqObjList = data._body;
       this.faqObjList= this.faqObjList.replace(/\\n/g, "\\\\n")
@@ -134,6 +134,7 @@ export class BranchDetailsComponent implements OnInit {
       this.description = this.obj[0].DESCRIPTION;
       this.image = this.obj[0].IMAGE_URL;
       this.file = this.obj[0].FILE_URL;
+     // console.log("image=="+this.image+"file==="+this.file);
       if(this.branchId === "177" || this.branchId === 177){
         this.image = "https://developer.icicibank.com/assets/images/BBPS.png";
       }

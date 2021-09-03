@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forEach } from '@angular/router/src/utils/collection';
 import { ToasterService, Toast } from 'angular2-toaster';
 // import { HttpClientModule } from '@angular/common/http';
@@ -17,12 +17,28 @@ export class ViewAllApiComponent implements OnInit {
   appNameList =[];
   AppId:any={};
   //searchText: string; 
-  constructor(private adm:LoginService,public router:Router, private toasterService: ToasterService) {     
-    this.Get_All_API_List();    
+  enteredText;
+  //searchText: string; 
+  constructor(private adm:LoginService,public router:Router, private route: ActivatedRoute,
+     private toasterService: ToasterService) {     
+    this.Get_All_API_List(); 
+    this.route.params.subscribe(params => {
+      this.enteredText="";
+      if(localStorage.getItem("userEnteredText")!="" || localStorage.getItem("userEnteredText")!=undefined){
+        this.onSearchChange(localStorage.getItem("userEnteredText"))
+        this.enteredText=localStorage.getItem("userEnteredText");
+        localStorage.removeItem("userEnteredText");
+      }
+    });
+   
   }
 
   ngOnInit() {
-   
+  /*   console.log(localStorage.getItem("userEnteredText"))
+    if(localStorage.getItem("userEnteredText")!="" || localStorage.getItem("userEnteredText")!=undefined){
+      this.onSearchChange(localStorage.getItem("userEnteredText"))
+    } */
+   // this.onSearchChange(this.enteredText);
   }
 
   onSearchChange(searchValue: string): void { 
@@ -109,7 +125,8 @@ export class ViewAllApiComponent implements OnInit {
         if(word == sort_arr[i][0]){
           pp.push(sort_arr[i]); 
         } else {
-          obj1[word] = pp;
+          const distinctArray = pp.filter((n, i) => pp.indexOf(n) === i);
+          obj1[word] = distinctArray;
           nn.push(obj1);
           word = sort_arr[i][0];
           pp = [];

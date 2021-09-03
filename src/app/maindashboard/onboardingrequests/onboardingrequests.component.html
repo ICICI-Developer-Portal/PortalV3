@@ -43,6 +43,7 @@
               <td class="width10prcnt">UAT Request ID</td>
               <td>API Document</td>
               <td>Certificate</td>
+              <td  class="width15prcnt">Remarks</td>  
             </tr>
           </thead>
           <tbody  *ngFor="let row of dataSource  | paginate: { itemsPerPage: 5, currentPage: p }">
@@ -50,13 +51,13 @@
               <td>{{ row.JiraId }}</td>
               <td>{{ row.JiraStatus }}</td>
               <td>{{ row.Domain }}</td>
-              <td>{{ row.DomainApi }}</td>
+              <td>{{ row.ApiName }}</td>
               <!-- <td><div *ngIf="showurl">{{row.CallbackUrl}}</div></td> -->
               <td>{{ row.Env }}</td>
               <td><p  *ngIf="row.RefJiraId!='undefined'">{{ row.RefJiraId }}</p></td>
               <td *ngIf="row.Url !== ''" style="text-align: center;">
                 <a
-                  (click)="downloadCertificate(row.Url)"
+                  (click)="downloadDocument(row.JiraId,'Document',row.Url)"
                   [hidden]="row.Url === ''"
                   
                   id="ApiUrl"
@@ -68,7 +69,7 @@
                 </svg></label></a>
               </td>
               <!-- <td href="row.CERTIFICATE">{{ row.Certificate }}</td> -->
-              <td *ngIf="row.Certificate !== ''" style="text-align: center;">
+            <!--   <td *ngIf="row.Certificate !== ''" style="text-align: center;">
                 <a
                   (click)="downloadCertificate(row.Certificate)"
                   [hidden]="row.Certificate === ''"
@@ -81,8 +82,26 @@
                     <path fill-rule="evenodd" d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
                   </svg></label></a>
               </td>
-              <td *ngIf="row.Certificate === ''"></td>
-            </tr>
+              <td><a *ngIf="row.Certificate === ''" href="#0"  role="tab"  id="userGuide" (click)="UAT_help(UAT_Help)" > <span class="help-ico"><i _ngcontent-c2="" aria-hidden="true" class="fa fa-question-circle"></i></span></a></td>
+            -->
+            <td *ngIf="row.Certificate !== ''" style="text-align: center;">
+              <a
+                (click)="downloadDocument(row.JiraId,'Certificate',row.Certificate)"
+                [hidden]="row.Certificate === ''"
+              
+                id="certificateUrl"
+                >  <label data-toggle="tooltip"
+                title="Click here to download the certificate uploaded by you">
+                <svg width="1.5em" height="1.5em"  viewBox="0 0 16 16" class="bi bi-card-checklist " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                  <path fill-rule="evenodd" d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+                </svg></label></a>
+            </td>
+            <td  *ngIf="row.Certificate === ''"><a href="#0"  role="tab"  id="userGuide" (click)="UAT_help(UAT_Help)" > <span class="help-ico"><i _ngcontent-c2="" aria-hidden="true" class="fa fa-question-circle"></i></span></a></td>
+            <td >{{ row.Remarks }}</td>
+          
+          
+          </tr>
           </tbody>
         </table>
         <div class="clearfix"></div>
@@ -101,6 +120,33 @@
     >
       analytics
     </div>
+      <!-- ===================================== -->
+        <!--Production Confirmation alert modalbox -->
+        <!-- ===================================== -->
+
+        <ng-template #UAT_Help>
+          <div class="modal-header">
+            <h3></h3>
+            <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
+            <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
+              close
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12 mb-xs-10">
+                <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
+                  <div class="tab disp-block">
+                    <div class="tabContent">
+                      <h5>Dummy text</h5>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <!-- End Modalbox -->
   </div>
   <!-- <div class="copyrightSection">
          <p>Copyright 2017 ICICI Bank Ltd. All rights reserved.</p>

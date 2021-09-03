@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ɵConsole } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild, ɵConsole } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { ToasterService, Toast } from "angular2-toaster";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
@@ -35,7 +35,8 @@ declare var $: any;
   styleUrls: ['./index.component.css'],
   providers: [DatePipe]
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit,  AfterViewInit {
+  @ViewChild('signinBtn') myModal:ElementRef;
   treeDataKeys: any;
   responseData: any;
   menuArray: any[];
@@ -183,6 +184,7 @@ export class IndexComponent implements OnInit {
   errorMsg:any = "Something went wrong. Please try again in some time.";
   recaptchaReactive: any;
   recaptchaFlag: boolean = false;
+  IntrestForm: FormGroup;
 
   constructor(
     private http: Http,
@@ -207,8 +209,10 @@ export class IndexComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
     });
-    
+  // this.getRM();
+  this.spinnerService.hide();
   }
+  //sessionStorage.setIten("autoLogout",true);
   decode(val){
  
     // Decryption process
@@ -231,7 +235,7 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     var self = this;
    // alert(navigator.userAgent);
-
+   this.spinnerService.hide();
     var browser = (function (agent) {
       switch (true) {
           case agent.indexOf("edge") > -1: return "edge";
@@ -340,6 +344,15 @@ export class IndexComponent implements OnInit {
       termsandcondition: ["", [Validators.required]]
     });
 
+    this.IntrestForm = this.formbuilder.group({
+      fullname: ["", [Validators.required,Validators.pattern(/^[a-zA-Z ]*$/)]],
+      emailid: ["", [Validators.required, Validators.email]],
+      mobileNumber: ["", [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      location: ["",[Validators.pattern("[a-zA-Z][a-zA-Z ]+")]],
+      company: ["",[Validators.pattern(/^([a-zA-Z0-9 _-]+)$/)]],
+      requirements: ["",[Validators.pattern(/^[a-zA-Z ]*$/)]],
+    });
+
     this.shfrmSFFirst = true;
     this.shfrmSFSecond = false;
     this.shfrmSFThird = false;
@@ -397,8 +410,21 @@ export class IndexComponent implements OnInit {
   });
    
   }
+  ngAfterViewInit () {
+    setTimeout(() =>{
+      console.log(localStorage.getItem("autoLogout"));
+      if(localStorage.getItem("autoLogout") == "true"){
+        localStorage.removeItem("autoLogout");
+        this.myModal.nativeElement.click();
+       
+      }
+      //document.getElementById("signupBtn").click();
+    }, 100)
+  }
+  ngOnDestroy() {
+    console.log('lading page destroy');
 
- 
+  }
   closeSignUp(){
     this.modalRef2.hide();
   }
@@ -849,13 +875,24 @@ export class IndexComponent implements OnInit {
         this.modalRef.hide();
 
         let respData =  obj.data;
+        if(respData && respData.misUser ){
+          
+          localStorage.setItem('misUserVal',respData.misUser);
+        }  if(respData && respData.firstName ){
+          
+          localStorage.setItem('Firstname',respData.firstName);
+        }  if(respData && respData.lastLoginDt ){
+         
+          localStorage.setItem('lastLoginDate',respData.lastLoginDt);
+        }
+
         if(respData && respData.companyName ){
           localStorage.setItem('companyName',respData.companyName);
-        }else if(respData && respData.mobileNo ){
+        }if(respData && respData.mobileNo ){
           localStorage.setItem('mobileNo',respData.mobileNo);
-        }else if(respData && respData.email ){
+        } if(respData && respData.email ){
           localStorage.setItem('email',respData.email);
-        }else if(respData && respData.rm ){
+        } if(respData && respData.rm ){
           localStorage.setItem('rm',respData.rm);
         }
 
@@ -1952,6 +1989,7 @@ corporates(signin: any) {
     );
   }
   open_modal(Interested: TemplateRef<any>) {
+    this.recaptchaFlag = false;
     this.modalRef = this.modalService.show(Interested, { backdrop: "static" });
     try {
       this.modalRef2.hide();
@@ -2175,24 +2213,34 @@ corporates(signin: any) {
   Inter_requirements: String = "";
 
   inter_submit() {
-    // var feedback =
-    //   'User Interested Full Name = ' +
-    //   this.Inter_full_name +
-    //   ' Contact Number =' +
-    //   this.Inter_contactnumber;
-    // var json = { email: this.Inter_email, feedbackIn: feedback };
-    // this.adm.feedback(json).subscribe((data: any) => {
-    //   var obj = JSON.parse(data._body);
-    //   if (obj.status == true) {
-    //     this.toastrmsg('success', 'Thank your for your Request.');
-    //     this.Inter_full_name = '';
-    //     this.Inter_contactnumber = '';
-    //     this.Inter_email = '';
-    //     this.modalRef.hide();
-    //   } else {
-    //     this.toastrmsg('error', obj.message);
-    //   }
-    // });
+   
+    
+
+
+    if(this.IntrestForm.controls['fullname'].hasError('required') || this.IntrestForm.controls['emailid'].hasError('required') || this.IntrestForm.controls['mobileNumber'].hasError('required')){
+      this.toastrmsg("error", "Field marked as * is mandatory.");
+    }else if(this.IntrestForm.controls['fullname'].hasError('pattern')){
+
+      this.toastrmsg("error", "Full name should contain only Alphabets and spaces.");
+    }else if(this.IntrestForm.controls['emailid'].hasError('email')){
+      this.toastrmsg("error", "Please enter valid Email ID.");
+
+    }
+    else if(this.IntrestForm.controls['mobileNumber'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid mobile number.");
+
+    }else if(this.IntrestForm.controls['location'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid location.");
+
+    }
+    else if(this.IntrestForm.controls['company'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid company name.");
+
+    }else if(this.IntrestForm.controls['requirements'].hasError('pattern')){
+      this.toastrmsg("error", "Please enter valid requirements.");
+
+    }
+    else{
     var feedback =
       "User Interested Full Name = " +
       this.Inter_full_name +
@@ -2212,6 +2260,28 @@ corporates(signin: any) {
       var obj = JSON.parse(data._body);
       if (obj.status == true) {
         this.toastrmsg("success", "Thank your for your Request.");
+        // upload contact for autodialer
+        let json = {
+          name:this.Inter_full_name,
+          mobile:this.Inter_contactnumber,
+          typeOfLead:"IF_IntertFormPopup",
+          domain:"",
+          companyName: this.Inter_company,
+          emailId:this.Inter_email,
+          pincodeLocation:this.Inter_location,
+          dateOfRequest:new Date()         
+        };
+     
+        this.adm.autodialer(json).subscribe((data: any) => {
+          var dialerResponse = data._body;
+          var obj = JSON.parse(dialerResponse);
+          console.log(dialerResponse)
+          },
+          err => {
+            console.log('err', err);
+            this.toastrmsg('error',this.errorMsg);
+        });
+
         this.Inter_full_name = "";
         this.Inter_contactnumber = "";
         this.Inter_email = "";
@@ -2229,6 +2299,8 @@ corporates(signin: any) {
       this.toastrmsg('error',this.errorMsg);
     },);
   }
+  }
+
 
   alredy_login() {
     this.modalRef7.hide();
@@ -2341,22 +2413,66 @@ corporates(signin: any) {
   
   }  
  //function to resolve the reCaptcha and retrieve a token
-async resolved(captchaResponse: string, res) {
+async resolved(captchaResponse: string) {
   console.log(`Resolved response token: ${captchaResponse}`);
   await this.sendTokenToBackend(captchaResponse); //declaring the token send function with a token parameter
 }
 //function to send the token to the node server
 sendTokenToBackend(tok){
   //calling the service and passing the token to the service
-  this.adm.sendToken(tok).subscribe(
-    data => {
+  this.adm.sendToken(tok).subscribe((data: any) => {
       console.log(data)
+      var resp = data._body;
+      var obj = JSON.parse(resp);
+      if(obj && obj.success == true){
+        this.recaptchaFlag= true;
+      }else{
+        this.recaptchaFlag= false;
+      }
     },
     err => {
       console.log(err)
     },
     () => {}
   );
+}
+
+getRM() {
+ 
+ try {
+    var json = {
+      pincode: "1112125"
+    };
+    this.spinnerService.show();
+    this.adm.getProductIssuesList().subscribe((data: any) => {
+      var response = data._body;
+      var obj = JSON.parse(response);
+      console.log(obj);
+    },
+    err => {
+      console.log('err', err);
+      //this.router.navigate(['error']);
+      this.toastrmsg('error',this.errorMsg);
+    },);
+  } catch {
+    this.toastrmsg("error", console.error());
+  }
+}
+
+// searchbar added 
+viewApi($event){
+  // this.router.navigate(['http://localhost:4200/#/documentation']);
+  if($event.which == 13) {
+  console.log($("#viewApisearch").val())
+  let searchbox= $("#viewApisearch").val();
+  if(searchbox!=""){
+  localStorage.setItem("userEnteredText",$("#viewApisearch").val());
+ // document.location.href='#/viewallapi',true;
+  this.router.navigate(['viewallapi']);
+  }
+  $event.preventDefault();
+
+}
 }
 
   

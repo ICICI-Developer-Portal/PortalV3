@@ -1,10 +1,11 @@
 <toaster-container></toaster-container>
 <ng4-loading-spinner> </ng4-loading-spinner>
-<div id="fixed">
+<div id="fixed">  <!-- *ngIf = " (!isInternalUser || isInternalUser === 'false')" -->
     <div  [ngClass]="!showbtn?'menuBar docsMenubar':'menuBar '">
+      <span class="nav nav-tabs " style = "float:right;margin-right:11.5%;margin-bottom: -25px;color: #919191;text-decoration: none;font-family: Poppins-SemiBold;font-size: 12px;" *ngIf = "!showbtn"> Welcome&nbsp; <b>{{Firstname}}!</b>&nbsp;&nbsp;&nbsp;<span>  Your last login date is: &nbsp;<b>{{lastLoginDate}}</b></span></span>
       <ul class="nav nav-tabs " id="mainMenu">
         <li class="active">
-          <a [routerLink]="['/index']" class="navbar-brand res" href="#" data-toggle="tab"><img src="assets/images/icici-svg-2.svg" alt="" /></a>
+          <a [routerLink]="['/index']" class="navbar-brand res" href="#" data-toggle="tab"><img src="assets/images/NewICICIBankLogo-02.png" alt="" /></a>
         </li>
         
         <!-- appthon signup button -->
@@ -33,15 +34,104 @@
           <a  href="#" (click)="scroll_view('#partners')" data-toggle="tab">Strategic Partners</a>
         </li>
         <li><a href="#" data-toggle="tab" [routerLink]="['/index/faq']">FAQ</a></li>
-        <li><a  href="#/documentation"  data-toggle="tab" (click)="Documentation(signin)" class="documetationClass">Documentation </a></li>
-        
-        <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
+        <li><a  href="#"  data-toggle="tab" (click)="Documentation(signin)" class="documetationClass">Explore APIs </a></li>
+        <li class=" dropdown " *ngIf="!showbtn && showOptn === true && showBU === true" >
          
        
           <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false"   >
-          Account </a>
+          Merchant </a>
         
+
+          <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles">
+            <a [routerLink]="['/merchants']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">BE Merchant List</a>
+            <a [routerLink]="['/MerchantOnboarding']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">Merchant Onboarding</a>
+
+            <!--   <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)"> Requests History</a> -->
+            
+      
+          </div>
+        </li>
+        <li class=" dropdown " *ngIf="!showbtn && showOptn === true && showBUH === true" >
+         
+       
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles2" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"   >
+          Dashboard </a>
+        
+
+          <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles2">
+            <a [routerLink]="['/AppDashboard']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">BE Request History</a>
+            <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">MO Request History</a>
+
+            <!--   <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)"> Requests History</a> -->
+            
+      
+          </div>
+        </li>
+
+        <!-- <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
+         
+       
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"   >
+          App Dashboard </a>
+        
+
+          <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles">
+            <a [routerLink]="['/AppDashboard']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">Dashboard</a>
+            <a [routerLink]="['/MerchantOnboarding']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">Merchant Onboarding</a>
+
+              <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)"> Requests History</a>
+            <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
+            </a>-->
+            <!-- <a  *ngIf="misUserVal == 'true'? true:false" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+            </a> -->
+            <!-- <a [routerLink]="['/report-issues']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Report Issue</a> -->
+          <!-- *ngIf="userEmailId=='gpay@apigee.com'" -->
+          
+            <!-- <a  [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Analytics</a> 
+            -->
+          <!-- </div> -->
+        <!-- </li> --> 
+        <!-- <li> <a [routerLink]="['/AppDashboard']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+          data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+          aria-selected="true"  (click)="addActiveClass($event)">Dashboard</a></li> -->
+
+
+
+        
+        <li class=" dropdown " *ngIf="!showbtn && showOptn === true" >
+         
+       
+         <!--  <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"   >
+          Account </a> -->
+          <a href="#" class="dropdown-toggle lh56 appSignMargin2 accountClass" id="navbarMobiles" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"   >
+          Account <div id="burst-11">  <span id="blink-text-acnt">New!</span></div> </a>
 
           <div class="dropdown-content ml-40" aria-labelledby="navbarMobiles">
             <!-- <a [routerLink]="['/dashboard']" class="nav-link dropdown-item" id="pills-account-dashboard-tab"
@@ -50,14 +140,28 @@
             <!-- <a [routerLink]="['/application']" class="nav-link dropdown-item" id="pills-account-applications-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-applications"
               aria-selected="true"  (click)="addActiveClass($event)" >Applications
-            </a> -->
+            </a> *ngIf="userRole == true"-->
+            <a   *ngIf="userRole == true" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/admin/request']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Pending Requests
+            </a>
+            <a   *ngIf="userRole == true" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/manageUser']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Manage User
+            </a>
             <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
               aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
             <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
             </a>-->
-            <a style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
+            <a  *ngIf="misUserVal == 'true'? true:false" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
             </a>
+            <a [routerLink]="['/report-issues']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event)">Report Issue</a>
+          <!-- *ngIf="userEmailId=='gpay@apigee.com'" -->
+          <a  [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+          data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+          aria-selected="true"  (click)="addActiveClass($event)"><div id="burst-12">  <span id="blink-text">New!</span></div>Analytics</a> 
+            <!-- <a  class="nav-link dropdown-item" id="pills-account-analytics-tab"
+            data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+            aria-selected="true"  (click)="addActiveClass($event);goToAnalytics()">Analytics</a> -->
           </div>
         </li>
         <li class="dropdown" *ngIf="!showbtn">
@@ -67,12 +171,14 @@
             <i class="fa fa-user-circle-o"></i>&nbsp;{{ userName }}
         </a>
           <div class="dropdown-content drp-cnt-width ml-40" aria-labelledby="navbarMobiles" *ngIf="showOptn === true">
-            <a [routerLink]="['/userprofile']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Profile</a>
+           <!--  <a [routerLink]="['/userprofile']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Profile</a> -->
             <a  [routerLink]="['/uatonboarding-dashboard']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">UAT Onboarding</a>
             
             <a  [routerLink]="['/productionOnboardingPage']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Production Onboarding</a>
             <!--<a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
               Dashboard</a>-->
+              <a class="nav-link dropdown-item" class="nav-link dropdown-item" *ngIf="!showbtn && (!isInternalUser || isInternalUser === 'false')"
+              [routerLink]="['/change_password']" (click)="addActiveClass($event)">Change Password</a>
             <a class="nav-link dropdown-item" class="nav-link dropdown-item" *ngIf="!showbtn"
               (click)="logout()">Logout</a>
             <!-- <a [routerLink]="['/analytics']" class="nav-link dropdown-item" id="pills-account-analytics-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics" aria-selected="true">Analytics</a> -->
@@ -132,7 +238,7 @@
         <div class="col-12">
           <div class="row">
             <div class="col-5">
-              <a [routerLink]="['/index']" class="navbar-brand"><img src="assets/images/icici-svg-2.svg" alt="" /></a>
+              <a [routerLink]="['/index']" class="navbar-brand"><img src="assets/images/NewICICIBankLogo-02.png" alt="" /></a>
             </div>
             <div class="col-7 text-right pt10 header-style">
               <!-- <a
@@ -173,7 +279,7 @@
   <ng-template #signin>
     <div class="modal-header">
       <h3 class="modal-title pull-left">Please Login </h3>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="closeLoginPopup()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -192,7 +298,12 @@
       <div class="row mb10">
         <div class="col-md-12">
           <div><label for="password" type="password">Password</label></div>
-          <input name="password" type="password" class="input-login" #password />
+        <!--   <input name="password" type="password" class="input-login" #password /> -->
+
+          <input name="password" type="text" class="input-login"  
+          required onCopy="return false" 
+          onDrag="return false" onDrop="return false" onPaste="return false" 
+          autocomplete=off  #password  id="password"/>
           <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
             Please Enter Password.
           </div>
@@ -214,8 +325,8 @@
               (click)="Login(username.value, password.value, loginsuccess)">
               Login
             </button>
-            <div class="text-danger form-error ng-star-inserted" *ngIf="is_res_error != ''">
-              {{ is_res_error }}.
+            <div class="text-danger form-error ng-star-inserted" style="font-size:12px;" *ngIf="is_res_error != ''">
+              {{ is_res_error }} <span *ngIf="status_code === 111" > <a (click)="Modalforgotpassw(activateAccount)" style="text-decoration: underline;"> Please activate</a></span>.
             </div>
           </div>
   
@@ -287,6 +398,36 @@
   </ng-template>
   
   <!-- End Modal -->
+ <!--  Model for Activate user -->
+ <ng-template #activateAccount>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Activate Account</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef3.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mb30">
+      <div class="col-md-12 mb-xs-10">
+        <div><label for="user">Username/Email</label></div>
+        <input name="user" class="input-login" #activateUsername />
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <div class="row w100p m0">
+        <div class="col-12 plr0 mb30">
+          <div>
+            <button type="submit" class="signInBtn w100p" (click)="forgot(activateUsername.value,forgotpasswreset)">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+ <!-- end model -->
   <!-- Modal for Signup -->
   <!-- Modal for Signup -->
   <ng-template #signup>

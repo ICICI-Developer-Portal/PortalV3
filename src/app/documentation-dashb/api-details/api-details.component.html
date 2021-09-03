@@ -7,10 +7,21 @@
             aria-labelledby="v-pills-applications-tab">
             <div class="tabContentInner" ng-show="IsApiDetailsAvailable">
                 <div class="row">
+                    <div class="form-control col-md-11 "
+                    style="border: 3px dashed black; padding-top: 5px; height: fit-content; padding-bottom: 5px;">
+                    <p _ngcontent-c5="" style="margin-bottom: 0px"><a _ngcontent-c5=""
+                        download="/API application form version 103020.pdf"
+                        href="/assets/pdf/API application form version 103020.pdf"
+                        style="color: #004a7f;margin-bottom: 0px;" target="_blank">Click here </a>to download the
+                      Document</p>
+   
+                  </div>
                     <div class="col-8">
                         <h5 class="color-black fs12 ff-light mb5">{{ApiDomain}} / <span
                                 class="ff-medium color-red">{{ApiName}}</span></h5>
-                        <h4 class="mb20 fs24 color-black ff-medium">{{ApiName}}</h4>
+                        <h4 class="mb20 fs24 color-black ff-medium">{{ApiName}}
+                             <span style ="background-color: green;color:#fff;font-size: 12px;border: 1px solid green;border-radius: 4px;vertical-align: middle;padding:0px 2px;" 
+                            class="ff-medium color-green" *ngIf = "isInternalUser == 'true'">{{env}}</span></h4>
                         <p class="fs14 color-black0 fs12 ff-light mb20">{{ApiDesc}}</p>
                     </div>
                 </div>

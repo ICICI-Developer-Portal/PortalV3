@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit {
   treeData1: any[];
   treeElements: any;
   showMatSpinner: boolean = false;
-
+  isInternalUser:any;
   /** @class SidebarComponent
    * @constructor
    */
@@ -58,6 +58,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     var self = this;
+    this.isInternalUser = localStorage.getItem("isInternalUser");
     //api for get menu tree data
     this.getMenuTree();
 
@@ -212,7 +213,7 @@ export class SidebarComponent implements OnInit {
       `</li>`;
 
     for (var i = 0; i < this.treeData.length; i++) {
-      if (this.treeData[i].CHILD_COUNT !== "0") {
+      if (this.treeData[i].CHILD_COUNT !== "0" && this.treeData[i].display == "1") {
         this.treeItems +=
           `<li class="nav-link">` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_${this.treeData[i].TYPE}_${this.treeData[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
@@ -227,14 +228,32 @@ export class SidebarComponent implements OnInit {
             this.treeData[i].LEVEL
           );
         }
-      } else {
+      }else if(this.treeData[i].CHILD_COUNT !== "0" && (this.treeData[i].display == "0" && this.isInternalUser == "true")){
+
+      }
+      /* else {
         this.treeItems +=
-          `<li class="nav-link">` +
+          `<li class="nav-link" >` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${this.treeData[i].TYPE}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${this.treeData[i].TAB_NAME}` +
           `</a>` +
           `</span>`;
-      }
+      } */ 
+      else if(this.treeData[i].display == "1") {
+        this.treeItems +=
+          `<li class="nav-link" >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${this.treeData[i].TYPE}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${this.treeData[i].TAB_NAME}` +
+          `</a>` +
+          `</span>`;
+      }else if(this.treeData[i].display == "0" && this.isInternalUser == "true") {
+        this.treeItems +=
+          `<li class="nav-link" >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${this.treeData[i].TYPE}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${this.treeData[i].TAB_NAME}` +
+          `</a>` +
+          `</span>`;
+      } 
 
       this.treeItems = this.treeItems + `</li>`;
     }
@@ -282,10 +301,12 @@ export class SidebarComponent implements OnInit {
     }
 
     for (var i = 0; i < childrenArr.length; i++) {
-      if(childrenArr[i].TREE_ID =="556" || childrenArr[i].TREE_ID == "557" ||  childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
+      if( childrenArr[i].TREE_ID == "557" ||  childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
+
+      if(childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
 
       else{
-      if (childrenArr[i].CHILD_COUNT !== "0") {
+      if (childrenArr[i].CHILD_COUNT !== "0"  && childrenArr[i].display == "1") {
 
         this.treeItems +=
           `<li class="nav-link">` +
@@ -299,13 +320,41 @@ export class SidebarComponent implements OnInit {
           childrenArr[i].TYPE,
           childrenArr[i].LEVEL
         );
-      } else {
+      }else if (childrenArr[i].CHILD_COUNT !== "0"  && childrenArr[i].display == "0"  && this.isInternalUser == "true" ) {
+
         this.treeItems +=
           `<li class="nav-link">` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${childrenArr[i].TAB_NAME}` +
+          `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
+          `</a>`;
+
+        this.createUnorderedList(
+          childrenArr[i].children,
+          childrenArr[i].TYPE,
+          childrenArr[i].LEVEL
+        );
+      }
+      /* else {
+        this.treeItems +=
+          `<li class="nav-link" >` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${childrenArr[i].TAB_NAME}` +
           `</a>`;
-      }
+      } */
+       else if(childrenArr[i].display == "1") {
+        this.treeItems +=
+          `<li class="nav-link" >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${childrenArr[i].TAB_NAME}` +
+          `</a>`;
+      }else if(childrenArr[i].display == "0" && this.isInternalUser == "true") {
+        this.treeItems +=
+          `<li class="nav-link" >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${childrenArr[i].TAB_NAME}` +
+          `</a>`;
+      } 
 
       this.treeItems += `</li>`;
     }

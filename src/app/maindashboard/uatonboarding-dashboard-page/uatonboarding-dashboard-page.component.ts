@@ -562,6 +562,8 @@ ifIPpatternNotmatches(){
         console.log('err', err);
       //  this.router.navigate(['error']);
       this.toastrmsg('error',this.errorMsg);
+    
+
       });
   
   }
@@ -745,233 +747,379 @@ else{
 }
 }
 
-  onSubmitUATForm(Prodconfirm) {
-      $("#submitButton").prop("disabled",true)
-            setTimeout(function(){  $("#submitButton").prop("disabled",false)},5000);
+onSubmitUATForm(Prodconfirm) {
+
+  $("#submitButton").prop("disabled",true)
+
+        setTimeout(function(){  $("#submitButton").prop("disabled",false)},10000);
 
 
-    let ipValues = [];
-    let urlValues= [];
-    
-    $('.countIp .form-control').each(function () {
-      ipValues.push(this.value);
-    });
-    $('.countUrl .form-control').each(function () {
-      urlValues.push(this.value);
-     
-    });
-    console.log(ipValues)
-    console.log(urlValues)
-    let reactiveFromFieldValues = this.reactiveForm.value;
-   
-   let tempArr =this.arrayObjectOfDomain;
-   const distinctArray = tempArr.filter((n, i) => tempArr.indexOf(n) === i);
-    
+
+let ipValues = [];
+
+let urlValues= [];
 
 
-    let inputFields = {
-      userName: localStorage.getItem("username"),
-      domainName: distinctArray.toString(),
-      domainApis: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
-      
-      apiId: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,
-      apiName: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
-      
-      
-      mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
-      desc: reactiveFromFieldValues.basicDetailsSection.description,
-      spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
-      spocPhone: reactiveFromFieldValues.basicDetailsSection.contact_no,
-      relManager: reactiveFromFieldValues.basicDetailsSection.r_m_maild_id,
-      env: "UAT",
-      // ips: "",
-      // callbackUrl: "",
-      AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
-      ClientCode: reactiveFromFieldValues.whitelistIpSection.ClientCode ? reactiveFromFieldValues.whitelistIpSection.ClientCode : '',
-      //url: reactiveFromFieldValues.whitelistIpSection.url ? reactiveFromFieldValues.whitelistIpSection.url : '',
-      url:urlValues.toString() ? urlValues.toString() : '',
-      Ip: ipValues.toString() ? ipValues.toString() : '',
-      Port: reactiveFromFieldValues.whitelistIpSection.port ? reactiveFromFieldValues.whitelistIpSection.port : '',
-      Checksum: reactiveFromFieldValues.whitelistIpSection.Checksum ? reactiveFromFieldValues.whitelistIpSection.Checksum : '',
-      Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption.value ? reactiveFromFieldValues.whitelistIpSection.Encryption.value : '',
-      Certificate: reactiveFromFieldValues.whitelistIpSection.Certificate ? reactiveFromFieldValues.whitelistIpSection.Certificate : '',
-      web: reactiveFromFieldValues.whitelistIpSection.web ? reactiveFromFieldValues.whitelistIpSection.web : '',
-      message: reactiveFromFieldValues.whitelistIpSection.message ? reactiveFromFieldValues.whitelistIpSection.message : '',
-      IFSC_Code: reactiveFromFieldValues.whitelistIpSection.IFSC_Code ? reactiveFromFieldValues.whitelistIpSection.IFSC_Code : '',
-      virtualCode: reactiveFromFieldValues.whitelistIpSection.virtualCode ? reactiveFromFieldValues.whitelistIpSection.virtualCode : '',
-      refundCode: reactiveFromFieldValues.whitelistIpSection.refundCode ? reactiveFromFieldValues.whitelistIpSection.refundCode : '',
-      Account_no: reactiveFromFieldValues.whitelistIpSection.Account_no ? reactiveFromFieldValues.whitelistIpSection.Account_no : '',
-      Acc_name: reactiveFromFieldValues.whitelistIpSection.Acc_name ? reactiveFromFieldValues.whitelistIpSection.Acc_name : '',
-      Auth_level: reactiveFromFieldValues.whitelistIpSection.Auth_level ? reactiveFromFieldValues.whitelistIpSection.Auth_level : '',
-      Urn: reactiveFromFieldValues.whitelistIpSection.Urn ? reactiveFromFieldValues.whitelistIpSection.Urn : '',
-      Acc_env: reactiveFromFieldValues.whitelistIpSection.Acc_env ? reactiveFromFieldValues.whitelistIpSection.Acc_env : '',
-      Acc_validation: reactiveFromFieldValues.whitelistIpSection.Acc_validation ? reactiveFromFieldValues.whitelistIpSection.Acc_validation : '',
-      Acc_acceptance: reactiveFromFieldValues.whitelistIpSection.Acc_acceptance ? reactiveFromFieldValues.whitelistIpSection.Acc_acceptance : '',
-      Rec_mail: reactiveFromFieldValues.whitelistIpSection.Rec_mail ? reactiveFromFieldValues.whitelistIpSection.Rec_mail : '',
-      Acc_mode: reactiveFromFieldValues.whitelistIpSection.Acc_mode ? reactiveFromFieldValues.whitelistIpSection.Acc_mode : '',
-      Acc_trans: reactiveFromFieldValues.whitelistIpSection.Acc_trans ? reactiveFromFieldValues.whitelistIpSection.Acc_trans : '',
-      Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
-      Acc_headers: reactiveFromFieldValues.whitelistIpSection.header ? reactiveFromFieldValues.whitelistIpSection.header : '',
-      Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.TestingID ? reactiveFromFieldValues.whitelistIpSection.TestingID : '',
-      file1: reactiveFromFieldValues.whitelistIpSection.file1,
-     
-      
-    };
-    console.log(inputFields);
-    //console.log(reactiveFromFieldValues.value.Ip);
 
-    const formData = new FormData();
-    formData.append("userName", inputFields["userName"]); //1
-    formData.append("domainName", inputFields["domainName"]); //2
-    formData.append("domainApis", inputFields["domainApis"]); //3
+$('.countIp .form-control').each(function () {
 
-  //  formData.append("apiId", inputFields["apiId"]); //
-  //  formData.append("apiName",inputFields["apiName"]); //
+  ipValues.push(this.value);
 
-    formData.append("mName", inputFields["mName"]);  //4
-    formData.append("desc", inputFields["desc"]); //5
-    formData.append("spocEmail", inputFields["spocEmail"]); //6
-    formData.append("spocPhone", inputFields["spocPhone"]); //7
-    formData.append("relManager", inputFields["relManager"]); //8
-    formData.append("env", inputFields["env"]); //9
-    formData.append("AccountNo", inputFields["AccountNo"]); //10
-    formData.append("ClientCode", inputFields["ClientCode"]); //11
-    formData.append("url", inputFields["url"]); //12
-    formData.append("Ip", inputFields["Ip"]);  //13
-    formData.append("Port", inputFields["Port"]);  //14
-    formData.append("Checksum", inputFields["Checksum"]);  //15
-    formData.append("Encryption", inputFields["Encryption"]); //16
-    formData.append("Certificate", inputFields["Certificate"]); //17
-    formData.append("web", inputFields["web"]); //18
-    formData.append("message", inputFields["message"]); //19
-    formData.append("IFSC_Code", inputFields["IFSC_Code"]); //20
-    formData.append("virtualCode", inputFields["virtualCode"]); //21
-    formData.append("refundCode", inputFields["refundCode"]); //22
-    formData.append("Account_no", inputFields["Account_no"]); //23
-    formData.append("Acc_name", inputFields["Acc_name"]);//24
-    formData.append("Auth_level", inputFields["Auth_level"]);//25
-    formData.append("Urn", inputFields["Urn"]);//26
-    formData.append("Acc_env", inputFields["Acc_env"]); //27
-    formData.append("Acc_validation", inputFields["Acc_validation"]); //28
-    formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);//29
-    formData.append("Rec_mail", inputFields["Rec_mail"]);//30
-    formData.append("Acc_mode", inputFields["Acc_mode"]);//31
-    formData.append("Acc_trans", inputFields["Acc_trans"]);//32
-    formData.append("Acc_amount", inputFields["Acc_amount"]);//33
-    // formData.append("Acc_headers", inputFields["Acc_headers"]);
-    // formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
+});
+
+$('.countUrl .form-control').each(function () {
+
+  urlValues.push(this.value);
+
+ 
+
+});
+
+console.log(ipValues)
+
+console.log(urlValues)
+
+let reactiveFromFieldValues = this.reactiveForm.value;
+
+
+
+let tempArr =this.arrayObjectOfDomain;
+
+const distinctArray = tempArr.filter((n, i) => tempArr.indexOf(n) === i);
 
 
 
 
 
-    // formData.append("refundCode", inputFields["refundCode"]);
-    // formData.append("callbackUrl", inputFields["callbackUrl"]);
-    // formData.append("AccountNo", inputFields["AccountNo"]);
-    // formData.append("ClientCode", inputFields["ClientCode"]);
-    // formData.append("url", inputFields["url"]);
-    // formData.append("Ip", inputFields["Ip"]);
-    // formData.append("Port", inputFields["Port"]);
-    // formData.append("Checksum", inputFields["Checksum"]);
-    // formData.append("Encryption", inputFields["Encryption"]);
-    // formData.append("Certificate", inputFields["Certificate"]);
-    // formData.append("web", inputFields["web"]);
-    // formData.append("message", inputFields["message"]);
-    // formData.append("IFSC_Code", inputFields["IFSC_Code"]);
-    // formData.append("virtualCode", inputFields["virtualCode"]);
-    // formData.append("refundCode", inputFields["refundCode"]);
-    // formData.append("Account_no", inputFields["Account_no"]);
-    // formData.append("Acc_name", inputFields["Acc_name"]);
-    // formData.append("Auth_level", inputFields["Auth_level"]);
-    // formData.append("Urn", inputFields["Urn"]);
-    // formData.append("Acc_env", inputFields["Acc_env"]);
-    // formData.append("Acc_validation", inputFields["Acc_validation"]);
-    // formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);
-    // formData.append("Rec_mail", inputFields["Rec_mail"]);
-    // formData.append("Acc_mode", inputFields["Acc_mode"]);
-    // formData.append("Acc_trans", inputFields["Acc_trans"]);
-    
-    console.log(formData);
-    let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
-    console.log("a", a);
-    for (let k = 0; k < a.length; k++) {
-      formData.append("file1", a[k]); //34
-      console.log(a[k], "oooooooooo")
-      console.log(formData)
-    }
-    // Appended three new elements
-    // formData.append("Acc_amount", inputFields["Acc_amount"]);
-    // formData.append("Acc_headers", inputFields["Acc_headers"]);
-    // formData.append("Acc_uatTestingID", inputFields["Acc_uatTestingID"]);
+let inputFields = {
 
-    formData.append("refJIRAID", inputFields["Acc_refJIRAID"]); //35
-    formData.append("Headers", inputFields["Acc_headers"]); //36
-    formData.append("TestingID", inputFields["Acc_uatTestingID"]); //37 
+  userName: localStorage.getItem("username"),
 
-    
-   
-   /* formData.forEach((value, key) => {
-      console.log(key + " " + value)
-    });*/
+  domainName: distinctArray.toString(),
 
-    // Jira Service
-    //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
-    //https://developerapi.icicibank.com:8443/api/v2/jira
-    //https://developer.icicibank.com/ROOT_UAT/rest/create-jira-new
-    this.HttpClient.post<any>(
-      "https://developerapi.icicibank.com:8443/api/v2/jira",
-      formData
-    ).subscribe(
-      res => {
-        console.log(res, formData);
-        // alert(res.jiraId)
-        //this.toastrmsg('success', res.jiraId + " has been created");
+  domainApis: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
+
+  
+
+  apiId: this.arrayObjectOfValue  + this.arrayObjectOfListIds.toString() ,
+
+  apiName: this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',// this.selectedAPINAME.join(),  //this.apiArr + '(' + this.idArr + ')',
+
+  
+
+  
+
+  mName: reactiveFromFieldValues.basicDetailsSection.merchantName,
+
+  desc: reactiveFromFieldValues.basicDetailsSection.description,
+
+  spocEmail: reactiveFromFieldValues.basicDetailsSection.email_id,
+
+  spocPhone: reactiveFromFieldValues.basicDetailsSection.contact_no,
+
+  relManager: reactiveFromFieldValues.basicDetailsSection.r_m_maild_id,
+
+  env: "UAT",
+
+  // ips: "",
+
+  // callbackUrl: "",
+
+  AccountNo: reactiveFromFieldValues.whitelistIpSection.AccountNo ? reactiveFromFieldValues.whitelistIpSection.AccountNo : '',
+
+  ClientCode: reactiveFromFieldValues.whitelistIpSection.ClientCode ? reactiveFromFieldValues.whitelistIpSection.ClientCode : '',
+
+  //url: reactiveFromFieldValues.whitelistIpSection.url ? reactiveFromFieldValues.whitelistIpSection.url : '',
+
+  url:urlValues.toString() ? urlValues.toString() : '',
+
+  Ip: ipValues.toString() ? ipValues.toString() : '',
+
+  Port: reactiveFromFieldValues.whitelistIpSection.port ? reactiveFromFieldValues.whitelistIpSection.port : '',
+
+  Checksum: reactiveFromFieldValues.whitelistIpSection.Checksum ? reactiveFromFieldValues.whitelistIpSection.Checksum : '',
+
+  Encryption: reactiveFromFieldValues.whitelistIpSection.Encryption.value ? reactiveFromFieldValues.whitelistIpSection.Encryption.value : '',
+
+  Certificate: reactiveFromFieldValues.whitelistIpSection.Certificate ? reactiveFromFieldValues.whitelistIpSection.Certificate : '',
+
+  web: reactiveFromFieldValues.whitelistIpSection.web ? reactiveFromFieldValues.whitelistIpSection.web : '',
+
+  message: reactiveFromFieldValues.whitelistIpSection.message ? reactiveFromFieldValues.whitelistIpSection.message : '',
+
+  IFSC_Code: reactiveFromFieldValues.whitelistIpSection.IFSC_Code ? reactiveFromFieldValues.whitelistIpSection.IFSC_Code : '',
+
+  virtualCode: reactiveFromFieldValues.whitelistIpSection.virtualCode ? reactiveFromFieldValues.whitelistIpSection.virtualCode : '',
+
+  refundCode: reactiveFromFieldValues.whitelistIpSection.refundCode ? reactiveFromFieldValues.whitelistIpSection.refundCode : '',
+
+  Account_no: reactiveFromFieldValues.whitelistIpSection.Account_no ? reactiveFromFieldValues.whitelistIpSection.Account_no : '',
+
+  Acc_name: reactiveFromFieldValues.whitelistIpSection.Acc_name ? reactiveFromFieldValues.whitelistIpSection.Acc_name : '',
+
+  Auth_level: reactiveFromFieldValues.whitelistIpSection.Auth_level ? reactiveFromFieldValues.whitelistIpSection.Auth_level : '',
+
+  Urn: reactiveFromFieldValues.whitelistIpSection.Urn ? reactiveFromFieldValues.whitelistIpSection.Urn : '',
+
+  Acc_env: reactiveFromFieldValues.whitelistIpSection.Acc_env ? reactiveFromFieldValues.whitelistIpSection.Acc_env : '',
+
+  Acc_validation: reactiveFromFieldValues.whitelistIpSection.Acc_validation ? reactiveFromFieldValues.whitelistIpSection.Acc_validation : '',
+
+  Acc_acceptance: reactiveFromFieldValues.whitelistIpSection.Acc_acceptance ? reactiveFromFieldValues.whitelistIpSection.Acc_acceptance : '',
+
+  Rec_mail: reactiveFromFieldValues.whitelistIpSection.Rec_mail ? reactiveFromFieldValues.whitelistIpSection.Rec_mail : '',
+
+  Acc_mode: reactiveFromFieldValues.whitelistIpSection.Acc_mode ? reactiveFromFieldValues.whitelistIpSection.Acc_mode : '',
+
+  Acc_trans: reactiveFromFieldValues.whitelistIpSection.Acc_trans ? reactiveFromFieldValues.whitelistIpSection.Acc_trans : '',
+
+  Acc_amount: reactiveFromFieldValues.whitelistIpSection.Acc_amount ? reactiveFromFieldValues.whitelistIpSection.Acc_amount : '',
+
+  Acc_headers: reactiveFromFieldValues.whitelistIpSection.header ? reactiveFromFieldValues.whitelistIpSection.header : '',
+
+  Acc_uatTestingID: reactiveFromFieldValues.whitelistIpSection.TestingID ? reactiveFromFieldValues.whitelistIpSection.TestingID : '',
+
+  file1: reactiveFromFieldValues.whitelistIpSection.file1,
+
+ 
+
+  
+
+};
+
+console.log(inputFields);
+
+//console.log(reactiveFromFieldValues.value.Ip);
+
+
+
+const formData = new FormData();
+
+formData.append("userName", inputFields["userName"]); //1
+
+formData.append("domainName", inputFields["domainName"]); //2
+
+formData.append("domainApis", inputFields["domainApis"]); //3
+
+
+
+formData.append("apiId", inputFields["apiId"]); //
+
+formData.append("apiName",inputFields["apiName"]); //
+
+
+
+formData.append("mName", inputFields["mName"]);  //4
+
+formData.append("desc", inputFields["desc"]); //5
+
+formData.append("spocEmail", inputFields["spocEmail"]); //6
+
+formData.append("spocPhone", inputFields["spocPhone"]); //7
+
+formData.append("relManager", inputFields["relManager"]); //8
+
+formData.append("env", inputFields["env"]); //9
+
+formData.append("AccountNo", inputFields["AccountNo"]); //10
+
+formData.append("ClientCode", inputFields["ClientCode"]); //11
+
+formData.append("url", inputFields["url"]); //12
+
+formData.append("Ip", inputFields["Ip"]);  //13
+
+formData.append("Port", inputFields["Port"]);  //14
+
+formData.append("Checksum", inputFields["Checksum"]);  //15
+
+formData.append("Encryption", inputFields["Encryption"]); //16
+
+formData.append("Certificate", inputFields["Certificate"]); //17
+
+formData.append("web", inputFields["web"]); //18
+
+formData.append("message", inputFields["message"]); //19
+
+formData.append("IFSC_Code", inputFields["IFSC_Code"]); //20
+
+formData.append("virtualCode", inputFields["virtualCode"]); //21
+
+formData.append("refundCode", inputFields["refundCode"]); //22
+
+formData.append("Account_no", inputFields["Account_no"]); //23
+
+formData.append("Acc_name", inputFields["Acc_name"]);//24
+
+formData.append("Auth_level", inputFields["Auth_level"]);//25
+
+formData.append("Urn", inputFields["Urn"]);//26
+
+formData.append("Acc_env", inputFields["Acc_env"]); //27
+
+formData.append("Acc_validation", inputFields["Acc_validation"]); //28
+
+formData.append("Acc_acceptance", inputFields["Acc_acceptance"]);//29
+
+formData.append("Rec_mail", inputFields["Rec_mail"]);//30
+
+formData.append("Acc_mode", inputFields["Acc_mode"]);//31
+
+formData.append("Acc_trans", inputFields["Acc_trans"]);//32
+
+formData.append("Acc_amount", inputFields["Acc_amount"]);//33
+
+
+
+
+
+console.log(formData);
+
+let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
+
+console.log("a", a);
+let extention = a[0].name.split('.').pop(); 
+
+console.log("extention", extention);
+if(extention.toLowerCase() == "zip"){
+  for (let k = 0; k < a.length; k++) {
+
+    formData.append("file1", a[k]); //34
+  
+    console.log(a[k], "oooooooooo")
+  
+    console.log(formData)
+  
+  }
+  formData.append("refJIRAID", inputFields["Acc_refJIRAID"]); //35
+  
+  formData.append("Headers", inputFields["Acc_headers"]); //36
+  
+  formData.append("TestingID", inputFields["Acc_uatTestingID"]); //37 
+  
+  
+  /* formData.forEach((value, key) => {
+  
+    console.log(key + " " + value)
+  
+  });*/
+  
+  
+  
+  // Jira Service
+  
+  //https://developerapi.icicibank.com:8443/api/v2/jira-UAT
+  
+  //https://developerapi.icicibank.com:8443/api/v2/jira
+  
+  //https://developer.icicibank.com/ROOT_UAT/rest/create-jira-new
+  //https://developer.icicibank.com/ROOT_UAT/rest/create-jira-new-new
+  
+  //const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+  this.HttpClient.post<any>(
+  
+    "https://developer.icicibank.com/rest/create-jira-new-uat",
+  
+    formData
+  
+  ).subscribe(
+  
+    res => {
+      console.log(res, formData);
+      if (res.status == true || res.status == "true") {
+        this.confirmMsgProd = res.jiraId;
         this.modalRef = this.modalService.show(Prodconfirm, {
           backdrop: "static"
         });
-        this.confirmMsgProd = res.jiraId;
-
-        console.log(this.confirmMsgProd)
-        if (res.success === "true") {
-          //File upload service
-          var formData = new FormData();
-          let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
-          for (let k = 0; k < b.length; k++) {
-            console.log(b, k)
-            console.log(b[k])
-            console.log(res.jiraId, res)
-
-            formData.append(res.jiraId, b[k]);
-          }
-          this.HttpClient.post<any>(
-            "https://developer.icicibank.com/fileUpload",
-            formData
-          ).subscribe(
-            res => {
-              console.log(res);
-              console.log(res.jiraId, "rchd");
-            },
-            err => {
-             
-              console.log('err', err);
-              this.toastrmsg('error',this.errorMsg);
-            
-            //  this.router.navigate(['error']);
-            },
-          );
-        }
-      },
-      err => {
        
-        console.log('err', err);
-       // this.router.navigate(['error']);
-       this.toastrmsg('error',this.errorMsg);
+      } else if( res.status == false && res.status_code == 221){
       
-      },
-    );
+        this.toastrmsg('error',"Uploaded Zip contains invalid contents.");
+      }
+     
+      if (res.status == true || res.status == "true") {
+  
+        //File upload service
+  
+        var formData = new FormData();
+  
+        let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
+  
+        for (let k = 0; k < b.length; k++) {
+  
+          console.log(b, k)
+  
+          console.log(b[k])
+  
+          console.log(res.jiraId, res)
+  
+  
+  
+          formData.append(res.jiraId, b[k]);
+  
+        }
+  
+        this.HttpClient.post<any>(
+  
+          "https://developer.icicibank.com/fileUpload",
+  
+          formData
+  
+        ).subscribe(
+  
+          res => {
+  
+            console.log(res);
+  
+            console.log(res.jiraId, "rchd");
+  
+          },
+  
+          err => {
+  
+           
+  
+            console.log('err', err);
+  
+            this.toastrmsg('error',this.errorMsg);
+  
+          
+  
+          //  this.router.navigate(['error']);
+  
+          },
+  
+        );
+  
+      }
+  
+    },
+  
+    err => {
+  
+     
+  
+      console.log('err', err);
+  
+     // this.router.navigate(['error']);
+  
+     this.toastrmsg('error',this.errorMsg);
+  
+    
+  
+    },
+  
+  );
+
+}else{
+  this.toastrmsg('error',"Please upload zip file for SSL certificate & encryption certificate along with API application form.");
+}
 
 
-  }
+
+
+}
+
   //conditional validation
   ifFieldisVisible(value) {
     let reactiveFromFieldValues = this.reactiveForm.value;

@@ -57,10 +57,12 @@
           <div
             id="isResError"
             class="text-danger form-error ng-star-inserted"
-            *ngIf="is_res_error != ''"
+            *ngIf="is_res_error != ''" style="font-size:12px;" 
           >
-            {{ is_res_error }}.
+          {{ is_res_error }} <span *ngIf="status_code === 111" > <a (click)="Modalforgotpassw(activateAccount)" style="text-decoration: underline;"> Please activate</a></span>.
           </div>
+
+         
         </div>
       </div>
       <div class="col-12 plr0">
@@ -132,6 +134,36 @@
   </div>
   </ng-template>
 <!-- End Modal -->
+<!--  Model for Activate user -->
+<ng-template #activateAccount>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Activate Account</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef3.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mb30">
+      <div class="col-md-12 mb-xs-10">
+        <div><label for="user">Username/Email</label></div>
+        <input name="user" class="input-login" #activateUsername />
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <div class="row w100p m0">
+        <div class="col-12 plr0 mb30">
+          <div>
+            <button type="submit" class="signInBtn w100p" (click)="forgot(activateUsername.value,forgotpasswreset)">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+ <!-- end model -->
 <!-- Modal for Signup -->
 <!-- Modal for Signup -->
 <!-- Modal for Signup -->

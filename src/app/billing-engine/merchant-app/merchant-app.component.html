@@ -1,0 +1,265 @@
+<app-besidebar></app-besidebar>
+<div class="documentTabContent">
+  <div class="tab-content" id="v-pills-tabContent">
+    <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard
+    </div>
+    <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel"
+      aria-labelledby="v-pills-applications-tab">
+      <div class="tabContentInner">
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="color-black30 fs24 ff-semibold mb10"><a [routerLink]="['/merchants']"
+                class="color-orange">Merchants ></a>
+              <a [routerLink]="['/UserDetails']" class="color-orange">Merchant Details >></a>
+              <span>Apps of {{userProfileData.userName}}</span>
+            </h4>
+          </div>
+          <div class="col-md-12 mb15">
+
+            <!-- <a class="signInBtn">add app</a> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 ">
+            <div id="accordion">
+
+              <div class="card bg-gray mb10" *ngFor="let i of userApp;let j=index ">
+                <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#collapseOne_{{j}}" (click)="getAppDetail(i)">
+                    {{i}}
+                  </a>
+                </div>
+                <div id="collapseOne_{{j}}" class="collapse" data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="container">
+                      <nav>
+                        <div class="nav nav-tabs sandBox-navTab col-md-12  padding-0" id="nav-tab" role="tablist">
+                          <a class="nav-item nav-link col-md-6 active" id="nav-home-tab" data-toggle="tab"
+                            href="#nav-tab1" role="tab" aria-controls="nav-home" aria-selected="true">Credentials</a>
+                          <!-- <a class="nav-item nav-link  col-md-3" id="nav-profile-tab" data-toggle="tab" href="#nav-tab2"
+                            role="tab" aria-controls="nav-profile" aria-selected="false">Edit App</a> -->
+                          <a class="nav-item nav-link  col-md-6" id="nav-profile-tab" data-toggle="tab" href="#" (click)="setRatePlanPage(userAppDetail.appId)"
+                            role="tab" aria-controls="nav-profile" aria-selected="false" *ngIf = "credentials.length>0">Set Rate Plan</a>
+                          <!-- <a class="nav-item nav-link  col-md-3" id="nav-profile-tab" data-toggle="tab" href="#nav-tab4"
+                            role="tab" aria-controls="nav-profile" aria-selected="false">Analytics</a> -->
+                        </div>
+                      </nav>
+
+
+                      <div class="tab-content tabContentSandbox mt-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-tab1" role="tabpanel"
+                          aria-labelledby="nav-home-tab">
+
+
+
+
+
+                          <div class="details">
+                            <p class="mt10 mb10"><b>Details</b></p>
+                            <div class="row mb10  pt15 pb15" style="background-color: whitesmoke;">
+                              <div class="col-md-2"><label><b>Created:</b></label></div>
+                              <div class="col-md-10">{{userAppDetail.createdAt | date:'dd/MM/yyyy'}}</div>
+
+                              <div class="col-md-2"> <label><b>Last updated:</b></label></div>
+                              <div class="col-md-10"> {{userAppDetail.lastModifiedAt | date:'dd/MM/yyyy'}} </div>
+
+                            </div>
+                          </div>
+                          <div class="Credentials " *ngIf="credentials.length>0">
+                            <p class="mt10 mb10"><b>Credentials</b></p>
+                            <div class="row mb10 pt15 pb15" style="background-color: whitesmoke;"
+                              *ngFor="let item of credentials ;let k=index ">
+                              <div class="col-md-2"><label><b>Consumer key:</b></label></div>
+                              <div class="col-md-10">{{item.consumerKey}}</div>
+
+                              <div class="col-md-2"> <label><b>Consumer secret:</b></label></div>
+                              <div class="col-md-10"> {{item.consumerSecret}} </div>
+
+                              <div class="col-md-2"> <label><b>Issued:</b></label></div>
+                              <div class="col-md-10">{{item.issuedAt | date:'dd/MM/yyyy'}}</div>
+
+                              <div class="col-md-2"> <label><b>Expired:</b></label></div>
+                              <div class="col-md-10"> {{item.expiresAt}}</div>
+
+                              <div class="col-md-2"> <label><b>key status:</b></label></div>
+                              <div class="col-md-10">
+                                 <a class="signInBtn"  *ngIf="item.status!='approved'">{{ item.status}}</a>
+                              
+                                <a class="btn btn-success" *ngIf="item.status=='approved'">{{ item.status}}</a></div>
+                            </div>
+                          </div>
+
+
+                          <!-- ================-->
+                          <form autocomplete="off" #myForm="ngForm">
+
+
+
+
+                          </form>
+                          <!--================== -->
+                        </div>
+
+
+                        <div class="tab-pane fade" id="nav-tab2" role="tabpanel" aria-labelledby="nav-profile-tab"
+                          style="padding: 0px;">
+                          <form [formGroup]="reactiveForm">
+                          <div _ngcontent-c5="" class="row ng-pristine ng-invalid ng-touched"
+                             style="padding-top: 20px; padding-left: 20px;">
+                            <div _ngcontent-c5="" class="form-group col-md-7"><label _ngcontent-c5=""
+                                for="appName">App Name <span _ngcontent-c5="" class="text-danger">
+                                  *</span></label><input _ngcontent-c5=""
+                                class="form-control mainField col-md-11 inline_block ng-pristine ng-valid ng-touched"
+                                formControlName="appName" id="appName" placeholder="App Name" type="text"
+                                ng-reflect-name="appName">
+                              
+                            </div>
+                            <div _ngcontent-c5="" class="form-group col-md-5"></div>
+                            <div _ngcontent-c5="" class="form-group col-md-7"><label _ngcontent-c5=""
+                                for="Callback">Callback</label><input _ngcontent-c5=""
+                                class="form-control mainField col-md-11 inline_block ng-untouched ng-pristine ng-invalid"
+                                formControlName="Callback" id="Callback" placeholder="Callback" type="text"
+                                ng-reflect-name="Callback">
+                             
+                            </div>
+                            <div _ngcontent-c5="" class="form-group col-md-5"></div>
+                            <div _ngcontent-c5="" class="form-group col-md-7"><label _ngcontent-c5=""
+                                for="Description">Description</label><input _ngcontent-c5=""
+                                class="form-control mainField col-md-11 inline_block ng-untouched ng-pristine ng-valid"
+                                formControlName="Description" id="Description" placeholder="Your Description" type="text"
+                                ng-reflect-name="Description">
+                             
+                            </div>
+                            <div _ngcontent-c5="" class="form-group col-md-5"></div>
+                            <div _ngcontent-c5="" class="form-group col-md-7" ><label _ngcontent-c5=""
+                                for="CustomValue">Custom value</label><input _ngcontent-c5=""
+                                class="form-control mainField col-md-11 inline_block ng-untouched ng-pristine ng-valid"
+                                formControlName="CustomValue" id="CustomValue" placeholder="Your Custom value" type="text"
+                                ng-reflect-name="CustomValue">
+                               
+                              
+                            </div>
+                            <div _ngcontent-c5="" class="form-group col-md-5"></div>
+                            <div _ngcontent-c5="" class="form-group col-md-7"  ><label _ngcontent-c5=""
+                                for="r_m_maild_id">
+                                <label class="danger">Status</label>Credentials</label>
+                              <div><label>APIs</label></div>
+
+                              <div  formGroupName="CustomValue"><label><input type="checkbox"> checkbox</label>
+                                <label><input type="checkbox"> APi</label>
+                                <label><input type="checkbox"> Api2</label>
+                                <label><input type="checkbox"> Api3</label></div>
+
+                                 
+                            </div>
+                            <div _ngcontent-c5="" class="form-group col-md-5"></div>
+                            <div _ngcontent-c5="" class="form-group col-md-12">
+                              <button _ngcontent-c9="" class="signInBtn" style="margin-right: 10px;" (click)="onSubmit($event)">Save</button>
+                              <a _ngcontent-c9="" class="signInBtn">Delete</a>
+
+                            </div>
+                          </div>
+                        </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-tab3" role="tabpanel" aria-labelledby="nav-profile-tab"
+                          style="padding: 30px;">
+                          <h6><b>App Details</b></h6>
+                          <div class="row">
+                            <div class="col-md-6">App Display Name</div>
+                            <div class="col-md-6">----</div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">Internal Name</div>
+                            <div class="col-md-6">----</div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">Developer Email Address<div>
+                                <div class="col-md-6">----</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">Developer Name</div>
+                                <div class="col-md-6">----</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">App Creator</div>
+                                <div class="col-md-6">----</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">Overall App Status</div>
+                                <div class="col-md-6">----</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">App Date/Time Created</div>
+                                <div class="col-md-6">----</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">App Date/Time Modified</div>
+                                <div class="col-md-6">----</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">Api Product</div>
+                                <div class="col-md-6">----</div>
+                              </div>
+                            </div>
+
+                            <h6>Rate Plan Details</h6>
+                            <div class="row" style="padding: 10px;">
+                              <div class="col-md-6">IMPS_Bucket4</div>
+                              <div class="col-md-6">__________</div>
+
+                              <div class="col-md-6">IMPS_Bucket3</div>
+                              <div class="col-md-6">__________</div>
+
+                              <div class="col-md-6">IMPS_Bucket2</div>
+                              <div class="col-md-6">__________</div>
+
+                              <div class="col-md-6">IMPS_Bucket1</div>
+                              <div class="col-md-6">__________</div>
+
+                              <div class="col-md-6">RM name</div>
+                              <div class="col-md-6">__________</div>
+
+                              <div class="col-md-6">RM ID</div>
+                              <div class="col-md-6">__________</div>
+
+                              <div class="col-md-6">RM Email</div>
+                              <div class="col-md-6">__________</div>
+
+                            </div>
+                          </div>
+
+                          <h6>Approved Rate Plan</h6>
+                          <div class="row">
+                            <div class="col-md-12">Approve Status</div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12">___</div>
+                            <div class="col-md-12">
+                              <button _ngcontent-c5="" class="signInBtn  mr10">SUBMIT </button>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+
+
+                        <div class="tab-pane fade" id="nav-tab4" role="tabpanel" aria-labelledby="nav-profile-tab"
+                          style="padding: 0px;">
+
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

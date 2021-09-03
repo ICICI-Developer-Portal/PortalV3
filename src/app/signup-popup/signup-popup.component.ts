@@ -64,13 +64,14 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   Callback_URL = "https?://.+";
   isemail_reg_check: string = "";
   ismobile_reg_check: string = "";
-  isotp_reg_check: string = "";
+  isotp_reg_check: string = ""; 
+  iseotp_reg_check: string = "";
 
   Cms_allShow: Boolean = false;
   Webservice_Show: Boolean = false;
   Ecollection_Show: Boolean = false;
   showTab = 1;
-  modalRef: BsModalRef;
+  modalRef: BsModalRef;//
   modalRef2: BsModalRef;
   modalRef3: BsModalRef;
   modalRef4: BsModalRef;
@@ -84,6 +85,8 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   show: boolean = false;
   showdocs: boolean = false;
   showOtp: boolean = true;
+  showEOtp: boolean = false;
+  eotpBtnDisabled: boolean = false;
   signupForm: FormGroup;
   isSubmitted: boolean;
   signupForm2: FormGroup;
@@ -98,7 +101,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   hideSignupbtn1: Boolean = false;
   isusername: boolean = false;
   issetpwd: boolean = false;
-  is_res_error: boolean = false;
+  is_res_error: any = "";
 
   isemail_check: boolean = false;
   shfrmSFFirst: boolean = false;
@@ -134,6 +137,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   selectedItems = [];
   settings = {};
   otp_verified = 0;
+  eotp_verified = 0;
 
   list: any = [];
   edit_data: any;
@@ -185,7 +189,13 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   errorMsg:any = "Something went wrong. Please try again in some time.";
   recaptchaReactive: any;
   recaptchaFlag: boolean = false;
-
+  status_code:any;
+  OTP_sent_msg:any= " OTP sent to your mobile number";
+  EOTP_sent_msg:any= " OTP sent to your email .";
+  otp_block_error:boolean= false;
+  isReadOnly:boolean= true;
+  utm_source:any="";
+  eotpResp:any;
   constructor(
     private http: Http,
     private HttpClient: HttpClient,
@@ -239,6 +249,24 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       self.openModal123();
     },5000); // 5000 to load it after 5 seconds from page load
  }); */
+
+    let utmUrl = localStorage.getItem('UTM_url');
+    let utm = utmUrl.split('?');
+    let utm2 = utm[1];
+    let src;
+    if(utm2){
+      let qs = utm2.split("&");
+      var param = {};
+      for(let i in qs){
+        let subParam = qs[i].split("=");
+        let key = subParam[0]; let val = subParam[1];
+        param[key] = val;
+      }
+       src =  param["utm_source"];
+    }
+    if(src ){
+      this.utm_source = src ;
+    }
     var browser = (function (agent) {
       switch (true) {
           case agent.indexOf("edge") > -1: return "edge";
@@ -265,7 +293,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       }
       window.scrollTo(0, 0)
     });
-    this.getMenuTree();
+    this.getMenuTree(); // get menu tree not required here hence commented //arunbala 01Sep2021
     //api for get menu tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
     //   this.responseData = JSON.parse(data._body);
@@ -297,7 +325,9 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       partnerCode: [""],
       
       otp_verified: ["0"],
-      otp_send: ["0"]
+      otp_send: ["0"],
+      eotp_verified: ["0"],
+      eotp_send: ["0"]
     });
 
     this.signupForm2 = this.formbuilder.group({
@@ -308,7 +338,8 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         "",
         [Validators.required, Validators.pattern(this.mobnumPattern)]
       ],
-      otp_code: ["", [Validators.required]]
+      otp_code: ["", [Validators.required]],
+      eotp_code: ["", [Validators.required]],
     });
 
     this.signupForm3 = this.formbuilder.group(
@@ -415,6 +446,9 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       this.myModal.nativeElement.click();;
   //  document.getElementById("signupBtn").click();
     }, 100)
+  }
+  ngOnDestroy() {
+    this.modalRef2.hide();
   }
   closeSignUp(){
     this.modalRef2.hide();
@@ -523,7 +557,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       if (rbtn.is(':checked')) {
         this.selectednode = $(this).attr('role');
         this.apiName = $(this).attr('value');
-          console.log("api id", this.selectednode)
+         // console.log("api id", this.selectednode)
           this.checked =true;
           self.Appnode(this.selectednode,this.checked,this.apiName)
           }
@@ -697,12 +731,12 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     if (index === -1 && checked) {
       this.internalArr.push(num);
       this.apiArr.push(apiName);
-      console.log("idarray", this.internalArr,this.apiArr)
+    //  console.log("idarray", this.internalArr,this.apiArr)
     }
     else {
       this.internalArr.splice(index, 1);
       this.apiArr.splice(index, 1);
-      console.log("id array uncheck", this.internalArr, this.apiArr)
+ //     console.log("id array uncheck", this.internalArr, this.apiArr)
     }
   }
   hasDuplicates(arr) {
@@ -740,9 +774,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   get domainNm() {
     return this.signupForm.get("domainNm");
   }
-  get email() {
-    return this.signupForm.get("email");
-  }
+ 
   get CITY() {
     return this.signupForm.get("CITY");
   }
@@ -753,13 +785,18 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   get partnerCode() {
     return this.signupForm.get("partnerCode");
   }
+  get email() {
+    return this.signupForm2.get("email");
+  }
   get mobile_no() {
     return this.signupForm2.get("mobile_no");
   }
   get otp_code() {
     return this.signupForm2.get("otp_code");
   }
-
+  get eotp_code() {
+    return this.signupForm2.get("eotp_code");
+  }
   get username() {
     return this.signupForm3.get("username");
   }
@@ -851,7 +888,8 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     };
     this.isusername = false;
     this.issetpwd = false;
-    this.is_res_error = false;
+    this.is_res_error = "";
+    this.status_code = "";
     if (username == "") {
       this.isusername = true;
       return;
@@ -862,7 +900,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     }
     username = btoa(username);
     password = btoa(password);
-    console.log("username password"+username+':' +password)
+   // console.log("username password"+username+':' +password)
     var json = { username: username, password: password };
     this.spinnerService.show();
     this.adm.Login(json).subscribe((data: any) => {
@@ -874,6 +912,18 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         this.modalRef.hide();
 
         let respData =  obj.data;
+
+        
+        if(respData ){
+          
+          localStorage.setItem('misUserVal',respData.misUser);
+        }  if(respData && respData.firstName ){
+          localStorage.setItem('Firstname',respData.firstName);
+        }  if(respData && respData.lastLoginDt ){
+          localStorage.setItem('lastLoginDate',respData.lastLoginDt);
+        }if(respData  ){
+        localStorage.setItem('isInternalUser',respData.internalUser);
+      }
         if(respData && respData.companyName ){
           localStorage.setItem('companyName',respData.companyName);
         } if(respData && respData.mobileNo ){
@@ -906,6 +956,15 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         this.isusername = false;
         this.issetpwd = false;
         this.is_res_error = obj.message;
+        if(obj.status_code == 111 || obj.status_code == "111" ){
+          this.status_code = 111;
+        this.is_res_error = "Your account is locked because of "+obj.message +" days inactive.";
+       
+        }else if(obj.status_code == 112 || obj.status_code == "112" ){
+          this.is_res_error = obj.message;
+        }else{
+         this.is_res_error = obj.message;
+         }
       }
     },
     err => {
@@ -917,7 +976,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
 
   today = new Date();
   //  Signup function
-  sign_up() {
+  sign_up(Prodconfirm) {
     var CurrentTime = formatDate(
       this.today,
       "dd-MM-yyyy hh:mm:ss a",
@@ -942,7 +1001,8 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         tncConfirmedDt: CurrentTime,
         approverName: "YES",
         approverEmailId: "YES",
-        requestDt: CurrentTime
+        requestDt: CurrentTime,
+        utm_source:this.utm_source
       };
       this.spinnerService.show();
       this.adm.sign_up(json).subscribe((data: any) => {
@@ -950,10 +1010,36 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         var obj = JSON.parse(response);
         if (obj.status == true) {
           this.signup_jira();
-          this.toastrmsg(
-            "success",
-            "Thank you for registering. Your account has been successfully created. Please log in to continue."
-          );
+          this.modalRef = this.modalService.show(Prodconfirm, {
+
+            backdrop: "static"
+      
+          });
+      // upload contact for autodialer
+     /*  let json = {
+        name:this.signupForm.value.firstname +" "+ this.signupForm.value.lastname,
+        mobile:this.signupForm2.value.mobile_no          
+      }; */
+      let json = {
+        name:this.signupForm.value.firstname +" "+ this.signupForm.value.lastname,
+        mobile:this.signupForm2.value.mobile_no,         
+        typeOfLead:"IF_SignUp",
+        domain:this.signupForm.value.domainNm,
+        companyName: this.signupForm.value.companyName,
+        emailId:this.signupForm2.value.email,
+        pincodeLocation:this.signupForm.value.CITY,
+        dateOfRequest:new Date()         
+      };
+      
+      this.adm.autodialer(json).subscribe((data: any) => {
+        var dialerResponse = data._body;
+        var obj = JSON.parse(dialerResponse);
+        console.log(dialerResponse)
+        },
+        err => {
+          console.log('err', err);
+          this.toastrmsg('error',this.errorMsg);
+      });
           this.spinnerService.hide();
           this.signupForm.reset();
           this.signupForm2.reset();
@@ -989,13 +1075,29 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   this.btnDisabled = true;
   this.btnText = 'Please wait';
   setTimeout(() => {
-   this.btnText = 'Resend OTP';
-   this.btnDisabled = false
+    if(this.otp_block_error){
+      this.btnText = 'send OTP ';
+      this.btnDisabled = true
+    }else{
+      this.btnText = 'Resend OTP';
+      this.btnDisabled = false
+    }
+   
     }, 30000);
+  }
+  resetButton(){
+    if(this.otp_block_error){
+      this.btnDisabled = false;
+      this.OTP_sent_msg = ""; 
+    }
+   
   }
 
   signup_jira() {
-    var CurrentTime = formatDate(this.today, "yyyy-MM-dd", "en-US", "+0530");
+    var CurrentTime = formatDate(this.today,
+      "dd-MM-yyyy hh:mm:ss a",
+      "en-US",
+      "+0530" );
     var json = {
       userName: this.signupForm3.value.uname,
       email: this.signupForm2.value.email,
@@ -1011,7 +1113,8 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       tncConfirmedDt: CurrentTime,
       approverName: "YES",
       approverEmailId: "YES",
-      requestDt: CurrentTime
+      requestDt: CurrentTime,
+      utm_source:this.utm_source
     };
     this.adm.sign_upjira(json).subscribe((data: any) => {
       var response = data._body;
@@ -1029,6 +1132,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         mobile_no: mobile
       };
       this.ismobile_reg_check = "";
+      this.OTP_sent_msg =" "; 
       this.adm.SendOTP(json).subscribe((data: any) => {
         var response = data._body;
         var obj = JSON.parse(response);
@@ -1036,8 +1140,16 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
           this.showOtp = true;
           this.show = true;
           this.otp_txt_id = obj.data;
+          this.OTP_sent_msg ="OTP sent to your mobile number"; 
           this.signupForm.controls["otp_send"].setValue("1");
-        } else {
+        } else if( obj.status == false && obj.status_code == 221){
+          this.OTP_sent_msg = "Please try again after 1 hour"; 
+          this.signupForm.controls["otp_send"].setValue("1");
+          this.showOtp = true;
+          this.show = true;
+          this.otp_block_error = true;
+        }else {
+          //bvhzsd  
           this.signupForm.controls["otp_send"].setValue("0");
           this.showOtp = true;
           this.show = true;
@@ -1052,6 +1164,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   }
 
   SendEmailOtp() {
+    
     try {
       this.adm.SendEmailOTP(this.signupForm.value).subscribe((data: any) => {
         var response = data._body;
@@ -1187,26 +1300,115 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   }
 
   OnCheckEmail(Exists_Email: any) {
+    this.eotpBtnDisabled = true;
     try {
       var json = { email: Exists_Email };
+      this.spinnerService.show();
+      this.EOTP_sent_msg ="";
       this.adm.Exists_Email(json).subscribe((data: any) => {
         var response = data._body;
         var obj = JSON.parse(response);
+     //   this.sendEmailOTP(Exists_Email);
         if (obj.status == true) {
           this.isemail_check = true;
+          this.isemail_reg_check = "";
+        
+          //this.toastrmsg('success', obj.message);
         } else {
           this.isemail_check = false;
           this.isemail_reg_check = obj.message;
+         
+          //this.toastrmsg('error', obj.message);
+        }
+        this.eotpBtnDisabled = false;
+        this.spinnerService.hide();
+      },
+      err => {
+      
+        console.log('err', err);
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
+        this.spinnerService.hide();
+      },);
+    } catch {}
+  }
+ 
+  sendEmailOTP(Exists_Email){
+    
+
+      this.signupForm.controls["eotp_send"].setValue("0");
+    try {
+
+      if (Exists_Email == "" ) {
+        this.isemail_reg_check = "Enter email Id";
+        return;
+      }if(!this.isemail_check){
+        return false;
+      }
+      this.eotpBtnDisabled = true;
+      setTimeout(() => {
+        this.eotpBtnDisabled = false;
+        }, 30000);
+      this.EOTP_sent_msg =" "; 
+      var json = {
+          email: Exists_Email,
+          username:"arunbala" 
+        };
+      this.adm.EOTP(json).subscribe((data: any) => {
+        var response = data._body;
+        var obj = JSON.parse(response);
+        if (obj.status == true) {
+          let resp = this.decode(obj.data);
+          this.eotpResp = JSON.parse(resp);
+          //console.log(resp);
+          this.showEOtp = true;
+          this.EOTP_sent_msg ="OTP sent to your email Id"; 
+          this.signupForm.controls["eotp_send"].setValue("1");
+         
+        } else {
+          this.isemail_check = false;
+          this.isemail_reg_check = obj.message;
+          this.showEOtp = true;
+          this.signupForm.controls["eotp_send"].setValue("0");
+          //this.toastrmsg('error', obj.message);
         }
       },
       err => {
         console.log('err', err);
-       // this.router.navigate(['error']);
-       this.toastrmsg('error',this.errorMsg);
-      },);
-    } catch { }
-  }
+        //this.router.navigate(['error']);
+        this.toastrmsg('error',this.errorMsg);
 
+      },);
+    } catch {}
+  }
+  timeDifference(timestamp1, timestamp2) {
+    var difference = timestamp1 - timestamp2;
+    var minutesDifference = ((difference / 1000) / 60);
+
+    return minutesDifference;
+}
+verifyEOTP(otp){
+//{"dateTime":"2021-09-01 16:00:25.713","otp":"294532","timestamp":1630492225713}
+  let t = Date.now();
+  let mdiff = this.timeDifference(t,this.eotpResp.timestamp);
+  if(mdiff>5){
+   // alert("Email OTP expired try again.")
+    this.eotp_verified = 0;
+    this.signupForm.controls["eotp_verified"].setValue("0");
+    this.iseotp_reg_check  = "Email OTP expired try again.";
+  }else if(otp === this.eotpResp.otp){
+    this.eotp_verified = 1;
+    this.signupForm.controls["eotp_verified"].setValue("1");
+    this.iseotp_reg_check = "";
+  } else {
+    
+    this.eotp_verified = 0;
+    this.signupForm.controls["eotp_verified"].setValue("0");
+    this.iseotp_reg_check  = "Otp not verified";
+  }
+  
+
+}
   OnCheckUsername(username: any) {
     try {
       var json = { username: username };
@@ -1418,7 +1620,7 @@ corporates(signin: any) {
   onItemSelect(item: any) {
     if (item.id) {
       this.idArr.push(item.id);
-      console.log("hi", this.idArr);
+    //  console.log("hi", this.idArr);
       sessionStorage.setItem(this.idArr, "true");
     }
   }
@@ -1426,23 +1628,23 @@ corporates(signin: any) {
   /****** To select group ******/
   onGroupDeSelect(items) {
     if (items.category) {
-      console.log("check", items.list);
+     // console.log("check", items.list);
       for (var i = 0; i < items.list.length; i++) {
         this.idArr.push(items.list[i].id);
       }
-      console.log("groupselect", this.idArr, this.catArr);
+  //    console.log("groupselect", this.idArr, this.catArr);
     }
   }
 
   /****** To Unselect group ******/
   onGroupSelect(items) {
-    console.log(items.list);
+  //  console.log(items.list);
     for (var i = 0; i < items.list.length; i++) {
       for (var j = 0; j < this.idArr.length; j++) {
         if (items.list[i].id === this.idArr[j]) {
-          console.log("true");
+          //console.log("true");
           this.idArr.splice(j, 1);
-          console.log("gropu arr", this.idArr);
+         // console.log("gropu arr", this.idArr);
         }
       }
     }
@@ -1455,19 +1657,19 @@ corporates(signin: any) {
       //   var key = this.getKeyByValue(items, items[i].id);
       // console.log("key",key);
     }
-    console.log("allselect", this.idArr, this.catArr);
+   // console.log("allselect", this.idArr, this.catArr);
   }
   onDeSelectAll(items: any) {
     this.idArr = [];
     this.catArr = [];
-    console.log("deselect all", this.catArr, this.idArr);
+   // console.log("deselect all", this.catArr, this.idArr);
   }
 
   OnItemDeSelect(items: any) {
     for (var i = 0; i < this.idArr.length; i++) {
       if (items.id === this.idArr[i]) {
         this.idArr.splice(i, 1);
-        console.log(this.idArr);
+       // console.log(this.idArr);
       }
       sessionStorage.setItem(items.id, "false");
     }
@@ -1506,7 +1708,7 @@ corporates(signin: any) {
     this.interval_Check = setInterval(() => {
       this.assignClickToNodesCheck();
       counter2 = counter2 + 1;
-      console.log(counter2)
+     // console.log(counter2)
       if (counter2 === 1) {
         clearInterval(this.interval_Check);
       }
@@ -1606,16 +1808,16 @@ corporates(signin: any) {
     // this.idArr = this.idArr.toString();
     this.idArr = this.internalArr.toString();
     this.internalArr = [];
-    console.log("id array", this.idArr);
+   // console.log("id array", this.idArr);
     var json = {
       ID: this.idArr,
     };
-    console.log("json", json);
+  //  console.log("json", json);
     this.adm.getUATFromData(json).subscribe((data: any) => {
-      console.log(data);
+   //   console.log(data);
       var response = data._body;
       var obj = JSON.parse(response);
-      console.log("obj", obj);
+     // console.log("obj", obj);
       this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
       for (var i = 0; i < this.additionalParams.length; i++) {
         if (this.additionalParams[i].match("Account Number")) {
@@ -1691,7 +1893,7 @@ corporates(signin: any) {
           this.amount = true;
         }
       }
-      console.log("final", this.additionalParams);
+     // console.log("final", this.additionalParams);
     },
     err => {
       console.log('err', err);
@@ -1849,9 +2051,9 @@ corporates(signin: any) {
     formData.append("Acc_trans", inputFields["Acc_trans"]);
     formData.append("Acc_amount", inputFields["Acc_amount"]);
 
-    console.log(formData);
+   // console.log(formData);
     let a: any = (<HTMLInputElement>document.getElementById("file1")).files;
-    console.log("a", a);
+  //  console.log("a", a);
     for (let k = 0; k < a.length; k++) {
       formData.append("file1", a[k]);
     }
@@ -1862,7 +2064,7 @@ corporates(signin: any) {
       formData
     ).subscribe(
       res => {
-        console.log(res);
+      //  console.log(res);
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
@@ -1876,7 +2078,7 @@ corporates(signin: any) {
             formData
           ).subscribe(
             res => {
-              console.log(res);
+            //  console.log(res);
             },
             err => {
               console.log('err', err);
@@ -2113,7 +2315,7 @@ corporates(signin: any) {
       formData
     ).subscribe(
       res => {
-        console.log(res);
+       // console.log(res);
         if (res.success === "true") {
           //File upload service
           var formData = new FormData();
@@ -2127,7 +2329,7 @@ corporates(signin: any) {
             formData
           ).subscribe(
             res => {
-              console.log(res);
+            //  console.log(res);
             },
             err => {
               console.log('err', err);
@@ -2233,7 +2435,7 @@ corporates(signin: any) {
       requirements: this.Inter_requirements,
       feedbackIn: feedback
     };
-    console.log("josn", json);
+ //   console.log("josn", json);
     this.adm.feedback(json).subscribe((data: any) => {
       var obj = JSON.parse(data._body);
       if (obj.status == true) {
@@ -2368,7 +2570,7 @@ corporates(signin: any) {
   }  
  //function to resolve the reCaptcha and retrieve a token
 async resolved(captchaResponse: string, res) {
-  console.log(`Resolved response token: ${captchaResponse}`);
+ // console.log(`Resolved response token: ${captchaResponse}`);
   await this.sendTokenToBackend(captchaResponse); //declaring the token send function with a token parameter
 }
 //function to send the token to the node server
@@ -2376,7 +2578,7 @@ sendTokenToBackend(tok){
   //calling the service and passing the token to the service
   this.adm.sendToken(tok).subscribe(
     data => {
-      console.log(data)
+     // console.log(data)
     },
     err => {
       console.log(err)
@@ -2384,6 +2586,58 @@ sendTokenToBackend(tok){
     () => {}
   );
 }
+
+/* Method called on pincode field change */
+onkeyupgetRMID(event: any) {
+let _domain = this.signupForm.value.domainNm;
+  if(!(_domain == "Business Banking" || _domain == "Corporate API Suite")){
+  
+    let userInput = event.target.value;
+    if(userInput != ""){
+     this.getRM( userInput);
+    }else{
+      console.log("pin not found");
+    }
+  }
+ 
+}
+onDomainChange(val){
+  if(val == "Business Banking" ){
+    this.isReadOnly = false;
+  }else if( val == "Corporate API Suite"){
+    this.isReadOnly = false;
+    this.signupForm.controls.RM.setValue("453072");
+  }else{
+    this.isReadOnly = true;
+    this.signupForm.controls.RM.setValue("");
+  }
+}
+/* Call service to fetch RM detail on basis of pincode */
+getRM(pincodeData) {
+ let self = this;
+    try {
+       var json = {
+         pincode: pincodeData
+       };
+       this.spinnerService.show();
+       this.adm.getRMId(json).subscribe((data: any) => {
+         var response = data._body;
+         var obj = JSON.parse(response);
+         if(obj.rmDetails && obj.rmDetails.rmId){
+          self.signupForm.controls.RM.setValue(obj.rmDetails.rmId);
+         }else{
+           console.log("No RM id found");
+         } 
+       },
+       err => {
+         console.log('err', err);
+         //this.router.navigate(['error']);
+         this.toastrmsg('error',this.errorMsg);
+       },);
+     } catch {
+       this.toastrmsg("error", console.error());
+     }
+   }
 
   
 }

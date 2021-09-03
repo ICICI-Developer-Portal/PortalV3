@@ -28,10 +28,16 @@ import { MatInputModule, MatAutocompleteModule, MatFormFieldModule } from '@angu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FocusOnShowDirective } from './autofocus.directive';
 import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
+import { ReportIssuePageComponent } from './report-issue-page/report-issue-page.component';
+import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
+import { SafePipe } from './safe.pipe';
+import { AnalyticPageComponent } from './analytic-page/analytic-page.component';
+
+//import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-prod-onboarding-page.component';
 // import { UserdataComponent } from './userdata/userdata.component';
 // import { DataTableModule } from 'angular7-data-table';
 
-   
+
 @NgModule({
     imports: [
         CommonModule,   
@@ -71,6 +77,11 @@ import { NestedListFilterPipePipe } from './nested-list-filter-pipe.pipe';
         MisComponent,
         FocusOnShowDirective,
         NestedListFilterPipePipe,
+        ReportIssuePageComponent,
+        NewUatonboardingPageComponent,
+        SafePipe,
+        AnalyticPageComponent,
+        
        // UserdataComponent
         
     ],

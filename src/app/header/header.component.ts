@@ -18,6 +18,7 @@ import { preserveWhitespacesDefault } from "@angular/compiler";
 import { CustomValidators } from "../LandingPage/layout/header/custom-validators";
 import { DatePipe } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
+// import * as bcrypt from 'bcryptjs';
 declare var $: any;
 @Component({
   selector: "icici-header",
@@ -92,8 +93,16 @@ export class HeaderComponent implements OnInit {
   showAppDash: boolean = false;
   userName: any;
   errorMsg:any = "Something went wrong. Please try again in some time.";
-  
-  
+  misUserVal:any = false;
+  Firstname: any="";
+  lastLoginDate: any="";
+  status_code:any;
+  isInternalUser:any = false;
+  salt:string;
+  userEmailId;
+  showBUH: boolean = false;
+  showBU: boolean = false;
+  userRole:boolean = false;
 
   constructor(
     private SessionService: SessionService,
@@ -112,6 +121,36 @@ export class HeaderComponent implements OnInit {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
       this.showbtn = !this.logged_in;
+      if(localStorage.getItem('misUserVal') != ""){
+        this.misUserVal = localStorage.getItem('misUserVal');
+      }if(localStorage.getItem('Firstname') != ""){
+        this.Firstname = localStorage.getItem('Firstname');
+      }if(localStorage.getItem('lastLoginDate') != ""){
+        this.lastLoginDate = localStorage.getItem('lastLoginDate');
+      }if(localStorage.getItem('username') != ""){
+        this.userName = localStorage.getItem('username');
+      }if(localStorage.getItem('isInternalUser') != ""){
+        this.isInternalUser = localStorage.getItem('isInternalUser');
+      }
+      if(localStorage.getItem('role') != ""){
+        let role = localStorage.getItem('role');
+        if (role === "BUH") {
+          this.showBUH = true;
+          this.showBU = false;
+        }else 
+        if (role === "BU") {
+          this.showBU = true;
+          this.showBUH = false;
+        }
+      }
+      if(localStorage.getItem('isAdmin') == "yes"){
+       this.userRole = true;
+       this.showBU = true;
+       this.showBUH = true;
+      }else{
+        this.userRole = false;
+      }
+
     });
     this.adm.getUserName().subscribe(data => {
       this.appathonFirstName = localStorage.getItem("appathonFirstName");
@@ -120,6 +159,13 @@ export class HeaderComponent implements OnInit {
       this.appathonCompanyName = localStorage.getItem("appathonCompanyName");
       this.appathonUserName = localStorage.getItem("appathonUserName");
       this.user_name = data;
+    });
+
+    this.adm.getSaltValue().subscribe(data => {
+     // console.log(data);
+      this.salt = data
+    //  let pwd = CryptoJS.AES.encrypt(password, data).toString();  
+      
     });
     this.get_domain_and_apis();
   }
@@ -141,10 +187,35 @@ export class HeaderComponent implements OnInit {
     return decryptedText
   
   }
+  decode1(val,key){
+ 
+    // Decryption process
+  //  var key = 'ICICI#~#';
+//    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+  
+    var encryptedCipherText = val ; // or encryptedData;
+    var decryptedData = CryptoJS.AES.decrypt( encryptedCipherText, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    } );
+    var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedText
+  
+  }
      
   ngOnInit() {
 
+
     
+
+
+
+
+
+    this.userEmailId=localStorage.getItem("email");
     //aapathonSignUpForm
     this.teamList = [0, 1, 2, 3, 4];
     //aapathonSignUpForm
@@ -279,12 +350,29 @@ export class HeaderComponent implements OnInit {
     }
     if (localStorage.getItem("role") === "Both") {
       this.showAppDash = true;
+    
+    }
+    if (localStorage.getItem("role") === "BUH") {
+      this.showBUH = true;
+    
+    }
+    if (localStorage.getItem("role") === "BU") {
+      this.showBU = true;
+    
     }
     this.userName = localStorage.getItem("username");
+
+    if(localStorage.getItem('misUserVal') != ""){
+      this.misUserVal = localStorage.getItem('misUserVal');
+    }if(localStorage.getItem('Firstname') != ""){
+      this.Firstname = localStorage.getItem('Firstname');
+    }if(localStorage.getItem('lastLoginDate') != ""){
+      this.lastLoginDate = localStorage.getItem('lastLoginDate');
+    } 
   }
 /* active class toggle **/
   addActiveClass(e){
-    console.log(e);
+   // console.log(e);
     $('ul li a[data-toggle="tab"]').removeClass('active');
     $('ul li a[data-toggle="tab"]').removeClass('show');
    
@@ -428,16 +516,21 @@ toastrmsg(type, title) {
 
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
-    //localStorage.setItem('username',username);
-    //localStorage.setItem('password',password);
+ 
+  /*   $("#passwordbackup").val( $("#password").val())
+    let passwordLength=$("#password").val().length;   
+    $("#password").val("********")
+ */
     var nonEncodedJson = {
       username : username,
       password : password
     };
-    console.log(nonEncodedJson)
+  //  console.log(nonEncodedJson)
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
+    this.status_code = "";
+
     if (username == "") {
       this.isusername = true;
       return;
@@ -448,12 +541,22 @@ toastrmsg(type, title) {
     }
     username = btoa(username);
     password = btoa(password);
-    console.log("username password"+username+':' +password)
-    var json = { username: username, password: password };
+
+ 
+/*    let pwd = this.encode(this.salt,password);
+  let resp =  this.decode1(pwd,this.salt);
+    var json = { username: username, password: pwd };
     this.spinnerService.show();
-    this.adm.Login(json).subscribe((data: any) => {
+    var key = 'ICICI#~#';
+    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+  let newSalt = this.encode(key,this.salt);
+ */
+  var json = { username: username, password: password };
+ // console.log("username password == "+username+':' +password) 
+this.adm.Login(json).subscribe((data: any) => {
+   // this.adm.LoginTest(json,newSalt).subscribe((data: any) => {
       var response = data._body;
-      console.log(response)
+      //console.log(response)
       this.loginResponse = JSON.parse(response);
      //console.log(this.loginResponse);
     //  console.log(this.loginResponse.data)
@@ -464,6 +567,30 @@ toastrmsg(type, title) {
         var timer = this.SessionService.session();
         this.show = false;
         this.modalRef.hide();
+
+        let respData =  this.loginResponse.data;
+        if(respData  ){
+          this.misUserVal = respData.misUser;
+          localStorage.setItem('misUserVal',this.misUserVal);
+        }  if(respData && respData.firstName ){
+          this.Firstname=respData.firstName;
+          localStorage.setItem('Firstname',this.Firstname);
+        }  if(respData && respData.lastLoginDt ){
+          this.lastLoginDate=respData.lastLoginDt;
+          localStorage.setItem('lastLoginDate',this.lastLoginDate);
+        }if(respData  ){
+          localStorage.setItem('isInternalUser',respData.internalUser);
+          this.isInternalUser = respData.internalUser;
+        }
+        if(respData && respData.companyName ){
+          localStorage.setItem('companyName',respData.companyName);
+        } if(respData && respData.mobileNo ){
+          localStorage.setItem('mobileNo',respData.mobileNo);
+        }if(respData && respData.email ){
+          localStorage.setItem('email',respData.email);
+        }if(respData && respData.rm ){
+          localStorage.setItem('rm',respData.rm);
+        }
         //this.toastrmsg('success', "Login has been Successfully");
         // this.sessionSet('username', obj.data.username);
         localStorage.setItem(
@@ -489,73 +616,146 @@ toastrmsg(type, title) {
         // localStorage.setItem('email', obj.data.email);
         // this.adm.sendUserId(obj.data.id);
         this.spinnerService.hide();
-        
-        let respData =  this.loginResponse.data;
-        if(respData && respData.companyName ){
-          localStorage.setItem('companyName',respData.companyName);
-        }else if(respData && respData.mobileNo ){
-          localStorage.setItem('mobileNo',respData.mobileNo);
-        }else if(respData && respData.email ){
-          localStorage.setItem('email',respData.email);
-        }else if(respData && respData.rm ){
-          localStorage.setItem('rm',respData.rm);
-        }
-        
-       
-        
-       
-        this.adm.LoginPortal(nonEncodedJson).subscribe(
+         
+      /*   this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
             this.router.navigate([this.router.url]);
           },
           err => {
             this.router.navigate([this.router.url]);
           }
-        );
+        ); */
          /**
          * Changing the flow as login shd complete even if loginsuccess popup eacaped
          */
         $('ul li a[data-toggle="tab"]').removeClass('active');
         $('ul li a[data-toggle="tab"]').removeClass('show');
-        this.userName = this.loginResponse.data.username;
-    this.sessionSet("username", this.loginResponse.data.username);
-    localStorage.setItem("username", this.loginResponse.data.username);
-    localStorage.setItem("password", this.loginResponse.data.password);
-    localStorage.setItem("id", this.loginResponse.data.id);
-    localStorage.setItem("role", this.loginResponse.data.role);
-    this.userName = localStorage.getItem("username");
-    
-    localStorage.setItem(
-      "appathonusername",
-      this.loginResponse.data.appathonusername
-    );
-    localStorage.setItem("appathonUserName", this.loginResponse.data.username);
-    localStorage.setItem("email", this.loginResponse.data.email);
-    this.adm.sendUserId(this.loginResponse.data.id);
-    this.userName = localStorage.getItem("username");
-    this.router.navigate([this.router.url]);
-    
-    /**
-     * End here
-     */
+            this.userName = this.loginResponse.data.username;
+        this.sessionSet("username", this.loginResponse.data.username);
+        localStorage.setItem("username", this.loginResponse.data.username);
+        localStorage.setItem("password", this.loginResponse.data.password);
+        localStorage.setItem("id", this.loginResponse.data.id);
+        localStorage.setItem("role", this.loginResponse.data.role);
+        if (this.loginResponse.data.role === "BUH") {
+          this.showBUH = true;
+        
+        }
+        if (this.loginResponse.data.role === "BU") {
+          this.showBU = true;
+        
+        }
+        this.userName = localStorage.getItem("username");
+        
+        localStorage.setItem(
+          "appathonusername",
+          this.loginResponse.data.appathonusername
+        );
+        localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+        localStorage.setItem("email", this.loginResponse.data.email);
+        this.adm.sendUserId(this.loginResponse.data.id);
+        this.userName = localStorage.getItem("username");
+        this.admin_acccess( this.userName)
+        if (this.router.url === "/documentation"){
+          this.router.navigate(['explore-api']); 
+        }else{
+          this.router.navigate([this.router.url]);
+        }
+        
+        
+        /**
+         * End here
+         */
 
         this.modalRef4 = this.modalService.show(loginsuccess, {
           backdrop: "static"
         });
+
+        
       } else {
         this.spinnerService.hide();
         this.isusername = false;
         this.issetpwd = false;
-        this.is_res_error = this.loginResponse.message;
+        this.reloadToken();
+        if(this.loginResponse.status_code == 111 || this.loginResponse.status_code == "111" ){
+          this.status_code = 111;
+        this.is_res_error = "Your account is locked because of "+this.loginResponse.message +" days inactive.";
+       
+        }else if(this.loginResponse.status_code == 112 || this.loginResponse.status_code == "112" ){
+          this.is_res_error = this.loginResponse.message;
+        }else{
+         this.is_res_error = this.loginResponse.message;
+         }
+       
       }
     },
     err => {
       console.log('err', err);
+      this.reloadToken();
      // this.router.navigate(['error']);
       this.toastrmsg('error',this.errorMsg);
 
       
     },);
+  }
+  admin_acccess(username) {
+    this.adm.Admin_access(username).subscribe((data: any) => {
+      var response = data._body;
+      var obj = JSON.parse(response);
+      if (obj.message == 'Success') {
+        console.log('yes admin');
+        localStorage.setItem('isAdmin',"yes");
+        this.userRole = true;
+        this.showBU = true;
+        this.showBUH = true;
+      } else {
+        console.log('no');
+        this.userRole = false;
+        this.showBU = false;
+        this.showBUH = false;
+      }
+    },
+    err => {
+     /*  var obj ={"message":"Success","jwttoken":null,"status":true,"status_code":0,"data":null};
+      if (obj.message == 'Success') {
+        console.log('yes admin');
+        this.userRole = true;
+        this.showBU = true;
+        this.showBUH = true;
+       localStorage.setItem('isAdmin',"yes");
+      } else {
+        console.log('no');
+       this.userRole = false;
+       this.showBU = false;
+       this.showBUH = false;
+      } */
+      console.log('err', err);
+    },);
+  }
+  goToAnalytics(){
+    window.location.href= "http://34.93.28.139/icici-drupal/web/apigee/appanalytics?mail="+localStorage.getItem("email");
+  }
+  encode(key,val){
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+   let encryptedVal = CryptoJS.AES.encrypt(val, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+      });
+      return encryptedVal;
+  }
+  reloadToken(){
+    this.adm.getSalt().subscribe((data: any) => {
+      
+      this.adm.sendSalt(data._body);
+      this.salt = data._body;
+    },
+    err => {
+      console.log('err', err);
+    });
+  }
+  closeLoginPopup(){
+   this.is_res_error = '';
+   this.modalRef.hide();
   }
   // Signup function
 
@@ -694,7 +894,7 @@ toastrmsg(type, title) {
       this.adm.appathon_sign_up(json).subscribe((data: any) => {
         var response = data._body;
         var obj = JSON.parse(response);
-        console.log(obj);
+       // console.log(obj);
         if (obj.status == true) {
           //this.signup_jira();
           this.toastrmsg(
@@ -972,8 +1172,17 @@ toastrmsg(type, title) {
   // }
   // }
   Documentation(signin: any) {
-    this.router.navigate(["/documentation"]);
-    localStorage.setItem("IsReload", "true");
+     if (
+      localStorage.getItem('username') == '' ||
+      !localStorage.getItem('username')
+    ){
+     this.router.navigate(["/documentation"]);
+     //this.router.navigate(["/explore-api"]);
+    }else{
+      this.router.navigate(["/explore-api"]);
+    } 
+   /*  this.router.navigate(["/documentation"]);
+    localStorage.setItem("IsReload", "true"); */
   }
 
   // forget Password function
@@ -1057,9 +1266,11 @@ toastrmsg(type, title) {
 
   btn_Sign() {
     if (localStorage.getItem("id") != null) {
+      
       this.showbtn = false;
       this.showlogoutbtn = true;
     } else {
+      
       this.showbtn = true;
       this.showlogoutbtn = false;
     }
@@ -1072,18 +1283,36 @@ toastrmsg(type, title) {
     localStorage.removeItem("id");
     localStorage.removeItem("role");
     localStorage.removeItem("jwt")
+    localStorage.removeItem('lastLoginDate');
+    localStorage.removeItem('misUserVal');
+    localStorage.removeItem('Firstname');
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('isInternalUser');
+    localStorage.removeItem('email');
+    localStorage.removeItem("userEnteredText");
+    localStorage.clear();
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;
-    this.adm.LogoutPortal().subscribe(
+    this.showBUH= false;
+    this.showBU= false;
+  
+    this.reloadToken();
+    this.adm.logout().subscribe(
       res => {
-        this.router.navigate(["/index"]);
+        console.log("logout success")
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       },
       err => {
-        this.router.navigate(["/index"]);
+        console.log("logout failed")
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
       }
     );
-    this.router.navigate(["/index"]);
+   //this.router.navigate(["/index"]);
   }
 
   signup_link(id) {
@@ -1172,7 +1401,7 @@ toastrmsg(type, title) {
   // }
 
   numericOnly(event): boolean {
-    console.log("keypress");
+  //  console.log("keypress");
     let patt = /^([0-9])$/;
     let result = patt.test(event.key);
     return result;
@@ -1213,4 +1442,13 @@ toastrmsg(type, title) {
 
     },);
   }
+
+  values:any='';
+  onKeyPress(event: any) {
+    let values = event.target.value;
+    console.log(values);
+    let regex = "/^[ A-Za-z0-9_@./#&+-]*$/";
+    console.log(values.replaceAll(new RegExp(regex, "ig"), m => '*'.repeat(m.length)));  
+};
+
 }

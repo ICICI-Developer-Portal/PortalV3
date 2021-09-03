@@ -1,3 +1,27 @@
 .mt28{
     margin-top: 28px !important;
 }
+.welcome{
+
+    float: right;
+    margin-right: 11.5%;
+    margin-bottom: -25px;
+    color: #919191;text-decoration: none;font-family: Poppins-SemiBold;font-size: 12px;
+}
+#password{
+    -webkit-text-security:disc;
+}
+.blink_me {
+    font-size: 5em;
+    font-family: serif;
+    color: #008000;
+    text-align: center;
+    animation: animate 
+        1.5s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }

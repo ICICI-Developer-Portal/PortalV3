@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'document-upload', component: DocumentuploadComponent },
       { path: 'document-download', component: DocumentdownloadComponent }
     ],
-    canActivate: [AdminAuthGuard],
+   canActivate: [AdminAuthGuard],
   },
     //    path: 'request', component: RequestsComponent
     { path: 'login', component: LoginComponent },

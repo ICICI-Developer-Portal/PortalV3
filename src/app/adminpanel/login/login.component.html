@@ -6,7 +6,7 @@
       <div class="login-logo">
         <a
           ><img
-            src="assets/images/icici-svg-2.svg"
+            src="assets/images/NewICICIBankLogo-02.png"
             class="user-image"
             alt="User Image"
         /></a>
@@ -24,7 +24,8 @@
         </div>
         <div class="group">
           <label for="password">Password:</label>
-          <input id="password" type="password" name="password" #password />
+         <!--  <input id="password" type="password" name="password" #password /> -->
+          <input name="password" type="password" class="input-login"  onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password />
           <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
             Please Enter Password.
           </div>
