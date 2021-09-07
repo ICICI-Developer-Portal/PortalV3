@@ -39,6 +39,9 @@ export class MerchantOnboardingPageComponent implements OnInit {
   showMode: boolean = false;
 
   checkboxValues:any ="Select";
+  showText1: boolean = false;
+  showText2: boolean = false;
+
 
 
   Attach;
@@ -306,7 +309,24 @@ status=pending
         }else{
           this.showMode = false;
         }
+        console.log(val)
+        if(val == "CIB" ){
+         this.showText1=true;
+         this.showText2=false;
+
+          // this.showMode = true;
+        }else if (val=="Composite"|| val=="EazyPay"){
+          this.showText2=true;
+          this.showText1=false;
+
+          // this.showMode = false;
+        }
+        else{
+          this.showText2=false;
+          this.showText1=false;
+        }
       }
+
   
       onServiceChange(event){
      /*Start here  */
@@ -497,4 +517,3 @@ status=pending
   //ext ::  crt ,txt,.key
     
     }
-

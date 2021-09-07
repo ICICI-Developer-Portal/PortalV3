@@ -10,9 +10,9 @@
  </div>
   </div>
   <div class="documentTabContent" style="margin-top: 30px !important;
- 	position:absolute;
-	left: 0;
-	right: 0;
+  position:absolute;
+  left: 0;
+  right: 0;
   margin: auto;
   width: 78%;">
    
@@ -348,6 +348,12 @@
            
             <input type="text" class="form-control mainField col-md-11 inline_block" id="MerchantId"
               formControlName="MerchantId" placeholder="">
+              <span _ngcontent-c6="" style="font-size:11px !important;" *ngIf="showText1==true"><i _ngcontent-c6="">
+               * Merchant id should be alphanumeric.4 character's alphabet  and 4 character's number.Eg:MERC1234
+              </i></span>
+              <span _ngcontent-c6="" style="font-size:11px !important;" *ngIf="showText2==true"><i _ngcontent-c6="">
+                * Merchant id should be alphanumeric.4 character's alphabet  and 2 character's number.Eg:MERC12
+               </i></span>
               <i *ngIf="reactiveForm.get('basicDetailsSection.MerchantId').valid"
                 class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
                 <div

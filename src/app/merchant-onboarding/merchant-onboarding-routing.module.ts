@@ -25,7 +25,7 @@ const routes: Routes = [
         { path: 'onboardedMerchantList/:id', component: OnboardedMerchantRequestComponent  },
 
         ],
-        canActivate: [BUAuthGuard]
+        // canActivate: [BUAuthGuard]
       },     
   
   ];
