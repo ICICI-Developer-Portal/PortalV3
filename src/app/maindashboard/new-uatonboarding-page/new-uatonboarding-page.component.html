@@ -1020,12 +1020,12 @@
                 Certificate Upload is required.
               </div>
             </div>
-            <!-- (click)="downloadPDF('/assets/pdf/test.pdf','test.pdf')" =========-->
+          
             <div class="customcsscontainerForTnC col-md-12">
               <label for="checkbox">
                 <input type="checkbox" id="checkbox" formControlName="checkBox" class="">
                 I ACCEPT NON-DISCLOSURE AGREEMENT, </label>
-              <span><a   class="anchor_color" download = "/test.pdf" href = "/assets/pdf/test.pdf"> Click here to
+              <span><a   class="anchor_color" download = "/NDA.pdf" href = "/assets/pdf/NDA.pdf"> Click here to
                   download</a><span class="text-danger"> *</span></span>
               <div
                 *ngIf="!reactiveForm.get('whitelistIpSection.checkBox').valid && reactiveForm.get('whitelistIpSection.checkBox').touched"

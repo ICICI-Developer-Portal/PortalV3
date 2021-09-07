@@ -196,6 +196,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
   isReadOnly:boolean= true;
   utm_source:any="";
   eotpResp:any;
+  uniuqeId:any;
   constructor(
     private http: Http,
     private HttpClient: HttpClient,
@@ -985,42 +986,15 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
     );
     //var CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds();
     try {
-      var json = {
-        username: this.signupForm3.value.uname,
-        password: this.signupForm3.value.password,
-        email: this.signupForm2.value.email,
-        firstname: this.signupForm.value.firstname,
-        lastName: this.signupForm.value.lastname,
-        domainNm: this.signupForm.value.domainNm,
-        companyName: this.signupForm.value.companyName,
-        contactNo: this.signupForm2.value.mobile_no,
-        CITY: this.signupForm.value.CITY,
-        RM: this.signupForm.value.RM,
-        partnerCode: this.signupForm.value.partnerCode,
-        tncConfirmed: "1",
-        tncConfirmedDt: CurrentTime,
-        approverName: "YES",
-        approverEmailId: "YES",
-        requestDt: CurrentTime,
-        utm_source:this.utm_source
-      };
-      this.spinnerService.show();
-      this.adm.sign_up(json).subscribe((data: any) => {
-        var response = data._body;
-        var obj = JSON.parse(response);
-        if (obj.status == true) {
-          this.signup_jira();
-          this.modalRef = this.modalService.show(Prodconfirm, {
-
-            backdrop: "static"
       
-          });
+      this.spinnerService.show();
+     
       // upload contact for autodialer
      /*  let json = {
         name:this.signupForm.value.firstname +" "+ this.signupForm.value.lastname,
         mobile:this.signupForm2.value.mobile_no          
       }; */
-      let json = {
+      let json2 = {
         name:this.signupForm.value.firstname +" "+ this.signupForm.value.lastname,
         mobile:this.signupForm2.value.mobile_no,         
         typeOfLead:"IF_SignUp",
@@ -1031,38 +1005,74 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         dateOfRequest:new Date()         
       };
       
-      this.adm.autodialer(json).subscribe((data: any) => {
+      this.adm.autodialer(json2).subscribe((data: any) => {
         var dialerResponse = data._body;
-        var obj = JSON.parse(dialerResponse);
-        console.log(dialerResponse)
+        var dialerResponse = JSON.parse(dialerResponse);
+        console.log(dialerResponse);
+        this.uniuqeId = dialerResponse.message.UniqueId;
+        /* DB insertion  */
+        var json1 = {
+          username: this.signupForm3.value.uname,
+          password: this.signupForm3.value.password,
+          email: this.signupForm2.value.email,
+          firstname: this.signupForm.value.firstname,
+          lastName: this.signupForm.value.lastname,
+          domainNm: this.signupForm.value.domainNm,
+          companyName: this.signupForm.value.companyName,
+          contactNo: this.signupForm2.value.mobile_no,
+          CITY: this.signupForm.value.CITY,
+          RM: this.signupForm.value.RM,
+          partnerCode: this.signupForm.value.partnerCode,
+          tncConfirmed: "1",
+          tncConfirmedDt: CurrentTime,
+          approverName: "YES",
+          approverEmailId: "YES",
+          requestDt: CurrentTime,
+          utm_source:this.utm_source,
+          autodialer_id:dialerResponse.message.UniqueId
+        };
+        this.adm.sign_up(json1).subscribe((data: any) => {
+          var response = data._body;
+          var obj = JSON.parse(response);
+          if (obj.status == true) {
+            this.signup_jira();
+            console.log(dialerResponse.UniqueId);
+            this.modalRef = this.modalService.show(Prodconfirm, {
+  
+              backdrop: "static"
+        
+            });
+            this.spinnerService.hide();
+            this.signupForm.reset();
+            this.signupForm2.reset();
+            this.signupForm3.reset();
+            this.signupForm4.reset();
+            this.modalRef2.hide();
+            this.shfrmSFFirst = true;
+            this.shfrmSFSecond = false;
+            this.shfrmSFThird = false;
+            this.router.navigate(["/index"]);
+          } else {
+            this.shfrmSFThird = true;
+            this.shfrmSFSecond = false;
+            this.shfrmSFFirst = false;
+            this.spinnerService.hide();
+            this.toastrmsg("error", obj.message);
+          }
+        },
+        err => {
+          console.log('err', err);
+          //this.router.navigate(['error']);
+          this.toastrmsg('error',this.errorMsg);
+        },);
+
+        /* End here */
         },
         err => {
           console.log('err', err);
           this.toastrmsg('error',this.errorMsg);
       });
-          this.spinnerService.hide();
-          this.signupForm.reset();
-          this.signupForm2.reset();
-          this.signupForm3.reset();
-          this.signupForm4.reset();
-          this.modalRef2.hide();
-          this.shfrmSFFirst = true;
-          this.shfrmSFSecond = false;
-          this.shfrmSFThird = false;
-          this.router.navigate(["/index"]);
-        } else {
-          this.shfrmSFThird = true;
-          this.shfrmSFSecond = false;
-          this.shfrmSFFirst = false;
-          this.spinnerService.hide();
-          this.toastrmsg("error", obj.message);
-        }
-      },
-      err => {
-        console.log('err', err);
-        //this.router.navigate(['error']);
-        this.toastrmsg('error',this.errorMsg);
-      },);
+         
     } catch {
       this.toastrmsg("error", console.error());
     }
@@ -1195,13 +1205,19 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
           var obj = JSON.parse(response);
           obj = this.decode(obj.data);
           obj = JSON.parse(obj);
-          if (obj.status == true) {
+          if (obj.status == true && this.eotp_verified == 1) {
             this.shfrmSFThird = true;
             this.shfrmSFFirst = false;
             this.shfrmSFSecond = false;
             this.otp_verified = 1;
             this.signupForm.controls["otp_verified"].setValue("1");
             this.isotp_reg_check = "";
+          }else  if(obj.status == true && this.eotp_verified == 0) {
+
+            this.shfrmSFSecond = true;
+            this.shfrmSFThird = false;
+            this.shfrmSFFirst = false;
+            this.isotp_reg_check = "OTP veificatio success!";
           } else {
             this.shfrmSFSecond = true;
             this.shfrmSFThird = false;
@@ -1298,7 +1314,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
       this.toastrmsg('error',this.errorMsg);
     },);
   }
-
+ // (click)="sendEmailOTP(Email.value)"
   OnCheckEmail(Exists_Email: any) {
     this.eotpBtnDisabled = true;
     try {
@@ -1312,7 +1328,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         if (obj.status == true) {
           this.isemail_check = true;
           this.isemail_reg_check = "";
-        
+          this.sendEmailOTP(Exists_Email);
           //this.toastrmsg('success', obj.message);
         } else {
           this.isemail_check = false;
@@ -1360,7 +1376,7 @@ export class SignupPopupComponent implements OnInit, AfterViewInit {
         if (obj.status == true) {
           let resp = this.decode(obj.data);
           this.eotpResp = JSON.parse(resp);
-          //console.log(resp);
+          console.log(resp);
           this.showEOtp = true;
           this.EOTP_sent_msg ="OTP sent to your email Id"; 
           this.signupForm.controls["eotp_send"].setValue("1");
@@ -1396,10 +1412,16 @@ verifyEOTP(otp){
     this.eotp_verified = 0;
     this.signupForm.controls["eotp_verified"].setValue("0");
     this.iseotp_reg_check  = "Email OTP expired try again.";
+    
   }else if(otp === this.eotpResp.otp){
     this.eotp_verified = 1;
     this.signupForm.controls["eotp_verified"].setValue("1");
     this.iseotp_reg_check = "";
+   if(this.otp_verified == 1){
+    this.shfrmSFThird = true;
+    this.shfrmSFFirst = false;
+    this.shfrmSFSecond = false;
+   }
   } else {
     
     this.eotp_verified = 0;

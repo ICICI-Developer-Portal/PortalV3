@@ -120,6 +120,30 @@ export class SetRatePlanComponent implements OnInit {
             rate:"6.5",
             range:">25k"
           }
+        ]},
+        {id:"custome_plan",
+        displayName: "Custome_Plan",
+        rates:[
+          {
+            label:"IMPS_Bucket1",
+            rate:"",
+            range:"1"
+          },
+          {
+            label:"IMPS_Bucket2",
+            rate:"",
+            range:"1-1k",
+          },
+          {
+            label:"IMPS_Bucket3",
+            rate:"",
+            range:"1000-25k"
+          },
+          {
+            label:"IMPS_Bucket4",
+            rate:"",
+            range:">25k"
+          }
         ]}
       ];
        
@@ -144,10 +168,10 @@ export class SetRatePlanComponent implements OnInit {
     if(productName == "IMPS"){
       this.appProducts_imps =true;
     }
-    //this.appProducts_imps =true;
+    this.appProducts_imps =true;
     let json1= {
    
-      apiProductName : productName//"IMPS"productName
+      apiProductName : "IMPS"//"IMPS"productName
     }
     this.fetchData.getProductAttributes(json1).subscribe((data: any) => {
       let response = JSON.parse( data._body);

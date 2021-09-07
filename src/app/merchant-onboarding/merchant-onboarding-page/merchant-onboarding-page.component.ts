@@ -21,6 +21,7 @@ declare var $: any;
 })
 export class MerchantOnboardingPageComponent implements OnInit {
   reactiveForm: FormGroup;
+  selectedEnv;
   maxDate:any;
   minDate:any;
   productDetail:any = [];
@@ -31,12 +32,23 @@ export class MerchantOnboardingPageComponent implements OnInit {
   buUsername;
   buEmail;
   buName;
+  checkedStatus: boolean = false;
   IPList: boolean = false;
 
   IPLists: boolean = false;
   showMode: boolean = false;
 
   checkboxValues:any ="Select";
+
+
+  Attach;
+fileName;
+filetype;
+fileCT;
+extnsn;
+fileTest:boolean=false;
+
+
 
   constructor(private router: Router,
     private merchantSrvc: MerchantOnboardingService,
@@ -62,7 +74,7 @@ export class MerchantOnboardingPageComponent implements OnInit {
         this.productApiService[key] = response[i].apiProducts;
       }
       this.spinnerService.hide();
-      console.log("response=="+ response);
+     // console.log("response=="+ response);
      },
      err => {
        this.spinnerService.hide();
@@ -85,6 +97,10 @@ export class MerchantOnboardingPageComponent implements OnInit {
       checkList.classList.add('visible');
      })
   }
+  selectChangeHandlerEnv(event: any) {
+    this.selectedEnv = event.target.value;
+    
+  }
 
   initipRows() {
     return this.formBuilder.group({
@@ -97,14 +113,14 @@ export class MerchantOnboardingPageComponent implements OnInit {
 
   addNewIPField() {
     const control = <FormArray>this.reactiveForm.get('basicDetailsSection').get('IPList');
-    console.log(control.at(0));
+    //console.log(control.at(0));
     if (control.length <= 19) {
       control.push(new FormControl(null, [Validators.required, Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')]))
     } else { }
   }
 
   deleteRow(i: number) {
-    console.log(i);
+    //console.log(i);
     const control = <FormArray>this.reactiveForm.get('basicDetailsSection').get('IPList');
 
     control.removeAt(i);
@@ -118,7 +134,8 @@ export class MerchantOnboardingPageComponent implements OnInit {
          "buID":new FormControl('',[Validators.required]),     
         "BusinessUserName":new FormControl('',[Validators.required]),  
         "BusinessUserHeadID":new FormControl('',[Validators.required]),  
-        "BusinessUserEmail":new FormControl('',[Validators.required,Validators.email]),  
+        "BusinessUserEmail":new FormControl('',[Validators.required,Validators.email]), 
+        "Environment": new FormControl(), 
         "merchantName": new FormControl('',[Validators.required]),  
         "Decryption": new FormControl(''),  
         "DecryptionKey": new FormControl(''),  
@@ -151,6 +168,7 @@ export class MerchantOnboardingPageComponent implements OnInit {
     console.log(this.reactiveForm.value);
 
     this.spinnerService.show();
+  //  console.log(this.Attach)
 
 
     let json= {
@@ -158,6 +176,7 @@ export class MerchantOnboardingPageComponent implements OnInit {
       "BusinessUserName":this.reactiveForm.value.basicDetailsSection.BusinessUserName,  
       "BusinessUserHeadID":this.reactiveForm.value.basicDetailsSection.BusinessUserHeadID,  
       "BusinessUserEmail":this.reactiveForm.value.basicDetailsSection.BusinessUserEmail,  
+      "Environment": this.reactiveForm.value.basicDetailsSection.Environment,
       "merchantName": this.reactiveForm.value.basicDetailsSection.merchantName,  
       "Decryption": this.reactiveForm.value.basicDetailsSection.Decryption,  
       "DecryptionKey":this.reactiveForm.value.basicDetailsSection.DecryptionKey,  
@@ -168,7 +187,7 @@ export class MerchantOnboardingPageComponent implements OnInit {
       "IPList": this.reactiveForm.value.basicDetailsSection.IPList,  
       "CallbackURL":this.reactiveForm.value.basicDetailsSection.CallbackURL,  
       "APIURL": this.apiUrl,  
-      "Certificate":  "",  
+      "Certificate":  this.Attach,  
       "Remarks": this.reactiveForm.value.basicDetailsSection.Remarks,  
       "APIName": this.reactiveForm.value.basicDetailsSection.APIName,  
       "Mode": this.reactiveForm.value.basicDetailsSection.Mode,
@@ -217,6 +236,8 @@ status=pending
     formData.append("bUserName", json["BusinessUserName"]); //2
     formData.append("bUserHId", json["BusinessUserHeadID"]); //1
     formData.append("bUserEmail", json["BusinessUserEmail"]); //2
+    formData.append("Environment", json["Environment"]); //1
+
     formData.append("merchantName", json["merchantName"]); //1
     formData.append("encryptRequired", json["Decryption"]); //1
     formData.append("relationManagerId", json["RelationshipManager"]); //2
@@ -258,7 +279,7 @@ status=pending
     ).subscribe(
 
       res => {
-        console.log(res);
+       // console.log(res);
         if (res.status == true || res.status == "true") {
           alert(res.message);
           this.router.navigate(["onboardedMerchantList/"+json["buID"]]);
@@ -291,19 +312,33 @@ status=pending
      /*Start here  */
         let that = this;
         let _apiUrl = [];
+
+         if($('input[name="apiService"]:checkbox:not(":checked")').length){
+            $('input[name="selectAll"]').prop('checked', false  );
+  
+          }
+          else{
+            $('input[name="selectAll"]').prop('checked', true);
+          }
+        
         this.checkboxValues = $('input[name="apiService"]:checked').map( function () {
+         
           let val =  $(this).val(); 
+       
         let serviceName = that.apiServiceUrlList[val].apiName;
         let serviceURL=that.apiServiceUrlList[val].apiUATUrl;
+      /*   console.log(val,
+          serviceName,
+          serviceURL ) */
         _apiUrl.push(serviceURL);
           return serviceName; 
       })
       .get()
       .join(', ');
-        console.log(this.checkboxValues)
+       // console.log(this.checkboxValues)
         this.apiService = this.checkboxValues;
         this.apiUrl = _apiUrl.toString();
-        console.log(this.apiUrl);
+      //  console.log(this.apiUrl);
 
         this.reactiveForm.get(['basicDetailsSection','APIURL']).setValue(_apiUrl.toString());
    /* End here */
@@ -327,9 +362,9 @@ status=pending
             this.reactiveForm.get(['basicDetailsSection','BusinessUserHeadID']).setValue(response.data);
       
           }else{
-              console.log(response.message);
+            //  console.log(response.message);
           }
-          console.log("response=="+ response.data);
+        //  console.log("response=="+ response.data);
          },
          err => {
            this.spinnerService.hide();
@@ -340,6 +375,126 @@ status=pending
       navigateToHistory(){
         this.router.navigate(["onboardedMerchantList/"+localStorage.getItem("username")]);
       }
+
+
+
+      getSelectedApiServiceList(){
+        let that = this;
+        let _apiUrl = [];
+        this.checkboxValues = $('input[name="apiService"]:checked').map( function () {
+          let val =  $(this).val(); 
+        let serviceName = that.apiServiceUrlList[val].apiName;
+        let serviceURL=that.apiServiceUrlList[val].apiUATUrl;
+        _apiUrl.push(serviceURL);
+          return serviceName; 
+      })
+      .get()
+      .join(', ');
+        console.log(this.checkboxValues)
+        this.apiService = this.checkboxValues;
+        this.apiUrl = _apiUrl.toString();
+    //    console.log(this.apiUrl);
+      }
+      
+  // The selectall checkbox will check/ uncheck all items
+   checkUncheckAll() {
+    let _apiUrl = [];
+     let checkbox=document.querySelectorAll('.apiServiceList');
+   //  console.log()
+  //   console.log(document.querySelectorAll('.selectAll:checked').length)
+     if(document.querySelectorAll('.selectAll:checked').length>0){
+   
+      this.checkedStatus =true;
+      for (var i = 0; i < checkbox.length; i++) {
+        // console.log(this.apiServiceUrlList[i].apiName)
+        // console.log(checkbox[i].getAttribute("value"))
+        // console.log(checkbox[i])
+       
+        _apiUrl.push(this.apiServiceUrlList[i].apiName)
+        // console.log(_apiUrl)
+        this.apiUrl = _apiUrl.toString();
+        // console.log(this.apiUrl)
+        // console.log(checkbox[i].getAttribute("class"))
+        this.checkboxValues= this.apiUrl;
+    
+     
+
+  }}
+ else{
+       this.checkedStatus =false;
+       _apiUrl=[];
+        // console.log(_apiUrl)
+        this.apiUrl = _apiUrl.toString();
+        this.checkboxValues= this.apiUrl;
+       
+     }}
+  readFile(fileEvent: any) {
+    const file = fileEvent.target.files[0];
+   // console.log(fileEvent.value)
+    // pdf,exe,zip,xlxs,jpeg,png,jpg
+    const allowed_types = ['crt','txt','key'];
+  //  console.log('size', file.size);
+  //  console.log('type', file.type);
+  //  console.log(fileEvent.target.files[0])
+  //  console.log(fileEvent.target.files[0].name)
+
+
+    if (fileEvent.target.files && fileEvent.target.files[0]) {
+
+        this.fileName=fileEvent.target.files[0].name;
+           
+      
+        this.filetype=fileEvent.target.files[0].type;
+        const lastdot = this.fileName.lastIndexOf('.');
+        const ext =this.fileName.substring(this.fileName.lastIndexOf('.')+1);
+       // console.log(ext);
+      //  console.log((allowed_types).includes(ext),ext)
+        this.extnsn=ext;
+   
+        if ((allowed_types).includes(ext)) {
+          // alert("pass")
+          this.fileTest=true;
+
+          
+          $(".fileError").text("");
+          $(".fileError").hide();
+         
+       }
+       else{
+           this.filetype=fileEvent.target.files[0].type;
+           this.fileTest=false;
+          // alert("f")
+
+           // alert(fileEvent.target.files[0].type)
+           $(".fileError").text(ext+"File type not allowed.")
+           $(".fileError").text('Only  .crt ,.txt,.key file type are  allowed')
+           return false;
+
+       }
+
+    
+
+
+    
+    const reader = new FileReader();
+    let self = this;
+    reader.onload = (e: any) => {
+     //   console.log(reader.result);
+      //  console.log( e.target.result.split(',')[1]);
+        
+ e.target.result.replace("data:image/png;base64,", "");
+//console.log( e.target.result);
+       
+        self.Attach= e.target.result.split(',')[1];
+    };
+    
+    reader.readAsDataURL(file);
+ }
+}
+
+  
+
+  //ext ::  crt ,txt,.key
     
     }
 

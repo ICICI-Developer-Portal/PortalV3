@@ -1148,7 +1148,7 @@
             <div class="col-md-8 mb-xs-30">
                 <div><label for="company">Please enter Email ID<span class="text-danger"> *</span></label></div>
                 <input name="email" formControlName="email" class="input-login" #Email
-                  (change)="OnCheckEmail(Email.value)" />
+                   />
               
                 <div *ngIf="isemail_reg_check != ''" class="text-danger form-error">
                   {{ isemail_reg_check }}
@@ -1159,7 +1159,8 @@
               </div>
               <div class="col-md-4 " style="    margin-top: 28px !important; ">
                 <button  type="button" class="signInBtn1  sendOTPBtn mt26"
-                  (click)="sendEmailOTP(Email.value)"  [disabled]="eotpBtnDisabled"
+                (click)="OnCheckEmail(Email.value)"
+                  [disabled]="eotpBtnDisabled"
                   [ngStyle]="{'color': (eotpBtnDisabled)? 'gray': 'black'}">
                 Send OTP
 
@@ -1276,7 +1277,7 @@
               <div *ngIf="otp_code.invalid && (otp_code.dirty || isSubmitted)" class="text-danger form-error">
                 OTP is required.
               </div>
-              <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+              <div *ngIf="isotp_reg_check != ''" class="text-danger form-error">
                 {{ isotp_reg_check }}
               </div>
             </div>
@@ -2388,7 +2389,7 @@
             </div>
             <label class="checkboxContainer">
               <a href="javascript:;">I ACCEPT NON-DISCLOSURE AGREEMENT.
-                <a target="_blank" href="/assets/pdf/test.pdf">
+                <a target="_blank" href="/assets/pdf/NDA.pdf">
                   Click here to download</a></a>
               <input type="checkbox" [(ngModel)]="objOnB.txtAccept" #txtAccept="ngModel" name="txtAccept"
                 mdbInputDirective required />
@@ -2695,7 +2696,7 @@
     <div class="row">
       <div class="col-md-12 mb-xs-10">
         <h5 class="fs15">
-          Thanks for registering. You will receive a confirmation email once your application is approved. You can explore our services including a sandbox testing environment. However, you need to hold a valid ICICI Bank Current Account for placing a request to do UAT testing. 
+          Thanks for registering.Your unique requestid is :{{ uniuqeId}}. You will receive a confirmation email once your application is approved. You can explore our services including a sandbox testing environment. However, you need to hold a valid ICICI Bank Current Account for placing a request to do UAT testing. 
         </h5>
         <h5 class="fs15">
          <a href = "https://cadigital.icicibank.com/SmartFormWeb/apps/services/www/SmartFormWeb/desktopbrowser/default/index.html?source=IciciWeb" target="blank"><u>Click Here</u> </a> to open the Current Account now. 

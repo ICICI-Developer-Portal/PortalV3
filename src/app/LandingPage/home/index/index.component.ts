@@ -2246,22 +2246,11 @@ corporates(signin: any) {
       this.Inter_full_name +
       " Contact Number =" +
       this.Inter_contactnumber;
-    var json = {
-      fullName: this.Inter_full_name,
-      email: this.Inter_email,
-      mobile: this.Inter_contactnumber,
-      location: this.Inter_location,
-      company: this.Inter_company,
-      requirements: this.Inter_requirements,
-      feedbackIn: feedback
-    };
-    console.log("josn", json);
-    this.adm.feedback(json).subscribe((data: any) => {
-      var obj = JSON.parse(data._body);
-      if (obj.status == true) {
-        this.toastrmsg("success", "Thank your for your Request.");
+    
+   
+    
         // upload contact for autodialer
-        let json = {
+        let json1 = {
           name:this.Inter_full_name,
           mobile:this.Inter_contactnumber,
           typeOfLead:"IF_IntertFormPopup",
@@ -2272,32 +2261,50 @@ corporates(signin: any) {
           dateOfRequest:new Date()         
         };
      
-        this.adm.autodialer(json).subscribe((data: any) => {
+        this.adm.autodialer(json1).subscribe((data: any) => {
           var dialerResponse = data._body;
-          var obj = JSON.parse(dialerResponse);
-          console.log(dialerResponse)
+          var dialerResponse = JSON.parse(dialerResponse);
+          console.log(dialerResponse);
+              /* DB insertion */
+              var json2 = {
+                fullName: this.Inter_full_name,
+                email: this.Inter_email,
+                mobile: this.Inter_contactnumber,
+                location: this.Inter_location,
+                company: this.Inter_company,
+                requirements: this.Inter_requirements,
+                feedbackIn: feedback,
+                autodialer_id:dialerResponse.message.UniqueId
+              };
+              this.adm.feedbackClone(json2).subscribe((data: any) => {
+                var obj = JSON.parse(data._body);
+                if (obj.status == true) {
+                  this.toastrmsg("success", "Thank your for your Request.Your unique request id is :" + dialerResponse.message.UniqueId );
+                  this.Inter_full_name = "";
+                      this.Inter_contactnumber = "";
+                      this.Inter_email = "";
+                      this.Inter_location = "";
+                      this.Inter_company = "";
+                      this.Inter_requirements = "";
+                      this.modalRef.hide();
+                    } else {
+                      this.toastrmsg("error", obj.message);
+                    }
+                  },
+                  err => {
+                    console.log('err', err);
+                  // this.router.navigate(['error']);
+                    this.toastrmsg('error',this.errorMsg);
+                  },);
+
+              /* End here */
           },
           err => {
             console.log('err', err);
             this.toastrmsg('error',this.errorMsg);
         });
 
-        this.Inter_full_name = "";
-        this.Inter_contactnumber = "";
-        this.Inter_email = "";
-        this.Inter_location = "";
-        this.Inter_company = "";
-        this.Inter_requirements = "";
-        this.modalRef.hide();
-      } else {
-        this.toastrmsg("error", obj.message);
-      }
-    },
-    err => {
-      console.log('err', err);
-     // this.router.navigate(['error']);
-      this.toastrmsg('error',this.errorMsg);
-    },);
+        
   }
   }
 
