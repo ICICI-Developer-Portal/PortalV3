@@ -267,7 +267,7 @@ removeheader(i: number) {
           this.ApiName =obj.ApiData.ApiName;
           this.ApiDesc =obj.ApiData.ApiDesc;
 
-          if(obj.ApiData.FILE_URL && obj.ApiData.FILE_URL !== ""){
+          if( obj.ApiData.FILE_URL !== ""){
             this.fileURL =  (obj.ApiData.FILE_URL).trim();
             this.fileName =   this.fileURL.substring( this.fileURL.lastIndexOf('/') + 1);
           }
