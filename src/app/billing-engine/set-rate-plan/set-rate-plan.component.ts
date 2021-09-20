@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { MerchantOnboardingService } from 'src/app/services/merchant-onboarding.service';
 
 import { BillingEngineService } from 'src/app/services/billing-engine.service';
 declare var $: any;
@@ -26,20 +27,34 @@ export class SetRatePlanComponent implements OnInit {
   userProfileData:any;
   imps_plan: any = [];
   appProducts_imps:boolean = false;
+  apprRejtFlag:boolean = false;
+  requestStatus:any="";
+  setratePlanText:any="";
+  impsPredefinedPlan:boolean = false;
+  appName:any;
 
+  BusinessUserHeadID;
+  buUsername;
+  buEmail;
+  buName;
   constructor(
     private route: ActivatedRoute,
+    private merchantSrvc: MerchantOnboardingService,
+
     private fetchData: BillingEngineService,
     private spinnerService: Ng4LoadingSpinnerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
     ) { 
       this.setRateForm = new FormGroup({
         formArrayName: this.formBuilder.array([])
       })
   
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      console.log(this.id);
+      let param =  params['id'].split("&");
+      this.id = param[0];
+      this.appName = param[1];
+      console.log(this.id+"==="+this.appName);
     });
     this.userProfileData= this.fetchData.getUserData();
   }
@@ -55,14 +70,54 @@ export class SetRatePlanComponent implements OnInit {
     this.fetchData.getAppDetail(json).subscribe((data: any) => {
         let response = JSON.parse( data._body);
         this.appDetail = response;
-        // product value may change
+        let apprRejtFlag = false;
+        // In case rate plan is approved or rejected bucket would be in readmode only
+        for(let i in response.attributes){ 
+          if(response.attributes[i].name == "Rate_Plan_Status"){
+           let p = JSON.parse(response.attributes[i].value); 
+            if(p[0].status == "approved" || p[0].status == "rejected"){
+              apprRejtFlag =  true;
+              this.apprRejtFlag = true;
+              this.requestStatus = p[0].status;
+              this.setratePlanText=p[0].name;
+            }
+
+            break;
+          }
+          
+        }
+        // product value may change || if rate plane is not set or send for  review then it will be editable
         let products = response.credentials[0].apiProducts;
         for( let i in products){
           this.appProducts.push(products[i].apiproduct);
         }
-        if(this.appProducts.length>0){
-          this.getProductAttributes(this.appProducts[0],0);
+        // if rate plan status is approved or rejected by BUH then show the bucket info in read mode
+        if(!apprRejtFlag){
+          if(this.appProducts.length>0){
+            this.getProductAttributes(this.appProducts[0],0);
+          }
+        }else{
+          for( let i in products){  
+            for(let j in response.attributes){ 
+              if(response.attributes[j].name == products[i].apiproduct){
+                let o = JSON.parse(response.attributes[j].value);
+                for(let key in o){
+                  let tempObj = {
+                    name: key,
+                    value:o[key],
+                    appProduct:products[i].apiproduct
+                  }
+                  this.apiProductBucket.push(tempObj)
+                 
+                }
+                
+              }
+            }
+          }
+          // build form 
+          this.buildForm();
         }
+       
         this.spinnerService.hide();
        },
        err => {
@@ -71,7 +126,13 @@ export class SetRatePlanComponent implements OnInit {
          
        });
        //get rate plan
-      
+     
+       this.buEmail = localStorage.getItem("email");
+       this.buName = localStorage.getItem("Firstname");
+       this.buUsername = localStorage.getItem("username");
+         console.log( this.setRateForm.controls);
+
+       this.OnBUIDchange(this.buUsername)
       this.imps_plan = [
         {id:"imps_plan_a",
         displayName: "IMPS_Plan_A",
@@ -148,6 +209,8 @@ export class SetRatePlanComponent implements OnInit {
       ];
        
   }
+
+  
   getRatePlane(){
     
       this.spinnerService.show();
@@ -162,16 +225,41 @@ export class SetRatePlanComponent implements OnInit {
         
       }); 
   }
-
+  OnBUIDchange(val){
+  console.log(val)  
+     let json ={
+       bUserId:val
+     }  
+     this.spinnerService.show();
+     this.merchantSrvc.getBEUserHeadId(json).subscribe((data: any) => {
+       let response = JSON.parse( data._body);
+       this.spinnerService.hide();
+       console.log("yes")
+       if(response.status == true ){
+         this.BusinessUserHeadID =response.data;
+         console.log("yes",  this.BusinessUserHeadID)
+          this.setRateForm.get(['BusinessUserHeadID']).setValue(response.data);
+   
+       }else{
+         //  console.log(response.message);
+       }
+     //  console.log("response=="+ response.data);
+      },
+      err => {
+        this.spinnerService.hide();
+        console.log('err', err);
+       });
+    
+   }
 
   getProductAttributes(productName,index){
     if(productName == "IMPS"){
       this.appProducts_imps =true;
     }
-    this.appProducts_imps =true;
+    //this.appProducts_imps =true;
     let json1= {
    
-      apiProductName : "IMPS"//"IMPS"productName
+      apiProductName : productName //"IMPS"productName
     }
     this.fetchData.getProductAttributes(json1).subscribe((data: any) => {
       let response = JSON.parse( data._body);
@@ -212,13 +300,24 @@ export class SetRatePlanComponent implements OnInit {
   }
   selectChangeHandler2(e){
       console.log(e.target.value);
+      
       let i  = e.target.value;
       let rates = this.imps_plan[i].rates;
-      for(let j in rates){
-        $("#"+rates[j].label).val(rates[j].rate);
-      }
       this.planId = this.imps_plan[i].id;;
       this.planName = this.imps_plan[i].displayName;
+      for(let j in rates){
+        if(this.planName == "IMPS_Plan_A" || this.planName == "IMPS_Plan_B"){
+          $("#"+rates[j].label).val(rates[j].rate);
+          $("#"+rates[j].label).attr("readonly",true);
+        }else{
+          $("#"+rates[j].label).val(rates[j].rate);
+          $("#"+rates[j].label).attr("readonly",false);
+        }
+        
+      }
+     
+      
+      
 
   }
   buildForm() {
@@ -249,7 +348,7 @@ onSubmit(event) {
   ratePlan.push(tempObj)
 
   let attr = {
-   "name":localStorage.getItem('appName'),
+   "name":this.appName,
    "attributes":  this.appDetail.attributes
     
   };
@@ -327,7 +426,7 @@ onSubmit(event) {
     }
 //userProfileData.userName
   let json = {
-    appName : localStorage.getItem('appName'),
+    appName : this.appName,
     email : this.userProfileData.email,
     appId : this.id ,
     status :"pending",
@@ -335,6 +434,11 @@ onSubmit(event) {
     merchantName:this.userProfileData.userName,
     productName:this.appProducts.toString(),
     bucketValues:bucketString.toString(),
+    // buId:"BAN255141",
+    // buhId:"BAN255139",
+    buId: this.buName,
+    buhId:this.BusinessUserHeadID,
+    buh_remarks:"",
     attributes :JSON.stringify(attr)
     
   };
@@ -345,6 +449,7 @@ onSubmit(event) {
       alert("Rate plan set success.");
       console.log(response);
       this.spinnerService.hide();
+      this.router.navigate(['/merchants']);///merchants
     },
     err => {
       this.spinnerService.hide();

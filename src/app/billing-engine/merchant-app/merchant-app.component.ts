@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BillingEngineService } from 'src/app/services/billing-engine.service';
-
+declare var $: any;
 
 @Component({
   selector: 'app-merchant-app',
@@ -16,7 +16,7 @@ export class MerchantAppComponent implements OnInit {
   reactiveForm: FormGroup;
   userProfileData;
   userApp:any = [];
-  userAppDetail:any;
+  userAppDetail:any = [];
   credentials:any=[];
   data;
   constructor(private fetchData: BillingEngineService,
@@ -33,12 +33,14 @@ export class MerchantAppComponent implements OnInit {
      this.userApp = this.userProfileData.apps;
       console.log( this.userApp);
       let reset="";
-      this.form(reset)
-      for (var item in  this.userApp) { 
-       // block of statements 
-       this.getAppDetail( this.userApp[item]);
-       console.log(item)
-  }
+      this.form(reset);
+      $(".overlay").show();
+      for(let i in this.userApp){
+        this.getAppDetail( this.userApp[i],i);
+      }
+      $(".overlay").hide();
+      
+     
 }
 
   form(reset){
@@ -87,18 +89,18 @@ getAttributes(jsonData1){
     }
  
   //fetch app detail
-  getAppDetail(app){  
+  getAppDetail(app,index){  
     
-   
+    this.spinnerService.show();
     let json= {
       email: this.userProfileData.email,
       appName:app
     }
-    this.spinnerService.show();
+    
     this.fetchData.getMerchantAppDetail(json).subscribe((data: any) => {
         let response = JSON.parse( data._body);
-        this.userAppDetail = response;
-        this.credentials =  this.userAppDetail.credentials;
+        this.userAppDetail[index] = response;
+        this.credentials[index]=   this.userAppDetail[index].credentials;
         localStorage.setItem('appName',app);
         this.spinnerService.hide();
        },
@@ -110,9 +112,10 @@ getAttributes(jsonData1){
      
       }
     
-      setRatePlanPage(appId){
+      setRatePlanPage(appId,appName){
+        console.log(appName);
 
-        this.router.navigate(["setRatePlan/" + appId]);
+        this.router.navigate(["setRatePlan/" + appId+"&"+appName]);
       }
 
       

@@ -96,10 +96,10 @@
               <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="Environment" (change)="selectChangeHandlerEnv($event)" >
                   <option [ngValue]="null" [disabled]="true" hidden>Select Environment</option>
-                  <option>
+                  <option value = "PROD">
                     PROD
                   </option>
-                  <option>UAT</option>
+                  <option value = "UAT">UAT</option>
                 </select>
               </span>
             </div>
@@ -206,7 +206,7 @@
           
         <!--Public Certificate is a file type--> 
             <div class="form-group col-md-6">
-              <label for="Certificate">Public Certificate <span class="text-danger"> *</span></label>
+              <label for="Certificate">Public Key or Public Certificate <span class="text-danger"> *</span></label>
              <!--  <input type="text" class="form-control mainField col-md-11 inline_block" id="Certificate"
                 formControlName="Certificate" placeholder=""> -->
 
@@ -309,8 +309,8 @@
             <label for="Mode">Encryption Mode </label>
          
               <select class="form-control h40 col-md-11" formControlName="Mode">
-                <option value="Hybrid">Hybrid</option>
-                <option value="Asymmetric">Asymmetric</option>
+                <option value="hybrid_generic">Hybrid</option>
+                <option value="asymmetric_generic">Asymmetric</option>
               </select>
               <i *ngIf="reactiveForm.get('basicDetailsSection.Mode').valid"
               class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>

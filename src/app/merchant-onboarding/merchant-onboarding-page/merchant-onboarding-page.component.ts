@@ -101,7 +101,10 @@ fileTest:boolean=false;
      })
   }
   selectChangeHandlerEnv(event: any) {
+
     this.selectedEnv = event.target.value;
+    console.log(this.selectedEnv);
+    console.log(this.reactiveForm.value.basicDetailsSection.Environment);
     
   }
 
@@ -138,7 +141,7 @@ fileTest:boolean=false;
         "BusinessUserName":new FormControl('',[Validators.required]),  
         "BusinessUserHeadID":new FormControl('',[Validators.required]),  
         "BusinessUserEmail":new FormControl('',[Validators.required,Validators.email]), 
-        "Environment": new FormControl(), 
+        "Environment": new FormControl(''), 
         "merchantName": new FormControl('',[Validators.required]),  
         "Decryption": new FormControl(''),  
         "DecryptionKey": new FormControl(''),  
@@ -164,6 +167,9 @@ fileTest:boolean=false;
         
        })
   })
+
+
+
 
   }
 
@@ -332,7 +338,7 @@ status=pending
      /*Start here  */
         let that = this;
         let _apiUrl = [];
-
+        let env = this.reactiveForm.value.basicDetailsSection.Environment;
          if($('input[name="apiService"]:checkbox:not(":checked")').length){
             $('input[name="selectAll"]').prop('checked', false  );
   
@@ -346,11 +352,14 @@ status=pending
           let val =  $(this).val(); 
        
         let serviceName = that.apiServiceUrlList[val].apiName;
-        let serviceURL=that.apiServiceUrlList[val].apiUATUrl;
-      /*   console.log(val,
-          serviceName,
-          serviceURL ) */
-        _apiUrl.push(serviceURL);
+
+        if(env == "PROD"){
+          _apiUrl.push(that.apiServiceUrlList[val].apiPRODUrl)
+        }else if(env == "UAT"){
+          _apiUrl.push(that.apiServiceUrlList[val].apiUATUrl)
+        }else{
+          _apiUrl.push(that.apiServiceUrlList[val].apiUATUrl)
+        }
           return serviceName; 
       })
       .get()
@@ -359,7 +368,7 @@ status=pending
         this.apiService = this.checkboxValues;
         this.apiUrl = _apiUrl.toString();
       //  console.log(this.apiUrl);
-
+      console.log(22222);
         this.reactiveForm.get(['basicDetailsSection','APIURL']).setValue(_apiUrl.toString());
    /* End here */
       }
@@ -367,7 +376,7 @@ status=pending
 
 
       OnBUIDchange(val){
-  
+  console.log(val)
        this.reactiveForm.get(['basicDetailsSection','BusinessUserName']).setValue(this.buName);
        this.reactiveForm.get(['basicDetailsSection','BusinessUserEmail']).setValue(this.buEmail);
       
@@ -401,6 +410,7 @@ status=pending
       getSelectedApiServiceList(){
         let that = this;
         let _apiUrl = [];
+        let env = this.reactiveForm.value.basicDetailsSection.Environment;
         this.checkboxValues = $('input[name="apiService"]:checked').map( function () {
           let val =  $(this).val(); 
         let serviceName = that.apiServiceUrlList[val].apiName;
@@ -413,51 +423,50 @@ status=pending
         console.log(this.checkboxValues)
         this.apiService = this.checkboxValues;
         this.apiUrl = _apiUrl.toString();
+        this.reactiveForm.get(['basicDetailsSection','APIURL']).setValue(_apiUrl.toString());
     //    console.log(this.apiUrl);
       }
       
   // The selectall checkbox will check/ uncheck all items
    checkUncheckAll() {
-    let _apiUrl = [];
-     let checkbox=document.querySelectorAll('.apiServiceList');
-   //  console.log()
-  //   console.log(document.querySelectorAll('.selectAll:checked').length)
-     if(document.querySelectorAll('.selectAll:checked').length>0){
-   
-      this.checkedStatus =true;
-      for (var i = 0; i < checkbox.length; i++) {
-        // console.log(this.apiServiceUrlList[i].apiName)
-        // console.log(checkbox[i].getAttribute("value"))
-        // console.log(checkbox[i])
-       
-        _apiUrl.push(this.apiServiceUrlList[i].apiName)
-        // console.log(_apiUrl)
-        this.apiUrl = _apiUrl.toString();
-        // console.log(this.apiUrl)
-        // console.log(checkbox[i].getAttribute("class"))
-        this.checkboxValues= this.apiUrl;
-    
-     
+        let env = this.reactiveForm.value.basicDetailsSection.Environment;
+        let _apiName =[];
+        let _apiUrl = [];
+        let checkbox=document.querySelectorAll('.apiServiceList');
+        if(document.querySelectorAll('.selectAll:checked').length>0){
 
-  }}
- else{
-       this.checkedStatus =false;
-       _apiUrl=[];
-        // console.log(_apiUrl)
+        this.checkedStatus =true;
+        for (var i = 0; i < checkbox.length; i++) {
+        _apiName.push(this.apiServiceUrlList[i].apiName);
+          if(env == "PROD"){
+            _apiUrl.push(this.apiServiceUrlList[i].apiPRODUrl)
+          }else if(env == "UAT"){
+            _apiUrl.push(this.apiServiceUrlList[i].apiUATUrl)
+          }else{
+            _apiUrl.push(this.apiServiceUrlList[i].apiUATUrl)
+          }
+        }
         this.apiUrl = _apiUrl.toString();
-        this.checkboxValues= this.apiUrl;
-       
-     }}
+        this.checkboxValues= _apiName.toString();
+        this.apiService = this.checkboxValues;
+        console.log(11111);
+        this.reactiveForm.get(['basicDetailsSection','APIURL']).setValue(_apiUrl.toString());
+        }
+        else{
+
+        this.checkedStatus =false;
+        _apiName=[];
+        //this.apiUrl = _apiUrl.toString();
+        this.checkboxValues= _apiName.toString();  
+        this.apiUrl = [];
+        this.apiService = [];
+        this.reactiveForm.get(['basicDetailsSection','APIURL']).setValue("");
+
+        }
+    }
   readFile(fileEvent: any) {
     const file = fileEvent.target.files[0];
-   // console.log(fileEvent.value)
-    // pdf,exe,zip,xlxs,jpeg,png,jpg
     const allowed_types = ['crt','txt','key'];
-  //  console.log('size', file.size);
-  //  console.log('type', file.type);
-  //  console.log(fileEvent.target.files[0])
-  //  console.log(fileEvent.target.files[0].name)
-
 
     if (fileEvent.target.files && fileEvent.target.files[0]) {
 
@@ -467,8 +476,6 @@ status=pending
         this.filetype=fileEvent.target.files[0].type;
         const lastdot = this.fileName.lastIndexOf('.');
         const ext =this.fileName.substring(this.fileName.lastIndexOf('.')+1);
-       // console.log(ext);
-      //  console.log((allowed_types).includes(ext),ext)
         this.extnsn=ext;
    
         if ((allowed_types).includes(ext)) {
@@ -499,8 +506,7 @@ status=pending
     const reader = new FileReader();
     let self = this;
     reader.onload = (e: any) => {
-     //   console.log(reader.result);
-      //  console.log( e.target.result.split(',')[1]);
+    
         
  e.target.result.replace("data:image/png;base64,", "");
 //console.log( e.target.result);

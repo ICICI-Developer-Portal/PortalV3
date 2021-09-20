@@ -17,6 +17,7 @@ import { SetRatePlanComponent } from './set-rate-plan/set-rate-plan.component';
 import { ApproveRatePlanComponent } from './approve-rate-plan/approve-rate-plan.component';
 import { BuhAppDashboardComponent } from './buh-app-dashboard/buh-app-dashboard.component';
 import { BESidebarComponent } from './besidebar/besidebar.component';
+import { BuRequestComponent } from './bu-request/bu-request.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BESidebarComponent } from './besidebar/besidebar.component';
      SetRatePlanComponent, 
      ApproveRatePlanComponent,
      BuhAppDashboardComponent,
-     BESidebarComponent
+     BESidebarComponent,
+     BuRequestComponent
     ],
   imports: [
     CommonModule,

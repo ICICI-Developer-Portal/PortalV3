@@ -10,12 +10,117 @@
         <form [formGroup]="setRateForm">
         
           <!-- <h6 class="fs30 color-blue mt25">{{faqHeader}}</h6> -->
+            <!-- ============================================= -->
+            <div id="accordion0" class="faqmainSection">
+              <div class="card">
+                <div class="card-header collapsed" data-toggle="collapse" href="#BUDetails"
+                    aria-expanded="false">
+                    <div class="row">
+                        <div class="col-md-11 col-11">
+                        <a class="card-link">
+                           Details
+                        </a>
+                        </div>
+                        <div class="col-md-1 text-right">
+                        <i class="material-icons accordionDropdownIcon">expand_less</i>
+                        </div>
+                    </div>
+                </div>
+                <div id="BUDetails" class="collapse" data-parent="#accordion0">
+                    <div class="card-body">
+
+                        <div  class="" style="padding-top: 20px;padding-left: 20px;">
+                            
+
+                          <div class="row">
+                            <label for="buID" class="col-md-6">Business User ID </label>
+                            <p  class="col-md-6">{{buUsername}}</p>
+                             
+                              <!-- <i *ngIf="reactiveForm.get('basicDetailsSection.buID').valid"
+                              class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> --> 
+                            <!-- validation -->
+                            <!-- <div
+                              *ngIf="!reactiveForm.get('basicDetailsSection.buID').valid && reactiveForm.get('basicDetailsSection.buID').touched"
+                              class="text-danger form-error">
+                              Business User ID is required.
+                            </div>
+                         !-->
+                           <!--Business User Name --> 
+                          </div>
+              
+              
+                          <div class="row">
+                            <label  class="col-md-6" for="BusinessUserName">Business User Name </label>
+                            <p  class="col-md-6">{{buName}}</p>
+                            
+                            <!-- <input type="text" class="form-control mainField col-md-11 inline_block" id="BusinessUserName"
+                              formControlName="BusinessUserName" placeholder="">
+                              <i *ngIf="reactiveForm.get('basicDetailsSection.BusinessUserName').valid"
+                              class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
+                             validation -->
+                            <!-- <div
+                              *ngIf="!reactiveForm.get('basicDetailsSection.BusinessUserName').valid && reactiveForm.get('basicDetailsSection.BusinessUserName').touched"
+                              class="text-danger form-error">
+                              Business User Name is required.
+                            </div> --> 
+                          </div>
+              
+                           <!--Business User Head ID--> 
+              
+                          <div class="row">
+                            <label   class="col-md-6" for="BusinessUserHeadID">Business User Head ID </label>
+                          <p  class="col-md-6">{{BusinessUserHeadID}}</p>
+                            <!-- <input type="text" class="form-control mainField col-md-11 inline_block" id="BusinessUserHeadID"
+                              formControlName="BusinessUserHeadID" placeholder="">
+                              <i *ngIf="reactiveForm.get('basicDetailsSection.BusinessUserHeadID').valid"
+                              class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
+                            <!-- validation -->
+                            <!-- <div
+                              *ngIf="!reactiveForm.get('basicDetailsSection.BusinessUserHeadID').valid && reactiveForm.get('basicDetailsSection.BusinessUserHeadID').touched"
+                              class="text-danger form-error">
+                              Business User Head ID is required.
+                            </div> -->
+                          </div>
+              
+                          <!--Business User Email--> 
+              
+                          <div class="row">
+                            <label for="BusinessUserEmail"  class="col-md-6">Business User Email </label>
+                         <p  class="col-md-6"> {{buEmail}}</p>
+                            <!-- <input type="text" class="form-control mainField col-md-11 inline_block" id="BusinessUserEmail"
+                              formControlName="BusinessUserEmail" placeholder="">
+              
+                              <i *ngIf="reactiveForm.get('basicDetailsSection.BusinessUserEmail').valid"
+                              class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i> -->
+                            <!-- validation -->
+                            <!-- <div
+                              *ngIf="!reactiveForm.get('basicDetailsSection.BusinessUserEmail').valid && reactiveForm.get('basicDetailsSection.BusinessUserEmail').touched"
+                              class="text-danger form-error">
+                              Business User Email is required.
+                            </div> -->
+                            
+                          </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+                    
+            </div>
+        </div>
+                  <!-- ============================================= -->
+
           <div id="accordion1" class="faqmainSection">
              
                   <div class="card">
                       <div class="card-header collapsed" data-toggle="collapse" href="#app_detail"
                           aria-expanded="false">
                           <div class="row">
+                             <!--Business User ID-->  
+            
+           
                               <div class="col-md-11 col-11">
                               <a class="card-link">
                                 App Details
@@ -26,6 +131,10 @@
                               </div>
                           </div>
                       </div>
+
+
+                    
+
                       <div id="app_detail" class="collapse" data-parent="#accordion1">
                           <div class="card-body">
                             <div class="details">
@@ -96,19 +205,20 @@
 
                             <div  class="row" style="padding-top: 20px;padding-left: 20px;">
                                 <div class="col-md-12" *ngIf="apiProductBucket.length>0">
-                                    <div formGroupName="bucketgroupname">
+                                 
+                                <div formGroupName="bucketgroupname">
                                 <div [formArrayName]="'formArrayName'">
                                     <div *ngFor="let x of apiProductBucket; let i = index">
                                        
                                             <div class="mb20">
                                                 <label for="{{x.name}}" class="mr20">{{x.name}} </label>
-                                                <input formControlName="bucketname" id="{{x.name}}" #{{i.name}}>
+                                                <input formControlName="bucketname" id="{{x.name}}" #{{i.name}} [readonly]= "apprRejtFlag"  [value]="x.value">
                                 </div>
                                
                              
                                  </div>
                               </div>
-                           
+                              <p *ngIf="apprRejtFlag"><i>* Approved or rejected plan is shown in read mode only.</i></p>
                               </div>
                             </div>
                             </div>
@@ -125,6 +235,10 @@
                     <div class="card-header collapsed" data-toggle="collapse" href="#select_plan"
                         aria-expanded="false">
                         <div class="row">
+
+<!-- ========================================================================== -->
+<!-- ========================================================================== -->
+
                             <div class="col-md-11 col-11">
                             <a class="card-link">
                                Select Plan
@@ -137,7 +251,7 @@
                     </div>
                     <div id="select_plan" class="collapse" data-parent="#accordion3">
                         <div class="card-body">
-                            <div class="form-group col-md-10" *ngIf="!appProducts_imps">
+                            <div class="form-group col-md-10" *ngIf="!appProducts_imps && !apprRejtFlag">
                                 <!-- <div class="form-group col-md-6"> -->
                                
                                 <span class="custom-dropdown">
@@ -160,12 +274,24 @@
                                   </select>
                                 </span>
                               </div>
+                              <div class="form-group col-md-10" *ngIf="apprRejtFlag">
+                                <!-- <div class="form-group col-md-6"> -->
+                                <label>{{setratePlanText}}</label> 
+                                <span class="custom-dropdown">
+                                  <select class="form-control h40 col-md-11" formControlName="plan3" >
+                                    <option  >
+                                      {{requestStatus}}
+                                    </option>
+                                  </select>
+                                </span>
+                              </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <button class="signInBtn btn-dark pull-right" type="button" 
-                      id="submitButton"  (click)="onSubmit($event)"> Submit
+                      id="submitButton"  (click)="onSubmit($event)" [disabled] = "apprRejtFlag"> Submit
                     </button>
                   </div>
         

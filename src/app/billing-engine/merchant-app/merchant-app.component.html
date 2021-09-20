@@ -1,4 +1,7 @@
 <app-besidebar></app-besidebar>
+<div class="overlay" >
+  <div class="lds-roller" ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
 <div class="documentTabContent">
   <div class="tab-content" id="v-pills-tabContent">
     <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard
@@ -26,7 +29,7 @@
 
               <div class="card bg-gray mb10" *ngFor="let i of userApp;let j=index ">
                 <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#collapseOne_{{j}}" (click)="getAppDetail(i)">
+                  <a class="card-link" data-toggle="collapse" href="#collapseOne_{{j}}">
                     {{i}}
                   </a>
                 </div>
@@ -39,8 +42,8 @@
                             href="#nav-tab1" role="tab" aria-controls="nav-home" aria-selected="true">Credentials</a>
                           <!-- <a class="nav-item nav-link  col-md-3" id="nav-profile-tab" data-toggle="tab" href="#nav-tab2"
                             role="tab" aria-controls="nav-profile" aria-selected="false">Edit App</a> -->
-                          <a class="nav-item nav-link  col-md-6" id="nav-profile-tab" data-toggle="tab" href="#" (click)="setRatePlanPage(userAppDetail.appId)"
-                            role="tab" aria-controls="nav-profile" aria-selected="false" *ngIf = "credentials.length>0">Set Rate Plan</a>
+                          <a class="nav-item nav-link  col-md-6" id="nav-profile-tab" data-toggle="tab" href="#" (click)="setRatePlanPage(userAppDetail[j].appId,i)"
+                            role="tab" aria-controls="nav-profile" aria-selected="false" *ngIf = "credentials[j].length>0">Set Rate Plan</a>
                           <!-- <a class="nav-item nav-link  col-md-3" id="nav-profile-tab" data-toggle="tab" href="#nav-tab4"
                             role="tab" aria-controls="nav-profile" aria-selected="false">Analytics</a> -->
                         </div>
@@ -59,17 +62,19 @@
                             <p class="mt10 mb10"><b>Details</b></p>
                             <div class="row mb10  pt15 pb15" style="background-color: whitesmoke;">
                               <div class="col-md-2"><label><b>Created:</b></label></div>
-                              <div class="col-md-10">{{userAppDetail.createdAt | date:'dd/MM/yyyy'}}</div>
+                              <div class="col-md-10">{{userAppDetail[j].createdAt | date:'dd/MM/yyyy'}}</div>
 
                               <div class="col-md-2"> <label><b>Last updated:</b></label></div>
-                              <div class="col-md-10"> {{userAppDetail.lastModifiedAt | date:'dd/MM/yyyy'}} </div>
+                              <div class="col-md-10"> {{userAppDetail[j].lastModifiedAt | date:'dd/MM/yyyy'}} </div>
 
+                              <div class="col-md-2"> <label><b>App Id:</b></label></div>
+                              <div class="col-md-10"> {{userAppDetail[j].appId}} </div>
                             </div>
                           </div>
-                          <div class="Credentials " *ngIf="credentials.length>0">
+                          <div class="Credentials " *ngIf="credentials[j].length>0">
                             <p class="mt10 mb10"><b>Credentials</b></p>
                             <div class="row mb10 pt15 pb15" style="background-color: whitesmoke;"
-                              *ngFor="let item of credentials ;let k=index ">
+                              *ngFor="let item of credentials[j] ;let k=index ">
                               <div class="col-md-2"><label><b>Consumer key:</b></label></div>
                               <div class="col-md-10">{{item.consumerKey}}</div>
 

@@ -157,5 +157,25 @@ getDetailsOfMerchants(e){
  
 }
 
+SearchMerchantProfile(merchantId){
+  $(".overlay").show();
+  let json = [merchantId] ;
+  this.beSrvc.getMerchantDetail(json).subscribe((data: any) => {
+    let mDetail = JSON.parse( data._body);
+    if(mDetail.length>0){
+      this.beSrvc.setUserData(mDetail[0]);
+      this.router.navigate(["/UserDetails"]);
+    }else{
+      alert("Record not found.Validate the merchant email");
+    }
+  
+    $(".overlay").hide();
+  },
+  err => {
+    $(".overlay").hide();
+    console.log('err', err);
+    
+  });
 
+}
 }

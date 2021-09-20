@@ -14,6 +14,8 @@ import { SetRatePlanComponent } from './set-rate-plan/set-rate-plan.component';
 import { AuthGuard } from '../services/auth.guard';
 import { ApproveRatePlanComponent } from './approve-rate-plan/approve-rate-plan.component';
 import { BuhAppDashboardComponent } from './buh-app-dashboard/buh-app-dashboard.component';
+import { BuRequestComponent } from './bu-request/bu-request.component';
+
 
 
 
@@ -28,7 +30,9 @@ const routes: Routes = [
           { path: 'MerchantApp', component: MerchantAppComponent  },
           { path: 'setRatePlan/:id', component: SetRatePlanComponent,  },
         { path: 'AppDashboard', component: BuhAppDashboardComponent,  },
-          { path: 'approveRatePlan/:id', component: ApproveRatePlanComponent ,  }
+          { path: 'approveRatePlan/:id', component: ApproveRatePlanComponent ,  },
+          { path: 'BuRequestHistory', component: BuRequestComponent ,  }
+
           
          ],
          canActivate: [AuthGuard]

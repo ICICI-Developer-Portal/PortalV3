@@ -66,6 +66,7 @@ export class SigninModalComponent implements OnInit {
   companyNames: any;
   errorMsg: any = "Something went wrong. Please try again in some time.";
   status_code:any;
+  salt:string;
   constructor(
     private SessionService: SessionService,
     private authService: AuthService,
@@ -89,6 +90,7 @@ export class SigninModalComponent implements OnInit {
     this.adm.getUserName().subscribe(data => {
       this.user_name = data;
     });
+  
     this.get_domain_and_apis();
     
   }
@@ -111,6 +113,7 @@ export class SigninModalComponent implements OnInit {
   
   }
   ngOnInit() {
+    this.reloadToken();
     this.forgetpassForm = this.formbuilder.group({
       username: ["", [Validators.required]]
     });
@@ -289,8 +292,6 @@ export class SigninModalComponent implements OnInit {
 
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
-    //localStorage.setItem('username',username);
-    //localStorage.setItem('password',password);
     var nonEncodedJson = {
       username : username,
       password : password
@@ -307,15 +308,41 @@ export class SigninModalComponent implements OnInit {
       this.issetpwd = true;
       return;
     }
-    username = btoa(username);
+  /*   username = btoa(username);
     password = btoa(password);
-    //console.log("username password"+username+':' +password)
-    var json = { username: username, password: password };
+
+    var json = { username: username, password: password }; */
+    username = btoa(username);
+    //   password = btoa(password);
+    
+    
+     let pwd = this.encode(this.salt,password);
+     let challengeId = this.salt;
+       this.spinnerService.show();
+       var key = 'ICICI#~#';
+       key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+     let newSalt = this.encode(key,this.salt);
+     var json = { username: username, password: pwd ,Token:newSalt};
+
     this.spinnerService.show();
+
     this.adm.Login(json).subscribe((data: any) => {
       var response = data._body;
       this.loginResponse = JSON.parse(response);
       if (this.loginResponse.status == true) {
+
+        if(this.loginResponse.data.challengeId !== challengeId){
+
+          this.spinnerService.hide();
+          this.isusername = false;
+          this.issetpwd = false;
+          this.reloadToken();
+          this.is_res_error = "Unable to login ,try again.";
+          return false;
+
+        }
+
+
         var timer = this.SessionService.session();
         this.show = false;
 
@@ -345,55 +372,39 @@ export class SigninModalComponent implements OnInit {
           localStorage.setItem('rm',respData.rm);
         }
 
-       /*  this.adm.LoginPortal(nonEncodedJson).subscribe(
-          res => {
-            console.log("LoginPortal success");
-            //this.router.navigate([this.router.url]);
-          },
-          err => {
-            console.log("LoginPortal error")
-           // this.router.navigate([this.router.url]);
-          }
-        ); */
+       
         this.dialogRef.close();
         /**
          * Start here 
          * */
         this.sessionSet("username", this.loginResponse.data.username);
-    localStorage.setItem("username", this.loginResponse.data.username);
-    localStorage.setItem("password", this.loginResponse.data.password);
-    localStorage.setItem("id", this.loginResponse.data.id);
-  //  localStorage.setItem("role", "user");
-    localStorage.setItem("role", this.loginResponse.data.role);
-    localStorage.setItem("email", this.loginResponse.data.email);
+        localStorage.setItem("username", this.loginResponse.data.username);
+        localStorage.setItem("password", this.loginResponse.data.password);
+        localStorage.setItem("id", this.loginResponse.data.id);
+        //  localStorage.setItem("role", "user");
+        localStorage.setItem("role", this.loginResponse.data.role);
+        localStorage.setItem("email", this.loginResponse.data.email);
 
-    this.adm.Admin_access(this.loginResponse.data.username).subscribe((data: any) => {
-      var response = data._body;
-      var obj = JSON.parse(response);
-      if (obj.message == 'Success') {
-        console.log('yes admin');
-        this.adm.sendUserId(this.loginResponse.data.id);
-       localStorage.setItem('isAdmin',"yes");
-      } else {
-        console.log('no');
-        this.adm.sendUserId(this.loginResponse.data.id);
-      }
-    },
-    err => {
-      /* var obj ={"message":"Success","jwttoken":null,"status":true,"status_code":0,"data":null};
-      if (obj.message == 'Success') {
-        console.log('yes admin');
-       // this.userRole = true;
-       localStorage.setItem('isAdmin',"yes");
-      } else {
-        console.log('no');
-       // this.userRole = false;
-      } */
-      this.adm.sendUserId(this.loginResponse.data.id);
-      console.log('err', err);
-    },);
+        /* has admin access */
+        this.adm.Admin_accessNew(this.loginResponse.data.username).subscribe((data: any) => {
+          var response = data._body;
+          var obj = JSON.parse(response);
+          if (obj.message == 'Success') {
+            console.log('yes admin');
+            this.adm.sendUserId(this.loginResponse.data.id);
+          localStorage.setItem('isAdmin',"yes");
+          } else {
+            console.log('no');
+            this.adm.sendUserId(this.loginResponse.data.id);
+          }
+        },
+        err => {
+        
+          this.adm.sendUserId(this.loginResponse.data.id);
+          console.log('err', err);
+        },);
 
-   
+       /* End here */
 
    
     /**
@@ -403,9 +414,10 @@ export class SigninModalComponent implements OnInit {
           backdrop: "static"
         });
 
-       // this.router.navigate([this.router.url]);
+     
       } else {
         this.spinnerService.hide();
+        this.reloadToken();
         this.isusername = false;
         this.issetpwd = false;
         if(this.loginResponse.status_code == 111 || this.loginResponse.status_code == "111" ){
@@ -427,7 +439,7 @@ export class SigninModalComponent implements OnInit {
     },);
   }
   admin_acccess(username) {
-    this.adm.Admin_access(username).subscribe((data: any) => {
+    this.adm.Admin_accessNew(username).subscribe((data: any) => {
       var response = data._body;
       var obj = JSON.parse(response);
       if (obj.message == 'Success') {
@@ -442,6 +454,27 @@ export class SigninModalComponent implements OnInit {
      
       console.log('err', err);
     },);
+  }
+
+
+  encode(key,val){
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+   let encryptedVal = CryptoJS.AES.encrypt(val, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+      });
+      return encryptedVal;
+  }
+  reloadToken(){
+    this.adm.getSalt().subscribe((data: any) => {
+      
+      this.adm.sendSalt(data._body);
+      this.salt = data._body;
+    },
+    err => {
+      console.log('err', err);
+    });
   }
   //  Signup function
 

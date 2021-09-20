@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
 
@@ -34,7 +34,8 @@ export class ApproveRatePlanComponent implements OnInit {
       private route: ActivatedRoute,
       private fetchData: BillingEngineService,
       private spinnerService: Ng4LoadingSpinnerService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private router: Router,
       ) { 
       
     
@@ -43,6 +44,7 @@ export class ApproveRatePlanComponent implements OnInit {
         console.log(this.id);
 
         this.appData= this.fetchData.getAppData();
+        console.log(this.appData);
       });
     }
   
@@ -57,18 +59,12 @@ export class ApproveRatePlanComponent implements OnInit {
       this.fetchData.getAppDetail(json).subscribe((data: any) => {
           let response = JSON.parse( data._body);
           this.appDetail = response;
-          // product value may change
-          console.log(response)
           let products = response.credentials[0].apiProducts;
-          console.log(products)
-          for( let i in products){
-            console.log( products, response.attributes)   
+          for( let i in products){  
             for(let j in response.attributes){ 
-              console.log(response.attributes[j].name , products[i].apiProduct)
+
               if(response.attributes[j].name == products[i].apiproduct){
                 let o = JSON.parse(response.attributes[j].value);
-                console.log( o)            
-
                 for(let key in o){
                   let tempObj = {
                     name: key,
@@ -80,17 +76,11 @@ export class ApproveRatePlanComponent implements OnInit {
                 }
                 
               }
-           
-    
 
             if(response.attributes[j].name=="Rate_Plan_Status"){​​​​​​​​
-
-                console.log(JSON.parse(response.attributes[j].value))
                 this.setratePlanValue=JSON.parse(response.attributes[j].value);
                 this.setratePlanText=this.setratePlanValue[0].name;
                 this.setratePlanStatus=this.setratePlanValue[0].status;
-                console.log(this.setratePlanValue[0].status)
- 
               }​​​​​​​​ 
 
 
@@ -101,7 +91,7 @@ export class ApproveRatePlanComponent implements OnInit {
 
             
           }
-         console.log("this.apiProductBucket="+ JSON.stringify(this.apiProductBucket))
+       
           this.spinnerService.hide();
          },
          err => {
@@ -131,7 +121,7 @@ onSubmit($event) {
       let approvalVal = this.ApproveRateForm.value.ApproveRateplan.approveRateplan;
 
       let attr = {
-        "name":localStorage.getItem('appName'),
+        "name": this.appData.appName,
         "attributes":  this.appDetail.attributes
         
       };
@@ -157,7 +147,16 @@ onSubmit($event) {
         appId : this.id ,
         status :approvalVal,
         developerId: this.appData.developerId,//this.userProfileData.email,
+
+        merchantName:this.appData.merchantName,
+        productName:this.appData.productName,
+        bucketValues:this.appData.bucketValues,
+        buId:"BAN255141",
+        buhId:"BAN255139",
+        buh_remarks:"",
         attributes :JSON.stringify(attr)
+
+          
         
       };
      
@@ -166,7 +165,9 @@ onSubmit($event) {
        let response = JSON.parse( data._body);
        console.log(response);
        alert("Rate plan updated successfuly.");
+      
        this.spinnerService.hide();
+       this.router.navigate(['/AppDashboard']);///merchants
       },
       err => {
         this.spinnerService.hide();

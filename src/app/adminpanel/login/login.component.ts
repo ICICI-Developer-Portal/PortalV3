@@ -3,26 +3,32 @@ import { LoginService } from 'src/app/services';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ToasterService, Toast } from 'angular2-toaster';
 import { Router } from '@angular/router';
-
+import * as CryptoJS from 'crypto-js';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  providers: [DatePipe]
 })
 export class LoginComponent implements OnInit {
   isusername: boolean = false;
   issetpwd: boolean = false;
   is_res_error: any = '';
   status_code:any="";
+  salt:string;
+
   constructor(
     private router: Router,
     private adm: LoginService,
     private toasterService: ToasterService,
     private spinnerService: Ng4LoadingSpinnerService,
+    public datepipe: DatePipe
   ) {}
 
   ngOnInit() {
     //alert('sdcs');
+    this.reloadToken(); 
   }
 
   // adminLogin(username, password) {
@@ -65,7 +71,25 @@ export class LoginComponent implements OnInit {
     window.sessionStorage.setItem(key, JSON.stringify(newValue));
   }
 
-  
+  encode(key,val){
+    var encryptedBase64Key=btoa(key); //base64encryption
+    var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+   let encryptedVal = CryptoJS.AES.encrypt(val, parsedBase64Key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+      });
+      return encryptedVal;
+  }
+  reloadToken(){
+    this.adm.getSalt().subscribe((data: any) => {
+      
+      this.adm.sendSalt(data._body);
+      this.salt = data._body;
+    },
+    err => {
+      console.log('err', err);
+    });
+  }
 
   // Login function
   adminLogin(username: any, password: any) {
@@ -82,16 +106,37 @@ export class LoginComponent implements OnInit {
       this.issetpwd = true;
       return;
     }
-    username = btoa(username);
+    /* username = btoa(username);
     password = btoa(password);
     console.log("username password"+username+':' +password)
-    var json = { username: username, password: password };
+    var json = { username: username, password: password }; */
+    username = btoa(username);
+//   password = btoa(password);
+
+
+ let pwd = this.encode(this.salt,password);
+ let challengeId = this.salt;
+   this.spinnerService.show();
+   var key = 'ICICI#~#';
+   key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+ let newSalt = this.encode(key,this.salt);
+ var json = { username: username, password: pwd ,Token:newSalt};
     this.spinnerService.show();
     this.adm.Login(json).subscribe((data: any) => {
       this.resetUser();
       var response = data._body;
       var obj = JSON.parse(response);
       if (obj.status == true) {
+        if(obj.data.challengeId !== challengeId){
+
+          this.spinnerService.hide();
+          this.isusername = false;
+          this.issetpwd = false;
+          this.reloadToken();
+          this.is_res_error = "Unable to login ,try again.";
+          return false;
+
+        }
         
         this.sessionSet('username', obj.data.username);
         localStorage.setItem('id', obj.data.id);
@@ -133,7 +178,7 @@ export class LoginComponent implements OnInit {
         this.spinnerService.hide();
         this.isusername = false;
         this.issetpwd = false;
-
+        this.reloadToken();
         if(obj.status_code == 111 || obj.status_code == "111" ){
           this.status_code = 111;
         this.is_res_error = "Your account is locked because of "+obj.message +" days inactive.";
@@ -148,6 +193,7 @@ export class LoginComponent implements OnInit {
     },
     err => {
       console.log('err', err);
+      this.reloadToken();
     //  this.router.navigate(['error']);
       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
@@ -169,18 +215,19 @@ export class LoginComponent implements OnInit {
       }
     },
     err => {
-      /* console.log('err', err);
+       console.log('err', err);
       //this.router.navigate(['error']);
      
       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
      localStorage.removeItem('isAdmin');
-     this.resetUser(); */
-     localStorage.setItem('isAdmin',"yes");
-     this.router.navigate(['/admin/request']);
+     this.resetUser(); 
+    /*  localStorage.setItem('isAdmin',"yes");
+     this.router.navigate(['/admin/request']); */
     },);
   }
   resetUser(){
     
+
       localStorage.removeItem("username");
       localStorage.removeItem("password");
       localStorage.removeItem("id");
@@ -191,19 +238,24 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('Firstname');
       localStorage.removeItem('isAdmin');
       localStorage.removeItem('isInternalUser');
+      localStorage.removeItem('email');
+      localStorage.removeItem("userEnteredText");
       
       this.adm.sendUserId("");
       localStorage.clear();
      // this.router.navigate(["/index"]);
-      this.adm.LogoutPortal().subscribe(
-        res => {
-        //  this.router.navigate(["/index"]);
-        },
-        err => {
-        //  this.router.navigate(["/index"]);
-        }
-      );
+     this.adm.logout().subscribe(
+      res => {
+       // this.router.navigate(["/index"]);
+      },
+      err => {
+        //this.router.navigate(["/index"]);
+      }
+    );
+    //this.router.navigate(["/index"]);
       
   
   }
+
+  
 }

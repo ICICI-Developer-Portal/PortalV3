@@ -514,18 +514,13 @@ toastrmsg(type, title) {
     console.log("route-access", state);
 }
 
-  // Login function
+  // Login function..
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
  
-  /*   $("#passwordbackup").val( $("#password").val())
-    let passwordLength=$("#password").val().length;   
-    $("#password").val("********")
- */
     var nonEncodedJson = {
       username : username,
       password : password
     };
-  //  console.log(nonEncodedJson)
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = "";
@@ -539,31 +534,38 @@ toastrmsg(type, title) {
       this.issetpwd = true;
       return;
     }
-    username = btoa(username);
+   /*  username = btoa(username);
     password = btoa(password);
 
- 
-/*    let pwd = this.encode(this.salt,password);
-  let resp =  this.decode1(pwd,this.salt);
-    var json = { username: username, password: pwd };
-    this.spinnerService.show();
-    var key = 'ICICI#~#';
-    key += this.datepipe.transform(Date.now(),'ddMMyyyy');
-  let newSalt = this.encode(key,this.salt);
- */
-  var json = { username: username, password: password };
- // console.log("username password == "+username+':' +password) 
-this.adm.Login(json).subscribe((data: any) => {
-   // this.adm.LoginTest(json,newSalt).subscribe((data: any) => {
-      var response = data._body;
-      //console.log(response)
-      this.loginResponse = JSON.parse(response);
-     //console.log(this.loginResponse);
-    //  console.log(this.loginResponse.data)
-     // console.log(this.loginResponse.data.companyName)
-  
+var json = { username: username, password: password }; */
+username = btoa(username);
+//   password = btoa(password);
 
+
+ let pwd = this.encode(this.salt,password);
+ let challengeId = this.salt;
+   this.spinnerService.show();
+   var key = 'ICICI#~#';
+   key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+ let newSalt = this.encode(key,this.salt);
+ var json = { username: username, password: pwd ,Token:newSalt};
+
+this.adm.Login(json).subscribe((data: any) => {
+      var response = data._body;
+      this.loginResponse = JSON.parse(response);
       if (this.loginResponse.status == true) {
+        if(this.loginResponse.data.challengeId !== challengeId){
+
+          this.spinnerService.hide();
+          this.isusername = false;
+          this.issetpwd = false;
+          this.reloadToken();
+          this.is_res_error = "Unable to login ,try again.";
+          return false;
+
+        }
+
+
         var timer = this.SessionService.session();
         this.show = false;
         this.modalRef.hide();
@@ -591,8 +593,7 @@ this.adm.Login(json).subscribe((data: any) => {
         }if(respData && respData.rm ){
           localStorage.setItem('rm',respData.rm);
         }
-        //this.toastrmsg('success', "Login has been Successfully");
-        // this.sessionSet('username', obj.data.username);
+       
         localStorage.setItem(
           "appathonFirstName",
           this.loginResponse.data.firstName
@@ -617,14 +618,7 @@ this.adm.Login(json).subscribe((data: any) => {
         // this.adm.sendUserId(obj.data.id);
         this.spinnerService.hide();
          
-      /*   this.adm.LoginPortal(nonEncodedJson).subscribe(
-          res => {
-            this.router.navigate([this.router.url]);
-          },
-          err => {
-            this.router.navigate([this.router.url]);
-          }
-        ); */
+     
          /**
          * Changing the flow as login shd complete even if loginsuccess popup eacaped
          */
@@ -698,7 +692,7 @@ this.adm.Login(json).subscribe((data: any) => {
     },);
   }
   admin_acccess(username) {
-    this.adm.Admin_access(username).subscribe((data: any) => {
+    this.adm.Admin_accessNew(username).subscribe((data: any) => {
       var response = data._body;
       var obj = JSON.parse(response);
       if (obj.message == 'Success') {
@@ -710,12 +704,10 @@ this.adm.Login(json).subscribe((data: any) => {
       } else {
         console.log('no');
         this.userRole = false;
-        this.showBU = false;
-        this.showBUH = false;
       }
     },
     err => {
-     /*  var obj ={"message":"Success","jwttoken":null,"status":true,"status_code":0,"data":null};
+       /* var obj ={"message":"UnAuthorized","jwttoken":null,"status_code":0,"status":false,"data":null};
       if (obj.message == 'Success') {
         console.log('yes admin');
         this.userRole = true;
@@ -725,9 +717,8 @@ this.adm.Login(json).subscribe((data: any) => {
       } else {
         console.log('no');
        this.userRole = false;
-       this.showBU = false;
-       this.showBUH = false;
-      } */
+       
+      }  */
       console.log('err', err);
     },);
   }
@@ -1367,38 +1358,13 @@ this.adm.Login(json).subscribe((data: any) => {
   //login success pop up modal
   clickOk() {
     this.modalRef4.hide();
-   /* this.sessionSet("username", this.loginResponse.data.username);
-    localStorage.setItem("username", this.loginResponse.data.username);
-    localStorage.setItem("password", this.loginResponse.data.password);
-    localStorage.setItem("id", this.loginResponse.data.id);
-    localStorage.setItem("role", this.loginResponse.data.role);
-    localStorage.setItem(
-      "appathonusername",
-      this.loginResponse.data.appathonusername
-    );
-    localStorage.setItem("appathonUserName", this.loginResponse.data.username);
-    localStorage.setItem("email", this.loginResponse.data.email);
-    this.adm.sendUserId(this.loginResponse.data.id);
-    this.router.navigate(["/documentation"]);
-*/
-    // if(this.loginResponse.data.role === 'Appathon'){
-    //   this.router.navigate(['/appathon-dashboard']);
-    // }
-    // else this.router.navigate(['/documentation']);
+   
   }
   modalRef4Close() {
     this.modalRef4.hide();
   }
 
-  //componay name autocomplete
-  // getCompanyName(companyName) {
-  // this.adm.getCompanyName(companyName).subscribe(data => {
-  // if (data.status === 200) {
-  // this.companyNamesDetails = data;
-  // this.companyNames = JSON.parse(this.companyNamesDetails._body);
-  // }
-  // });
-  // }
+ 
 
   numericOnly(event): boolean {
   //  console.log("keypress");
