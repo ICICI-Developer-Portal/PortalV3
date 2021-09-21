@@ -309,5 +309,20 @@ getBEngineHeadRequests(json) {
   let options = new RequestOptions({ headers: headers });
   return this.http.post("https://developer.icicibank.com/rest/getBEngineHeadRequests", query, options);
 }
+
+getBEngineUserRequests(json) {
+  console.log("yes")
+  var query = "";
+  var key;
+   for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  } 
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post("https://developer.icicibank.com/rest/getBEngineUserRequests", query, options);
+}
 }
 
