@@ -3110,7 +3110,7 @@
        <!-- ==================new field =======================-->
        <div class="row mb20">
         <div class="col-md-12 mb-xs-30">
-          <div><label for="password">Existing ICICI bank CA holder<span class="text-danger"> *</span></label></div>
+          <div><label for="password">Existing ICICI bank current account holder ?<span class="text-danger"> *</span></label></div>
           <div class="group-gap">
             <div class="d-block my-3">
   
@@ -3142,10 +3142,10 @@
         <input name="name" formControlName="accountNo" class="input-login" maxlength="12"  (keypress)="numberOnly($event)"/>
       
         <div *ngIf="IntrestForm.controls['accountNo'].touched">
-          <div class="text-danger" *ngIf="IntrestForm.controls['accountNo'].hasError('required') ">
+          <div class="text-danger" *ngIf="IntrestForm.controls['accountNo'].hasError('required') && IntrestForm.controls['accountNo'].value=='' ">
             Current Account Number is required.
           </div>
-          <div class="text-danger" *ngIf="showerror==true">
+          <div class="text-danger" *ngIf="showerror==true && IntrestForm.controls['accountNo'].value!='' ">
             Enter correct Account Number.
           </div>
           <div class="text-danger" *ngIf="IntrestForm.controls['accountNo'].hasError('minlength')">

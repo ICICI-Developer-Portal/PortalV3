@@ -1075,10 +1075,10 @@
               </div>
             </div>
           </div>
-          <!-- ==================new field =======================-->
-          <div class="row mb20">
+           <!-- ==================new field =======================-->
+           <div class="row mb20">
             <div class="col-md-12 mb-xs-30">
-              <div><label for="password">Do you have current account<span class="text-danger"> *</span></label></div>
+              <div><label for="password">Do you have current account ? <span class="text-danger"> *</span></label></div>
               <div class="group-gap">
                 <div class="d-block my-3">
       
@@ -1108,12 +1108,11 @@
             <div class="col-md-12 mb-xs-30">
               <div><label for="company">Current Account Number<span class="text-danger"> *</span></label></div>
               <input name="name" formControlName="accountNo" class="input-login" maxlength="12"  (keypress)="numberOnly($event)"/>
-              <div *ngIf="accountNo.invalid && (accountNo.dirty || isSubmitted)" class="text-danger form-error">
+              <div *ngIf="accountNo.invalid && accountNo.value=='' &&(accountNo.dirty || isSubmitted)" class="text-danger form-error">
                 Current Account Number is required.
               </div>
-              
-              <div *ngIf="showError==true" class="text-danger form-error">
-                Enter correct Account number.
+              <div *ngIf="showError==true && accountNo.value!=''" class="text-danger form-error">
+                Enter correct Account Number
               </div>
               <div *ngIf="signupForm.get('accountNo').hasError('minlength')" class="text-danger form-error">12 digit numeric characters only  </div>
 
