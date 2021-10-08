@@ -1113,9 +1113,9 @@ selectChangeHandlerEnv(event: any) {
   //  this.issuesType = e.target.value;
     severity.push( e.target.getAttribute('severity'));
     issuesType.push(e.target.getAttribute('issuesType'));
-issueId.push(e.target.getAttribute('issuesType'));
-issueTeam.push(e.target.getAttribute('issuesType'));
-console.log(e.target.getAttribute('severity'))
+    issueId.push(e.target.getAttribute('issuesType'));
+    issueTeam.push(e.target.getAttribute('issuesType'));
+    console.log(e.target.getAttribute('severity'))
   }
 
   getIssues(){
@@ -1242,13 +1242,13 @@ pageRefresh(){
    
 submitOnReportIssue(){
   const reactivefrmcontrols= this.reactiveForm.controls;
-  console.log(this.reactiveForm.value.productName   )
+/*   console.log(this.reactiveForm.value.productName   )
   console.log(this.reactiveForm.value.basicDetailsSection.productName)
   console.log(this.reactiveForm.value.basicDetailsSection.issueType)
   console.log(this.reactiveForm.value.basicDetailsSection.issueDescreption)
   console.log(this.Attach);
 
-  console.log(this.reactiveForm.value.basicDetailsSection.endpointURL)
+  console.log(this.reactiveForm.value.basicDetailsSection.endpointURL) */
 
   let header = new Headers({
     "Content-Type": "application/x-www-form-urlencoded",
@@ -1325,16 +1325,7 @@ filename= this.fileName.split('.').slice(0,-1).join('.');
                     var JSONObject = JSON.parse(data._body);
                     var messageRes = JSONObject["message"];
                     console.log(messageRes);
-                   // let extraDetails=[{"username":localStorage.getItem("username"),
-                    
-                  //   extraDetails.push(messageRes)
-                  //   console.log(extraDetails)
-                  //   console.log(messageRes)
-                  
-                    //$.extend(messageRes,extraDetails)
-                   // console.log(messageRes)
-                    //this.toastrmsg('success',data._body);
-                  //  let newJson=Object.assign(messageRes,extraDetails);
+                    messageRes.contactEmail = this.reactiveForm.value.basicDetailsSection.contactEmail;
                     this.adm.issueCreateGateway(messageRes, this.reactiveForm.value.basicDetailsSection.issueType).subscribe(
                         (data:any) => {
                             console.log(messageRes,"issueCreateGateway");

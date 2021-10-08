@@ -1,0 +1,185 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="documentTabContent">
+    <div class="tab-content" id="v-pills-tabContent">
+       <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard</div>
+       <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel" aria-labelledby="v-pills-applications-tab">
+          <div class="tabContentInner">
+            <form  [formGroup]="AnalyticForm"  autocomplete="off" nonvalidate>
+             <div class="row" formGroupName="basicDetailsSection">
+               
+                <div class="col-md-7" >
+                   <h4 class="color-black30 fs24 ff-semibold mb10">Analytics</h4>
+                   
+                </div>
+
+
+                <div class="col-md-6">       
+                  <div class="form-group">
+                    <label for="issueType">From Date<span class="text-danger"> *</span></label>
+                    <input  type="datetime-local"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                    formControlName="startDate" #startDate>
+                    <!-- <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                    formControlName="issueFirstObserved" placeholder="Date"> -->
+                    
+                  </div>
+                </div>
+                <div class="col-md-6">       
+                  <div class="form-group">
+                    <label for="issueType">To Date<span class="text-danger"> *</span></label>
+                    <input  type="datetime-local"  min="{{minDate}}" max="{{maxDate}}"  class="form-control mainField col-md-11 inline_block" 
+                    formControlName="endDate" #endDate>
+                    <!-- <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                    formControlName="issueFirstObserved" placeholder="Date"> -->
+                    
+                  </div>
+                </div>
+                <div class="col-md-6">       
+                  <div class="form-group">
+                    <label for="issueType">App Name<span class="text-danger"> *</span></label>
+                    <span class="custom-dropdown">
+                     <select class="form-control h40 col-md-11" formControlName="AppName" (click)="onNameClick($event)" (change)="onNameChange($event.target.value)">
+                       <option value="All" >All</option> 
+                       <option  *ngFor="let item of appName" [value]="item" > {{item}}</option>
+                     </select>
+                   </span>
+                    <!-- <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                    formControlName="issueFirstObserved" placeholder="Date"> -->
+                    
+                  </div>
+                </div>
+                <div class="col-md-6">       
+                  <div class="form-group">
+                    <label for="issueType">Product Name<span class="text-danger"> *</span></label>
+                    <span class="custom-dropdown">
+                     <select class="form-control h40 col-md-11" formControlName="product"  (change)="onProductChange($event.target.value)">
+                      <option >All</option> 
+                       <option  *ngFor="let item of productName" [value]="item.id" > {{item.product}}</option>
+                     </select>
+                   </span>
+                    <!-- <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                    formControlName="issueFirstObserved" placeholder="Date"> -->
+                    
+                  </div>
+               </div>
+                  <div class="col-md-6">       
+                     <div class="form-group">
+                       <label for="issueType">Service Name<span class="text-danger"> *</span></label>
+                       <span class="custom-dropdown">
+                        <select class="form-control h40 col-md-11" formControlName="service" (change)="onServiceChange($event)">
+                          <option >All</option> 
+                          <option  *ngFor="let item of serviceName " [value]='item.service' > {{item.serviceUrl}}</option>
+                        </select>
+                      </span>
+                       <!-- <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                       formControlName="issueFirstObserved" placeholder="Date"> -->
+                       
+                     </div>
+                </div>
+                <div class="col-md-6">       
+                  <div class="form-group">
+                    <label for="issueType">Response Code</label>
+                    <span class="custom-dropdown">
+                     <select class="form-control h40 col-md-11" formControlName="responseCode"  (change)="onResponseCodeChange($event.target.value)">
+                      <option >All</option> 
+                       <option  *ngFor="let item of responseCode" [value]="item.responseCode" > {{item.responseCode}}</option>
+                     </select>
+                   </span>
+                    <!-- <input type="date"  min="{{minDate}}" max="{{maxDate}}" class="form-control mainField col-md-11 inline_block" 
+                    formControlName="issueFirstObserved" placeholder="Date"> -->
+                    
+                  </div>
+               </div>
+              <!--   <div _ngcontent-c5="" class="col-md-12" style= "margin-bottom: 10px;">
+                   <div _ngcontent-c5="" >
+                      <span _ngcontent-c5=""  class="signInBtn mt30 mr10" [ngClass] = "[ analyticsTab? 'active-progress' : '']" (click)="getAnalyticsData($event)">Display Analytics </span>
+                      <span _ngcontent-c5="" class="signInBtn mt30 mr10" [ngClass] = "[ latencyTab? 'active-progress' : '']" (click)="getLatencyData($event)">Display Latency Data</span>
+                      <span _ngcontent-c5="" class="signInBtn mt30 mr10" (click)="resetField($event)" [ngClass] = "[resetTab? 'active-progress' : '']">Reset </span>
+                     </div>
+                  </div> -->
+
+
+                  <div _ngcontent-c5="" class="col-md-6" style= "margin-bottom: 20px;">
+                    <button _ngcontent-c6="" class="signInBtn mr10" ng-reflect-klass="signInBtn" 
+                    style="padding: 15px 17px;margin-bottom:10px;" type="button" [ngClass] = "[ analyticsTab? 'active-progress' : '']" (click)="getAnalyticsData($event)">Display Analytics  </button>
+ 
+                   <!--  <button _ngcontent-c6="" class="signInBtn mr10" ng-reflect-klass="signInBtn" 
+                    style="padding: 15px 17px;margin-bottom:10px;" type="button" [ngClass] = "[ latencyTab? 'active-progress' : '']" (click)="getLatencyData($event)">Display Latency Data</button>
+  -->
+                    <button _ngcontent-c6="" class="signInBtn mr10" ng-reflect-klass="signInBtn" 
+                    style="padding: 15px 17px;margin-bottom:10px;" type="button" (click)="resetField($event)" [ngClass] = "[resetTab? 'active-progress' : '']">Reset </button>
+                      <!-- <span _ngcontent-c5=""  class="signInBtn mt30 mr10" [ngClass] = "[ analyticsTab? 'active-progress' : '']" (click)="getAnalyticsData($event)">Display Analytics </span>
+                      <span _ngcontent-c5="" class="signInBtn mt30 mr10" [ngClass] = "[ latencyTab? 'active-progress' : '']" (click)="getLatencyData($event)">Display Latency Data</span>
+                      <span _ngcontent-c5="" class="signInBtn mt30 mr10" (click)="resetField($event)" [ngClass] = "[resetTab? 'active-progress' : '']">Reset </span> -->
+                  </div>
+                  <div class="col-md-6"></div>
+                  <div class="col-md-12" *ngIf="analyticsTab">
+                    
+                        
+                     <table _ngcontent-c5="" class="table border-gray"><thead _ngcontent-c5=""><tr _ngcontent-c5="">
+                        <!-- <th _ngcontent-c5="">App Name</th>
+                        <th _ngcontent-c5="">Product</th> -->
+                        <th _ngcontent-c5 class="right-border-gray">Service Name</th>
+                        <th _ngcontent-c5="">Response Code</th>
+                        <th>Traffic Count</th>
+                        <th>Error Count	</th>
+                        <th>Success Count	</th>
+                        <th>Error %	</th>
+                        <th>Success %	</th>
+                        <th>TPS</th>
+                        <th>Avg Response Time in Millis</th>
+                        
+                     </tr>
+                  </thead><tbody _ngcontent-c5="" *ngFor="let row of tableData" ><!--bindings={
+                        "ng-reflect-ng-for-of": "[object Object],[object Object"
+                      }--><tr _ngcontent-c5="" class="ng-star-inserted">
+                        <!--  <td _ngcontent-c5="">{{row.appName}}</td>
+                         <td _ngcontent-c5="">{{row.product}}</td> -->
+                         <td _ngcontent-c5 class="right-border-gray">{{row.serviceName}}</td>
+                         <td _ngcontent-c5="">{{row.responseCode}}</td>
+                         <td _ngcontent-c5="">{{row.sum_message_count}}</td>
+                         <td _ngcontent-c5="">{{row.sum_is_error}}</td>
+                          <td _ngcontent-c5="">{{row.sum_message_count - row.sum_is_error}}</td>
+                         
+                         <td _ngcontent-c5=""> <span style="color: red">{{((row.sum_is_error / row.sum_message_count) *100)}} % </span></td>
+                         <td _ngcontent-c5=""><span style="color: green">{{(((row.sum_message_count - row.sum_is_error)/row.sum_message_count) *100)}}% </span></td>
+                        
+                         <td _ngcontent-c5="">{{row.tps}}</td>
+                         <td _ngcontent-c5="">{{row.avg_total_response_time}}</td>
+                     </tr>
+                  
+                  </tbody></table>
+                        
+                        
+                  </div>
+              
+                  <div class="col-md-12" *ngIf="latencyTab">
+                    
+                        
+                    <table _ngcontent-c5="" class="table border-gray"><thead _ngcontent-c5=""><tr _ngcontent-c5="">
+                       <th _ngcontent-c5="">p99 (Millisec)</th>
+                       <th _ngcontent-c5="">p95 (Millisec)</th>
+                       <th _ngcontent-c5="">p90 (Millisec)</th>
+                       <th _ngcontent-c5="">p50 (Millisec)</th>
+                       
+                    </tr>
+                 </thead><tbody _ngcontent-c5=""><!--bindings={
+                       "ng-reflect-ng-for-of": "[object Object],[object Object"
+                     }--><tr _ngcontent-c5="" class="ng-star-inserted">
+                        <td _ngcontent-c5="">{{latencyData.p99}}</td>
+                        <td _ngcontent-c5="">{{latencyData.p95}}</td>
+                        <td _ngcontent-c5="">{{latencyData.p90}}</td>
+                        <td _ngcontent-c5="">{{latencyData.p50}}</td>
+                    </tr>
+                 
+                 </tbody></table>
+                       
+                       
+                 </div>
+          
+            </div>
+          </form>
+      
+        </div>
+      </div>
+ </div>

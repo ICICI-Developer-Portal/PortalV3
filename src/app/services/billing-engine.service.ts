@@ -324,5 +324,6 @@ getBEngineUserRequests(json) {
   let options = new RequestOptions({ headers: headers });
   return this.http.post("https://developer.icicibank.com/rest/getBEngineUserRequests", query, options);
 }
+
 }
 

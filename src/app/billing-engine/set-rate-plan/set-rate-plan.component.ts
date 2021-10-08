@@ -28,6 +28,7 @@ export class SetRatePlanComponent implements OnInit {
   imps_plan: any = [];
   appProducts_imps:boolean = false;
   apprRejtFlag:boolean = false;
+  apprRejtFlag2:boolean = false;
   requestStatus:any="";
   setratePlanText:any="";
   impsPredefinedPlan:boolean = false;
@@ -80,6 +81,8 @@ export class SetRatePlanComponent implements OnInit {
               this.apprRejtFlag = true;
               this.requestStatus = p[0].status;
               this.setratePlanText=p[0].name;
+            }else{
+              this.apprRejtFlag2 = true;
             }
 
             break;
@@ -92,7 +95,28 @@ export class SetRatePlanComponent implements OnInit {
           this.appProducts.push(products[i].apiproduct);
         }
         // if rate plan status is approved or rejected by BUH then show the bucket info in read mode
-        if(!apprRejtFlag){
+        if(this.apprRejtFlag2){
+          for( let i in products){  
+            for(let j in response.attributes){ 
+              if(response.attributes[j].name == products[i].apiproduct){
+                let o = JSON.parse(response.attributes[j].value);
+                for(let key in o){
+                  let tempObj = {
+                    name: key,
+                    value:o[key],
+                    appProduct:products[i].apiproduct
+                  }
+                  this.apiProductBucket.push(tempObj)
+                 
+                }
+                
+              }
+            }
+          }
+          // build form 
+          this.buildForm();
+        }
+        else if(!apprRejtFlag){
           if(this.appProducts.length>0){
             this.getProductAttributes(this.appProducts[0],0);
           }
@@ -335,7 +359,8 @@ export class SetRatePlanComponent implements OnInit {
    console.log(controlArray.controls);
  }
 
-onSubmit(event) {
+onSubmit(event,remarks) {
+  console.log(remarks);
   let Flag_BE_name = false;
   let Flag_setRatePlan = false;
 
@@ -386,9 +411,24 @@ onSubmit(event) {
   }
  
   let tempJson = {}
+  let that = this;
+  
   //iterating the formarray for creating the packet in required format
    this.setRateForm.get('formArrayName').value.forEach((element, index) => {
-      if(index!=0){
+    if(that.apprRejtFlag2){
+      let id=$("#"+this.setRateForm.get('formArrayName').value[index].name.name).attr("id");
+      //creating the array of object
+      let prd = this.setRateForm.get('formArrayName').value[index].name.appProduct;
+      let bucketLbl = this.setRateForm.get('formArrayName').value[index].name.name;
+      let bucketVal = $("#"+id).val()
+       
+    if(prd in tempJson ){
+      tempJson[prd][bucketLbl]= bucketVal;
+    }else{
+      tempJson[prd] ={};
+      tempJson[prd][bucketLbl]= bucketVal;
+    }
+    }else  if(index!=0){
           let id=$("#"+this.setRateForm.get('formArrayName').value[index].name.name).attr("id");
         //creating the array of object
         let prd = this.setRateForm.get('formArrayName').value[index].name.appProduct;
@@ -436,9 +476,10 @@ onSubmit(event) {
     bucketValues:bucketString.toString(),
     // buId:"BAN255141",
     // buhId:"BAN255139",
-    buId: this.buName,
+    buId: this.buUsername,
     buhId:this.BusinessUserHeadID,
     buh_remarks:"",
+    bu_remarks:remarks,
     attributes :JSON.stringify(attr)
     
   };
@@ -446,10 +487,15 @@ onSubmit(event) {
     this.spinnerService.show();
     this.fetchData.saveRatePlan(json).subscribe((data: any) => {
       let response = JSON.parse( data._body);
-      alert("Rate plan set success.");
+      if(response && response.appId && response.appId == json.appId){
+        alert("Rate plan set success.");
+      
+        this.router.navigate(['/BuRequestHistory']);///merchants
+      }else{
+        alert(response.message);
+      }
       console.log(response);
       this.spinnerService.hide();
-      this.router.navigate(['/merchants']);///merchants
     },
     err => {
       this.spinnerService.hide();

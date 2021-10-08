@@ -141,8 +141,8 @@ fileTest:boolean=false;
         "BusinessUserName":new FormControl('',[Validators.required]),  
         "BusinessUserHeadID":new FormControl('',[Validators.required]),  
         "BusinessUserEmail":new FormControl('',[Validators.required,Validators.email]), 
-        "Environment": new FormControl(''), 
-        "merchantName": new FormControl('',[Validators.required]),  
+        "Environment": new FormControl('',[Validators.required]), 
+        "merchantName": new FormControl('',[Validators.required,Validators.pattern(/^([a-zA-Z0-9 _-]+)$/)]),  
         "Decryption": new FormControl(''),  
         "DecryptionKey": new FormControl(''),  
         "RelationshipManager": new FormControl('',[Validators.required]),  
@@ -376,7 +376,7 @@ status=pending
 
 
       OnBUIDchange(val){
-  console.log(val)
+  
        this.reactiveForm.get(['basicDetailsSection','BusinessUserName']).setValue(this.buName);
        this.reactiveForm.get(['basicDetailsSection','BusinessUserEmail']).setValue(this.buEmail);
       

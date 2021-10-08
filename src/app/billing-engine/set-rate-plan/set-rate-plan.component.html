@@ -5,6 +5,14 @@
    
   </div>
    <div class="row mb25">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <h6>
+    <a  [routerLink]="['/merchants']"><span _ngcontent-c9="" style="float: left;font-weight: bold;color:#ae282e;font-size: 16px;">&lt;&lt; Back </span></a>
+
+      </h6>
+    </div>
+    <div class="col-md-2"></div>
       <div class="col-md-2"></div>
       <div class="col-md-8">
         <form [formGroup]="setRateForm">
@@ -249,8 +257,17 @@
                             </div>
                         </div>
                     </div>
+                   
                     <div id="select_plan" class="collapse" data-parent="#accordion3">
                         <div class="card-body">
+                        
+                         
+
+                          <div class="form-group col-md-10" >
+                            <label><b>BU Remarks</b></label>
+                            <div class="col-md-11"> <textarea class="form-control rounded-0" id="remark" rows="25" formControlName="remarks" #remark></textarea></div>
+                        </div>
+
                             <div class="form-group col-md-10" *ngIf="!appProducts_imps && !apprRejtFlag">
                                 <!-- <div class="form-group col-md-6"> -->
                                
@@ -261,7 +278,7 @@
                                     </option>
                                   </select>
                                 </span>
-                              </div>
+                            </div>
 
                               <div class="form-group col-md-10" *ngIf="appProducts_imps">
                                 <!-- <div class="form-group col-md-6"> -->
@@ -291,9 +308,10 @@
                 </div>
                 <div class="col-md-12">
                     <button class="signInBtn btn-dark pull-right" type="button" 
-                      id="submitButton"  (click)="onSubmit($event)" [disabled] = "apprRejtFlag"> Submit
+                      id="submitButton"  (click)="onSubmit($event,remark.value)" [disabled] = "apprRejtFlag"> Submit
                     </button>
                   </div>
+                
         
       </div>
       <div class="col-md-2"></div>

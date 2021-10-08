@@ -111,7 +111,9 @@ export class ApproveRatePlanComponent implements OnInit {
     this.ApproveRateForm = new FormGroup({
       'ApproveRateplan': new FormGroup({
 
-      "approveRateplan":  new FormControl(),})
+      "approveRateplan":  new FormControl(""),
+      "remarks":  new FormControl(""),
+    })
      
 })
 }
@@ -119,7 +121,7 @@ export class ApproveRatePlanComponent implements OnInit {
   
 onSubmit($event) {
       let approvalVal = this.ApproveRateForm.value.ApproveRateplan.approveRateplan;
-
+      let remark = this.ApproveRateForm.value.ApproveRateplan.remarks;
       let attr = {
         "name": this.appData.appName,
         "attributes":  this.appDetail.attributes
@@ -150,10 +152,11 @@ onSubmit($event) {
 
         merchantName:this.appData.merchantName,
         productName:this.appData.productName,
-        bucketValues:this.appData.bucketValues,
-        buId:"BAN255141",
-        buhId:"BAN255139",
-        buh_remarks:"",
+        bucketValues:this.appData.bucketValuesJson,
+        buId:this.appData.buId,
+        buhId:localStorage.getItem("username"),
+        buh_remarks:remark,
+        bu_remarks:this.appData.buRemarks,
         attributes :JSON.stringify(attr)
 
           
@@ -164,10 +167,15 @@ onSubmit($event) {
      this.fetchData.saveRatePlan(json).subscribe((data: any) => {
        let response = JSON.parse( data._body);
        console.log(response);
-       alert("Rate plan updated successfuly.");
+       if(response && response.appId && response.appId == json.appId){
+        alert("Rate plan updated successfuly.");
+        this.router.navigate(['/AppDashboard']);///merchants
+      }else{
+        alert(response.message);
+      }
       
        this.spinnerService.hide();
-       this.router.navigate(['/AppDashboard']);///merchants
+       
       },
       err => {
         this.spinnerService.hide();

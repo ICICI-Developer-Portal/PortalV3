@@ -11,7 +11,7 @@
 	padding: 20px;
 }
 input[type="textbox"]{
-    font-family: Poppins-Regular;
+    font-family: Mulish-Regular;
     font-size: 14px;
     padding: 10px 14px;
     border-radius: 3px;
@@ -23,19 +23,19 @@ input[type="textbox"]{
 
 }
 ::-webkit-input-placeholder {
-    font-family: Poppins-Regular;
+    font-family: Mulish-Regular;
     font-size: 9.5px;
 }
 :-moz-placeholder {
-    font-family: Poppins-Regular;
+    font-family: Mulish-Regular;
     font-size: 9.5px;
 }
 ::-moz-placeholder {
-    font-family: Poppins-Regular;
+    font-family: Mulish-Regular;
     font-size: 9.5px;
 }
 :-ms-input-placeholder {
-    font-family: Poppins-Regular;
+    font-family: Mulish-Regular;
     font-size: 9.5px;
 }
 .margin-leftminus15{
@@ -164,7 +164,7 @@ select.input-lg {
 	   font-size: 11px;
    }
    .first-level li a,.second-level li a, .third-level li a,.fourth-level li a,.fifth-level li a {
-	font-family: Poppins-Medium;
+	font-family: Mulish-Medium;
     /* padding: 16px 12px 16px 24px; */
     border-radius: 0px;
     width: 100%;

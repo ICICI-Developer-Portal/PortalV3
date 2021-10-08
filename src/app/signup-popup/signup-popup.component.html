@@ -47,7 +47,7 @@
         <div class="col-md-12" style="text-align: center;">
            <div class="mt20" >
             
-             <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="font-family: Poppins-Bold;color: #004a7f;
+             <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="font-family: Mulish-Bold;color: #13405f;
              font-weight: bold;
              ">Collaborate, Build, Unleash</h2>
              <a class="signInBtn mr10 display_inline_block" style="height: 40px;
@@ -979,7 +979,7 @@
 
 <ng-template #signup>
   <div class="modal-header">
-    <h3 class="modal-title pull-left">Let's get you On-board</h3>
+    <h3 class="modal-title pull-left">Let's get you On-board </h3>
 
     <button type="button" class="close pull-right" aria-label="Close" (click)="closeSignUp()">
       <span aria-hidden="true">&times;</span>
@@ -1075,6 +1075,54 @@
               </div>
             </div>
           </div>
+          <!-- ==================new field =======================-->
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Do you have current account<span class="text-danger"> *</span></label></div>
+              <div class="group-gap">
+                <div class="d-block my-3">
+      
+                  <div class="custom-control custom-radio col-md-2 d-inline-block">
+                    <input #op1 id="yes" type="radio"  [(ngModel)]="option" class="custom-control-input" value="yes" name="accountConfirmation" formControlName="accountConfirmation">
+                    <label class="custom-control-label" for="yes">Yes</label>
+                  </div>
+      
+                  <div class="custom-control custom-radio  col-md-2 d-inline-block">
+                    <input #op2 id="no" type="radio"  [(ngModel)]="option" class="custom-control-input" value="no" name="accountConfirmation" formControlName="accountConfirmation">
+                    <label class="custom-control-label" for="no">No</label>
+                  </div>
+      
+                  <div class="invalid-feedback" *ngIf="isSubmitted && accountConfirmation.errors?.required">
+                    <p>Please select either value</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ==================new field =======================-->
+        
+
+          <!-- ==================new field visibility based on selection of radio btns =======================-->
+
+          <div class="row mb20" *ngIf="option=='yes' ">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="company">Current Account Number<span class="text-danger"> *</span></label></div>
+              <input name="name" formControlName="accountNo" class="input-login" maxlength="12"  (keypress)="numberOnly($event)"/>
+              <div *ngIf="accountNo.invalid && (accountNo.dirty || isSubmitted)" class="text-danger form-error">
+                Current Account Number is required.
+              </div>
+              
+              <div *ngIf="showError==true" class="text-danger form-error">
+                Enter correct Account number.
+              </div>
+              <div *ngIf="signupForm.get('accountNo').hasError('minlength')" class="text-danger form-error">12 digit numeric characters only  </div>
+
+              
+              </div>
+         
+          </div>
+          <!-- ==================new field visibility based on selection of radio btns =======================-->
+
           <div class="row mb20">
             <div class="col-md-12 mb-xs-30">
               <div><label for="password">Domain Name<span class="text-danger"> *</span></label></div>
@@ -1122,6 +1170,8 @@
 
             </div>
           </div>
+
+           
           <div class="clearfix"></div>
           <br />
           <ul class="nav nav-tabs nav-tabs1" role="tablist">

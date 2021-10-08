@@ -103,9 +103,9 @@
                     <button _ngcontent-c6="" class="signInBtn mr10" ng-reflect-klass="signInBtn" 
                     style="padding: 15px 17px;margin-bottom:10px;" type="button" [ngClass] = "[ analyticsTab? 'active-progress' : '']" (click)="getAnalyticsData($event)">Display Analytics  </button>
  
-                   <!--  <button _ngcontent-c6="" class="signInBtn mr10" ng-reflect-klass="signInBtn" 
+                   <button _ngcontent-c6="" class="signInBtn mr10" ng-reflect-klass="signInBtn" 
                     style="padding: 15px 17px;margin-bottom:10px;" type="button" [ngClass] = "[ latencyTab? 'active-progress' : '']" (click)="getLatencyData($event)">Display Latency Data</button>
-  -->
+  
                     <button _ngcontent-c6="" class="signInBtn mr10" ng-reflect-klass="signInBtn" 
                     style="padding: 15px 17px;margin-bottom:10px;" type="button" (click)="resetField($event)" [ngClass] = "[resetTab? 'active-progress' : '']">Reset </button>
                       <!-- <span _ngcontent-c5=""  class="signInBtn mt30 mr10" [ngClass] = "[ analyticsTab? 'active-progress' : '']" (click)="getAnalyticsData($event)">Display Analytics </span>
@@ -115,20 +115,46 @@
                   <div class="col-md-6"></div>
                   <div class="col-md-12" *ngIf="analyticsTab">
                     
+                    <table _ngcontent-c5="" class="table border-gray" *ngIf = "t_count>0"><thead _ngcontent-c5=""><tr _ngcontent-c5="">
+                      <th _ngcontent-c5="" class="right-border-gray">Service Name</th>
+                      <th _ngcontent-c5="">Traffic Count</th>
+                      <th _ngcontent-c5="">Success Count</th>
+                      <th _ngcontent-c5="">Success Count(%)</th>
+                      <th _ngcontent-c5="">Error Count</th>
+                      <th _ngcontent-c5="">Error Count(%)</th>
+                      
+                   </tr>
+                </thead><tbody _ngcontent-c5=""><!--bindings={
+                      "ng-reflect-ng-for-of": "[object Object],[object Object"
+                    }--><tr _ngcontent-c5="" class="ng-star-inserted">
+                       <td _ngcontent-c5="" class="right-border-gray">{{selected_service}}</td>
+                       <td _ngcontent-c5="">{{t_count}}</td>
+                       <td _ngcontent-c5="">{{s_count}}</td>
+                       <td _ngcontent-c5=""><span style="color: green">{{s_count_prcnt}}%</span></td>
+                       <td _ngcontent-c5="">{{e_count}}</td>
+                       <td _ngcontent-c5=""><span style="color: red">{{e_count_prcnt}}%</span></td>
+                   </tr>
+                
+                </tbody></table>
+
                         
-                     <table _ngcontent-c5="" class="table border-gray"><thead _ngcontent-c5=""><tr _ngcontent-c5="">
+                     <table _ngcontent-c5="" class="table border-gray">
+                       <thead _ngcontent-c5=""><tr _ngcontent-c5="">
                         <!-- <th _ngcontent-c5="">App Name</th>
                         <th _ngcontent-c5="">Product</th> -->
                         <th _ngcontent-c5 class="right-border-gray">Service Name</th>
                         <th _ngcontent-c5="">Response Code</th>
                         <th>Traffic Count</th>
-                        <th>Error Count	</th>
                         <th>Success Count	</th>
+                        <th>Success %	</th>
+                        <th>Error Count	</th>
+                        <th>Error %	</th>
                         <th>TPS</th>
                         <th>Avg Response Time in Millis</th>
                         
                      </tr>
-                  </thead><tbody _ngcontent-c5="" *ngFor="let row of tableData" ><!--bindings={
+                  </thead>
+                  <tbody _ngcontent-c5="" *ngFor="let row of tableData" ><!--bindings={
                         "ng-reflect-ng-for-of": "[object Object],[object Object"
                       }--><tr _ngcontent-c5="" class="ng-star-inserted">
                         <!--  <td _ngcontent-c5="">{{row.appName}}</td>
@@ -136,13 +162,18 @@
                          <td _ngcontent-c5 class="right-border-gray">{{row.serviceName}}</td>
                          <td _ngcontent-c5="">{{row.responseCode}}</td>
                          <td _ngcontent-c5="">{{row.sum_message_count}}</td>
-                         <td _ngcontent-c5="">{{row.sum_is_error}}</td>
                          <td _ngcontent-c5="">{{row.sum_message_count - row.sum_is_error}}</td>
-                         <td _ngcontent-c5="">{{row.tps}}</td>
+                         <td _ngcontent-c5=""><span style="color: green">{{(((row.sum_message_count - row.sum_is_error)/row.sum_message_count) *100)}}% </span></td>
+                         <td _ngcontent-c5="">{{row.sum_is_error}}</td>
+                       <td _ngcontent-c5=""> <span style="color: red">{{((row.sum_is_error / row.sum_message_count) *100)}}% </span></td>
+                       <td _ngcontent-c5="">{{row.tps}}</td>
                          <td _ngcontent-c5="">{{row.avg_total_response_time}}</td>
                      </tr>
                   
-                  </tbody></table>
+                  </tbody>
+                </table>
+
+                  
                         
                         
                   </div>

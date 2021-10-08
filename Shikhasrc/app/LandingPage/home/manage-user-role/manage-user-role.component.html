@@ -1,0 +1,92 @@
+<toaster-container></toaster-container> 
+<ng4-loading-spinner> </ng4-loading-spinner>
+
+<div class="tab-content">
+    <div class="text-center mb50">
+      <h3 class="fs32 color-blue ff-bold mb25">Manage User Role</h3>
+     </div>
+     <div class="row mb25">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="profilePage">
+
+
+              <div class="row mb30">
+                <div class="col-md-6">
+                   <div><label for="username">Username <span class="text-danger"> *</span></label></div>
+                   <input  name="username" #username>
+                </div>
+                <div class="col-md-6 mt30">
+                   <a class="signInBtn w100p" (click)="getUserRoleData(username.value)" >Search</a>
+                </div>
+             </div>  
+            <div class="row mb10  pt15 pb15" >
+                <div class="col-md-4"><label><b>Name </b></label></div>
+                <div class="col-md-8">{{userDetail.firstName}}</div>
+            </div>                       
+           <!--  <div class="row mb10  pt15 pb15" >
+                <div class="col-md-4"><label><b>Email</b></label></div>
+                <div class="col-md-8">sdwew</div>
+            </div> -->
+            <div class="row mb10  pt15 pb15" >
+                <div class="col-md-4"><label><b>Role</b></label></div>
+                <div class="col-md-8">{{userDetail.role}}</div>
+            </div>    
+               
+                
+            <div class="horizontalBorder mb35"></div>
+               
+            <div class="row mb30">
+              
+              <div class="col-md-6 mt30">
+                 <a class="signInBtn w100p" (click)="openModal(editrole,username.value)">Edit</a>
+              </div>
+
+              <!-- Modal for changepassw  -->
+                 <ng-template #editrole >
+                    <div class="modal-header">
+                       <h3>Update User Role</h3>
+                       <i  class="material-icons close" aria-label="Close" (click)="modalRef.hide()">close</i>
+                    </div>
+                    <div class="modal-body">
+                       <form [formGroup]='ChangepasswForm' autocomplete="off">
+                        <div class="row mb30">
+                           <div class="col-md-12 mb-xs-10">
+                              <div><label for="username">Username <span class="text-danger"> *</span></label></div>
+                              <input  name="username" #username2 class="form-control h40 col-md-11" id="username2" >
+                           </div>
+                           </div>
+                          <div class="row mb30">
+                           
+                                <div class="col-md-12 mb-xs-10">
+                                  <label for="Domain">Role <span class="text-danger"> *</span></label>
+                                  <select class="form-control h40 col-md-11" 
+                                  (change)="selectChangeHandler($event)" #role>
+                                  <option  value="admin" >Admin </option>
+                                  <option  value="user" >User </option>
+                                  <option  value="BU" >BU </option>
+                                  <option  value="BUH" >BUH </option>
+                                </select>
+                                </div>
+                             </div>
+                             
+                             <div class="row mb10">
+                                <div class="col-md-12">
+                                      <a class="signInBtn w100p"  (click)="Change_role(username2.value,role.value )">Save</a>
+                                </div>
+                             </div>
+                       </form>
+                       
+                 </div> 
+                 </ng-template>
+              <!--End Modal for  changepassw  -->
+
+           </div>
+             
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+     </div>
+   
+</div>
+ 

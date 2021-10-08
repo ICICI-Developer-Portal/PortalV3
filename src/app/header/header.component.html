@@ -2,7 +2,7 @@
 <ng4-loading-spinner> </ng4-loading-spinner>
 <div id="fixed">  <!-- *ngIf = " (!isInternalUser || isInternalUser === 'false')" -->
     <div  [ngClass]="!showbtn?'menuBar docsMenubar':'menuBar '">
-      <span class="nav nav-tabs " style = "float:right;margin-right:11.5%;margin-bottom: -25px;color: #919191;text-decoration: none;font-family: Poppins-SemiBold;font-size: 12px;" *ngIf = "!showbtn"> Welcome&nbsp; <b>{{Firstname}}!</b>&nbsp;&nbsp;&nbsp;<span>  Your last login date is: &nbsp;<b>{{lastLoginDate}}</b></span></span>
+      <span class="nav nav-tabs " style = "float:right;margin-right:11.5%;margin-bottom: -25px;color: #919191;text-decoration: none;font-family: Mulish-SemiBold;font-size: 12px;" *ngIf = "!showbtn"> Welcome&nbsp; <b>{{Firstname}}!</b>&nbsp;&nbsp;&nbsp;<span>  Your last login date is: &nbsp;<b>{{lastLoginDate}}</b></span></span>
       <ul class="nav nav-tabs " id="mainMenu">
         <li class="active">
           <a [routerLink]="['/index']" class="navbar-brand res" href="#" data-toggle="tab"><img src="assets/images/NewICICIBankLogo-02.png" alt="" /></a>
@@ -50,9 +50,6 @@
             <a [routerLink]="['/MerchantOnboarding']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
               aria-selected="true"  (click)="addActiveClass($event)">Merchant Onboarding</a>
-              <!-- <a [routerLink]="['/BuRequestHistory']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
-              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
-              aria-selected="true"  (click)="addActiveClass($event)"> Request History</a> -->
 
             <!--   <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"

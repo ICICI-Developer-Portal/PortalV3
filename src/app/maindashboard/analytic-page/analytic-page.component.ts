@@ -20,6 +20,7 @@ export class AnalyticPageComponent implements OnInit {
   dbApp:any =[];
   appName:any =[];
   productName:any=[];
+  proxyProductName:any='';
   serviceName:any=[];
   responseCode:any =[];
   service_responseCode:any = [];
@@ -35,6 +36,14 @@ export class AnalyticPageComponent implements OnInit {
   maxDate:any;
   respJson;
   selectServiceText:any;
+
+  e_count_prcnt:any;
+  s_count_prcnt:any;
+  t_count:any;
+  selected_service:any;
+  s_count:any;
+  e_count:any;
+
   constructor(
     private adm: LoginService,
     private formbuilder: FormBuilder,
@@ -18187,6 +18196,11 @@ this.getAnalyticsApp();
   getAnalyticsData($event){
     this.latencyTab= false;
     this.analyticsTab= true;
+
+    this.t_count = 0;
+    this.e_count_prcnt = 0;
+    this.s_count_prcnt = 0 ;
+    this.selected_service = "";
     
     let startDate =  this.AnalyticForm.value.basicDetailsSection.startDate;
     let endDate =  this.AnalyticForm.value.basicDetailsSection.endDate;
@@ -18254,6 +18268,7 @@ this.spinnerService.show();
     let startDate =  this.AnalyticForm.value.basicDetailsSection.startDate;
     let endDate =  this.AnalyticForm.value.basicDetailsSection.endDate;
     let app = this.AnalyticForm.value.basicDetailsSection.AppName;
+    let prod =  this.proxyProductName;
     let srvc =  this.selectServiceText;
    // this.reactiveForm.value.basicDetailsSection.issueFirstObserved;
    if(startDate == null || startDate == undefined || startDate  ==''){
@@ -18353,7 +18368,9 @@ this.spinnerService.show();
      
     }
       //Apply selected filter here
-      
+      /* Service wise total count   */
+
+        
       let sApp = this.AnalyticForm.value.basicDetailsSection.AppName;
       let sProduct = this.AnalyticForm.value.basicDetailsSection.product;
       let sService = this.AnalyticForm.value.basicDetailsSection.service;
@@ -18375,6 +18392,23 @@ this.spinnerService.show();
           this.tableData=tempArr.sort(function (a, b) {
             return a.responseCode.localeCompare(b.responseCode);
         });
+
+        /* Average count block */
+        let t_count =0, e_count = 0,s_count = 0,e_count_prcnt,s_count_prcnt;
+        for(let i in this.tableData){
+          t_count = t_count + this.tableData[i].sum_message_count;
+          e_count = e_count + this.tableData[i].sum_is_error;
+          s_count = s_count + (this.tableData[i].sum_message_count - this.tableData[i].sum_is_error);
+        }
+        e_count_prcnt = ((e_count * 100)/t_count).toFixed(2);
+        s_count_prcnt = ((s_count * 100)/t_count).toFixed(2);
+
+        this.t_count = t_count;
+        this.s_count = s_count;
+        this.e_count = e_count;
+        this.e_count_prcnt = e_count_prcnt;
+        this.s_count_prcnt = s_count_prcnt ;
+        this.selected_service = sService;
       //responseCode
       if(sResponseCode !== null && sResponseCode !== '' && sResponseCode !== 'All'){
         this.tableData = this.tableData.filter(
@@ -18597,6 +18631,7 @@ this.spinnerService.show();
     }else{
       let id = [];
       id= prdc.split("&");
+      this.proxyProductName = id[1];
       this.service_responseCode = this.filterData[id[0]][id[1]];
       this.serviceName = this.service_responseCode;
       let resArr = [];

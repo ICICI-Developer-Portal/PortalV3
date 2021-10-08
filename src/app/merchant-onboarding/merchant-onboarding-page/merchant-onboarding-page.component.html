@@ -91,7 +91,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="productName">Environment
-                <!-- <span class="text-danger"> *</span>  -->
+                <span class="text-danger"> *</span>  
               </label>
               <span class="custom-dropdown">
                 <select class="form-control h40 col-md-11" formControlName="Environment" (change)="selectChangeHandlerEnv($event)" >
@@ -115,12 +115,20 @@
                 placeholder="">
                 <i *ngIf="reactiveForm.get('basicDetailsSection.merchantName').valid"
                 class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
-              <!-- validation -->
-              <div
+              <!-- validation. -->
+              <div *ngIf="reactiveForm.get('basicDetailsSection.merchantName').touched">
+                <div class="text-danger form-error" *ngIf="reactiveForm.get('basicDetailsSection.merchantName').hasError('required')">
+                  Merchant Name is required.
+                </div>
+                <div class="text-danger form-error" *ngIf="reactiveForm.get('basicDetailsSection.merchantName').hasError('pattern')">
+                  Merchant Name should contain only Alphanumeric and underscore value.
+                </div> 
+              </div>
+              <!-- <div
                 *ngIf="!reactiveForm.get('basicDetailsSection.merchantName').valid && reactiveForm.get('basicDetailsSection.merchantName').touched"
                 class="text-danger form-error">
                 Merchant Name is required.
-              </div>
+              </div> -->
             
              
             </div>
@@ -309,8 +317,10 @@
             <label for="Mode">Encryption Mode </label>
          
               <select class="form-control h40 col-md-11" formControlName="Mode">
+
                 <option value="hybrid_generic">Hybrid</option>
                 <option value="asymmetric_generic">Asymmetric</option>
+                
               </select>
               <i *ngIf="reactiveForm.get('basicDetailsSection.Mode').valid"
               class="fa fa-check-circle col-md-1 orange margin_3px" aria-hidden="true"></i>
