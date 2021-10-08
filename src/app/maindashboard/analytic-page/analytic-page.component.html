@@ -146,9 +146,9 @@
                         <th _ngcontent-c5="">Response Code</th>
                         <th>Traffic Count</th>
                         <th>Success Count	</th>
-                        <th>Success %	</th>
+                        <!-- <th>Success %	</th> -->
                         <th>Error Count	</th>
-                        <th>Error %	</th>
+                        <!-- <th>Error %	</th> -->
                         <th>TPS</th>
                         <th>Avg Response Time in Millis</th>
                         
@@ -163,9 +163,9 @@
                          <td _ngcontent-c5="">{{row.responseCode}}</td>
                          <td _ngcontent-c5="">{{row.sum_message_count}}</td>
                          <td _ngcontent-c5="">{{row.sum_message_count - row.sum_is_error}}</td>
-                         <td _ngcontent-c5=""><span style="color: green">{{(((row.sum_message_count - row.sum_is_error)/row.sum_message_count) *100)}}% </span></td>
+                         <!-- <td _ngcontent-c5=""><span style="color: green">{{(((row.sum_message_count - row.sum_is_error)/row.sum_message_count) *100)}}% </span></td> -->
                          <td _ngcontent-c5="">{{row.sum_is_error}}</td>
-                       <td _ngcontent-c5=""> <span style="color: red">{{((row.sum_is_error / row.sum_message_count) *100)}}% </span></td>
+                       <!-- <td _ngcontent-c5=""> <span style="color: red">{{((row.sum_is_error / row.sum_message_count) *100)}}% </span></td> -->
                        <td _ngcontent-c5="">{{row.tps}}</td>
                          <td _ngcontent-c5="">{{row.avg_total_response_time}}</td>
                      </tr>
