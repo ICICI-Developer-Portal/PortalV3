@@ -1,0 +1,316 @@
+
+
+<div class="documentTabContent">
+  <div class="tab-content" id="v-pills-tabContent">
+    <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard
+    </div>
+    <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel"
+      aria-labelledby="v-pills-applications-tab">
+      <div class="tabContentInner">
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="color-black30 fs24 ff-semibold mb10"><a  [routerLink]="['/merchants']"  class="color-orange">Merchants ></a><span >Merchant Details</span></h4>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+        <div class="col-md-12">
+
+          <nav>
+            <div class="nav nav-tabs sandBox-navTab col-md-12  padding-0" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link col-md-6 active" id="nav-home-tab" data-toggle="tab" href="#nav-tab1"
+                role="tab" aria-controls="nav-home" aria-selected="true">Profile home</a>
+              <a class="nav-item nav-link  col-md-6" id="nav-profile-tab" data-toggle="tab" href="#nav-tab2" role="tab"
+                aria-controls="nav-profile" aria-selected="false">Balance and plans</a>
+              <!-- <a class="nav-item nav-link  col-md-4" id="nav-profile-tab" data-toggle="tab" href="#nav-tab3" role="tab"
+                aria-controls="nav-profile" aria-selected="false">Invitations</a> -->
+            </div>
+          </nav>
+
+
+          <div class="tab-content tabContentSandbox mt-0" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-tab1" role="tabpanel" aria-labelledby="nav-home-tab">
+
+
+
+
+
+
+
+              <!-- ================-->
+              <form autocomplete="off" #myForm="ngForm" class="mb10">
+                <div class="row">
+                  <p _ngcontent-c5="" class="col-md-12 mt10">
+                    <b _ngcontent-c5="">Profile Details :</b>
+                  </p>
+                  <div class="img-responsive col-md-12">
+                    <figure class="figure">
+                      <img style="height: 100px;"
+                        src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22400%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_179eb99a94a%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A20pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_179eb99a94a%22%3E%3Crect%20width%3D%22400%22%20height%3D%22300%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22148.8515625%22%20y%3D%22159%22%3E400x300%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                        class="figure-img img-fluid rounded"
+                        alt="A generic square placeholder image with rounded corners in a figure.">
+                      <!-- <figcaption class="figure-caption">A caption for the above image.</figcaption> -->
+                    </figure>
+                  </div>
+                </div>
+                <div class="row mb10" style="background-color: whitesmoke;">
+                  <div class="col-md-4"><label><b>Name:</b></label></div>
+                  <div class="col-md-6"> {{userProfileData.firstName + userProfileData.lastName}} </div>
+
+                  <div class="col-md-4"> <label><b>Username:</b></label></div>
+                  <div class="col-md-6"> {{userProfileData.userName}}</div>
+
+                  <div class="col-md-4"> <label><b>Email:</b></label></div>
+                  <div class="col-md-6"> {{userProfileData.email}} </div>
+                </div>
+
+                <div class="row" style="background-color: whitesmoke;">
+                  <div class="col-md-4"> <label><b>Member Since:</b></label></div>
+                  <div class="col-md-6"> {{userProfileData.createdAt | date:'dd/MM/yyyy HH:mm'}} </div>
+
+                  <div class="col-md-4"> <label><b>Roles:</b></label></div>
+                  <div class="col-md-6"> Merchant </div>
+
+               <!--    <div class="col-md-4"> <label><b>Timezone:</b></label></div>
+                  <div class="col-md-6">  {{today | date:'dd-MM-yyyy hh:mm:ss a':'+0530'}}</div> -->
+                </div>
+
+
+
+
+
+              </form>
+
+              <a [routerLink]="['/MerchantApp']"  class="color-orange"><b>View Merchants Apps</b></a>
+              <!-- {{message}}
+              <button (click)="newMessage()">New Message</button> -->
+              <!--================== -->
+            </div>
+
+
+            <div class="tab-pane fade   " id="nav-tab2" role="tabpanel" aria-labelledby="nav-profile-tab" style="padding: 0px;">
+              <form (ngSubmit)="onSubmitBody(bodyForm)" autocomplete="off" #bodyForm="ngForm" class="row">
+
+                <div _ngcontent-c10="" class="container">
+                  <nav _ngcontent-c10="">
+                    <div _ngcontent-c10="" class="nav nav-tabs sandBox-navTab nestedTabs col-md-12  padding-0" id="nav-tab"
+                      role="tablist">
+                      <a _ngcontent-c10="" aria-controls="nav-home" aria-selected="false"
+                        class="nav-item nav-link col-md-4" data-toggle="tab" href="#nav-tab11" id="nav-home-tab"
+                        role="tab">Purchased Plan</a><a _ngcontent-c10="" aria-controls="nav-profile" aria-selected="true"
+                        class="nav-item nav-link col-md-4 active show" data-toggle="tab" href="#nav-tab12"
+                        id="nav-profile-tab" role="tab">Billing Details</a><a _ngcontent-c10=""
+                        aria-controls="nav-profile" aria-selected="false" class="nav-item nav-link  col-md-4"
+                        data-toggle="tab" href="#nav-tab13" id="nav-profile-tab" role="tab">Reports</a></div>
+                  </nav>
+                  <div _ngcontent-c10="" class="tab-content tabContentSandbox mt-0" id="nav-tabContent">
+                    <div _ngcontent-c10="" aria-labelledby="nav-home-tab" class="tab-pane fade" id="nav-tab11"
+                      role="tabpanel">
+                      <form _ngcontent-c10="" autocomplete="off" novalidate=""
+                        class="ng-untouched ng-pristine ng-valid">
+                        <div _ngcontent-c10="" class="row">
+                          <!-- <p _ngcontent-c10="" _ngcontent-c5="" class="col-md-12 mt10"><b _ngcontent-c10=""
+                              _ngcontent-c5="">Pricing and Plans </b></p> -->
+                              <div _ngcontent-c6="" class="form-group col-md-3">
+                                <button _ngcontent-c6="" _ngcontent-c5="" class="signInBtn  mr10 colmd-6 mt10 form-group col-md-6form-control h40 col-md-11 contain">
+                                  Pricing and Plans </button></div>
+                             <div class="col-md-col-md-9"></div>
+                          
+                        </div>
+                        <div _ngcontent-c10="" class="row">
+                          <p _ngcontent-c10="" _ngcontent-c5="" class="col-md-12 mt10"><b _ngcontent-c10=""
+                            _ngcontent-c5="">Active and Future Purchased Plans </b></p>
+
+
+          <div class="col-md-12">
+
+            <table _ngcontent-c5="" class="table border-gray" >
+              <thead _ngcontent-c5="">
+                <tr _ngcontent-c5="">
+                  <th _ngcontent-c5="">Rate Plan</th>
+                  <th _ngcontent-c5="">Status</th>
+                  <th _ngcontent-c5="">Start Date</th>
+                  <th _ngcontent-c5="">End Date</th>
+
+                  <th _ngcontent-c5="">Actions</th>
+
+                </tr>
+              </thead>
+              <tbody _ngcontent-c5="">
+                <tr _ngcontent-c5="" class="ng-star-inserted" >
+                  <td _ngcontent-c5=""> </td>
+                  <td _ngcontent-c5=""> </td>
+                  <td _ngcontent-c5=""></td>
+                </tr>
+
+              
+              </tbody>
+            </table>
+            
+            
+            <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+
+</div>
+<p _ngcontent-c10="" _ngcontent-c5="" class="col-md-12 mt10"> No Active and Future Purchased Plans</p>
+
+                        </div>
+                        <div class="row">
+
+
+      <p _ngcontent-c10="" _ngcontent-c5="" class="col-md-12 mt10"><b _ngcontent-c10=""
+        _ngcontent-c5="">Cancelled and Expired Purchased Plans </b></p>
+  
+
+<div class="col-md-12">
+
+  <table _ngcontent-c5="" class="table border-gray" >
+    <thead _ngcontent-c5="">
+      <tr _ngcontent-c5="">
+        <th _ngcontent-c5="">Rate Plan</th>
+        <th _ngcontent-c5="">Status</th>
+        <th _ngcontent-c5="">Start Date</th>
+        <th _ngcontent-c5="">End Date</th>
+
+        <th _ngcontent-c5="">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody _ngcontent-c5="">
+      <tr _ngcontent-c5="" class="ng-star-inserted" >
+        <td _ngcontent-c5=""> </td>
+        <td _ngcontent-c5=""> </td>
+        <td _ngcontent-c5=""></td>
+      </tr>
+
+    
+    </tbody>
+  </table>
+  <!-- <p _ngcontent-c10="" _ngcontent-c5="" class="col-md-12 mt10"><b _ngcontent-c10=""
+    _ngcontent-c5=""> No Active and Future Purchased Plans </b></p> -->
+  <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+
+</div>
+
+
+<div class="row">
+
+ <!-- 
+
+
+<div *ngFor="let d of items | paginate: { itemsPerPage: 10, currentPage: p }" >
+  <p>"userId" = {{ d.userId }}</p>
+  <p>"id" = {{ d.id }}</p>
+  <p>"title" = {{ d.title }}</p>
+  <p>"completed" = {{ d.completed }}</p>
+  <hr>
+</div>
+<pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+</div>
+          </div>
+                        
+                        
+                      </form>
+                    </div>
+                    <div _ngcontent-c10="" aria-labelledby="nav-profile-tab" class="tab-pane fade active show"
+                      id="nav-tab12" role="tabpanel">
+                      <form _ngcontent-c10="" autocomplete="off" class="row ng-untouched ng-pristine ng-valid"
+                        novalidate="">
+                        <div _ngcontent-c10="" class="col-md-12">
+                          <p _ngcontent-c10="" _ngcontent-c5="" class=" mt10"><b _ngcontent-c10=""
+                              _ngcontent-c5="">Billing Details </b></p>    
+                        </div>
+                        <!-- <div class="col-md-12" style="background-color: whitesmoke;">
+                          <div class="col-md-2"><label><b>Name:</b></label></div>
+                          <div class="col-md-10"> ______ </div>
+        
+                          <div class="col-md-2"> <label><b>Username:</b></label></div>
+                          <div class="col-md-10"> ______ </div>
+        
+                          <div class="col-md-2"> <label><b>Email:</b></label></div>
+                          <div class="col-md-10"> ______ </div>
+                        </div> -->
+                        <form>
+                          <div class="form-group row ml0">
+                            <label for="staticEmail" class="col-sm-6 col-form-label">Legal Company Name<span>*</span>:</label>
+                            <div class="col-sm-6">
+                              <input type="text" readonly class="form-control-plaintext" id="" value="______">
+                            </div>
+                          </div>
+                          <div class="form-group row ml0">
+                            <label for="inputPassword" class="col-sm-6 col-form-label">Billing Type: </label>
+                            <div class="col-sm-6">
+                              <input type="password" class="form-control" id="inputPassword" placeholder="Prepaid" readonly>
+                            </div>
+                          </div>
+                        </form>
+                      
+                      
+
+
+                      
+                      
+                      </form>
+                    </div>
+                    <div _ngcontent-c10="" aria-labelledby="nav-profile-tab" class="tab-pane fade " id="nav-tab13"
+                      role="tabpanel">
+                      <!-- <form _ngcontent-c10="" autocomplete="off" class="row ng-untouched ng-pristine ng-valid"
+                        novalidate=""> -->
+                      
+                        <form _ngcontent-c10="" autocomplete="off" class="row ng-untouched ng-pristine ng-valid"
+                        novalidate="">
+                      
+                      
+                      
+                      
+                        <div _ngcontent-c6="" class="row" style="
+                        padding-left: 15px;
+                        padding-right: 15px;
+                    "><p _ngcontent-c6="" _ngcontent-c5="" class="col-md-6 mt10"><b _ngcontent-c6="" _ngcontent-c5="">Download Billing Details :</b></p><div class="col-md-6"></div><div _ngcontent-c6="" class="form-group col-md-6"><label _ngcontent-c6="" for="merchantName">Select Currency </label><span _ngcontent-c6="" class="custom-dropdown"><select _ngcontent-c6="" class="form-control h40 col-md-11" formcontrolname=""><option _ngcontent-c6="" value=" " ng-reflect-value=" ">- Select -</option></select></span></div><div _ngcontent-c6="" class="form-group col-md-6"></div>
+                    
+                    
+                    
+                    
+                    <div _ngcontent-c6="" class="form-group col-md-6"><label _ngcontent-c6="" for="merchantName">From date </label><span _ngcontent-c6="" class="custom-dropdown"><select _ngcontent-c6="" class="form-control h40 col-md-11" formcontrolname="onboardingID"><option _ngcontent-c6="" value=" " ng-reflect-value=" ">- Select -</option></select></span></div><div _ngcontent-c6="" class="form-group col-md-6"></div>
+                    
+                    <div _ngcontent-c6="" class="form-group col-md-6"><span _ngcontent-c6="" class="custom-dropdown"><select _ngcontent-c6="" class="form-control h40 col-md-11" formcontrolname="onboardingID"><option _ngcontent-c6="" value=" " ng-reflect-value=" ">- Select -</option></select></span></div><div _ngcontent-c6="" class="form-group col-md-6"></div>
+                <!-- <button _ngcontent-c5="" class="signInBtn  mr10">Download Combined Billing reportd </button> -->
+              <div _ngcontent-c6="" class="form-group col-md-6"><button _ngcontent-c6="" _ngcontent-c5="" class="signInBtn  mr10 colmd-6 form-group col-md-6form-control h40 col-md-11 contain">Download Combined Billing report </button></div>
+            </div>
+
+
+
+                      
+                      
+                    
+                    
+                    
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- {{dataRcvr}} dkdk -->
+<p *ngFor="let d of dataRcvr">
+<!-- {{d}}
+{{dataRcvr}}dataRcvr -->
+</p>
+            <div class="tab-pane fade " id="nav-tab3" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <form (ngSubmit)="onSubmitBody(bodyForm)" autocomplete="off" #bodyForm="ngForm" class="row">
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

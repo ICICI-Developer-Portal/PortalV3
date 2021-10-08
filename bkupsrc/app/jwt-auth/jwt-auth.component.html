@@ -1,0 +1,38 @@
+<div>
+  <div>
+    <h3
+      class="request-production ta-center"
+    >
+      Please Login 
+    </h3>
+  </div>
+  <div>
+    <div class="col-md-12 request-production">
+      <div><label for="user">Username</label></div>
+      <input name="user" class="input-login" [(ngModel)]="encUsername" #username (keydown.space)="$event.preventDefault();" appPrefixFocusAndSelect/>
+      <!-- <div class="text-danger form-error ng-star-inserted">
+        Please Enter UserNames.
+      </div> -->
+    </div>
+
+    <div class="col-md-12 request-production">
+      <div><label for="password" type="password">Password</label></div>
+     <!--  <input name="password" type="password" class="input-login" [(ngModel)]="encPassword" #password/> -->
+      <input name="password" type="password" class="input-login" [(ngModel)]="encPassword" onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password /> <!-- <div class="text-danger form-error ng-star-inserted">
+        Please Enter Password.
+      </div> -->
+    </div>
+  </div>
+
+  <div
+    class="col-12 request-production ta-center"
+  >
+    <button
+      type="submit"
+      class="signInBtn w100p"
+      (click)="Login(username.value, password.value)"
+    >
+      Login
+    </button>
+  </div>
+</div>
