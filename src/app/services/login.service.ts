@@ -1405,4 +1405,49 @@ updateUserRole(json) {
   return this.http.post(this.apiUrl + "send_otpEmailEnc", query, options);
  }
 
+
+//  apiproductsProxy(json){
+//   var query = "";
+//   var key;
+//   for (key in json) {
+//     query +=
+//       encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+//   }
+//   let headers = new Headers({
+//     "Content-Type": "Basic YXBpYmFua2luZ0BpY2ljaWJhbmsuY29tOlF3ZXJ0eSMxMjM0",
+//   //  "Token" : localStorage.getItem("jwt")
+//   });
+//   let options = new RequestOptions({ headers: headers });
+//   return this.http.get(" https://api.enterprise.apigee.com/v1/organizations/icici-prod/apiproducts/"+query, options);
+ 
+//  }
+getProductProxy(productName) {
+
+  const headerDict = {
+
+    'Content-Type': 'application/json',
+
+    'Authorization':'Basic YXBpYmFua2luZ0BpY2ljaWJhbmsuY29tOlF3ZXJ0eSMxMjM0'
+
+  }
+
+  
+
+  const requestOptions = {                                                                                                                                                                                 
+
+    headers: new Headers(headerDict), 
+
+  };
+
+  return this.http.get(
+
+    "https://api.enterprise.apigee.com/v1/organizations/icici-prod/apiproducts/" +
+
+    productName, requestOptions
+
+  );
+
+}
+
+
 }

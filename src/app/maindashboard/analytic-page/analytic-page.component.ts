@@ -20,6 +20,8 @@ export class AnalyticPageComponent implements OnInit {
   dbApp:any =[];
   appName:any =[];
   productName:any=[];
+  proxies:any=[];
+  selectedProxy:any;
   proxyProductName:any='';
   serviceName:any=[];
   responseCode:any =[];
@@ -18260,6 +18262,16 @@ this.spinnerService.show();
       });
 
   }
+  onPrxyChange($event){
+    let selectedOptions = event.target['options'];
+    let selectedIndex = selectedOptions.selectedIndex;
+
+
+    this.selectedProxy= selectedOptions[selectedIndex].text
+    console.log(this.selectedProxy)
+  
+
+  }
   getLatencyData($event){
     //set tab activation 
     this.analyticsTab= false;
@@ -18287,7 +18299,7 @@ this.spinnerService.show();
    
     let json = {
       "developerApp":app ,
-      "proxy": "",
+      "proxy": this.selectedProxy,
       "startTime": this.datepipe.transform(new Date(startDate),'dd/MM/yyyy HH:mm:ss'),
       "endTime": this.datepipe.transform(new Date(endDate),'dd/MM/yyyy HH:mm:ss'),
       "requestUrl":srvc,
@@ -18618,20 +18630,32 @@ this.spinnerService.show();
     
   }
   onProductChange(prdc){
-    
+    // console.log("rchd")
     this.serviceName = [];
     this.responseCode = [];
     
     this.AnalyticForm.get(['basicDetailsSection','service']).setValue('');
     this.AnalyticForm.get(['basicDetailsSection','responseCode']).setValue('');
     if(prdc == "All"){
+    // console.log("rchd in all")
+
       /* for(let prd in this.filterData[id[0]]){
         this.serviceName.push.apply(this.serviceName,this.filterData[id[0]][prd]);
       } */
     }else{
+    // console.log("rchd in half")
+
       let id = [];
+    console.log(id)
+
+
       id= prdc.split("&");
+    console.log(id)
+
       this.proxyProductName = id[1];
+      console.log(id[1])
+      this.getProductProxy(id[1]);
+      
       this.service_responseCode = this.filterData[id[0]][id[1]];
       this.serviceName = this.service_responseCode;
       let resArr = [];
@@ -18685,5 +18709,25 @@ this.spinnerService.show();
     this.responseData = [];
     this.latencyData="";
   }
+  getProductProxy(prdctName){
+    this.spinnerService.show();
+    console.log(prdctName)
+    this.adm.getProductProxy(prdctName).subscribe((data: any) => {
+      console.log(data);
+      var response = JSON.parse(data._body);
+      console.log(response.proxies);
+      this.proxies=response.proxies;
+      this.spinnerService.hide();
+
+       
+     
+    },
+      err => {
+        this.spinnerService.hide();
+        console.log('err', err);
+      });
+    //getProductProxy
+  }
  
+
 }
