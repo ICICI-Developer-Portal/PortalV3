@@ -1151,10 +1151,10 @@ export class ReportIssuePageComponent implements OnInit {
         // console.log(fileEvent.value)
         // pdf,exe,zip,xlxs,jpeg,png,jpg
         const allowed_types = ['pdf', 'exe', 'zip', 'xlxs', 'jpeg', 'png', 'jpg'];
-        console.log('size', file.size);
-        console.log('type', file.type);
-        console.log(fileEvent.target.files[0])
-        console.log(fileEvent.target.files[0].name)
+        // console.log('size', file.size);
+        // console.log('type', file.type);
+        // console.log(fileEvent.target.files[0])
+        // console.log(fileEvent.target.files[0].name)
         // console.log(this.fileName.substring(this.fileName.lastIndexOf('.')+1));
         // const ext= this.fileName.substring(this.fileName.lastIndexOf('.')+1)
 
