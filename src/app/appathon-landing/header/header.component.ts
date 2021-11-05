@@ -98,12 +98,11 @@ export class HeaderComponent implements OnInit {
     private toasterService: ToasterService
   ) {
     this.btn_Sign();
-    // commented by shikha 1/9/21 IRIS vulnerability reference 
-    // this.appathonFirstName = localStorage.getItem("appathonFirstName");
-    // this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
+    this.appathonFirstName = localStorage.getItem("appathonFirstName");
+    this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
     this.appathonMobileNumber = localStorage.getItem("appathonMobileNumber");
     this.appathonCompanyName = localStorage.getItem("appathonCompanyName");
-    // this.appathonUserName = localStorage.getItem("appathonUserName");
+    this.appathonUserName = localStorage.getItem("appathonUserName");
     this.adm.getUserId().subscribe(data => {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
@@ -111,11 +110,11 @@ export class HeaderComponent implements OnInit {
     });
     this.adm.getUserName().subscribe(data => {
       this.user_name = data;
-      //this.appathonFirstName = localStorage.getItem("appathonFirstName");
-    // this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
+      this.appathonFirstName = localStorage.getItem("appathonFirstName");
+      this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
       this.appathonMobileNumber = localStorage.getItem("appathonMobileNumber");
       this.appathonCompanyName = localStorage.getItem("appathonCompanyName");
-      // this.appathonUserName = localStorage.getItem("appathonUserName");
+      this.appathonUserName = localStorage.getItem("appathonUserName");
     });
     this.get_domain_and_apis();
   }
@@ -415,15 +414,14 @@ export class HeaderComponent implements OnInit {
         var timer = this.SessionService.session();
         this.show = false;
         this.modalRef.hide();
-        //iris vulnerability
-        // localStorage.setItem(
-        //   "appathonFirstName",
-        //   this.loginResponse.data.firstName
-        // );
-        // localStorage.setItem(
-        //   "appathonCompanyEmail",
-        //   this.loginResponse.data.email
-        // );
+        localStorage.setItem(
+          "appathonFirstName",
+          this.loginResponse.data.firstName
+        );
+        localStorage.setItem(
+          "appathonCompanyEmail",
+          this.loginResponse.data.email
+        );
         localStorage.setItem(
           "appathonMobileNumber",
           this.loginResponse.data.mobileNo
@@ -432,10 +430,10 @@ export class HeaderComponent implements OnInit {
           "appathonCompanyName",
           this.loginResponse.data.companyName
         );
-        // localStorage.setItem(
-        //   "appathonUserName",
-        //   this.loginResponse.data.username
-        // );
+        localStorage.setItem(
+          "appathonUserName",
+          this.loginResponse.data.username
+        );
         localStorage.setItem("jwt",this.loginResponse.jwttoken)
         this.spinnerService.hide();
 
@@ -455,10 +453,10 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem("password", this.loginResponse.data.password);
         localStorage.setItem("id", this.loginResponse.data.id);
         localStorage.setItem("role", this.loginResponse.data.role);
-        // localStorage.setItem(
-        //   "appathonusername",
-        //   this.loginResponse.data.appathonusername
-        // );
+        localStorage.setItem(
+          "appathonusername",
+          this.loginResponse.data.appathonusername
+        );
         localStorage.setItem("email", this.loginResponse.data.email);
         this.adm.sendUserId(this.loginResponse.data.id);
 

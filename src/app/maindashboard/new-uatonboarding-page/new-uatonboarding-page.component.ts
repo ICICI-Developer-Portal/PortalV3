@@ -132,18 +132,13 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   ngOnInit() {
    
 
-    console.log(  this.adm.companyName,this.adm.email,this.adm.rm,this.adm.mobileNo)
-    // this.companyName = localStorage.getItem("companyName");
-    // this.email = localStorage.getItem("email");
-    // this.rm = localStorage.getItem("rm");
-    // this.mobileNo = localStorage.getItem("mobileNo");
-    this.companyName =  this.adm.companyName;
-    this.email = this.adm.email;
-    this.rm = this.adm.rm;
-    this.mobileNo= this.adm.mobileNo;
+    console.log( localStorage.getItem("companyName"))
+    this.companyName = localStorage.getItem("companyName");
+    this.email = localStorage.getItem("email");
+    this.rm = localStorage.getItem("rm");
 
 
-   
+    this.mobileNo = localStorage.getItem("mobileNo");
 
 
     document.getElementById("merchantName").focus();
@@ -974,10 +969,7 @@ const distinctArray = tempArr.filter((n, i) => tempArr.indexOf(n) === i);
 
 let inputFields = {
 
-  // userName: localStorage.getItem("username")
-  userName:  this.adm.username
-
-  ,
+  userName: localStorage.getItem("username"),
 
   domainName: distinctArray.toString(),
 

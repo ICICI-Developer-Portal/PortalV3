@@ -1141,7 +1141,7 @@ console.log(this.api);
       }
       console.log(this.issueType)
   }
-  readFile(fileEvent: any) {
+/*   readFile(fileEvent: any) {
     const file = fileEvent.target.files[0];
     console.log(fileEvent.value)
     // pdf,exe,zip,xlxs,jpeg,png,jpg
@@ -1240,6 +1240,51 @@ console.log( e.target.result);
     reader.readAsDataURL(file);
  }
 }
+ */
+readFile(fileEvent: any) { 
+    const file = fileEvent.target.files[0];
+
+    const allowed_types = ['pdf','exe','zip','xlxs','jpeg','png','jpg'];
+    if (fileEvent.target.files && fileEvent.target.files[0]) {
+    if(file.size > 1048576){ 
+        $(".fileError").text("File size should not exceed 1 MB limit.")
+        $(".fileError").show();
+        return false;           
+     }
+     else{
+        this.fileName=fileEvent.target.files[0].name;
+        this.filetype=fileEvent.target.files[0].type;
+        const lastdot = this.fileName.lastIndexOf('.');
+        const ext =this.fileName.substring(this.fileName.lastIndexOf('.')+1);
+        this.extnsn=ext;
+        if ((allowed_types).includes(ext)) {
+          $(".fileError").text("");
+          $(".fileError").hide();
+       }
+       else{
+           this.filetype=fileEvent.target.files[0].type;
+           $(".fileError").text(ext+"File type not allowed.")
+           $(".fileError").text('Only pdf,exe,zip,xlxs,jpeg,png,jpg file type are  allowed')
+           return false;
+       }
+     }
+    //base 64 encode code
+    const reader = new FileReader();
+    let self = this;
+    reader.onload = (e: any) => {
+     //   console.log(reader.result);
+        console.log( e.target.result.split(',')[1]);
+        
+ e.target.result.replace("data:image/png;base64,", "");
+console.log( e.target.result);
+       
+        self.Attach= e.target.result.split(',')[1];
+    };
+    
+    reader.readAsDataURL(file);
+ }
+}
+
 
 pageRefresh(){
     window.location.reload();}

@@ -17,26 +17,6 @@ import { timeout, catchError, map, mapTo } from "rxjs/operators";
 
 @Injectable()
 export class LoginService {
-
-  misUserVal:any;
-  Firstname:any;
-  lastLoginDate:any;
-  isInternalUser:any;
-  companyName: any;
-  mobileNo:any;
-  email: any;
-  rm:any;
-  appathonFirstName:any;
-  appathonCompanyEmail: any;
-  appathonMobileNumber:any;
-  appathonCompanyName:any;
-  jwt:any;
-  appathonusername:any;
-  username:any;
-  password:any;
-  id:any;
-  role:any;
-  
   
   apiUrl: string;
   UAT_apiUrl: string;
@@ -703,6 +683,15 @@ export class LoginService {
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.apiUrl + "has-admin-access", query, options);
   }
+  Admin_accessNew(username) {
+    var query = "username=" + username;
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Token" : localStorage.getItem("jwt")
+    });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.apiUrl + "hasAdminAccess", query, options);
+  }
   downloadCertificate(filePath) {
     var query = filePath;
     let headers = new Headers({
@@ -1221,8 +1210,8 @@ Login1(data) {
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post(this.apiUrl + "loginProd", query, options);
-//return this.http.post(this.apiUrl + "login1", query, options);
+//  return this.http.post(this.apiUrl + "loginProd", query, options);
+return this.http.post(this.apiUrl + "login1", query, options);
 //return this.http.post(this.UAT_apiUrl + "login", query, options);
 }
   //8April2021 written by shikha
@@ -1281,7 +1270,7 @@ logout(){
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
- // return this.http.post(this.apiUrl + "logout", query, options);
+  //return this.http.post(this.apiUrl + "logout", query, options);
  return this.http.post(this.apiUrl + "logoutPrevious", query, options);
 
 }

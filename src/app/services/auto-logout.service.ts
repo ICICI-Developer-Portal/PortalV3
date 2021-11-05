@@ -48,48 +48,41 @@ export class AutoLogoutService {
     const diff = timeleft - now;
     const isTimeout = diff < 0;
 
-    if (isTimeout) {
+    if (isTimeout && !(localStorage.getItem('username') == '' || !localStorage.getItem('username'))) {
       //localStorage.clear();
-      if(localStorage.getItem("autoLogout") !== "true"){
-        localStorage.setItem("autoLogout","true");
-        this.logout();
-      }
       
+      localStorage.setItem("autoLogout","true");
+      this.logout();
     }
   }
   logout() {
 
-  
-    this.adm.logout().subscribe(
-      res => {
-        console.log("logout success");
-        this.resetUserData();
-        this.router.navigate(['/index']).then(() => {
-          window.location.reload();
-        });
-      },
-      err => {
-        console.log("logout failure");
-        this.resetUserData();
-        this.router.navigate(['/index']).then(() => {
-          window.location.reload();
-        });
-      }
-    );
-   // this.router.navigate(["/index"]);
-  }
-  resetUserData(){
     localStorage.removeItem("username");
     localStorage.removeItem("password");
     localStorage.removeItem("id");
     localStorage.removeItem("role");
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("jwt")
     localStorage.removeItem('lastLoginDate');
     localStorage.removeItem('misUserVal');
     localStorage.removeItem('Firstname');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isInternalUser');
-    localStorage.clear();
+    localStorage.removeItem('email');
+    localStorage.removeItem("userEnteredText");
     this.adm.sendUserId("");
+    this.adm.logout().subscribe(
+      res => {
+        console.log("logout success")
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
+      },
+      err => {
+        console.log("logout failed")
+        this.router.navigate(['/index']).then(() => {
+          window.location.reload();
+        });
+      }
+    );
   }
 }

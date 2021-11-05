@@ -218,8 +218,7 @@ removeheader(i: number) {
   NewApplication(){ 
    var Json={
      "id":this.id,
-     "username":this.adm.username
-    //  "username":localStorage.getItem('username')
+     "username":localStorage.getItem('username')
     }
     this.idForClickedTab=this.id;
   this.adm.api_details(Json)
@@ -255,9 +254,7 @@ removeheader(i: number) {
 Sample_packet(){
   var json = {
     "id":this.id,
-    "username":this.adm.username
-
-    // "username":localStorage.getItem('username')
+    "username":localStorage.getItem('username')
   }
   this.adm.Sample_packet(json)
   .subscribe(
@@ -281,12 +278,7 @@ Sample_packet(){
   );
 }
   openModal(Authentication: TemplateRef<any>) {
-    var json = {
-      // "username":localStorage.getItem('username'),"password":localStorage.getItem('password')
-      "username":this.adm.username,
-      "password":this.adm.password
-    
-    };
+    var json = {"username":localStorage.getItem('username'),"password":localStorage.getItem('password')};
     this.adm.Login(json)
     this.modalRef = this.modalService.show(Authentication, { backdrop:'static',class: 'modal-lg' }); 
     this.testApiresponse="";
@@ -628,6 +620,8 @@ set reqParamValue(v) {
     }else{
       this.key2=true;
       console.log("rchd inside  key true")
+    
+    
     }
     
         console.log(form.value.store_priority_value)
@@ -637,15 +631,15 @@ set reqParamValue(v) {
     this.priority_value=form.controls.priority_value.value;
     this.storeValue=form.controls.storeValue.value;
         console.log(form.controls.value.value)
+    
+        
         console.log(form.value)
   }    
   GetTestCases(_reqJson,headers){
  headers = new Headers({
   "Content-Type": "application/x-www-form-urlencoded",
   "token" : localStorage.getItem("jwt"),
-  "username" :this.adm.username,
-  // "token" : localStorage.getItem("jwt"),
-  // "username" :localStorage.getItem("username"),
+  "username" :localStorage.getItem("username"),
 });
 console.log(headers)
     this.adm.getTestCases(_reqJson).subscribe(

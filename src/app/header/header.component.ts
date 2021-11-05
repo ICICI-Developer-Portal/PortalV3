@@ -100,7 +100,9 @@ export class HeaderComponent implements OnInit {
   isInternalUser:any = false;
   salt:string;
   userEmailId;
-
+  showBUH: boolean = false;
+  showBU: boolean = false;
+  userRole:boolean = false;
 
   constructor(
     private SessionService: SessionService,
@@ -130,16 +132,32 @@ export class HeaderComponent implements OnInit {
       }if(localStorage.getItem('isInternalUser') != ""){
         this.isInternalUser = localStorage.getItem('isInternalUser');
       }
-     
+      if(localStorage.getItem('role') != ""){
+        let role = localStorage.getItem('role');
+        if (role === "BUH") {
+          this.showBUH = true;
+          this.showBU = false;
+        }else 
+        if (role === "BU") {
+          this.showBU = true;
+          this.showBUH = false;
+        }
+      }
+      if(localStorage.getItem('isAdmin') == "yes"){
+       this.userRole = true;
+       this.showBU = true;
+       this.showBUH = true;
+      }else{
+        this.userRole = false;
+      }
 
     });
     this.adm.getUserName().subscribe(data => {
-    // commented by shikha 1/9/21 IRIS vulnerability reference
-    //this.appathonFirstName = localStorage.getItem("appathonFirstName");
-    // this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
+      this.appathonFirstName = localStorage.getItem("appathonFirstName");
+      this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
       this.appathonMobileNumber = localStorage.getItem("appathonMobileNumber");
       this.appathonCompanyName = localStorage.getItem("appathonCompanyName");
-      // this.appathonUserName = localStorage.getItem("appathonUserName");
+      this.appathonUserName = localStorage.getItem("appathonUserName");
       this.user_name = data;
     });
 
@@ -325,6 +343,14 @@ export class HeaderComponent implements OnInit {
     if (localStorage.getItem("role") === "Both") {
       this.showAppDash = true;
     }
+    if (localStorage.getItem("role") === "BUH") {
+      this.showBUH = true;
+    
+    }
+    if (localStorage.getItem("role") === "BU") {
+      this.showBU = true;
+    
+    }
     this.userName = localStorage.getItem("username");
 
     if(localStorage.getItem('misUserVal') != ""){
@@ -334,6 +360,7 @@ export class HeaderComponent implements OnInit {
     }if(localStorage.getItem('lastLoginDate') != ""){
       this.lastLoginDate = localStorage.getItem('lastLoginDate');
     } 
+   
   }
 /* active class toggle **/
   addActiveClass(e){
@@ -499,7 +526,7 @@ toastrmsg(type, title) {
       return;
     }
     username = btoa(username);
- //   password = btoa(password);
+ //   password = btoa(password); //
 
  
   let pwd = this.encode(this.salt,password);
@@ -510,146 +537,136 @@ toastrmsg(type, title) {
   let newSalt = this.encode(key,this.salt);
   var json = { username: username, password: pwd ,Token:newSalt};
   this.adm.Login1(json).subscribe((data: any) => {
-    console.log("header")
-      var response = data._body;
-      this.loginResponse = JSON.parse(response);
-  
+    var response = data._body;
+    this.loginResponse = JSON.parse(response);
+    if (this.loginResponse.status == true) {
+      if(this.loginResponse.data.challengeId !== challengeId){
 
-      if (this.loginResponse.status == true  ) {
-        if(this.loginResponse.data.challengeId !== challengeId){
-
-          this.spinnerService.hide();
-          this.isusername = false;
-          this.issetpwd = false;
-          this.reloadToken();
-          this.is_res_error = "Unable to login ,try again.";
-
-        }else{
-          var timer = this.SessionService.session();
-          this.show = false;
-          this.modalRef.hide();
-  
-          let respData =  this.loginResponse.data;
-          if(respData  ){
-            this.misUserVal = respData.misUser;
-            this.adm.misUserVal=this.misUserVal;
-            localStorage.setItem('misUserVal',this.misUserVal);
-          }  if(respData && respData.firstName ){
-            this.Firstname=respData.firstName;
-            localStorage.setItem('Firstname',this.Firstname);
-            this.adm.Firstname =this.Firstname;
-          }  if(respData && respData.lastLoginDt ){
-            this.lastLoginDate=respData.lastLoginDt;
-            localStorage.setItem('lastLoginDate',this.lastLoginDate);
-            this.adm.lastLoginDate=this.lastLoginDate;
-          }if(respData  ){
-            localStorage.setItem('isInternalUser',respData.internalUser);
-            this.isInternalUser = respData.internalUser;
-            this.adm.isInternalUser=this.isInternalUser;
-          }
-          if(respData && respData.companyName ){
-            localStorage.setItem('companyName',respData.companyName);
-            this.adm.companyName=respData.companyName;
-
-          } if(respData && respData.mobileNo ){
-            localStorage.setItem('mobileNo',respData.mobileNo);
-            this.adm.mobileNo=respData.mobileNo;
-          }if(respData && respData.email ){
-            localStorage.setItem('email',respData.email);
-            this.adm.email=respData.email;
-          }if(respData && respData.rm ){
-            localStorage.setItem('rm',respData.rm);
-          }
-          //this.toastrmsg('success', "Login has been Successfully");
-          // this.sessionSet('username', obj.data.username);
-          localStorage.setItem(
-            "appathonFirstName",
-            this.loginResponse.data.firstName
-          );
-          localStorage.setItem(
-            "appathonCompanyEmail",
-            this.loginResponse.data.email
-          );
-          localStorage.setItem(
-            "appathonMobileNumber",
-            this.loginResponse.data.mobileNo
-          );
-          localStorage.setItem(
-            "appathonCompanyName",
-            this.loginResponse.data.companyName
-          );
-          localStorage.setItem("jwt",this.loginResponse.jwttoken)
-          // localStorage.setItem('password', obj.data.password);
-          // localStorage.setItem('id', obj.data.id);
-          // localStorage.setItem('role', 'user');
-          // localStorage.setItem('email', obj.data.email);
-          // this.adm.sendUserId(obj.data.id);
-          this.spinnerService.hide();
-           
-         /*  this.adm.LoginPortal(nonEncodedJson).subscribe(
-            res => {
-              this.router.navigate([this.router.url]);
-            },
-            err => {
-              this.router.navigate([this.router.url]);
-            }
-          ); */
-           /**
-           * Changing the flow as login shd complete even if loginsuccess popup eacaped
-           */
-          $('ul li a[data-toggle="tab"]').removeClass('active');
-          $('ul li a[data-toggle="tab"]').removeClass('show');
-              this.userName = this.loginResponse.data.username;
-          this.sessionSet("username", this.loginResponse.data.username);
-          localStorage.setItem("username", this.loginResponse.data.username);
-          localStorage.setItem("password", this.loginResponse.data.password);
-          localStorage.setItem("id", this.loginResponse.data.id);
-          localStorage.setItem("role", this.loginResponse.data.role);
-          this.userName = localStorage.getItem("username");
-          
-          // localStorage.setItem(
-          //   "appathonusername",
-          //   this.loginResponse.data.appathonusername
-          // );
-          // localStorage.setItem("appathonUserName", this.loginResponse.data.username);
-          localStorage.setItem("email", this.loginResponse.data.email);
-          this.adm.sendUserId(this.loginResponse.data.id);
-          this.userName = localStorage.getItem("username");
-  
-          if (this.router.url === "/documentation"){
-            this.router.navigate(['explore-api']); 
-          }else{
-            this.router.navigate([this.router.url]);
-          }
-          
-          
-          /**
-           * End here
-           */
-  
-          this.modalRef4 = this.modalService.show(loginsuccess, {
-            backdrop: "static"
-          });
-        }
-       
-
-        
-      } else {
         this.spinnerService.hide();
         this.isusername = false;
         this.issetpwd = false;
         this.reloadToken();
-        if(this.loginResponse.status_code == 111 || this.loginResponse.status_code == "111" ){
-          this.status_code = 111;
-        this.is_res_error = "Your account is locked because of "+this.loginResponse.message +" days inactive.";
-       
-        }else if(this.loginResponse.status_code == 112 || this.loginResponse.status_code == "112" ){
-          this.is_res_error = this.loginResponse.message;
-        }else{
-         this.is_res_error = this.loginResponse.message;
-         }
-       
+        this.is_res_error = "Unable to login ,try again.";
+        return false;
+
       }
+
+
+      var timer = this.SessionService.session();
+      this.show = false;
+      this.modalRef.hide();
+
+      let respData =  this.loginResponse.data;
+      if(respData  ){
+        this.misUserVal = respData.misUser;
+        localStorage.setItem('misUserVal',this.misUserVal);
+      }  if(respData && respData.firstName ){
+        this.Firstname=respData.firstName;
+        localStorage.setItem('Firstname',this.Firstname);
+      }  if(respData && respData.lastLoginDt ){
+        this.lastLoginDate=respData.lastLoginDt;
+        localStorage.setItem('lastLoginDate',this.lastLoginDate);
+      }if(respData  ){
+        localStorage.setItem('isInternalUser',respData.internalUser);
+        this.isInternalUser = respData.internalUser;
+      }
+      if(respData && respData.companyName ){
+        localStorage.setItem('companyName',respData.companyName);
+      } if(respData && respData.mobileNo ){
+        localStorage.setItem('mobileNo',respData.mobileNo);
+      }if(respData && respData.email ){
+        localStorage.setItem('email',respData.email);
+      }if(respData && respData.rm ){
+        localStorage.setItem('rm',respData.rm);
+      }
+     
+      localStorage.setItem(
+        "appathonFirstName",
+        this.loginResponse.data.firstName
+      );
+      localStorage.setItem(
+        "appathonCompanyEmail",
+        this.loginResponse.data.email
+      );
+      localStorage.setItem(
+        "appathonMobileNumber",
+        this.loginResponse.data.mobileNo
+      );
+      localStorage.setItem(
+        "appathonCompanyName",
+        this.loginResponse.data.companyName
+      );
+      localStorage.setItem("jwt",this.loginResponse.jwttoken)
+      // localStorage.setItem('password', obj.data.password);
+      // localStorage.setItem('id', obj.data.id);
+      // localStorage.setItem('role', 'user');
+      // localStorage.setItem('email', obj.data.email);
+      // this.adm.sendUserId(obj.data.id);
+      this.spinnerService.hide();
+       
+   
+       /**
+       * Changing the flow as login shd complete even if loginsuccess popup eacaped
+       */
+      $('ul li a[data-toggle="tab"]').removeClass('active');
+      $('ul li a[data-toggle="tab"]').removeClass('show');
+          this.userName = this.loginResponse.data.username;
+      this.sessionSet("username", this.loginResponse.data.username);
+      localStorage.setItem("username", this.loginResponse.data.username);
+      localStorage.setItem("password", this.loginResponse.data.password);
+      localStorage.setItem("id", this.loginResponse.data.id);
+      localStorage.setItem("role", this.loginResponse.data.role);
+      if (this.loginResponse.data.role === "BUH") {
+        this.showBUH = true;
+      
+      }
+      if (this.loginResponse.data.role === "BU") {
+        this.showBU = true;
+      
+      }
+      this.userName = localStorage.getItem("username");
+      
+      localStorage.setItem(
+        "appathonusername",
+        this.loginResponse.data.appathonusername
+      );
+      localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+      localStorage.setItem("email", this.loginResponse.data.email);
+      this.adm.sendUserId(this.loginResponse.data.id);
+      this.userName = localStorage.getItem("username");
+      this.admin_acccess( this.userName)
+      if (this.router.url === "/documentation"){
+        this.router.navigate(['explore-api']); 
+      }else{
+        this.router.navigate([this.router.url]);
+      }
+      
+      
+      /**
+       * End here
+       */
+
+      this.modalRef4 = this.modalService.show(loginsuccess, {
+        backdrop: "static"
+      });
+
+      
+    } else {
+      this.spinnerService.hide();
+      this.isusername = false;
+      this.issetpwd = false;
+      this.reloadToken();
+      if(this.loginResponse.status_code == 111 || this.loginResponse.status_code == "111" ){
+        this.status_code = 111;
+      this.is_res_error = "Your account is locked because of "+this.loginResponse.message +" days inactive.";
+     
+      }else if(this.loginResponse.status_code == 112 || this.loginResponse.status_code == "112" ){
+        this.is_res_error = this.loginResponse.message;
+      }else{
+       this.is_res_error = this.loginResponse.message;
+       }
+     
+    }
     },
     err => {
       console.log('err', err);
@@ -658,6 +675,37 @@ toastrmsg(type, title) {
       this.toastrmsg('error',this.errorMsg);
 
       
+    },);
+  }
+  admin_acccess(username) {
+    this.adm.Admin_accessNew(username).subscribe((data: any) => {
+      var response = data._body;
+      var obj = JSON.parse(response);
+      if (obj.message == 'Success') {
+        console.log('yes admin');
+        localStorage.setItem('isAdmin',"yes");
+        this.userRole = true;
+        this.showBU = true;
+        this.showBUH = true;
+      } else {
+        console.log('no');
+        this.userRole = false;
+      }
+    },
+    err => {
+       /* var obj ={"message":"UnAuthorized","jwttoken":null,"status_code":0,"status":false,"data":null};
+      if (obj.message == 'Success') {
+        console.log('yes admin');
+        this.userRole = true;
+        this.showBU = true;
+        this.showBUH = true;
+       localStorage.setItem('isAdmin',"yes");
+      } else {
+        console.log('no');
+       this.userRole = false;
+       
+      }  */
+      console.log('err', err);
     },);
   }
   encode(key,val){

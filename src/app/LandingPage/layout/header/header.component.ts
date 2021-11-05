@@ -107,12 +107,11 @@ export class HeaderComponent implements OnInit {
       this.showbtn = !this.logged_in;
     });
     this.adm.getUserName().subscribe(data => {
-      // commented by shikha 1/9/21 IRIS vulnerability reference
-      //this.appathonFirstName = localStorage.getItem("appathonFirstName");
-      // this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
+      this.appathonFirstName = localStorage.getItem("appathonFirstName");
+      this.appathonCompanyEmail = localStorage.getItem("appathonCompanyEmail");
       this.appathonMobileNumber = localStorage.getItem("appathonMobileNumber");
       this.appathonCompanyName = localStorage.getItem("appathonCompanyName");
-      // this.appathonUserName = localStorage.getItem("appathonUserName");
+      this.appathonUserName = localStorage.getItem("appathonUserName");
       this.user_name = data;
     });
     this.get_domain_and_apis();
@@ -450,11 +449,11 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("password", this.loginResponse.data.password);
     localStorage.setItem("id", this.loginResponse.data.id);
     localStorage.setItem("role", this.loginResponse.data.role);
-    // localStorage.setItem(
-    //   "appathonusername",
-    //   this.loginResponse.data.appathonusername
-    // );
-    // localStorage.setItem("appathonUserName", this.loginResponse.data.username);
+    localStorage.setItem(
+      "appathonusername",
+      this.loginResponse.data.appathonusername
+    );
+    localStorage.setItem("appathonUserName", this.loginResponse.data.username);
     localStorage.setItem("email", this.loginResponse.data.email);
     this.adm.sendUserId(this.loginResponse.data.id);
     this.router.navigate(["/documentation"]);

@@ -49,13 +49,15 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { SignupPopupComponent } from './signup-popup/signup-popup.component';
 import { AdminpanelModule } from "./adminpanel/adminpanel.module";
 
-import { AutoLogoutService } from "./services/auto-logout.service";
-
 import { UserdataComponent } from "./userdata/userdata.component";
  import { DataTableModule } from "angular7-data-table";
 import { NewLandingPageComponent } from './new-landing-page/new-landing-page.component';
 import { ExploreApiSigninComponent } from './documentation-dashb/explore-api-signin/explore-api-signin.component';
 import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
+import { AutoLogoutService } from "./services/auto-logout.service";
+import { BillingEngineModule } from "./billing-engine/billing-engine.module";
+import { MerchantOnboardingModule } from "./merchant-onboarding/merchant-onboarding.module";
+import { BillingEngineService } from "./services/billing-engine.service";
 //import { NewUatonboardingPageComponent } from './new-uatonboarding-page/new-uatonboarding-page.component';
 
 // import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
@@ -104,7 +106,9 @@ import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
-     DataTableModule
+     DataTableModule,
+     BillingEngineModule,
+     MerchantOnboardingModule
     // RecaptchaModule,
     // RecaptchaFormsModule
     
@@ -116,7 +120,8 @@ import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
     LoginService,
     VariablesService,   
     DashboardService,
-    AutoLogoutService
+    AutoLogoutService,
+    BillingEngineService
     // { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
   ],
   entryComponents: [

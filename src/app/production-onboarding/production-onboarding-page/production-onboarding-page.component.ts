@@ -634,8 +634,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
     let reactiveFromFieldValues = this.reactiveForm.value;
 
     let inputFields = {
-      // userName: localStorage.getItem("username"),
-      userName: this.adm.username,
+      userName: localStorage.getItem("username"),
      
       domainName: this.reactiveForm.controls.nestedCheckboxesList.get("domain").value,
       refjiraId:this.reactiveForm.controls.basicDetailsSection.get("JiraId").value,
@@ -936,9 +935,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
 
 
   getRequestIds() {
-  //  let username = localStorage.getItem("username");
-  let username = this.adm.username;
-
+   let username = localStorage.getItem("username");
     console.log(username)
     // const headers = new HttpHeaders().set(
     //   "Content-Type",
@@ -955,8 +952,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
     console.log("reached", this.list)
     let headers = new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
-      "Token": this.adm.username
-      // "Token": localStorage.getItem("jwt")
+      "Token": localStorage.getItem("jwt")
     });
     console.log(headers)
 
