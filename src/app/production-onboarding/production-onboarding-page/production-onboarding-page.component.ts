@@ -965,7 +965,7 @@ export class ProductionOnboardingPageComponent implements OnInit {
     body.set("username", username);
     this.http.post(
       // this.http.post(
-      "https://developer.icicibank.com/rest/fetch-jiraid",
+      "http://10.78.25.173:8080/rest/fetch-jiraid",
       body.toString(),
       options
     ).subscribe((data: any) => {

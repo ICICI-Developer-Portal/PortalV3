@@ -104,7 +104,8 @@ btnConfirm(UATconfirm,remark) {
       headers = headers.set(  "Token", localStorage.getItem("jwt"));
       this.HttpClient.post<any>(
       //  'https://developer.icicibank.com/PDFfileUpload',
-        'https://developer.icicibank.com/adminFileUpload',
+        // 'https://developer.icicibank.com/adminFileUpload',
+         "http://10.78.25.173:8080/rest/adminFileUpload",
         formData,{headers: headers}
       ).subscribe(
         res => {

@@ -280,8 +280,8 @@ status=pending
 
     this.HttpClient.post<any>(
 
-    //  "https://developer.icicibank.com/rest/merchantOnboard",
-      "https://developer.icicibank.com/rest/saveMerchantOnboard",
+    //  "http://10.78.25.173:8080/rest/merchantOnboard",
+      "http://10.78.25.173:8080/rest/saveMerchantOnboard",
 
       formData
 

@@ -49,8 +49,8 @@ import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { SignupPopupComponent } from './signup-popup/signup-popup.component';
 import { AdminpanelModule } from "./adminpanel/adminpanel.module";
 
-import { UserdataComponent } from "./userdata/userdata.component";
- import { DataTableModule } from "angular7-data-table";
+// import { UserdataComponent } from "./userdata/userdata.component";
+//  import { DataTableModule } from "angular7-data-table";
 import { NewLandingPageComponent } from './new-landing-page/new-landing-page.component';
 import { ExploreApiSigninComponent } from './documentation-dashb/explore-api-signin/explore-api-signin.component';
 import { AutoLogoutComponent } from "./auto-logout/auto-logout.component";
@@ -75,7 +75,7 @@ import { BillingEngineService } from "./services/billing-engine.service";
     FocusOnShowDirective,
     PagenotfoundComponent,
     SignupPopupComponent,
-    UserdataComponent,
+    // UserdataComponent,
     NewLandingPageComponent,
     ExploreApiSigninComponent,
     AutoLogoutComponent
@@ -106,7 +106,7 @@ import { BillingEngineService } from "./services/billing-engine.service";
     MatAutocompleteModule,
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
-     DataTableModule,
+    //  DataTableModule,
      BillingEngineModule,
      MerchantOnboardingModule
     // RecaptchaModule,

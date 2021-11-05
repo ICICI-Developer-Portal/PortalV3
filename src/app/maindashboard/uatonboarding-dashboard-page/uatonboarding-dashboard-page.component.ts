@@ -1179,7 +1179,7 @@ if(extention.toLowerCase() == "zip"){
   //headers = headers.append("Content-Type", "application/json"); 
     this.HttpClient.post<any>(
     
-      "https://developer.icicibank.com/rest/create-jira-new",
+      "http://10.78.25.173:8080/rest/create-jira-new",
     
       formData,{headers: headers}
     
@@ -1207,7 +1207,7 @@ if(extention.toLowerCase() == "zip"){
 //headers = headers.set(  "Token", localStorage.getItem("jwt"));
   this.HttpClient.post<any>(
   
-    "https://developer.icicibank.com/rest/create-jira-new-uat",
+    "http://10.78.25.173:8080/rest/create-jira-new-uat",
   
     formData
   

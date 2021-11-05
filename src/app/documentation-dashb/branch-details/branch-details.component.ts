@@ -74,7 +74,9 @@ export class BranchDetailsComponent implements OnInit {
         this.faqEazypay= false;
       }
       if(num === "177" || num === 177){
-        this.image = "https://developer.icicibank.com/assets/images/BBPS.png";
+      this.image = "http://10.78.25.173:8080/rest//assets/images/BBPS.png";
+    
+        // "http://10.78.25.173:8080/rest/assets/images/BBPS.png";
       }
     });
   }
@@ -136,7 +138,7 @@ export class BranchDetailsComponent implements OnInit {
       this.file = this.obj[0].FILE_URL;
       console.log("image=="+this.image+"file==="+this.file);
       if(this.branchId === "177" || this.branchId === 177){
-        this.image = "https://developer.icicibank.com/assets/images/BBPS.png";
+        this.image = "http://10.78.25.173:8080/rest/assets/images/BBPS.png";
       }
     },
     err => {
@@ -162,10 +164,10 @@ export class BranchDetailsComponent implements OnInit {
     }
 
     if(this.faqEazypay){
-      this.file = "https://developer.icicibank.com/assets/documents/Eazypay.zip";
+      this.file = "http://10.78.25.173:8080/rest/assets/documents/Eazypay.zip";
     }
     if(this.branchId === "177" || this.branchId === 177 ){
-      this.file = "https://developer.icicibank.com/assets/documents/BBPS.pdf";
+      this.file = "http://10.78.25.173:8080/rest/assets/documents/BBPS.pdf";
     }
     dwldLink.setAttribute("href", this.file);
     //dwldLink.setAttribute("download", fileName + ".csv");
@@ -188,7 +190,7 @@ export class BranchDetailsComponent implements OnInit {
     if (isSafariBrowser) {
       dwldLink.setAttribute("target", "_blank");
     }
-    dwldLink.setAttribute("href", "https://developer.icicibank.com/assets/documents/UPI Merchant Integrations FAQs - Consolidated.docx");
+    dwldLink.setAttribute("href", "http://10.78.25.173:8080/rest/assets/documents/UPI Merchant Integrations FAQs - Consolidated.docx");
     //dwldLink.setAttribute("download", fileName + ".csv");
     dwldLink.style.visibility = "hidden";
     document.body.appendChild(dwldLink);

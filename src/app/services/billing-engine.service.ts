@@ -196,7 +196,7 @@ getProductAttributes(json) {
   return this.http.post(this.apiUrl + "getProductAttributes", query, options);
 }
 getApiProducts () {
- // https://developer.icicibank.com/rest/apiProducts 
+ // http://10.78.25.173:8080/rest/apiProducts 
   var query = "";
   /* var key;
    for (key in json) {
@@ -307,7 +307,7 @@ getBEngineHeadRequests(json) {
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post("https://developer.icicibank.com/rest/getBEngineHeadRequests", query, options);
+  return this.http.post("http://10.78.25.173:8080/rest/getBEngineHeadRequests", query, options);
 }
 
 getBEngineUserRequests(json) {
@@ -322,7 +322,7 @@ getBEngineUserRequests(json) {
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post("https://developer.icicibank.com/rest/getBEngineUserRequests", query, options);
+  return this.http.post("http://10.78.25.173:8080/rest/getBEngineUserRequests", query, options);
 }
 
 }

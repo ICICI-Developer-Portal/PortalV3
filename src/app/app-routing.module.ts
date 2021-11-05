@@ -10,7 +10,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { SignupPopupComponent } from './signup-popup/signup-popup.component';
 import { AdminpanelComponent } from "./adminpanel/adminpanel.component";
-import { UserdataComponent } from "./userdata/userdata.component";
+// import { UserdataComponent } from "./userdata/userdata.component";
 import { NewLandingPageComponent } from "./new-landing-page/new-landing-page.component";
 //import { DownloadComponent } from "./maindashboard/download/download.component";
 
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
  
   { path: 'signUpPage', component: SignupPopupComponent },
-  { path: 'dbAccess', component:UserdataComponent  },
+  // { path: 'dbAccess', component:UserdataComponent  },
   
 
 

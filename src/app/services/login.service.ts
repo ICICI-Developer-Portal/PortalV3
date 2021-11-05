@@ -179,7 +179,7 @@ export class LoginService {
   });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "https://developer.icicibank.com/rest/doc/save-portal-details ",
+      "http://10.78.25.173:8080/rest/doc/save-portal-details ",
       data,
       options
     );
@@ -460,7 +460,7 @@ export class LoginService {
       // "Token" : localStorage.getItem("jwt")
     });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('https://developer.icicibank.com/rest/createCSV' ,query, options);
+    return this.http.post('http://10.78.25.173:8080/rest/createCSV' ,query, options);
   }
   // error_code() {
   error_code(json) {
@@ -537,7 +537,7 @@ export class LoginService {
     });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "https://developer.icicibank.com/rest/getAdditionalParameters",
+      "http://10.78.25.173:8080/rest/getAdditionalParameters",
       query,
       options
     );
@@ -589,7 +589,7 @@ export class LoginService {
     });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "https://developer.icicibank.com/rest/feedback",
+      "http://10.78.25.173:8080/rest/feedback",
       query,
       options
     );
@@ -737,7 +737,7 @@ export class LoginService {
 
   getCompanyName(companyName) {
     return this.http.get(
-      "https://developer.icicibank.com/rest/GetCompanyDetails?Name=" +
+      "http://10.78.25.173:8080/rest/GetCompanyDetails?Name=" +
         companyName
     );
   }
@@ -759,12 +759,12 @@ export class LoginService {
   //  #End region
   api_description(id) {
     return this.http.get(
-      "https://developer.icicibank.com/rest/getMenuDescription?ID=" + id
+      "http://10.78.25.173:8080/rest/getMenuDescription?ID=" + id
     );
   }
   faq(){
     return this.http.get(
-      'https://developer.icicibank.com/rest/getPortalFAQ'
+      'http://10.78.25.173:8080/rest/getPortalFAQ'
     )
   }
 
@@ -877,8 +877,8 @@ getTranscationHistory() {
   let options = new RequestOptions({ headers: headers });
   console.log(options)
    // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/getProductIssues",headers);
-  // return this.http.post("https://developer.icicibank.com/rest/getTxHistory",body,options);
-   return this.http.post("https://developer.icicibank.com/rest/getTxHistory",body,options);
+  // return this.http.post("http://10.78.25.173:8080/rest/getTxHistory",body,options);
+   return this.http.post("http://10.78.25.173:8080/rest/getTxHistory",body,options);
 }
 
 // create all transaction istory table data
@@ -1021,7 +1021,7 @@ raiseSRRequest(json) {
   // let options = new RequestOptions({ headers: headers });
   // const issuePacket = new FormData();
   // var formData = 'issuePacket=' + JSON.stringify(json);
-  // return this.http.post("https://developer.icicibank.com/rest/issueCreate", formData, options);
+  // return this.http.post("http://10.78.25.173:8080/rest/issueCreate", formData, options);
 
   var query = "";
   var key;
@@ -1037,7 +1037,7 @@ raiseSRRequest(json) {
   // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/issueCreate", formData, options);
   
    return this.http.post("http://10.78.25.173:8080/rest/issueCreate", query, options);
-  // return this.http.post("https://developer.icicibank.com/rest/issueCreate", query, options);
+  // return this.http.post("http://10.78.25.173:8080/rest/issueCreate", query, options);
 
  
 }
@@ -1057,7 +1057,7 @@ issueCreateGateway(data,issueType) {
      //data.append("username", localStorage.getItem("username"));
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' })
   let options = new RequestOptions({ headers: headers });
-  //return this.http.post("https://developer.icicibank.com/rest/issueCreateGateway", query, options);
+  //return this.http.post("http://10.78.25.173:8080/rest/issueCreateGateway", query, options);
   return this.http.post("http://10.78.25.173:8080/rest/issueCreateGateway", query, options);
 
 
@@ -1075,7 +1075,7 @@ getProductIssueItem(header) {
   //  console.log(options)
   
   // return this.http.post("https://developer.icicibank.com/ROOT_UAT/rest/getProductIssues",query,options);
-  return this.http.post("https://developer.icicibank.com/rest/getProductIssues",query,options);
+  return this.http.post("http://10.78.25.173:8080/rest/getProductIssues",query,options);
  
 }
 
@@ -1112,7 +1112,7 @@ changePassw(json) {
     });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "https://developer.icicibank.com/rest/create-jira-new",
+      "http://10.78.25.173:8080/rest/create-jira-new",
       json,
       options
     );  }
@@ -1178,7 +1178,7 @@ changePassw(json) {
     });
     let options = new RequestOptions({ headers: headers  });
    return this.http.post(this.apiUrl + "login", query, options);
-//return this.http.post("https://developer.icicibank.com/rest/login1", query, options);
+//return this.http.post("http://10.78.25.173:8080/rest/login1", query, options);
   }
   getSalt() {
     var query = "";
@@ -1226,7 +1226,7 @@ return this.http.post(this.apiUrl + "login1", query, options);
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-  return this.http.post("https://developer.icicibank.com/rest/getSrList", body,options);
+  return this.http.post("http://10.78.25.173:8080/rest/getSrList", body,options);
  
 }
 getAnalytics(json) {

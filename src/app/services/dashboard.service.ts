@@ -42,7 +42,8 @@ export class DashboardService {
   //"https://developer.icicibank.com/ROOT_UAT/rest/getMenuTree?ID=0"
   getMenuTreeData() {
     return this.http.get(
-      "https://developer.icicibank.com/rest/getMenuTree?ID=0"
+      // "http://10.78.25.173:8080/rest/getMenuTree?ID=0"
+      "http://10.78.25.173:8080/rest/getMenuTree?ID=0"
     );
   }
   getEnvironment(): Observable<any> {
