@@ -63,6 +63,7 @@ import { NewProdOnboardingPageComponent } from './new-prod-onboarding-page/new-p
 import { BillingEngineModule } from "./billing-engine/billing-engine.module";
 import { BillingEngineService } from "./services/billing-engine.service";
 import { MerchantOnboardingModule } from "./merchant-onboarding/merchant-onboarding.module";
+import { DiyMerchantOnboardingComponent } from "./maindashboard/diy-merchant-onboarding/diy-merchant-onboarding/diy-merchant-onboarding.component"
 
 
 
@@ -86,7 +87,8 @@ import { MerchantOnboardingModule } from "./merchant-onboarding/merchant-onboard
     NewLandingPageComponent,
     NewProdOnboardingPageComponent,
     ExploreApiSigninComponent,
-    AutoLogoutComponent
+    AutoLogoutComponent,
+    DiyMerchantOnboardingComponent
    
   ],
   imports: [
@@ -115,7 +117,8 @@ import { MerchantOnboardingModule } from "./merchant-onboarding/merchant-onboard
     Ng4LoadingSpinnerModule,
     ProductionOnboardingModule,
     BillingEngineModule,
-    MerchantOnboardingModule
+    MerchantOnboardingModule,
+    
     //  DataTableModule
     // RecaptchaModule,
     // RecaptchaFormsModule
