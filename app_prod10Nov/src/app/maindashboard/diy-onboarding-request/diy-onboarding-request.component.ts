@@ -9,6 +9,7 @@ import { saveAs } from "file-saver";
 import { Router } from '@angular/router';
 import { ToasterService, Toast } from 'angular2-toaster';
 import { NgxXml2jsonService } from 'ngx-xml2json';
+import { MerchantOnboardingService } from 'src/app/services/merchant-onboarding.service';
 //declare var require;
 
 @Component({
@@ -27,13 +28,15 @@ export class DiyOnboardingRequestComponent implements OnInit {
   p: any = 1;
   role: string;
   certificate: any;
+  UAT_baseURL:any = "https://apibankingonesandbox.icicibank.com"
   //showurl:Boolean;
   constructor(
     private adm: LoginService,
     private spinnerService: Ng4LoadingSpinnerService,
     private router:Router,
     private toasterService: ToasterService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private merchantSrvc: MerchantOnboardingService,
   ) {
     this.request_data();
   }
@@ -240,7 +243,7 @@ export class DiyOnboardingRequestComponent implements OnInit {
     console.log(id);
     this.onboardedMerchantData = this.dataSource[id];
     console.log(this.onboardedMerchantData);
-  //  this.apiUrl = this.onboardedMerchantData.Url.split(','); 
+    this.apiUrl = this.onboardedMerchantData.ApiName.split(','); 
     this.modalRef= this.modalService.show(viewDetail, { backdrop: "static",class: 'modal-lg'});    
   }
 
@@ -267,7 +270,21 @@ export class DiyOnboardingRequestComponent implements OnInit {
       this.toastrmsg('error',"Something went wrong. Please try again in some time.");
     },);
   }
-
+  downloadfile(path,filename){
+    this.merchantSrvc.downloadFromURL(path).subscribe((data: any) => {
+      console.log(data);
+      let certificate = data._body;
+      console.log(data._body);
+      var blob = new Blob([certificate], {
+        type: "text/plain"
+      });
+      saveAs(blob, filename+"_ICICI_PUBLIC_CERT");
+    },
+    err => {
+      console.log('err', err);
+     
+    });
+  }
 
   toastrmsg(type ,title){
     var toast: Toast = {
@@ -282,4 +299,5 @@ export class DiyOnboardingRequestComponent implements OnInit {
     // this.getDiyOnboardingReq();
     this.modalRef.hide();
   }
+  
 }

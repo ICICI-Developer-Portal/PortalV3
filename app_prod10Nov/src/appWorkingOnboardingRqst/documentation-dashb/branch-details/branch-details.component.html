@@ -1,0 +1,161 @@
+<div class="documentTabContent">
+  <ng4-loading-spinner> </ng4-loading-spinner>
+  <div class="tab-content" id="v-pills-tabContent">
+    <div>
+      <div class="tabContentInner"><h1>yess</h1>
+        <h4 class="mb10 fs24 color-black ff-medium">{{ resp }}</h4>
+        <hr />
+        <p class="fs14 color-black0 ff-light mb30">{{ description }}</p>
+        <hr />
+        <div class="row mb30 linksContainer">
+          <div class="col-md-12">
+            <table class="  table-hover " cellpadding="5">
+              <tr class="color-red">
+                <th>Product/API</th>
+                <th>Description</th>
+              </tr>
+              <ng-container *ngFor="let row of obj">
+                <tr *ngFor="let detail of row.tabs">
+                  <td class="ws-nowrap">{{ detail.TAB_NAME }}</td>
+
+                  <td>{{ detail.DESCRIPTION }}</td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+ 
+      <div class="col-md-12 text-right">
+        <hr />
+      <a 
+        *ngIf="faq"
+        data-toggle="modal"
+        data-target="#faq"
+        class="tryItFreeBtn"
+        >{{ constants.FAQ }}</a
+      >
+      <a 
+        *ngIf="faqEazypay"
+        (click) = "downloadFAQ($event)"
+        class="tryItFreeBtn"
+        >{{ constants.FAQ }}</a
+      >
+        <a *ngIf="image !== ' '"
+          data-toggle="modal"
+          data-target="#viewFlow"
+          class="tryItFreeBtn"
+          >{{ constants.VIEW_FLOW }}</a
+        >
+        <!--<a
+          [href]="file"
+          class="tryItFreeBtn"
+          (click) = "downloadFile"
+          download
+          >{{ constants.PDF_DOCUMENT }}</a
+        >ssss -->
+        <a
+          *ngIf="file !== ' '" href="#"
+          class="tryItFreeBtn download" href="javascript:void(0);" 
+          (click) = "downloadFile($event)"
+          >{{ constants.PDF_DOCUMENT }}</a
+        >
+      </div>
+    </div>
+  </div>
+    </div>
+      <div class="modal" id="viewFlow">
+        <div class="modal-dialog w-max1295">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <i data-dismiss="modal" class="material-icons close">close</i>
+            </div>
+            <div class="modal-body">
+              <img *ngIf="image"
+              [src]="image"
+                class="w-max100 banner"
+                id="img_id"
+              />
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ-->
+
+      <div class="modal" id="faq">
+        <div class="modal-dialog w-max1295">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <i data-dismiss="modal" class="material-icons close">close</i>
+            </div>
+            <div class="modal-body">
+             <div *ngIf="eazypay">
+              <div class="text-center mb50">
+                <h3 class="fs32 color-blue ff-bold mb25">EazyPay APIs – FAQ</h3>
+              </div>
+              <div id="accordion" class="faqmainSection">
+                <div class="card" *ngFor = "let obj of faqObjQues_eazy;let i=index">
+                  <a class="card-header" data-toggle="collapse" href="#tab_{{i}}" aria-expanded="true">
+                      <div class="row">
+                          <div class="col-md-11 col-11" >
+                          <a class="card-link">
+                            {{i+1}}.  {{obj}}
+                          </a>
+                          </div>
+                          <div class="col-md-1 text-right">
+                          <i class="material-icons accordionDropdownIcon">expand_less</i>
+                          </div>
+                      </div>
+                  </a>
+                  <div id="tab_{{i}}" class="collapse " data-parent="#accordion">
+                      <div class="card-body white-space">
+                          <p>{{faqObjAns_eazy[i]}}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+
+              </div>
+
+             </div>
+             <div *ngIf="compositpay">
+                  <div class="text-center mb50">
+                    <h3 class="fs32 color-blue ff-bold mb25">Composite API – FAQ</h3>
+                  </div>
+                  <div id="accordion" class="faqmainSection">
+                    <div class="card" *ngFor = "let obj of faqObjQues;let i=index">
+                      <a class="card-header" data-toggle="collapse" href="#tab_{{i}}" aria-expanded="true">
+                          <div class="row">
+                              <div class="col-md-11 col-11" >
+                              <a class="card-link">
+                                {{i+1}}.  {{obj}}
+                              </a>
+                              </div>
+                              <div class="col-md-1 text-right">
+                              <i class="material-icons accordionDropdownIcon">expand_less</i>
+                              </div>
+                          </div>
+                      </a>
+                      <div id="tab_{{i}}" class="collapse " data-parent="#accordion">
+                          <div class="card-body white-space">
+                              <p>{{faqObjAns[i]}}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  
+                    
+                  </div>
+             </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+  <!-- <div class="copyrightSection">
+   <p>Copyright 2017 ICICI Bank Ltd. All rights reserved.</p>
+ </div> -->
+</div>

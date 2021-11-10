@@ -1254,13 +1254,17 @@ this.signupForm.get('accountNo').updateValueAndValidity();
           var obj = JSON.parse(response);
           obj = this.decode(obj.data);
           obj = JSON.parse(obj);
+         // console.log(obj);
           if (obj.status == true && this.eotp_verified == 1) {
-            this.shfrmSFThird = true;
-            this.shfrmSFFirst = false;
-            this.shfrmSFSecond = false;
-            this.otp_verified = 1;
-            this.signupForm.controls["otp_verified"].setValue("1");
-            this.isotp_reg_check = "";
+            let d = obj.data.split(",");
+            if(d[0] == this.signupForm2.value.mobile_no && d[1] == this.signupForm2.value.otp_code){
+              this.shfrmSFThird = true;
+              this.shfrmSFFirst = false;
+              this.shfrmSFSecond = false;
+              this.otp_verified = 1;
+              this.signupForm.controls["otp_verified"].setValue("1");
+              this.isotp_reg_check = "";
+            }
           }else  if(obj.status == true && this.eotp_verified == 0) {
 
             this.shfrmSFSecond = true;

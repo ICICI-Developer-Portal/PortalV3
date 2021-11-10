@@ -150,8 +150,8 @@ export class BranchDetailsComponent implements OnInit {
    * @class BranchDetailsComponent
    * @method downloadFile
    */
-  downloadFile(e) {
-    
+  downloadFile() {
+    //a
     let dwldLink = document.createElement("a");
     
     let isSafariBrowser =
@@ -168,37 +168,40 @@ export class BranchDetailsComponent implements OnInit {
       this.file = "https://developer.icicibank.com/assets/documents/BBPS.pdf";
     }
     dwldLink.setAttribute("href", this.file);
-
     //dwldLink.setAttribute("download", fileName + ".csv");
     dwldLink.style.visibility = "hidden";
     document.body.appendChild(dwldLink);
-    // e.preventDefault();
-
-    // dwldLink.click();
+    dwldLink.click();
     document.body.removeChild(dwldLink);
   } 
+  downloadfileURL(){
+    if(this.faqEazypay){
+      this.file = "https://developer.icicibank.com/assets/documents/Eazypay.zip";
+    }
+    if(this.branchId === "177" || this.branchId === 177 ){
+      this.file = "https://developer.icicibank.com/assets/documents/BBPS.pdf";
+    }
+    let url = this.file
+    var fileName = url.substring(url.lastIndexOf("/") + 1);
+    this.adm.downloadFromURL(url).subscribe((data: any) => {
+      console.log(data);
+      let certificate = data._body;
+      
+      var blob = new Blob([certificate], {
+        type: "text/plain"
+      });
+      saveAs(blob,fileName);
+    },
+    err => {
+      console.log('err', err);
+     
+    });
+  }
+
    /** get branch node details
    * @class BranchDetailsComponent
    * @method downloadFAQ
    */
-
-
-  //   dwldLink.setAttribute("href", this.file);
-    
-    
-    
-  //   dwldLink.style.visibility = "hidden";
-  //   document.body.appendChild(dwldLink);
-  //   console.log(dwldLink)
-  //   dwldLink.addEventListener('click', this._clickHandler); 
-  //   e.preventDefault();
-
-
-  // } 
-  // _clickHandler(e){
-
-  //   e.preventDefault();
-  // }
   downloadFAQ() {
     
     let dwldLink = document.createElement("a");

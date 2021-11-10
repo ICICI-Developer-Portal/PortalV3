@@ -1,0 +1,179 @@
+<app-besidebar></app-besidebar>
+<div class="overlay" >
+  <div class="lds-roller" ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div class="documentTabContent">
+
+  <div class="tab-content" id="v-pills-tabContent">
+    <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard
+    </div>
+    <div class="tab-pane fade active show" id="v-pills-applications" role="tabpanel"
+      aria-labelledby="v-pills-applications-tab">
+      <div class="tabContentInner">
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="color-black30 fs24 ff-semibold mb10">Request History </h4>
+            <h6>
+              <a  [routerLink]="['/merchants']"><span _ngcontent-c9="" style="float: left;font-weight: bold;color:#ae282e;font-size: 16px;">&lt;&lt; Back </span></a>
+          
+                </h6>
+
+          </div>
+      </div>
+
+          <div class="">
+             <form id="myForm" style="display: none;" >
+            <div class="col-md-4" style="display: inline-block;">
+              <div class="form-group">
+                <input type="text"  class="form-control mainField col-md-11 inline_block" id="searchByName"
+                formControlName="searchByName" placeholder="search By App Name">
+              
+                
+              </div>
+            </div>
+
+            <div class="col-md-2"  style="display: inline-block;">
+              <button _ngcontent-c5="" class="signInBtn  mr10">Search </button>
+
+            </div>
+
+            <div class="col-md-2"  style="display: inline-block;">
+              <button _ngcontent-c5="" class="signInBtn">Reset </button>
+
+            </div>
+            <!-- <div class="col-md-4">
+              <div class="form-group">
+                <input type="text"  class="form-control mainField col-md-11 inline_block" id="searchByEmail"
+                formControlName="searchByEmail" placeholder="search By Email">
+              
+                
+              </div> -->
+              </form>
+            </div>
+
+            
+
+          <div class="">
+
+          <div class="">
+            <ul _ngcontent-c5=""   >
+
+            <table _ngcontent-c5="" class="table border-gray table-striped">
+              <thead _ngcontent-c5="">
+                <tr _ngcontent-c5="">
+                  <th _ngcontent-c5="" >Request Id</th>
+                  <th _ngcontent-c5="" >Request Date</th>
+                  <th _ngcontent-c5="" >Merchant Name</th>
+                  <th _ngcontent-c5="" >Product Name</th>
+                  <th _ngcontent-c5="" >App Name</th>
+                  <!-- <th _ngcontent-c5="">Created At</th>
+
+                  <th _ngcontent-c5="">Modified At</th> -->
+                 <!--  <th _ngcontent-c5="">Developer email </th> -->
+                  <th _ngcontent-c5="">Rate plan Status</th>
+
+                   <th _ngcontent-c5="">Operation</th> 
+                  
+                </tr>
+              </thead>
+              <tbody _ngcontent-c5=""> 
+                <!-- appId: "34477a94-ceba-445d-b2ab-19edea507da0"
+                appName: "EasyPay"
+                developerId: "Sample@sample.com"
+                status: "pending"
+                __proto__: Object -->
+                            
+                <tr _ngcontent-c5="" class="ng-star-inserted" *ngFor="let i of appList ;let j=index">
+                  
+                  
+                  <!-- <th _ngcontent-c5="" >_______________</th>
+                  <th _ngcontent-c5="">_______________</th> -->
+                  <th _ngcontent-c5="" >{{i.reqId}}</th>
+                  <th _ngcontent-c5="">{{i.captureDt | date:'dd/MM/yyyy'}}</th>
+                  <th _ngcontent-c5="">{{i.merchantName}}</th>
+                  <th _ngcontent-c5="">{{i.productName}}</th>
+                  <th _ngcontent-c5="">{{i.appName}}</th>
+                <!--   <th _ngcontent-c5="">{{i.developerId}}</th> -->
+                  <th _ngcontent-c5="">{{i.status}}</th>
+                  <th _ngcontent-c5=""><a class="signInBtn ng-star-inserted"     (click)="openModal(View_Detail,j)" >View</a></th> 
+
+
+                </tr>              
+              </tbody>
+            </table>
+          </ul>
+
+</div>
+
+
+<div class="row">
+
+ <!-- 
+
+
+<div *ngFor="let d of items | paginate: { itemsPerPage: 10, currentPage: p }" >
+  <p>"userId" = {{ d.userId }}</p>
+  <p>"id" = {{ d.id }}</p>
+  <p>"title" = {{ d.title }}</p>
+  <p>"completed" = {{ d.completed }}</p>
+  <hr>bucketValuesJson
+</div>
+<pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+</div>
+</div>
+
+          </div>
+        </div>
+
+        <ng-template #View_Detail id="View_Detail">
+          <div class="modal-header">
+            <h4>Request Detail</h4>
+            <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
+            <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
+              close
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12 mb-xs-10">
+                <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
+                  <div class="tab disp-block">
+                    <div class="tabContent">
+                      <div class="details">
+                        <div class="row mb10  pt15 pb15" >
+                          <div class="col-md-3"><label><b>Status </b></label></div>
+                          <div class="col-md-9">{{appDetail.status}}</div>
+                      </div>  
+                      <div class="row mb10  pt15 pb15" >
+                        <div class="col-md-3"><label><b>Product </b></label></div>
+                        <div class="col-md-9">{{appDetail.productName}}</div>
+                    </div>  
+                    <div class="row mb10  pt15 pb15" >
+                      <div class="col-md-3"><label><b>Bucket Values </b></label></div>
+                      <div class="col-md-9">{{appDetail.bucketValuesJson}}</div>
+                  </div>  
+
+                      <div class="row mb10  pt15 pb15" >
+                        <div class="col-md-3"><label><b>BUH Remarks </b></label></div>
+                        <div class="col-md-9">
+                          {{appDetail.buhRemarks}}
+
+                        </div>
+                    </div> 
+
+                 
+                      </div>     
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+    </div>
+  </div>
+
+
+
+

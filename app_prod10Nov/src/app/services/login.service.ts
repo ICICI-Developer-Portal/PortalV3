@@ -672,16 +672,7 @@ export class LoginService {
    return this.http.post(this.apiUrl + "fetch-jiraid-v2", query, options);
  // return this.http.post(this.UAT_apiUrl + "fetch-jiraid-v2", query, options);
   }
-  OnboardrequestsuserDiy() {
-    var query = "username=" + localStorage.getItem("username");
-    let headers = new Headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Token" : localStorage.getItem("jwt")
-    });
-    let options = new RequestOptions({ headers: headers });
-   return this.http.post("https://developer.icicibank.com/ROOTDIY/rest/fetch-jiraid-v3", query, options);
- // return this.http.post(this.UAT_apiUrl + "fetch-jiraid-v2", query, options);
-  }
+
 
   JiraForAdmin() {
     var query = "username=" + localStorage.getItem("username");
@@ -1458,8 +1449,8 @@ approveDiyMerchantOnboardingReq(json){
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
-  //return this.http.post(this.apiUrl + "approveDiyJiraByReqId", query, options);
-  return this.http.post("https://developer.icicibank.com/ROOTDIY/rest/approveDiyJiraByReqId", query, options);
+  return this.http.post(this.apiUrl + "approveDiyJiraByReqId", query, options);
+  //return this.http.post("https://developer.icicibank.com/ROOTDIY/rest/approveDiyJiraByReqId", query, options);
    
 }
 
@@ -1474,9 +1465,32 @@ getDiyMerchantOnboardingReq(json){
     "Content-Type": "application/x-www-form-urlencoded"
   });
   let options = new RequestOptions({ headers: headers });
- // return this.http.post(this.apiUrl + "getDIYMerchantHeadRequests", query, options);
-  return this.http.post("https://developer.icicibank.com/ROOTDIY/rest/getDIYMerchantHeadRequests", query, options);
+  return this.http.post(this.apiUrl + "getDIYMerchantHeadRequests", query, options);
+  //return this.http.post("https://developer.icicibank.com/ROOTDIY/rest/getDIYMerchantHeadRequests", query, options);
 }
+OnboardrequestsuserDiy() {
+  var query = "username=" + localStorage.getItem("username");
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
+  //  "Token" : localStorage.getItem("jwt")
+  });
+  let options = new RequestOptions({ headers: headers });
+//return this.http.post("https://developer.icicibank.com/ROOTDIY/rest/fetch-jiraid-v3", query, options);
+ return this.http.post(this.apiUrl + "fetch-jiraid-v3", query, options);
+}
+isDIYRequestApprover(json) {
+  var query = "";
+  var key;
+  for (key in json) {
+    query +=
+      encodeURIComponent(key) + "=" + encodeURIComponent(json[key]) + "&";
+  }
+  let headers = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
+  let options = new RequestOptions({ headers: headers });
+  //return this.http.post(this.apiUrl + "hasHeadAccess", query, options);
+  return this.http.post("https://developer.icicibank.com/ROOTDIY/rest/hasHeadAccess", query, options);
 
-
+}
 }

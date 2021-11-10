@@ -55,9 +55,31 @@ export class DiyMerchantOnboardingRequestComponent implements OnInit {
       }
   
     ngOnInit() {
-      this.getProductlist();
-      this.getDiyOnboardingReq();
      
+      let json = {
+        productName : "Composite",
+        approverId : localStorage.getItem("username")
+        
+       }
+
+      this.spinnerService.show();
+      this.loginSrvc.isDIYRequestApprover(json).subscribe((data: any) => {
+       let response = JSON.parse( data._body);
+         console.log(response)
+         if(response.status){
+          this.getProductlist();
+          this.getDiyOnboardingReq();
+         }else{
+           alert("No request found. "+response.message);
+         }
+     
+      this.spinnerService.hide();
+     },
+     err => {
+       this.spinnerService.hide();
+       console.log('err', err);
+       
+     });
       
     }
     getProductlist(){
@@ -129,8 +151,6 @@ export class DiyMerchantOnboardingRequestComponent implements OnInit {
         
        },
        err => {
-        this.reqDetailArr=[{"Env":"UAT","MerchantName":"WIPRO LIMITED","Description":"n","SpocEmail":"pandey.shikha@ext.icicibank.com","SpocPhone":"7021142993","RelManager":"123456789","Domain":"Composite","DomainApi":",/api/v2/composite-payment/,/api/v3/composite-payment/,/api/v1/composite-payment/,/api/v4/composite-payment/,/api/v2/composite-status/,/api/v1/composite-status/,/api/v1/composite-validation/","IpList":"10.20.304","JiraId":"AG-10373","Certificate":"/u1/APIGateway/CSVData/mobCertificate/WIPRO LIMITED/diy29th2021.zip","ApiName":"/api/v2/composite-payment/,/api/v3/composite-payment/,/api/v1/composite-payment/,/api/v4/composite-payment/,/api/v2/composite-status/,/api/v1/composite-status/,/api/v1/composite-validation/,","Assignee":"BAN255141","MerchantEmail":"pandey.shikha@ext.icicibank.com"},{"Env":"UAT","MerchantName":"WIPRO LIMITED","Description":"n","SpocEmail":"pandey.shikha@ext.icicibank.com","SpocPhone":"7021142993","RelManager":"123456789","Domain":"Composite","DomainApi":",/api/v2/composite-payment/,/api/v3/composite-payment/,/api/v1/composite-payment/,/api/v4/composite-payment/,/api/v2/composite-status/,/api/v1/composite-status/,/api/v1/composite-validation/","IpList":"10.20.304","JiraId":"AG-10372","Certificate":"/u1/APIGateway/CSVData/mobCertificate/WIPRO LIMITED/diy29th2021.zip","ApiName":"/api/v2/composite-payment/,/api/v3/composite-payment/,/api/v1/composite-payment/,/api/v4/composite-payment/,/api/v2/composite-status/,/api/v1/composite-status/,/api/v1/composite-validation/,","Assignee":"BAN255141","MerchantEmail":"pandey.shikha@ext.icicibank.com"}]
-
          this.spinnerService.hide();
          console.log('err', err);
          
@@ -142,7 +162,11 @@ export class DiyMerchantOnboardingRequestComponent implements OnInit {
       console.log(id);
       this.onboardedMerchantData = this.reqDetailArr[id];
       console.log(this.onboardedMerchantData);
-     // this.apiUrl = this.onboardedMerchantData.apiUrl.split(',');
+      this.apiUrl = [];
+      if( this.onboardedMerchantData.apiName){
+        this.apiUrl = this.onboardedMerchantData.apiName.split(',');
+      }
+    
       this.modalRef= this.modalService.show(viewDetail, { backdrop: "static",class: 'modal-lg'});
       
       

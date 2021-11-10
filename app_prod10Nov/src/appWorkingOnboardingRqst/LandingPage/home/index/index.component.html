@@ -1,0 +1,3659 @@
+<style>
+  .select-all {
+    display: none !important;
+  }
+</style>
+<toaster-container></toaster-container>
+<ng4-loading-spinner> </ng4-loading-spinner>
+<!-- <app-auto-logout></app-auto-logout> -->
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active show">
+
+        <!-- searchbar added -->
+        <div _ngcontent-c5="" style="
+        z-index: 1;
+        position: absolute;
+        margin-left: 69%;
+        margin-top: 2%;
+       ">
+        
+             <div _ngcontent-c5="" class="searchBarViewAll" style="width: 290px;"><input _ngcontent-c5=""
+                 class="ng-valid ng-dirty ng-touched" id="viewApisearch" (keypress)="viewApi($event)" ng-reflect-model=""
+                 placeholder="Search API by Name, Description" type="text" ><i _ngcontent-c5=""
+                 class="material-icons">search</i></div>
+           </div>
+
+   
+    <!-- bannner carousel     -->
+    <!-- <section class=""> -->
+      <!-- <div class="">
+        <div class=""> -->
+          <!--Carousel Wrapper-->
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="8000">
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+            </ol>
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+              <!--First slide-->
+              <!-- <div class="carousel-item active">
+               <img src="assets/images/banner_index.jpg"alt="Second slide"  style="width: 100%;"/>
+              </div> -->
+              <!--/First slide-->
+                <!--First slide-->
+                <div class="carousel-item active" style="background: green;height: 100%;width: 100%;">
+                  <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg');height: 100%;width: 100%;"></div> -->
+                  <img src="assets/images/banner_index_c1.jpeg"  style="max-height:470px;width:auto;" class="fstImg img-responsive"  alt="Second slide"  (click)="bannerTArget1($event)" />
+                 </div>
+                 <!--/First slide-->
+              <!--Second slide-->
+              <div class="carousel-item" style="background: yellow;height: 100%;width: 100%;">
+                <!-- <img src="assets/images/image 1.JPG" alt="Second slide"  (click)="conso('jiii')" /> -->
+                <!-- <div  style="background-image: url('../../../../assets/images/banner_index_c1.jpeg') ; height: 100%;width: 100%;"></div> -->
+
+                <img src="assets/images/banner_index_c.jpeg" style="max-height:470px;width:auto;" class="sndImg img-responsive" alt="Second slide"  (click)="bannerTArget2($event)" />
+              </div>
+              <!--/Second slide-->
+            </div>
+            <!--/.Slides-->
+            <a _ngcontent-c4="" class="bannercarousel-control-prev w-auto mainbanner" data-slide="prev" href="#myCarousel" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-prev-icon rounded-circle" style="    top: 40%;
+              position: absolute;left: 1%;"></span><span _ngcontent-c4="" class="sr-only">Previous</span></a> 
+            <a _ngcontent-c4="" class="banner-carousel-control-next w-auto mainbanner" data-slide="next" href="#myCarousel" role="button"><span _ngcontent-c4="" aria-hidden="true" class="carousel-control-next-icon rounded-circle left-next" style="    top: 40%;
+              position: absolute;"></span><span _ngcontent-c4="" class="sr-only">Next</span></a>
+          </div>
+          <!--/.Carousel Wrapper-->
+        <!-- </div>
+  
+      </div> -->     
+       <div class="" style="padding-top: 20px;"> 
+     
+       <div class="col-md-12" style="text-align: center;">
+          <div class="mt20" >
+           
+            <h2 class="mb30 display_inline_block  margin-left-220  font-18" style="font-family: Mulish-Bold;color: #004a7f;
+            font-weight: bold;
+            ">Collaborate, Build, Unleash</h2>
+            <a class="signInBtn mr10 display_inline_block" style="height: 40px;
+            margin-left: 10px;vertical-align: top;"  [routerLink]="['/documentation']">BROWSE ALL API</a>
+          
+       
+   
+      </div></div>    </div>  
+      <!-- <div _ngcontent-c4="" class="col-md-12" style="text-align: center;padding-top: 55px;"><div _ngcontent-c4="" class="bannerContent"><h2 _ngcontent-c4="" class="mb30">Collaborate, Build, Unleash</h2><a _ngcontent-c4="" class="signInBtn mr10" href="#/documentation">BROWSE ALL API</a></div></div> -->
+    <!-- </div> -->
+
+    <!-- </section> -->
+    <!-- <div class="carousel-nav clearfix">
+      <img src="img/prev.png" id="prv-testimonial" alt="PREV" />
+      <img src="img/next.png" id="nxt-testimonial" alt="NEXT" />
+  </div>
+  <div id="carousel-wrap">
+    <ul id="testimonial-list" class="clearfix">
+      <li> -->
+        <!-- <p class="context">Some testimonial goes right here[1]</p>
+        <span class="creds">Tiffany LastName</span> -->
+        <!-- <img src="assets/images/banner_index_c1.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+
+      </li> -->
+      <!-- <li>
+        <p class="context">"We could not be more pleased. A++ efforts!"</p>
+        <span class="creds">Alan Goodwrench</span>
+      </li> -->
+      <!-- <li> -->
+        <!-- <p class="context">"After just one purchase, we know this is the company to stick with."</p>
+        <span class="creds">Butters Stotch</span> -->
+        <!-- <img src="assets/images/banner_index_c.jpeg"  class="fstImg"  alt="Second slide"  (click)="bannerTArget1($event)" />
+
+      </li>
+    </ul>
+  </div> -->
+
+    <!-- banner carousel -->
+    <section class="sectionAPIs sectionAPIsGrayBg">
+      <h3>How it <span>Works?</span></h3>
+      <!-- <p class="text-center mb50" (click)="browse_api(signin)">Get your developers onboard, very quickly. Learn how to incorporate our
+            ICICI Bank APIs in just few easy steps.
+         </p> -->
+
+      <p class="text-center mb50 font-16">
+        Get your developers onboard, very quickly. Learn how to incorporate our
+        ICICI Bank APIs in just few easy steps.
+      </p>
+      <div class="row howItWorksContainerMargin mb50">
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,1)">
+            <div class="workImageContainer">
+              <!-- <img src="assets/images/signup.svg" alt=""> -->
+              <h2>
+                <p>1</p>
+              </h2>
+            </div>
+            <p class="font-16">Sign up for an ICICI Developer Account.</p>
+          </a>
+        </div>
+        <div class="col-md-1 nextArrows">
+          <img src="assets/images/nextarrows.svg" alt="" />
+        </div>
+        <!--  <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+          <div class="workImageContainer">
+            <h2>
+              <p>2</p>
+            </h2>
+            <!-- <img src="assets/images/createapp.svg" alt=""> --
+          </div>
+          <p>Create an Application</p>
+        </a>
+        <div class="nextArrows">
+          <img src="assets/images/nextarrows.svg" alt="" />
+        </div>
+        <a class="howItWorksContainer" (click)="HowItWork(modal_hwi)">
+          <div class="workImageContainer">
+            <h2>
+              <p>3</p>
+            </h2>
+            <img src="assets/images/testthepp.svg" alt=""> --
+          </div>
+          <p>Select the Application</p>
+        </a>
+        <div class="nextArrows">
+          <img src="assets/images/nextarrows.svg" alt="" />
+        </div>-->
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,2)">
+            <div class="workImageContainer">
+              <!-- <img src="assets/images/testitout.svg" alt=""> -->
+              <h2>
+                <p>2</p>
+              </h2>
+            </div>
+            <p class="font-16">Select API</p>
+          </a>
+        </div>
+        <div class="col-md-1 nextArrows">
+          <img src="assets/images/nextarrows.svg" alt="" />
+        </div>
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="howItWorksContainer" (click)="HowItWork(modal_hwi,3)">
+            <div class="workImageContainer">
+              <h2>
+                <p>3</p>
+              </h2>
+              <!-- <img src="assets/images/getcode.svg" alt=""> -->
+            </div>
+            <p class="font-16"> Test it Out</p>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <a *ngIf="hideSignupbtn1" class="signInBtn marginAutoHr mb15" [routerLink]="['/signUpPage']" style = "padding: 18px 25px;">SIGN UP</a>
+      </div>
+    </section>
+    <section id="UAT_onboard" class="sectionAPIs text-center">
+      <h3 class="mb30">Journey to <span>go Live</span></h3>
+      <div class="row mb50">
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <a class="ff-bold fs16 color-black onBoardLink" data-dismiss="modal" data-toggle="modal" data-target="#signUp"
+            (click)="already_Log(alreadylogin, signup)">
+            <img class="mb30 mb-xs-15" src="assets/images/group-12.svg" alt="" />
+            <div>SANDBOX</div>
+          </a>
+        </div>
+        <div class="col-md-1">
+          <img alt="" src="assets/images/nextarrows.svg" class="nxt-img" />
+        </div>
+        <div class="col-md-4 text-lg-center mb-xs-30">
+          <a class="ff-bold fs16 color-black onBoardLink" routerLink="/uatonboarding-dashboard">
+            <img class="mb30 mb-xs-15" src="assets/images/group-28.svg" alt="" />
+            <div>UAT</div>
+          </a>
+        </div>
+        <div class="col-md-1">
+          <img alt="" src="assets/images/nextarrows.svg" class="nxt-img" />
+        </div>
+        <div class="col-md-3 text-lg-center mb-xs-30">
+          <!-- <a data-toggle="modal" data-target="#productionSignedIn" class="ff-bold fs16 color-black onBoardLink"> -->
+          <!--<a class="ff-bold fs16 color-black onBoardLink" (click)="get_Production(Production, signin)"> -->
+          <a class="ff-bold fs16 color-black onBoardLink" [routerLink]="['/productionOnboardingPage']">
+            <img class="mb30 mb-xs-15" src="assets/images/group-13.svg" alt="" />
+            <div>PRODUCTION</div>
+          </a>
+        </div>
+      </div>
+      <p class="ff-light fs16 color-black mb0">
+        Signup to ICICI Bank API Banking Portal Sandbox environment to start
+        your journey. Upgrade to UAT environment for end to end real time
+        testing , post your NDA with us. Go-live with integration to production
+        environment.<br /><br />
+      </p>
+      <div class="fs12 font-italic">
+        *Disclaimer : Access to UAT &amp; Production environment is subject to
+        business approvals, NDA and other agreements, and is a sole discretion
+        of ICICI Bank.
+      </div>
+      <p></p>
+    </section>
+    <section class="sectionAPIs sectionAPIsGrayBg">
+      <h3 class="mb60">Available <span>APIs</span></h3>
+      <div class="row mb30 hidden-xs success-label-div">
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="show_build(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/trade.svg" alt="" />
+              </div>
+              <h4>Building Blocks</h4>
+              <p>
+                Building Blocks APIs provide you with the most essential APIs
+                you require to integrate with number of services of the bank.
+              </p>
+              <p>
+                Run checks and crosses using out fundamental APIs such as CIBIL
+                score check, PAN card information.
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class=" col-md-3">
+          <a class="cursor tdNone" (click)="corporate(signin)">
+            <div class="sectionAPICard availableAPICard ">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/cards.svg" alt="" />
+              </div>
+              <h4>Business Banking</h4>
+              <p>
+                Empower your corporate's banking with seamless APIs which enable
+                your corporation to make Efficient Transactions, Expeditious
+                Cash Deposits, Smart Reconciliation, and Personalised Management
+                Systems.
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="loans(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/retail-shape.svg" alt="" />
+              </div>
+              <h4>Loans and Cards</h4>
+              <p>
+                Explore, develop, and integrate innovative solutions for various
+                loan products (AL, HL, Loan Top-up, Loan Management) and Credit
+                Card products (Customer Search, Remaining Credit Limit, etc) to
+                cater to your prospects, existing, and upcoming customers.
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="account(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/business_api.svg" alt="" />
+              </div>
+              <h4>Accounts and Deposits</h4>
+              <p>
+                Empower your customers to invest and do banking with you by
+                integrating with umpteen services in the domain of Savings
+                (Savings Accounts, Corporate Account) and deposits (Fixed
+                Deposits, Recurrent Deposits).
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="payment(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/payment.svg" alt="" />
+              </div>
+              <h4>Payments & UPI</h4>
+              <p>
+                Find the most sought after APIs in the industry to introduce
+                payment services tailor made to serve your needs.
+              </p>
+              <p>
+                Multitude of payment services to integrate your payment services
+                to integrate to the outside world.
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="commercial(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/combined-shape.svg" alt="" />
+              </div>
+              <h4>Trade Service</h4>
+              <p>
+                Incorporate remittances and bank guarantees APIs to make your
+                trade and business easy with our latest offerings tailormade as
+                per the latest requirements of the market.
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="cursor tdNone" (click)="corporates(signin)">
+            <div class="sectionAPICard availableAPICard">
+              <div class="sectionAPICardImage">
+                <img src="assets/images/payment.svg" alt="" />
+              </div>
+              <h4>Corporate API Suite</h4>
+              <p>
+                We bring to you corporate API suite a bouquet of APIs selected specially to cater to the evolving needs
+                of corporate clients. We have come up with this assortment of APIs after carefuly studying the needs and
+                journey of the corporates. Please feel free to browse and choose from our thoughtful API offerings.
+              </p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+      <div id="availableAPIs" class="owl-carousel owl-theme mb30">
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/trade.svg" alt="" />
+          </div>
+          <h4>Building Blocks</h4>
+          <p>
+            Building Blocks APIs provide you with the most essential APIs you
+            require to integrate with number of services of the bank.
+          </p>
+          <p>
+            Run checks and crosses using out fundamental APIs such as CIBIL
+            score check, PAN card information.
+          </p>
+        </div>
+        <div class="sectionAPICard availableAPICard mb30">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/retail-shape.svg" alt="" />
+          </div>
+          <h4>Loans and Cards</h4>
+          <p>
+            Explore, develop, and integrate innovative solutions for various
+            loan products (AL, HL, Loan Top-up, Loan Management) and Credit Card
+            products (Customer Search, Remaining Credit Limit, etc) to cater to
+            your prospects, existing, and upcoming customers.
+          </p>
+          <br />
+          <br />
+          <p></p>
+        </div>
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/business_api.svg" alt="" />
+          </div>
+          <h4>Saving and Deposits</h4>
+          <p>
+            Empower your customers to invest and do banking with you by
+            integrating with umpteen services in the domain of Savings (Savings
+            Accounts, Corporate Account) and deposits (Fixed Deposits, Recurrent
+            Deposits).
+          </p>
+        </div>
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/payment.svg" alt="" />
+          </div>
+          <h4>Payments</h4>
+          <p>
+            Find the most sought after APIs in the industry to introduce payment
+            services tailormade to serve your needs. [enter] Multitude of
+            payment services to integrate your payment services to integrate to
+            the outside world.
+          </p>
+        </div>
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/cards.svg" alt="" />
+          </div>
+          <h4>Business Banking</h4>
+          <p>
+            Empower your corporate's banking with seamless APIs which enable
+            your corporation to make Efficient Transactions, Expeditious Cash
+            Deposits, Smart Reconciliation, and Personalised Management Systems.
+          </p>
+        </div>
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/combined-shape.svg" alt="" />
+          </div>
+          <h4>Trade Service</h4>
+          <p>
+            Incorporate remittances and bank guarantees APIs to make your trade
+            and business easy with our latest offerings tailormade as per the
+            latest requirements of the market.
+          </p>
+        </div>
+
+        <div class="sectionAPICard availableAPICard">
+          <div class="sectionAPICardImage">
+            <img src="assets/images/payment.svg" alt="" />
+          </div>
+          <h4>Corporate API Suite </h4>
+          <p>
+            We bring to you corporate API suite a bouquet of APIs selected specially to cater to the evolving needs
+            of corporate clients. We have come up with this assortment of APIs after carefuly studying the needs and
+            journey of the corporates. Please feel free to browse and choose from our thoughtful API offerings.
+
+          </p>
+        </div>
+
+      </div>
+      <div class="row">
+        <a class="signInBtn marginAutoHr mt15" (click)="browse_api(signin)" style = "padding: 18px 25px;">BROWSE ALL API</a>
+      </div>
+    </section>
+    <section class="sectionAPIs featuredAPIs">
+      <h3 class="mb60">Featured <span>APIs</span></h3>
+      <!-- <div class="owl-carousel owl-theme mb30 mb-xs-0 sectionAPIsGrayBg owl-loaded">
+        <div class="owl-stage-outer">
+          <div class="owl-stage loan-style">
+            <div class="owl-item active w280">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>Auto Loan</h4>
+                  <h5>Cards and Loans</h5>
+                  <p>
+                    A suite of APIs covering various stages of the lifecycle of
+                    automobile loans from checking eligibility, sanctioning,
+                    applying to facilitate disbursement and view current
+                    status/dues.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="owl-item active w280">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>iWish</h4>
+                  <h5>Accounts and Deposits</h5>
+                  <p>
+                    These collection of APIs have services to set financial
+                    goals and track till achievement of targets for iWish
+                    products. APIs to facilitate creation, status checks,
+                    servicing and closure of fixed accounts.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="owl-item active w280">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>Cash Management</h4>
+                  <h5>Business Banking APIs</h5>
+                  <p>
+                    ICICI Bank's Cash Management caters to all your cash
+                    management requirements, optimises your cash flow position
+                    and effectively manages your business operation.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="owl-item active w280">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="browse_api(signin)">
+                  <h4>Banking Offers</h4>
+                  <h5>Building Blocks</h5>
+                  <p>
+                    This Set of APIs are used to leverage various facilities
+                    related to bank offers available as products of Loans, Cards
+                    and Paylater for customers along with validation services.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="owl-nav disabled">
+          <button type="button" role="presentation" class="owl-prev">
+            <span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next">
+            <span aria-label="Next">›</span>
+          </button>
+        </div>
+        <div class="owl-dots disabled">
+          <button role="button" class="owl-dot active"><span></span></button>
+        </div>
+      </div> -->
+      <!-- ============================================================ -->
+      <div class="mb30 mb-xs-0 sectionAPIsGrayBg ">
+        <div class="row" style="padding: 20px; ">
+          <div class="col-md-3 col-sm-6 ">
+            <div class="">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="loans(signin)">
+                  <h4>Auto Loan</h4>
+                  <h5>Cards and Loans</h5>
+                  <p>
+                    A suite of APIs covering various stages of the lifecycle of
+                    automobile loans from checking eligibility, sanctioning,
+                    applying to facilitate disbursement and view current
+                    status/dues.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-md-3 col-sm-6 ">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="account(signin)">
+                  <h4>iWish</h4>
+                  <h5>Accounts and Deposits</h5>
+                  <p>
+                    These collection of APIs have services to set financial
+                    goals and track till achievement of targets for iWish
+                    products. APIs to facilitate creation, status checks,
+                    servicing and closure of fixed accounts.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="corporate(signin)">
+                  <h4>Cash Management</h4>
+                  <h5>Business Banking APIs</h5>
+                  <p>
+                    ICICI Bank's Cash Management caters to all your cash
+                    management requirements, optimises your cash flow position
+                    and effectively manages your business operation.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="apiCardWithLabel">
+                <div class="sectionAPICard cursor_pointer" (click)="show_build(signin)">
+                  <h4>Banking Offers</h4>
+                  <h5>Building Blocks</h5>
+                  <p>
+                    This Set of APIs are used to leverage various facilities
+                    related to bank offers available as products of Loans, Cards
+                    and Paylater for customers along with validation services.
+                  </p>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- <div class="owl-nav disabled">
+          <button type="button" role="presentation" class="owl-prev">
+            <span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next">
+            <span aria-label="Next">›</span>
+          </button>
+        </div>
+        <div class="owl-dots disabled">
+          <button role="button" class="owl-dot active"><span></span></button>
+        </div> -->
+      </div>
+    </section>
+  
+
+    <!--New carousel-->
+
+    <section class="sectionAPIs sectionAPIsGrayBg" id="partners">
+      <div class="container text-center my-3 ">
+        <h3 class="mb60">Strategic <span>Partners </span></h3>
+    
+      
+        <div class="row mx-auto my-auto">
+          <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+              <div class="carousel-item active">
+               
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/shivaami.jpg" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> Shivaami</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      The purpose of Shivaami is to bring positive change in the life of the people we connect by
+                      offering Solutions and Services which brings Profit and Happiness. </p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a  class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
+                         href='https://www.shivaami.com/shivaami-icici-bundle/?utm_source=ICICI%20Dev%20portal&amp;utm_medium=Banner&amp;utm_campaign=Strategic%20Partnership&amp;utm_term=Shivaami'  target="_blank">Visit
+                          Shivaami</a>
+        
+                        <a class="btn btn-orange btn-sm" style="font-size: 10px;"
+                          href="https://www.icicibank.com/offers/shivaami-offer.page" target="_blank">View
+                          Offer</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="carousel-item  ">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/OASYS.png" alt="" class="img2 img-responsive" style="width: 45%; margin-top: -7px;">
+                     
+                    </div> <h5> Oasys Tech</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      OASYS TECH Solutions is CMMI LEVEL III Certified with 250+ strength. We provide End-to-End
+                              Solutions
+                              Services for Digital Transformation in SAP, Microsoft & open source Technologies.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+                          <a class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
+                          href='https://www.oasystspl.com?utm_source=ICICI%20Dev%20portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Oasys'  target="_blank">Visit
+                           Oasys</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/isan.png" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> ISAN</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      India SME Accelerator Network provides mentoring to individual business owners through a
+                              structured
+                              & methodical approach, to deal with their critical business challenges guided by industry experts
+                              in
+                              specialised domains.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+                          <a class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
+                                   href='https://www.indiasmeaccelerator.org/service/sme-business-consultancy-accelerator-cohort-programs/?utm_source=icici&utm_medium=icici%20bank%20website&utm_campaign=sme%20consultancy'  target="_blank">Visit
+                                    ISAN</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!--  <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/TechNexa.png" alt="" class="img2 img-responsive" style="width: 69%;height: 86%;margin-top: 5px;">
+                     
+                    </div> <h5> TechNexa Technologies</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      TechNEXA Technologies is one of the leading IT consultants providing cloud services & support,
+                      network & infrastructure design, managed services, email services, storage solutions, network
+                      security and emerging IT business solutions to companies.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
+                        href='http://www.technexa.net/?utm_source=icici&utm_medium=website&utm_campaign=partner'  target="_blank">Visit
+                        TechNexa</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>-->
+              <!-- <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">   
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/infocusUpdated.png" alt="" class="img2 img-responsive" style=" height: 80%;width: 80%;margin-top: 5px;">
+                     
+                    </div> <h5> Infocus Technologies Pvt.Ltd</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      Infocus is SAP Gold Channel partner Company, AWS Consulting Partner, CMMI Level 3 certified and DNV certified ISO 9001:2015 Company providing SAP & Cloud, Consulting and staffing services.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a type="button" class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
+                                  href="https://infocus-in.com/infocus-icici/?utm_source=ICICI%20Developer%20Portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=Infocus" target="_blank">Visit
+                                  Infocus</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+             <!-- <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body1" style="padding: 10px;">
+                    <div class="mb9 text-center cardsImage">
+                      <img src="assets/images/IFITechnew.png" alt="" class="img2 img-responsive" style="width: 85%;margin-top: 5px;">
+                     
+                    </div> <h5> IFI Tech</h5>   
+                   
+        
+                    <p class="midContentContainer" style="">
+                      IFI Tech is a born in cloud Microsoft Gold Partner and a Cloud Solutions Provider (CSP) to help global customers ranging from Enterprises to SMBs and Start-ups with their digital transformation journey.</p>
+                    <div class="row display_block buttonContainer" >
+                      <span class="container mr-10 text-center" >
+        
+                        <a type="button" class="btn btn-orange btn-sm mr-3" style="font-size: 10px;"
+                        href='https://ifi.tech/?utm_source=ICICI%20Developer%20Portal&utm_medium=Banner&utm_campaign=Strategic%20Partnership&utm_term=IFI  '  target="_blank">Visit
+                         IFI Tech</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>   
+              </div>
+            -->
+            </div>
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!--End new carousel-->
+
+
+
+    <section class="sectionAPIs letsGetConnected" *ngIf="!logged_in">
+      <h3>Want to get Started? <span>Let's get Connected</span></h3>
+      <p class="mb50">
+        Drop in your credentials to get a conversation started with our team and
+        explore the possibilities.
+      </p>
+      <div class="row">
+        <a class="signInBtn marginAutoHr" (click)="open_modal(Interesteds)" style = "padding: 18px 25px;">I am interested</a>
+      </div>
+    </section>
+
+
+    <!--Blogs Section start  here-->
+
+
+    <section class="sectionAPIs " id="partners">
+      <div class=" text-center my-3 ">
+        <h3 class="mb60"> API <span>Blogs </span></h3>
+    
+      
+        <div class="row mx-auto my-auto sectionAPIsGrayBg">
+          <div id="recipeCarousel1" class="carousel slide w-100 " data-ride="carousel" style="padding: 15px 10px ;">
+            <div class="carousel-inner w-100 api-inner" role="listbox" >
+              <div class="carousel-item active">
+               
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                  <div class="container1">
+                    <img src="https://www.icicibank.com/managed-assets/images/blog/big/features-and-benefits-of-api-in-banking.jpg" alt="Avatar" class="image1">
+                    <div class="info"> Features and Benefits of API in Banking.</div>
+                    
+                    
+                    <div class="overlay1">
+                      <div class="ptxt" style="margin-top: 45px;">                      
+                        
+                       <p > An increasing number of financial institutions in India are now realising the potential benefits of Open Banking</p>
+                       <br>
+                       <a class="signInBtn" href="https://www.icicibank.com/blogs/api-banking/features-and-benefits-of-api-in-banking.page?" target="_blank">Know More</a>
+                       <br><br>
+                       <div class="ptxt"> see all
+                         <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                       </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+              <div class="carousel-item  ">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/how-to-apply-for-api-banking-services.jpg" alt="Avatar" class="image1">
+                      <div class="info"> How to apply for API Banking services?.</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p >An increasing number of fin-tech companies now make use of APIs offered by some of the top banks in India.</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/api-banking/how-to-apply-for-api-banking-services.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/why-api-integration-is-a-must-for-digital-banking-growth.jpg" alt="Avatar" class="image1">
+                      <div class="info"> Why is API Integration a must for Digital Banking growth?</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p > The Open Banking model and use of APIs are said to accelerate the growth of online banking in India further.</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/api-banking/why-api-integration-is-a-must-for-digital-banking-growth.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/how-to-incorporate-our-icici-bank-apis-in-just-few-easy-steps.jpg" alt="Avatar" class="image1">
+                      <div class="info"> How to incorporate ICICI Bank APIs in just few easy steps?</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p > By switching to BaaS through APIs, tech-savvy banks like ICICI Bank are embracing Open Banking and transforming the traditional</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/mobile-banking/how-to-incorporate-our-icici-bank-apis-in-just-few-easy-steps.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-md-4">
+                  <div class="card card-body2" style="padding: 10px;">   
+                    <div class="container1">
+                      <img src="https://www.icicibank.com/managed-assets/images/blog/big/what-is-api-banking-services-and-how-it-works.jpg" alt="Avatar" class="image1">
+                      <div class="info"> What is API Banking Services and how it works?</div>
+                      
+                      
+                      <div class="overlay1">
+                        <div class="ptxt"style="margin-top: 45px;">                      
+                          
+                         <p >Open Banking, with the help of APIs, is considered to be one of the biggest advancements in the banking industry.</p>
+                         <br>
+                         <a class="signInBtn" href="https://www.icicibank.com/blogs/mobile-banking/what-is-api-banking-services-and-how-it-works.page?" target="_blank">Know More</a>
+                         <br><br>
+                         <div class="ptxt"> see all
+                           <a href="https://www.icicibank.com/blogs/api-banking.page?" target="_blank" style="color:#f5821f ;">API Banking Blogs</a>
+                         </div>
+  
+  
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+            </div>
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel1" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel1" role="button" data-slide="next">
+              <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle"
+                aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+<!--Blogs End here-->
+
+    <section class="sectionAPIs feedbackSection">
+      <form autocomplete="off">
+        <h3>Your <span>Feedback</span></h3>
+        <p class="text-center mb50 fs16">
+          Write to us if you have any suggestions related to APIs
+        </p>
+        <select class="select mb25" name="issues" [(ngModel)]="issues">
+          <option value="">Select</option>
+          <option value="Signup">Signup</option>
+          <option value="API Testing">API Testing</option>
+         <!--  <option value="Application Creation">Application Creation</option> -->
+          <option value="UAT Form">UAT Form</option>
+          <option value="URL Testing">URL Testing</option>
+          <option value="Suggestion">Suggestion</option>
+          <option value="Others">Others</option>
+        </select>
+        <!-- <select class="select mb25" name="Suggestion" [(ngModel)] ="Suggestion">
+               <option value="">Select</option>
+               <option value="Suggestion">Suggestion</option>
+               <option value="Others">Others</option>
+            </select>  -->
+        <input class="w100p mb25" name="feedback_email_address" [(ngModel)]="feedback_email_address" type="text"
+          placeholder="Your Email" />
+        <input class="w100p mb25" name="feedback_location_name" [(ngModel)]="feedback_location_name" type="text"
+          placeholder="Location" />
+        <textarea class="w100p mb35" name="feedback_email_text" [(ngModel)]="feedback_email_test"
+          placeholder="Write your thoughts"></textarea>
+         
+          <re-captcha (resolved)="resolved($event)" 
+              [(ngModel)]="recaptchaReactive" 
+              siteKey="6LdTXcQZAAAAAMdP1QX29StjawDrrdzRxhoWuHm7">  
+          </re-captcha>
+         <br>
+        <div class="row align-left">
+         
+          <button class="signInBtn marginAutoHr mb15" [disabled] = '!recaptchaFlag' (click)="feedback_form_submit(signin)">
+            Submit
+          </button>
+        
+         <!--  <a class="signInBtn marginAutoHr mb15"   (click)="feedback_form_submit(signin)">Submit</a> -->
+        </div>
+      </form>
+    </section>
+
+  </div>
+  <div id="FAQs" class="tab-pane fade">
+    <div class="text-center mb50">
+      <h3 class="fs32 color-blue ff-bold mb25 "  style="padding-top: 20px;">Frequently Asked Questions</h3>
+      <img class="w-xs-100p" src="assets/images/faq-banner.svg" alt="" />
+    </div>
+    <div id="accordion" class="faqmainSection">
+      <div class="card">
+        <div class="card-header" data-toggle="collapse" href="#faq1" aria-expanded="true">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                How do I sign up for a developer account on ICICI Bank
+                development portal?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq1" class="collapse " data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              On the developer portal, click the Sign up button at right top
+              corner. The portal is a self-service tool that will guide you
+              through account creation. After creating an account and accepting
+              the ICICI Bank API Portal and Services Agreement, you can start
+              developing apps.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq2" aria-expanded="false">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                Who is this for?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq2" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              We are currently publishing this for new developers or existing
+              partners with a new initiative. If you do not have an integration
+              with ICICI Bank, use these APIs to get started.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq3">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                Do I need to create a Developer Account to use your APIs?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq3" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              You can sign up for a new Developer account and create an API key
+              on your Developer Console. For more information, see our
+              Documentation page. If you are an Enterprise Developer interested
+              in adding or updating an application, please contact your Account
+              Manager before creating an API key. If you are not able to access
+              your Developer Console, contact your Account Manager.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq4">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What is an API?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq4" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              API is the abbreviation for “Application Programming Interface”.
+              An API allows a third party application to use a common set of
+              services via a defined interface.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq5">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                How do I obtain API keys?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq5" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              Simply create an account on the developer portal and then create
+              one or more applications. Each application will get its own API
+              key. Once your application is ready to go live you can request for
+              an account plan upgrade via your Developer Console.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq6">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What is OAuth?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq6" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              OAuth is an authentication protocol. For more information, please
+              visit oauth.net.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq7">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What is a REST API?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq7" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              REST (Representational State Transfer) is a simple stateless
+              architecture i.e. each operation is entirely defined by the
+              information sent to and received from the service. When a web
+              service uses this architecture, it is known as a REST API.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq8">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What are the Organisation Administrator’s responsibilities?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq8" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              The Organisation Administrator is your company’s representative
+              for the ICICI Bank Developer Portal. This person has overall
+              responsibility for the ICICI Bank Developer Portal account, and
+              has access to all the services and functions available on the
+              site. The Organisation Administrator’s main responsibilities
+              include:
+            </p>
+            <ul>
+              <li>
+                Adding, deleting and managing your organisation’s developers
+              </li>
+              <li>
+                Adding, deleting and managing your organisation’s applications
+              </li>
+              <li>Editing organisational details</li>
+              <li>Requesting API keys and authentication</li>
+              <li>Changing API Plans or Account Plans</li>
+              <li>Checking API usage and analytics.</li>
+            </ul>
+            <p>
+              The Organisation Administrator is ICICI's first point of contact
+              regarding the ICICI Bank Developer Portal.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq9">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                How do I add a user to my organization’s developer account?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq9" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              Only users with the enterprise administrator role can add users.
+              You can manage your users and permissions at User Managament page.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq10">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                How do I handle any service errors that are returned?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq10" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              You will see details of various error responses within the API
+              specifications. The Error description field in a response is meant
+              to detail a message for the user. Refer to the error code
+              information which details what the error code means and how this
+              error code should be handled.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq11">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What is an Account Plan?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq11" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              An Account Plan is a collection of one or more APIs. Every
+              developer organization has an Account Plan. When a developer
+              registers for a new organization account, the organization is
+              automatically assigned to ‘Bronze Account Plan’. Using ‘Bronze
+              Account Plan’ you can only consume ‘Test’ APIs. In order to
+              consume ‘Production’ APIs, you have to upgrade your account plan
+              to ‘Production Account Plan’.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq12">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What is an API Plan?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq12" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              An API Plan is a predefined set of rules and quotes of how to
+              consume an API. Currently, we provide ‘Sandbox’ and ‘Production’
+              API plans. ’Test’ APIs are only available via ‘Sandbox API Plan’
+              and they are restricted to some quotes which means you will have
+              limited access. On the other hand ‘Production’ APIs available via
+              ‘Production API Plan’ can be consumed with higher quotes and they
+              process live data. As mentioned under the title ‘What is an API
+              Plan?’ you have to upgrade your account plan to ‘Production
+              Account Plan’ in order to consume ‘Production’ APIs.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div data-scroll="out" class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq13">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                Is there a limit to the number of call APIs?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq13" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              Yes, sandbox APIs are currently restricted to a limited number of
+              calls, according to API Plan’s context.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div data-scroll="out" class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq14">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What responsibilities do Developers have?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq14" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              Developers have to be invited by their Organisation Administrator
+              to join the portal. Once joined, they can access most of the same
+              functions as the Organisation Administrator. There are a few
+              things developers won’t be able to do, and this includes inviting
+              other developers to join, changing API or Account plans, or
+              editing organisational details.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq15">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                What are your Account Plans?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq15" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>Your organisation has a choice of two Account Plans:</p>
+            <ul>
+              <li>
+                Our Standard Plan is a free service that gives you up to 10,000
+                hits per day over your applications and standard technical
+                support through our portal.
+              </li>
+              <li>
+                Our Premium Plan is a chargeable service that gives you a higher
+                number of hits per day or hour - with enhanced, personalised
+                technical support as well as the standard support available
+                through our portal.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq16">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                How do I change Account Plans?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq16" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              If you’re an Organisation Administrator, you can change your
+              Account Plan by going to Dashboard/Applications. Simply select
+              your preferred plan under ‘Account Plan Change’ in the first
+              table. We’ll automatically be notified of your request and be in
+              touch with any further requirements we may need from you.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq17">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                How do I move from Sandbox to Production?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq17" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              If you’re an Organisation Administrator, you can request to move
+              from Sandbox to Production for each API within a specific
+              application using this portal:
+            </p>
+            <ul>
+              <li>Go to Dashboard/Applications.</li>
+              <li>
+                Click on the cog icon next to your application and select
+                ‘Edit’.
+              </li>
+              <li>Click on the ‘API Management’ tab.</li>
+              <li>Under ‘API Plan Change’ select ‘Production’.</li>
+            </ul>
+            <p>
+              We’ll then be in touch with any further requirements we may need
+              from you.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq18">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                If I delete an application, can I retrieve it?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq18" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              No, so please make sure you’re certain you don’t want the
+              application before deleting it.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq19">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                Can I put my application on hold, but keep my account open?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq19" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              Yes. Go to Dashboard/Applications, click on the cog to the right
+              of the application, then ‘Disable’.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header collapsed" data-toggle="collapse" href="#faq20">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <a class="card-link">
+                Does my API key expire?
+              </a>
+            </div>
+            <div class="col-1 text-right pl0">
+              <i class="material-icons accordionDropdownIcon">expand_less</i>
+            </div>
+          </div>
+        </div>
+        <div id="faq20" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <p>
+              No. But your Application may be suspended or deleted which will
+              suspend or delete the associated API key.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for Signup -->
+<!-- Modal for Signup -->
+<ng-template #signup>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Let's get you On-board</h3>
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul class="nav nav-tabs nav-tabs1" role="tablist">
+      <li role="presentation" class="active">
+        <a [ngStyle]="{ color: shfrmSFFirst ? '#f06321' : '#919191' }" href="javascript:;"
+          (click)="signup_link(1)">Basic Details <i class="fa fa-angle-right"></i></a>
+      </li>
+      <li role="presentation">
+        <a [ngStyle]="{ color: shfrmSFSecond ? '#f06321' : ' #919191' }" href="javascript:;"
+          (click)="signup_link(2)">Mobile Number <i class="fa fa-angle-right"></i></a>
+      </li>
+      <li role="presentation">
+        <a [ngStyle]="{ color: shfrmSFThird ? '#f06321' : '#919191' }" href="javascript:;" (click)="signup_link(3)">
+          Credentials
+        </a>
+      </li>
+      <!-- <li role="presentation" ><a href="#Agreement" aria-controls="Agreement" role="tab" data-toggle="tab">Agreement</a></li> -->
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content tab-content1">
+      <form [formGroup]="signupForm" autocomplete="off" [hidden]="!shfrmSFFirst">
+        <input type="hidden" name="otp_verified" formControlName="otp_verified" class="input-login" #otp_verified />
+        <div class="tab-pane">
+          <div class="row mb20">
+            <div class="col-md-6 mb-xs-10">
+
+              <div><label for="company">Full Name<span class="text-danger"> *</span></label></div>
+              <input name="name" formControlName="firstname" class="input-login" appPrefixFocusAndSelect #name />
+              <div *ngIf="firstname.invalid && (firstname.dirty || isSubmitted)" class="text-danger form-error">
+                Full Name is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div><label for="company">Email<span class="text-danger"> *</span></label></div>
+              <!-- <input name="email" formControlName="email" class="input-login" #Email (input)="OnCheckEmail(Email.value)"> -->
+              <input name="email" formControlName="email" class="input-login" #Email
+                (change)="OnCheckEmail(Email.value)" />
+              <!-- <div *ngIf="email.invalid && (email.dirty || isSubmitted)" class="text-danger form-error">
+                Email is required.
+              </div> -->
+              <div *ngIf="isemail_reg_check != ''" class="text-danger form-error">
+                {{ isemail_reg_check }}
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Company Name</label></div>
+              <input
+                name="company"
+                formControlName="companyName"
+                class="input-login"
+                #company
+              />
+              <div
+                *ngIf="
+                  companyName.invalid && (companyName.dirty || isSubmitted)
+                "
+                class="text-danger form-error"
+              >
+                Company Name is required.
+              </div>
+            </div>
+          </div> -->
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Company Name<span class="text-danger"> *</span></label></div>
+              <input name="company" formControlName="companyName" class="input-login" matInput [matAutocomplete]="auto"
+                #company (keyup)="getCompanyName(company.value)" />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let companyname of companyNames" [value]="companyname">
+                  {{ companyname }}
+                </mat-option>
+              </mat-autocomplete>
+              <div *ngIf="
+                  companyName.invalid && (companyName.dirty || isSubmitted)
+                " class="text-danger form-error">
+                Company Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Domain Name<span class="text-danger"> *</span></label></div>
+
+              <select class="form-control select-drop input-login" formControlName="domainNm">
+                <option value="">Select Domain</option>
+                <option *ngFor="let d of domainLst" [value]="d">{{ d }}</option>
+              </select>
+              <div *ngIf="domainNm.invalid && (domainNm.dirty || isSubmitted)" class="text-danger form-error">
+                Domain Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Pin Code<span class="text-danger"> *</span></label></div>
+              <input name="City" class="input-login" formControlName="CITY" />
+              <div *ngIf="CITY.invalid && (CITY.dirty || isSubmitted)" class="text-danger form-error">
+                Pin Code is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-xs-30">
+              <div>
+                <label for="password">ICICI Bank RM Employee ID<span class="text-danger"> *</span></label>
+                <a href="#" data-toggle="tooltip" title="Enter zero in numeric(0) as default value"><img
+                    src="assets/images/information.png" alt="loader" class="ml2 cursor_pointer" /></a>
+              </div>
+              <input name="RM" class="input-login" formControlName="RM" pattern="[0-9]*"
+                (ngModelChange)="employeeIdChanged(RM.value)" />
+              <div *ngIf="RM.invalid && (RM.dirty || isSubmitted)" class="text-danger form-error">
+                RM Employee ID is required (numeric).
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row mb20">
+            <div class="col-md-12 mb-xs-30">
+              <div><label for="password">Partner Code</label></div>
+              <input name="partnerCode" class="input-login" formControlName="partnerCode"
+                [pattern]="'^[a-zA-Z0-9 \'\-]+$'" />
+
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <br />
+          <ul class="nav nav-tabs nav-tabs1" role="tablist">
+            <li>
+              <button type="button" (click)="save1()" [disabled]="!signupForm.valid || !isemail_check" [ngClass]="
+                  signupForm.valid || !isemail_check ? 'btn-blue' : 'btn-white'
+                " class="btn" class="signInBtn verifyBtn">
+                Next
+              </button>
+            </li>
+          </ul>
+        </div>
+      </form>
+      <form [formGroup]="signupForm2" autocomplete="off" [hidden]="!shfrmSFSecond">
+        <div class="tab-pane">
+          <div class="row mb20">
+            <div class="col-md-8 mb-xs-30">
+              <div>
+                <label for="mobile">Please enter the Phone Number </label>
+              </div>
+              <input id="mobileNumber" formControlName="mobile_no" Type="number" class="input-login" name="mobile"
+                required #Mobile [readonly]="signupForm.value.otp_verified == 1" />
+              <div *ngIf="mobile_no.invalid && (mobile_no.dirty || isSubmitted)" class="text-danger form-error">
+                Mobile Number is required.
+              </div>
+              <div *ngIf="ismobile_reg_check != '' && !(mobile_no.invalid)" class="text-danger form-error">
+                {{ ismobile_reg_check }}
+              </div>
+              <div *ngIf="
+                  signupForm.value.otp_send == '1' &&
+                  signupForm.value.otp_verified == 0 && !(mobile_no.invalid)
+                " class="text-success">
+                OTP sent to your mobile number.
+              </div>
+            </div>
+            <div class="col-md-4 mt4">
+              <button [disabled]="signupForm.value.otp_verified == 1" type="button" class="signInBtn1  sendOTPBtn mt26"
+                (click)="SendOtp(Mobile.value)" (click)='buttonClick1()' [disabled]="btnDisabled"
+                [ngStyle]="{'color': (btnDisabled)? 'gray': 'black'}">
+                {{btnText}}
+
+
+              </button>
+              <!-- <h6><span id="time" >00:00</span></h6> -->
+
+              <button type="button" class="tryItFreeBtn1 changeMobileNumber mt25" (click)="SendOtp(Mobile.value)">
+                change
+              </button>
+            </div>
+          </div>
+          <!-- <ng-template #elseBlock> -->
+          <div class="row mb20" *ngIf="showOtp">
+            <div class="col-md-8 mb-xs-30">
+              <div>
+                <label for="otp">Enter the OTP Received on your Phone Number</label>
+              </div>
+              <input [readonly]="signupForm.value.otp_verified == 1" name="otp" formControlName="otp_code"
+                class="input-login" #OTP />
+              <div *ngIf="otp_code.invalid && (otp_code.dirty || isSubmitted)" class="text-danger form-error">
+                OTP is required.
+              </div>
+              <div *ngIf="ismobile_reg_check != ''" class="text-danger form-error">
+                {{ isotp_reg_check }}
+              </div>
+            </div>
+          </div>
+          <!-- </ng-template> -->
+          <div class="clearfix"></div>
+          <br />
+          <ul class="nav nav-tabs nav-tabs1" role="tablist">
+            <li>
+              <button class="btn" (click)="save2()" [disabled]="!signupForm2.valid"
+                [ngClass]="signupForm2.valid ? 'btn-blue' : 'btn-white'" class="signInBtn verifyBtn">
+                Verify
+              </button>
+            </li>
+          </ul>
+        </div>
+      </form>
+
+      <form [formGroup]="signupForm3" autocomplete="off" [hidden]="!shfrmSFThird">
+
+
+
+        <!--user name-->
+        <div class="tab-pane">
+          <div class="row1 mb2">
+            <!-- <div class="col-md-12">
+                <div><label for="username">User Name </label></div>
+                <input formControlName="username" id="username" type="text" (keydown.space)="$event.preventDefault();"
+                  class="input-login" #uname />
+                <div *ngIf="username && username.touched && username.errors" class="alert alert-danger">
+                  <div *ngIf="username.errors.required" class="text-danger">username is required </div>
+                           
+  
+                    </div>
+              </div> -->
+
+            <!-- <label for="uname" >User Name:</label>
+              <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();" class="form-control"
+                [ngClass]="signupForm3.controls['uname'].invalid ? 'is-invalid' : ''">
+              <label class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
+                Username is Required.
+              </label>   -->
+
+            <label for="uname">User Name:</label>
+            <input id="uname" formControlName="uname" type="text" (keydown.space)="$event.preventDefault();"
+              class="form-control">
+            <div *ngIf="signupForm3.controls['uname'].touched">
+              <div class="text-danger" *ngIf="signupForm3.controls['uname'].hasError('required')">
+                username is Required.
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+
+
+          <div class="row1 mb2">
+
+
+            <label for="password">Password:</label>
+            <input id="password" formControlName="password" type="password" class="form-control">
+            <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
+                Password is Required!
+              </label> -->
+            <div *ngIf="signupForm3.controls['password'].touched || signupForm3.controls['password'].dirty">
+              <br>
+
+              <label class="col"
+                [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                  signupForm3.controls['password'].hasError('minlength') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must be at least 8 characters.
+              </label>
+              <label class="col"
+                [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                  signupForm3.controls['password'].hasError('hasNumber') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must contain at least 1 number.
+              </label>
+              <label class="col"
+                [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                  signupForm3.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must contain at least 1 upperccase letter.
+              </label>
+              <label class="col"
+                [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                  signupForm3.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must contain at least 1 lowercase letter.
+              </label>
+              <label class="col"
+                [ngClass]="signupForm3.controls['password'].hasError('required') || signupForm3.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ signupForm3.controls['password'].hasError('required') ||
+                  signupForm3.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must contain at least 1 Special Character.
+              </label>
+            </div>
+
+          </div>
+          <br>
+
+
+
+          <div class="row1 mb2">
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control">
+            <div *ngIf="signupForm3.controls['confirmPassword'].touched">
+              <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('required')">
+                Password is Required.
+              </label>
+              <label class="text-danger" *ngIf="signupForm3.controls['confirmPassword'].hasError('NoPassswordMatch')">
+                Password does not match.
+              </label>
+            </div>
+            <label class="text-success" *ngIf="signupForm3.controls['confirmPassword'].valid">
+              Password match.
+            </label>
+          </div>
+
+
+
+          <div class="clearfix"></div>
+
+
+
+
+
+          <div class="row mt12">
+            <div class="col-md-12">
+              <label class="checkboxContainer">
+                <input type="checkbox" formControlName="term" #term required /><span class="checkmark"></span>
+                <a href="/assets/pdf/Terms.pdf" target="_blank">ACCEPT ALL TERMS & CONDITIONS</a>
+                <!-- <a [routerLink]="['/index/termsandcondition']" target="_blank"
+                    >ACCEPT ALL TERMS & CONDITIONS</a
+                  > -->
+                <div *ngIf="term.invalid && (term.invalid || isSubmitted)" class="text-danger form-error">
+                  I ACCEPT ALL TERMS & CONDITIONS is required.
+                </div>
+              </label>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+          <br />
+          <ul class="nav nav-tabs nav-tabs1" role="tablist">
+            <li>
+              <button (click)="sign_up()" [disabled]="!signupForm3.valid"
+                [ngClass]="signupForm3.valid ? 'btn-blue' : 'btn-white'" class="btn" class="signInBtn verifyBtn">
+                Submit
+              </button>
+            </li>
+          </ul>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row w100p m0">
+      <div class="col-12 pl0">
+        <p class="fs10 signin_p">
+          Already have an account? Please
+          <span><a class="signIn" (click)="openModal(signin)">Login</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
+        </p>
+      </div>
+      <!-- <span
+        >Register for<a class="signIn" (click)="appathonReg()"> Appathon </a
+        >here</span
+      > -->
+      <div class="col-5 pr0">
+        <div class="text-right"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- End Modal -->
+<!-- Signin Modal -->
+<a data-dismiss="modal" data-toggle="modal" data-target="#signin" (click)="openModal(signin)"
+[hidden]="true"  #signinBtn>Sign In</a>
+<ng-template #signin>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Please Login</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form name="myform" autocomplete="off"
+      (keydown)="keyDownFunction($event,username.value, password.value, loginsuccess)">
+      <div class="row mb30">
+        <div class="col-md-12 mb-xs-10">
+          <div><label for="user">Username</label></div>
+          <input name="user" class="input-login" #username (keydown.space)="$event.preventDefault();"
+            appPrefixFocusAndSelect />
+          <div class="text-danger form-error ng-star-inserted" *ngIf="isusername">
+            Please Enter Username.
+          </div>
+        </div>
+      </div>
+      <div class="row mb10">
+        <div class="col-md-12">
+          <div><label for="password" type="password">Password</label></div>
+        <!--   <input name="password" type="password" class="input-login" #password /> -->
+        <input name="password" type="password" class="input-login" onkeypress='validate(event)'  required onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off  #password />
+          <div class="text-danger form-error ng-star-inserted" *ngIf="issetpwd">
+            Please Enter Password.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <a class="forgotPassword cursor" (click)="Modalforgotpassw(forgotpassw)">Forgot Password?</a>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="row w100p m0">
+      <div class="col-12 plr0 mb30">
+        <div>
+          <button type="submit" class="signInBtn w100p" (click)="Login(username.value, password.value)">
+            Login
+          </button>
+          <div class="text-danger form-error ng-star-inserted" *ngIf="is_res_error != ''">
+            {{ is_res_error }}.
+          </div>
+        </div>
+      </div>
+      <div class="col-12 plr0">
+        <p class="signin_p">
+          Do not have an account? Please
+          <span><a class="signIn" (click)="openModal2(signup)">Register</a></span>
+        </p>
+        <p class="fs10 signin_p">
+          <span class="text-danger"> *</span>For ICICI Bank use: Username is employee id and Password is domain password.
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- End Modal -->
+<!-- Modal Ok password -->
+<ng-template #alreadylogin>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left"></h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef7.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12 mb-xs-10">
+        <h5 class="fs18">
+          You are already on Sandbox. Start exploring API from documentation
+          section.
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ta-center">
+    <div class="row w100p m0">
+      <div class="col-12 plr0 mb30">
+        <div>
+          <button type="submit" class="signInBtn" (click)="alredy_login()">
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- End ok Modal -->
+<!-- Modal for Forgot password -->
+<ng-template #forgotpassw>
+  <div class="modal-header">
+    <h3 class="modal-title pull-left">Forgot Password</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef3.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mb30">
+      <div class="col-md-12 mb-xs-10">
+        <div><label for="user">Username</label></div>
+        <input name="user" class="input-login" #username />
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row w100p m0">
+      <div class="col-12 plr0 mb30">
+        <div>
+          <button type="submit" class="signInBtn w100p" (click)="forgot(username.value,forgotpasswreset)">
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #forgotpasswreset>
+  <div class="modal-header">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef9.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="txtAlign"><label>Success! Please check your mail</label></div>
+  </div>
+</ng-template>
+<!-- End Forgot password Modal -->
+<!-- Modal For UAT  -->
+<ng-template #UAT>
+  <div class="modal-header">
+    <h3>Please provide some basic details</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeUAT()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <a (click)="UAT_help(UAT_Help)" class="help-ico" data-toggle="tooltip" data-placement="top"
+      title="Your Organization Name"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+    <!-- <a href="#" class="help-ico"><abbr title="Your Organization Name"><i class="fa fa-question-circle" aria-hidden="true"></i></abbr></a> -->
+    <ul class="nav nav-tabs nav-tabs1" role="tablist">
+      <li class="active" (click)="uatNext(1)">
+        <a [ngStyle]="{ color: shfrmUATFirst ? '#f06321' : '#919191' }" href="javascript:;">Basic Details <i
+            class="fa fa-angle-right"></i></a>
+      </li>
+      <li (click)="uatNext(2)">
+        <a [ngStyle]="{ color: shfrmUATSecond ? '#f06321' : '#919191' }" href="javascript:;">Requested API <i
+            class="fa fa-angle-right"></i></a>
+      </li>
+      <li (click)="uatNext(3)">
+        <a [ngStyle]="{ color: shfrmUATThird ? '#f06321' : '#919191' }" href="javascript:;">Whitelist IP</a>
+      </li>
+    </ul>
+    <form #frmUATFirst="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmUATFirst">
+      <div [hidden]="frmUATFirst.submitted">
+        <div class="tabEnvironment">
+          <div class="tabContent">
+            <div class="row mb30">
+              <div class="col-md-12">
+                <div><label for="contract">Merchant Name</label></div>
+                <input class="form-control" placeholder="Your Organization Name" [(ngModel)]="objOnB.txtMerchantName"
+                  name="txtMerchantName" mdbInputDirective required #txtMerchantName="ngModel" type="text" />
+                <div *ngIf="txtMerchantName.invalid && txtMerchantName.dirty" class="text-danger form-error">
+                  Merchant Name is required.
+                </div>
+              </div>
+            </div>
+            <div class="row mb30">
+              <div class="col-md-12 mb-xs-30">
+                <div><label for="description">Description</label></div>
+                <textarea class="form-control"
+                  placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged" rows="5"
+                  [(ngModel)]="objOnB.txtDescription" name="txtDescription" mdbInputDirective required
+                  #txtDescription="ngModel"></textarea>
+                <div *ngIf="txtDescription.invalid && txtDescription.dirty" class="text-danger form-error">
+                  Description is required.
+                </div>
+              </div>
+            </div>
+            <div class="row mb25">
+              <div class="col-md-6">
+                <div>
+                  <label for="companyName">Single Point of Contact Email ID</label>
+                </div>
+                <!-- <input class="form-control" type="text" email="true" [(ngModel)]="objOnB.txtContactEmail" pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ext.icicibank|icicibank)\.com$" name="txtContactEmail" mdbInputDirective required #txtContactEmail="ngModel"/> -->
+                <input class="form-control" placeholder="Your Email ID" type="text" email="true"
+                  [(ngModel)]="objOnB.txtContactEmail" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                  name="txtContactEmail" mdbInputDirective required #txtContactEmail="ngModel" />
+                <div *ngIf="txtContactEmail.invalid && txtContactEmail.dirty" class="text-danger form-error">
+                  Email ID is required.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div>
+                  <label for="contactPerson">Single Point of Contact Number</label>
+                </div>
+                <input class="form-control" placeholder="Your Contact Number" type="number"
+                  [(ngModel)]="objOnB.txtContactNumber" #txtContactNumber="ngModel" name="txtContactNumber"
+                  mdbInputDirective required />
+                <!-- <div *ngIf="txtContactNumber.invalid && txtContactNumber.dirty" class="text-danger form-error">
+                  Contact Number is required.
+                </div> -->
+              </div>
+            </div>
+            <div class="row mb25">
+              <div class="col-md-12">
+                <div>
+                  <label for="contactPerson">ICICI Bank Relationship Manager/Email ID</label>
+                </div>
+                <input class="form-control" type="text"
+                  placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising"
+                  [(ngModel)]="objOnB.txtRelManager" #txtRelManager="ngModel" name="txtRelManager" mdbInputDirective
+                  required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-right">
+                <button type="button" class="signInBtn" [disabled]="frmUATFirst.invalid"
+                  [ngClass]="frmUATFirst.valid ? 'btn-dark' : 'btn-white'" (click)="btnNext()">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form #frmUATSecond="ngForm" autocomplete="off" nonvalidate *ngIf="shfrmUATSecond">
+      <div [hidden]="frmUATSecond.submitted">
+        <div class="tabEnvironment">
+          <div class="tabContent">
+            <!-- <div class="row mb30">
+              <div class="col-md-12 mb-xs-10">
+                <div><label for="projectName">Domain Type</label></div>
+                <span class="custom-dropdown">
+                  <select class="form-control h40" [(ngModel)]="objOnB.txtDomainType"
+                    #txtDomainType="ngModel" name="txtDomainType" mdbInputDirective required
+                    (change)="callSubdomain(txtDomainType.value)">
+                    <option value="">Select Domain</option>
+                    <option *ngFor="let d of domainLst" [value]="d">{{
+                      d
+                    }}</option>
+                  </select>
+                  <div *ngIf="txtDomainType.invalid && txtDomainType.dirty" class="text-danger form-error">
+                    Domain Name is required.
+                  </div>
+                </span>
+              </div>
+            </div> -->
+            <div class="row mb25">
+              <div class="col-md-12 mb-xs-10">
+                <label>Select APIs: <span class="required">*</span></label>
+                <!-- <span class="custom-dropdown"> -->
+                <!-- <select
+                    class="form-control h40"
+                    mdbInputDirective
+                    (click)="dropdownShow()">
+                    <option value="" disabled selected hidden>Select API</option>
+                  </select> -->
+                <div class="leftTree sideMenu-style">
+                  <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+                  <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"
+                    [innerHTML]="treeElementsCheck"></ul>
+                  <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+                </div>
+                <!-- <angular2-multiselect [data]="itemList" [(ngModel)]="objOnB.txtSubDomain" name="txtSubDomain"
+                    [settings]="settings" required (onSelectAll)="onSelectAll($event)"
+                    (onGroupDeSelect)="onGroupDeSelect($event)" (onGroupSelect)="onGroupSelect($event)"
+                    (onDeSelectAll)="onDeSelectAll($event)" (onSelect)="onItemSelect($event)"
+                    (onDeSelect)="OnItemDeSelect($event)">
+                  </angular2-multiselect>
+                </span> -->
+              </div>
+            </div>
+            <!-- Common Business Banking Field added here -->
+            <!-- <div class="row" *ngIf="Cms_allShow">
+              <div class="col-md-12 mb10">
+                <div><label for="contract">Account number</label></div>
+                <input
+                  class="form-control"
+                  [ngModel]="objOnB.AccountNo"
+                  name="AccountNo"
+                  #AccountNo="ngModel"
+                  placeholder="Your Account number"
+                  (ngModelChange)="onChangeAccountNum($event)"
+                  type="text"
+                />
+
+                <div
+                  *ngIf="accountNumErrorMsg != ''"
+                  class="text-danger form-error"
+                >
+                  {{ accountNumErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="contract">CMS Client code</label></div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.CmsClientCode"
+                  name="CmsClientCode"
+                  #CmsClientCode="ngModel"
+                  placeholder="Your CMS Client code"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="contract">URL</label></div>
+                <input
+                  class="form-control"
+                  [ngModel]="objOnB.url"
+                  name="url"
+                  #url="ngModel"
+                  placeholder="Your URL"
+                  (ngModelChange)="onChangeURL($event)"
+                  type="text"
+                />
+                <div *ngIf="urlErrorMsg != ''" class="text-danger form-error">
+                  {{ urlErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="contract">Ip</label></div>
+                <input
+                  class="form-control"
+                  [ngModel]="objOnB.Ip"
+                  name="Ip"
+                  #Ip="ngModel"
+                  placeholder="Your Ip"
+                  (ngModelChange)="onChangeIpAddress($event)"
+                  type="text"
+                />
+                <div
+                  *ngIf="ipAddressErrorMsg != ''"
+                  class="text-danger form-error"
+                >
+                  {{ ipAddressErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="contract">Port</label></div>
+                <input
+                  class="form-control"
+                  [ngModel]="objOnB.Port"
+                  name="Port"
+                  #Port="ngModel"
+                  placeholder="Your Port"
+                  (ngModelChange)="onChangePort($event)"
+                  type="text"
+                />
+                <div
+                  *ngIf="portNumErrorMsg != ''"
+                  class="text-danger form-error"
+                >
+                  {{ portNumErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="projectName">Checksum Required </label></div>
+                <span class="custom-dropdown">
+                  <select
+                    class="form-control h40"
+                    [(ngModel)]="objOnB.Checksum"
+                    name="Checksum"
+                    #Checksum="ngModel"
+                  >
+                    <option value="">Select Checksum</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="projectName">Encryption Required</label></div>
+                <span class="custom-dropdown">
+                  <select
+                    class="form-control h40"
+                    [(ngModel)]="objOnB.Encryption"
+                    name="Encryption"
+                    #Encryption="ngModel"
+                  >
+                    <option value="">Select Encryption</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="projectName">Certificate</label></div>
+                <span class="custom-dropdown">
+                  <select
+                    class="form-control h40"
+                    [(ngModel)]="objOnB.Certificate"
+                    name="Certificate"
+                    #Certificate="ngModel"
+                  >
+                    <option value="">Select Certificate</option>
+                    <option>Java Key Store</option>
+                    <option>IIS SSL</option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="projectName"> Type of Web / Services</label>
+                </div>
+                <span class="custom-dropdown">
+                  <select
+                    class="form-control h40"
+                    [(ngModel)]="objOnB.web"
+                    name="web"
+                    #web="ngModel"
+                  >
+                    <option value="">Select Services</option>
+                    <option>WADL</option>
+                    <option>REST</option>
+                    <option>*Others </option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="projectName"
+                    >Communication method/Message Format</label
+                  >
+                </div>
+                <span class="custom-dropdown">
+                  <select
+                    class="form-control h40"
+                    [(ngModel)]="objOnB.message"
+                    name="message"
+                    #message="ngModel"
+                  >
+                    <option value="">Select Format</option>
+                    <option>XML</option>
+                    <option>XML as a string</option>
+                    <option>JSON</option>
+                  </select>
+                </span>
+              </div>
+            </div> -->
+            <!-- Common Business Banking Field added here -->
+            <!-- Additional Field Validation & Receipting -->
+            <!-- <div class="row" *ngIf="Webservice_Show">
+              <div class="col-md-12 mb10">
+                <div><label for="contract">Mode Offered</label></div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.ModeOffered"
+                  name="ModeOffered"
+                  #ModeOffered="ngModel"
+                  placeholder="Your Mode Offered"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="contract"
+                    >Expected No Of Transactions in a day</label
+                  >
+                </div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.noOftransaction"
+                  name="noOftransaction"
+                  #noOftransaction="ngModel"
+                  placeholder="No. OF Transaction"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="contract"
+                    >Transaction limit for per transaction</label
+                  >
+                </div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.transactionLimit"
+                  name="transactionLimit"
+                  #transactionLimit="ngModel"
+                  placeholder="Transaction Limit"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="contract"
+                    >Amount Field (Editable / Non-Editable)</label
+                  >
+                </div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.ammountField"
+                  name="ammountField"
+                  #ammountField="ngModel"
+                  placeholder="Amount Field"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="contract">Fields on Ack receipt</label></div>
+                <input
+                  class="form-control w49 float-left mr7"
+                  placeholder="URN1"
+                  [(ngModel)]="objOnB.URN1"
+                  name="URN1"
+                  #URN1="ngModel"
+                  type="text"
+                />
+                <input
+                  class="form-control w49"
+                  placeholder="URN2"
+                  [(ngModel)]="objOnB.URN2"
+                  name="URN2"
+                  #URN2="ngModel"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="contract">Disclaimer Text</label></div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.DiscText"
+                  name="DiscText"
+                  #DiscText="ngModel"
+                  placeholder="Disclaimer Text"
+                  type="text"
+                />
+              </div>
+            </div> -->
+            <!-- Additional Field Validation & Receipting -->
+            <!-- Additional Field of Ecollection -->
+            <!-- <div class="row" *ngIf="Ecollection_Show">
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="projectName"
+                    >IFSC code to be given to the remitter while initiating
+                    payment
+                  </label>
+                </div>
+                <span class="custom-dropdown">
+                  <select
+                    [(ngModel)]="objOnB.IFSC_Code"
+                    name="IFSC_Code"
+                    #IFSC_Code="ngModel"
+                    class="form-control h40"
+                  >
+                    <option value="">Select IFSC Code</option>
+                    <option>ICIC0000104</option>
+                    <option>ICIC0000103</option>
+                    <option>ICIC0000106</option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="contract">4,3 or 6 Character Virtual Code</label>
+                </div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.vertualCode"
+                  name="vertualCode"
+                  #vertualCode="ngModel"
+                  placeholder="Your Virtual Code"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div><label for="contract">IPS Refund Code</label></div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.refundCode"
+                  name="refundCode"
+                  #refundCode="ngModel"
+                  placeholder="IPS Refund Code"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-12 mb10">
+                <div>
+                  <label for="contract"
+                    >Customer Credit A/C Number - Intermediate Account</label
+                  >
+                </div>
+                <input
+                  class="form-control"
+                  [(ngModel)]="objOnB.Account_no"
+                  name="Account_no"
+                  #Account_no="ngModel"
+                  placeholder="Customer Credit A/C Number"
+                  type="text"
+                />
+              </div>
+            </div> -->
+            <!-- Additional Field of Ecollection -->
+            <div class="row">
+              <div class="col-12 text-right">
+                <button type="button" class="signInBtn" [disabled]="frmUATSecond.invalid"
+                  [ngClass]="frmUATSecond.valid ? 'btn-dark' : 'btn-white'" (click)="btnContinue()">
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form #frmUATThird="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmUATThird">
+      <div [hidden]="frmUATThird.submitted">
+        <div class="tabEnvironment">
+          <div class="tabContent">
+            <div class="row">
+              <div class="col-md-12 mb10" *ngIf="accNo">
+                <div><label for="contract">Account Number</label></div>
+                <input class="form-control" [(ngModel)]="objOnB.AccountNo" name="AccountNo" #AccountNo="ngModel"
+                  placeholder="Your Account number" (ngModelChange)="onChangeAccountNum($event)" type="text" />
+
+                <div *ngIf="accountNumErrorMsg != ''" class="text-danger form-error">
+                  {{ accountNumErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="clientCode">
+                <div><label for="contract">Client code</label></div>
+                <input class="form-control" [(ngModel)]="objOnB.ClientCode" name="ClientCode" #ClientCode="ngModel"
+                  placeholder="Your Client code" type="text" />
+              </div>
+              <div class="col-md-12 mb10" *ngIf="url">
+                <div><label for="contract">Callback URL</label></div>
+                <input class="form-control" [(ngModel)]="objOnB.url" name="url" #url="ngModel"
+                  placeholder="Your Callback URL" (ngModelChange)="onChangeURL($event)" type="text" />
+                <div *ngIf="urlErrorMsg != ''" class="text-danger form-error">
+                  {{ urlErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="ip">
+                <div><label for="contract">IP</label></div>
+                <input class="form-control" [(ngModel)]="objOnB.Ip" name="Ip" #Ip="ngModel" placeholder="Your IP"
+                  (ngModelChange)="onChangeIpAddress($event)" type="text" />
+                <div *ngIf="ipAddressErrorMsg != ''" class="text-danger form-error">
+                  {{ ipAddressErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="port">
+                <div><label for="contract">Port</label></div>
+                <input class="form-control" [(ngModel)]="objOnB.Port" name="Port" #Port="ngModel"
+                  placeholder="Your Port" (ngModelChange)="onChangePort($event)" type="text" />
+                <div *ngIf="portNumErrorMsg != ''" class="text-danger form-error">
+                  {{ portNumErrorMsg }}
+                </div>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="checksum">
+                <div><label for="projectName">Checksum Required </label></div>
+                <span class="custom-dropdown">
+                  <select class="form-control h40" [(ngModel)]="objOnB.Checksum" name="Checksum" #Checksum="ngModel">
+                    <option value="">Select Checksum</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="encryption">
+                <div><label for="projectName">Encryption Required</label></div>
+                <span class="custom-dropdown">
+                  <select class="form-control h40" [(ngModel)]="objOnB.Encryption" name="Encryption"
+                    #Encryption="ngModel">
+                    <option value="">Select Encryption</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="certificate">
+                <div><label for="projectName">Certificate</label></div>
+                <span class="custom-dropdown">
+                  <select class="form-control h40" [(ngModel)]="objOnB.Certificate" name="Certificate"
+                    #Certificate="ngModel">
+                    <option value="">Select Certificate</option>
+                    <option>Java Key Store</option>
+                    <option>IIS SSL</option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="service">
+                <div>
+                  <label for="projectName">Service Type</label>
+                </div>
+                <span class="custom-dropdown">
+                  <select class="form-control h40" [(ngModel)]="objOnB.web" name="web" #web="ngModel">
+                    <option value="">Select Services</option>
+                    <option>WADL</option>
+                    <option>REST</option>
+                    <option>*Others </option>
+                  </select>
+                </span>
+              </div>
+              <div class="col-md-12 mb10" *ngIf="commModel">
+                <div>
+                  <label for="projectName"> Communication Method</label>
+                </div>
+                <span class="custom-dropdown">
+                  <select class="form-control h40" [(ngModel)]="objOnB.message" name="message" #message="ngModel">
+                    <option value="">Select Format</option>
+                    <option>XML</option>
+                    <option>XML as a string</option>
+                    <option>JSON</option>
+                  </select>
+                </span>
+              </div>
+              <!-- </div>                  -->
+              <div class="row" *ngIf="Ecollection_Show">
+                <div class="col-md-12 mb10" *ngIf="ifsc">
+                  <div>
+                    <label for="projectName">IFSC code to be given to the remitter while initiating
+                      payment
+                    </label>
+                  </div>
+                  <span class="custom-dropdown">
+                    <select [(ngModel)]="objOnB.IFSC_Code" name="IFSC_Code" #IFSC_Code="ngModel"
+                      class="form-control h40">
+                      <option value="">Select IFSC Code</option>
+                      <option>ICIC0000104</option>
+                      <option>ICIC0000103</option>
+                      <option>ICIC0000106</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="col-md-12 mb10" *ngIf="virtualCode">
+                  <div>
+                    <label for="contract">4,3 or 6 Character Virtual Code</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.virtualCode" name="virtualCode" #virtualCode="ngModel"
+                    placeholder="Your Virtual Code" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="ips">
+                  <div><label for="contract">IPS Refund Code</label></div>
+                  <input class="form-control" [(ngModel)]="objOnB.refundCode" name="refundCode" #refundCode="ngModel"
+                    placeholder="IPS Refund Code" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="interAccNo">
+                  <div>
+                    <label for="contract">Customer Credit A/C Number - Intermediate Account</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Account_no" name="Account_no" #Account_no="ngModel"
+                    placeholder="Customer Credit A/C Number" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="accName">
+                  <div>
+                    <label for="Acc_name">Account Name</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Acc_name" name="Acc_name" #Acc_name="ngModel"
+                    placeholder="Account Name" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="authLevel">
+                  <div>
+                    <label for="Auth_level">Authorization Level</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Auth_level" name="Auth_level" #Auth_level="ngModel"
+                    placeholder="Authorization Level" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="urn">
+                  <div>
+                    <label for="Urn">URN</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Urn" name="Urn" #Urn="ngModel" placeholder="URN"
+                    type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="env">
+                  <div>
+                    <label for="Acc_env">Environment</label>
+                  </div>
+                  <span class="custom-dropdown">
+                    <select class="form-control h40" [(ngModel)]="objOnB.Acc_env" name="Acc_env" #Acc_env="ngModel">
+                      <option value="">Select Environment</option>
+                      <option>UAT</option>
+                      <option>CUG</option>
+                      <option>Production </option>
+                    </select>
+                  </span>
+                </div>
+                <div class="col-md-12 mb10" *ngIf="valid">
+                  <div>
+                    <label for="Acc_validation">Validation Mode</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Acc_validation" name="Acc_validation"
+                    #Acc_validation="ngModel" placeholder="Validation Mode" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="accept">
+                  <div>
+                    <label for="Acc_acceptance">Acceptance Mode</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Acc_acceptance" name="Acc_acceptance"
+                    #Acc_acceptance="ngModel" placeholder="Acceptance Mode" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="recipient">
+                  <div>
+                    <label for="Rec_mail">Recipient Mail ID</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Rec_mail" placeholder="Recipient Mail ID" type="text"
+                    name="Rec_mail" #Rec_mail="ngModel" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="mode">
+                  <div>
+                    <label for="Acc_mode">Mode Offered</label>
+                  </div>
+                  <input class="form-control" [(ngModel)]="objOnB.Acc_mode" name="Acc_mode" #Acc_mode="ngModel"
+                    placeholder="Mode Offered" type="text" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="trans">
+                  <div>
+                    <label for="Acc_trans">Transaction limit for per transaction</label>
+                  </div>
+                  <input type="number" class="form-control" name="Acc_trans" [(ngModel)]="objOnB.Acc_trans"
+                    #Acc_trans="ngModel" max="5" />
+                </div>
+                <div class="col-md-12 mb10" *ngIf="amount">
+                  <div>
+                    <label for="Acc_amount"> Amount Field</label>
+                  </div>
+                  <span class="custom-dropdown">
+                    <select class="form-control h40" [(ngModel)]="objOnB.Acc_amount" name="Acc_amount"
+                      #Acc_amount="ngModel">
+                      <option value="">Select Amount</option>
+                      <option>Editable</option>
+                      <option>Non- Editable</option>
+                    </select>
+                  </span>
+                </div>
+
+
+              </div>
+            </div>
+            <!-- <div class="row ">
+                  <div class="col-md-12">
+                    <div>
+                    <label for="whitelistIp">Enter IP Addresses that needs to be whitelisted under
+                      Environment</label>
+                    </div>
+                <input
+                  class="w100p fs12"
+                  placeholder="Enter IP Addresses"
+                  pattern="{{ IP_Pattern }}"
+                  [(ngModel)]="objOnB.txtIPAddress"
+                  #txtIPAddress="ngModel"
+                  name="txtIPAddress"
+                  required
+                />
+                <div
+                  *ngIf="txtIPAddress.invalid && txtIPAddress.dirty"
+                  class="text-danger form-error"
+                >
+                  Please Enter correct IP address
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="row mb25" id="whitelistIPItemContainerModal"></div>
+            <div class="row mb30">
+              <div class="col-md-12">
+                <div><label for="contract">Callback URL</label></div>
+                <input
+                  class="w100p fs12"
+                  placeholder="Enter Callback URL"
+                  pattern="{{ Callback_URL }}"
+                  [(ngModel)]="objOnB.txtCallbackURL"
+                  name="txtCallbackURL"
+                />               
+              </div>
+            </div> -->
+            <div class="row mb25">
+              <div class="col-md-12">
+                <div><label for="contract">Certificate Upload</label>
+                  <a href="#" data-toggle="tooltip"
+                    title="Please upload zip file of SSL Certificate and Encryption Certificate"><img
+                      src="assets/images/information.png" alt="loader" class="ml2 cursor_pointer" /></a>
+                </div>
+                <input class="form-control" id="file1" (change)="picked($event)" type="file" [(ngModel)]="objOnB.file1"
+                  #file1="ngModel" name="file1" mdbInputDirective required />
+                <div *ngIf="file1.invalid && file1.dirty" class="text-danger form-error">
+                  Certificate is required.
+                </div>
+              </div>
+            </div>
+            <label class="checkboxContainer">
+              <a href="javascript:;">I ACCEPT NON-DISCLOSURE AGREEMENT.
+                <a target="_blank" href="/assets/pdf/NDA.pdf">
+                  Click here to download</a></a>
+              <input type="checkbox" [(ngModel)]="objOnB.txtAccept" #txtAccept="ngModel" name="txtAccept"
+                mdbInputDirective required />
+              <div *ngIf="txtAccept.invalid && txtAccept.dirty" class="text-danger form-error">
+                <a href="/index/nda" target="_blank">ACCEPT NON-DISCLOSURE AGREEMENT is required.</a>
+              </div>
+              <span class="checkmark"></span>
+            </label>
+            <div class="row">
+              <div class="col-12 text-right">
+                <button type="submit" class="signInBtn" [disabled]="frmUATThird.invalid"
+                  [ngClass]="frmUATThird.valid ? 'btn-dark' : 'btn-white'" (click)="btnConfirm(UATconfirm)">
+                  Confirm Request
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer"></div>
+</ng-template>
+<!-- End UAT Modal Here -->
+<!-- Modal for Production -->
+<ng-template #Production>
+  <div class="modal-header">
+    <h3>Please provide some basic details</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef5.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <a href="#" class="help-ico" data-toggle="tooltip" data-placement="top" title="Your Organization Name"><i
+        class="fa fa-question-circle" aria-hidden="true"></i></a>
+    <ul class="breadcrumb">
+      <li class="active" (click)="openProdCurrentTabEnv(1)">
+        <a [ngStyle]="{ color: shfrmProdFirst ? '#f06321' : '#919191' }" href="javascript:;">Basic Details <i
+            class="fa fa-angle-right"></i></a>
+      </li>
+      <li (click)="openProdCurrentTabEnv(2)">
+        <a [ngStyle]="{ color: shfrmProdSecond ? '#f06321' : '#919191' }" href="javascript:;">Requested API <i
+            class="fa fa-angle-right"></i></a>
+      </li>
+      <li (click)="openProdCurrentTabEnv(3)">
+        <a [ngStyle]="{ color: shfrmProdThird ? '#f06321' : '#919191' }" href="javascript:;">Whitelist IP <i
+            class="fa fa-angle-right"></i></a>
+      </li>
+    </ul>
+    <form #frmProdFirst="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdFirst">
+      <div [hidden]="frmProdFirst.submitted">
+        <div class="tabEnvironment">
+          <div class="tabContent">
+            <div class="row mb30">
+              <div class="col-md-12 mb-xs-10">
+                <div><label for="requestId">Request Id</label></div>
+                <select class="w100p fs12 id-style" name="JiraId" [ngModel]="edit_data.JiraId" #JiraId="ngModel"
+                  (change)="changeItem($event.target.value)">
+                  <option value="">Approved/Complete UAT Request ID</option>
+                  <option *ngFor="let d of list" value="{{ d.JiraId }}">{{ d.JiraId }} {{ d.JiraStatus }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb30">
+              <div class="col-md-12 mb-xs-10">
+                <div><label for="MerchantName">Merchant Name</label></div>
+                <input class="w100p fs12" name="MerchantName" placeholder="Your Organization Name"
+                  [(ngModel)]="edit_data.MerchantName" #MerchantName="ngModel" readonly="" />
+              </div>
+            </div>
+            <div class="row mb30">
+              <div class="col-md-12 mb-xs-30">
+                <div><label for="description">Description</label></div>
+                <textarea class="w100p fs12"
+                  placeholder="Brief description of your product for which ICICI Bank APIs will be leveraged"
+                  name="Description" [(ngModel)]="edit_data.Description" #Description="ngModel" readonly=""></textarea>
+              </div>
+            </div>
+            <div class="row mb25">
+              <div class="col-md-6">
+                <div>
+                  <label for="companyName">Single Point of Contact Email ID</label>
+                </div>
+                <input class="w100p fs12" placeholder="Your Email ID" name="SpocEmail" [(ngModel)]="edit_data.SpocEmail"
+                  #SpocEmail="ngModel" readonly="" />
+              </div>
+              <div class="col-md-6">
+                <div>
+                  <label for="contactPerson">Single Point of Contact Number</label>
+                </div>
+                <input class="w100p fs12" placeholder="Your Contact Number" name="SpocPhone"
+                  [(ngModel)]="edit_data.SpocPhone" #SpocPhone="ngModel" readonly="" />
+              </div>
+            </div>
+            <div class="row mb25">
+              <div class="col-md-12">
+                <div>
+                  <label for="contactPerson">ICICI Bank Relationship Manager</label>
+                </div>
+                <input class="w100p fs12" placeholder="Name/Email ID of ICICI Bank RM with whom your are liaising"
+                  name="RelManager" [(ngModel)]="edit_data.RelManager" #RelManager="ngModel" readonly="" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-right">
+                <button type="button" class="signInBtn" onclick="btnProdNext()">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form #frmProdSecond="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdSecond">
+      <div [hidden]="frmProdSecond.submitted">
+        <div class="tabProdEnvironment">
+          <div class="tabContent">
+            <div class="row mb30">
+              <div class="col-md-12 mb-xs-10">
+                <div><label for="projectName">Domain Type</label></div>
+                <span class="custom-dropdown">
+                  {{ edit_data.Domain }}
+                </span>
+              </div>
+            </div>
+            <div class="row mb25">
+              <div class="col-md-12 mb-xs-10">
+                <div><label for="projectName">Api's</label></div>
+                <span class="custom-dropdown">
+                  {{ edit_data.DomainApi }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-right">
+                <button type="button" class="signInBtn" onclick="openProdContinue()">
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form #frmProdThird="ngForm" autocomplete="off" nonvalidate [hidden]="!shfrmProdThird">
+      <div [hidden]="frmProdthird.submitted">
+        <div class="tabProdEnvironment">
+          <div class="tabContent">
+
+            <div class="row mb25">
+              <div class="col-md-12">
+                <div>
+                  <label for="whitelistIp">Enter IP Addresses that needs to be whitelisted under
+                    Environment</label>
+                </div>
+                <input class="w100p fs12" name="whitelistIp" id="whitelistIpInputModal" pattern="{{ IP_Pattern }}"
+                  placeholder="Enter IP Addresses" #whitelistIpInputModal="ngModel"
+                  [(ngModel)]="edit_data.whitelistIpInputModal" required />
+                <div *ngIf="
+                  whitelistIpInputModal.invalid && whitelistIpInputModal.dirty
+                " class="text-danger form-error">
+                  Please Enter correct IP address
+                </div>
+              </div>
+            </div>
+            <div class="row mb25" id="whitelistIPItemContainerModal"></div>
+            <div class="row mb30">
+              <div class="col-md-12">
+                <div><label for="contract">Callback URL</label></div>
+                <input class="w100p fs12" name="CallbackUrl" pattern="{{ Callback_URL }}" placeholder="Callback URL"
+                  #CallbackUrl="ngModel" [(ngModel)]="edit_data.CallbackUrl" />
+                <div *ngIf="CallbackUrl.invalid && CallbackUrl.dirty" class="text-danger form-error">
+                  Please Enter correct Callback URL
+                </div>
+              </div>
+            </div>
+            <div class="row mb25">
+              <div class="col-md-12">
+                <input class="form-control" id="file2" (change)="picked($event)" type="file"
+                  [(ngModel)]="edit_data.file2" name="file2" #file2="ngModel" mdbInputDirective required />
+                <div *ngIf="file2.invalid && file2.dirty" class="text-danger form-error">
+                  File is required.
+                </div>
+              </div>
+            </div>
+            <label class="checkboxContainer">
+              <a href="javascript:;">I ACCEPT CONTRACT TERMS & CONDITIONS</a>
+              <input type="checkbox" id="selectAll" />
+              <span class="checkmark"></span>
+            </label>
+            <div class="row">
+              <div class="col-12 text-right">
+                <button type="submit" class="signInBtn" [disabled]="frmPRODThird.invalid"
+                  [ngClass]="frmPRODThird.valid ? 'btn-dark' : 'btn-white'" (click)="btnConfirmProd(Prodconfirm)">
+                  Confirm Request
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer"></div>
+</ng-template>
+<!-- End Production Modal -->
+<!--iAmInterested-->
+
+
+<ng-template #Interesteds>
+  <div class="modal-header">
+    <h3>Let's get Connected</h3>
+    <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
+    <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide(); recaptchaFlag = false;">
+      close
+    </button>
+  </div>
+  <div class="modal-body">
+    <form id="regForm" [formGroup]="IntrestForm" autocomplete="off" method="POST" name="regForm" action="">
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-10">
+            <label for="fullname">Full Name<span class="text-danger"> *</span></label>
+            <input class="w100p fs12" formControlName="fullname" type="text" name="fullname" class="form-control"
+              [(ngModel)]="Inter_full_name" />
+            <div *ngIf="IntrestForm.controls['fullname'].touched">
+              <div class="text-danger" *ngIf="IntrestForm.controls['fullname'].hasError('required')">
+                Full Name is Required.
+              </div>
+              <div class="text-danger" *ngIf="IntrestForm.controls['fullname'].hasError('pattern')">
+                Full name should contain only Alphabets and spaces.
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-10">
+            <label for="emailid">Email ID<span class="text-danger"> *</span></label>
+            <input class="w100p fs12" formControlName="emailid" type="text" class="form-control" name="emailid"
+              [(ngModel)]="Inter_email" />
+            <div *ngIf="IntrestForm.controls['emailid'].touched">
+              <div class="text-danger" *ngIf="IntrestForm.controls['emailid'].hasError('required')">
+                Email id is Required.
+              </div>
+              <div class="text-danger" *ngIf="IntrestForm.controls['emailid'].hasError('email')">
+                Please enter valid Email ID.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row mb30">
+          <div class="col-lg-12 col-md-12 mb-xs-30">
+            <label for="mobileNumber">Contact Number<span class="text-danger"> *</span></label>
+            <input type="number" formControlName="mobileNumber" id="mobileNumber" type="number" class="form-control"
+              class="w100p fs12" name="mobileNumber" [(ngModel)]="Inter_contactnumber" />
+              <div *ngIf="IntrestForm.controls['mobileNumber'].touched">
+                <div class="text-danger" *ngIf="IntrestForm.controls['mobileNumber'].hasError('required')">
+                  Contact Number is Required.
+                </div>
+                <div class="text-danger" *ngIf="IntrestForm.controls['mobileNumber'].hasError('pattern')">
+                 Please Enter valid 10 digit Contact number.
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+      <div class="row mb30">
+        <div class="col-lg-12 col-md-12 mb-xs-30">
+          <label for="location">Location</label>
+          <input class="w100p fs12"formControlName="location" id="location" type="text" class="form-control" name="location" [(ngModel)]="Inter_location" />
+          <div *ngIf="IntrestForm.controls['location'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['location'].hasError('required')">
+              Location  is Required.
+            </div>
+            <div class="text-danger" *ngIf="IntrestForm.controls['location'].hasError('pattern')">
+              Location should contain only Alphabets.
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="form-group">
+      <div class="row mb30">
+        <div class="col-lg-12 col-md-12 mb-xs-30">
+          <label for="company">Company</label>
+          <input class="w100p fs12" formControlName="company" id="company" type="text" class="form-control"  name="company" [(ngModel)]="Inter_company" />
+          <div *ngIf="IntrestForm.controls['company'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['company'].hasError('required')">
+              company  is Required.
+            </div>
+            <div class="text-danger" *ngIf="IntrestForm.controls['company'].hasError('pattern')">
+             Company name should contain only Alphanumeric.
+             </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+       <!-- ==================new field =======================-->
+       <div class="row mb20">
+        <div class="col-md-12 mb-xs-30">
+          <div><label for="password">Existing ICICI bank current account holder ?<span class="text-danger"> *</span></label></div>
+          <div class="group-gap">
+            <div class="d-block my-3">
+  
+              <div class="custom-control custom-radio col-md-2 d-inline-block">
+                <input #op1 id="yes" type="radio"  [(ngModel)]="option" class="custom-control-input" value="yes" name="accountConfirmation" formControlName="accountConfirmation">
+                <label class="custom-control-label" for="yes">Yes</label>
+              </div>
+  
+              <div class="custom-control custom-radio  col-md-2 d-inline-block">
+                <input #op2 id="no" type="radio"  [(ngModel)]="option" class="custom-control-input" value="no" name="accountConfirmation" formControlName="accountConfirmation">
+                <label class="custom-control-label" for="no">No</label>
+              </div>
+  
+              <div class="invalid-feedback" *ngIf="isSubmitted && accountConfirmation.errors?.required">
+                <p>Please select either value</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ==================new field =======================-->
+    
+
+      <!-- ==================new field visibility based on selection of radio btns =======================-->
+     <!-- ==================new field visibility based on selection of radio btns =======================-->
+     <div class="row mb20" *ngIf="option=='yes' ">
+      <div class="col-md-12 mb-xs-30">
+        <div><label for="company">Current Account Number<span class="text-danger"> *</span></label></div>
+        <input name="name" formControlName="accountNo" class="input-login" maxlength="12"  (keypress)="numberOnly($event)"/>
+      
+        <div *ngIf="IntrestForm.controls['accountNo'].touched">
+          <div class="text-danger" *ngIf="IntrestForm.controls['accountNo'].hasError('required') && IntrestForm.controls['accountNo'].value=='' ">
+            Current Account Number is required.
+          </div>
+          <div class="text-danger" *ngIf="showerror==true && IntrestForm.controls['accountNo'].value!='' ">
+            Enter correct Account Number.
+          </div>
+          <div class="text-danger" *ngIf="IntrestForm.controls['accountNo'].hasError('minlength')">
+            12 digit numeric characters only  
+           </div>
+        </div>
+        <!-- <div *ngIf="accountNo.invalid && (accountNo.dirty || isSubmitted)" class="text-danger form-error">
+          Current Account Number is required.
+        </div> -->
+        <!-- <div *ngIf="signupForm.get('accountNo').hasError('minlength')" class="text-danger form-error">12 digit numeric characters only  </div> -->
+
+        
+        </div>
+   
+    </div>
+    <!-- ==================new field visibility based on selection of radio btns =======================-->
+
+      <!-- ==================new field visibility based on selection of radio btns =======================-->
+
+      <div class="form-group">
+
+      <div class="row mb30">
+        <div class="col-lg-12 col-md-12 mb-xs-30">
+          <label for="requirements">Requirements</label>
+          <textarea class="w100p fs12" formControlName="requirements" id="requirements" type="text" class="form-control" name="requirements" [(ngModel)]="Inter_requirements"></textarea>
+          <div *ngIf="IntrestForm.controls['requirements'].touched">
+            <div class="text-danger" *ngIf="IntrestForm.controls['requirements'].hasError('pattern')">
+              Requirements text should contain only Alphanumeric.
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <re-captcha (resolved)="resolved($event)" 
+      [(ngModel)]="recaptchaReactive" 
+      siteKey="6LdTXcQZAAAAAMdP1QX29StjawDrrdzRxhoWuHm7">  
+  </re-captcha>
+ <br>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="row w100p m0">
+      <div class="col-12 pr0">
+        <div class="text-right">
+          <button class="signInBtn marginAutoHr mb15"  (click)="inter_submit()"><!-- [disabled] = '!recaptchaFlag' -->
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--iAmInterested-->
+<!--UAT Confirmation alert modalbox -->
+<ng-template #UATconfirm>
+  <!-- <div class="modal-header">
+      <h4 class="modal-title pull-left"></h4>
+      </div> -->
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12 mb-xs-10">
+        <h5 class="fs15">
+          Onboarding request ID {{ confirmMsg }} has been submitted sucessfully.
+        </h5>
+        <h5 class="fs15">
+          Please visit Account -> Onboarding Request to check the request
+          status.
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ta-center">
+    <div class="row w100p m0">
+      <div class="col-12 plr0">
+        <div>
+          <button type="submit" class="signInBtn" (click)="Close_ConfirmUAT()">
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- End Modalbox -->
+<!--Production Confirmation alert modalbox -->
+<ng-template #Prodconfirm>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12 mb-xs-10">
+        <h5 class="fs15">
+          Onboarding request ID {{ confirmMsgProd }} has been submitted
+          sucessfully.
+        </h5>
+        <h5 class="fs15">
+          Please visit Account -> Onboarding Request to check the request
+          status.
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ta-center">
+    <div class="row w100p m0">
+      <div class="col-12 plr0">
+        <div>
+          <button type="submit" class="signInBtn" (click)="Close_ConfirmProd()">
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- End Modalbox -->
+<!--Production Confirmation alert modalbox -->
+<ng-template #UAT_Help>
+  <div class="modal-header">
+    <h3></h3>
+    <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
+    <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
+      close
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12 mb-xs-10">
+        <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
+          <div class="tab disp-block">
+            <div class="tabContent">
+              <ul class="breadcrumb">
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(1)">Guideline <i class="fa fa-angle-right"></i></a>
+                </li>
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(2)">Basic Details <i
+                      class="fa fa-angle-right"></i></a>
+                </li>
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(3)">Requested API <i
+                      class="fa fa-angle-right"></i></a>
+                </li>
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(4)">Whitelist IP <i
+                      class="fa fa-angle-right"></i></a>
+                </li>
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(5)">Onboarding Request</a>
+                </li>
+              </ul>
+              <div class="row mb30" *ngIf="showTab == '1'">
+                <div class="col-md-12 mb-xs-10">
+                  <h6 class="fw600">
+                    From signing up with Developer Portal to going live in our
+                    production environment is a four-step process.
+                  </h6>
+                  <p>
+                    The amount of time this will take depends on the APIs you
+                    are using, your business model and the time and resources
+                    you have available.
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <h6 class="fw600">Step 01 - SignUp</h6>
+                  <p>
+                    To get access to our sandbox and start testing our APIs
+                    straight away you register at Developer Portal.
+                  </p>
+                </div>
+                <div class="col-md-12 mb-xs-30">
+                  <h6 class="fw600">
+                    Step 02 - Talk to us about how we can help your business
+                  </h6>
+                  <p>
+                    Contact us or get in touch with the RM assigned to you at
+                    any point and learn how our APIs can be customized to your
+                    needs.
+                  </p>
+                </div>
+                <div class="col-md-12 mb-xs-30">
+                  <h6 class="fw600">
+                    Step 03 - Get On-Board with UAT
+                  </h6>
+                  <ul>
+                    <li>
+                      In this our development team will get in touch with you
+                      and help you develop the required APIs according to the
+                      specifications provided by you.
+                    </li>
+                    <li>
+                      For that you will need to raise a UAT request and provide
+                      some basic details about the required project.
+                    </li>
+                    <li>
+                      For each raised request in UAT, it will have a unique ID
+                      assigned to it which will allow you to keep a track of the
+                      whole UAT development process.
+                    </li>
+                    <li>
+                      Post the whole UAT development process the status of the
+                      request would turn to complete and then we are ready to
+                      make your services live.
+                    </li>
+                    <li>
+                      Production access – You will need to fill a similar form
+                      for final production access.
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-12 mb-xs-30">
+                  <h6 class="fw600">Step 04 - Go Live</h6>
+                  <p>
+                    You’re now ready to launch! Our production support team will
+                    be there to ensure the whole process is seamless.
+                  </p>
+                </div>
+              </div>
+              <div class="row mb30 col-md-12" *ngIf="showTab == '2'">
+                <div class="col-md-6">
+                  <img src="assets/images/step1.png" class="frame" width="100%" />
+                </div>
+                <div class="col-md-6">
+                  <div class="col-md-12">
+                    <h6>Step 01 - Enter you Organization name.</h6>
+                  </div>
+                  <div class="col-md-12 mb-xs-30">
+                    <h6>
+                      Step 02 - Provide Basic Details about your organization.
+                    </h6>
+                  </div>
+                  <div class="col-md-12 mb-xs-30">
+                    <h6>
+                      Step 03 - Provide first point of contact(POC) from your
+                      organization from business perspective.
+                    </h6>
+                  </div>
+                  <div class="col-md-12 mb-xs-30">
+                    <h6>Step 04 - Provide SPOC Contact Number.</h6>
+                  </div>
+                  <div class="col-md-12 mb-xs-30">
+                    <h6>
+                      Step 05 - Provide ICICI Bank contact RM for your selected
+                      product’s domain. Provided in the initial registration
+                      mail or you can add apidevteam@icicibank.com
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb30 col-md-12" *ngIf="showTab == '3'">
+                <div class="col-md-6">
+                  <img src="assets/images/step5.png" class="frame" width="100%" />
+                </div>
+                <div class="col-md-6">
+                  <img src="assets/images/step4.png" class="frame" width="100%" />
+                </div>
+                <div class="col-md-12 mt20">
+                  <div class="col-md-12">
+                    <h6>
+                      Step 06 - Select your domain and related APIs to that
+                    </h6>
+                  </div>
+                  <div class="col-md-12 mb-xs-30">
+                    <h6>
+                      Step 06.1 - If your requirement needs a crossover of
+                      domains, please raise multiple onboarding request for each
+                      domain separately.
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb30 col-md-12" *ngIf="showTab == '4'">
+                <div class="col-md-6">
+                  <img src="assets/images/step2.png" class="frame" width="100%" />
+                </div>
+                <div class="col-md-6">
+                  <div class="col-md-12">
+                    <h6>
+                      Step 07 - Provide the IP of the service that would connect
+                      to ICICI bank. For security measures each IP from third
+                      party needs to be whitelisted for authentication
+                    </h6>
+                  </div>
+                  <div class="col-md-12 mb-xs-30">
+                    <h6>
+                      Step 08 - Provide Callback URL- this acts as a failsafe
+                      check, if any request looses it’s connection in between
+                      the communication, on which ICICI bank will provide the
+                      information regarding a particular communication.
+                    </h6>
+                    <h6>
+                      Step 09 - Provide your public certificate which would be
+                      used for encryption/decryption of the data which would
+                      communicate between your organization’s service and ICICI
+                      Bank.
+                    </h6>
+                    <h6>
+                      Download ICICI Bank NDA and submit it to ICICI Bank RM
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb30 col-md-12" *ngIf="showTab == '5'">
+                <div class="col-md-6">
+                  <img src="assets/images/step6.png" class="frame" width="100%" />
+                </div>
+                <div class="col-md-6">
+                  <div class="col-md-12">
+                    <h6>
+                      Step 10 - Your request is assigned a Unique Request ID
+                      which will help you to trace the status of your request,
+                      while it is being assessed by our business and technical
+                      teams.
+                    </h6>
+                  </div>
+                  <div class="col-md-12 mb-xs-30">
+                    <h6>
+                      Step 11 - You can view the status of all your onboarding
+                      requests raised by you
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <img src="assets/images/step3.png" class="frame" width="100%" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- End Modalbox -->
+
+<!--How It Work modalbox -->
+<ng-template #modal_hwi>
+  <div class="modal-header">
+    <h3></h3>
+    <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> -->
+    <button data-dismiss="modal" class="material-icons close" (click)="modalRef.hide()">
+      close
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row md30">
+      <div class="col-md-12 mb-xs-10">
+        <form id="regForm" autocomplete="off" method="POST" name="regForm" action="">
+          <div class="tab disp-block">
+            <div class="tabContent">
+              <ul class="breadcrumb">
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,1)" id="tab1">
+                    Sign up <i class="fa fa-angle-right"></i></a>
+                </li>
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,2)" id="tab2">
+                    Select API <i class="fa fa-angle-right"></i></a>
+                </li>
+                <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link($event,3)" id="tab3">Test it Out </a>
+                </li>
+                <!-- <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(4)">Test it Out <i
+                      class="fa fa-angle-right"></i></a>
+                </li> -->
+                <!-- <li>
+                  <a [ngStyle]="{ color: active }" (click)="HWI_link(5)">Get Sample Code</a>
+                </li> -->
+              </ul>
+              <div class="row mb30" *ngIf="showTab == '1'">
+                <div class="col-md-12 mb-xs-10">
+                  <h6 class="fw600">
+                    If you already have an account, then sign in and jump to
+                    step 2. Else follow the steps to create an account
+                  </h6>
+                  <h6 class="fs14 pt8">
+                    <span class="stepNumber stepNumber mr-1">Step 1:</span>Go to our
+                    sign-up page.
+                  </h6>
+                </div>
+                <div><br>
+                  <p style="font-size: 13px;">a. Enter your Credentials.</p>
+                  <img src="assets/images/SignUp1.png" class="frame" width="100%" />
+                </div>
+                <div><br>
+                  <p style="font-size: 13px;">b. Verify your Mobile Number.</p>
+                  <img src="assets/images/SignUp2.png" class="frame" width="100%" />
+                </div>
+                <div><br>
+                  <p style="font-size: 13px;">c. Create Username and Password</p>
+                  <img src="assets/images/SignUp3.png" class="frame" width="100%" />
+                  <br /><br />
+                </div><br>
+                <div class="col-md-12 mb-xs-10">
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">Complete
+                        the registration by entering your details and create an
+                        account.</p>
+                    </h6>
+                  </div>
+                  <br />
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 3:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">When authorized, an email will be sent to your registered
+                        email-id with a link to activate your account by logging in.
+                        You now have access to your dashboard. From here you can
+                        create and configure your apps.</p>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb30" *ngIf="showTab == '2'">
+                <div class="col-md-12 mb-xs-10">
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 1:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">In order to select an API, go to the Documentation
+                        page.The left-hand side navigation pane consists of all the APIs in a hierarchial tree
+                        structure.</p>
+                    </h6>
+                  </div>
+
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">On clicking a selected API, the details related to it (such as
+                        Input/Output parameters, Sample packets etc) will be populated on the main screen.</p>
+                    </h6>
+                    <img src="assets/images/image11.png" class="frame " width="100%" />
+                  </div>
+
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 3:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">By clicking the Test API button at the bottom right, you can test how
+                        the API will respond in a simulated live environment.</p>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb30" *ngIf="showTab == '3'">
+
+                <div class="col-md-12 mb-xs-10">
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 1:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">On Clicking the Test API button, a pop-up is opened. This pop-up is
+                        prepopulated with a sample request packet as shown in the image. The user can select the content
+                        type from the content type dropdown.</p>
+                    </h6>
+                    <img src="assets/images/image22.png" class="frame" width="100%" />
+                  </div>
+                  <div class="row mb30">
+                    <h6 class="fs12 color-black ">
+                      <span class="stepNumber stepNumber mr-1">Step 2:</span>
+                    </h6>
+                    <h6 class="col-md-10 pdl-0">
+                      <p class="fs12 color-black ">Once the sample request packet is loaded, on clicking Test button at
+                        the bottom right of the pop-up, the response packet is returned as shown in the image.</p>
+                    </h6>
+                    <img src="assets/images/image33.png" class="frame" width="100%" />
+                  </div>
+                </div>
+
+              </div>
+              <!-- <div class="row mb30" *ngIf="showTab == '4'">
+                <div class="col-md-6 mb30">
+                  <h6 class="fs14 pt8">
+                    <span class="stepNumber stepNumber mr-1">#1</span>Once the
+                    API Key value is supplied, you can copy your request packet
+                    details into the box below and test it out! The developer
+                    portal will provide the responses to your requests in real
+                    time.
+                  </h6>
+                  <img src="assets/images/TryitOut.png" class="frame" width="100%" />
+                </div>
+              </div> -->
+              <!-- <div class="row mb30" *ngIf="showTab == '5'">
+                <div class="col-md-6 mb30">
+                  <h6 class="fs14 pt8">
+                    <span class="stepNumber stepNumber mr-1">#1</span>Once you
+                    get responses to your requests in real time. You can click
+                    on Query Tab, check the sample code and use it in your
+                    application.
+                  </h6>
+                  <img src="assets/images/sampleCode.png" class="frame" width="100%" />
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- End Modalbox -->

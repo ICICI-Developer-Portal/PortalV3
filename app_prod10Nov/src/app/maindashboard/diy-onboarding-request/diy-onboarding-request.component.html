@@ -41,11 +41,11 @@
               <!-- <td><div *ngIf="showurl">Approval URL</div></td> -->
               <td  class="width10prcnt">UAT/Prod</td>
               <td class="width10prcnt">UAT Request ID</td>
-              <td>API Document</td>
+              <!-- <td>API Document</td> -->
               <td>User uploaded document</td>
               <td>Operation</td>
 
-              <td  class="width15prcnt">Remarks</td>  
+              <!-- <td  class="width15prcnt">Remarks</td>  --> 
             </tr>
           </thead>
 
@@ -58,7 +58,7 @@
               <!-- <td><div *ngIf="showurl">{{row.CallbackUrl}}</div></td> -->
               <td>{{ row.Env }}</td>
               <td><p  *ngIf="row.RefJiraId!='undefined'">{{ row.RefJiraId }}</p></td>
-              <td *ngIf="row.Url !== ''" style="text-align: center;">
+             <!--  <td *ngIf="row.Url !== ''" style="text-align: center;">
                 <a
                   (click)="downloadDocument(row.JiraId,'Document',row.Url)"
                   [hidden]="row.Url === ''"
@@ -70,7 +70,7 @@
                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zm-.5 3.5a.5.5 0 0 0-1 0v3.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 11.293V7.5z"/>
                 </svg></label></a>
-              </td>
+              </td> -->
               <!-- <td href="row.CERTIFICATE">{{ row.Certificate }}</td> -->
             <!--   <td *ngIf="row.Certificate !== ''" style="text-align: center;">
                 <a
@@ -101,15 +101,15 @@
                 </svg></label></a>
             </td>
             <td  *ngIf="row.Certificate === ''"><a href="#0"  role="tab"  id="userGuide" (click)="UAT_help(UAT_Help)" > <span class="help-ico"><i _ngcontent-c2="" aria-hidden="true" class="fa fa-question-circle"></i></span></a></td>
-            <td > 
+            <td *ngIf="row.Status && row.Status.toUpperCase()  === 'APPROVED'"> 
               <!-- <a class="signInBtn ng-star-inserted"   (click)="openModal(View_Detail,(p - 1) * 10 + j)" >View</a></td> -->
-              <a class="signInBtn ng-star-inserted"   (click)="openModal(View_Detail,(p - 1) * 10 + j)" >View</a></td>
+              <a  class="signInBtn ng-star-inserted"   (click)="openModal(View_Detail,(p - 1) * 10 + j)" >View</a></td>
 
 
             
            
                       
-            <td >{{ row.Remarks }}</td>
+          <!--   <td >{{ row.Remarks }}</td> -->
           
           
           </tr>
@@ -151,19 +151,44 @@
                         <!-- <h5>Dummy text</h5> -->
                         <div class="details">
                           <div class="row mb10  pt15 pb15" >
-                            <div class="col-md-3"><label><b>APINAME : </b></label></div>
-                            <div class="col-md-9"><p>{{onboardedMerchantData.ApiName}}</p></div>
+                            <div class="col-md-3"><label><b>App Name : </b></label></div>
+                            <div class="col-md-9"><p>{{onboardedMerchantData.AppName}}</p></div>
                         </div>
   
                         <div class="row mb10  pt15 pb15" >
-                          <div class="col-md-3"><label><b>Apikey : </b></label></div>
-                          <div class="col-md-9"><p>{{onboardedMerchantData.Apikey}}</p></div>
+                          <div class="col-md-3"><label><b>Api Key : </b></label></div>
+                          <div class="col-md-9"><p>{{onboardedMerchantData.ApiKey}}</p></div>
                       </div>
   
                       <div class="row mb10  pt15 pb15" >
-                        <div class="col-md-3"><label><b>Api url : </b></label></div>
-                        <div class="col-md-9"><p>{{onboardedMerchantData.Url}}</p></div>
+                        <div class="col-md-3"><label><b>Api URL : </b></label></div>
+                        <div class="col-md-9">
+                          <ul>
+                            <li *ngFor="let item of apiUrl;let j=index ">
+                              {{UAT_baseURL+item}}
+                            </li>
+                          </ul>
+
+                        </div>
                     </div>
+                    <div class="row mb10  pt15 pb15" >
+                      <div class="col-md-3"><label><b>Approver Remarks : </b></label></div>
+                      <div class="col-md-9"><p>{{onboardedMerchantData.buhRemarks}}</p></div>
+                  </div>
+                  <div class="row mb10  pt15 pb15" >
+                    <div class="col-md-3"><label><b>Certificate </b></label></div>
+                    <div class="col-md-9">
+                      <a
+                      (click)="downloadfile('/assets/documents/ICICI_PUBLIC_CERT_UAT.crt',onboardedMerchantData.MerchantName)"
+                      
+                      >
+                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zm-.5 3.5a.5.5 0 0 0-1 0v3.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 11.293V7.5z"/>
+                    </svg></a>
+                      
+                     <!--  <button class="signInBtn btn-dark pull-left  mt-3 "  type="button" style="margin-right: 38px;"  (click)="downloadfile('/assets/documents/ICICI_PUBLIC_CERT_UAT.crt',onboardedMerchantData.merchantName)"> Download
+                    </button> --></div>
+                </div> 
                         </div>
                       </div>     
                     </div>

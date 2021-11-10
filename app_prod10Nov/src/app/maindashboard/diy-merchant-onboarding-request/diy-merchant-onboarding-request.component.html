@@ -27,8 +27,8 @@
       <div class="tabContentInner">
         <div class="row">
           <div class="col-md-10">
-            <h6><span (click)="navigateToOnboarding()" style="float:right;font-weight: bold;color:#ae282e;font-size: 16px;"> DIY Merchant Request>> </span>
-            </h6>
+         <!--    <h6><span (click)="navigateToOnboarding()" style="float:right;font-weight: bold;color:#ae282e;font-size: 16px;"> DIY Merchant Request>> </span>
+            </h6> -->
             <h4 class="color-black30 fs24 ff-semibold mb10">
                DIY Merchant Onboarding Request 
          
@@ -206,7 +206,14 @@
                       </div> 
                         <div class="row mb10  pt15 pb15" >
                           <div class="col-md-3"><label><b>Product Services </b></label></div>
-                          <div class="col-md-9"><p>{{onboardedMerchantData.productServices}}</p></div>
+                          <div class="col-md-9">
+                            <ul>
+                              <li *ngFor="let item of apiUrl;let j=index ">
+                                {{item}}
+                              </li>
+                            </ul>
+                          
+                          </div>
                       </div>  
 
                       <div class="row mb10  pt15 pb15" >
@@ -215,7 +222,7 @@
                     </div> 
 
                     <div class="row mb10  pt15 pb15" >
-                      <div class="col-md-3"><label><b>Certificate </b></label></div>
+                      <div class="col-md-3"><label><b>User Uploaded Document </b></label></div>
                       <div class="col-md-9">
                         <a
                         (click)="downloadDocument(onboardedMerchantData.jiraId,'Certificate',onboardedMerchantData.certificate)"
@@ -250,7 +257,7 @@
       
                       </div>
                   </div> 
-                  <button class="signInBtn btn-dark pull-left  mt-3 "  type="button" style="margin-right: 38px;"  (click)="approveDiyOnboardingReq(onboardedMerchantData.reqId,remark.value,approveRequest.value)"> Submit
+                  <button *ngIf="onboardedMerchantData.status && onboardedMerchantData.status.toUpperCase()  !== 'APPROVED'" class="signInBtn btn-dark pull-left  mt-3 "  type="button" style="margin-right: 38px;"  (click)="approveDiyOnboardingReq(onboardedMerchantData.reqId,remark.value,approveRequest.value)"> Submit
                   </button>
                       </div>     
                     </div>

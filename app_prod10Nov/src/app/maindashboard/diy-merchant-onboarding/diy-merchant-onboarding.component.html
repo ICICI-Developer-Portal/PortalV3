@@ -786,24 +786,24 @@
                 formControlName="refJIRAID" />
             </div>
             <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="EmpID">
-              <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Channel Id <span class="text-danger">
+              <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Merchant Id <span class="text-danger">
                     *</span></label>
                 <a _ngcontent-c5="" data-toggle="tooltip" title="Please contact your RM for the Channel.">
                   <img _ngcontent-c5="" alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png">
                 </a>
               </div>
               <input _ngcontent-c7="" class="form-control col-md-11 "
-              formControlName="merchantId" placeholder="Your Channel Employee ID" type="text">
+              formControlName="merchantId" placeholder="Your Merchant ID" type="text">
               <!-- validation -->
               <div     
                 *ngIf="!reactiveForm.get('whitelistIpSection.merchantId').valid && reactiveForm.get('whitelistIpSection.merchantId').touched"
                 class="text-danger form-error">
-                EmpID is required.    
+                EmpID is required.
               </div>
-              <span *ngIf="reactiveForm.get('whitelistIpSection').get('merchantId').hasError('pattern')"  class="text-danger form-error">
-                Please
-                enter correct  EmpID</span>
               <!-- ======== -->
+              <span _ngcontent-c6="" style="font-size:11px !important;" ><i _ngcontent-c6="">
+                * Merchant id should be alphanumeric.4 character's alphabet  and 2 character's number.Eg:MERC12
+               </i></span>
             </div>
             <div _ngcontent-c7="" class="form-group col-md-6 ng-star-inserted" *ngIf="SOLID">
               <div _ngcontent-c7=""><label _ngcontent-c7="" for="contract">Branch SOL ID <span class="text-danger">
@@ -826,7 +826,7 @@
             <div class="form-group col-md-6">
               <label for="r_m_maild_id">Document Upload <span class="text-danger"> *</span></label>
               <a data-toggle="tooltip"
-                title="Please upload API Application form & SSL certificate & public certificate in zip format. Certificate should be of 4096 bit."><img
+                title="Please upload API Application form & Business Requirement form in zip format."><img
                   alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
               <input type="file" (change)="upload($event.target.files[0])"
                 accept="zip,application/zip,application/x-zip,application/x-zip-compressed" id="file1"

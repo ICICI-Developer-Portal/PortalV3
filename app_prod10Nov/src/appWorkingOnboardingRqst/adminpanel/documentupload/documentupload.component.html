@@ -1,0 +1,170 @@
+<ng4-loading-spinner> </ng4-loading-spinner>
+<div class="documentTabContent">
+  <div class="tab-content" id="v-pills-tabContent">
+    <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">dashboard
+    </div>
+    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      <div class="tabContentInner">
+        <div class="row mb30 linksContainer">
+          <div class="col-md-12">
+            <!-- <h3>Onboarding Request</h3> -->
+            <!-- table format started -->
+            <!-- <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Jira ID</th>
+                  <th scope="col">Upload</th>
+                  <th scope="col">Submit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <form [formGroup]="uploadDoc">
+                      <select class="form-control h40" formControlName="docUpload" #SelectDomain>
+                        <option value="">Select Jira ID</option>
+                        <option *ngFor="let id of jiraId" value={{id}}>{{id}}</option>
+                      </select>
+                    </form>
+                  </td>
+                  <td><input class="form-control" id="file1" (change)="picked($event)" type="file" #file1 name="file1"
+                      mdbInputDirective required /></td>
+                 
+                 //aftr uncommenting the table comment this part
+                    [(ngModel)]="objOnB.file1"
+                    #file1="ngModel"
+                 //aftr uncommenting the table comment this part
+                  
+                  <td rowspan=2>
+                    <button class="btn signInBtn btn-block" type="Submit"
+                      (click)=btnConfirm(confirmId,remark.value)>Submit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan=2>
+                    <div class="form-group">
+                      <label for="remark">Remark</label>
+                      <textarea class="form-control rounded-0" id="remark" rows="25" #remark></textarea>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table> -->
+            <!-- table format ended -->
+
+
+
+            <form [formGroup]="uploadDoc" autocomplete="off" nonvalidate>
+              <div class="row divBorder">
+                <div _ngcontent-c5="" class="width100prcnt"><h5 _ngcontent-c5="" class="heading"> Document Upload</h5></div>
+
+                <div class="col-md-7">
+                  <div class="form-group">
+                    <label for="JiraID">Jira ID
+                      <!-- <span class="text-danger"> *</span> -->
+                    </label>
+                    <a _ngcontent-c6="" data-toggle="tooltip" title="Select the JIRA ID of the onboarding request"><img _ngcontent-c6="" alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+                    <select class="form-control h40" formControlName="docUpload" #SelectDomain>
+                      <option value="">Select Jira ID</option>
+                      <option *ngFor="let id of jiraId" value={{id}}>{{id}}</option>
+                    </select>
+
+                  </div>
+                </div>
+                <div class="col-md-5"></div>
+
+                <div class="col-md-7">
+                  <div class="form-group">
+                    <label for="Upload">Document Upload
+                      <!-- <span class="text-danger"> *</span> -->
+                    </label>
+                    <a _ngcontent-c6="" data-toggle="tooltip" title="Upload the file/document to be shared to the client against selected JIRA ID"><img _ngcontent-c6="" alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+                    <input class="form-control" id="file1" (change)="picked($event)" type="file" #file1 name="file1"
+                      mdbInputDirective required />
+
+                  </div>
+                </div>
+                <div class="col-md-5"></div>
+
+                <div class="col-md-7">
+                  <div class="form-group">
+                    <label for="remark">Remarks</label>
+                    <a _ngcontent-c6="" data-toggle="tooltip" title="Share any remarks to the client against selected JIRA ID"><img _ngcontent-c6="" alt="loader" class="ml2 cursor_pointer" src="assets/images/information.png"></a>
+                    <textarea class="form-control rounded-0" id="remark" rows="25" #remark></textarea>
+                  </div>
+                </div>
+                <div class="col-md-5"></div>
+
+                
+                
+                
+             
+
+                <div _ngcontent-c5="" class="col-md-7" style="margin-bottom: 20px;">
+                  <div class="form-group">
+                    <label for="">&nbsp;</label>
+                     <button class="btn signInBtn pull-right" type="Submit"
+                    (click)="btnConfirm(confirmId,remark.value)" style="display: block;">Submit</button></div>
+                   
+                </div>
+                <div class="col-md-5"></div>
+                <div class="col-md-12">
+
+
+
+
+
+                </div>
+
+
+
+              </div>
+            </form>
+
+            <div class="clearfix"></div>
+            <!-- <br>
+              <ul class="pagination" >  
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>  
+                </ul> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <ng-template #confirmId>
+      <!-- <div class="modal-header">
+         <h4 class="modal-title pull-left"></h4>
+         </div> -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12 mb-xs-10">
+            <h5 class="fs15">
+              Onboarding request ID {{ confirmMsg }} has been submitted sucessfully.
+            </h5>
+            <h5 class="fs15">
+              Please visit Account -> Onboarding Request to check the request
+              status.
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer ta-center">
+        <div class="row w100p m0">
+          <div class="col-12 plr0">
+            <div>
+              <button type="submit" class="signInBtn" (click)="Close_ConfirmId()">
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <!-- Added for VIEW ALL (End)-->
+    <!-- footer code -->
+    <!-- <div class="copyrightSection">
+      <p>Copyright 2017 ICICI Bank Ltd. All rights reserved.</p>
+   </div> -->
+  </div>
+</div>

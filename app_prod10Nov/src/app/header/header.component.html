@@ -73,7 +73,9 @@
             <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
               aria-selected="true"  (click)="addActiveClass($event)">MO Request History</a>
-
+            <!-- <a [routerLink]="['/DiyMerchantOnboardingRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">DIY MO Request History</a> -->
             <!--   <a [routerLink]="['/ApproveRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
               aria-selected="true"  (click)="addActiveClass($event)"> Requests History</a> -->
@@ -148,6 +150,10 @@
             <a [routerLink]="['/onboardingrequests']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
               data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
               aria-selected="true"  (click)="addActiveClass($event)">Onboarding Requests</a>
+
+    <!--         <a [routerLink]="['/DiyOnboardingRequest']" class="nav-link dropdown-item" id="pills-account-analytics-tab"
+              data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account-analytics"
+              aria-selected="true"  (click)="addActiveClass($event)">DIY Onboarding Requests</a> -->
             <!--<a style="line-height: 21px;cursor: pointer;" routerLink="../download" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Download
             </a>-->
             <a  *ngIf="misUserVal == 'true'? true:false" style="line-height: 21px;cursor: pointer;"  [routerLink]="['/mis']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">MIS Download
@@ -173,7 +179,7 @@
           <div class="dropdown-content drp-cnt-width ml-40" aria-labelledby="navbarMobiles" *ngIf="showOptn === true">
            <!--  <a [routerLink]="['/userprofile']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Profile</a> -->
             <a  [routerLink]="['/uatonboarding-dashboard']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">UAT Onboarding</a>
-            
+          <!--   <a  [routerLink]="['/DiyMerchantOnboarding']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">DIY Merchant UAT Onboarding</a> -->
             <a  [routerLink]="['/productionOnboardingPage']" class="nav-link dropdown-item"  (click)="addActiveClass($event)">Production Onboarding</a>
             <!--<a *ngIf="showAppDash" [routerLink]="['/appathon-dashboard']" class="nav-link dropdown-item lh21">Appathon
               Dashboard</a>-->

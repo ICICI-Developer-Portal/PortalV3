@@ -24,8 +24,6 @@ import { AppathonSignupComponent } from "./appathon-landing/appathon-signup/appa
 //import {AppathonLandingComponent} from './advertisement.component';
 //import { AppathonAdComponent } from './appathon-ad/appathon-ad.component';
 //import { AppathonComponent } from './appathon/appathon-root/appathon.component';
-import { DiyMerchantOnboardingComponent } from './maindashboard/diy-merchant-onboarding/diy-merchant-onboarding/diy-merchant-onboarding.component';
-
 import {
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS
@@ -88,8 +86,7 @@ import { MerchantOnboardingModule } from "./merchant-onboarding/merchant-onboard
     NewLandingPageComponent,
     NewProdOnboardingPageComponent,
     ExploreApiSigninComponent,
-    AutoLogoutComponent,
-    DiyMerchantOnboardingComponent
+    AutoLogoutComponent
    
   ],
   imports: [
