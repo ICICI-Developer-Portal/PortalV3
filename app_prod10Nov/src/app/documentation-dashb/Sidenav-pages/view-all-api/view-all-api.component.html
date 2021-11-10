@@ -1,0 +1,269 @@
+<div class="documentTabContent">
+    <button id="myBtn" (click)="gotoTop()" class="api-btn">
+        <a href="javascript:;" class="color-white"><i class="fa fa-arrow-up mt3"></i> Top</a>
+    </button>
+
+
+        <div class="tab-content" id="v-pills-tabContent">
+           <!-- Added for VIEW ALL (Start)-->
+      <div>
+      <div class="tabContentInner">
+         <div class="row mb30">
+            <div class="col-md-8">
+               <h3 class="ff-medium fs24 color-black">APIs at a Glance </h3>
+            </div>
+            <div class="col-md-4 text-right">
+               <div class="searchBarViewAll" >
+                
+                <input type="text" id="searchForApi" placeholder="Search API by Name, Description" value="{{seartext}}" (input)="onSearchChange($event.target.value)" [(ngModel)]='searchText' >
+                  <!-- <input type="text" placeholder="Search API by Name, Description" value="{{seartext}}" (input)="onSearchChange($event.target.value)" > -->
+                  <i class="material-icons">search</i>
+               </div>
+            </div>
+         </div>
+         <!-- <div *ngFor="let item of appNameList | keyvalue">
+                Key: <b>{{item.key}}</b> 
+                <div *ngFor="let item1 of item.value | keyvalue">
+                    {{item1.value}}
+                </div>
+            </div> -->
+         <div class="pagination page mb30">
+            <a class="cursor" (click)="goto('A')">A</a>
+            <a class="cursor" (click)="goto('B')">B</a>
+            <a class="cursor" (click)="goto('C')">C</a>
+            <a class="cursor" (click)="goto('D')">D</a>
+            <a class="cursor" (click)="goto('E')">E</a>
+            <a class="cursor" (click)="goto('F')">F</a>
+            <a class="cursor" (click)="goto('G')">G</a>
+            <a class="cursor" (click)="goto('H')">H</a>
+            <a class="cursor" (click)="goto('I')">I</a>
+            <a class="cursor" (click)="goto('J')">J</a>
+            <a class="cursor" (click)="goto('K')">K</a>
+            <a class="cursor" (click)="goto('L')">L</a>
+            <a class="cursor" (click)="goto('M')">M</a>
+            <a class="cursor" (click)="goto('N')">N</a>
+            <a class="cursor" (click)="goto('O')">O</a>
+            <a class="cursor" (click)="goto('P')">P</a>
+            <a class="cursor" (click)="goto('Q')">Q</a>
+            <a class="cursor" (click)="goto('R')">R</a>
+            <a class="cursor" (click)="goto('S')">S</a>
+            <a class="cursor" (click)="goto('T')">T</a>
+            <a class="cursor" (click)="goto('U')">U</a>
+            <a class="cursor" (click)="goto('V')">V</a>
+            <a class="cursor" (click)="goto('W')">W</a>
+            <a class="cursor" (click)="goto('X')">X</a>
+            <a class="cursor" (click)="goto('Y')">Y</a>
+            <a class="cursor" (click)="goto('Z')">Z</a>
+         </div>     
+         
+         <div class="row" >
+                <div class="col-md-12" *ngFor="let item of appNameList | keyvalue ">
+                    <div class="paginationContainer" id="pagination_a">
+                        <h4 class="paginationName">{{item.key}}</h4>
+                        <div class="row">
+                            <div class="col-md-3 mb4  symbo_{{item.key}}" *ngFor="let item1 of item.value ">
+                                <a class="cursor" (click)="goToPage(item1)">{{item1}}</a>
+                            </div>        
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- <table id="datatable-buttons11" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Domain</th>
+                          <th>Name</th>
+                          <th>Desc</th>
+                          <th>SubDomain</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                    <tr *ngFor="let V of APIListV |filter:searchText| paginate: { itemsPerPage: 20, currentPage: p }">
+                     <tr *ngFor="let V of APIListV "> -->
+                     <!--   <td>{{V.ApiId}}</td>
+                        <td>{{V.ApiDomain}}</td>
+                        <td>{{V.ApiName}}</td>
+                        <td>{{V.ApiDesc}}</td>
+                        <td>{{V.ApiSubDomain}}</td>
+                    </tr>
+                    <tr class="bgColorWhite">
+                        <td colspan="5">
+                            <ul class="pagination">  
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>  
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>                
+                </table>       -->
+    
+                <!-- <div class="row d-none">
+                    <div class="col-md-3" >
+                        <div class="paginationContainer" id="pagination_a">
+                            <h4 class="paginationName">A</h4>
+                            <a href="" *ngFor="let ap of appNameList">{{ap}}</a>                        
+                        </div>               
+                    </div>                
+                </div> -->
+                <!-- {{appNameList}}
+                <div *ngFor="let key of appNameList(items)">1111{{key + ' : ' + items[key]}}</div> -->
+         <!-- Old Data Start-->
+         <!-- <div class="paginationModules">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="paginationContainer" id="pagination_a">
+                        <h4 class="paginationName">A</h4>
+                        <a href="">1. Account get UPI</a>
+                        <a href="">2. Account PUSH</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_b">
+                        <h4 class="paginationName">B</h4>
+                        <a href="">3. Account get UPI</a>
+                        <a href="">4. Bound Tigger Cash</a>
+                        <a href="">5. Account get UPI</a>
+                        <a href="">6. Biometric Authentication</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_c">
+                        <h4 class="paginationName">C</h4>
+                        <a href="">7. Bank Collective</a>
+                        <a href="">8. Banking Merchant Fetch</a>
+                        <a href="">9. Bilateral Transfer</a>
+                        <a href="">10. BMFF Logic Run</a>
+                        <a href="">11. Bound Tigger Cash</a>
+                        <a href="">12. Biometric Authentication</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_d">
+                        <h4 class="paginationName">D</h4>
+                        <a href="">13. Bank Collective</a>
+                        <a href="">14. Banking Merchant Fetch</a>
+                        <a href="">15. Bilateral Transfer</a>
+                        <a href="">16. BMFF Logic Run</a>
+                        <a href="">17. Bound Tigger Cash</a>
+                        <a href="">18. Biometric Authentication</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_e">
+                        <h4 class="paginationName">E</h4>
+                        <a href="">19. Bank Collective</a>
+                        <a href="">20. Banking Merchant Fetch</a>
+                        <a href="">21. Bilateral Transfer</a>
+                        <a href="">22. BMFF Logic Run</a>
+                        <a href="">23. Bound Tigger Cash</a>
+                        <a href="">24. Biometric Authentication</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_f">
+                        <h4 class="paginationName">F</h4>
+                        <a href="">25. Bank Collective</a>
+                        <a href="">26. Banking Merchant Fetch</a>
+                        <a href="">27. Bilateral Transfer</a>
+                        <a href="">28. BMFF Logic Run</a>
+                        <a href="">29. Bound Tigger Cash</a>
+                        <a href="">30. Biometric Authentication</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="paginationContainer" id="pagination_k">
+                        <h4 class="paginationName">K</h4>
+                        <a href="">37. Bank Collective</a>
+                        <a href="">38. Banking Merchant Fetch</a>
+                        <a href="">39. Bilateral Transfer</a>
+                        <a href="">40. BMFF Logic Run</a>
+                        <a href="">41. Bound Tigger Cash</a>
+                        <a href="">42. Biometric Authentication</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_l">
+                        <h4 class="paginationName">L</h4>
+                        <a href="">43. Bank Collective</a>
+                        <a href="">44. Banking Merchant Fetch</a>
+                        <a href="">45. Bilateral Transfer</a>
+                        <a href="">46. BMFF Logic Run</a>
+                        <a href="">47. Bound Tigger Cash</a>
+                        <a href="">48. Biometric Authentication</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_m">
+                        <h4 class="paginationName">M</h4>
+                        <a href="">49. Bank Collective</a>
+                        <a href="">50. Banking Merchant Fetch</a>
+                        <a href="">51. Bilateral Transfer</a>
+                        <a href="">52. BMFF Logic Run</a>
+                        <a href="">53. Bound Tigger Cash</a>
+                        <a href="">54. Biometric Authentication</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_n">
+                        <h4 class="paginationName">N</h4>
+                        <a href="">55. Bank Collective</a>
+                        <a href="">56. Banking Merchant Fetch</a>
+                        <a href="">57. Bilateral Transfer</a>
+                        <a href="">58. BMFF Logic Run</a>
+                        <a href="">59. Bound Tigger Cash</a>
+                        <a href="">60. Biometric Authentication</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="paginationContainer" id="pagination_t">
+                        <h4 class="paginationName">T</h4>
+                        <a href="">85. Cash Enquiry</a>
+                        <a href="">86. Counts Inc</a>
+                        <a href="">87. Counts Dec</a>
+                        <a href="">88. Collect from VPA</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_u">
+                        <h4 class="paginationName">U</h4>
+                        <a href="">89. Cash Enquiry</a>
+                        <a href="">90. Counts Inc</a>
+                        <a href="">91. Counts Dec</a>
+                        <a href="">92. Collect from VPA</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_v">
+                        <h4 class="paginationName">V</h4>
+                        <a href="">93. Bank Collective</a>
+                        <a href="">94. Banking Merchant Fetch</a>
+                        <a href="">95. Bilateral Transfer</a>
+                        <a href="">96. BMFF Logic Run</a>
+                        <a href="">97. Bound Tigger Cash</a>
+                        <a href="">97. Bound Tigger Cash</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_w">
+                        <h4 class="paginationName">W</h4>
+                        <a href="">98. Bank Collective</a>
+                        <a href="">99. Banking Merchant Fetch</a>
+                        <a href="">100. Bilateral Transfer</a>
+                        <a href="">101. BMFF Logic Run</a>
+                        <a href="">102. Bound Tigger Cash</a>
+                        <a href="">103. Bound Tigger Cash</a>
+                        <a href="">104. Bound Tigger Cash</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="paginationContainer" id="pagination_x">
+                        <h4 class="paginationName">X</h4>
+                        <a href="">105. Bank Collective</a>
+                        <a href="">106. Banking Merchant Fetch</a>
+                        <a href="">107. Bilateral Transfer</a>
+                    </div>
+                    <div class="paginationContainer" id="pagination_y">
+                        <h4 class="paginationName">Y</h4>
+                        <a href="">108. Bank Collective</a>
+                        <a href="">109. Banking Merchant Fetch</a>
+                        <a href="">110. Bilateral Transfer</a>
+        
+                    </div>
+                    <div class="paginationContainer" id="pagination_z">
+                        <h4 class="paginationName">Z</h4>
+                        <a href="">111. Bank Collective</a>
+                        <a href="">112. Banking Merchant Fetch</a>
+                        <a href="">113. Bilateral Transfer</a>
+                        <a href="">114. BMFF Logic Run</a>
+                        <a href="">115. Bound Tigger Cash</a>
+                        <a href="">116. Biometric Authentication</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+         <!-- Old Data End -->
+    
+      </div>
+    </div>
+    <!-- Added for VIEW ALL (End)-->  
+        </div>
+    </div>

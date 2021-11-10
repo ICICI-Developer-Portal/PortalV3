@@ -1,0 +1,29 @@
+.bg-gray{    background: #ececec;}
+.nestedTabs .nav-item.show .nav-link, .nestedTabs .nav-link.active{
+    border-bottom: 2px solid #ae282e;
+    
+    color: black !important;
+    background-color: #ffffff;
+
+}
+.ml0{
+    margin-left: 0px;
+}
+.mb10{
+    margin-bottom: 10px !important;
+}
+.pb15{
+    padding-bottom: 15px;
+}
+.pt15{
+    padding-top: 15px;
+}
+
+.fs24 {
+    font-size: 20px !important;
+}
+.btn-success{
+    color: green;
+    color: white;
+    text-transform: capitalize;
+}

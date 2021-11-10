@@ -1,0 +1,123 @@
+<div id="container">
+  <div class="documentTabContent" style="overflow: hidden;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 78%;color:#ae282e">
+   <div style="float:left;font-weight: bold;font-size: 16px;">
+   <a><span (click)="navigateBack()"> Back </span></a>
+  </div>
+   </div>
+  <div class="documentTabContent" style="margin-top: 30px !important;
+ 	position:absolute;
+	left: 0;
+	right: 0;
+  margin: auto;
+  width: 78%;
+  overflow: hidden;">
+  <form   autocomplete="off" nonvalidate>
+
+
+      <div  class="border-gray">
+          <h6 class="red-bg">Merchant Detail</h6>
+          <div class="details" style="padding-left: 10px; padding-right:10px;">
+            <div class="row mb10  pt15 pb15" >
+              
+              <div class="col-md-4"><label><b>Jira Id </b></label></div>
+              <div class="col-md-8">{{onboardedMerchantData.jiraId}}</div>
+          </div>                       
+            <div class="row mb10  pt15 pb15" >
+                <div class="col-md-4"><label><b>Merchant Name</b></label></div>
+                <div class="col-md-8">{{onboardedMerchantData.merchantName}}</div>
+            </div>
+            <div class="row mb10  pt15 pb15" >
+              <div class="col-md-4"><label><b>API Product</b></label></div>
+              <div class="col-md-8">{{onboardedMerchantData.domain}}</div>
+          </div>
+          <div class="row mb10  pt15 pb15" >
+              <div class="col-md-4"><label><b>API Services </b></label></div>
+              <div class="col-md-8">{{onboardedMerchantData.domainApi}}</div>
+          </div>
+          <div class="row mb10  pt15 pb15" >
+            <div class="col-md-4"><label><b>API URL </b></label></div>
+            <div class="col-md-8">
+              <ul>
+                <li *ngFor="let item of this.apiUrl;let j=index ">
+                  {{item}}
+                </li>
+              </ul>
+              </div>
+        </div>
+            <div class="row mb10  pt15 pb15" >
+              
+                <div class="col-md-4"><label><b>IP List</b></label></div>
+                <div class="col-md-8">{{onboardedMerchantData.ipList}}</div>
+            </div>
+            <div class="row mb10  ppb15" >
+              
+                <div class="col-md-4"><label><b>Status </b></label></div>
+                <div class="col-md-8">{{onboardedMerchantData.status}}</div>
+            </div>
+           <!--  <div class="row mb10  pt15 pb15" *ngIf="showBU === true && onboardedMerchantData.status === 'Approved' " >
+              
+              <div class="col-md-6"><label><b>Certificate </b></label></div>
+              <div class="col-md-6"><button class="signInBtn btn-dark pull-left  mt-3 "  type="button" style="margin-right: 38px;"  (click)="downloadfile('/assets/documents/ICICI_PUBLIC_CERT_UAT.crt')"> Download
+              </button></div>
+          </div> -->
+           
+            
+            <div class="row mb10  pt15 pb15" >
+                <div class="col-md-4"><label><b>Request Date</b></label></div>
+                <div class="col-md-8">{{onboardedMerchantData.reqDt}}</div>
+            </div>
+            <!-- <div class="row mb10  pt15 pb15" >
+                <div class="col-md-6"><label><b>Mode</b></label></div>
+                <div class="col-md-6">{{onboardedMerchantData.join(",")}}</div> 
+
+            </div> -->
+            <div class="row mb10  pt15 pb15" >
+              
+              <div class="col-md-4"><label><b>Relationship manager</b></label></div>
+              <div class="col-md-8">{{onboardedMerchantData.relManager}}</div>
+          </div>
+            <div class="row mb10  pt15 pb15" *ngIf="showBUH === true ">
+              <div class="col-md-4"><label><b>BU Remarks</b></label></div>
+              <div class="col-md-8">{{onboardedMerchantData.remarks}}</div> 
+
+          </div>
+          <div class="row mb10  pt15 pb15" *ngIf="showBU === true ">
+            <div class="col-md-4"><label><b>BUH Remarks</b></label></div>
+            <div class="col-md-8">{{onboardedMerchantData.remarksBuh}}</div> 
+
+        </div>
+          <div class="row mb10  pt15 pb15"  >
+            <div class="col-md-4"><label><b>BUH Remarks</b></label></div>
+            <div class="col-md-8">
+              <textarea class="form-control rounded-0" id="remark" rows="25" #remark ></textarea>
+            </div> 
+
+        </div>
+        </div>
+
+      </div>
+
+      <div class="form-group col-md-12" *ngIf="showBUH === true && onboardedMerchantData.status.toLowerCase() === 'pending' ">
+        <button class="signInBtn btn-dark pull-right  mt-3 "  type="button" style="margin-right: 38px;"  (click)="navigateBack()"> Cancel
+        </button>
+        <button class="signInBtn btn-dark pull-right  mt-3 "  type="button" style="margin-right: 38px;"  (click)="approveRequestId('Approved',remark.value)"> Approve
+        </button>
+        <button class="signInBtn btn-dark pull-right  mt-3 "  type="button" style="margin-right: 38px;"  (click)="approveRequestId('Rejected',remark.value)"> Reject
+        </button>
+      
+      </div>
+      <div class="form-group col-md-12" *ngIf=" showBU === true">
+        <button class="signInBtn btn-dark pull-right  mt-3 "  type="button" style="margin-right: 38px;"  (click)="navigateBack()"> Back
+        </button>
+       
+      
+      </div>
+   </form>
+           
+
+</div>
+</div>
