@@ -1,0 +1,111 @@
+<div class="documentTabContent">
+  <div class="tab-content" id="v-pills-tabContent">
+    <!-- Building Blocks Tab -->
+    <div>
+      <div class="tabContentInner">
+        <h4 class="mb10 fs24 color-black ff-medium">UPI 2.0</h4>
+        <hr />
+        <p class="fs14 color-gray ff-light mb30">
+          With the updated version of UPI, we provide you the added benefits of
+          E-Mandate, better security levels along with it, these robust APIs
+          facilitate you to traverse across this process with ease whether it
+          is- placing Collect requests, facilitating payments, tracking requests
+          or publishing consolidations. The bouquet of APIs allows you to cover
+          the complete lifecycle.
+        </p>
+        <hr />
+        <div class="row mb30 linksContainer">
+          <div class="col-md-12">
+            <table class="  table-hover " cellpadding="5">
+              <tr class="color-red">
+                <th>API</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td class="ws-nowrap">Register Mobile Number</td>
+                <td>
+                  Register the mobile number with the PSP, validate customer
+                  with OTP or MPIN, set MPIN for selected account.
+                </td>
+              </tr>
+              <tr>
+                <td class="ws-nowrap">Balance Inquiry</td>
+                <td>
+                  API will return the balance details of the Account +IFSC
+                  mapped to VPA. Same API will cater to give Customer existence.
+                </td>
+              </tr>
+              <tr>
+                <td class="ws-nowrap">Common Pay Request</td>
+                <td>
+                  This common API will support to initiate a pay request to
+                  virtual address and Global recipients (IFSC + Account no /
+                  Mobile + MMD / Aadhaar + IIN).
+                </td>
+              </tr>
+              <tr>
+                <td class="ws-nowrap">Validate Address</td>
+                <td>
+                  This API will be used by the application customer wants to add
+                  a beneficiary within PSP application (for sending & collecting
+                  money) OR at the time of transaction when initiating Pay to
+                  ad-hoc VPA / Collect from ad-hoc VPA request.
+                </td>
+              </tr>
+              <tr>
+                <td class="ws-nowrap">Get Transaction History</td>
+                <td>
+                  This API is leveraged to fetch the all transactions on basis
+                  of VPA
+                </td>
+              </tr>
+              <tr>
+                <td class="ws-nowrap">Collect Auth</td>
+                <td>
+                  This API will approve or reject Collect request initiated by
+                  some Payee to user identified by Mobile
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-12 text-right">
+            <hr />
+            <a
+              data-toggle="modal"
+              data-target="#viewFlow"
+              class="tryItFreeBtn"
+              >{{ constants.VIEW_FLOW }}</a
+            >
+            <a
+              href="assets/documents/UPI-2.docx"
+              class="tryItFreeBtn docBtn"
+              download
+              >{{ constants.PDF_DOCUMENT }}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Building Block Tab -->
+    <div class="modal" id="viewFlow">
+      <div class="modal-dialog w-max1295">
+        <div class="modal-content">
+          <div class="modal-header">
+            <i data-dismiss="modal" class="material-icons close">close</i>
+          </div>
+          <div class="modal-body">
+            <img
+              src="assets/images/UPI-2.png"
+              class="w-max100 banner"
+              id="img_id"
+            />
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="copyrightSection">
+   <p>Copyright 2017 ICICI Bank Ltd. All rights reserved.</p>
+ </div> -->
+</div>
