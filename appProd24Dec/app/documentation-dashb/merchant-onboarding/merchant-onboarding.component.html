@@ -1,0 +1,267 @@
+<toaster-container></toaster-container>
+<div class="documentTabContent">
+   
+  <!-- <form enctype="multipart/form-data" id="uploadDocFrom" method="post"> -->
+  <form autocomplete="off">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="domainName">Domain Name:<span class="required">*</span></label> 
+        <select class="form-control h40" id="freeText1" name="freeText1" required="required" #SelectDomain>  
+          <option value="">Select Domain</option>
+          <option value="Business Banking">Business Banking</option>
+          <option value="Pay Later API">Pay Later API</option>
+          <option value="Credit Cards API">Credit Cards API</option>
+          <option value="Payments(UPI-1)">Payments(UPI-1)</option>
+          <option value="Payments(UPI-2)">Payments(UPI-2)</option>
+          <option value="Retail Banking">Retail Banking</option>
+        </select></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3 multiSelectBox d-none" id="corporateBankingBox">
+      <div class="form-group">
+        <label for="domainName">Select APIs:<span class="required">*</span></label> 
+        <select class="form-control h40 d-none" id="corporateBanking" multiple="multiple" #corporateBanking>
+          <option disabled="disabled">Account Opening</option>
+          <option value="Corporate Customer">Corporate Customer</option>
+          <option disabled="disabled">Corporate Internet Banking</option>
+          <option class="subheading" disabled="disabled">Manage Registration</option>
+          <option value="Business: Registration">Registration</option>
+          <option value="Business: Registration Status">Registration Status</option>
+          <option value="Business: Registration Callback">Registration Callback</option>
+          <option value="Business: Deregistration">Deregistration</option>
+          <option class="subheading" disabled="disabled">Transaction Management</option>
+          <option value="Business: OTP Creation for Transaction">OTP Creation For Transaction</option>
+          <option value="Business: Transaction">Transaction</option>
+          <option value="Business: Transaction Status">Transaction Status</option>
+          <option value="Business: Transaction Callback">Transaction Callback</option>
+          <option value="Business: Validate Registered Account">Validate Registered Account</option>
+          <option value="Business: Fetch Registered Mobile Number">Fetch Registered Mobile Number</option>
+          <option value="Business: Account Balance Fetch">Account Balance Fetch</option>
+          <option value="Business: Account Bank Statement">Account Bank Statement</option>
+          <option class="subheading" disabled="disabled">Unsecured Overdraft</option>
+          <option value="Business: InstaOD Offer Check">InstaOD Offer Check</option>
+          <option value="Business: Avail InstaOD Offer">Avail InstaOD Offer</option>
+          <option disabled="disabled">Cash Deposite Machine</option>
+          <option value="Business: CDM Deposit">CDM Deposit</option>
+          <option value="Business: CDM Validation">CDM Validation</option>
+          <option disabled="disabled">Payments</option>
+          <option value="Business: InstaPay">InstaPay</option>
+          <option value="Business: InstaPay File Upload">InstaPay File Upload</option>
+          <option value="Business: Payment MIS">Payment MIS</option>
+          <option disabled="disabled">Collection</option>
+          <option class="subheading" disabled="disabled">IsurePay</option>
+          <option value="Business: Validation Web Service">Validation Web Service</option>
+          <option value="Business: Receipting Web Service">Receipting Web Service</option>
+          <option class="subheading" disabled="disabled">E-Collection</option>
+          <option value="Business: E-Collection MIS">E-Collection MIS</option>
+          <option disabled="disabled">Insta IMPS</option>
+          <option class="subheading" disabled="disabled">Transaction</option>
+          <option value="Business: P2A - Person to Account Fund Transfer">P2A - Person to Account Fund Transfer</option>
+          <option value="Business: P2P - Person to Person Fund Transfer">P2P - Person to Person Fund Transfer</option>
+          <option class="subheading" disabled="disabled">Status</option><option value="Business: IMPS MMID Inquiry">IMPS MMID Inquiry</option>
+          <option value="Business: IMPS Transaction Enquiry">IMPS Transaction Enquiry</option>
+          <option value="Business: IMPS Transaction History">IMPS Transaction History</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3 multiSelectBox d-none" id="payLaterBox">
+      <div class="form-group">
+        <label for="domainName">Select APIs:<span class="required">*</span></label> 
+        <select class="form-control h40 d-none" id="payLater" multiple="multiple" #payLaterApi>
+          <option disabled="disabled">Account Creation</option>
+          <option value="PayLater: Account Creation">Customer Authentication</option>
+          <option value="PayLater: Account Creation">Account Creation</option>
+          <option disabled="disabled">Account Management</option>
+          <option value="Paylater: Balance Inquiry">Balance Inquiry</option
+            ><option value="Paylater: Bill Inquiry">Bill Inquiry</option>
+            <option value="Paylater: Pay Dues">Pay Dues</option>
+            <option value="Paylater: Statement">Statement</option>
+          </select></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3 multiSelectBox d-none" id="creditCardBox"  #creditCardApi>
+      <div class="form-group">
+        <label for="domainName">Select APIs:<span class="required">*</span></label> 
+        <select class="form-control d-none h40" id="creditCard" multiple="multiple">
+          <option disabled="disabled">Credit Card Product</option>
+          <option value="Credit Card Product: Customer Authentication">Customer Authentication</option>
+          <option value="Credit Card Product: Available Cards For Customer">Available Cards For Customer</option>
+          <option value="Credit Card Product: Card Details">Card Details</option>
+          <option value="Credit Card Product: Credit Card Creation">Credit Card Creation</option>
+          <option disabled="disabled">Prepaid Card</option>
+          <option value="PCMS: AccountStatement">AccountStatement</option>
+          <option value="PCMS:Buyer Number Linked">Buyer Number Linked</option>
+          <option value="PCMS: Card Close">Card Close</option>
+          <option value="PCMS: Card Issuance">Card Issuance</option>
+          <option value="PCMS: Crfreezee To Active">Crfreezee To Active</option>
+          <option value="PCMS: CVV Generation">CVV Generation</option>
+          <option value="PCMS: Passive to Active">Passive to Active</option>
+          <option value="PCMS: Periodic Statement">Periodic Statement</option>
+          <option value="PCMS: Update or Change Pin">Update or Change Pin</option>
+          <option value="PCMS: Upgrade Virtual Card With Physical Card">Upgrade Virtual Card With Physical Card</option>
+          <option value="PCMS: Application Processing">Application Processing</option>
+          <option value="PCMS: Card Activation">Card Activation</option>
+          <option value="PCMS: Card Block / Unblock">Card Block / Unblock</option>
+          <option value="PCMS: Card Info Enquiry">Card Info Enquiry</option>
+          <option value="PCMS: Card Info Enquiry">Card Info Enquiry</option>
+          <option value="PCMS: Card Instant Debit">Card Instant Debit</option>
+          <option value="PCMS: Card Instant Debit">Card Instant Debit</option>
+          <option value="PCMS: Card Sale">Card Sale</option>
+          <option value="PCMS: Card Topup">Card Topup</option>
+          <option value="PCMS: Card to Card Transfer">Card to Card Transfer</option>
+          <option value="PCMS: Contact Info">Contact Info</option>
+          <option value="PCMS: Limit Verification">Limit Verification</option>
+          <option value="PCMS: Linked Mobile">Linked Mobile</option>
+          <option value="PCMS: Mini Statement">Mini Statement</option>
+          <option value="PCMS: Monthly Statement">Monthly Statement</option>
+          <option value="PCMS: Personal Info Enquiry">Personal Info Enquiry</option>
+        </select></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3 multiSelectBox d-none" id="paymentUPI1Box">
+      <div class="form-group">
+        <label for="domainName">Select APIs:<span class="required">*</span></label> 
+        <select class="form-control d-none h40" id="paymentUPI1" multiple="multiple" #paymentUPI1Api> 
+          <option disabled="disabled">Device Gegistration</option>
+          <option value="Payments (UPI 1.0): Get Token">Get Token</option>
+          <option disabled="disabled">Pay To VPA</option>
+          <option value="Payments (UPI 1.0): List Customer Accounts">List Customer Accounts</option>
+          <option value="Payments (UPI 1.0): Validate Virtual Address">Validate Virtual Address</option>
+          <option value="Payments (UPI 1.0): Common Pay Request">Common Pay Request</option>
+          <option disabled="disabled">Collect From VPA</option>
+          <option value="Payments (UPI 1.0): Collect Request">Collect Request</option>
+          <option disabled="disabled">Collect Authorization</option>
+          <option value="Payments (UPI 1.0): Get Pending Request">Get Pending Request</option>
+          <option value="Payments (UPI 1.0): Approve/ Reject Pending Collect">Approve/ Reject Pending Collect</option>
+          <option disabled="disabled">Balance Enquiry</option>
+          <option value="Payments (UPI 1.0): Balance Enquiry">Balance Enquiry</option>
+          <option disabled="disabled">Change Reset MPIN</option>
+          <option value="Payments (UPI 1.0): Change MPIN">Change MPIN</option>
+          <option value="Payments (UPI 1.0): Generate OTP">Generate OTP</option>
+          <option value="Payments (UPI 1.0): Register Mobile Number">Register Mobile Number</option>
+          <option disabled="disabled">Deregister Profile</option>
+          <option value="Payments (UPI 1.0): De-Register">De-Register</option>
+          <option disabled="disabled">Pay To Merchant VPA</option>
+          <option value="Payments (UPI 1.0): Pay to Merchant VPA">Pay to Merchant VPA</option>
+          <option disabled="disabled">Merchant Collect</option>
+          <option value="Payments (UPI 1.0): Merchant Collect Request">Merchant Collect Request</option>
+          <option disabled="disabled">Merchant Refund</option>
+          <option value="Payments (UPI 1.0): Merchant Refund Request">Merchant Refund Request</option>
+          <option disabled="disabled">Transaction Status</option>
+          <option value="Payments (UPI 1.0): Transaction Status">Transaction Status</option>
+        </select></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3 multiSelectBox d-none" id="paymentUPI2Box">
+      <div class="form-group">
+        <label for="domainName">Select APIs:<span class="required">*</span></label> 
+        <select class="form-control h40 d-none" id="paymentUPI2" multiple="multiple" #paymentUPI2Api>  
+          <option disabled="disabled">Add Account</option>
+          <option value="Payments (UPI 2.0): Check VPA Availability">Check VPA Availability</option>
+          <option value="Payments (UPI 2.0): List Account Provider">List Account Provider</option>
+          <option value="Payments (UPI 2.0): Generate OTP">Generate OTP</option> 
+          <option value="Payments (UPI 2.0): List Keys">List Keys</option>
+          <option value="Payments (UPI 2.0): Register Mobile">Register Mobile</option>
+          <option disabled="disabled">Pay To VPA</option>
+          <option value="Payments (UPI 2.0): Get Customer Account">Get Customer Account</option>
+          <option value="Payments (UPI 2.0): Validate VPA">Validate VPA</option>
+          <option value="Payments (UPI 2.0): Pay To VPA">Pay To VPA</option>
+          <option disabled="disabled">Collect From VPA</option>
+          <option value="Payments (UPI 2.0): Collect Request">Collect Request</option>
+          <option disabled="disabled">Collect Auth</option>
+          <option value="Payments (UPI 2.0): Get Pending Request">Get Pending Request</option>
+          <option value="Payments (UPI 2.0): Approve/Reject pending">Approve/Reject pending</option>
+          <option value="Payments (UPI 2.0): Collect Auth">Collect Auth</option>
+          <option disabled="disabled">Mandates</option>
+          <option value="Payments (UPI 2.0): Manage Mandates">Manage Mandates</option>
+          <option value="Payments (UPI 2.0): Get Pending Mandates">Get Pending Mandates</option>
+          <option value="Payments (UPI 2.0): Approve/reject Pending mandates">Approve/reject Pending mandates</option>
+          <option value="Payments (UPI 2.0): Get all mandates">Get all mandates</option>
+          <option value="Payments (UPI 2.0): Mandates History">Mandates History</option>
+          <option value="Payments (UPI 2.0): Initiate Mandates Collect">Initiate Mandates Collect</option>
+          <option disabled="disabled">Balance Inquiry</option>
+          <option value="Payments (UPI 2.0): Balance Inquiry">Balance Inquiry</option>
+          <option disabled="disabled">Change Reset MPIN</option>
+          <option value="Payments (UPI 2.0): Change MPIN">Change MPIN</option>
+          <option value="Payments (UPI 2.0): Request OTP">Request OTP</option>
+          <option value="Payments (UPI 2.0): Request Mobile">Request Mobile</option>
+          <option value="Payments (UPI 2.0): Deregister">Deregister</option>
+          <option disabled="disabled">Merchant Refund</option>
+          <option value="Payments (UPI 2.0): Merchant Refund Request">Merchant Refund Request</option>
+          <option disabled="disabled">Transaction Status</option>
+          <option value="Payments (UPI 2.0): Transaction Status">Transaction Status</option>
+          <option disabled="disabled">Invoice In The Box (View Pay)</option>
+          <option value="Payments (UPI 2.0): Common Pay Request">Common Pay Request</option>
+          <option disabled="disabled">Linking Overdraft Account</option>
+          <option value="Payments (UPI 2.0): List Accounts">List Accounts</option>
+          <option disabled="disabled">Signed Intent QR</option>
+          <option value="Payments (UPI 2.0): List PSP Keys">List PSP Keys</option>
+          <option value="Payments (UPI 2.0): Manage Verified Address">Manage Verified Address</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3 multiSelectBox d-none" id="retailBankingBox">
+      <div class="form-group">
+        <label for="domainName">Select APIs:<span class="required">*</span></label> 
+        <select class="form-control h40 d-none" id="retailBanking" multiple="multiple" #retailBankingApi> 
+          <option disabled="disabled">Account Status</option><option value="Retail Banking: Balance Inquiry">Balance Inquiry</option><option value="Retail Banking: Bank Account Summary">Bank Account Summary</option><option disabled="disabled">Recurring Deposite</option><option value="Retail Banking: Recurring Deposit Creation">Recurring Deposit Creation</option><option value="Retail Banking: Add Funds">Add Funds</option><option value="Retail Banking: View Recurring Deposit">View Recurring Deposit</option><option value="Retail Banking: Edit Recurring Deposit">Edit Recurring Deposit</option><option value="Retail Banking: Transaction History">Transaction History</option><option value="Retail Banking: Close Recurring Deposit">Close Recurring Deposit</option></select></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="merchantName">Merchant Name:<span class="required">*</span></label> 
+        <input class="form-control" id="freeText2" name="freeText2" placeholder="Enter Merchant Name" required="required" type="text" #MerchantName/></div> 
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="description">Description:<span class="required">*</span></label><textarea class="form-control" id="freeText3" name="freeText3" required="required" rows="5" #Description> 
+
+        </textarea>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="whitelistedIps">Single Point of Contact Email ID:<span class="required">*</span></label> 
+        <input class="form-control" id="spoc" name="spoc" placeholder="Enter SPOC Email ID" type="text" #SinglePointofContactEmailID/></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="whitelistedIps">Single Point of Contact Number:<span class="required">*</span></label> 
+        <input class="form-control" id="spocCont" name="spocCont" placeholder="Enter SPOC Contact Number" type="text" #SinglePointofContactNumber/></div>
+      <div id="error">
+        <span class="required">Please enter valid contact number.</span></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="whitelistedIps">ICICI Bank Relationship Manager:</label> 
+        <input class="form-control" id="manager" name="manager" placeholder="Enter ICICI Bank Relationship Manager" type="text" #ICICIBankRelationshipManager/></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="environment">Environment:<span class="required">*</span></label> 
+        <select class="form-control h40" id="enviornment" name="enviornment" required="required" #enviornmentSelect>
+          <option value="">Select environment</option><option value="UAT">UAT</option><option value="Production">Production</option></select></div> 
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <label for="whitelistedIps">IPs To Be Whitelisted:</label> 
+        <input class="form-control" id="freeText4" name="freeText4" placeholder="Enter Static IPs" type="text" #IPsToBeWhitelisted/></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <a data-original-title="Please mention callback URL (HTTP/HTTPS)" data-toggle="tooltip" href="#" title=""><label for="callback" class="color-black0">Callback URL:</label></a> 
+        <input class="form-control" id="freeText5" name="freeText5" placeholder="Enter Callback URL" type="text" #CallbackURL/></div>  
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3 d-none">
+      <div class="form-group">
+        <label for="importance">Importance:<span class="required">*</span></label> 
+        <select class="form-control h40" id="freeText6" name="freeText6" required="required" #ImportanceSelect>
+          <option value="8">High</option><option selected="selected" value="5">Medium</option><option value="3">Low</option><option value="2">Lowest</option></select></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <div class="form-group">
+        <a data-original-title="Public certificate in X.509 format (4096 bits)" data-toggle="tooltip" href="#" title=""><label for="usr" class="color-black0">File:<span class="required">*</span>( Upload certificate files, max size : 500KB )</label></a> 
+        <input class="form-control" id="file1" name="file1" required="required" type="file" #Photofile/></div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-md-6 col-lg-offset-3">
+      <button class="btn btn-block btn-warning submitButton bg-merchant" id="submitButton" type="Submit" (click)="Save_merchantonboarding(SelectDomain.value,corporateBanking.selectedItems,payLaterApi.selectedItems,creditCardApi.selectedItems,paymentUPI1Api.selectedItems,paymentUPI2Api.selectedItems,retailBankingApi.selectedItems,MerchantName.value,Description.value,SinglePointofContactEmailID.value,SinglePointofContactNumber.value,ICICIBankRelationshipManager.value,enviornmentSelect.value,IPsToBeWhitelisted.value,CallbackURL.value,ImportanceSelect.value,Photofile.value)">Submit</button><input class="form-control" id="domainSelected" name="domainSelected" type="hidden" value="#corporateBanking" />
+    </div>
+  </form>
+  <!-- Added for VIEW ALL (End)-->
+
+</div>

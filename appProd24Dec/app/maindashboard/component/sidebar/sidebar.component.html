@@ -1,0 +1,115 @@
+<div class="tab-content" id="pills-tabContent" *ngIf="component">
+  <div class="tab-content">
+    <div
+      class="tab-pane fade show active"
+      id="pills-profile"
+      role="tabpanel"
+      aria-labelledby="pills-home-tab"
+    >
+      <div class="row m0">
+        <div class="sideMenu">
+          <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+          <ul
+            class="nav flex-column nav-pills"
+            id="v-pills-tab"
+            role="tablist"
+            aria-orientation="vertical"
+          >
+            <!-- <div class="searchBar">
+                  <input type="text" placeholder="Search API"><i class="material-icons">search</i>
+               </div> -->
+           <!--<li class="nav-link active">
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/documentation']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+              >
+                Introduction 
+              </a>
+            </li>-->
+            <!-- <li class="nav-link">
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/application']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+              >
+                Applications
+              </a>
+            </li> -->
+            <li class="nav-link OnboardingRequestsSidebar " >
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/onboardingrequests']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+                
+              >
+                Onboarding Requests
+              </a>
+            </li>
+            <li class="nav-link MisSidebar "  *ngIf="misUserVal == 'true'? true:false" >
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/mis']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+                
+              >
+                MIS Download
+              </a>
+            </li>
+            <li class="nav-link report-issues " >
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/report-issues']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+                
+              >
+               Report Issue
+              </a>
+            </li>
+            <li class="nav-link analytics " >
+              <a
+                id="v-pills-home-tab"
+                href="javascript:;"
+                [routerLink]="['/analytics']"
+                data-toggle="pill"
+                href="#v-pills-home"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
+                
+              >
+               Analytics
+              </a>
+            </li>
+          </ul>
+          <!----------------------------------------------------------------Side Nagvigation-------------------------------------------------------------->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
