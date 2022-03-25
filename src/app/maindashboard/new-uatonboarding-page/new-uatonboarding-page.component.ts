@@ -26,6 +26,8 @@ import {
   HttpEventType,
   HttpErrorResponse
 } from "@angular/common/http";
+import { Http } from '@angular/http';
+import { saveAs } from "file-saver";
 declare var $: any;
 
 @Component({
@@ -40,7 +42,6 @@ export class NewUatonboardingPageComponent implements OnInit {
   menuArray: any[];
   arrayObjectOfListIds = [];
   arrayObjectOfDomain= [];
-  compositePay=[];
   arrayObjectOfValue = [];
   logged_in: Boolean = false;
   additionalParams: any;
@@ -57,8 +58,6 @@ export class NewUatonboardingPageComponent implements OnInit {
   certificate: boolean = false;
   service: boolean = false;
   message: boolean = false;
-  SOLID:boolean=false;
-  EmpID:boolean=false;
   ifsc: boolean = false;
   virtualCode: boolean = false;
   ips: boolean = false;
@@ -122,7 +121,8 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
     private adm: LoginService,
     private toasterService: ToasterService,
     private dashboardService: DashboardService,
-    private elementRef: ElementRef) {
+    private elementRef: ElementRef,
+    private http: Http,) {
     this.adm.getUserId().subscribe(data => {
       this.logged_in =
         data != "" && data != null && data != undefined ? true : false;
@@ -407,6 +407,11 @@ ifIPpatternNotmatches(){
     this.showTab = id;
     //this.active ='#F06321';
   }
+  omit_special_char(event){   
+    var k;  
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57)); 
+ }
   additionalFieldComingFromServer(addtionalParams){
 
     for (var i = 0; i < addtionalParams.length; i++) {
@@ -493,12 +498,6 @@ ifIPpatternNotmatches(){
       if (addtionalParams[i].match("TestingID")) {
         this.uatTestingID = true;
       }
-      if (addtionalParams[i].match("EmpID")) {
-        this.uatTestingID = true;
-      }
-      if (addtionalParams[i].match("SOLID")) {
-        this.uatTestingID = true;
-      }
     }
 
 
@@ -520,10 +519,7 @@ ifIPpatternNotmatches(){
     this.arrayObjectOfDomain = $(".customcsscontainer input:checkbox:checked").map(function () {
       return this.getAttribute("domainName")
     }).get()
-    this.compositePay = $(".customcsscontainer input:checkbox:checked").map(function () {
-      return this.getAttribute("parentName")
-    }).get()
-    console.log(this.compositePay)
+  
     // console.log(this.arrayObjectOfDomain.join())
     console.log(this.arrayObjectOfDomain[0])
 
@@ -648,7 +644,7 @@ ifIPpatternNotmatches(){
   }
   
   multipleSelectAPI(e, isChecked: boolean){
-    
+ 
     console.log( e.target.getAttribute('class'))  
      //logic for select all 
    
@@ -1384,10 +1380,7 @@ if(extention.toLowerCase() == "zip"){
         "Acc_acceptance": new FormControl('Select Acceptance Mode'),
         "Rec_mail": new FormControl(),
         "Acc_mode": new FormControl(),
-       
         "Acc_trans": new FormControl(),
-        "SOLID": new FormControl(null, [Validators.required]),
-        "EmpID": new FormControl(null, [Validators.required]),
         "Acc_amount": new FormControl('Select Amount'),
         "ip":  new FormArray([ 
           // <FormArray>this.reactiveForm.get('whitelistIpSection').get('ipRows'),Validators.required
@@ -1517,5 +1510,20 @@ setProgress(id){
   }
 
 }
+downloadPDF(path,filename){
 
+  this.adm.downloadFromURL(path).subscribe((data: any) => {
+    console.log(data);
+    let certificate = data._body;
+    console.log(data._body);
+    var blob = new Blob([certificate], {
+      type: "text/pdf"
+    });
+    saveAs(blob,filename);
+  },
+  err => {
+    console.log('err', err);
+   
+  });
+}
 }

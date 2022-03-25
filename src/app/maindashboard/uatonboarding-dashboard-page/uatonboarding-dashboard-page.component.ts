@@ -84,15 +84,19 @@ export class UATonboardingDashboardPageComponent implements OnInit {
   ifscCodeOption:any[] = [ "ICIC0000103","ICIC0000104","ICIC0000106"];
   environmentOption:any[] = [ "UAT","CUG","Production"];
   certificateOption:any[] = [ "Java Key Store","IIS SSL (Should be 4096 bits/Public certificate is also required)"];
-  callbackURLInfo:any="The URL should start with https.\n We accept only '.cer' and '.txt' formats.\n For Isurepay we require two webservice URLs";
+  callbackURLInfo:any="It should be domain based & start with https.";
   isemail_check: boolean = false;
   isemail_reg_check: string = "";
   selectedValue = [];
   selectedAPINAME = [];
   progress: number;
-  clicked:boolean=false;
-
-term:any;
+  clicked = false;
+  currentProgress:any = 1;
+  currentProgress1:any = 0;
+  currentProgress2:any = 0;
+  currentProgress3:any = 0;
+  step_no:any = 1;
+  term:any;
 errorMsg:any = "Something went wrong. Please try again in some time.";
   /** Add var for search field */
   myControl = new FormControl();
@@ -124,13 +128,6 @@ errorMsg:any = "Something went wrong. Please try again in some time.";
   }
   ngOnInit() {
    
-    
-$('ul li a[data-toggle="tab"]').removeClass('active');
-$('ul li a[data-toggle="tab"]').removeClass('show');
-
-$('ul li a[data-toggle="dropdown"]').removeClass('active');
-$('ul li a[data-toggle="dropdown"]').removeClass('show');
-$('ul li .usernameClass').addClass('active');
 
     console.log( localStorage.getItem("companyName"))
     this.companyName = localStorage.getItem("companyName");
@@ -182,164 +179,139 @@ $('ul li .usernameClass').addClass('active');
       e.stopPropagation();
     });
     $("#searchFilter").keyup(function () {
-//       var text = $("#searchFilter").val().toLowerCase();
-//       var items = $(".customcsscontainer label");
-    
-//       if ($.trim($("#searchFilter").val()) == '') {
-//          console.log(items.length)
-//         $("").css("display","");
-//           $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
-//           $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
-//           $(".second-level,third-level,.fourth-level,.fifth-level").hide();
+      var text = $("#searchFilter").val().toLowerCase();
+      var items = $(".customcsscontainer label");
+      const arry1=[];
+      if ($.trim($("#searchFilter").val()) == '') {
+         console.log(items.length)
+        //  $(".second-level a").removeClass("paddingLeft13")
+        $("").css("display","");
+         // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
+          $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
+          $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
+          $(".second-level,third-level,.fourth-level,.fifth-level").hide();
          
 
-//       } else {
-//         items.each(function() {
-//           var block;
-//           block = $(this);
-//           if (block.text().toLowerCase().indexOf(text) != 0) {
-//               block.hide();              
-//           } else {
-//               block.show();
-//               console.log(block)
-//              $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
+      } else {
+        items.each(function() {
+          var block;
+          block = $(this);
+          
+          
+          // if (block.text().toLowerCase().indexOf(text) != 0) { //search starts with first entered ltr
+            if (block.text().toLowerCase().indexOf(text) < 0) { // search starts with entered text 
+              block.hide();  
+         
+              $(".second-level p").hide();        
+          } else {
+
+           
+             $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
              
-//              $(".first-level p").hide();
-              
-
-//           }
-//       });
-         
-//       }
-// $(".first-level").show();
-//   })
-
-
-var text = $("#searchFilter").val().toLowerCase();
-var items = $(".customcsscontainer label");
-const arry1=[];
-if ($.trim($("#searchFilter").val()) == '') {
-   console.log(items.length)
-  //  $(".second-level a").removeClass("paddingLeft13")
-  $("").css("display","");
-   // $(".first-level li,.first-level a,.first-level p,.customcsscontainer,.customcsscontainer input").show();
-    $(".first-level p,.customcsscontainer input,.customcsscontainer label").show();
-    $(".second-level,.third-level,.fourth-level,.fifth-level").css('display','none')
-    $(".second-level,third-level,.fourth-level,.fifth-level").hide();
-   
-
-} else {
-  items.each(function() {
-    var block;
-    block = $(this);
-    
-    
-    // if (block.text().toLowerCase().indexOf(text) != 0) { //search starts with first entered ltr
-      if (block.text().toLowerCase().indexOf(text) < 0) { // search starts with entered text 
-        block.hide();  
-   
-        $(".second-level p").hide();        
-    } else {
-
-     
-       $(".first-level li,.first-level a,.first-level ul,.customcsscontainer").show();
+           
+          }
+      });
+      $('input[subDomainName]:visible').each(function() {
+        if( $('input[subDomainName]:visible').attr("childName")){
+          console.log("last")
+        }
+        else if( $('input[subDomainName]:visible').attr("parentName")){
+          console.log("last 1")
+        }
+        else if( $('input[subDomainName]:visible').attr("grandParentName")){
+          console.log("last 2")
+        }
+        else if( $('input[subDomainName]:visible').attr("greatGrandParentName")){
+          console.log("last 3")
+        }
+        else if( $('input[subDomainName]:visible').attr("greatGreatGrandParentName")){
+          console.log("last 4")
+        }
        
+      var  block = $(this);
+            console.log( $('.requestedData-list input[type="text"]:visible').attr("subDomainName"),block)
+            console.log($('.requestedData-list input[type="text"]:visible').parentElement)
+             $(".second-level p[class='"+block[0].attributes[3].nodeValue+"']").show();
+             console.log(block);
+             $(this).parents().eq(4).siblings("a").children("p").css("display","block");
+             $(this).parents().eq(6).siblings("a").children("p").css("display","block");
+             $(this).parents().eq(8).siblings("a").children("p").css("display","block");
+
+
+      });
      
-    }
-});
-$('input[subDomainName]:visible').each(function() {
-  if( $('input[subDomainName]:visible').attr("childName")){
-    console.log("last")
-  }
-  else if( $('input[subDomainName]:visible').attr("parentName")){
-    console.log("last 1")
-  }
-  else if( $('input[subDomainName]:visible').attr("grandParentName")){
-    console.log("last 2")
-  }
-  else if( $('input[subDomainName]:visible').attr("greatGrandParentName")){
-    console.log("last 3")
-  }
-  else if( $('input[subDomainName]:visible').attr("greatGreatGrandParentName")){
-    console.log("last 4")
-  }
- 
-var  block = $(this);
-      console.log( $('.requestedData-list input[type="text"]:visible').attr("subDomainName"),block)
-      console.log($('.requestedData-list input[type="text"]:visible').parentElement)
-       $(".second-level p[class='"+block[0].attributes[3].nodeValue+"']").show();
-       console.log(block);
-       $(this).parents().eq(4).siblings("a").children("p").css("display","block");
-       $(this).parents().eq(6).siblings("a").children("p").css("display","block");
-       $(this).parents().eq(8).siblings("a").children("p").css("display","block");
+      if($('input[domainName="Building Blocks"]:visible').length){
+     
+        $(".first-level p.Building").show();
+          $(".first-level p.Building").show();
 
+      } else{
+        $(".first-level p.Building").hide();
+      }
+       if($('input[domainName="Loans and Cards"]:visible').length){
+     
 
-});
+        $(".first-level p.Loans").show();
+      }
+      else{
+        $(".first-level p.Loans").hide();
 
-if($('input[domainName="Building Blocks"]:visible').length){
+      }
+       if($('input[domainName="Payments"]:visible').length){
+     
 
-  $(".first-level p.Building").show();
-    $(".first-level p.Building").show();
+        $(".first-level p.Payments").show();
+      }
+      else{
+        $(".first-level p.Payments").hide();
+      }
+       if($('input[domainName="Accounts and Deposits"]:visible').length){
+     
 
-} else{
-  $(".first-level p.Building").hide();
-}
- if($('input[domainName="Loans and Cards"]:visible').length){
+        $(".first-level p.Accounts").show();
+      }
+      else{
+        $(".first-level p.Accounts").hide();
+      }
+       if($('input[domainName="Business Banking"]:visible').length){
+     
 
+        
+        $(".first-level p.Business").show();
+      }
+      else{
+        $(".first-level p.Business").hide();
+      }
+        if($('input[domainName="Trade Services"]:visible').length){
+       
+        
+        
+          $(".first-level p.Trade").show();
+        }
+        else{
+          $(".first-level p.Trade").hide();
+        }
+          if($('input[domainName="Corporate API Suite"]:visible').length){
+     
 
-  $(".first-level p.Loans").show();
-}
-else{
-  $(".first-level p.Loans").hide();
+       
+            $(".first-level p.Corporate").show();
+          }
+          else{
+            $(".first-level p.Corporate").hide();
+          }
+      console.log($('input[domainName="Building Blocks"]:visible').length)
 
-}
- if($('input[domainName="Payments"]:visible').length){
-
-
-  $(".first-level p.Payments").show();
-}
-else{
-  $(".first-level p.Payments").hide();
-}
- if($('input[domainName="Accounts and Deposits"]:visible').length){
-
-
-  $(".first-level p.Accounts").show();
-}
-else{
-  $(".first-level p.Accounts").hide();
-}
- if($('input[domainName="Business Banking"]:visible').length){
-
-
+    // setTimeout(function(){ if($('input[domainName="Building Blocks"]:visible').length){
+    //   console.log($('input[domainName="Building Blocks"]:visible').length)
+    // }
   
-  $(".first-level p.Business").show();
-}
-else{
-  $(".first-level p.Business").hide();
-}
-  if($('input[domainName="Trade Services"]:visible').length){
- 
-  
-  
-    $(".first-level p.Trade").show();
-  }
-  else{
-    $(".first-level p.Trade").hide();
-  }
-    if($('input[domainName="Corporate API Suite"]:visible').length){
+  // },5000);
 
-
- 
-      $(".first-level p.Corporate").show();
-    }
-    else{
-      $(".first-level p.Corporate").hide();
-    }
-console.log($('input[domainName="Building Blocks"]:visible').length);   
-}
+         
+      }
 $(".first-level").show();
-})
+  })
   }
 
   
@@ -526,7 +498,11 @@ ifIPpatternNotmatches(){
   onClickContinueBtn() {
     console.log("rchd inside cninue btn")
 
-    if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements"); }
+  if ($(".customcsscontainer input:checkbox:checked").length > 0) { $("#thrdSectionChld").removeClass("overlay_parent"); $("#submitButton,#file1").removeClass("blockElements");   $('#nav-tab a[href="#tab3"]').tab('show'); this.setProgress(3);
+
+    // aria-controls="nav-additionalDetails"
+    $("nav-additional-tab").attr("aria-controls","nav-additionalDetails")
+  }
     else { $("#thrdSectionChld").addClass("overlay_parent");    }
     //this.modalRef.hide();
     this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
@@ -536,7 +512,9 @@ ifIPpatternNotmatches(){
       return this.getAttribute("domainName")
     }).get()
   
-    console.log(this.arrayObjectOfDomain.join())
+    // console.log(this.arrayObjectOfDomain.join())
+    console.log(this.arrayObjectOfDomain[0])
+
 
     console.log(this.arrayObjectOfListIds.join())
     const formArray: FormArray = this.reactiveForm.get(this.responseData) as FormArray;
@@ -558,12 +536,24 @@ ifIPpatternNotmatches(){
      this.additionalFieldComingFromServer( this.additionalParams)
       console.log("final", this.additionalParams);
     },
+      // err => {
+      //   console.log('err', err);
+      // //  this.router.navigate(['error']);
+      // this.toastrmsg('error',this.errorMsg);
+      // });
       err => {
         console.log('err', err);
       //  this.router.navigate(['error']);
       this.toastrmsg('error',this.errorMsg);
-    
-
+ 
+      let obj = {
+        ADDITIONAL_DETAILS: "IP,Port",
+        API_NAME: "Get Offer On Account",
+        ID: "431"}
+        localStorage.setItem('nodevalue', obj.API_NAME)
+        this.additionalParams = obj.ADDITIONAL_DETAILS.split(",");
+        localStorage.setItem('additonalFields', this.additionalParams)
+        this.additionalFieldComingFromServer( this.additionalParams)
       });
   
   }
@@ -652,51 +642,234 @@ ifIPpatternNotmatches(){
     this.uatTestingID= false;
     this.resetField();
   }
-  multipleSelectAPI(e, isChecked: boolean){
-   this.forResetiingAdditionalFields();
-    if ($(".customcsscontainer input:checkbox:checked").length) {
-      $('.ContinueBtn').prop('disabled', false);
-      $("#dynamic-list-check").css("display", "block");
-      $("#scndSectionWhitelistIp").addClass("ng-valid");
-      $("#scndSectionWhitelistIp").removeClass("ng-invalid");
-     
-    }
-    else {
-      $('.ContinueBtn').prop('disabled', true);
-      $("#thrdSectionChld").addClass("overlay_parent");
-      $("#dynamic-list-check").css("display", "none");
-      $("#scndSectionWhitelistIp").addClass("ng-invalid");
-      $("#scndSectionWhitelistIp").removeClass("ng-valid");   
-      $("#submitButton,#file1").addClass("blockElements")
-    }
-        if(isChecked) {
-          this.selectedValue.push({
-          "childName": e.target.getAttribute('value'),
-          "parentName" :e.target.getAttribute('parentName'),
-          "grandParentName":e.target.getAttribute('grandParentName'),
-          "greatGrandParentName": e.target.getAttribute('greatGrandParentName'),
-          "greatGreatGrandParentName": e.target.getAttribute('greatGreatGrandParentName'),
-          "id": e.target.getAttribute('id')
-        });
-        this.selectedAPINAME.push(
-          e.target.getAttribute('value'));
-          console.log(this.selectedAPINAME)
-
-        } else {
   
-          let index = this.selectedValue.indexOf(e);
-          let index1= this.selectedAPINAME.indexOf(e);
-          console.log(e.target);
-          this.selectedValue.splice(index,1);
-          this.selectedAPINAME.splice(index1,1);
-          console.log(this.selectedValue,"this.selectedValue");               
-        }
+  multipleSelectAPI(e, isChecked: boolean){
+ 
+    console.log( e.target.getAttribute('class'))  
+     //logic for select all 
+   
+     if(e.target.getAttribute('class') =="selectAll"){
+      // alert($(".customcsscontainer input:checkbox:checked").attr('parentName'))
+     // alert($(".customcsscontainer input:checkbox:checked:first").attr('parentName'))
+     // alert(e.target.getAttribute('parentName'))
+      if(e.target.checked==true){
+        //alert("1")
+        this.selectedValue=[];
+       // //alert($("input[class='selectAll']:checked").attr("parentName"))
+        console.log($(".selectAll[type='checkbox']:checked").length)
+        if($(".selectAll[type='checkbox']:checked").length>1){
+          //alert("yes i")
+          // if( $(".selectAll:checkbox:checked").attr('parentName')!=e.target.getAttribute('parentName')){
+            //alert("came")
+              alert("Selecting this API will deselect the previously selected APIs. You can only select APIs from within a product. Kindly raise another request for a different product..")
+              this.selectedAPINAME=[];
+              this.selectedValue=[];
+              $(".customcsscontainer input:checkbox").attr("checked",false)
+              $(".customcsscontainer input:checkbox").removeAttr("checked")
+              $(".customcsscontainer input:checkbox").prop("checked",false)
+              $('.ContinueBtn').prop('disabled', false);
+              $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",true)
+              $(".input[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",true)
+              
+         }
+      //alert($(".customcsscontainer input:checkbox:checked").attr('parentName'))
+      //alert($(".customcsscontainer input:checkbox:checked").attr('class'))
+  // alert($(".scndCheckbox input:checkbox:checked").attr('parentName'))
+          if( ($(".scndCheckbox input:checkbox:checked").attr('parentName')!=e.target.getAttribute('parentName')) && $(".scndCheckbox input:checkbox:checked").length>0 ){
+          alert("Selecting this API will deselect the previously selected APIs. You can only select APIs from within a product. Kindly raise another request for a different product..")
+          this.selectedAPINAME=[];
+          this.selectedValue=[];
+          $(".customcsscontainer input:checkbox").attr("checked",false)
+          $(".customcsscontainer input:checkbox").removeAttr("checked")
+          $(".customcsscontainer input:checkbox").prop("checked",false)
+           $('.ContinueBtn').prop('disabled', false);
+          $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",false)
           
-}
-deleteRemoveObjectFromCart(e){
+  
+        }
+        $(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",true);
+        $(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']").prop("checked",true);
+      
+      var selectedheckboxes= document.querySelectorAll("input[parentname='"+e.target.getAttribute('parentName')+"']:checked")
+      for(var i=0;i<selectedheckboxes.length;i++){
+         if(selectedheckboxes[i].getAttribute('class')!="selectAll"){
+        this.selectedValue.push({
+            "childName":  selectedheckboxes[i].getAttribute('value'),
+            "parentName" : selectedheckboxes[i].getAttribute('parentName'),
+            "grandParentName": selectedheckboxes[i].getAttribute('grandParentName'),
+            "greatGrandParentName":  selectedheckboxes[i].getAttribute('greatGrandParentName'),
+            "greatGreatGrandParentName":  selectedheckboxes[i].getAttribute('greatGreatGrandParentName'),
+            "id":  selectedheckboxes[i].getAttribute('id')
+          });
+          this.selectedAPINAME.push(
+            selectedheckboxes[i].getAttribute('value'));
+        }
+      }
+      console.log( this.selectedValue)
+      console.log( this.selectedAPINAME)
+  
+        console.log( $(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']"))
+        
+        
+  
+       // e.target.attr("checked",true)
+       $('.ContinueBtn').prop('disabled', false);
+      }
+      else{
+        this.selectedValue=[];
+        $(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']").removeAttr("checked")
+        $(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",false)
+        $(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']").removeAttr("checked")
+        $(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']").prop("checked",false)
+        $('.ContinueBtn').prop('disabled', true);
+      
+      }
+      
+    } 
+  
+    //logic for multiple select
+    else{
+      //alert("2")
+  
+      this.forResetiingAdditionalFields();
+      if ($(".customcsscontainer input:checkbox:checked").length) {
+        $('.ContinueBtn').prop('disabled', false);
+        $("#dynamic-list-check").css("display", "block");
+        $("#scndSectionWhitelistIp").addClass("ng-valid");
+        $("#scndSectionWhitelistIp").removeClass("ng-invalid");
+        console.log($(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']").length)
+        console.log($(".customcsscontainer input[parentname='"+e.target.getAttribute('parentName')+"']:checkbox:checked").length)
+  
+       
+      }
+      else {
+        $('.ContinueBtn').prop('disabled', true);
+        $("#thrdSectionChld").addClass("overlay_parent");
+        $("#dynamic-list-check").css("display", "none");
+        $("#scndSectionWhitelistIp").addClass("ng-invalid");
+        $("#scndSectionWhitelistIp").removeClass("ng-valid");   
+        $("#submitButton,#file1").addClass("blockElements")
+      }
+      if($(".scndCheckbox input[parentname='"+e.target.getAttribute('parentName')+"']").length==$(".scndCheckbox input[parentname='"+e.target.getAttribute('parentName')+"']:checkbox:checked").length){
+    //  $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").addAttr("checked");
+        $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",true)
+        $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").prop("checked",true)
+      }
+      else{
+        // //alert("hii")
+        $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").removeAttr("checked");
+        $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",false)
+                 $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").removeAttr("checked")
+                 $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").prop("checked",false)
+                  //  $('.ContinueBtn').prop('disabled', true);
+                 $(".selectAll").attr("checked",false)
+                 $(".selectAll").removeAttr("checked");
+                 $(".selectAll").attr("checked",false)
+                          $(".selectAll").removeAttr("checked")
+                          $(".selectAll").prop("checked",false)
+      }
+          if(isChecked) {
+            if($(".domianName").length){
+             console.log( $(".domianName").text());
+            }
+            else{
+              console.log("no")
+  
+            }
+            this.selectedValue.push({
+              "childName": e.target.getAttribute('value'),
+              "parentName" :e.target.getAttribute('parentName'),
+              "grandParentName":e.target.getAttribute('grandParentName'),
+              "greatGrandParentName": e.target.getAttribute('greatGrandParentName'),
+              "greatGreatGrandParentName": e.target.getAttribute('greatGreatGrandParentName'),
+              "id": e.target.getAttribute('id')
+            });
+            this.selectedAPINAME.push(
+              e.target.getAttribute('value'));
+              console.log(this.selectedAPINAME)
+              console.log(this.selectedValue)
+            if(this.selectedValue.length>0){
+               console.log(this.selectedValue[0]['parentName'])
+               if((this.selectedValue[0]['parentName']!=e.target.getAttribute('parentName'))  ){
+                 this.deleteRemoveObjectFromCart(e)
+                 alert("Selecting this API will deselect the previously selected APIs. You can only select APIs from within a product. Kindly raise another request for a different product..")
+                 this.selectedAPINAME=[];
+                 this.selectedValue=[];
+                 $(".customcsscontainer input:checkbox").attr("checked",false)
+                 $(".customcsscontainer input:checkbox").removeAttr("checked")
+                 $(".customcsscontainer input:checkbox").prop("checked",false)
+                //  $('.ContinueBtn').prop('disabled', false);
+                 $(".selectAll[parentname='"+e.target.getAttribute('parentName')+"']").attr("checked",false)
+  
+  
+                 this.forResetiingAdditionalFields(); 
+                 console.log("yes rchd")
+                 this.selectedValue.push({
+                      "childName": e.target.getAttribute('value'),
+                      "parentName" :e.target.getAttribute('parentName'),
+                      "grandParentName":e.target.getAttribute('grandParentName'),
+                      "greatGrandParentName": e.target.getAttribute('greatGrandParentName'),
+                      "greatGreatGrandParentName": e.target.getAttribute('greatGreatGrandParentName'),
+                      "id": e.target.getAttribute('id')
+                    });
+                    console.log( e.target,e.target.checked=true)
+                    console.log( e.target.attr("checked"),e.target.checked)
+                     e.target.checked
+  
+                    e.target.attr("checked",true)
+                    this.selectedAPINAME.push(
+                      e.target.getAttribute('value'));
+                      console.log(this.selectedAPINAME)
+                      console.log(this.selectedValue);
+
+               }
+            
+               console.log( e.target.getAttribute('parentName'))
+            }
+  
+          } else {
+            console.log("unchecking")
+            this.selectedValue=[];
+            this.selectedAPINAME=[];
+           
+             selectedheckboxes= $(".scndCheckbox input:checkbox:checked");
+            console.log(selectedheckboxes.length)
+            for(var i=0;i<selectedheckboxes.length;i++){
+               if(selectedheckboxes[i].getAttribute('class')!="selectAll"){
+              this.selectedValue.push({
+                  "childName":  selectedheckboxes[i].getAttribute('value'),
+                  "parentName" : selectedheckboxes[i].getAttribute('parentName'),
+                  "grandParentName": selectedheckboxes[i].getAttribute('grandParentName'),
+                  "greatGrandParentName":  selectedheckboxes[i].getAttribute('greatGrandParentName'),
+                  "greatGreatGrandParentName":  selectedheckboxes[i].getAttribute('greatGreatGrandParentName'),
+                  "id":  selectedheckboxes[i].getAttribute('id')
+                });
+                this.selectedAPINAME.push(
+                  selectedheckboxes[i].getAttribute('value'));
+              }
+            }
+            console.log( this.selectedValue)
+            console.log( this.selectedAPINAME)
+     
+            // let index = this.selectedValue.indexOf(e);
+            // let index1= this.selectedAPINAME.indexOf(e);
+            // console.log(e.target);
+            // console.log(this.selectedValue)
+            // console.log(this.selectedValue.indexOf(e),this.selectedAPINAME.indexOf(e))
+            // console.log(this.selectedValue.splice(index,1),   this.selectedAPINAME.splice(index1,1))
+
+            // this.selectedValue.splice(index,1);
+            // this.selectedAPINAME.splice(index1,1);
+            // console.log(this.selectedValue,"this.selectedValue");                  
+          }
+            
+    }    
+  }
+   deleteRemoveObjectFromCart(e){
   this.forResetiingAdditionalFields(); 
 console.log(e.target);
-
+$(".selectAll").removeAttr("checked");
+  $(".selectAll").prop("checked",false)
 console.log(this.selectedValue.length)
 console.log(e.target.getAttribute("id"));
 let deletedId=e.target.getAttribute("id");
@@ -709,6 +882,7 @@ $("input[id=" + e.target.getAttribute("id") + "]").prop("checked",false);
 
 console.log(this.selectedValue)
 if(this.selectedValue.length>0){
+  
    this.arrayObjectOfListIds = $(".customcsscontainer input:checkbox:checked").map(function () {
     return this.id
   }).get()
@@ -748,6 +922,8 @@ else{
 }
 
 onSubmitUATForm(Prodconfirm) {
+  this.setProgress(4);
+
 
   $("#submitButton").prop("disabled",true)
 
@@ -998,11 +1174,25 @@ if(extention.toLowerCase() == "zip"){
   formData.append("TestingID", inputFields["Acc_uatTestingID"]); //37 
   
   
-  /* formData.forEach((value, key) => {
-  
-    console.log(key + " " + value)
-  
-  });*/
+  let headers = new HttpHeaders();
+  headers = headers.set(  "Token", localStorage.getItem("jwt"));
+  //headers = headers.append("Content-Type", "application/json"); 
+    this.HttpClient.post<any>(
+    
+      "https://developer.icicibank.com/rest/create-jira-new",
+    
+      formData,{headers: headers}
+    
+    ).subscribe(
+    
+      res => {
+        console.log(res);
+      },err => {
+        console.log('err', err);
+      //  this.toastrmsg('error',this.errorMsg);
+      },
+
+    );
   
   
   
@@ -1012,10 +1202,9 @@ if(extention.toLowerCase() == "zip"){
   
   //https://developerapi.icicibank.com:8443/api/v2/jira
   
-  //https://developer.icicibank.com/ROOT_UAT/rest/create-jira-new
-  //https://developer.icicibank.com/ROOT_UAT/rest/create-jira-new-new
-  
-  //const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+  //https://developer.icicibank.com/ROOT_UAT/rest/create-jira-new "Content-Type": "application/json",
+  //let headers = new HttpHeaders();
+//headers = headers.set(  "Token", localStorage.getItem("jwt"));
   this.HttpClient.post<any>(
   
     "https://developer.icicibank.com/rest/create-jira-new-uat",
@@ -1046,14 +1235,6 @@ if(extention.toLowerCase() == "zip"){
         let b: any = (<HTMLInputElement>document.getElementById("file1")).files;
   
         for (let k = 0; k < b.length; k++) {
-  
-          console.log(b, k)
-  
-          console.log(b[k])
-  
-          console.log(res.jiraId, res)
-  
-  
   
           formData.append(res.jiraId, b[k]);
   
@@ -1119,6 +1300,7 @@ if(extention.toLowerCase() == "zip"){
 
 
 }
+
 
   //conditional validation
   ifFieldisVisible(value) {
@@ -1208,13 +1390,10 @@ if(extention.toLowerCase() == "zip"){
       }),
      
     })
-   this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
-
-   this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);
-
-    
-   this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
-   this.reactiveForm.get("basicDetailsSection.r_m_maild_id").setValue(this.rm);
+    this.reactiveForm.get("basicDetailsSection.email_id").setValue(this.email);
+    this.reactiveForm.get("basicDetailsSection.merchantName").setValue(this.companyName);    
+    this.reactiveForm.get("basicDetailsSection.contact_no").setValue(this.mobileNo);
+    this.reactiveForm.get("basicDetailsSection.r_m_maild_id").setValue(this.rm);
 
   }
   
@@ -1272,7 +1451,6 @@ console.log(this.searchedFieldValue);
     }
     return api && api.name ? api.name : '';
   }
-
   upload(file) {
     this.progress = 1;
     const formData = new FormData();
@@ -1299,5 +1477,34 @@ console.log(this.searchedFieldValue);
       )
       .toPromise();
   }
+nextTab($e){
+  $e.preventDefault();
+  // $('"#nav-tab").tabs a[href="#tab2"]').tab('show');
+  this.setProgress(2);
+  $('#nav-tab a[href="#tab2"]').tab('show');
+  // $("#nav-tab").tabs("option", "active", $("#nav-tab").tabs('option', 'active')+1 );
+}
+setProgress(id){
+ 
+     
+  if(id == 1 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress1 = 0;
+    this.currentProgress2 = 0;
+    this.currentProgress3 = 0;
+    this.step_no = 1;
+  }else if(id == 2 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress1= 100;
+    this.currentProgress2 = 0;
+    this.currentProgress3 = 0;
+    this.step_no = 2;
+  }else if(id == 3 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress2= 100;
+    this.step_no = 3;
+    // this.onClickContinueBtn();
+  }else if(id == 4 && this.reactiveForm.get('basicDetailsSection').invalid==false){
+    this.currentProgress3= 100;
+  }
+
+}
 
 }

@@ -66,6 +66,7 @@ export class SigninModalComponent implements OnInit {
   companyNames: any;
   errorMsg: any = "Something went wrong. Please try again in some time.";
   status_code:any;
+  salt:string;
   constructor(
     private SessionService: SessionService,
     private authService: AuthService,
@@ -89,6 +90,10 @@ export class SigninModalComponent implements OnInit {
     this.adm.getUserName().subscribe(data => {
       this.user_name = data;
     });
+    this.adm.getSaltValue().subscribe(data => {
+       this.salt = data
+       
+     });
     this.get_domain_and_apis();
     
   }
@@ -220,7 +225,7 @@ export class SigninModalComponent implements OnInit {
   }
 
   toastrmsg(type, title) {
-  //  console.log("toastermsg", type, title);
+    console.log("toastermsg", type, title);
     var toast: Toast = {
       type: type,
       showCloseButton: true,
@@ -242,7 +247,7 @@ export class SigninModalComponent implements OnInit {
   }
 
   openModal2(signup: TemplateRef<any>) {
-   // console.log(this.domainLst )
+    console.log(this.domainLst )
   
   // this.modalRef2 = this.modalService.show(signup, { backdrop: "static" });
 
@@ -287,6 +292,26 @@ export class SigninModalComponent implements OnInit {
   }
 }
 
+encode(key,val){
+  var encryptedBase64Key=btoa(key); //base64encryption
+  var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+ let encryptedVal = CryptoJS.AES.encrypt(val, parsedBase64Key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+    });
+    return encryptedVal;
+}
+reloadToken(){
+  this.adm.getSalt().subscribe((data: any) => {
+    
+    this.adm.sendSalt(data._body);
+    this.salt = data._body;
+  },
+  err => {
+    console.log('err', err);
+  });
+}
+
   // Login function
   Login(username: any, password: any, loginsuccess: TemplateRef<any>) {
     //localStorage.setItem('username',username);
@@ -307,12 +332,22 @@ export class SigninModalComponent implements OnInit {
       this.issetpwd = true;
       return;
     }
+    
     username = btoa(username);
-    password = btoa(password);
-    //console.log("username password"+username+':' +password)
-    var json = { username: username, password: password };
+    //   password = btoa(password);
+   
+    
+     let pwd = this.encode(this.salt,password);
+      
+       var key = 'ICICI#~#';
+       key += this.datepipe.transform(Date.now(),'ddMMyyyy');
+     let newSalt = this.encode(key,this.salt);
+     var json = { username: username, password: pwd ,Token:newSalt};
+    // var json = { username: username, password: password };
+    // console.log("username password == "+username+':' +password) 
     this.spinnerService.show();
-    this.adm.Login(json).subscribe((data: any) => {
+   //this.adm.Login(json).subscribe((data: any) => {
+       this.adm.Login1(json).subscribe((data: any) => {
       var response = data._body;
       this.loginResponse = JSON.parse(response);
       if (this.loginResponse.status == true) {
@@ -345,7 +380,7 @@ export class SigninModalComponent implements OnInit {
           localStorage.setItem('rm',respData.rm);
         }
 
-        this.adm.LoginPortal(nonEncodedJson).subscribe(
+        /* this.adm.LoginPortal(nonEncodedJson).subscribe(
           res => {
             console.log("LoginPortal success");
             //this.router.navigate([this.router.url]);
@@ -354,7 +389,7 @@ export class SigninModalComponent implements OnInit {
             console.log("LoginPortal error")
            // this.router.navigate([this.router.url]);
           }
-        );
+        ); */
         this.dialogRef.close();
         /**
          * Start here 
@@ -377,6 +412,7 @@ export class SigninModalComponent implements OnInit {
 
        // this.router.navigate([this.router.url]);
       } else {
+        this.reloadToken();
         this.spinnerService.hide();
         this.isusername = false;
         this.issetpwd = false;
@@ -393,6 +429,7 @@ export class SigninModalComponent implements OnInit {
       }
     },
     err => {
+      this.reloadToken();
       console.log('err', err);
      // this.router.navigate(['error']);
       this.toastrmsg('error',this.errorMsg);
@@ -741,6 +778,7 @@ export class SigninModalComponent implements OnInit {
     this.adm.sendUserId("");
     this.showbtn = true;
     this.showlogoutbtn = false;
+    this.reloadToken();
     this.adm.LogoutPortal().subscribe(
       res => {
         this.router.navigate(["/index"]);
@@ -789,8 +827,8 @@ export class SigninModalComponent implements OnInit {
     }, 10);
   }
 
-   //login success pop up modal
-   clickOk() {
+  //login success pop up modal
+  clickOk() {                    
     this.modalRef4.hide();
     if (this.router.url === "/documentation"){
       this.router.navigate(['explore-api']); 

@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
   // Login function
   adminLogin(username: any, password: any) {
     localStorage.setItem('username', username);
-    //localStorage.setItem('password', password);
+    localStorage.setItem('password', password);
     this.isusername = false;
     this.issetpwd = false;
     this.is_res_error = '';
@@ -97,11 +97,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('id', obj.data.id);
       //  localStorage.setItem('email', obj.data.email);
         localStorage.setItem("jwt",obj.jwttoken);
-
-        localStorage.setItem("username", obj.data.username);
-       // localStorage.setItem("password", this.loginResponse.data.password);
-        localStorage.setItem("id", obj.data.id);
-        localStorage.setItem("role", obj.data.role);
         
       let respData = obj.data;
       if(respData ){

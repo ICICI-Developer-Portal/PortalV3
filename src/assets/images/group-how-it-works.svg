@@ -28,19 +28,19 @@
             <circle cx="55" cy="55" r="55" fill="#FFF" stroke="#FFACB0"/>
             <path fill="#F26421" fill-rule="nonzero" d="M55 80c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25zm0-3c12.15 0 22-9.85 22-22s-9.85-22-22-22-22 9.85-22 22 9.85 22 22 22zm-3.457-34.274l16.17 9.702a3 3 0 0 1 0 5.144l-16.17 9.702A3 3 0 0 1 47 64.7V45.3a3 3 0 0 1 4.543-2.573zM50 45.3V64.7L66.169 55 50 45.299z"/>
         </g>
-        <text fill="#212121" font-family="Poppins-Light, Poppins Light" font-size="12" transform="translate(0 1)">
+        <text fill="#212121" font-family="Mulish-Light, Mulish Light" font-size="12" transform="translate(0 1)">
             <tspan x="27.808" y="194">Sign up for an ICICI</tspan> <tspan x="25.774" y="211">Developer Account.</tspan>
         </text>
-        <text fill="#212121" font-family="Poppins-Light, Poppins Light" font-size="12" transform="translate(0 1)">
+        <text fill="#212121" font-family="Mulish-Light, Mulish Light" font-size="12" transform="translate(0 1)">
             <tspan x="450.69" y="194">Test the</tspan> <tspan x="440.418" y="211">Application</tspan>
         </text>
-        <text fill="#212121" font-family="Poppins-Light, Poppins Light" font-size="12" transform="translate(0 1)">
+        <text fill="#212121" font-family="Mulish-Light, Mulish Light" font-size="12" transform="translate(0 1)">
             <tspan x="249.066" y="140">Create an</tspan> <tspan x="245.418" y="157">Application</tspan>
         </text>
-        <text fill="#212121" font-family="Poppins-Light, Poppins Light" font-size="12" transform="translate(0 1)">
+        <text fill="#212121" font-family="Mulish-Light, Mulish Light" font-size="12" transform="translate(0 1)">
             <tspan x="639.684" y="157">Test it Out</tspan>
         </text>
-        <text fill="#212121" font-family="Poppins-Light, Poppins Light" font-size="12" transform="translate(0 1)">
+        <text fill="#212121" font-family="Mulish-Light, Mulish Light" font-size="12" transform="translate(0 1)">
             <tspan x="810.88" y="194">Get Sample Code</tspan>
         </text>
     </g>

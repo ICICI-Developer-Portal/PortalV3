@@ -8,7 +8,9 @@ declare var $: any;
 
 @Component({
   selector: "app-sidebar",
-  templateUrl: "./sidebar.component.html"
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.css"]
+
 })
 export class SidebarComponent implements OnInit {
   treeDataKeys: any;
@@ -17,6 +19,7 @@ export class SidebarComponent implements OnInit {
   tDataKeys: any[];
   treeArr: any[];
   treeItems: any;
+  dynamicTreeList: any;
   nodeId: any;
   nodeType: any;
   levels: any;
@@ -24,7 +27,10 @@ export class SidebarComponent implements OnInit {
   treeData1: any[];
   treeElements: any;
   showMatSpinner: boolean = false;
-  isInternalUser:any;
+  businessLendingProducts=["Offer check","New customer information","Customer details modification","Bank statement (i)","Bank statement (ii)","Bank statement (iii)","Instant Sanction","Instant Disbursement","Data fetch","Mini Statement","File sharing","Dashboard","Status Check"];
+newLi;
+Env:any;
+isInternalUser:any;
   /** @class SidebarComponent
    * @constructor
    */
@@ -58,9 +64,10 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     var self = this;
-    this.isInternalUser = localStorage.getItem("isInternalUser");
     //api for get menu tree data
+    this.isInternalUser = localStorage.getItem("isInternalUser");
     this.getMenuTree();
+    console.log("jiiiiiiiiiiii jiiii")
 
     //api for get tree data
     // this.dashboardService.getMenuTreeData().subscribe((data: any) => {
@@ -122,22 +129,22 @@ export class SidebarComponent implements OnInit {
     });
 
     //for dynamic data click event handle
+    let that = this;
     $(document)
       .off("click")
       .on("click", ".tree-node", function(e) {
         var selectedId = $(this).attr("role");
-        if(selectedId === "introduction"){
-          //this.router.navigate(['documentation']);
-          self.AppId('documentation', 'documentation');
-        }else if(selectedId === "security"){
-         // this.router.navigate(['security']);
-          self.AppId('security', 'security');
-        }else{
-          this.nodeId = selectedId.split("_").pop();
-        var nodeType = selectedId.split("_", 2).pop();
-        self.AppId(this.nodeId, nodeType);
-        }
+        console.log(selectedId)
         
+        this.nodeId = selectedId.split("_").pop();
+        var nodeType = selectedId.split("_", 2).pop();
+        let env = selectedId.split("_", 3).pop();
+        console.log(env);
+        that.Env = env;
+       
+       // this.setdata(env);
+       // this.dashboardService.environmentData = env;
+        self.AppId(this.nodeId, nodeType);
       });
   }
 
@@ -149,6 +156,7 @@ export class SidebarComponent implements OnInit {
     this.showMatSpinner = true;
     this.dashboardService.getMenuTreeData().subscribe((data: any) => {
       this.treeData = JSON.parse(data._body);
+      console.log(this.treeData )
       this.createTreeAndJquery();
       this.showMatSpinner = false;
     },
@@ -177,6 +185,8 @@ export class SidebarComponent implements OnInit {
     this.treeElements = this.createTree();
     setTimeout(() => {
       this.assignClickToNodes();
+      $(".dynamicTree").append('<li class="nav-link intro viewAllApi" (click)="viewAllApi($event)"><a href="#/viewallapi" role="tab"> VIEW ALL APIs</a></li>')
+
     }, 1000);
   }
 
@@ -187,15 +197,15 @@ export class SidebarComponent implements OnInit {
   createTree() {
     this.treeItems =
       `<li class="nav-link active intro">` +
-      `<a id="v-pills-home-tab" data-toggle="pill" class="tree-node"  role="introduction" (click) = "navigate_To('/documentation')" role="tab" aria-controls="v-pills-home" aria-selected="true">Introduction` +
+      `<a id="v-pills-home-tab" data-toggle="pill"  href="#/documentation" role="tab" aria-controls="v-pills-home" aria-selected="true">Introduction` +
       `</a>` +
       `</li>` +
-      ` <li class="nav-link">
+      ` <li class="nav-link securitynavlink">
 
-        <a id="v-pills-messages-tab" data-toggle="pill" class="tree-node"  role="security" (click) ="navigate_To('/security')" role="tab" aria-controls="v-pills-messages" aria-selected="false"> Security` +
+        <a id="v-pills-messages-tab" data-toggle="pill"  href="#/security" role="tab" aria-controls="v-pills-messages" aria-selected="false"> Security` +
       `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
       `</a>` +
-      `<ul class="collapse nav-pills-first-level submenuLevelOne list-unstyled">` +
+      `<ul class="collapse nav-pills-first-level submenuLevelOne list-unstyled maroonbg">` +
       `<li class="nav-link">` +
       `<a id="v-pills-List-Customer-Accounts-tab" class="tree-node" role="tab_api_1" data-toggle="pill" aria-selected="false" >Encryption` +
       `</a>` +
@@ -210,17 +220,49 @@ export class SidebarComponent implements OnInit {
       `</a>` +
       `</li>` +
       `</ul>` +
-      `</li>`;
+      `</li>`
+      + ` <li class="nav-link dynamicTree">
 
+      <a id="v-pills-messages-tab" data-toggle="pill"  href="#/APIDomains" role="tab" aria-controls="v-pills-messages" aria-selected="false" class=""  style="
+      background: #ae282e !important;
+      color: #ffff !important;
+  "> API Domains` +
+    `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
+    `</a>` +
+    `<ul class="collapse nav-pills-first-level submenuLevelOne list-unstyled apiDomainCategory" id="dynamicDropdownlist">`+    this.createDynamicTree();
+    +`</ul>` +
+    `</li>`+`<li></li>`;
+ 
+
+      return this.treeItems;
+    }
+
+  createDynamicTree() {
     for (var i = 0; i < this.treeData.length; i++) {
-      if (this.treeData[i].CHILD_COUNT !== "0" && this.treeData[i].display == "1") {
-        this.treeItems +=
+      if (this.treeData[i].CHILD_COUNT !== "0") {
+        if(this.dynamicTreeList==undefined){
+          console.log("undefined")
+          this.dynamicTreeList =
           `<li class="nav-link">` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_${this.treeData[i].TYPE}_${this.treeData[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${this.treeData[i].TAB_NAME}` +
           `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""/>` +
           `</a>`;
 
+      
+        }
+        else{
+          console.log("defined")
+          this.dynamicTreeList +=
+          `<li class="nav-link">` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_${this.treeData[i].TYPE}_${this.treeData[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+          `${this.treeData[i].TAB_NAME}` +
+          `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt=""/>` +
+          `</a>`;
+
+    
+        }
+        
         if (this.treeData[i].CHILD_COUNT !== "0") {
           this.createUnorderedList(
             this.treeData[i].children,
@@ -228,55 +270,45 @@ export class SidebarComponent implements OnInit {
             this.treeData[i].LEVEL
           );
         }
-      }else if(this.treeData[i].CHILD_COUNT !== "0" && (this.treeData[i].display == "0" && this.isInternalUser == "true")){
-
-      }
-      /* else {
-        this.treeItems +=
-          `<li class="nav-link" >` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${this.treeData[i].TYPE}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
-          `${this.treeData[i].TAB_NAME}` +
-          `</a>` +
-          `</span>`;
-      } */ 
-      else if(this.treeData[i].display == "1") {
-        this.treeItems +=
-          `<li class="nav-link" >` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${this.treeData[i].TYPE}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+     
+      } else if(this.treeData[i].display == "1") {
+        this.dynamicTreeList +=
+          `<li class="nav-link">` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"   role="tab_${this.treeData[i].TYPE}_${this.treeData[i].ENVIRONMENT}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${this.treeData[i].TAB_NAME}` +
           `</a>` +
           `</span>`;
       }else if(this.treeData[i].display == "0" && this.isInternalUser == "true") {
-        this.treeItems +=
-          `<li class="nav-link" >` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${this.treeData[i].TYPE}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+        this.dynamicTreeList +=
+          `<li class="nav-link">` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"   role="tab_${this.treeData[i].TYPE}_${this.treeData[i].ENVIRONMENT}_${this.treeData[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${this.treeData[i].TAB_NAME}` +
           `</a>` +
           `</span>`;
-      } 
+      }
 
-      this.treeItems = this.treeItems + `</li>`;
+      this.dynamicTreeList = this.dynamicTreeList + `</li><li></li>`;
     }
-    this.treeItems += `<li class="nav-link viewAllLink">
-        <a id="v-view-all-tab" data-toggle="pill"  href="#/viewallapi" role="tab" aria-controls="v-view-all" aria-selected="true">
-          <div class="viewAllIcon">
-            <i class="material-icons">dashboard</i>
-          </div>
-          VIEW ALL APIs
-          <img
-            class="viewAllDropdownActive"
-            src="assets/images/dropdown-3.svg"
-            alt=""
-          />
-          <img
-            class="viewAllDropdown" 
-            src="assets/images/dropdown-viewall.svg"
-            alt=""
-          />
-        </a>
-      </li>`;
+    // this.dynamicTreeList += `<li class="nav-link viewAllLink">
+    //     <a id="v-view-all-tab" data-toggle="pill"  href="#/viewallapi" role="tab" aria-controls="v-view-all" aria-selected="true">
+    //       <div class="viewAllIcon">
+    //         <i class="material-icons">dashboard</i>
+    //       </div>
+    //       VIEW ALL APIs
+    //       <img
+    //         class="viewAllDropdownActive"
+    //         src="assets/images/dropdown-3.svg"
+    //         alt=""
+    //       />
+    //       <img
+    //         class="viewAllDropdown" 
+    //         src="assets/images/dropdown-viewall.svg"
+    //         alt=""
+    //       />
+    //     </a>
+    //   </li>`;
 
-    return this.treeItems;
+    return this.dynamicTreeList;
   }
 
   /** Create menu tree sub nodes dynamically
@@ -285,31 +317,29 @@ export class SidebarComponent implements OnInit {
    */
   createUnorderedList(childrenArr, nodeType, level) {
     if (level === "1") {
-      this.treeItems += `<ul
+      this.dynamicTreeList += `<ul
       class="collapse nav-pills-first-level submenuLevelOne list-unstyled"
     >`;
     }
     if (level === "2") {
-      this.treeItems += `<ul
+      this.dynamicTreeList += `<ul
       class="collapse nav-pills-first-level submenuLevelTwo list-unstyled"
     >`;
     }
     if (level >= "3") {
-      this.treeItems += `<ul
+      this.dynamicTreeList += `<ul
       class="collapse nav-pills-third-level submenuLevelThree list-unstyled"
     >`;
     }
 
     for (var i = 0; i < childrenArr.length; i++) {
-      if( childrenArr[i].TREE_ID == "557" ||  childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
-
-      if(childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
+      if(childrenArr[i].TREE_ID =="556" || childrenArr[i].TREE_ID == "557" ||  childrenArr[i].TREE_ID == "325" || childrenArr[i].TREE_ID == "328"){}
 
       else{
-      if (childrenArr[i].CHILD_COUNT !== "0"  && childrenArr[i].display == "1") {
+      if (childrenArr[i].CHILD_COUNT !== "0") {
 
-        this.treeItems +=
-          `<li class="nav-link">` +
+        this.dynamicTreeList +=
+          `<li class="nav-link" >` +
           `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${childrenArr[i].TAB_NAME}` +
           `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
@@ -320,47 +350,81 @@ export class SidebarComponent implements OnInit {
           childrenArr[i].TYPE,
           childrenArr[i].LEVEL
         );
-      }else if (childrenArr[i].CHILD_COUNT !== "0"  && childrenArr[i].display == "0"  && this.isInternalUser == "true" ) {
+      } else if(childrenArr[i].display == "1") {
+       
 
-        this.treeItems +=
-          `<li class="nav-link">` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].TREE_ID}" aria-controls="v-pills-home" aria-selected="true">` +
-          `${childrenArr[i].TAB_NAME}` +
-          `<img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />` +
-          `</a>`;
-
-        this.createUnorderedList(
-          childrenArr[i].children,
-          childrenArr[i].TYPE,
-          childrenArr[i].LEVEL
-        );
-      }
-      /* else {
-        this.treeItems +=
-          `<li class="nav-link" >` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+        this.dynamicTreeList +=
+          `<li class="nav-link " 
+         
+         >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_${childrenArr[i].TYPE}_${childrenArr[i].ENVIRONMENT}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${childrenArr[i].TAB_NAME}` +
           `</a>`;
-      } */
-       else if(childrenArr[i].display == "1") {
-        this.treeItems +=
-          `<li class="nav-link" >` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
-          `${childrenArr[i].TAB_NAME}` +
-          `</a>`;
+          // [ngStyle]="`+childrenArr[i].display==0+` ?  {'display': 'block'} : {'display': 'none'}"
       }else if(childrenArr[i].display == "0" && this.isInternalUser == "true") {
-        this.treeItems +=
-          `<li class="nav-link" >` +
-          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill" role="tab_${childrenArr[i].TYPE}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
+       
+
+        this.dynamicTreeList +=
+          `<li class="nav-link " 
+         
+         >` +
+          `<a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_${childrenArr[i].TYPE}_${childrenArr[i].ENVIRONMENT}_${childrenArr[i].API_ID}" aria-controls="v-pills-home" aria-selected="true">` +
           `${childrenArr[i].TAB_NAME}` +
           `</a>`;
-      } 
+          // [ngStyle]="`+childrenArr[i].display==0+` ?  {'display': 'block'} : {'display': 'none'}"
+      }
+     
+      if(childrenArr[i].TREE_ID =="548" ){
+        // $.each(this.businessLendingProducts,function(index,value){
+        //   console.log("hi")
+        //   this.newLi+=`<li class="nav-link"><a class="tree-node" role="tab_api_1307">`+this.businessLendingProducts[value]+`</a></li>`
+        // }) 
+        this.dynamicTreeList += `</li>
+        <li class="nav-link">
+          <a id="v-pills-messages-tab" class="tree-node" data-toggle="pill"  role="tab_newApi"  aria-controls="v-pills-home" aria-selected="true">Business Lending Products
+            <img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />
+          </a>
+          <ul class="collapse nav-pills-first-level submenuLevelTwo list-unstyled">
+          <li class="nav-link"><a class="tree-node" role="tab_branch_549">Unsecured Overdraft APIs
+          <img class="dropdownIcon" src="assets/images/dropdown-2.svg" alt="" />
+          </a>
+          <ul class="collapse nav-pills-third-level submenuLevelThree list-unstyled">
+          <li class="nav-link"><a class="tree-node" role="tab">Offer check</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">New customer information</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Customer details modification</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Bank statement (i)</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Bank statement (ii)</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Bank statement (iii)</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Instant Sanction</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Instant Disbursement</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Data fetch</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Mini Statement</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">File sharing</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Dashboard</a></li>
+          <li class="nav-link"><a class="tree-node" role="tab">Status Check</a></li></ul></li></ul></li>`;
 
-      this.treeItems += `</li>`;
+          // for(var bbDynamic=0;bbDynamic<this.businessLendingProducts.length;bbDynamic++){
+          //   // console.log(this.businessLendingProducts[bbDynamic])
+          //  `<li class="nav-link"><a class="tree-node" role="tab_api_1307">`+this.businessLendingProducts[bbDynamic]+`</a></li>`
+          // }
+        
+        //  this.businessLendingProducts.forEach(item => {
+        //     console.log(this.businessLendingProducts[item])
+        //     // `<li class="nav-link"><a class="tree-node" role="tab">`+this.businessLendingProducts[item]+`</a></li>`
+        //   });
+          
+       
+        console.log("548")
+      }
+      else{
+        console.log()
+        this.dynamicTreeList += `</li>`;
+      }
+      
     }
   }
     
-    this.treeItems += `</ul>`;
+    this.dynamicTreeList += `</ul>`;
   }
 
   /** get menu data
@@ -393,6 +457,9 @@ export class SidebarComponent implements OnInit {
    */
   AppId(num: any, nodeType: any) {
     if (nodeType === "api") {
+       if(this.Env){
+      this.dashboardService.sendEnvironment(this.Env);
+    }
       this.router.navigate(["apidetails/" + num]);
     }
     if (nodeType === "branch") {
@@ -401,11 +468,9 @@ export class SidebarComponent implements OnInit {
     if (nodeType === "root") {
       this.router.navigate(["rootdetails/" + num]);
     }
-    if(nodeType === "documentation" || nodeType === "security"){
-      this.router.navigate(["/" + nodeType]);
-    }
+   
   }
-
+ 
   /** For scroll view
    * @class SidebarComponent
    * @method scroll_view
@@ -415,9 +480,5 @@ export class SidebarComponent implements OnInit {
     setTimeout(function() {
       document.querySelector(id).scrollIntoView({ behavior: "smooth" });
     }, 10);
-  }
-  navigate_To(id) {
-    this.router.navigate([id]);
-    
   }
 }
